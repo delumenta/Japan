@@ -1,85 +1,64 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-  const headerTarget = document.getElementById("site-header");
+    const headerTarget = document.getElementById("site-header");
 
-  if (!headerTarget) {
-    console.warn('No element with id="site-header" was found.');
-    return;
-  }
+    fetch("header.html")
+        .then(response => {
 
-  try {
+            if (!response.ok) {
+                throw new Error("Could not load header.html");
+            }
 
-    const response = await fetch("header.html");
+            return response.text();
 
-    if (!response.ok) {
-      throw new Error(`Could not load header.html (${response.status})`);
-    }
+        })
+        .then(html => {
 
-    const headerHTML = await response.text();
+            headerTarget.innerHTML = html;
 
-    headerTarget.innerHTML = headerHTML;
+            highlightCurrentPage();
 
-    highlightCurrentPage();
+        })
+        .catch(error => {
 
-  } catch (error) {
+            console.error("Header loading error:", error);
 
-    console.error("Header failed to load:", error);
-
-    headerTarget.innerHTML = `
-      <div style="
-        padding: 20px;
-        border: 1px solid #29323b;
-        border-radius: 16px;
-        background: #10161c;
-        color: #ffffff;
-      ">
-        Header could not be loaded.
-      </div>
-    `;
-
-  }
+        });
 
 });
 
 
 function highlightCurrentPage() {
 
-  const currentFile =
-    window.location.pathname
-      .split("/")
-      .pop()
-      .toLowerCase() || "index.html";
+    let currentPage =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+    if (currentPage === "") {
+        currentPage = "index.html";
+    }
 
 
-  const pageMap = {
-
-    "index.html": "home",
-
-    "kyoto.html": "kyoto",
-
-    "roadtrip.html": "roadtrip",
-
-    "osaka.html": "osaka",
-
-    "narai.html": "narai",
-
-    "notes.html": "notes"
-
-  };
+    const pageMap = {
+        "index.html": "home",
+        "kyoto.html": "kyoto",
+        "roadtrip.html": "roadtrip",
+        "osaka.html": "osaka",
+        "narai.html": "narai",
+        "notes.html": "notes"
+    };
 
 
-  const currentPage = pageMap[currentFile];
+    const activePage = pageMap[currentPage];
 
 
-  document
-    .querySelectorAll(".trip-nav a")
-    .forEach(link => {
+    document.querySelectorAll(".trip-nav a").forEach(link => {
 
-      link.classList.remove("active");
-
-      if (link.dataset.page === currentPage) {
-        link.classList.add("active");
-      }
+        if (link.dataset.page === activePage) {
+            link.classList.add("active");
+        }
 
     });
 
