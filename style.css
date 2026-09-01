@@ -1,7 +1,17 @@
+/* =========================================================
+   JAPAN AUTUMN TRIP 2026
+   MAIN STYLESHEET
+   ========================================================= */
+
+
+/* =========================================================
+   1. COLOURS
+   ========================================================= */
+
 :root {
     --bg: #070c10;
     --panel: #10161c;
-    --panel-2: #151b21;
+    --panel-light: #151c23;
     --line: #29323b;
 
     --text: #f5f5f3;
@@ -14,9 +24,9 @@
 }
 
 
-/* ---------------------------------
-   BASIC PAGE
---------------------------------- */
+/* =========================================================
+   2. BASIC PAGE
+   ========================================================= */
 
 * {
     box-sizing: border-box;
@@ -32,7 +42,7 @@ body {
     background:
         radial-gradient(
             circle at 50% -20%,
-            #17202a 0,
+            #17202a 0%,
             transparent 38%
         ),
         var(--bg);
@@ -47,8 +57,12 @@ body {
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
+    line-height: 1.5;
 }
 
+
+/* Main website container */
 
 .site-shell {
     width: 100%;
@@ -60,9 +74,9 @@ body {
 }
 
 
-/* ---------------------------------
-   HERO HEADER
---------------------------------- */
+/* =========================================================
+   3. HERO HEADER
+   ========================================================= */
 
 .hero {
     position: relative;
@@ -76,6 +90,10 @@ body {
 
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 26px;
+
+    /*
+       Dark overlay + Japan background picture
+    */
 
     background-image:
 
@@ -100,6 +118,8 @@ body {
 }
 
 
+/* Header text area */
+
 .hero-content {
     position: relative;
     z-index: 2;
@@ -111,6 +131,8 @@ body {
 }
 
 
+/* Small text above title */
+
 .hero-eyebrow {
     margin-bottom: 20px;
 
@@ -120,15 +142,19 @@ body {
     font-weight: 700;
 
     letter-spacing: 0.16em;
+
+    text-transform: uppercase;
 }
 
+
+/* Main title */
 
 .hero-title {
     margin: 0;
 
     max-width: 850px;
 
-    color: white;
+    color: #ffffff;
 
     font-family:
         Georgia,
@@ -136,6 +162,8 @@ body {
         serif;
 
     font-size: clamp(48px, 5.2vw, 80px);
+
+    font-weight: 700;
 
     line-height: 1.02;
 
@@ -145,6 +173,8 @@ body {
         0 4px 20px rgba(0, 0, 0, 0.45);
 }
 
+
+/* Description under title */
 
 .hero-description {
     max-width: 700px;
@@ -158,6 +188,8 @@ body {
     line-height: 1.65;
 }
 
+
+/* Pills underneath description */
 
 .hero-pills {
     display: flex;
@@ -173,13 +205,10 @@ body {
 
     padding: 10px 15px;
 
-    border:
-        1px solid rgba(255, 255, 255, 0.20);
-
+    border: 1px solid rgba(255, 255, 255, 0.20);
     border-radius: 999px;
 
-    background:
-        rgba(15, 20, 26, 0.72);
+    background: rgba(15, 20, 26, 0.72);
 
     color: rgba(255, 255, 255, 0.95);
 
@@ -193,9 +222,9 @@ body {
 }
 
 
-/* ---------------------------------
-   NAVIGATION
---------------------------------- */
+/* =========================================================
+   4. NAVIGATION
+   ========================================================= */
 
 .trip-nav {
     position: sticky;
@@ -210,16 +239,16 @@ body {
 
     margin-top: 18px;
 
-    background:
-        rgba(15, 20, 26, 0.94);
+    background: rgba(15, 20, 26, 0.94);
 
-    border:
-        1px solid var(--line);
-
+    border: 1px solid var(--line);
     border-radius: 18px;
 
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.20);
 }
 
 
@@ -230,6 +259,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    gap: 8px;
 
     padding: 0 20px;
 
@@ -249,13 +280,20 @@ body {
 }
 
 
+.trip-nav a:last-child {
+    border-right: none;
+}
+
+
 .trip-nav a:hover {
-    color: white;
+    color: #ffffff;
 
     background:
         rgba(255, 255, 255, 0.06);
 }
 
+
+/* Current page */
 
 .trip-nav a.active {
     color: var(--red);
@@ -265,9 +303,14 @@ body {
 }
 
 
-/* ---------------------------------
-   GENERAL SECTIONS
---------------------------------- */
+/* =========================================================
+   5. GENERAL SECTIONS
+   ========================================================= */
+
+main {
+    width: 100%;
+}
+
 
 .section {
     margin-top: 70px;
@@ -288,12 +331,15 @@ body {
 .section-title h2 {
     margin: 0;
 
+    color: #ffffff;
+
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
     font-size: 34px;
+    font-weight: 700;
 
     letter-spacing: -0.025em;
 }
@@ -308,9 +354,9 @@ body {
 }
 
 
-/* ---------------------------------
-   TRIP AT A GLANCE
---------------------------------- */
+/* =========================================================
+   6. TRIP AT A GLANCE
+   ========================================================= */
 
 .glance {
     display: grid;
@@ -323,7 +369,7 @@ body {
 
 
 .card {
-    min-height: 150px;
+    min-height: 155px;
 
     padding: 24px;
 
@@ -334,13 +380,23 @@ body {
             #0d1318
         );
 
-    border:
-        1px solid var(--line);
-
+    border: 1px solid var(--line);
     border-radius: 20px;
 
     box-shadow:
         0 12px 30px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(255, 255, 255, 0.20);
 }
 
 
@@ -351,6 +407,8 @@ body {
     gap: 17px;
 }
 
+
+/* Card icon */
 
 .icon {
     width: 48px;
@@ -392,8 +450,10 @@ body {
 }
 
 
+/* Big number */
+
 .number {
-    color: white;
+    color: #ffffff;
 
     font-size: 32px;
     font-weight: 750;
@@ -401,6 +461,8 @@ body {
     line-height: 1;
 }
 
+
+/* Card title */
 
 .label {
     margin-top: 8px;
@@ -411,6 +473,8 @@ body {
     font-weight: 650;
 }
 
+
+/* Small description */
 
 .detail {
     margin-top: 8px;
@@ -423,9 +487,9 @@ body {
 }
 
 
-/* ---------------------------------
-   OUR JOURNEY
---------------------------------- */
+/* =========================================================
+   7. OUR JOURNEY
+   ========================================================= */
 
 .journey-card {
     display: grid;
@@ -442,13 +506,13 @@ body {
 
     padding: 20px;
 
-    border:
-        1px solid var(--line);
-
+    border: 1px solid var(--line);
     border-radius: 22px;
 
-    background:
-        var(--panel);
+    background: var(--panel);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.16);
 }
 
 
@@ -493,6 +557,8 @@ body {
 .journey-info h3 {
     margin: 0 0 7px;
 
+    color: #ffffff;
+
     font-size: 18px;
 }
 
@@ -519,20 +585,20 @@ body {
 }
 
 
-/* ---------------------------------
-   ROAD TRIP
---------------------------------- */
+/* =========================================================
+   8. ROAD TRIP
+   ========================================================= */
 
 .route-card {
     overflow: hidden;
 
-    background:
-        var(--panel);
+    background: var(--panel);
 
-    border:
-        1px solid var(--line);
-
+    border: 1px solid var(--line);
     border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.16);
 }
 
 
@@ -581,9 +647,9 @@ body {
 }
 
 
-/* ---------------------------------
-   FEATURED STAYS
---------------------------------- */
+/* =========================================================
+   9. FEATURED STAYS
+   ========================================================= */
 
 .stay-grid {
     display: grid;
@@ -600,9 +666,7 @@ body {
 
     padding: 25px;
 
-    border:
-        1px solid var(--line);
-
+    border: 1px solid var(--line);
     border-radius: 20px;
 
     background:
@@ -614,6 +678,18 @@ body {
 
     box-shadow:
         0 12px 30px rgba(0, 0, 0, 0.16);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.stay-card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(255, 255, 255, 0.20);
 }
 
 
@@ -621,7 +697,6 @@ body {
     color: var(--red);
 
     font-size: 11px;
-
     font-weight: 800;
 
     letter-spacing: 0.12em;
@@ -638,7 +713,7 @@ body {
 .stay-card h3 {
     margin: 0 0 7px;
 
-    color: white;
+    color: #ffffff;
 
     font-size: 21px;
 }
@@ -653,9 +728,9 @@ body {
 }
 
 
-/* ---------------------------------
-   FOOTER
---------------------------------- */
+/* =========================================================
+   10. FOOTER
+   ========================================================= */
 
 .site-footer {
     margin-top: 80px;
@@ -683,9 +758,9 @@ body {
 }
 
 
-/* ---------------------------------
-   TABLET
---------------------------------- */
+/* =========================================================
+   11. TABLET
+   ========================================================= */
 
 @media (max-width: 1050px) {
 
@@ -716,9 +791,9 @@ body {
 }
 
 
-/* ---------------------------------
-   MOBILE
---------------------------------- */
+/* =========================================================
+   12. MOBILE
+   ========================================================= */
 
 @media (max-width: 700px) {
 
@@ -727,6 +802,8 @@ body {
             10px 10px 40px;
     }
 
+
+    /* HERO */
 
     .hero {
         min-height: 610px;
@@ -759,6 +836,8 @@ body {
 
     .hero-eyebrow {
         font-size: 11px;
+
+        letter-spacing: 0.12em;
     }
 
 
@@ -782,14 +861,26 @@ body {
     }
 
 
+    /* NAV */
+
+    .trip-nav {
+        top: 5px;
+
+        border-radius: 14px;
+    }
+
+
     .trip-nav a {
         min-width: 130px;
-
         min-height: 56px;
+
+        padding: 0 14px;
 
         font-size: 14px;
     }
 
+
+    /* SECTIONS */
 
     .section {
         margin-top: 50px;
@@ -811,15 +902,28 @@ body {
     }
 
 
+    /* GLANCE */
+
     .glance {
         grid-template-columns: 1fr;
     }
 
 
+    /* JOURNEY */
+
     .journey-card {
         grid-template-columns: 1fr;
+
+        padding: 14px;
     }
 
+
+    .journey-arrow {
+        display: none;
+    }
+
+
+    /* ROAD TRIP */
 
     .route-day {
         align-items: flex-start;
@@ -828,8 +932,7 @@ body {
 
         gap: 9px;
 
-        padding:
-            18px;
+        padding: 18px;
     }
 
 
@@ -837,6 +940,8 @@ body {
         width: 100%;
     }
 
+
+    /* STAYS */
 
     .stay-grid {
         grid-template-columns: 1fr;
