@@ -63,3 +63,37 @@ function highlightCurrentPage() {
     });
 
 }
+function showKyotoDay(day) {
+
+    // Hide all day content
+    document.querySelectorAll(".kyoto-day-content").forEach(section => {
+        section.classList.remove("active");
+    });
+
+
+    // Remove active state from all day cards
+    document.querySelectorAll(".journey-day-card").forEach(card => {
+        card.classList.remove("active");
+    });
+
+
+    // Show selected day
+    const selectedDay =
+        document.getElementById("kyoto-day-" + day);
+
+    if (selectedDay) {
+        selectedDay.classList.add("active");
+    }
+
+
+    // Highlight selected card
+    const selectedCard =
+        document.querySelector(
+            '.journey-day-card[data-day="' + day + '"]'
+        );
+
+    if (selectedCard) {
+        selectedCard.classList.add("active");
+    }
+
+}
