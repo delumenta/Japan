@@ -948,3 +948,128 @@ main {
     }
 
 }
+/* =========================================================
+   KYOTO JOURNEY
+   ========================================================= */
+
+.kyoto-journey {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+
+    padding: 16px;
+
+    background: #10171d;
+    border: 1px solid #26333d;
+    border-radius: 18px;
+}
+
+
+.journey-day-card {
+    flex: 1;
+    min-width: 0;
+
+    padding: 20px 16px;
+
+    background: #121a20;
+    border: 1px solid #26333d;
+    border-radius: 15px;
+}
+
+
+.journey-day-card h3 {
+    margin: 12px 0 5px;
+
+    color: #ffffff;
+    font-size: 16px;
+}
+
+
+.journey-day-card p {
+    margin: 0;
+
+    color: #a9bac6;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* Small arrows between cards */
+
+.kyoto-journey .journey-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 18px;
+    width: 18px;
+
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+    border: 0;
+
+    color: #6f8798;
+
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .kyoto-journey {
+        gap: 8px;
+    }
+
+    .journey-day-card {
+        padding: 16px 12px;
+    }
+
+    .journey-day-card h3 {
+        font-size: 14px;
+    }
+
+    .journey-day-card p {
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .kyoto-journey {
+        flex-direction: column;
+        gap: 8px;
+
+        padding: 12px;
+    }
+
+
+    .journey-day-card {
+        width: 100%;
+    }
+
+
+    .kyoto-journey .journey-arrow {
+        width: 100%;
+        height: 16px;
+
+        flex: none;
+
+        transform: rotate(90deg);
+    }
+
+}
