@@ -1320,3 +1320,31 @@ main {
     }
 
 }
+/* =========================================================
+   KYOTO HERO
+   ========================================================= */
+
+.hero.hero-kyoto {
+
+    background-image:
+
+        linear-gradient(
+            90deg,
+            rgba(4, 8, 13, 0.98) 0%,
+            rgba(4, 8, 13, 0.90) 28%,
+            rgba(4, 8, 13, 0.58) 50%,
+            rgba(4, 8, 13, 0.18) 75%,
+            rgba(4, 8, 13, 0.03) 100%
+        ),
+
+        url("YOUR-KYOTO-IMAGE.jpg");
+
+}
+
+
+/* Kyoto doesn't need such a huge title */
+
+.hero.hero-kyoto .hero-title {
+    font-size:
+        clamp(60px, 7vw, 100px);
+}
