@@ -1113,3 +1113,155 @@ button.journey-day-card {
         background 0.2s ease,
         transform 0.2s ease;
 }
+/* =========================================================
+   KYOTO DAILY SCHEDULE
+   ========================================================= */
+
+.day-subheading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin: 42px 0 16px;
+}
+
+.day-subheading h3 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+
+    color: #ffffff;
+}
+
+.day-subheading span {
+    font-size: 12px;
+    color: #9db0bd;
+}
+
+
+/* More space before schedule */
+
+.schedule-heading {
+    margin-top: 42px;
+}
+
+
+/* Main schedule container */
+
+.day-schedule {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #10171d;
+
+    border: 1px solid #293640;
+    border-radius: 18px;
+}
+
+
+/* Each schedule row */
+
+.schedule-row {
+    display: grid;
+
+    grid-template-columns: 150px 1fr;
+
+    align-items: center;
+
+    min-height: 78px;
+
+    padding: 14px 18px;
+
+    border-bottom: 1px solid #263039;
+}
+
+.schedule-row:last-child {
+    border-bottom: none;
+}
+
+
+/* Time */
+
+.schedule-time {
+    color: #ff4d55;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* Main destination + smaller POIs */
+
+.schedule-place {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+/* BIG AREA */
+
+.schedule-place strong {
+    display: block;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* SMALL PLACES UNDER IT */
+
+.schedule-place span {
+    display: block;
+
+    color: #91a5b3;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .day-subheading {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+    .schedule-row {
+        grid-template-columns: 100px 1fr;
+
+        min-height: 72px;
+
+        padding: 13px 14px;
+    }
+
+    .schedule-time {
+        font-size: 11px;
+    }
+
+    .schedule-place strong {
+        font-size: 15px;
+    }
+
+    .schedule-place span {
+        font-size: 11px;
+    }
+
+}
