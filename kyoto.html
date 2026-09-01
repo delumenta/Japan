@@ -15,6 +15,7 @@
 
 <div class="site-shell">
 
+
     <!-- =====================================================
          SHARED HEADER
          ===================================================== -->
@@ -22,18 +23,19 @@
     <div id="site-header"></div>
 
 
+
     <main>
 
 
         <!-- =====================================================
-             KYOTO · OUR JOURNEY
+             KYOTO OVERVIEW / DATE TABS
              ===================================================== -->
 
         <section class="section">
 
             <div class="section-title">
-                <h2>Kyoto</h2>
-                <span>18–22 October</span>
+                <h2>Our Journey</h2>
+                <span>Kyoto · 18–22 October</span>
             </div>
 
 
@@ -42,7 +44,11 @@
 
                 <!-- 18 OCT -->
 
-                <div class="journey-day-card">
+                <button
+                    class="journey-day-card active"
+                    data-day="18"
+                    onclick="showKyotoDay('18')"
+                >
 
                     <div class="stay-date">
                         18 OCT
@@ -58,7 +64,7 @@
                         Higashiyama · Gion · Pontocho
                     </p>
 
-                </div>
+                </button>
 
 
                 <div class="journey-arrow">
@@ -66,9 +72,14 @@
                 </div>
 
 
+
                 <!-- 19 OCT -->
 
-                <div class="journey-day-card">
+                <button
+                    class="journey-day-card"
+                    data-day="19"
+                    onclick="showKyotoDay('19')"
+                >
 
                     <div class="stay-date">
                         19 OCT
@@ -84,7 +95,7 @@
                         Bamboo · River · Sagano
                     </p>
 
-                </div>
+                </button>
 
 
                 <div class="journey-arrow">
@@ -92,9 +103,14 @@
                 </div>
 
 
+
                 <!-- 20 OCT -->
 
-                <div class="journey-day-card">
+                <button
+                    class="journey-day-card"
+                    data-day="20"
+                    onclick="showKyotoDay('20')"
+                >
 
                     <div class="stay-date">
                         20 OCT
@@ -110,7 +126,7 @@
                         Temples · Park · Mt Wakakusa
                     </p>
 
-                </div>
+                </button>
 
 
                 <div class="journey-arrow">
@@ -118,9 +134,14 @@
                 </div>
 
 
+
                 <!-- 21 OCT -->
 
-                <div class="journey-day-card">
+                <button
+                    class="journey-day-card"
+                    data-day="21"
+                    onclick="showKyotoDay('21')"
+                >
 
                     <div class="stay-date">
                         21 OCT
@@ -133,10 +154,10 @@
                     <h3>East Kyoto</h3>
 
                     <p>
-                        Nanzen-ji · Philosopher's Path · teamLab
+                        Nanzen-ji · Philosopher's Path
                     </p>
 
-                </div>
+                </button>
 
 
                 <div class="journey-arrow">
@@ -144,9 +165,14 @@
                 </div>
 
 
+
                 <!-- 22 OCT -->
 
-                <div class="journey-day-card">
+                <button
+                    class="journey-day-card"
+                    data-day="22"
+                    onclick="showKyotoDay('22')"
+                >
 
                     <div class="stay-date">
                         22 OCT
@@ -156,635 +182,1205 @@
                         🍁
                     </div>
 
-                    <h3>Flexible Kyoto</h3>
+                    <h3>Kyoto</h3>
 
                     <p>
                         Fushimi · Kibune · Free Time
                     </p>
 
-                </div>
+                </button>
 
 
             </div>
 
         </section>
+
+
 
 
 
         <!-- =====================================================
-             DAY 1 · 18 OCTOBER
+             18 OCTOBER
              ===================================================== -->
 
-        <section class="section" id="day-18">
-
-            <div class="section-title">
-                <h2>18 October</h2>
-                <span>Arrival · Higashiyama · Gion</span>
-            </div>
+        <div
+            class="kyoto-day-content active"
+            id="kyoto-day-18"
+        >
 
 
-            <div class="route-card">
+            <section class="section">
+
+                <div class="section-title">
+                    <h2>18 October</h2>
+                    <span>Arrival · Higashiyama · Gion</span>
+                </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        3:00 PM
-                    </span>
+                <!-- PLACES -->
 
-                    <strong>Check In</strong>
+                <div class="day-subheading">
+                    <h3>Places We're Visiting Today</h3>
+                    <span>Old Kyoto → Gion → Pontocho</span>
+                </div>
+
+
+                <div class="stay-grid">
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            AFTERNOON
+                        </div>
+
+                        <div class="stay-icon">
+                            🏮
+                        </div>
+
+                        <h3>Higashiyama</h3>
+
+                        <p>
+                            Ninenzaka · Sannenzaka · Yasaka Pagoda
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            EVENING
+                        </div>
+
+                        <div class="stay-icon">
+                            ⛩️
+                        </div>
+
+                        <h3>Gion</h3>
+
+                        <p>
+                            Yasaka Shrine · Hanamikoji · Gion Shirakawa
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            NIGHT
+                        </div>
+
+                        <div class="stay-icon">
+                            🌙
+                        </div>
+
+                        <h3>Pontocho</h3>
+
+                        <p>
+                            Pontocho Alley · Kamo River
+                        </p>
+
+                    </div>
+
 
                 </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        3:30 PM
-                    </span>
+                <!-- SCHEDULE -->
 
-                    <strong>Late Lunch</strong>
-
+                <div class="day-subheading schedule-heading">
+                    <h3>Schedule</h3>
+                    <span>Free &amp; Easy</span>
                 </div>
 
 
-                <div class="route-day">
+                <div class="day-schedule">
 
-                    <span class="route-date">
-                        4:00–5:30 PM
-                    </span>
 
-                    <strong>Higashiyama</strong>
+                    <div class="schedule-row">
 
-                    <span>→</span>
+                        <div class="schedule-time">
+                            3:00 PM
+                        </div>
 
-                    <strong>Ninenzaka</strong>
+                        <div class="schedule-place">
 
-                    <span>→</span>
+                            <strong>
+                                Check In
+                            </strong>
 
-                    <strong>Yasaka Pagoda</strong>
+                            <span>
+                                Hotel · Drop luggage · Freshen up
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            3:30 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Late Lunch
+                            </strong>
+
+                            <span>
+                                Near hotel / Higashiyama
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            4:00–5:30 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Higashiyama
+                            </strong>
+
+                            <span>
+                                Ninenzaka · Sannenzaka · Yasaka Pagoda
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            6:00–7:00 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Gion
+                            </strong>
+
+                            <span>
+                                Yasaka Shrine · Hanamikoji · Gion Shirakawa
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            7:00–8:30 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Dinner
+                            </strong>
+
+                            <span>
+                                Gion / Kawaramachi
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            8:30 PM+
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Pontocho
+                            </strong>
+
+                            <span>
+                                Pontocho Alley · Kamo River
+                            </span>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
-
-                <div class="route-day">
-
-                    <span class="route-date">
-                        6:00–7:00 PM
-                    </span>
-
-                    <strong>Gion</strong>
-
-                    <span>→</span>
-
-                    <strong>Yasaka Shrine</strong>
-
-                    <span>→</span>
-
-                    <strong>Gion Shirakawa</strong>
-
-                </div>
+            </section>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        7:00–8:30 PM
-                    </span>
-
-                    <strong>Dinner</strong>
-
-                    <span>→</span>
-
-                    <strong>Gion / Kawaramachi</strong>
-
-                </div>
+        </div>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        8:30 PM+
-                    </span>
-
-                    <strong>Pontocho Alley</strong>
-
-                    <span>→</span>
-
-                    <strong>Kamo River</strong>
-
-                </div>
-
-
-            </div>
-
-        </section>
 
 
 
         <!-- =====================================================
-             DAY 2 · 19 OCTOBER
+             19 OCTOBER
              ===================================================== -->
 
-        <section class="section" id="day-19">
-
-            <div class="section-title">
-                <h2>19 October</h2>
-                <span>Arashiyama</span>
-            </div>
+        <div
+            class="kyoto-day-content"
+            id="kyoto-day-19"
+        >
 
 
-            <div class="route-card">
+            <section class="section">
+
+                <div class="section-title">
+                    <h2>19 October</h2>
+                    <span>Arashiyama</span>
+                </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        7:30–9:00 AM
-                    </span>
+                <!-- PLACES -->
 
-                    <strong>Arashiyama Bamboo Grove</strong>
+                <div class="day-subheading">
+                    <h3>Places We're Visiting Today</h3>
+                    <span>Arashiyama · Sagano</span>
+                </div>
+
+
+                <div class="stay-grid">
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            MORNING
+                        </div>
+
+                        <div class="stay-icon">
+                            🎋
+                        </div>
+
+                        <h3>Arashiyama</h3>
+
+                        <p>
+                            Bamboo Grove · Togetsukyo Bridge
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            AFTERNOON
+                        </div>
+
+                        <div class="stay-icon">
+                            🚂
+                        </div>
+
+                        <h3>Sagano</h3>
+
+                        <p>
+                            Romantic Train · Hozugawa
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            EVENING
+                        </div>
+
+                        <div class="stay-icon">
+                            🌙
+                        </div>
+
+                        <h3>Kyoto</h3>
+
+                        <p>
+                            Dinner · Free Evening
+                        </p>
+
+                    </div>
+
 
                 </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        9:00–11:00 AM
-                    </span>
+                <!-- SCHEDULE -->
 
-                    <strong>Arashiyama</strong>
-
-                    <span>→</span>
-
-                    <strong>Togetsukyo Bridge</strong>
-
+                <div class="day-subheading schedule-heading">
+                    <h3>Schedule</h3>
+                    <span>Arashiyama Day</span>
                 </div>
 
 
-                <div class="route-day">
+                <div class="day-schedule">
 
-                    <span class="route-date">
-                        11:00 AM–1:00 PM
-                    </span>
 
-                    <strong>Lunch</strong>
+                    <div class="schedule-row">
 
-                    <span>→</span>
+                        <div class="schedule-time">
+                            7:30 AM
+                        </div>
 
-                    <strong>Explore Arashiyama</strong>
+                        <div class="schedule-place">
+
+                            <strong>
+                                Arashiyama
+                            </strong>
+
+                            <span>
+                                Bamboo Grove · Early morning walk
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            9:00–11:00 AM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Arashiyama River Area
+                            </strong>
+
+                            <span>
+                                Togetsukyo Bridge · Riverside
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            11:30 AM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Lunch
+                            </strong>
+
+                            <span>
+                                Arashiyama
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            ~1:00 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Sagano
+                            </strong>
+
+                            <span>
+                                Sagano Romantic Train
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            AFTERNOON
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Hozugawa / Sagano
+                            </strong>
+
+                            <span>
+                                Scenic area · Free time
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            EVENING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Kyoto
+                            </strong>
+
+                            <span>
+                                Dinner · Free evening
+                            </span>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
-
-                <div class="route-day">
-
-                    <span class="route-date">
-                        ~1:00 PM
-                    </span>
-
-                    <strong>Sagano Romantic Train</strong>
-
-                </div>
+            </section>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        AFTERNOON
-                    </span>
-
-                    <strong>Sagano</strong>
-
-                    <span>→</span>
-
-                    <strong>Hozugawa Area</strong>
-
-                    <span>→</span>
-
-                    <strong>Arashiyama</strong>
-
-                </div>
+        </div>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        EVENING
-                    </span>
-
-                    <strong>Dinner</strong>
-
-                    <span>→</span>
-
-                    <strong>Kyoto</strong>
-
-                </div>
-
-
-            </div>
-
-        </section>
 
 
 
         <!-- =====================================================
-             DAY 3 · 20 OCTOBER
+             20 OCTOBER
              ===================================================== -->
 
-        <section class="section" id="day-20">
-
-            <div class="section-title">
-                <h2>20 October</h2>
-                <span>Nara · Mt Wakakusa</span>
-            </div>
+        <div
+            class="kyoto-day-content"
+            id="kyoto-day-20"
+        >
 
 
-            <div class="route-card">
+            <section class="section">
+
+                <div class="section-title">
+                    <h2>20 October</h2>
+                    <span>Nara · Mt Wakakusa</span>
+                </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        ~10:00 AM
-                    </span>
+                <!-- PLACES -->
 
-                    <strong>Kyoto</strong>
+                <div class="day-subheading">
+                    <h3>Places We're Visiting Today</h3>
+                    <span>Nara Park → Mt Wakakusa</span>
+                </div>
 
-                    <span>→</span>
 
-                    <strong>Nara</strong>
+                <div class="stay-grid">
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            DAY
+                        </div>
+
+                        <div class="stay-icon">
+                            🦌
+                        </div>
+
+                        <h3>Nara Park</h3>
+
+                        <p>
+                            Deer · Park · Walking
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            TEMPLE AREA
+                        </div>
+
+                        <div class="stay-icon">
+                            🛕
+                        </div>
+
+                        <h3>Todai-ji</h3>
+
+                        <p>
+                            Great Buddha · Temple Grounds
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            SUNSET
+                        </div>
+
+                        <div class="stay-icon">
+                            🌄
+                        </div>
+
+                        <h3>Mt Wakakusa</h3>
+
+                        <p>
+                            Hill · Nara View · Sunset
+                        </p>
+
+                    </div>
+
 
                 </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        11:00 AM–1:00 PM
-                    </span>
+                <!-- SCHEDULE -->
 
-                    <strong>Nara Park</strong>
-
-                    <span>→</span>
-
-                    <strong>Todai-ji</strong>
-
+                <div class="day-subheading schedule-heading">
+                    <h3>Schedule</h3>
+                    <span>Nara Day Trip</span>
                 </div>
 
 
-                <div class="route-day">
+                <div class="day-schedule">
 
-                    <span class="route-date">
-                        1:00–3:30 PM
-                    </span>
 
-                    <strong>Lunch</strong>
+                    <div class="schedule-row">
 
-                    <span>→</span>
+                        <div class="schedule-time">
+                            ~10:00 AM
+                        </div>
 
-                    <strong>Kasuga Taisha</strong>
+                        <div class="schedule-place">
+
+                            <strong>
+                                Travel to Nara
+                            </strong>
+
+                            <span>
+                                Kyoto → Nara
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            11:00 AM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Nara Park
+                            </strong>
+
+                            <span>
+                                Deer · Todai-ji
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            1:00 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Lunch
+                            </strong>
+
+                            <span>
+                                Nara Park area
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            2:00–3:30 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Kasuga Area
+                            </strong>
+
+                            <span>
+                                Kasuga Taisha · Park
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            4:00–5:30 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Mt Wakakusa
+                            </strong>
+
+                            <span>
+                                Walk · City View · Sunset
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            EVENING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Nara
+                            </strong>
+
+                            <span>
+                                Dinner · Return to Kyoto
+                            </span>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
-
-                <div class="route-day">
-
-                    <span class="route-date">
-                        4:00–5:30 PM
-                    </span>
-
-                    <strong>Mt Wakakusa</strong>
-
-                    <span>→</span>
-
-                    <strong>Sunset</strong>
-
-                </div>
+            </section>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        EVENING
-                    </span>
-
-                    <strong>Dinner in Nara</strong>
-
-                    <span>→</span>
-
-                    <strong>Kyoto</strong>
-
-                </div>
+        </div>
 
 
-            </div>
-
-        </section>
 
 
 
         <!-- =====================================================
-             DAY 4 · 21 OCTOBER
+             21 OCTOBER
              ===================================================== -->
 
-        <section class="section" id="day-21">
-
-            <div class="section-title">
-                <h2>21 October</h2>
-                <span>Nanzen-ji · Philosopher's Path</span>
-            </div>
+        <div
+            class="kyoto-day-content"
+            id="kyoto-day-21"
+        >
 
 
-            <div class="route-card">
+            <section class="section">
+
+                <div class="section-title">
+                    <h2>21 October</h2>
+                    <span>East Kyoto</span>
+                </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        MORNING
-                    </span>
+                <!-- PLACES -->
 
-                    <strong>Nanzen-ji</strong>
+                <div class="day-subheading">
+                    <h3>Places We're Visiting Today</h3>
+                    <span>Nanzen-ji → Philosopher's Path</span>
+                </div>
 
-                    <span>→</span>
 
-                    <strong>Suirokaku Aqueduct</strong>
+                <div class="stay-grid">
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            MORNING
+                        </div>
+
+                        <div class="stay-icon">
+                            ⛩️
+                        </div>
+
+                        <h3>Nanzen-ji</h3>
+
+                        <p>
+                            Temple · Suirokaku Aqueduct
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            LATE MORNING
+                        </div>
+
+                        <div class="stay-icon">
+                            🍂
+                        </div>
+
+                        <h3>Philosopher's Path</h3>
+
+                        <p>
+                            Canal · Walk · East Kyoto
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            AFTERNOON
+                        </div>
+
+                        <div class="stay-icon">
+                            🚒
+                        </div>
+
+                        <h3>Disaster Center</h3>
+
+                        <p>
+                            Kyoto City Disaster Prevention Center
+                        </p>
+
+                    </div>
+
 
                 </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        LATE MORNING
-                    </span>
+                <!-- SCHEDULE -->
 
-                    <strong>Philosopher's Path</strong>
-
+                <div class="day-subheading schedule-heading">
+                    <h3>Schedule</h3>
+                    <span>East Kyoto</span>
                 </div>
 
 
-                <div class="route-day">
+                <div class="day-schedule">
 
-                    <span class="route-date">
-                        ~1:00 PM
-                    </span>
 
-                    <strong>Lunch</strong>
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            MORNING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Nanzen-ji
+                            </strong>
+
+                            <span>
+                                Temple Grounds · Suirokaku Aqueduct
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            LATE MORNING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Philosopher's Path
+                            </strong>
+
+                            <span>
+                                Canal Walk · East Kyoto
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            ~1:00 PM
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Lunch
+                            </strong>
+
+                            <span>
+                                Nanzen-ji / East Kyoto
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            AFTERNOON
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Disaster Prevention Center
+                            </strong>
+
+                            <span>
+                                Kyoto City Disaster Prevention Center
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            EVENING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Free Evening
+                            </strong>
+
+                            <span>
+                                Dinner · Kyoto
+                            </span>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
-
-                <div class="route-day">
-
-                    <span class="route-date">
-                        AFTERNOON
-                    </span>
-
-                    <strong>Kyoto City Disaster Prevention Center</strong>
-
-                </div>
+            </section>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        EVENING
-                    </span>
-
-                    <strong>teamLab Kyoto</strong>
-
-                </div>
+        </div>
 
 
-                <div class="route-day">
-
-                    <span class="route-date">
-                        NIGHT
-                    </span>
-
-                    <strong>Dinner</strong>
-
-                    <span>→</span>
-
-                    <strong>Kyoto Station Area</strong>
-
-                </div>
-
-
-            </div>
-
-        </section>
 
 
 
         <!-- =====================================================
-             DAY 5 · 22 OCTOBER
+             22 OCTOBER
              ===================================================== -->
 
-        <section class="section" id="day-22">
-
-            <div class="section-title">
-                <h2>22 October</h2>
-                <span>Flexible Kyoto</span>
-            </div>
+        <div
+            class="kyoto-day-content"
+            id="kyoto-day-22"
+        >
 
 
-            <div class="route-card">
+            <section class="section">
+
+                <div class="section-title">
+                    <h2>22 October</h2>
+                    <span>Flexible Kyoto</span>
+                </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        MORNING
-                    </span>
+                <!-- PLACES -->
 
-                    <strong>Fushimi Inari</strong>
+                <div class="day-subheading">
+                    <h3>Places We're Visiting Today</h3>
+                    <span>Flexible Day</span>
+                </div>
+
+
+                <div class="stay-grid">
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            MORNING
+                        </div>
+
+                        <div class="stay-icon">
+                            ⛩️
+                        </div>
+
+                        <h3>Fushimi Inari</h3>
+
+                        <p>
+                            Torii Gates · Shrine
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            OPTIONAL
+                        </div>
+
+                        <div class="stay-icon">
+                            🌲
+                        </div>
+
+                        <h3>Kurama</h3>
+
+                        <p>
+                            Mountain · Temple
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="stay-card">
+
+                        <div class="stay-date">
+                            OPTIONAL
+                        </div>
+
+                        <div class="stay-icon">
+                            🍃
+                        </div>
+
+                        <h3>Kibune</h3>
+
+                        <p>
+                            Riverside · Mountain Village
+                        </p>
+
+                    </div>
+
 
                 </div>
 
 
-                <div class="route-day">
 
-                    <span class="route-date">
-                        LATE MORNING
-                    </span>
+                <!-- SCHEDULE -->
 
-                    <strong>Lunch</strong>
-
-                    <span>→</span>
-
-                    <strong>Free Time</strong>
-
+                <div class="day-subheading schedule-heading">
+                    <h3>Schedule</h3>
+                    <span>Flexible</span>
                 </div>
 
 
-                <div class="route-day">
+                <div class="day-schedule">
 
-                    <span class="route-date">
-                        AFTERNOON
-                    </span>
 
-                    <strong>Flexible Kyoto</strong>
+                    <div class="schedule-row">
 
-                    <span>·</span>
+                        <div class="schedule-time">
+                            MORNING
+                        </div>
 
-                    <strong>Shopping / Café / Rest</strong>
+                        <div class="schedule-place">
+
+                            <strong>
+                                Fushimi Inari
+                            </strong>
+
+                            <span>
+                                Shrine · Torii Gates
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            LATE MORNING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Lunch
+                            </strong>
+
+                            <span>
+                                Kyoto
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            AFTERNOON
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Flexible Kyoto
+                            </strong>
+
+                            <span>
+                                Shopping · Café · Rest
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            OPTIONAL
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Kurama / Kibune
+                            </strong>
+
+                            <span>
+                                Mountain Area · Riverside
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="schedule-row">
+
+                        <div class="schedule-time">
+                            EVENING
+                        </div>
+
+                        <div class="schedule-place">
+
+                            <strong>
+                                Kyoto
+                            </strong>
+
+                            <span>
+                                Dinner · Free Evening
+                            </span>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
-
-                <div class="route-day">
-
-                    <span class="route-date">
-                        OPTIONAL
-                    </span>
-
-                    <strong>Kurama</strong>
-
-                    <span>→</span>
-
-                    <strong>Kibune</strong>
-
-                </div>
+            </section>
 
 
-                <div class="route-day">
+        </div>
 
-                    <span class="route-date">
-                        EVENING
-                    </span>
-
-                    <strong>Dinner</strong>
-
-                    <span>→</span>
-
-                    <strong>Free Evening</strong>
-
-                </div>
-
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =====================================================
-             FOOD
-             ===================================================== -->
-
-        <section class="section">
-
-            <div class="section-title">
-                <h2>Food</h2>
-                <span>Lunch · Dinner · Nearby</span>
-            </div>
-
-
-            <div class="stay-grid">
-
-
-                <div class="stay-card">
-
-                    <div class="stay-date">
-                        18 OCT · LUNCH
-                    </div>
-
-                    <div class="stay-icon">
-                        🍜
-                    </div>
-
-                    <h3>To Add</h3>
-
-                    <p>
-                        Near Hotel / Higashiyama
-                    </p>
-
-                </div>
-
-
-                <div class="stay-card">
-
-                    <div class="stay-date">
-                        18 OCT · DINNER
-                    </div>
-
-                    <div class="stay-icon">
-                        🍶
-                    </div>
-
-                    <h3>To Add</h3>
-
-                    <p>
-                        Gion · Pontocho
-                    </p>
-
-                </div>
-
-
-                <div class="stay-card">
-
-                    <div class="stay-date">
-                        19 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        🍱
-                    </div>
-
-                    <h3>To Add</h3>
-
-                    <p>
-                        Arashiyama
-                    </p>
-
-                </div>
-
-
-                <div class="stay-card">
-
-                    <div class="stay-date">
-                        20 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        🥩
-                    </div>
-
-                    <h3>To Add</h3>
-
-                    <p>
-                        Nara
-                    </p>
-
-                </div>
-
-
-                <div class="stay-card">
-
-                    <div class="stay-date">
-                        21 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        🍵
-                    </div>
-
-                    <h3>To Add</h3>
-
-                    <p>
-                        Nanzen-ji / Kyoto Station
-                    </p>
-
-                </div>
-
-
-            </div>
-
-        </section>
 
 
     </main>
@@ -811,7 +1407,56 @@
 </div>
 
 
+
+<!-- Shared JS -->
 <script src="script.js"></script>
+
+
+<!-- Kyoto Tabs -->
+<script>
+
+function showKyotoDay(day) {
+
+    const daySections =
+        document.querySelectorAll(".kyoto-day-content");
+
+    const dayCards =
+        document.querySelectorAll(".journey-day-card");
+
+
+    daySections.forEach(section => {
+        section.classList.remove("active");
+    });
+
+
+    dayCards.forEach(card => {
+        card.classList.remove("active");
+    });
+
+
+    const selectedSection =
+        document.getElementById("kyoto-day-" + day);
+
+
+    const selectedCard =
+        document.querySelector(
+            '.journey-day-card[data-day="' + day + '"]'
+        );
+
+
+    if (selectedSection) {
+        selectedSection.classList.add("active");
+    }
+
+
+    if (selectedCard) {
+        selectedCard.classList.add("active");
+    }
+
+}
+
+</script>
+
 
 </body>
 
