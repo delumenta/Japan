@@ -1,203 +1,3116 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f2747">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#070c10">
+
 <title>Kyoto Food Finder</title>
+
+
 <style>
+
+/* =========================================================
+   COLORS
+========================================================= */
 
 :root{
   --bg:#070c10;
+
   --panel:#10161c;
   --panel-light:#151c23;
   --panel-active:#172027;
+
   --line:#29323b;
   --line-soft:rgba(255,255,255,.07);
+
   --text:#f5f5f3;
   --muted:#aeb5bc;
   --muted-blue:#91a5b3;
+
   --red:#c96f68;
   --blue:#5c9dff;
   --green:#67c587;
   --orange:#f4a34d;
+  --gold:#e3b85c;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
+
   margin:0;
-  background:radial-gradient(circle at 50% -20%,#17202a 0%,transparent 38%),var(--bg);
+
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      #17202a 0%,
+      transparent 38%
+    ),
+    var(--bg);
+
   color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   line-height:1.5;
+
 }
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header{
-  position:sticky;top:0;z-index:20;
-  background:rgba(7,12,16,.92);
+
+  position:sticky;
+
+  top:0;
+
+  z-index:30;
+
+  background:rgba(7,12,16,.95);
+
   border-bottom:1px solid var(--line);
-  padding:14px 14px 13px;
+
+  padding:
+    13px
+    12px
+    12px;
+
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
-  box-shadow:0 10px 30px rgba(0,0,0,.20);
+
 }
-header h1{
-  max-width:760px;margin:0 auto 10px;
+
+.header-inner{
+
+  max-width:760px;
+
+  margin:auto;
+
+}
+
+.header-top{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+
+}
+
+.home-button{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:39px;
+
+  padding:
+    7px
+    11px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:11px;
+
+  background:#121a20;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:12px;
+
+  font-weight:750;
+
+  white-space:nowrap;
+
+}
+
+.header-title{
+  min-width:0;
+}
+
+.header-title h1{
+
+  margin:0;
+
   color:#fff;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:25px;letter-spacing:-.025em;
-}
-.search{
-  display:block;max-width:760px;width:100%;margin:auto;
-  border:1px solid var(--line);border-radius:14px;
-  padding:12px 14px;font-size:16px;outline:none;
-  background:#10161c;color:#fff;
-}
-.search::placeholder{color:#77838d}
-.search:focus{border-color:#536673;box-shadow:0 0 0 3px rgba(92,157,255,.10)}
-main{max-width:760px;margin:auto;padding:16px 12px 96px}
-.mode{
-  display:grid;grid-template-columns:1fr 1fr;gap:9px;
-  padding:7px;background:#10171d;border:1px solid #26333d;border-radius:17px;margin-bottom:17px
-}
-.mode button,.chip{
-  appearance:none;border:1px solid #26333d;background:#121a20;
-  border-radius:13px;padding:11px 13px;font-size:14px;font-weight:700;color:#dce2e6;
-  cursor:pointer;transition:.2s ease;
-}
-.mode button.active,.chip.active{
-  background:var(--panel-active);color:#fff;border-color:var(--red);
-  box-shadow:inset 0 0 0 1px rgba(201,111,104,.06)
-}
-.chips{display:flex;flex-wrap:wrap;gap:8px;overflow:visible;padding:2px 0 14px}
 
-.chip{border-radius:999px;white-space:nowrap;padding:9px 13px}
-.section-title{
-  font-size:11px;color:var(--red);font-weight:800;text-transform:uppercase;
-  letter-spacing:.12em;margin:4px 2px 9px
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:24px;
+
+  letter-spacing:-.025em;
+
 }
-.count{font-size:12px;color:var(--muted);margin:0 2px 11px}
-.card{
-  background:linear-gradient(145deg,#151c22,#0f151a);
-  border:1px solid var(--line);border-radius:20px;padding:15px;margin:0 0 11px;
-  box-shadow:0 12px 30px rgba(0,0,0,.16);
+
+.header-title div{
+
+  margin-top:2px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
 }
-.top{display:flex;align-items:flex-start;gap:12px}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-wrap{
+
+  margin-top:12px;
+
+}
+
+.search-box{
+
+  width:100%;
+
+  min-height:44px;
+
+  padding:
+    10px
+    13px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:13px;
+
+  outline:none;
+
+  background:#10171d;
+
+  color:#fff;
+
+  font:inherit;
+
+  font-size:13px;
+
+}
+
+.search-box::placeholder{
+  color:#77828b;
+}
+
+.search-box:focus{
+  border-color:var(--red);
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+main{
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+    16px
+    12px
+    105px;
+
+}
+
+
+/* =========================================================
+   BROWSE MODE
+========================================================= */
+
+.browse-title{
+
+  margin:
+    4px
+    2px
+    9px;
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:850;
+
+  letter-spacing:.13em;
+
+  text-transform:uppercase;
+
+}
+
+.mode-switch{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:7px;
+
+  margin-bottom:17px;
+
+}
+
+.mode-btn{
+
+  appearance:none;
+
+  min-height:43px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:12px;
+
+  background:#121a20;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+}
+
+.mode-btn.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.10);
+
+}
+
+
+/* =========================================================
+   CHIPS
+========================================================= */
+
+.chip-section{
+
+  margin-bottom:18px;
+
+}
+
+.chip-title{
+
+  margin:
+    0
+    2px
+    8px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.1em;
+
+}
+
+.chips{
+
+  display:flex;
+
+  gap:7px;
+
+  overflow-x:auto;
+
+  padding:
+    1px
+    1px
+    7px;
+
+  scrollbar-width:none;
+
+}
+
+.chips::-webkit-scrollbar{
+  display:none;
+}
+
+.chip{
+
+  appearance:none;
+
+  flex:0 0 auto;
+
+  min-height:35px;
+
+  padding:
+    7px
+    11px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:999px;
+
+  background:#10171d;
+
+  color:#c5ccd1;
+
+  font-size:10px;
+
+  font-weight:750;
+
+  cursor:pointer;
+
+  white-space:nowrap;
+
+}
+
+.chip.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.11);
+
+}
+
+
+/* =========================================================
+   RESULTS HEADER
+========================================================= */
+
+.results-head{
+
+  display:flex;
+
+  align-items:flex-end;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin:
+    3px
+    2px
+    13px;
+
+}
+
+.results-head h2{
+
+  margin:0;
+
+  color:#fff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:22px;
+
+}
+
+.result-count{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   FOOD GROUP
+========================================================= */
+
+.food-group{
+
+  margin-bottom:23px;
+
+}
+
+.food-group-title{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin:
+    5px
+    2px
+    10px;
+
+  padding-bottom:8px;
+
+  border-bottom:
+    1px solid var(--line-soft);
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:850;
+
+}
+
+.food-group-count{
+
+  margin-left:auto;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  font-weight:700;
+
+}
+
+
+/* =========================================================
+   RESTAURANT CARD
+========================================================= */
+
+.restaurant-card{
+
+  position:relative;
+
+  margin-bottom:10px;
+
+  padding:14px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #141c22,
+      #0d1318
+    );
+
+}
+
+.card-top{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  gap:10px;
+
+}
+
 .rank{
-  min-width:48px;height:48px;border-radius:14px;
-  background:rgba(92,157,255,.14);display:flex;align-items:center;justify-content:center;
-  font-weight:800;color:var(--blue);font-size:14px;border:1px solid rgba(92,157,255,.10)
+
+  flex:0 0 auto;
+
+  min-width:31px;
+
+  height:31px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  background:
+    rgba(201,111,104,.10);
+
+  border:
+    1px solid rgba(201,111,104,.20);
+
+  color:var(--red);
+
+  font-size:11px;
+
+  font-weight:900;
+
 }
-.rank.star{background:rgba(201,111,104,.13);color:var(--red);border-color:rgba(201,111,104,.11)}
-.info{flex:1;min-width:0}
-.name{font-weight:750;font-size:17px;line-height:1.3;color:#fff}
-.meta{color:var(--muted-blue);font-size:12px;margin-top:5px;line-height:1.5}
-.why{font-size:14px;margin-top:9px;line-height:1.5;color:#e4e7e9}
-.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+
+.restaurant-main{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.restaurant-name{
+
+  margin:0;
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:850;
+
+  line-height:1.25;
+
+}
+
+.restaurant-location{
+
+  margin-top:3px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+}
+
+.badges{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:5px;
+
+  margin-top:9px;
+
+}
+
 .badge{
-  font-size:11px;padding:4px 8px;border-radius:999px;
-  background:rgba(255,255,255,.06);color:#cbd2d7;border:1px solid rgba(255,255,255,.07)
+
+  display:inline-flex;
+
+  align-items:center;
+
+  min-height:25px;
+
+  padding:
+    4px
+    7px;
+
+  border-radius:999px;
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:#cbd2d7;
+
+  font-size:9px;
+
+  font-weight:800;
+
 }
-.actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}
-.map{
-  display:block;text-align:center;background:rgba(201,111,104,.10);color:var(--red);
-  border:1px solid rgba(201,111,104,.28);text-decoration:none;border-radius:11px;
-  padding:9px 12px;font-weight:800;font-size:13px
+
+.badge.cuisine{
+
+  color:#fff;
+
+  background:
+    rgba(92,157,255,.08);
+
+  border-color:
+    rgba(92,157,255,.18);
+
 }
-.details{
-  border:1px solid var(--line);background:#121a20;border-radius:11px;padding:8px 12px;
-  font-weight:700;color:#c6ced4
+
+.badge.pick{
+
+  color:#f2cf72;
+
+  background:
+    rgba(227,184,92,.08);
+
+  border-color:
+    rgba(227,184,92,.22);
+
 }
-.extra{
-  display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft);
-  font-size:12px;color:var(--muted);line-height:1.6
+
+.badge.hot{
+
+  color:#ff9d74;
+
+  background:
+    rgba(244,163,77,.08);
+
+  border-color:
+    rgba(244,163,77,.22);
+
 }
-.empty{text-align:center;color:var(--muted);padding:50px 20px}
-.bottom{
-  position:fixed;bottom:0;left:0;right:0;z-index:25;
-  background:rgba(15,20,26,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border-top:1px solid var(--line);
-  padding:8px 12px calc(8px + env(safe-area-inset-bottom))
+
+.badge.tabelog{
+
+  color:#e8c770;
+
+  background:
+    rgba(227,184,92,.08);
+
+  border-color:
+    rgba(227,184,92,.22);
+
 }
-.bottom-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.bottom button{
-  border:1px solid #26333d;border-radius:12px;padding:10px 7px;
-  background:#121a20;font-weight:750;color:#cbd2d7
+
+.badge.flexible{
+
+  color:#aebdff;
+
+  background:
+    rgba(92,157,255,.08);
+
+  border-color:
+    rgba(92,157,255,.20);
+
 }
-.bottom button.active{background:rgba(201,111,104,.08);color:var(--red);border-color:var(--red)}
-.pick-row{display:flex;justify-content:flex-end;margin:-2px 0 11px}
-.pick-btn{border:1px solid rgba(201,111,104,.45);background:rgba(201,111,104,.10);color:#f5f5f3;border-radius:12px;padding:9px 13px;font-weight:850;font-size:12px;cursor:pointer}
-.pick-modal{display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.72);padding:20px;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.pick-modal.show{display:flex}
-.pick-box{width:min(420px,100%);background:linear-gradient(145deg,#171f25,#0e1419);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 20px 70px rgba(0,0,0,.45)}
-.pick-kicker{color:var(--red);font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
-.pick-name{font-family:Georgia,serif;font-size:25px;font-weight:800;margin:6px 0}
-.pick-meta{font-size:12px;color:var(--muted);line-height:1.5}
-.pick-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
-.pick-actions button,.pick-actions a{border:1px solid #26333d;border-radius:11px;padding:10px;text-align:center;text-decoration:none;background:#121a20;color:#fff;font-size:11px;font-weight:850;cursor:pointer}
-.pick-actions a{color:var(--red);border-color:rgba(201,111,104,.35)}
-@media(min-width:650px){
-  header{padding-top:18px}
-  header h1{font-size:30px}
-  .card{padding:18px}
+
+
+/* =========================================================
+   CARD INFO
+========================================================= */
+
+.card-info{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:7px;
+
+  margin-top:11px;
+
+}
+
+.info-box{
+
+  padding:
+    8px
+    9px;
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  border:
+    1px solid var(--line-soft);
+
+}
+
+.info-label{
+
+  color:#77838c;
+
+  font-size:8px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.08em;
+
+}
+
+.info-value{
+
+  margin-top:2px;
+
+  color:#d9dee1;
+
+  font-size:10px;
+
+  font-weight:700;
+
+}
+
+
+/* =========================================================
+   WHY GO
+========================================================= */
+
+.why-go{
+
+  margin-top:10px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+}
+
+
+/* =========================================================
+   CARD ACTIONS
+========================================================= */
+
+.card-actions{
+
+  display:flex;
+
+  gap:7px;
+
+  margin-top:11px;
+
+}
+
+.card-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:36px;
+
+  padding:
+    7px
+    11px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(201,111,104,.25);
+
+  background:
+    rgba(201,111,104,.08);
+
+  color:var(--red);
+
+  text-decoration:none;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+}
+
+.card-btn.info{
+
+  border-color:
+    rgba(92,157,255,.22);
+
+  background:
+    rgba(92,157,255,.07);
+
+  color:var(--blue);
+
+}
+
+
+/* =========================================================
+   EXPANDED INFO
+========================================================= */
+
+.extra-info{
+
+  display:none;
+
+  margin-top:10px;
+
+  padding-top:10px;
+
+  border-top:
+    1px solid var(--line-soft);
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  line-height:1.55;
+
+}
+
+.extra-info.open{
+  display:block;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state{
+
+  padding:
+    32px
+    18px;
+
+  border:
+    1px dashed #35414a;
+
+  border-radius:17px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+}
+
+.empty-state strong{
+
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#fff;
+
+}
+
+
+/* =========================================================
+   BOTTOM FILTER
+========================================================= */
+
+.bottom-filter{
+
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:50;
+
+  padding:
+    8px
+    10px
+    calc(8px + env(safe-area-inset-bottom));
+
+  background:
+    rgba(7,12,16,.96);
+
+  border-top:
+    1px solid var(--line);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+}
+
+.bottom-filter-inner{
+
+  max-width:760px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:6px;
+
+}
+
+.bottom-btn{
+
+  appearance:none;
+
+  min-height:43px;
+
+  padding:
+    5px
+    3px;
+
+  border:
+    1px solid #26333d;
+
+  border-radius:11px;
+
+  background:#11181e;
+
+  color:#aeb5bc;
+
+  font-size:10px;
+
+  font-weight:850;
+
+  cursor:pointer;
+
+}
+
+.bottom-btn.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.12);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+  .header-title h1{
+    font-size:21px;
+  }
+
+  .restaurant-card{
+    padding:12px;
+  }
+
+  .restaurant-name{
+    font-size:14px;
+  }
+
+  .card-info{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .bottom-btn{
+    font-size:9px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+  .bottom-btn{
+    font-size:8px;
+  }
+
+  .schedule-item{
+    grid-template-columns:1fr;
+  }
+
 }
 
 </style>
+
 </head>
+
+
 <body>
-<header><h1>🍽️ Kyoto Food Finder</h1><input id="search" class="search" placeholder="Search restaurant, food or area…" autocomplete="off"></header>
-<main>
-<div class="mode"><button id="areaMode" class="active">📍 Browse by Area</button><button id="foodMode">🍜 Browse by Food</button></div>
-<div class="section-title" id="filterTitle">Broad Area</div><div id="chips" class="chips"></div><div id="count" class="count"></div><div class="pick-row"><button id="pickBtn" class="pick-btn">🎲 Pick For Me</button></div><div id="list"></div>
-</main>
-<div class="bottom"><div class="bottom-inner"><button id="allBtn" class="active">All</button><button id="starBtn">⭐ Picks</button><button id="moonBtn">🌙 Flexible</button></div></div>
-<div id="pickModal" class="pick-modal" role="dialog" aria-modal="true" aria-label="Random restaurant pick">
-  <div class="pick-box">
-    <div class="pick-kicker">🎲 The food gods have spoken</div>
-    <div id="pickName" class="pick-name"></div>
-    <div id="pickMeta" class="pick-meta"></div>
-    <div class="pick-actions">
-      <button id="againBtn">🎲 Again</button>
-      <a id="pickMap" target="_blank">📍 Maps</a>
-      <button id="closePick" style="grid-column:1/-1">Maybe not 😂</button>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+  <div class="header-inner">
+
+
+    <div class="header-top">
+
+      <a
+        href="index.html"
+        class="home-button"
+      >
+        ← Home
+      </a>
+
+
+      <div class="header-title">
+
+        <h1>
+          🍽️ Kyoto Food Finder
+        </h1>
+
+        <div>
+          Find somewhere to eat
+        </div>
+
+      </div>
+
     </div>
+
+
+    <div class="search-wrap">
+
+      <input
+        type="search"
+        id="searchInput"
+        class="search-box"
+        placeholder="Search restaurant, food or area..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
   </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =========================================================
+     BROWSE MODE
+========================================================= -->
+
+<div class="browse-title">
+  Browse
 </div>
+
+
+<div class="mode-switch">
+
+  <button
+    class="mode-btn active"
+    data-mode="area"
+  >
+    📍 By Area
+  </button>
+
+  <button
+    class="mode-btn"
+    data-mode="food"
+  >
+    🍜 By Food
+  </button>
+
+</div>
+
+
+
+<!-- =========================================================
+     AREA CHIPS
+========================================================= -->
+
+<div
+  class="chip-section"
+  id="areaSection"
+>
+
+  <div class="chip-title">
+    Browse by Area
+  </div>
+
+  <div
+    class="chips"
+    id="areaChips"
+  ></div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FOOD CHIPS
+========================================================= -->
+
+<div
+  class="chip-section"
+  id="foodSection"
+  style="display:none;"
+>
+
+  <div class="chip-title">
+    Browse by Food
+  </div>
+
+  <div
+    class="chips"
+    id="foodChips"
+  ></div>
+
+</div>
+
+
+
+<!-- =========================================================
+     RESULTS
+========================================================= -->
+
+<div class="results-head">
+
+  <h2 id="resultsTitle">
+    All Kyoto Food
+  </h2>
+
+  <div
+    class="result-count"
+    id="resultCount"
+  ></div>
+
+</div>
+
+
+<div id="results"></div>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     BOTTOM FILTER
+========================================================= -->
+
+<div class="bottom-filter">
+
+  <div class="bottom-filter-inner">
+
+    <button
+      class="bottom-btn"
+      data-filter="pick"
+    >
+      ⭐ Picks
+    </button>
+
+    <button
+      class="bottom-btn"
+      data-filter="tabelog"
+    >
+      🏆 Tabelog
+    </button>
+
+    <button
+      class="bottom-btn"
+      data-filter="hot"
+    >
+      🔥 Hot
+    </button>
+
+    <button
+      class="bottom-btn"
+      data-filter="flexible"
+    >
+      🌙 Flexible
+    </button>
+
+  </div>
+
+</div>
+
+
+
 <script>
-const restaurants=[{"Restaurant": "Flip up!", "Food Type": "Bakery / Pâtisserie", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Karasuma Oike", "¥ / pp": "<¥1k", "Why go": "Top bakery pick", "Recognition": "🏆 Top 100 2026"}, {"Restaurant": "Wälder", "Food Type": "Bakery / Pâtisserie", "Food Rank": 2, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Kawaramachi", "¥ / pp": "<¥1k", "Why go": "Excellent central bakery", "Recognition": "🏆 Top 100 2026"}, {"Restaurant": "fiveran", "Food Type": "Bakery / Pâtisserie", "Food Rank": 3, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Karasuma Oike", "¥ / pp": "¥1–2k", "Why go": "Sweet + savoury breads", "Recognition": "🏆 Bread WEST Top 100 2026"}, {"Restaurant": "PÂTISSERIE.S", "Food Type": "Bakery / Pâtisserie", "Food Rank": 4, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Shijo Karasuma", "¥ / pp": "¥1–2k", "Why go": "French-style cakes / pâtisserie", "Recognition": "🏆 Bread Top 100 2019–2023"}, {"Restaurant": "Le Petit Mec Oike", "Food Type": "Bakery / Pâtisserie", "Food Rank": 5, "Tag": "", "Broad Area": "Downtown", "Location": "Oike", "¥ / pp": "~¥1k", "Why go": "French-style bakery; bread/sandwich stop", "Recognition": ""}, {"Restaurant": "LIBERTÉ PÂTISSERIE BOULANGERIE Kyoto Kiyomizu", "Food Type": "Bakery / Pâtisserie", "Food Rank": 6, "Tag": "⭐", "Broad Area": "Higashiyama", "Location": "Kiyomizu", "¥ / pp": "¥0.5–1.5k", "Why go": "Convenient during Kiyomizu sightseeing", "Recognition": ""}, {"Restaurant": "Curry & Tempura Koisus", "Food Type": "Curry", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Higashiyama", "Location": "Gion", "¥ / pp": "¥1–2k", "Why go": "Distinctive Japanese spice curry + tempura", "Recognition": ""}, {"Restaurant": "Shinrin Shokudo", "Food Type": "Curry", "Food Rank": 2, "Tag": "⭐", "Broad Area": "Other Kyoto", "Location": "Kyoto", "¥ / pp": "~¥1–2k", "Why go": "Dedicated Japanese curry alternative", "Recognition": ""}, {"Restaurant": "Chao Chao Gyoza", "Food Type": "Gyoza", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥2–3k", "Why go": "Casual / flexible", "Recognition": ""}, {"Restaurant": "Sumiro Man", "Food Type": "Izakaya", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Nishiki", "¥ / pp": "¥3–4k", "Why go": "Machiya + charcoal cooking", "Recognition": "🔥 Hot Restaurant 2025 & 2026"}, {"Restaurant": "Kurakura", "Food Type": "Izakaya", "Food Rank": 3, "Tag": "🌙", "Broad Area": "Kyoto Station", "Location": "Kyoto Station", "¥ / pp": "¥2–6k", "Why go": "Late-night / late-return option", "Recognition": ""}, {"Restaurant": "Suzume", "Food Type": "Izakaya", "Food Rank": 4, "Tag": "🌙", "Broad Area": "Downtown", "Location": "Pontocho", "¥ / pp": "¥3–5k", "Why go": "Tiny traditional izakaya; late/flexible", "Recognition": ""}, {"Restaurant": "Genkai Don", "Food Type": "Kaisendon", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Nishiki", "¥ / pp": "¥1.9–4.2k", "Why go": "Uni + tuna / premium seafood bowl", "Recognition": ""}, {"Restaurant": "Wabiya Korekido", "Food Type": "Oyakodon", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Higashiyama", "Location": "Gion", "¥ / pp": "~¥2.2k", "Why go": "Stone-pot oyakodon", "Recognition": "🏆 Tabelog recognition"}, {"Restaurant": "Toriwa-ro", "Food Type": "Oyakodon", "Food Rank": 2, "Tag": "", "Broad Area": "North Kyoto", "Location": "Nishijin", "¥ / pp": "¥1–2k", "Why go": "Traditional oyakodon alternative", "Recognition": ""}, {"Restaurant": "Menya Inoichi", "Food Type": "Ramen / Tsukemen", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥1–2k", "Why go": "Your #1 ramen", "Recognition": "🏆 Ramen WEST Top 100"}, {"Restaurant": "Sen-no-Kaze", "Food Type": "Ramen / Tsukemen", "Food Rank": 2, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥1–2k", "Why go": "Your #2 ramen", "Recognition": ""}, {"Restaurant": "Ginjo Ramen Kubota", "Food Type": "Ramen / Tsukemen", "Food Rank": 3, "Tag": "⭐", "Broad Area": "Kyoto Station", "Location": "Gojo", "¥ / pp": "¥1–2k", "Why go": "Tsukemen specialist", "Recognition": "🏆 Ramen WEST Top 100"}, {"Restaurant": "Takamatsu", "Food Type": "Ramen / Tsukemen", "Food Rank": 4, "Tag": "", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥1–2k", "Why go": "Rich ramen / tsukemen", "Recognition": ""}, {"Restaurant": "Daiichi Asahi", "Food Type": "Ramen / Tsukemen", "Food Rank": 5, "Tag": "", "Broad Area": "Kyoto Station", "Location": "Kyoto Station", "¥ / pp": "¥1–2k", "Why go": "Classic Kyoto ramen", "Recognition": "🏆 Ramen WEST Top 100"}, {"Restaurant": "Gion Duck Noodles", "Food Type": "Ramen / Tsukemen", "Food Rank": 6, "Tag": "", "Broad Area": "Higashiyama", "Location": "Gion", "¥ / pp": "¥2–3k", "Why go": "Duck ramen", "Recognition": "🏆 Ramen WEST Top 100"}, {"Restaurant": "Salmon Noodle Kyoto", "Food Type": "Ramen / Tsukemen", "Food Rank": 7, "Tag": "🌙", "Broad Area": "Fushimi", "Location": "Fushimi", "¥ / pp": "¥1–2k", "Why go": "Unusual salmon option; flexible", "Recognition": ""}, {"Restaurant": "Masoho Hanare", "Food Type": "Seafood", "Food Rank": 2, "Tag": "", "Broad Area": "Kyoto Station", "Location": "Kyoto Station", "¥ / pp": "¥3–4k", "Why go": "Convenient station dinner", "Recognition": ""}, {"Restaurant": "Odai Sushi", "Food Type": "Sushi / Omakase", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Arashiyama", "Location": "Saga", "¥ / pp": "¥3–4k", "Why go": "Main sushi choice; small neighborhood sushi", "Recognition": ""}, {"Restaurant": "Sushi Tetsu", "Food Type": "Sushi / Omakase", "Food Rank": 2, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Pontocho", "¥ / pp": "¥3–5k", "Why go": "Preferred central sushi", "Recognition": ""}, {"Restaurant": "Sushi Dokoro Susabiyu", "Food Type": "Sushi / Omakase", "Food Rank": 3, "Tag": "", "Broad Area": "Downtown", "Location": "Central Kyoto", "¥ / pp": "~¥2–4k", "Why go": "Affordable sushi / seafood", "Recognition": "🔥 Hot Restaurant 2025 & 2026"}, {"Restaurant": "Takara Sushi", "Food Type": "Sushi / Omakase", "Food Rank": 4, "Tag": "", "Broad Area": "Arashiyama", "Location": "Arashiyama", "¥ / pp": "¥1–2k", "Why go": "Tiny old-school/value experience", "Recognition": ""}, {"Restaurant": "Nishiki Sushi Shin", "Food Type": "Sushi / Omakase", "Food Rank": 5, "Tag": "", "Broad Area": "Downtown", "Location": "Nishiki", "¥ / pp": "¥7–10k", "Why go": "Proper affordable omakase", "Recognition": ""}, {"Restaurant": "Gion Takezushi", "Food Type": "Sushi / Omakase", "Food Rank": 6, "Tag": "", "Broad Area": "Higashiyama", "Location": "Gion", "¥ / pp": "¥6–10k", "Why go": "Traditional omakase", "Recognition": ""}, {"Restaurant": "Gion Sushi Yoshi", "Food Type": "Sushi / Omakase", "Food Rank": 7, "Tag": "", "Broad Area": "Higashiyama", "Location": "Gion", "¥ / pp": "¥8k+", "Why go": "Edomae-style; red-vinegar rice", "Recognition": ""}, {"Restaurant": "Sushi Ishimatsu", "Food Type": "Sushi / Omakase", "Food Rank": 8, "Tag": "", "Broad Area": "Downtown", "Location": "Central Kyoto", "¥ / pp": "¥1–2k", "Why go": "Cheap sushi/chirashi backup", "Recognition": ""}, {"Restaurant": "Tempura no Mise Gen", "Food Type": "Tempura", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Kiyamachi", "¥ / pp": "¥1.5–3.5k", "Why go": "Dedicated tempura choice; tiny counter", "Recognition": ""}, {"Restaurant": "Katsukura", "Food Type": "Tonkatsu", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Kyoto Station", "Location": "Kyoto Station", "¥ / pp": "¥2–3k", "Why go": "Current tonkatsu choice", "Recognition": ""}, {"Restaurant": "Tonkatsu Yamamoto", "Food Type": "Tonkatsu", "Food Rank": 2, "Tag": "", "Broad Area": "Downtown", "Location": "Kyoto City Hall", "¥ / pp": "¥2–4k", "Why go": "Serious traditional tonkatsu", "Recognition": "🏆 Tonkatsu Top 100 2026"}, {"Restaurant": "Omen Ginkakuji", "Food Type": "Udon / Soba", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Okazaki", "Location": "Ginkakuji", "¥ / pp": "¥1–2k", "Why go": "Kyoto dipping udon; excellent route fit", "Recognition": ""}, {"Restaurant": "Yamamoto Menzou", "Food Type": "Udon / Soba", "Food Rank": 2, "Tag": "⭐", "Broad Area": "Okazaki", "Location": "Okazaki", "¥ / pp": "¥1–2k", "Why go": "Serious handmade udon", "Recognition": "🏆 Udon WEST Top 100"}, {"Restaurant": "Honke Owariya", "Food Type": "Udon / Soba", "Food Rank": 3, "Tag": "", "Broad Area": "Downtown", "Location": "Karasuma Oike", "¥ / pp": "¥1–3k", "Why go": "Historic soba institution", "Recognition": ""}, {"Restaurant": "Okakita", "Food Type": "Udon / Soba", "Food Rank": 4, "Tag": "", "Broad Area": "Okazaki", "Location": "Okazaki", "¥ / pp": "¥1–2k", "Why go": "Traditional udon / donburi", "Recognition": "🏆 Udon WEST Top 100"}, {"Restaurant": "Nezameya", "Food Type": "Unagi", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Fushimi", "Location": "Fushimi Inari", "¥ / pp": "¥1–3k", "Why go": "Historic Fushimi stop", "Recognition": ""}, {"Restaurant": "DORAIMON", "Food Type": "Unagi", "Food Rank": 2, "Tag": "", "Broad Area": "Fushimi", "Location": "Fushimi Inari", "¥ / pp": "¥3–5k", "Why go": "Hitsumabushi specialist", "Recognition": ""}, {"Restaurant": "Gohanya Isshin Kyoto", "Food Type": "Washoku", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥1–5k", "Why go": "Hagama rice + Japanese dishes", "Recognition": ""}, {"Restaurant": "Tsuke-yasai ISOISM", "Food Type": "Washoku", "Food Rank": 2, "Tag": "", "Broad Area": "Kyoto Station", "Location": "Kyoto Station", "¥ / pp": "~¥2k lunch", "Why go": "Kyoto vegetables / creative washoku", "Recognition": ""}, {"Restaurant": "Itsuki Chaya", "Food Type": "Washoku", "Food Rank": 3, "Tag": "", "Broad Area": "Arashiyama", "Location": "Arashiyama", "¥ / pp": "¥3–4k", "Why go": "Photogenic five-bowl set", "Recognition": ""}, {"Restaurant": "Kuchibashi Modern", "Food Type": "Yakitori / Chicken", "Food Rank": 1, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Shijo Karasuma", "¥ / pp": "¥6–8k", "Why go": "Best serious yakitori candidate", "Recognition": "🏆 Yakitori WEST Top 100"}, {"Restaurant": "Pontocho Torihara", "Food Type": "Yakitori / Chicken", "Food Rank": 2, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Pontocho", "¥ / pp": "¥4–6k", "Why go": "Intimate proper yakitori; tiny counter", "Recognition": ""}, {"Restaurant": "Pontocho Yasohachi", "Food Type": "Yakitori / Chicken", "Food Rank": 3, "Tag": "⭐", "Broad Area": "Downtown", "Location": "Pontocho", "¥ / pp": "¥3–5k", "Why go": "Lively izakaya; Pontocho atmosphere", "Recognition": ""}, {"Restaurant": "Ibushi Dori Ichika", "Food Type": "Yakitori / Chicken", "Food Rank": 4, "Tag": "🌙", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥3–5k", "Why go": "Smoked/charcoal chicken; late-night", "Recognition": ""}, {"Restaurant": "Yakitori Tsujiya", "Food Type": "Yakitori / Chicken", "Food Rank": 5, "Tag": "🌙", "Broad Area": "Downtown", "Location": "Downtown", "¥ / pp": "¥3–5k+", "Why go": "Late-night / flexible yakitori", "Recognition": "🔥 Hot Restaurant 2025 & 2026"}, {"Restaurant": "Kokekoko", "Food Type": "Yakitori / Chicken", "Food Rank": 6, "Tag": "", "Broad Area": "Kyoto Station", "Location": "Kyoto Station", "¥ / pp": "¥5–6k", "Why go": "Charcoal chicken", "Recognition": "🔥 Hot Restaurant 2025 & 2026"}];
-const areaOptions=["Arashiyama", "Downtown", "Fushimi", "Higashiyama", "Kyoto Station", "North Kyoto", "Okazaki", "Other Kyoto"];
-const foodOptions=["Sushi / Omakase", "Ramen / Tsukemen", "Yakitori / Chicken", "Udon / Soba", "Oyakodon", "Tonkatsu", "Unagi", "Kaisendon", "Tempura", "Curry", "Izakaya", "Washoku", "Seafood", "Gyoza", "Bakery / Pâtisserie"];
-let mode="area",selected="All",tag="all";
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
-function setMode(m){mode=m;selected="All";$("#areaMode").classList.toggle("active",m==="area");$("#foodMode").classList.toggle("active",m==="food");$("#filterTitle").textContent=m==="area"?"Broad Area":"Food Type";renderChips();render();}
-function renderChips(){const opts=["All",...(mode==="area"?areaOptions:foodOptions)];$("#chips").innerHTML=opts.map(o=>`<button class="chip ${o===selected?"active":""}" data-v="${esc(o)}">${esc(o)}</button>`).join("");document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selected=b.dataset.v;renderChips();render();});}
-function tagOK(r){if(tag==="star")return(r.Tag||"").includes("⭐");if(tag==="moon")return(r.Tag||"").includes("🌙");return true;}
-function render(){const q=$("#search").value.trim().toLowerCase();let rows=restaurants.filter(r=>{const ok=selected==="All"||(mode==="area"?r["Broad Area"]===selected:r["Food Type"]===selected);const qok=!q||Object.values(r).join(" ").toLowerCase().includes(q);return ok&&qok&&tagOK(r);});
-rows.sort((a,b)=>{if(mode==="food"&&selected!=="All")return(a["Food Rank"]||999)-(b["Food Rank"]||999);if(mode==="area"&&selected!=="All")return a.Location.localeCompare(b.Location)||a["Food Type"].localeCompare(b["Food Type"])||(a["Food Rank"]||999)-(b["Food Rank"]||999);return a["Food Type"].localeCompare(b["Food Type"])||(a["Food Rank"]||999)-(b["Food Rank"]||999);});
-$("#count").textContent=`${rows.length} restaurant${rows.length===1?"":"s"}`;if(!rows.length){$("#list").innerHTML='<div class="empty">No matches.</div>';return}
-$("#list").innerHTML=rows.map((r,i)=>{const rank=r["Food Rank"]?`#${r["Food Rank"]}`:"—";const isStar=(r.Tag||"").includes("⭐");const qmap=encodeURIComponent(`${r.Restaurant} Kyoto Japan`);const recog=r.Recognition?`<span class="badge">${esc(r.Recognition)}</span>`:"";const tagBadge=r.Tag?`<span class="badge">${esc(r.Tag)}</span>`:"";
-return `<article class="card"><div class="top"><div class="rank ${isStar?"star":""}">${rank}</div><div class="info"><div class="name">${esc(r.Restaurant)}</div><div class="meta">${esc(r["Food Type"])} · ${esc(r["Broad Area"])} · ${esc(r.Location)} · ${esc(r["¥ / pp"])}</div><div class="why">${esc(r["Why go"])}</div><div class="badges">${tagBadge}${recog}</div></div></div><div class="actions"><a class="map" href="https://www.google.com/maps/search/?api=1&query=${qmap}" target="_blank">📍 Open in Maps</a><button class="details" onclick="toggleExtra(${i})">Info</button></div><div class="extra" id="x${i}"><b>Food rank:</b> ${rank} within ${esc(r["Food Type"])}<br><b>Broad area:</b> ${esc(r["Broad Area"])}<br><b>Specific location:</b> ${esc(r.Location)}</div></article>`;}).join("");}
-window.toggleExtra=i=>{const el=$("#x"+i);el.style.display=el.style.display==="block"?"none":"block";};
-$("#search").addEventListener("input",render);$("#areaMode").onclick=()=>setMode("area");$("#foodMode").onclick=()=>setMode("food");
-function setTag(t){tag=t;$("#allBtn").classList.toggle("active",t==="all");$("#starBtn").classList.toggle("active",t==="star");$("#moonBtn").classList.toggle("active",t==="moon");render();}
-$("#allBtn").onclick=()=>setTag("all");$("#starBtn").onclick=()=>setTag("star");$("#moonBtn").onclick=()=>setTag("moon");
-function currentChoices(){const q=$("#search").value.trim().toLowerCase();return restaurants.filter(r=>{const ok=selected==="All"||(mode==="area"?r["Broad Area"]===selected:r["Food Type"]===selected);const qok=!q||Object.values(r).join(" ").toLowerCase().includes(q);return ok&&qok&&tagOK(r);});}
-function pickForMe(){const rows=currentChoices();if(!rows.length){alert("No restaurants match your current filters 😂");return;}const r=rows[Math.floor(Math.random()*rows.length)];$("#pickName").textContent=r.Restaurant;$("#pickMeta").innerHTML=`${esc(r["Food Type"])} · #${r["Food Rank"]||"—"}<br>${esc(r["Broad Area"])} · ${esc(r.Location)} · ${esc(r["¥ / pp"])}<br><br>${esc(r["Why go"])}${r.Recognition?`<br>${esc(r.Recognition)}`:""}`;$("#pickMap").href=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.Restaurant+" Kyoto Japan")}`;$("#pickModal").classList.add("show");}
-$("#pickBtn").onclick=pickForMe;$("#againBtn").onclick=pickForMe;$("#closePick").onclick=()=>$("#pickModal").classList.remove("show");$("#pickModal").onclick=e=>{if(e.target.id==="pickModal")$("#pickModal").classList.remove("show");};
-renderChips();render();
+
+/* =========================================================
+   RESTAURANTS
+========================================================= */
+
+const restaurants = [
+
+{
+  Name:"Flip up!",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Karasuma Oike",
+  Rank:1,
+  Price:"¥",
+  Why:"Popular Kyoto bakery with a strong local following.",
+  Tag:"⭐",
+  Recognition:"Top 100 2026"
+},
+
+{
+  Name:"Wälder",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Kawaramachi",
+  Rank:2,
+  Price:"¥",
+  Why:"Well-known Kyoto bakery and easy downtown stop.",
+  Tag:"",
+  Recognition:"Top 100 2026"
+},
+
+{
+  Name:"fiveran",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Karasuma Oike",
+  Rank:3,
+  Price:"¥",
+  Why:"Excellent bakery option around central Kyoto.",
+  Tag:"",
+  Recognition:"Bread WEST Top 100 2026"
+},
+
+{
+  Name:"PÂTISSERIE.S",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Shijo Karasuma",
+  Rank:4,
+  Price:"¥¥",
+  Why:"Pastries and desserts in central Kyoto.",
+  Tag:"",
+  Recognition:"Bread Top 100 2019–2023"
+},
+
+{
+  Name:"Le Petit Mec Oike",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Oike",
+  Rank:5,
+  Price:"¥",
+  Why:"Convenient French-style bakery in central Kyoto.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"LIBERTÉ PÂTISSERIE BOULANGERIE Kyoto Kiyomizu",
+  Food:"Bakery / Pâtisserie",
+  Area:"Higashiyama",
+  Location:"Kiyomizu",
+  Rank:6,
+  Price:"¥¥",
+  Why:"Useful bakery and pastry stop while exploring Higashiyama.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* CURRY */
+
+{
+  Name:"Curry & Tempura Koisus",
+  Food:"Curry",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Interesting curry and tempura combination around Gion.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Shinrin Shokudo",
+  Food:"Curry",
+  Area:"Other Kyoto",
+  Location:"Kyoto",
+  Rank:2,
+  Price:"¥",
+  Why:"Casual Kyoto curry option.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* GYOZA */
+
+{
+  Name:"Chao Chao Gyoza",
+  Food:"Gyoza",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:1,
+  Price:"¥",
+  Why:"Easy casual gyoza stop in central Kyoto.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+
+/* IZAKAYA */
+
+{
+  Name:"Sumiro Man",
+  Food:"Izakaya",
+  Area:"Downtown",
+  Location:"Nishiki",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Strong downtown izakaya choice near Nishiki.",
+  Tag:"⭐",
+  Recognition:"Hot Restaurant 2025 & 2026"
+},
+
+{
+  Name:"Kurakura",
+  Food:"Izakaya",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Useful flexible izakaya around Kyoto Station.",
+  Tag:"🌙",
+  Recognition:""
+},
+
+{
+  Name:"Suzume",
+  Food:"Izakaya",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:3,
+  Price:"¥¥",
+  Why:"Flexible Pontocho option for an evening meal.",
+  Tag:"🌙",
+  Recognition:""
+},
+
+
+/* KAISENDON */
+
+{
+  Name:"Genkai Don",
+  Food:"Kaisendon",
+  Area:"Downtown",
+  Location:"Nishiki",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Seafood rice bowl option around Nishiki.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+
+/* OYAKODON */
+
+{
+  Name:"Wabiya Korekido",
+  Food:"Oyakodon",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:1,
+  Price:"¥¥",
+  Why:"One of the main oyakodon choices around Gion.",
+  Tag:"⭐",
+  Recognition:"Tabelog recognition"
+},
+
+{
+  Name:"Toriwa-ro",
+  Food:"Oyakodon",
+  Area:"North Kyoto",
+  Location:"Nishijin",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Traditional oyakodon option in northern Kyoto.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* RAMEN */
+
+{
+  Name:"Menya Inoichi",
+  Food:"Ramen / Tsukemen",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:1,
+  Price:"¥",
+  Why:"One of the priority ramen choices in central Kyoto.",
+  Tag:"⭐",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Sen-no-Kaze",
+  Food:"Ramen / Tsukemen",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:2,
+  Price:"¥",
+  Why:"Popular ramen choice around central Kyoto.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Ginjo Ramen Kubota",
+  Food:"Ramen / Tsukemen",
+  Area:"Kyoto Station",
+  Location:"Gojo",
+  Rank:3,
+  Price:"¥",
+  Why:"Strong ramen option south of central Kyoto.",
+  Tag:"",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Takamatsu",
+  Food:"Ramen / Tsukemen",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:4,
+  Price:"¥",
+  Why:"Convenient central Kyoto ramen option.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Daiichi Asahi",
+  Food:"Ramen / Tsukemen",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:5,
+  Price:"¥",
+  Why:"Classic Kyoto ramen near Kyoto Station.",
+  Tag:"⭐",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Gion Duck Noodles",
+  Food:"Ramen / Tsukemen",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:6,
+  Price:"¥¥",
+  Why:"Duck noodle option conveniently located in Gion.",
+  Tag:"⭐",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Salmon Noodle Kyoto",
+  Food:"Ramen / Tsukemen",
+  Area:"Fushimi",
+  Location:"Fushimi",
+  Rank:7,
+  Price:"¥¥",
+  Why:"Useful flexible noodle option with a different style.",
+  Tag:"🌙",
+  Recognition:""
+},
+
+
+/* SEAFOOD */
+
+{
+  Name:"Masoho Hanare",
+  Food:"Seafood",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Seafood option conveniently located around Kyoto Station.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* SUSHI */
+
+{
+  Name:"Odai Sushi",
+  Food:"Sushi / Omakase",
+  Area:"Arashiyama",
+  Location:"Saga",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Good sushi option for an Arashiyama day.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Sushi Tetsu",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Convenient sushi around Pontocho.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Sushi Dokoro Susabiyu",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Central Kyoto",
+  Rank:3,
+  Price:"¥¥",
+  Why:"Strong central sushi choice.",
+  Tag:"",
+  Recognition:"Hot Restaurant 2025 & 2026"
+},
+
+{
+  Name:"Takara Sushi",
+  Food:"Sushi / Omakase",
+  Area:"Arashiyama",
+  Location:"Arashiyama",
+  Rank:4,
+  Price:"¥¥",
+  Why:"Another useful sushi choice around Arashiyama.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Nishiki Sushi Shin",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Nishiki",
+  Rank:5,
+  Price:"¥¥¥",
+  Why:"Sushi option around Nishiki.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Gion Takezushi",
+  Food:"Sushi / Omakase",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:6,
+  Price:"¥¥",
+  Why:"Convenient Gion sushi option.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Gion Sushi Yoshi",
+  Food:"Sushi / Omakase",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:7,
+  Price:"¥¥¥",
+  Why:"Higher-end sushi option around Gion.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Sushi Ishimatsu",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Central Kyoto",
+  Rank:8,
+  Price:"¥¥",
+  Why:"Central Kyoto sushi alternative.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* TEMPURA */
+
+{
+  Name:"Tempura no Mise Gen",
+  Food:"Tempura",
+  Area:"Downtown",
+  Location:"Kiyamachi",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Tempura option around Kiyamachi.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+
+/* TONKATSU */
+
+{
+  Name:"Katsukura",
+  Food:"Tonkatsu",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Reliable Kyoto tonkatsu and especially convenient around Kyoto Station.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Tonkatsu Yamamoto",
+  Food:"Tonkatsu",
+  Area:"Downtown",
+  Location:"Kyoto City Hall",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Highly regarded tonkatsu option in central Kyoto.",
+  Tag:"",
+  Recognition:"Tonkatsu Top 100 2026"
+},
+
+
+/* UDON / SOBA */
+
+{
+  Name:"Omen Ginkakuji",
+  Food:"Udon / Soba",
+  Area:"Okazaki",
+  Location:"Ginkakuji",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Excellent option around the Philosopher's Path / Ginkakuji area.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Yamamoto Menzou",
+  Food:"Udon / Soba",
+  Area:"Okazaki",
+  Location:"Okazaki",
+  Rank:2,
+  Price:"¥",
+  Why:"Highly regarded udon in the Okazaki area.",
+  Tag:"⭐",
+  Recognition:"Udon WEST Top 100"
+},
+
+{
+  Name:"Honke Owariya",
+  Food:"Udon / Soba",
+  Area:"Downtown",
+  Location:"Karasuma Oike",
+  Rank:3,
+  Price:"¥¥",
+  Why:"Traditional Kyoto soba and a good flexible lunch option.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Okakita",
+  Food:"Udon / Soba",
+  Area:"Okazaki",
+  Location:"Okazaki",
+  Rank:4,
+  Price:"¥",
+  Why:"Strong udon choice around Okazaki.",
+  Tag:"",
+  Recognition:"Udon WEST Top 100"
+},
+
+
+/* UNAGI */
+
+{
+  Name:"Nezameya",
+  Food:"Unagi",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Very convenient traditional food stop beside Fushimi Inari.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"DORAIMON",
+  Food:"Unagi",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Another unagi option directly around Fushimi Inari.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* WASHOKU */
+
+{
+  Name:"Gohanya Isshin Kyoto",
+  Food:"Washoku",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:1,
+  Price:"¥¥",
+  Why:"Japanese set-meal option in central Kyoto.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Tsuke-yasai ISOISM",
+  Food:"Washoku",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Vegetable-focused Kyoto-style meal near Kyoto Station.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Itsuki Chaya",
+  Food:"Washoku",
+  Area:"Arashiyama",
+  Location:"Arashiyama",
+  Rank:3,
+  Price:"¥¥¥",
+  Why:"Scenic Arashiyama meal option.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+
+/* YAKITORI */
+
+{
+  Name:"Kuchibashi Modern",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Shijo Karasuma",
+  Rank:1,
+  Price:"¥¥",
+  Why:"One of the stronger yakitori choices in central Kyoto.",
+  Tag:"⭐",
+  Recognition:"Yakitori WEST Top 100"
+},
+
+{
+  Name:"Pontocho Torihara",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:2,
+  Price:"¥¥",
+  Why:"Convenient yakitori option for a Pontocho evening.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Pontocho Yasohachi",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:3,
+  Price:"¥¥",
+  Why:"Another Pontocho yakitori choice.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Ibushi Dori Ichika",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:4,
+  Price:"¥¥",
+  Why:"Useful flexible late-night chicken / yakitori option.",
+  Tag:"🌙",
+  Recognition:""
+},
+
+{
+  Name:"Yakitori Tsujiya",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:5,
+  Price:"¥¥",
+  Why:"One of the most useful late-night flexible choices in Kyoto.",
+  Tag:"⭐ 🌙",
+  Recognition:"Hot Restaurant 2025 & 2026"
+},
+
+{
+  Name:"Kokekoko",
+  Food:"Yakitori / Chicken",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:6,
+  Price:"¥¥",
+  Why:"Strong yakitori choice around Kyoto Station.",
+  Tag:"",
+  Recognition:"Hot Restaurant 2025 & 2026"
+}
+
+];
+
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+const areaOptions = [
+
+  "Arashiyama",
+  "Downtown",
+  "Fushimi",
+  "Higashiyama",
+  "Kyoto Station",
+  "North Kyoto",
+  "Okazaki",
+  "Other Kyoto"
+
+];
+
+
+const foodOptions = [
+
+  "Sushi / Omakase",
+  "Ramen / Tsukemen",
+  "Yakitori / Chicken",
+  "Udon / Soba",
+  "Oyakodon",
+  "Tonkatsu",
+  "Unagi",
+  "Kaisendon",
+  "Tempura",
+  "Curry",
+  "Izakaya",
+  "Washoku",
+  "Seafood",
+  "Gyoza",
+  "Bakery / Pâtisserie"
+
+];
+
+
+
+/* =========================================================
+   EMOJIS
+========================================================= */
+
+const cuisineEmoji = {
+
+  "Sushi / Omakase":"🍣",
+  "Ramen / Tsukemen":"🍜",
+  "Yakitori / Chicken":"🍗",
+  "Udon / Soba":"🥢",
+  "Oyakodon":"🍳",
+  "Tonkatsu":"🐷",
+  "Unagi":"🐟",
+  "Kaisendon":"🐟",
+  "Tempura":"🍤",
+  "Curry":"🍛",
+  "Izakaya":"🍶",
+  "Washoku":"🍚",
+  "Seafood":"🦐",
+  "Gyoza":"🥟",
+  "Bakery / Pâtisserie":"🥐"
+
+};
+
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let browseMode = "area";
+
+let selectedArea = "";
+
+let selectedFood = "";
+
+let searchTerm = "";
+
+const activeFilters =
+  new Set();
+
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const areaChips =
+  document.getElementById("areaChips");
+
+const foodChips =
+  document.getElementById("foodChips");
+
+const areaSection =
+  document.getElementById("areaSection");
+
+const foodSection =
+  document.getElementById("foodSection");
+
+const results =
+  document.getElementById("results");
+
+const resultsTitle =
+  document.getElementById("resultsTitle");
+
+const resultCount =
+  document.getElementById("resultCount");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const modeButtons =
+  document.querySelectorAll(".mode-btn");
+
+const bottomButtons =
+  document.querySelectorAll(".bottom-btn");
+
+
+
+/* =========================================================
+   SPECIAL FILTERS
+========================================================= */
+
+function isPick(r){
+
+  return (r.Tag || "")
+    .includes("⭐");
+
+}
+
+
+function isFlexible(r){
+
+  return (r.Tag || "")
+    .includes("🌙");
+
+}
+
+
+function isHot(r){
+
+  return (r.Recognition || "")
+    .toLowerCase()
+    .includes("hot restaurant");
+
+}
+
+
+function isTabelog(r){
+
+  const recognition =
+    (r.Recognition || "")
+      .toLowerCase();
+
+  return (
+    recognition.includes("top 100")
+    ||
+    recognition.includes("tabelog")
+  );
+
+}
+
+
+
+/* =========================================================
+   CREATE CHIPS
+========================================================= */
+
+function createChips(){
+
+  areaChips.innerHTML = "";
+  foodChips.innerHTML = "";
+
+
+  const allArea =
+    document.createElement("button");
+
+  allArea.className =
+    "chip active";
+
+  allArea.textContent =
+    "All Areas";
+
+  allArea.dataset.value = "";
+
+  areaChips.appendChild(allArea);
+
+
+  areaOptions.forEach(area => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "chip";
+
+    button.dataset.value =
+      area;
+
+    button.textContent =
+      area;
+
+    areaChips.appendChild(button);
+
+  });
+
+
+  const allFood =
+    document.createElement("button");
+
+  allFood.className =
+    "chip active";
+
+  allFood.textContent =
+    "All Food";
+
+  allFood.dataset.value = "";
+
+  foodChips.appendChild(allFood);
+
+
+  foodOptions.forEach(food => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "chip";
+
+    button.dataset.value =
+      food;
+
+    button.textContent =
+      (cuisineEmoji[food] || "🍽️")
+      + " "
+      + food;
+
+    foodChips.appendChild(button);
+
+  });
+
+
+  areaChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          selectedArea =
+            button.dataset.value;
+
+          areaChips
+            .querySelectorAll(".chip")
+            .forEach(b => {
+
+              b.classList.toggle(
+                "active",
+                b === button
+              );
+
+            });
+
+          render();
+
+        }
+      );
+
+    });
+
+
+  foodChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          selectedFood =
+            button.dataset.value;
+
+          foodChips
+            .querySelectorAll(".chip")
+            .forEach(b => {
+
+              b.classList.toggle(
+                "active",
+                b === button
+              );
+
+            });
+
+          render();
+
+        }
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   FILTER RESTAURANTS
+========================================================= */
+
+function getFilteredRestaurants(){
+
+  return restaurants.filter(r => {
+
+
+    /* AREA */
+
+    if(
+      selectedArea
+      &&
+      r.Area !== selectedArea
+    ){
+
+      return false;
+
+    }
+
+
+    /* FOOD */
+
+    if(
+      selectedFood
+      &&
+      r.Food !== selectedFood
+    ){
+
+      return false;
+
+    }
+
+
+    /* SEARCH */
+
+    if(searchTerm){
+
+      const haystack = [
+
+        r.Name,
+        r.Food,
+        r.Area,
+        r.Location,
+        r.Why,
+        r.Recognition
+
+      ]
+      .join(" ")
+      .toLowerCase();
+
+
+      if(
+        !haystack.includes(searchTerm)
+      ){
+
+        return false;
+
+      }
+
+    }
+
+
+    /*
+       SPECIAL FILTERS
+
+       Multiple selected filters are treated
+       as OR.
+
+       Example:
+       Picks + Hot
+       = show restaurants that are either
+       Picks OR Hot.
+    */
+
+    if(activeFilters.size){
+
+      const matches = [];
+
+
+      if(activeFilters.has("pick")){
+        matches.push(isPick(r));
+      }
+
+      if(activeFilters.has("tabelog")){
+        matches.push(isTabelog(r));
+      }
+
+      if(activeFilters.has("hot")){
+        matches.push(isHot(r));
+      }
+
+      if(activeFilters.has("flexible")){
+        matches.push(isFlexible(r));
+      }
+
+
+      if(
+        !matches.some(Boolean)
+      ){
+
+        return false;
+
+      }
+
+    }
+
+
+    return true;
+
+  });
+
+}
+
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+function buildBadges(r){
+
+  let html = "";
+
+
+  html +=
+    `<span class="badge cuisine">
+      ${cuisineEmoji[r.Food] || "🍽️"}
+      ${r.Food}
+    </span>`;
+
+
+  if(isPick(r)){
+
+    html +=
+      `<span class="badge pick">
+        ⭐ Pick
+      </span>`;
+
+  }
+
+
+  if(isTabelog(r)){
+
+    html +=
+      `<span class="badge tabelog">
+        🏆 Tabelog
+      </span>`;
+
+  }
+
+
+  if(isHot(r)){
+
+    html +=
+      `<span class="badge hot">
+        🔥 Hot
+      </span>`;
+
+  }
+
+
+  if(isFlexible(r)){
+
+    html +=
+      `<span class="badge flexible">
+        🌙 Flexible
+      </span>`;
+
+  }
+
+
+  return html;
+
+}
+
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function restaurantCard(r){
+
+  const mapsQuery =
+    encodeURIComponent(
+      r.Name + " Kyoto Japan"
+    );
+
+
+  const recognition =
+    r.Recognition
+      ? r.Recognition
+      : "—";
+
+
+  return `
+
+    <article class="restaurant-card">
+
+
+      <div class="card-top">
+
+
+        <div class="rank">
+          #${r.Rank}
+        </div>
+
+
+        <div class="restaurant-main">
+
+
+          <h3 class="restaurant-name">
+            ${r.Name}
+          </h3>
+
+
+          <div class="restaurant-location">
+
+            📍 ${r.Location}
+            ·
+            ${r.Area}
+
+          </div>
+
+
+          <div class="badges">
+
+            ${buildBadges(r)}
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+      <div class="card-info">
+
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Price
+          </div>
+
+          <div class="info-value">
+            ${r.Price}
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Recognition
+          </div>
+
+          <div class="info-value">
+            ${recognition}
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="why-go">
+
+        ${r.Why}
+
+      </div>
+
+
+      <div class="card-actions">
+
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=${mapsQuery}"
+          target="_blank"
+          class="card-btn"
+        >
+          📍 Maps
+        </a>
+
+
+        <button
+          class="card-btn info"
+          onclick="toggleInfo(this)"
+        >
+          ℹ️ Info
+        </button>
+
+
+      </div>
+
+
+      <div class="extra-info">
+
+        <strong style="color:#fff;">
+          ${r.Name}
+        </strong>
+
+        <br>
+
+        ${cuisineEmoji[r.Food] || "🍽️"}
+        ${r.Food}
+
+        <br>
+
+        📍 ${r.Location} · ${r.Area}
+
+        <br>
+
+        💴 ${r.Price}
+
+        ${
+          r.Recognition
+          ?
+          `<br>🏆 ${r.Recognition}`
+          :
+          ""
+        }
+
+      </div>
+
+
+    </article>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   TOGGLE INFO
+========================================================= */
+
+function toggleInfo(button){
+
+  const card =
+    button.closest(
+      ".restaurant-card"
+    );
+
+  const info =
+    card.querySelector(
+      ".extra-info"
+    );
+
+
+  info.classList.toggle(
+    "open"
+  );
+
+
+  button.textContent =
+    info.classList.contains("open")
+      ? "✕ Close"
+      : "ℹ️ Info";
+
+}
+
+
+
+/* =========================================================
+   RENDER AREA MODE
+========================================================= */
+
+function renderAreaMode(list){
+
+  if(!list.length){
+
+    results.innerHTML = `
+
+      <div class="empty-state">
+
+        <strong>
+          No restaurants found
+        </strong>
+
+        Try another area, food type or filter.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const grouped = {};
+
+
+  list.forEach(r => {
+
+    if(!grouped[r.Food]){
+
+      grouped[r.Food] = [];
+
+    }
+
+    grouped[r.Food].push(r);
+
+  });
+
+
+  const foodOrder =
+    foodOptions.filter(
+      food => grouped[food]
+    );
+
+
+  results.innerHTML =
+    foodOrder
+      .map(food => {
+
+
+        const group =
+          grouped[food]
+            .sort(
+              (a,b) =>
+                a.Rank - b.Rank
+            );
+
+
+        return `
+
+          <section class="food-group">
+
+
+            <div class="food-group-title">
+
+              <span>
+                ${cuisineEmoji[food] || "🍽️"}
+              </span>
+
+              <span>
+                ${food}
+              </span>
+
+              <span class="food-group-count">
+                ${group.length}
+              </span>
+
+            </div>
+
+
+            ${group
+              .map(restaurantCard)
+              .join("")
+            }
+
+
+          </section>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+
+/* =========================================================
+   RENDER FOOD MODE
+========================================================= */
+
+function renderFoodMode(list){
+
+  if(!list.length){
+
+    results.innerHTML = `
+
+      <div class="empty-state">
+
+        <strong>
+          No restaurants found
+        </strong>
+
+        Try another food type, area or filter.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const sorted =
+    [...list]
+      .sort(
+        (a,b) =>
+          a.Rank - b.Rank
+      );
+
+
+  results.innerHTML =
+    sorted
+      .map(restaurantCard)
+      .join("");
+
+}
+
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+function updateTitle(list){
+
+  if(browseMode === "area"){
+
+    if(selectedArea){
+
+      resultsTitle.textContent =
+        selectedArea;
+
+    }
+
+    else{
+
+      resultsTitle.textContent =
+        "All Kyoto Food";
+
+    }
+
+  }
+
+
+  else{
+
+    if(selectedFood){
+
+      resultsTitle.textContent =
+        (cuisineEmoji[selectedFood] || "🍽️")
+        + " "
+        + selectedFood;
+
+    }
+
+    else{
+
+      resultsTitle.textContent =
+        "All Food Types";
+
+    }
+
+  }
+
+
+  resultCount.textContent =
+    list.length
+    +
+    (
+      list.length === 1
+      ? " restaurant"
+      : " restaurants"
+    );
+
+}
+
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+  const list =
+    getFilteredRestaurants();
+
+
+  updateTitle(list);
+
+
+  if(browseMode === "area"){
+
+    renderAreaMode(list);
+
+  }
+
+  else{
+
+    renderFoodMode(list);
+
+  }
+
+}
+
+
+
+/* =========================================================
+   MODE SWITCH
+========================================================= */
+
+modeButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+
+      browseMode =
+        button.dataset.mode;
+
+
+      modeButtons.forEach(b => {
+
+        b.classList.toggle(
+          "active",
+          b === button
+        );
+
+      });
+
+
+      if(browseMode === "area"){
+
+        areaSection.style.display =
+          "block";
+
+        foodSection.style.display =
+          "none";
+
+      }
+
+      else{
+
+        areaSection.style.display =
+          "none";
+
+        foodSection.style.display =
+          "block";
+
+      }
+
+
+      render();
+
+    }
+  );
+
+});
+
+
+
+/* =========================================================
+   BOTTOM FILTERS
+========================================================= */
+
+bottomButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+
+      const filter =
+        button.dataset.filter;
+
+
+      if(
+        activeFilters.has(filter)
+      ){
+
+        activeFilters.delete(filter);
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+
+      else{
+
+        activeFilters.add(filter);
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      render();
+
+    }
+  );
+
+});
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+  "input",
+  () => {
+
+    searchTerm =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+    render();
+
+  }
+);
+
+
+
+/* =========================================================
+   URL PARAMETERS
+========================================================= */
+
+function loadURLParameters(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const area =
+    params.get("area");
+
+  const location =
+    params.get("location");
+
+  const food =
+    params.get("food");
+
+
+  /*
+     AREA LINK
+
+     Example:
+     kyotofood.html?area=Arashiyama
+  */
+
+  if(
+    area
+    &&
+    areaOptions.includes(area)
+  ){
+
+    browseMode = "area";
+
+    selectedArea = area;
+
+  }
+
+
+  /*
+     LOCATION LINK
+
+     Example:
+     kyotofood.html?location=Gion
+
+     Find the Area containing that
+     location, but keep the exact
+     location as the search term.
+
+     This means Gion will only show
+     Gion restaurants rather than
+     every Higashiyama restaurant.
+  */
+
+  if(location){
+
+    browseMode = "area";
+
+
+    const match =
+      restaurants.find(
+        r =>
+          r.Location
+            .toLowerCase()
+            ===
+          location.toLowerCase()
+      );
+
+
+    if(match){
+
+      selectedArea =
+        match.Area;
+
+      searchTerm =
+        location.toLowerCase();
+
+      searchInput.value =
+        location;
+
+    }
+
+  }
+
+
+  /*
+     FOOD LINK
+
+     Example:
+     kyotofood.html?food=Ramen%20%2F%20Tsukemen
+  */
+
+  if(
+    food
+    &&
+    foodOptions.includes(food)
+  ){
+
+    browseMode = "food";
+
+    selectedFood = food;
+
+  }
+
+
+  updateUIFromState();
+
+}
+
+
+
+/* =========================================================
+   SYNC UI
+========================================================= */
+
+function updateUIFromState(){
+
+
+  modeButtons.forEach(button => {
+
+    button.classList.toggle(
+      "active",
+      button.dataset.mode === browseMode
+    );
+
+  });
+
+
+  if(browseMode === "area"){
+
+    areaSection.style.display =
+      "block";
+
+    foodSection.style.display =
+      "none";
+
+  }
+
+  else{
+
+    areaSection.style.display =
+      "none";
+
+    foodSection.style.display =
+      "block";
+
+  }
+
+
+  areaChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.value === selectedArea
+      );
+
+    });
+
+
+  foodChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.value === selectedFood
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+createChips();
+
+loadURLParameters();
+
+render();
+
 </script>
-<style>
-body{padding-bottom:68px!important}
-.site-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:999;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:7px 9px calc(7px + env(safe-area-inset-bottom));background:rgba(7,12,16,.96);border-top:1px solid #29323b;backdrop-filter:blur(14px)}
-.site-bottom-nav a{min-height:39px;display:flex;align-items:center;justify-content:center;border-radius:9px;color:#aeb5bc;text-decoration:none;font-size:10px;font-weight:800}
-.site-bottom-nav a.active{color:#f5f5f3;background:rgba(201,111,104,.12)}
-</style>
 
-<nav class="site-bottom-nav" aria-label="Site navigation">
-  <a href="index.html">🏠 HOME</a>
-  <a href="schedule.html">📅 SCHEDULE</a>
-  <a href="kyotofood.html" class="active">⛩️ KYOTO</a>
-  <a href="osakafood.html">🌃 OSAKA</a>
-</nav>
 
-</body></html>
+</body>
+
+</html>
