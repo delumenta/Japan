@@ -84,7 +84,7 @@ body{
 
 
 /* =========================================================
-   HEADER
+   STICKY HEADER
 ========================================================= */
 
 header{
@@ -93,16 +93,18 @@ header{
 
   top:0;
 
-  z-index:30;
+  z-index:40;
 
-  background:rgba(7,12,16,.95);
+  background:
+    rgba(7,12,16,.96);
 
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid var(--line);
 
   padding:
-    13px
+    10px
     12px
-    12px;
+    8px;
 
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
@@ -117,13 +119,18 @@ header{
 
 }
 
+
+/* =========================================================
+   HEADER TOP
+========================================================= */
+
 .header-top{
 
   display:flex;
 
   align-items:center;
 
-  gap:11px;
+  gap:10px;
 
 }
 
@@ -134,16 +141,16 @@ header{
   align-items:center;
   justify-content:center;
 
-  min-height:39px;
+  min-height:37px;
 
   padding:
-    7px
-    11px;
+    6px
+    10px;
 
   border:
     1px solid var(--line);
 
-  border-radius:11px;
+  border-radius:10px;
 
   background:#121a20;
 
@@ -151,7 +158,7 @@ header{
 
   text-decoration:none;
 
-  font-size:12px;
+  font-size:11px;
 
   font-weight:750;
 
@@ -174,7 +181,7 @@ header{
     "Times New Roman",
     serif;
 
-  font-size:24px;
+  font-size:22px;
 
   letter-spacing:-.025em;
 
@@ -182,11 +189,11 @@ header{
 
 .header-title div{
 
-  margin-top:2px;
+  margin-top:1px;
 
   color:var(--muted);
 
-  font-size:11px;
+  font-size:10px;
 
 }
 
@@ -197,7 +204,7 @@ header{
 
 .search-wrap{
 
-  margin-top:12px;
+  margin-top:8px;
 
 }
 
@@ -205,16 +212,16 @@ header{
 
   width:100%;
 
-  min-height:44px;
+  min-height:41px;
 
   padding:
-    10px
-    13px;
+    9px
+    12px;
 
   border:
     1px solid var(--line);
 
-  border-radius:13px;
+  border-radius:12px;
 
   outline:none;
 
@@ -224,7 +231,7 @@ header{
 
   font:inherit;
 
-  font-size:13px;
+  font-size:12px;
 
 }
 
@@ -238,45 +245,24 @@ header{
 
 
 /* =========================================================
-   PAGE
+   STICKY BROWSE CONTROLS
 ========================================================= */
 
-main{
+.sticky-browse{
 
-  max-width:760px;
+  margin-top:8px;
 
-  margin:auto;
+  padding-top:8px;
 
-  padding:
-    16px
-    12px
-    105px;
+  border-top:
+    1px solid var(--line-soft);
 
 }
 
 
 /* =========================================================
-   BROWSE MODE
+   MODE SWITCH
 ========================================================= */
-
-.browse-title{
-
-  margin:
-    4px
-    2px
-    9px;
-
-  color:var(--red);
-
-  font-size:10px;
-
-  font-weight:850;
-
-  letter-spacing:.13em;
-
-  text-transform:uppercase;
-
-}
 
 .mode-switch{
 
@@ -288,7 +274,7 @@ main{
 
   gap:7px;
 
-  margin-bottom:17px;
+  margin-bottom:7px;
 
 }
 
@@ -296,18 +282,18 @@ main{
 
   appearance:none;
 
-  min-height:43px;
+  min-height:37px;
 
   border:
     1px solid var(--line);
 
-  border-radius:12px;
+  border-radius:10px;
 
   background:#121a20;
 
   color:var(--muted);
 
-  font-size:12px;
+  font-size:10px;
 
   font-weight:800;
 
@@ -332,28 +318,7 @@ main{
 ========================================================= */
 
 .chip-section{
-
-  margin-bottom:18px;
-
-}
-
-.chip-title{
-
-  margin:
-    0
-    2px
-    8px;
-
-  color:var(--muted);
-
-  font-size:10px;
-
-  font-weight:800;
-
-  text-transform:uppercase;
-
-  letter-spacing:.1em;
-
+  margin:0;
 }
 
 .chips{
@@ -367,9 +332,11 @@ main{
   padding:
     1px
     1px
-    7px;
+    3px;
 
   scrollbar-width:none;
+
+  scroll-snap-type:x proximity;
 
 }
 
@@ -383,11 +350,11 @@ main{
 
   flex:0 0 auto;
 
-  min-height:35px;
+  min-height:31px;
 
   padding:
-    7px
-    11px;
+    5px
+    10px;
 
   border:
     1px solid var(--line);
@@ -398,13 +365,15 @@ main{
 
   color:#c5ccd1;
 
-  font-size:10px;
+  font-size:9px;
 
   font-weight:750;
 
   cursor:pointer;
 
   white-space:nowrap;
+
+  scroll-snap-align:start;
 
 }
 
@@ -416,6 +385,24 @@ main{
 
   background:
     rgba(201,111,104,.11);
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+main{
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+    14px
+    12px
+    105px;
 
 }
 
@@ -435,9 +422,9 @@ main{
   gap:10px;
 
   margin:
-    3px
     2px
-    13px;
+    2px
+    12px;
 
 }
 
@@ -452,7 +439,7 @@ main{
     "Times New Roman",
     serif;
 
-  font-size:22px;
+  font-size:21px;
 
 }
 
@@ -460,7 +447,7 @@ main{
 
   color:var(--muted);
 
-  font-size:10px;
+  font-size:9px;
 
   white-space:nowrap;
 
@@ -473,7 +460,7 @@ main{
 
 .food-group{
 
-  margin-bottom:23px;
+  margin-bottom:22px;
 
 }
 
@@ -488,16 +475,16 @@ main{
   margin:
     5px
     2px
-    10px;
+    9px;
 
-  padding-bottom:8px;
+  padding-bottom:7px;
 
   border-bottom:
     1px solid var(--line-soft);
 
   color:#fff;
 
-  font-size:15px;
+  font-size:14px;
 
   font-weight:850;
 
@@ -524,14 +511,14 @@ main{
 
   position:relative;
 
-  margin-bottom:10px;
+  margin-bottom:9px;
 
-  padding:14px;
+  padding:13px;
 
   border:
     1px solid var(--line);
 
-  border-radius:17px;
+  border-radius:16px;
 
   background:
     linear-gradient(
@@ -556,9 +543,9 @@ main{
 
   flex:0 0 auto;
 
-  min-width:31px;
+  min-width:30px;
 
-  height:31px;
+  height:30px;
 
   display:flex;
 
@@ -575,7 +562,7 @@ main{
 
   color:var(--red);
 
-  font-size:11px;
+  font-size:10px;
 
   font-weight:900;
 
@@ -595,7 +582,7 @@ main{
 
   color:#fff;
 
-  font-size:15px;
+  font-size:14px;
 
   font-weight:850;
 
@@ -609,9 +596,14 @@ main{
 
   color:var(--muted);
 
-  font-size:10px;
+  font-size:9px;
 
 }
+
+
+/* =========================================================
+   BADGES
+========================================================= */
 
 .badges{
 
@@ -621,7 +613,7 @@ main{
 
   gap:5px;
 
-  margin-top:9px;
+  margin-top:8px;
 
 }
 
@@ -631,7 +623,7 @@ main{
 
   align-items:center;
 
-  min-height:25px;
+  min-height:24px;
 
   padding:
     4px
@@ -647,7 +639,7 @@ main{
 
   color:#cbd2d7;
 
-  font-size:9px;
+  font-size:8px;
 
   font-weight:800;
 
@@ -728,15 +720,15 @@ main{
 
   gap:7px;
 
-  margin-top:11px;
+  margin-top:10px;
 
 }
 
 .info-box{
 
   padding:
-    8px
-    9px;
+    7px
+    8px;
 
   border-radius:10px;
 
@@ -752,7 +744,7 @@ main{
 
   color:#77838c;
 
-  font-size:8px;
+  font-size:7px;
 
   font-weight:800;
 
@@ -768,24 +760,19 @@ main{
 
   color:#d9dee1;
 
-  font-size:10px;
+  font-size:9px;
 
   font-weight:700;
 
 }
 
-
-/* =========================================================
-   WHY GO
-========================================================= */
-
 .why-go{
 
-  margin-top:10px;
+  margin-top:9px;
 
   color:var(--muted);
 
-  font-size:11px;
+  font-size:10px;
 
   line-height:1.5;
 
@@ -802,7 +789,7 @@ main{
 
   gap:7px;
 
-  margin-top:11px;
+  margin-top:10px;
 
 }
 
@@ -813,11 +800,11 @@ main{
   align-items:center;
   justify-content:center;
 
-  min-height:36px;
+  min-height:35px;
 
   padding:
     7px
-    11px;
+    10px;
 
   border-radius:10px;
 
@@ -831,7 +818,7 @@ main{
 
   text-decoration:none;
 
-  font-size:10px;
+  font-size:9px;
 
   font-weight:800;
 
@@ -869,7 +856,7 @@ main{
 
   color:var(--muted);
 
-  font-size:10px;
+  font-size:9px;
 
   line-height:1.55;
 
@@ -932,7 +919,7 @@ main{
     calc(8px + env(safe-area-inset-bottom));
 
   background:
-    rgba(7,12,16,.96);
+    rgba(7,12,16,.97);
 
   border-top:
     1px solid var(--line);
@@ -961,7 +948,7 @@ main{
 
   appearance:none;
 
-  min-height:43px;
+  min-height:42px;
 
   padding:
     5px
@@ -970,13 +957,13 @@ main{
   border:
     1px solid #26333d;
 
-  border-radius:11px;
+  border-radius:10px;
 
   background:#11181e;
 
   color:#aeb5bc;
 
-  font-size:10px;
+  font-size:9px;
 
   font-weight:850;
 
@@ -1003,7 +990,7 @@ main{
 @media(max-width:480px){
 
   .header-title h1{
-    font-size:21px;
+    font-size:20px;
   }
 
   .restaurant-card{
@@ -1014,12 +1001,8 @@ main{
     font-size:14px;
   }
 
-  .card-info{
-    grid-template-columns:1fr 1fr;
-  }
-
   .bottom-btn{
-    font-size:9px;
+    font-size:8.5px;
   }
 
 }
@@ -1031,12 +1014,18 @@ main{
 
 @media(max-width:360px){
 
+  .header-title h1{
+    font-size:18px;
+  }
+
   .bottom-btn{
     font-size:8px;
   }
 
-  .schedule-item{
-    grid-template-columns:1fr;
+  .home-button{
+    padding:
+      6px
+      8px;
   }
 
 }
@@ -1050,7 +1039,7 @@ main{
 
 
 <!-- =========================================================
-     HEADER
+     STICKY HEADER
 ========================================================= -->
 
 <header>
@@ -1083,6 +1072,7 @@ main{
     </div>
 
 
+
     <div class="search-wrap">
 
       <input
@@ -1096,86 +1086,64 @@ main{
     </div>
 
 
+
+    <div class="sticky-browse">
+
+
+      <div class="mode-switch">
+
+        <button
+          class="mode-btn active"
+          data-mode="area"
+        >
+          📍 By Area
+        </button>
+
+        <button
+          class="mode-btn"
+          data-mode="food"
+        >
+          🍜 By Food
+        </button>
+
+      </div>
+
+
+
+      <div
+        class="chip-section"
+        id="areaSection"
+      >
+
+        <div
+          class="chips"
+          id="areaChips"
+        ></div>
+
+      </div>
+
+
+
+      <div
+        class="chip-section"
+        id="foodSection"
+        style="display:none;"
+      >
+
+        <div
+          class="chips"
+          id="foodChips"
+        ></div>
+
+      </div>
+
+
+    </div>
+
+
   </div>
 
 </header>
-
-
-
-<main>
-
-
-<!-- =========================================================
-     BROWSE MODE
-========================================================= -->
-
-<div class="browse-title">
-  Browse
-</div>
-
-
-<div class="mode-switch">
-
-  <button
-    class="mode-btn active"
-    data-mode="area"
-  >
-    📍 By Area
-  </button>
-
-  <button
-    class="mode-btn"
-    data-mode="food"
-  >
-    🍜 By Food
-  </button>
-
-</div>
-
-
-
-<!-- =========================================================
-     AREA CHIPS
-========================================================= -->
-
-<div
-  class="chip-section"
-  id="areaSection"
->
-
-  <div class="chip-title">
-    Browse by Area
-  </div>
-
-  <div
-    class="chips"
-    id="areaChips"
-  ></div>
-
-</div>
-
-
-
-<!-- =========================================================
-     FOOD CHIPS
-========================================================= -->
-
-<div
-  class="chip-section"
-  id="foodSection"
-  style="display:none;"
->
-
-  <div class="chip-title">
-    Browse by Food
-  </div>
-
-  <div
-    class="chips"
-    id="foodChips"
-  ></div>
-
-</div>
 
 
 
@@ -1183,21 +1151,24 @@ main{
      RESULTS
 ========================================================= -->
 
-<div class="results-head">
-
-  <h2 id="resultsTitle">
-    All Kyoto Food
-  </h2>
-
-  <div
-    class="result-count"
-    id="resultCount"
-  ></div>
-
-</div>
+<main>
 
 
-<div id="results"></div>
+  <div class="results-head">
+
+    <h2 id="resultsTitle">
+      All Kyoto Food
+    </h2>
+
+    <div
+      class="result-count"
+      id="resultCount"
+    ></div>
+
+  </div>
+
+
+  <div id="results"></div>
 
 
 </main>
@@ -1327,8 +1298,6 @@ const restaurants = [
 },
 
 
-/* CURRY */
-
 {
   Name:"Curry & Tempura Koisus",
   Food:"Curry",
@@ -1354,8 +1323,6 @@ const restaurants = [
 },
 
 
-/* GYOZA */
-
 {
   Name:"Chao Chao Gyoza",
   Food:"Gyoza",
@@ -1368,8 +1335,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* IZAKAYA */
 
 {
   Name:"Sumiro Man",
@@ -1408,8 +1373,6 @@ const restaurants = [
 },
 
 
-/* KAISENDON */
-
 {
   Name:"Genkai Don",
   Food:"Kaisendon",
@@ -1422,8 +1385,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* OYAKODON */
 
 {
   Name:"Wabiya Korekido",
@@ -1449,8 +1410,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* RAMEN */
 
 {
   Name:"Menya Inoichi",
@@ -1537,8 +1496,6 @@ const restaurants = [
 },
 
 
-/* SEAFOOD */
-
 {
   Name:"Masoho Hanare",
   Food:"Seafood",
@@ -1551,8 +1508,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* SUSHI */
 
 {
   Name:"Odai Sushi",
@@ -1651,8 +1606,6 @@ const restaurants = [
 },
 
 
-/* TEMPURA */
-
 {
   Name:"Tempura no Mise Gen",
   Food:"Tempura",
@@ -1665,8 +1618,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* TONKATSU */
 
 {
   Name:"Katsukura",
@@ -1692,8 +1643,6 @@ const restaurants = [
   Recognition:"Tonkatsu Top 100 2026"
 },
 
-
-/* UDON / SOBA */
 
 {
   Name:"Omen Ginkakuji",
@@ -1744,8 +1693,6 @@ const restaurants = [
 },
 
 
-/* UNAGI */
-
 {
   Name:"Nezameya",
   Food:"Unagi",
@@ -1770,8 +1717,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* WASHOKU */
 
 {
   Name:"Gohanya Isshin Kyoto",
@@ -1809,8 +1754,6 @@ const restaurants = [
   Recognition:""
 },
 
-
-/* YAKITORI */
 
 {
   Name:"Kuchibashi Modern",
@@ -2202,33 +2145,23 @@ function getFilteredRestaurants(){
   return restaurants.filter(r => {
 
 
-    /* AREA */
-
     if(
       selectedArea
       &&
       r.Area !== selectedArea
     ){
-
       return false;
-
     }
 
-
-    /* FOOD */
 
     if(
       selectedFood
       &&
       r.Food !== selectedFood
     ){
-
       return false;
-
     }
 
-
-    /* SEARCH */
 
     if(searchTerm){
 
@@ -2249,23 +2182,18 @@ function getFilteredRestaurants(){
       if(
         !haystack.includes(searchTerm)
       ){
-
         return false;
-
       }
 
     }
 
 
     /*
-       SPECIAL FILTERS
-
-       Multiple selected filters are treated
-       as OR.
+       Bottom filters use OR logic.
 
        Example:
        Picks + Hot
-       = show restaurants that are either
+       = restaurants that are
        Picks OR Hot.
     */
 
@@ -2294,9 +2222,7 @@ function getFilteredRestaurants(){
       if(
         !matches.some(Boolean)
       ){
-
         return false;
-
       }
 
     }
@@ -2373,7 +2299,7 @@ function buildBadges(r){
 
 
 /* =========================================================
-   CARD
+   RESTAURANT CARD
 ========================================================= */
 
 function restaurantCard(r){
@@ -2565,7 +2491,7 @@ function toggleInfo(button){
 
 
 /* =========================================================
-   RENDER AREA MODE
+   AREA MODE
 ========================================================= */
 
 function renderAreaMode(list){
@@ -2597,9 +2523,7 @@ function renderAreaMode(list){
   list.forEach(r => {
 
     if(!grouped[r.Food]){
-
       grouped[r.Food] = [];
-
     }
 
     grouped[r.Food].push(r);
@@ -2666,7 +2590,7 @@ function renderAreaMode(list){
 
 
 /* =========================================================
-   RENDER FOOD MODE
+   FOOD MODE
 ========================================================= */
 
 function renderFoodMode(list){
@@ -2710,7 +2634,7 @@ function renderFoodMode(list){
 
 
 /* =========================================================
-   TITLE
+   UPDATE TITLE
 ========================================================= */
 
 function updateTitle(list){
@@ -2941,13 +2865,6 @@ function loadURLParameters(){
     params.get("food");
 
 
-  /*
-     AREA LINK
-
-     Example:
-     kyotofood.html?area=Arashiyama
-  */
-
   if(
     area
     &&
@@ -2960,21 +2877,6 @@ function loadURLParameters(){
 
   }
 
-
-  /*
-     LOCATION LINK
-
-     Example:
-     kyotofood.html?location=Gion
-
-     Find the Area containing that
-     location, but keep the exact
-     location as the search term.
-
-     This means Gion will only show
-     Gion restaurants rather than
-     every Higashiyama restaurant.
-  */
 
   if(location){
 
@@ -3006,13 +2908,6 @@ function loadURLParameters(){
 
   }
 
-
-  /*
-     FOOD LINK
-
-     Example:
-     kyotofood.html?food=Ramen%20%2F%20Tsukemen
-  */
 
   if(
     food
