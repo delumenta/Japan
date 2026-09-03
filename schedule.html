@@ -1,0 +1,4027 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#070c10">
+
+<title>Japan Trip Schedule</title>
+
+
+<style>
+
+/* =========================================
+   COLORS
+========================================= */
+
+:root{
+
+  --bg:#070c10;
+
+  --panel:#10161c;
+  --panel-light:#151c23;
+  --panel-active:#172027;
+
+  --line:#29323b;
+  --line-soft:rgba(255,255,255,.07);
+
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --muted-blue:#91a5b3;
+
+  --red:#c96f68;
+  --blue:#5c9dff;
+  --green:#67c587;
+  --orange:#f4a34d;
+
+}
+
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  margin:0;
+
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      #17202a 0%,
+      transparent 38%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  line-height:1.5;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+header{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:30;
+
+  background:rgba(7,12,16,.94);
+
+  border-bottom:1px solid var(--line);
+
+  padding:13px 12px 12px;
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+}
+
+.header-top{
+
+  max-width:820px;
+
+  margin:0 auto 12px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+
+}
+
+.home-button{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:39px;
+
+  padding:7px 11px;
+
+  border:1px solid var(--line);
+
+  border-radius:11px;
+
+  background:#121a20;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:12px;
+  font-weight:750;
+
+  white-space:nowrap;
+
+}
+
+.home-button:active{
+
+  border-color:var(--red);
+  color:#fff;
+
+}
+
+.header-title{
+
+  min-width:0;
+
+}
+
+.header-title h1{
+
+  margin:0;
+
+  color:#fff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:24px;
+
+  letter-spacing:-.025em;
+
+}
+
+.header-title div{
+
+  margin-top:2px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
+
+/* =========================================
+   TRIP FILTER
+========================================= */
+
+.trip-filter{
+
+  max-width:820px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    .65fr
+    1fr
+    1.3fr
+    1fr;
+
+  gap:6px;
+
+}
+
+.trip-filter button{
+
+  appearance:none;
+
+  min-height:40px;
+
+  border:1px solid #26333d;
+
+  border-radius:11px;
+
+  background:#121a20;
+
+  color:#cdd4d9;
+
+  padding:7px 5px;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+}
+
+.trip-filter button.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.10);
+
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+main{
+
+  max-width:820px;
+
+  margin:auto;
+
+  padding:
+    15px
+    12px
+    80px;
+
+}
+
+
+/* =========================================
+   DATE SCROLLER
+========================================= */
+
+.date-section{
+
+  margin-bottom:18px;
+
+}
+
+.section-label{
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:850;
+
+  letter-spacing:.13em;
+
+  text-transform:uppercase;
+
+  margin:
+    2px
+    2px
+    9px;
+
+}
+
+.date-scroll{
+
+  display:flex;
+
+  gap:9px;
+
+  overflow-x:auto;
+
+  padding:
+    2px
+    2px
+    10px;
+
+  scrollbar-width:none;
+
+  scroll-snap-type:x proximity;
+
+}
+
+.date-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+
+/* =========================================
+   DATE CARDS
+========================================= */
+
+.day-card{
+
+  appearance:none;
+
+  flex:
+    0 0
+    150px;
+
+  min-height:118px;
+
+  text-align:left;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151d23,
+      #0e1419
+    );
+
+  padding:13px;
+
+  color:var(--text);
+
+  cursor:pointer;
+
+  scroll-snap-align:start;
+
+  transition:.18s ease;
+
+}
+
+.day-card.active{
+
+  border-color:var(--red);
+
+  background:
+    linear-gradient(
+      145deg,
+      #1d2024,
+      #141719
+    );
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(201,111,104,.08);
+
+}
+
+.day-number{
+
+  color:var(--red);
+
+  font-size:12px;
+
+  font-weight:850;
+
+  letter-spacing:.06em;
+
+}
+
+.day-area{
+
+  margin-top:4px;
+
+  color:var(--muted-blue);
+
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  font-weight:750;
+
+}
+
+.day-summary{
+
+  margin-top:8px;
+
+  color:#fff;
+
+  font-size:13px;
+
+  font-weight:750;
+
+  line-height:1.25;
+
+}
+
+.day-level{
+
+  margin-top:9px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  font-weight:700;
+
+}
+
+
+/* =========================================
+   DAY HERO
+========================================= */
+
+.day-content{
+  display:none;
+}
+
+.day-content.active{
+  display:block;
+}
+
+.day-hero{
+
+  margin-bottom:16px;
+
+  padding:
+    18px
+    16px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #171f25,
+      #0e1419
+    );
+
+}
+
+.day-date{
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:850;
+
+  text-transform:uppercase;
+
+  letter-spacing:.13em;
+
+}
+
+.day-hero h2{
+
+  margin:
+    7px
+    0
+    5px;
+
+  color:#fff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:28px;
+
+  line-height:1.08;
+
+  letter-spacing:-.025em;
+
+}
+
+.day-route{
+
+  color:var(--muted);
+
+  font-size:13px;
+
+}
+
+.stats{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:7px;
+
+  margin-top:14px;
+
+}
+
+.stat{
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.035);
+
+  border-radius:999px;
+
+  padding:6px 9px;
+
+  color:#cbd2d7;
+
+  font-size:10px;
+
+  font-weight:700;
+
+}
+
+
+/* =========================================
+   SCHEDULE TITLE
+========================================= */
+
+.schedule-title{
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:850;
+
+  letter-spacing:.13em;
+
+  text-transform:uppercase;
+
+  margin:
+    21px
+    2px
+    10px;
+
+}
+
+
+/* =========================================
+   SCHEDULE
+========================================= */
+
+.timeline{
+
+  position:relative;
+
+}
+
+.schedule-item{
+
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    92px
+    1fr;
+
+  gap:12px;
+
+  padding:
+    15px
+    0;
+
+  border-bottom:
+    1px solid var(--line-soft);
+
+}
+
+.schedule-item:last-child{
+  border-bottom:0;
+}
+
+.schedule-time{
+
+  color:var(--muted-blue);
+
+  font-size:11px;
+
+  font-weight:800;
+
+  line-height:1.35;
+
+}
+
+.schedule-main{
+  min-width:0;
+}
+
+.schedule-place{
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:800;
+
+}
+
+.schedule-note{
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.5;
+
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.actions{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:7px;
+
+  margin-top:9px;
+
+}
+
+.action{
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:35px;
+
+  padding:7px 10px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(201,111,104,.26);
+
+  background:
+    rgba(201,111,104,.08);
+
+  color:var(--red);
+
+  text-decoration:none;
+
+  font-size:10px;
+
+  font-weight:800;
+
+}
+
+.action.food{
+
+  color:var(--blue);
+
+  border-color:
+    rgba(92,157,255,.25);
+
+  background:
+    rgba(92,157,255,.08);
+
+}
+
+
+/* =========================================
+   IMPORTANT / SUNSET
+========================================= */
+
+.highlight{
+
+  margin-top:16px;
+
+  padding:13px 14px;
+
+  border:
+    1px solid rgba(244,163,77,.24);
+
+  background:
+    rgba(244,163,77,.07);
+
+  border-radius:15px;
+
+  color:#d9dde0;
+
+  font-size:12px;
+
+  line-height:1.55;
+
+}
+
+.highlight strong{
+
+  color:var(--orange);
+
+}
+
+
+/* =========================================
+   FLEXIBLE DAY
+========================================= */
+
+.flex-day{
+
+  padding:22px 16px;
+
+  border:
+    1px dashed #34414b;
+
+  border-radius:18px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+}
+
+.flex-icon{
+
+  font-size:28px;
+
+  margin-bottom:8px;
+
+}
+
+.flex-day strong{
+
+  display:block;
+
+  color:#fff;
+
+  margin-bottom:5px;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:480px){
+
+  .header-title h1{
+    font-size:21px;
+  }
+
+  .trip-filter{
+    grid-template-columns:
+      .55fr
+      1fr
+      1.25fr
+      .9fr;
+  }
+
+  .trip-filter button{
+    font-size:10px;
+  }
+
+  .day-card{
+    flex-basis:142px;
+  }
+
+  .schedule-item{
+
+    grid-template-columns:
+      78px
+      1fr;
+
+    gap:10px;
+
+  }
+
+  .day-hero h2{
+    font-size:25px;
+  }
+
+}
+
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media(min-width:700px){
+
+  main{
+    padding-top:20px;
+  }
+
+  .day-card{
+    flex-basis:165px;
+  }
+
+  .schedule-item{
+
+    grid-template-columns:
+      120px
+      1fr;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header>
+
+  <div class="header-top">
+
+    <a
+      href="index.html"
+      class="home-button"
+    >
+      ← Home
+    </a>
+
+
+    <div class="header-title">
+
+      <h1>
+        📅 Japan Trip Schedule
+      </h1>
+
+      <div>
+        18–31 October 2026
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- MAIN FILTER -->
+
+  <div class="trip-filter">
+
+    <button
+      class="trip-btn active"
+      data-trip="all"
+    >
+      ALL
+    </button>
+
+    <button
+      class="trip-btn"
+      data-trip="kyoto"
+    >
+      ⛩️ KYOTO
+    </button>
+
+    <button
+      class="trip-btn"
+      data-trip="road"
+    >
+      🚗 ROAD TRIP
+    </button>
+
+    <button
+      class="trip-btn"
+      data-trip="osaka"
+    >
+      🌃 OSAKA
+    </button>
+
+  </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================================
+     DATE CARDS
+===================================== -->
+
+<section class="date-section">
+
+  <div
+    class="section-label"
+    id="dateLabel"
+  >
+    All Trip Dates
+  </div>
+
+
+  <div
+    class="date-scroll"
+    id="dateScroll"
+  >
+
+
+    <button
+      class="day-card active"
+      data-day="18"
+      data-trip="kyoto"
+    >
+
+      <div class="day-number">
+        18 OCT
+      </div>
+
+      <div class="day-area">
+        Kyoto
+      </div>
+
+      <div class="day-summary">
+        Higashiyama + Gion
+      </div>
+
+      <div class="day-level">
+        🟢 Easy · 3/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="19"
+      data-trip="kyoto"
+    >
+
+      <div class="day-number">
+        19 OCT
+      </div>
+
+      <div class="day-area">
+        Kyoto
+      </div>
+
+      <div class="day-summary">
+        Arashiyama + Disaster Center
+      </div>
+
+      <div class="day-level">
+        🟡 Easy–Moderate · 4.5/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="20"
+      data-trip="kyoto"
+    >
+
+      <div class="day-number">
+        20 OCT
+      </div>
+
+      <div class="day-area">
+        Kyoto
+      </div>
+
+      <div class="day-summary">
+        Fushimi + Kurama + Kibune
+      </div>
+
+      <div class="day-level">
+        🟠 Moderate · 5.5/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="21"
+      data-trip="kyoto"
+    >
+
+      <div class="day-number">
+        21 OCT
+      </div>
+
+      <div class="day-area">
+        Kyoto
+      </div>
+
+      <div class="day-summary">
+        Ine Day Trip
+      </div>
+
+      <div class="day-level">
+        🟠 Moderate · 5.5/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="22"
+      data-trip="kyoto"
+    >
+
+      <div class="day-number">
+        22 OCT
+      </div>
+
+      <div class="day-area">
+        Kyoto
+      </div>
+
+      <div class="day-summary">
+        Nanzen-ji + Mom + teamLab
+      </div>
+
+      <div class="day-level">
+        🟡 Moderate · 5/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="23"
+      data-trip="road"
+    >
+
+      <div class="day-number">
+        23 OCT
+      </div>
+
+      <div class="day-area">
+        Road Trip
+      </div>
+
+      <div class="day-summary">
+        Soni → Dorogawa
+      </div>
+
+      <div class="day-level">
+        🟡 Easy–Moderate · 4/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="24"
+      data-trip="road"
+    >
+
+      <div class="day-number">
+        24 OCT
+      </div>
+
+      <div class="day-area">
+        Road Trip
+      </div>
+
+      <div class="day-summary">
+        Koyasan → Ryujin
+      </div>
+
+      <div class="day-level">
+        🟠 Moderate · 5/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="25"
+      data-trip="road"
+    >
+
+      <div class="day-number">
+        25 OCT
+      </div>
+
+      <div class="day-area">
+        Road Trip
+      </div>
+
+      <div class="day-summary">
+        Kumano → Nachikatsuura
+      </div>
+
+      <div class="day-level">
+        🟠 Moderate · 5/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="26"
+      data-trip="road"
+    >
+
+      <div class="day-number">
+        26 OCT
+      </div>
+
+      <div class="day-area">
+        Road Trip
+      </div>
+
+      <div class="day-summary">
+        Nachi → Osaka
+      </div>
+
+      <div class="day-level">
+        🟠 Moderate+ · 6/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="27"
+      data-trip="osaka"
+    >
+
+      <div class="day-number">
+        27 OCT
+      </div>
+
+      <div class="day-area">
+        Osaka
+      </div>
+
+      <div class="day-summary">
+        Flexible Osaka Day
+      </div>
+
+      <div class="day-level">
+        🟢 Easy
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="28"
+      data-trip="osaka"
+    >
+
+      <div class="day-number">
+        28 OCT
+      </div>
+
+      <div class="day-area">
+        Osaka Base
+      </div>
+
+      <div class="day-summary">
+        Narai-juku Day Trip
+      </div>
+
+      <div class="day-level">
+        🔴 Long Day · 7/10
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="29"
+      data-trip="osaka"
+    >
+
+      <div class="day-number">
+        29 OCT
+      </div>
+
+      <div class="day-area">
+        Osaka
+      </div>
+
+      <div class="day-summary">
+        Flexible Osaka Day
+      </div>
+
+      <div class="day-level">
+        🟢 Flexible
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="30"
+      data-trip="osaka"
+    >
+
+      <div class="day-number">
+        30 OCT
+      </div>
+
+      <div class="day-area">
+        Osaka
+      </div>
+
+      <div class="day-summary">
+        Final Full Day
+      </div>
+
+      <div class="day-level">
+        🟢 Flexible
+      </div>
+
+    </button>
+
+
+
+    <button
+      class="day-card"
+      data-day="31"
+      data-trip="osaka"
+    >
+
+      <div class="day-number">
+        31 OCT
+      </div>
+
+      <div class="day-area">
+        Osaka
+      </div>
+
+      <div class="day-summary">
+        Fly Home
+      </div>
+
+      <div class="day-level">
+        ✈️ Departure
+      </div>
+
+    </button>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     18 OCT
+================================================================ -->
+
+<section
+  class="day-content active"
+  id="day-18"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      18 OCTOBER · KYOTO
+    </div>
+
+    <h2>
+      🏮 Higashiyama + Gion
+    </h2>
+
+    <div class="day-route">
+      Arrival → Higashiyama → Gion → Pontocho
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟢 Easy · 3/10
+      </span>
+
+      <span class="stat">
+        🚶 ~5–7 km
+      </span>
+
+      <span class="stat">
+        🌙 Easy evening
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~1:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Arrive Kyoto
+        </div>
+
+        <div class="schedule-note">
+          Head to hotel and leave luggage / check in when ready.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~3:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏨 Hotel Check-in
+        </div>
+
+        <div class="schedule-note">
+          Freshen up before going out.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~3:30 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍜 Late Lunch
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="food.html?area=Higashiyama"
+            class="action food"
+          >
+            🍽️ Higashiyama Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        4:00–5:30 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏮 Higashiyama
+        </div>
+
+        <div class="schedule-note">
+          Ninenzaka · Sannenzaka · Yasaka Pagoda · Old Kyoto streets
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Ninenzaka+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+          <a
+            href="food.html?area=Higashiyama"
+            class="action food"
+          >
+            🍽️ Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~6:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏮 Gion
+        </div>
+
+        <div class="schedule-note">
+          Yasaka Shrine · Hanamikoji · Gion Shirakawa
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+          <a
+            href="food.html?area=Higashiyama"
+            class="action food"
+          >
+            🍽️ Gion Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~7:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍽️ Dinner
+        </div>
+
+        <div class="schedule-note">
+          Gion / Kawaramachi / Pontocho.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="food.html?area=Downtown"
+            class="action food"
+          >
+            🍽️ Downtown Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        8:30 PM+
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌃 Pontocho + Kamo River
+        </div>
+
+        <div class="schedule-note">
+          Relaxed evening stroll. No need to rush.
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     19 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-19"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      19 OCTOBER · KYOTO
+    </div>
+
+    <h2>
+      🎋 Arashiyama + Disaster Center
+    </h2>
+
+    <div class="day-route">
+      Early Arashiyama → Disaster Prevention Center → Free Afternoon
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟡 Easy–Moderate · 4.5/10
+      </span>
+
+      <span class="stat">
+        🚶 ~5–7 km
+      </span>
+
+      <span class="stat">
+        ⏰ Finish ~1 PM
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        6:45 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Leave Hotel
+        </div>
+
+        <div class="schedule-note">
+          Travel to Arashiyama.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        7:30–8:30 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🎋 Arashiyama Bamboo Grove
+        </div>
+
+        <div class="schedule-note">
+          Early visit before the main crowds.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+          <a
+            href="food.html?area=Arashiyama"
+            class="action food"
+          >
+            🍽️ Arashiyama Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        8:30–9:15 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌿 Sagano
+        </div>
+
+        <div class="schedule-note">
+          Short relaxed walk through the quieter streets.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        9:15–9:45 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌉 Togetsukyo + Katsura River
+        </div>
+
+        <div class="schedule-note">
+          Bridge and short riverside walk.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~10:00 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Leave Arashiyama
+        </div>
+
+        <div class="schedule-note">
+          Travel toward Kyoto City Disaster Prevention Center.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~10:45 AM–12:30 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚒 Disaster Prevention Center
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kyoto+City+Disaster+Prevention+Center"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~1:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ✅ Sightseeing Finished
+        </div>
+
+        <div class="schedule-note">
+          Lunch · rest · shopping · completely free afternoon.
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     20 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-20"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      20 OCTOBER · KYOTO
+    </div>
+
+    <h2>
+      ⛩️ Fushimi → Kurama → Kibune
+    </h2>
+
+    <div class="day-route">
+      Fushimi Inari → Kurama Village → Kibune Village → Lantern Steps
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟠 Moderate · 5.5/10
+      </span>
+
+      <span class="stat">
+        🚶 ~8–10 km
+      </span>
+
+      <span class="stat">
+        🌅 Sunset ~5:16 PM
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~7:15 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Leave Hotel
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        7:45–9:30 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ⛩️ Fushimi Inari
+        </div>
+
+        <div class="schedule-note">
+          Senbon Torii · walk partway up. No need to climb the entire mountain.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+          <a
+            href="food.html?area=Fushimi"
+            class="action food"
+          >
+            🍽️ Fushimi Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        9:30–11:00 AM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍜 Break / Early Lunch
+        </div>
+
+        <div class="schedule-note">
+          Eat before travelling north.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="food.html?area=Fushimi"
+            class="action food"
+          >
+            🍽️ Fushimi Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Travel North
+        </div>
+
+        <div class="schedule-note">
+          Head toward Kurama.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~2:15 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          👺 Kurama Village
+        </div>
+
+        <div class="schedule-note">
+          Kurama Station · Tengu · mountain village streets. No Kurama-dera hike.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kurama+Station+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~3:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚃 Kurama → Kibune
+        </div>
+
+        <div class="schedule-note">
+          Transfer toward Kibuneguchi, then continue up to Kibune.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~3:40–4:30 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌲 Kibune Village
+        </div>
+
+        <div class="schedule-note">
+          River · bridges · traditional restaurants · ryokan street.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kibune+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ⭐ ~4:50 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏮 Kifune Shrine Lantern Steps
+        </div>
+
+        <div class="schedule-note">
+          Arrive before sunset and stay as the lantern atmosphere becomes stronger.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kifune+Shrine+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~5:16 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌅 Sunset
+        </div>
+
+        <div class="schedule-note">
+          Stay until roughly 5:35–5:40 PM for dusk photos.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~5:45 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Leave Kibune
+        </div>
+
+        <div class="schedule-note">
+          Return to central Kyoto.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~7:00 PM+
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍽️ Dinner
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="food.html?area=Downtown"
+            class="action food"
+          >
+            🍽️ Kyoto Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    <strong>Important:</strong>
+    Kurama → Kibune transport should be checked again closer to the trip because the exact Eizan train / bus timetable may change.
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     21 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-21"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      21 OCTOBER · KYOTO
+    </div>
+
+    <h2>
+      🌊 Ine Day Trip
+    </h2>
+
+    <div class="day-route">
+      Kyoto → Ine → Funaya Village → Kyoto
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟠 Moderate · 5.5/10
+      </span>
+
+      <span class="stat">
+        🚶 ~4–6 km
+      </span>
+
+      <span class="stat">
+        🚌 Long travel day
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Leave Kyoto
+        </div>
+
+        <div class="schedule-note">
+          Long journey north toward Ine.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌊 Arrive Ine
+        </div>
+
+        <div class="schedule-note">
+          Begin around the waterfront and funaya area.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Ine+Kyoto+Japan"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Midday
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏘️ Ine Funaya
+        </div>
+
+        <div class="schedule-note">
+          Boathouses · waterfront · village streets · harbour views.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Lunch
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🐟 Lunch in Ine
+        </div>
+
+        <div class="schedule-note">
+          Keep this flexible depending on transport timing.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌊 Continue Ine
+        </div>
+
+        <div class="schedule-note">
+          Relaxed exploration before beginning the long return journey.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Evening
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌃 Return Kyoto
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="food.html?area=Kyoto%20Station"
+            class="action food"
+          >
+            🍽️ Kyoto Station Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     22 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-22"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      22 OCTOBER · KYOTO
+    </div>
+
+    <h2>
+      🍁 Nanzen-ji + Mom + teamLab
+    </h2>
+
+    <div class="day-route">
+      Nanzen-ji → Suirokaku → Philosopher's Path → Mom → teamLab
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟡 Moderate · 5/10
+      </span>
+
+      <span class="stat">
+        🚶 ~7–9 km
+      </span>
+
+      <span class="stat">
+        ☕ Relaxed afternoon
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ⛩️ Nanzen-ji
+        </div>
+
+        <div class="schedule-note">
+          Temple grounds first while the morning is still comfortable.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Nanzenji+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+          <a
+            href="food.html?area=Okazaki"
+            class="action food"
+          >
+            🍽️ Okazaki Food
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🧱 Suirokaku Aqueduct
+        </div>
+
+        <div class="schedule-note">
+          Inside the Nanzen-ji area.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍁 Philosopher's Path
+        </div>
+
+        <div class="schedule-note">
+          Do only as much as you feel like. No need to walk every metre.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ~2:00 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          👩 Meet Mom + Lunch
+        </div>
+
+        <div class="schedule-note">
+          Lunch together, then relaxed shopping / café / easy afternoon.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        2:00–5:30 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ☕ Time with Mom
+        </div>
+
+        <div class="schedule-note">
+          Intentionally kept easy after the morning walking.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        After 5:30 PM
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ✨ teamLab Biovortex Kyoto
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=teamLab+Biovortex+Kyoto"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     23 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-23"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      23 OCTOBER · ROAD TRIP
+    </div>
+
+    <h2>
+      🚗 Kyoto → Soni → Dorogawa
+    </h2>
+
+    <div class="day-route">
+      Kyoto → Soni Highlands → Dorogawa Onsen
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟡 4/10
+      </span>
+
+      <span class="stat">
+        🚗 Scenic driving
+      </span>
+
+      <span class="stat">
+        ♨️ Onsen night
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍳 Relaxed Kyoto Morning
+        </div>
+
+        <div class="schedule-note">
+          Breakfast · pack · check out.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚗 Begin Road Trip
+        </div>
+
+        <div class="schedule-note">
+          Leave Kyoto and drive toward Nara Prefecture.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌾 Soni Highlands
+        </div>
+
+        <div class="schedule-note">
+          Scenic walk and mountain landscape.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Soni+Highlands+Nara"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚗 Drive to Dorogawa
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Evening
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ♨️ Dorogawa Onsen
+        </div>
+
+        <div class="schedule-note">
+          Check in · ryokan dinner · onsen · evening town walk.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Dorogawa+Onsen"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     24 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-24"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      24 OCTOBER · ROAD TRIP
+    </div>
+
+    <h2>
+      🏔️ Dorogawa → Koyasan → Ryujin
+    </h2>
+
+    <div class="day-route">
+      Dorogawa → Koyasan → Koya-Ryujin Skyline → Kamigoten
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟠 5/10
+      </span>
+
+      <span class="stat">
+        🚗 Mountain roads
+      </span>
+
+      <span class="stat">
+        ♨️ Ryujin Onsen
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ♨️ Dorogawa Morning
+        </div>
+
+        <div class="schedule-note">
+          Morning soak · breakfast · check out.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚗 Drive to Koyasan
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Midday
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ⛩️ Koyasan
+        </div>
+
+        <div class="schedule-note">
+          Main sightseeing + lunch.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Koyasan+Wakayama"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏔️ Koya-Ryujin Skyline
+        </div>
+
+        <div class="schedule-note">
+          Scenic mountain drive toward Ryujin.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Evening
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ♨️ Kamigoten · Ryujin Onsen
+        </div>
+
+        <div class="schedule-note">
+          Check in · dinner · onsen.
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     25 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-25"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      25 OCTOBER · ROAD TRIP
+    </div>
+
+    <h2>
+      ⛩️ Ryujin → Kumano → Nachikatsuura
+    </h2>
+
+    <div class="day-route">
+      Ryujin → Kumano Hongu → Oyunohara → Nachikatsuura
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟠 5/10
+      </span>
+
+      <span class="stat">
+        🚗 Scenic drive
+      </span>
+
+      <span class="stat">
+        🌊 Coastal night
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ♨️ Ryujin Morning
+        </div>
+
+        <div class="schedule-note">
+          Breakfast · morning soak · check out.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚗 Drive toward Kumano
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Midday
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ⛩️ Kumano Hongu Taisha
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Kumano+Hongu+Taisha"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ⛩️ Oyunohara Torii
+        </div>
+
+        <div class="schedule-note">
+          Giant torii and surrounding landscape.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚗 Drive to Nachikatsuura
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Evening
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌊 Nachikatsuura
+        </div>
+
+        <div class="schedule-note">
+          Check in at Kamenoi Hotel Nachi Katsuura · dinner · relax.
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     26 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-26"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      26 OCTOBER · ROAD TRIP
+    </div>
+
+    <h2>
+      🌊 Nachi → Osaka
+    </h2>
+
+    <div class="day-route">
+      Nachi Falls → Nachi Taisha → Kii-Katsuura → Osaka
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟠 Moderate+ · 6/10
+      </span>
+
+      <span class="stat">
+        🚗 Long drive
+      </span>
+
+      <span class="stat">
+        🌃 Osaka tonight
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Early Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌊 Nachi Falls
+        </div>
+
+        <div class="schedule-note">
+          Go earlier for a quieter visit.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Nachi+Falls+Wakayama"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          ⛩️ Kumano Nachi Taisha
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🐟 Kii-Katsuura
+        </div>
+
+        <div class="schedule-note">
+          Town / market / lunch depending on timing.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚗 Drive to Osaka
+        </div>
+
+        <div class="schedule-note">
+          Long final road-trip leg.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Evening
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🌃 Check in Osaka
+        </div>
+
+        <div class="schedule-note">
+          Easy dinner and rest.
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     27 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-27"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      27 OCTOBER · OSAKA
+    </div>
+
+    <h2>
+      🌃 Flexible Osaka Day
+    </h2>
+
+    <div class="day-route">
+      Osaka
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟢 Flexible
+      </span>
+
+      <span class="stat">
+        😴 Recovery day possible
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="flex-day">
+
+    <div class="flex-icon">
+      🌃
+    </div>
+
+    <strong>
+      Schedule not locked yet
+    </strong>
+
+    Keep this day flexible for Osaka sightseeing, shopping, food or rest after the road trip.
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     28 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-28"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      28 OCTOBER · OSAKA BASE
+    </div>
+
+    <h2>
+      🚆 Narai-juku Day Trip
+    </h2>
+
+    <div class="day-route">
+      Osaka → Nagoya → Narai-juku → Nagoya → Osaka
+    </div>
+
+    <div class="stats">
+
+      <span class="stat">
+        🔴 Long Day · 7/10
+      </span>
+
+      <span class="stat">
+        🚆 Lots of train time
+      </span>
+
+      <span class="stat">
+        🏘️ Kiso Valley
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="schedule-title">
+    Today's Schedule
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚄 Osaka → Nagoya
+        </div>
+
+        <div class="schedule-note">
+          Shinkansen to Nagoya.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Nagoya → Kiso Valley
+        </div>
+
+        <div class="schedule-note">
+          Continue toward Narai.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🏘️ Narai-juku
+        </div>
+
+        <div class="schedule-note">
+          Historic post town · old street · cafés · shops · photos. Around 3 hours is enough for your pace.
+        </div>
+
+        <div class="actions">
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Narai-juku+Nagano"
+            target="_blank"
+            class="action"
+          >
+            📍 Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Late Afternoon
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Narai → Nagoya
+        </div>
+
+        <div class="schedule-note">
+          Begin return journey before it gets too late.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Dinner
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🍖 Yabaton · Nagoya
+        </div>
+
+        <div class="schedule-note">
+          Miso-katsu dinner before heading back to Osaka.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Night
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚄 Nagoya → Osaka
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    <strong>Train times:</strong>
+    We should lock the actual 28 Oct trains closer to the trip rather than hard-coding an unconfirmed timetable now.
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     29 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-29"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      29 OCTOBER · OSAKA
+    </div>
+
+    <h2>
+      🌃 Flexible Osaka Day
+    </h2>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟢 Flexible
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="flex-day">
+
+    <div class="flex-icon">
+      🛍️
+    </div>
+
+    <strong>
+      Schedule not locked yet
+    </strong>
+
+    Osaka sightseeing / shopping / food day.
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     30 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-30"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      30 OCTOBER · OSAKA
+    </div>
+
+    <h2>
+      🌃 Final Full Day
+    </h2>
+
+    <div class="stats">
+
+      <span class="stat">
+        🟢 Flexible
+      </span>
+
+      <span class="stat">
+        🛍️ Last full day
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="flex-day">
+
+    <div class="flex-icon">
+      🌙
+    </div>
+
+    <strong>
+      Schedule not locked yet
+    </strong>
+
+    Final Osaka sightseeing, shopping and dinner.
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================================
+     31 OCT
+================================================================ -->
+
+<section
+  class="day-content"
+  id="day-31"
+>
+
+  <div class="day-hero">
+
+    <div class="day-date">
+      31 OCTOBER · OSAKA
+    </div>
+
+    <h2>
+      ✈️ Fly Home
+    </h2>
+
+    <div class="stats">
+
+      <span class="stat">
+        ✈️ Departure Day
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="timeline">
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Morning
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🧳 Pack + Check Out
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        Before Flight
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          🚆 Travel to Airport
+        </div>
+
+        <div class="schedule-note">
+          Exact timing will depend on your flight departure time.
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-item">
+
+      <div class="schedule-time">
+        ✈️
+      </div>
+
+      <div class="schedule-main">
+
+        <div class="schedule-place">
+          Fly Home
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+</main>
+
+
+
+<script>
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const tripButtons =
+  document.querySelectorAll(".trip-btn");
+
+const dayCards =
+  document.querySelectorAll(".day-card");
+
+const dayContents =
+  document.querySelectorAll(".day-content");
+
+const dateLabel =
+  document.getElementById("dateLabel");
+
+const dateScroll =
+  document.getElementById("dateScroll");
+
+
+/* =========================================
+   SHOW DAY
+========================================= */
+
+function showDay(day){
+
+  dayContents.forEach(content => {
+
+    content.classList.remove("active");
+
+  });
+
+
+  dayCards.forEach(card => {
+
+    card.classList.remove("active");
+
+  });
+
+
+  const selectedContent =
+    document.getElementById("day-" + day);
+
+  const selectedCard =
+    document.querySelector(
+      '.day-card[data-day="' + day + '"]'
+    );
+
+
+  if(selectedContent){
+
+    selectedContent.classList.add("active");
+
+  }
+
+
+  if(selectedCard){
+
+    selectedCard.classList.add("active");
+
+    selectedCard.scrollIntoView({
+
+      behavior:"smooth",
+
+      block:"nearest",
+
+      inline:"center"
+
+    });
+
+  }
+
+
+  history.replaceState(
+    null,
+    "",
+    "#day-" + day
+  );
+
+}
+
+
+/* =========================================
+   DAY CARD CLICK
+========================================= */
+
+dayCards.forEach(card => {
+
+  card.addEventListener(
+    "click",
+    () => {
+
+      showDay(
+        card.dataset.day
+      );
+
+    }
+  );
+
+});
+
+
+/* =========================================
+   FILTER TRIP
+========================================= */
+
+function setTripFilter(filter){
+
+  tripButtons.forEach(button => {
+
+    button.classList.toggle(
+
+      "active",
+
+      button.dataset.trip === filter
+
+    );
+
+  });
+
+
+  dayCards.forEach(card => {
+
+    const show =
+
+      filter === "all"
+
+      ||
+
+      card.dataset.trip === filter;
+
+
+    card.style.display =
+      show
+        ? "block"
+        : "none";
+
+  });
+
+
+  if(filter === "kyoto"){
+
+    dateLabel.textContent =
+      "Kyoto · 18–22 October";
+
+    showDay("18");
+
+  }
+
+
+  else if(filter === "road"){
+
+    dateLabel.textContent =
+      "Road Trip · 23–26 October";
+
+    showDay("23");
+
+  }
+
+
+  else if(filter === "osaka"){
+
+    dateLabel.textContent =
+      "Osaka · 27–31 October";
+
+    showDay("27");
+
+  }
+
+
+  else{
+
+    dateLabel.textContent =
+      "All Trip Dates";
+
+  }
+
+
+  dateScroll.scrollLeft = 0;
+
+}
+
+
+/* =========================================
+   FILTER BUTTON CLICK
+========================================= */
+
+tripButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      setTripFilter(
+        button.dataset.trip
+      );
+
+    }
+  );
+
+});
+
+
+/* =========================================
+   OPEN HASH DATE
+========================================= */
+
+const hash =
+  window.location.hash;
+
+
+if(hash.startsWith("#day-")){
+
+  const day =
+    hash.replace("#day-","");
+
+
+  if(
+    document.getElementById(
+      "day-" + day
+    )
+  ){
+
+    showDay(day);
+
+  }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
