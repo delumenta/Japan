@@ -2158,8 +2158,40 @@ $("#moonBtn").onclick =
 
 
 /* =========================================
-   INITIAL LOAD
+   INITIAL LOAD + URL FILTER
 ========================================= */
+
+const params = new URLSearchParams(window.location.search);
+
+const urlArea = params.get("area");
+const urlFood = params.get("food");
+
+
+if(urlArea && areaOptions.includes(urlArea)){
+
+  mode = "area";
+  selected = urlArea;
+
+  $("#areaMode").classList.add("active");
+  $("#foodMode").classList.remove("active");
+
+  $("#filterTitle").textContent = "Broad Area";
+
+}
+
+
+else if(urlFood && foodOptions.includes(urlFood)){
+
+  mode = "food";
+  selected = urlFood;
+
+  $("#foodMode").classList.add("active");
+  $("#areaMode").classList.remove("active");
+
+  $("#filterTitle").textContent = "Food Type";
+
+}
+
 
 renderChips();
 
