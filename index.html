@@ -4,679 +4,360 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070c10">
-
-<title>Japan Trip · October 2026</title>
-
+<title>Japan Autumn Trip</title>
 <style>
-
 :root{
-  --bg:#070c10;
-  --panel:#10161c;
-  --panel-light:#151c23;
-  --line:#29323b;
-  --line-soft:rgba(255,255,255,.07);
-
-  --text:#f5f5f3;
-  --muted:#aeb5bc;
-
-  --red:#c96f68;
-  --blue:#5c9dff;
+  --bg:#070c10;--panel:#10161c;--panel2:#151c23;--line:#29323b;
+  --text:#f5f5f3;--muted:#aeb5bc;--muted-blue:#91a5b3;
+  --red:#c96f68;--blue:#5c9dff;--green:#67c587;--orange:#f4a34d;
 }
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
 body{
-  margin:0;
+  margin:0;min-height:100vh;color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:radial-gradient(circle at 50% -15%,#17212a 0%,transparent 38%),var(--bg);
+}
+main{max-width:760px;margin:auto;padding:20px 14px 88px}
+.eyebrow{color:var(--red);font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;line-height:1.05;margin:7px 0 4px;letter-spacing:-.03em}
+.sub{font-size:12px;color:var(--muted)}
+.today{
+  margin-top:18px;border:1px solid rgba(201,111,104,.42);border-radius:20px;padding:15px;
+  background:linear-gradient(145deg,rgba(201,111,104,.10),#10161c 55%);
+  box-shadow:0 10px 35px rgba(0,0,0,.18);
+}
+.today-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.today-label{font-size:10px;color:var(--red);font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.today-date{font-size:10px;color:var(--muted);font-weight:800}
+.today h2{font-family:Georgia,"Times New Roman",serif;font-size:22px;margin:7px 0 3px}
+.today-route{font-size:11px;color:#d6dadd;line-height:1.45}
+.progress{
+  height:5px;background:#1b252d;border-radius:999px;overflow:hidden;margin-top:12px;
+}
+.progress > div{height:100%;background:var(--red);width:0}
+.progress-label{margin-top:5px;color:var(--muted);font-size:9px;text-align:right;font-weight:800}
 
-  background:
-    radial-gradient(circle at 50% -15%,#17202a 0%,transparent 38%),
-    var(--bg);
+.now-box{
+  margin-top:13px;border:1px solid var(--line);border-radius:16px;padding:13px;
+  background:linear-gradient(145deg,#151d23,#0d1318)
+}
+.now-label{font-size:9px;color:var(--green);font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.now-place{font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:800;margin-top:4px}
+.now-time{color:var(--muted-blue);font-size:10px;font-weight:850;margin-top:2px}
+.now-note{margin-top:5px;color:var(--muted);font-size:10px;line-height:1.45}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}
+.btn{
+  min-height:39px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;
+  justify-content:center;text-decoration:none;font-size:10px;font-weight:900;color:#fff;background:#151d23;
+  cursor:pointer;
+}
+.btn.primary{background:rgba(201,111,104,.12);border-color:rgba(201,111,104,.42);color:#f3d4d1}
+.btn.map{background:rgba(92,157,255,.08);border-color:rgba(92,157,255,.28);color:#b8d1ff}
+.controls{display:grid;grid-template-columns:1fr 1.4fr;gap:7px;margin-top:8px}
+.btn.back{color:var(--muted)}
+.btn.done{background:rgba(103,197,135,.10);border-color:rgba(103,197,135,.32);color:#b9e5c7}
+.btn:disabled{opacity:.38;cursor:default}
 
-  color:var(--text);
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  line-height:1.5;
+.next-list{margin-top:12px}
+.next-title{color:var(--muted-blue);font-size:9px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px}
+.next-item{
+  display:grid;grid-template-columns:21px 1fr;gap:8px;padding:8px 0;border-top:1px solid rgba(255,255,255,.06);
+  color:#d8dcdf;font-size:10px;
+}
+.next-item.done{opacity:.45;text-decoration:line-through}
+.next-item.current{color:#fff;font-weight:850}
+.next-item .tick{color:var(--green)}
+.next-item .num{color:var(--muted)}
+.reset{
+  margin-top:9px;background:none;border:0;color:#76838c;font-size:9px;font-weight:800;padding:4px 0;cursor:pointer
 }
 
-.page{
-  max-width:760px;
-  margin:auto;
-
-  padding:
-    28px
-    14px
-    calc(100px + env(safe-area-inset-bottom));
+.pretrip{
+  margin-top:18px;border:1px dashed #34414b;border-radius:18px;padding:15px;color:var(--muted);
+  font-size:11px;line-height:1.5
 }
-
-
-/* ==============================
-   HERO
-============================== */
-
-.hero{
-  padding:18px 4px 30px;
+.pretrip strong{color:#fff}
+.preview-days{display:flex;gap:6px;overflow-x:auto;margin-top:11px;padding-bottom:2px;scrollbar-width:none}
+.preview-days::-webkit-scrollbar{display:none}
+.preview-day{
+  flex:0 0 auto;border:1px solid var(--line);background:#12191f;color:#d8dcdf;border-radius:10px;
+  min-width:42px;height:36px;font-size:10px;font-weight:900;cursor:pointer
 }
+.preview-day.active{border-color:var(--red);background:rgba(201,111,104,.11);color:#fff}
 
-.eyebrow{
-  color:var(--red);
-
-  font-size:11px;
-  font-weight:800;
-
-  letter-spacing:.13em;
-  text-transform:uppercase;
-
-  margin-bottom:10px;
+.section{margin-top:18px}
+.section-title{font-size:10px;color:var(--muted-blue);font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin:0 2px 8px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.card{
+  min-height:119px;padding:14px;border-radius:18px;border:1px solid var(--line);text-decoration:none;color:var(--text);
+  background:linear-gradient(145deg,#151d23,#0e1419);position:relative;overflow:hidden
 }
-
-.hero h1{
-  margin:0;
-
-  font-family:Georgia,"Times New Roman",serif;
-
-  font-size:42px;
-  line-height:1.03;
-
-  letter-spacing:-.035em;
-
-  color:#fff;
+.card .icon{font-size:23px}.card h3{margin:8px 0 3px;font-family:Georgia,"Times New Roman",serif;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:10px;line-height:1.4}
+.card .go{position:absolute;right:12px;bottom:9px;color:var(--red);font-size:14px;font-weight:900}
+.card.schedule{grid-column:1/-1;min-height:99px}
+.tripline{
+  margin-top:16px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;
+  background:rgba(255,255,255,.025);font-size:10px;color:var(--muted);line-height:1.55;text-align:center
 }
-
-.hero-description{
-  margin:14px 0 0;
-
-  color:var(--muted);
-
-  font-size:15px;
-
-  max-width:540px;
-}
-
-.hero-meta{
-  display:flex;
-  flex-wrap:wrap;
-
-  gap:7px;
-
-  margin-top:18px;
-}
-
-.pill{
-  border:1px solid var(--line);
-
-  background:rgba(255,255,255,.035);
-
-  border-radius:999px;
-
-  padding:7px 10px;
-
-  color:#ccd3d8;
-
-  font-size:12px;
-  font-weight:650;
-}
-
-
-/* ==============================
-   SECTIONS
-============================== */
-
-.section{
-  margin-bottom:30px;
-}
-
-.section-label{
-  margin:0 2px 10px;
-
-  color:var(--red);
-
-  font-size:11px;
-  font-weight:800;
-
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-
-/* ==============================
-   MAIN BUTTONS
-============================== */
-
-.menu{
-  display:grid;
-  grid-template-columns:1fr;
-
-  gap:12px;
-}
-
-.menu-card{
-  position:relative;
-
-  display:block;
-
-  min-height:155px;
-
-  padding:20px;
-
-  text-decoration:none;
-
-  color:inherit;
-
-  border:1px solid var(--line);
-
-  border-radius:22px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #161e25,
-      #0f151a
-    );
-
-  box-shadow:
-    0 14px 34px rgba(0,0,0,.17);
-
-  overflow:hidden;
-
-  transition:
-    transform .18s ease,
-    border-color .18s ease;
-}
-
-.menu-card:active{
-  transform:scale(.985);
-}
-
-.menu-icon{
-  width:48px;
-  height:48px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:14px;
-
-  margin-bottom:18px;
-
-  font-size:23px;
-
-  background:rgba(201,111,104,.10);
-
-  border:1px solid rgba(201,111,104,.16);
-}
-
-.menu-card.food .menu-icon{
-  background:rgba(92,157,255,.10);
-
-  border-color:rgba(92,157,255,.16);
-}
-
-.menu-title{
-  color:#fff;
-
-  font-size:20px;
-  font-weight:800;
-
-  letter-spacing:-.015em;
-}
-
-.menu-description{
-  color:var(--muted);
-
-  margin-top:5px;
-
-  font-size:13px;
-}
-
-.menu-arrow{
-  position:absolute;
-
-  right:19px;
-  bottom:18px;
-
-  color:var(--red);
-
-  font-size:22px;
-}
-
-.menu-card.food .menu-arrow{
-  color:var(--blue);
-}
-
-
-/* ==============================
-   TRIP AT A GLANCE
-============================== */
-
-.glance{
-  border:1px solid var(--line);
-
-  border-radius:20px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #141b21,
-      #0e1419
-    );
-
-  overflow:hidden;
-}
-
-.glance-row{
-  display:grid;
-
-  grid-template-columns:72px 43px 1fr;
-
-  align-items:center;
-
-  min-height:72px;
-
-  padding:12px 14px;
-
-  border-bottom:1px solid var(--line-soft);
-}
-
-.glance-row:last-child{
-  border-bottom:0;
-}
-
-.glance-date{
-  color:var(--red);
-
-  font-size:12px;
-  font-weight:800;
-}
-
-.glance-icon{
-  font-size:20px;
-}
-
-.glance-title{
-  color:#fff;
-
-  font-size:14px;
-  font-weight:750;
-}
-
-.glance-sub{
-  color:var(--muted);
-
-  font-size:12px;
-
-  margin-top:2px;
-}
-
-
-/* ==============================
-   BOTTOM NAVIGATION
-============================== */
-
+.tripline strong{color:#e8eaeb}
 .bottom-nav{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:50;
-
-  background:rgba(10,14,18,.94);
-
-  border-top:1px solid var(--line);
-
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-
-  padding:
-    8px
-    12px
-    calc(8px + env(safe-area-inset-bottom));
+  position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 10px calc(7px + env(safe-area-inset-bottom));
+  background:rgba(7,12,16,.96);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px
 }
-
-.bottom-inner{
-  max-width:760px;
-
-  margin:auto;
-
-  display:grid;
-
-  grid-template-columns:repeat(3,1fr);
-
-  gap:7px;
-}
-
-.bottom-link{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:5px;
-
-  min-height:44px;
-
-  border:1px solid #26333d;
-
-  border-radius:12px;
-
-  background:#121a20;
-
-  color:#cbd2d7;
-
-  text-decoration:none;
-
-  font-size:12px;
-  font-weight:750;
-}
-
-.bottom-link.active{
-  color:var(--red);
-
-  border-color:var(--red);
-
-  background:rgba(201,111,104,.08);
-}
-
-
-/* ==============================
-   DESKTOP
-============================== */
-
-@media(min-width:650px){
-
-  .page{
-    padding-top:42px;
-  }
-
-  .hero{
-    padding-bottom:38px;
-  }
-
-  .hero h1{
-    font-size:56px;
-  }
-
-  .menu{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .menu-card{
-    min-height:190px;
-    padding:23px;
-  }
-}
-
-
-/* ==============================
-   SMALL PHONES
-============================== */
-
+.bottom-nav a{min-height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);font-size:9px;font-weight:850;border-radius:10px}
+.bottom-nav a.active{color:#fff;background:rgba(201,111,104,.10)}
 @media(max-width:390px){
-
-  .hero h1{
-    font-size:37px;
-  }
-
-  .page{
-    padding-left:12px;
-    padding-right:12px;
-  }
-
-  .glance-row{
-    grid-template-columns:66px 38px 1fr;
-  }
+  h1{font-size:28px}.today{padding:13px}.now-place{font-size:19px}.card{padding:12px}
 }
-
 </style>
 </head>
-
-
 <body>
+<main>
+  <div class="eyebrow">Japan · Autumn 2026</div>
+  <h1>Japan Trip</h1>
+  <div class="sub">18–31 October 2026 · Kyoto → Mountains → Osaka</div>
 
-<main class="page">
-
-
-  <!-- HERO -->
-
-  <section class="hero">
-
-    <div class="eyebrow">
-      JAPAN · OCTOBER 2026 🇯🇵
-    </div>
-
-    <h1>
-      Japan Trip
-    </h1>
-
-    <p class="hero-description">
-    ♥ Traveling with wifey ♥
-    </p>
-
-    <div class="hero-meta">
-
-      <div class="pill">
-        🗓️ 18–31 Oct
-      </div>
-
-      <div class="pill">
-        🚗 Road Trip · 23–26
-      </div>
-
-      <div class="pill">
-        🍁 Autumn Trip
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- MAIN MENU -->
+  <section id="todayCard"></section>
 
   <section class="section">
-
-    <div class="section-label">
-      What do you need?
-    </div>
-
+    <div class="section-title">Quick Access</div>
     <div class="menu">
-
-
-      <!-- SCHEDULE -->
-
-      <a href="schedule.html" class="menu-card">
-
-        <div class="menu-icon">
-          📅
-        </div>
-
-        <div class="menu-title">
-          Trip Schedule
-        </div>
-
-        <div class="menu-description">
-          Where are we going today?
-        </div>
-
-        <div class="menu-arrow">
-          →
-        </div>
-
+      <a class="card schedule" href="schedule.html">
+        <div class="icon">📅</div><h3>Schedule</h3>
+        <p>Full day-by-day plan · routes · transport · Maps</p><span class="go">→</span>
       </a>
-
-
-
-      <!-- FOOD -->
-
-      <a href="food.html" class="menu-card food">
-
-        <div class="menu-icon">
-          🍽️
-        </div>
-
-        <div class="menu-title">
-          Kyoto Food Finder
-        </div>
-
-        <div class="menu-description">
-          Find food by area or cuisine.
-        </div>
-
-        <div class="menu-arrow">
-          →
-        </div>
-
+      <a class="card" href="kyotofood.html">
+        <div class="icon">⛩️</div><h3>Kyoto Food</h3>
+        <p>Rankings · filters · 🎲 Pick For Me</p><span class="go">→</span>
       </a>
-
-
+      <a class="card" href="osakafood.html">
+        <div class="icon">🌃</div><h3>Osaka Food</h3>
+        <p>Your separate Osaka restaurant finder</p><span class="go">→</span>
+      </a>
     </div>
-
   </section>
 
-
-
-  <!-- TRIP AT A GLANCE -->
-
-  <section class="section">
-
-    <div class="section-label">
-      Trip at a glance
-    </div>
-
-    <div class="glance">
-
-
-      <!-- KYOTO -->
-
-      <div class="glance-row">
-
-        <div class="glance-date">
-          18–22
-        </div>
-
-        <div class="glance-icon">
-          ⛩️
-        </div>
-
-        <div>
-
-          <div class="glance-title">
-            Kyoto
-          </div>
-
-          <div class="glance-sub">
-            Higashiyama · Arashiyama · Ine · Kibune
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- ROAD TRIP -->
-
-      <div class="glance-row">
-
-        <div class="glance-date">
-          23–26
-        </div>
-
-        <div class="glance-icon">
-          🚗
-        </div>
-
-        <div>
-
-          <div class="glance-title">
-            Road Trip
-          </div>
-
-          <div class="glance-sub">
-            Dorogawa · Ryujin · Kumano · Nachi
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- OSAKA -->
-
-      <div class="glance-row">
-
-        <div class="glance-date">
-          27–31
-        </div>
-
-        <div class="glance-icon">
-          🌃
-        </div>
-
-        <div>
-
-          <div class="glance-title">
-            Osaka
-          </div>
-
-          <div class="glance-sub">
-            Osaka base · Narai-juku day trip
-          </div>
-
-        </div>
-
-      </div>
-
-
-    </div>
-
-  </section>
-
-
+  <div class="tripline"><strong>KYOTO</strong> · 18–22 Oct　→　<strong>ROAD TRIP</strong> · 23–26 Oct　→　<strong>OSAKA</strong> · 26–31 Oct</div>
 </main>
 
-
-
-<!-- BOTTOM NAV -->
-
 <nav class="bottom-nav">
-
-  <div class="bottom-inner">
-
-    <a href="index.html" class="bottom-link active">
-      🏠 Home
-    </a>
-
-    <a href="schedule.html" class="bottom-link">
-      📅 Schedule
-    </a>
-
-    <a href="food.html" class="bottom-link">
-      🍽️ Food
-    </a>
-
-  </div>
-
+  <a href="index.html" class="active">🏠 HOME</a>
+  <a href="schedule.html">📅 SCHEDULE</a>
+  <a href="kyotofood.html">⛩️ KYOTO FOOD</a>
+  <a href="osakafood.html">🌃 OSAKA FOOD</a>
 </nav>
 
+<script>
+const itinerary = {
+18:{area:"KYOTO",title:"Higashiyama + Gion",route:"Arrival → Higashiyama → Gion → Pontocho",food:"kyotofood.html",stops:[
+ ["~1:00 PM","🚆 Arrive Kyoto","Head to hotel / leave luggage.","Kyoto Station"],
+ ["~3:00 PM","🏨 Hotel Check-in","Freshen up.",""],
+ ["~3:30 PM","🍜 Late Lunch","Keep it convenient.",""],
+ ["4:00–5:30 PM","🏮 Higashiyama","Ninenzaka · Sannenzaka · Yasaka Pagoda.","Ninenzaka Kyoto"],
+ ["~6:00 PM","🏮 Gion","Yasaka Shrine · Hanamikoji · Gion Shirakawa.","Gion Kyoto"],
+ ["~7:00 PM","🍽️ Dinner","Gion / Kawaramachi / Pontocho.",""],
+ ["8:30 PM+","🌃 Pontocho + Kamo River","Relaxed evening stroll.","Pontocho Kyoto"]
+]},
+19:{area:"KYOTO",title:"Arashiyama",route:"Bamboo Grove → Kameyama → Saga-Toriimoto → Togetsukyo",food:"kyotofood.html",stops:[
+ ["6:45 AM","🚆 Leave Hotel","Head to Arashiyama early.",""],
+ ["~7:30 AM","🎋 Bamboo Grove","Walk before the main crowds.","Arashiyama Bamboo Grove Kyoto"],
+ ["~8:00 AM","🌄 Kameyama Viewpoint","Hozu River and mountain views.","Kameyama Park Observation Deck Arashiyama"],
+ ["~8:30 AM","🏘️ Saga-Toriimoto","Preserved street.","Saga Toriimoto Preserved Street Kyoto"],
+ ["~9:30 AM","🌉 Togetsukyo Bridge","River and mountain views.","Togetsukyo Bridge Kyoto"],
+ ["~10:15 AM","🚆 Leave Arashiyama","Head to next planned stop.",""],
+ ["Late Morning","🚒 Disaster Prevention Center","Disaster-prevention experience.","Kyoto City Disaster Prevention Center"]
+]},
+20:{area:"KYOTO",title:"Fushimi + Kurama + Kibune",route:"Fushimi Inari → Kurama → Kibune → Kifune Shrine",food:"kyotofood.html",stops:[
+ ["~7:15 AM","🚆 Leave Hotel","Head to Fushimi Inari.",""],
+ ["7:45–9:30 AM","⛩️ Fushimi Inari","Senbon Torii · walk partway up.","Fushimi Inari Taisha"],
+ ["9:30–11:00 AM","🍜 Break / Early Lunch","Eat before travelling north.",""],
+ ["Late Morning","🚆 Travel North","Head toward Kurama.",""],
+ ["~2:15 PM","👺 Kurama Village","Station · Tengu · village streets.","Kurama Station Kyoto"],
+ ["~3:40 PM","🌲 Kibune Village","River · bridges · traditional street.","Kibune Kyoto"],
+ ["⭐ ~4:50 PM","🏮 Kifune Shrine","Lantern steps before sunset.","Kifune Shrine Kyoto"],
+ ["~5:16 PM","🌅 Sunset","Stay a little into dusk.",""],
+ ["~5:45 PM","🚆 Leave Kibune","Return to central Kyoto.",""],
+ ["~7:00 PM+","🍽️ Dinner","Downtown Kyoto.",""]
+]},
+21:{area:"KYOTO",title:"Ine Day Trip",route:"Kyoto → Ine → Kyoto",food:"kyotofood.html",stops:[
+ ["Morning","🚆 Leave Kyoto","Start early for northern Kyoto Prefecture.",""],
+ ["Late Morning","🌊 Arrive Ine","Begin funaya / waterfront sightseeing.","Ine no Funaya Kyoto"],
+ ["Lunch","🍱 Lunch in Ine","Seafood or local café.",""],
+ ["Afternoon","🌊 Continue Ine","Relaxed exploration.","Ine Kyoto"],
+ ["Evening","🌃 Return Kyoto","Dinner near Kyoto Station if convenient.",""]
+]},
+22:{area:"KYOTO",title:"Nanzen-ji + Mom + teamLab",route:"Nanzen-ji → Philosopher's Path → Mom → teamLab",food:"kyotofood.html",stops:[
+ ["Morning","⛩️ Nanzen-ji","Temple grounds first.","Nanzenji Kyoto"],
+ ["Morning","🧱 Suirokaku Aqueduct","Inside Nanzen-ji area.","Suirokaku Aqueduct Kyoto"],
+ ["Late Morning","🍁 Philosopher's Path","Walk as much as you feel like.","Philosopher's Path Kyoto"],
+ ["~2:00 PM","👩 Meet Mom + Lunch","Lunch together.",""],
+ ["2:00–5:30 PM","☕ Time with Mom","Relaxed shopping / café.",""],
+ ["After 5:30 PM","✨ teamLab Biovortex Kyoto","","teamLab Biovortex Kyoto"]
+]},
+23:{area:"ROAD TRIP",title:"Soni → Dorogawa",route:"Kyoto → Soni Highlands → Dorogawa Onsen",food:"kyotofood.html",stops:[
+ ["Morning","🧳 Check Out + Pick Up Car","Leave Kyoto.",""],
+ ["Late Morning","🚗 Drive toward Soni Highlands","",""],
+ ["Early Afternoon","🌾 Soni Highlands","Pampas grass and mountain views.","Soni Highlands Nara"],
+ ["Late Afternoon","🚗 Continue to Dorogawa","",""],
+ ["Evening","♨️ Dorogawa Onsen","Check in · town walk · dinner · onsen.","Dorogawa Onsen Nara"]
+]},
+24:{area:"ROAD TRIP",title:"Koyasan → Ryujin",route:"Dorogawa → Koyasan → Koya-Ryujin Skyline → Kamigoten",food:"kyotofood.html",stops:[
+ ["Morning","♨️ Dorogawa Morning","Breakfast · onsen · check out.",""],
+ ["Late Morning","🚗 Drive to Koyasan","",""],
+ ["Midday","⛩️ Koyasan","Sightseeing + lunch.","Koyasan Wakayama"],
+ ["Afternoon","🏔️ Koya-Ryujin Skyline","Scenic mountain drive.","Koya Ryujin Skyline"],
+ ["Evening","♨️ Kamigoten · Ryujin Onsen","Check in · dinner · onsen.","Kamigoten Ryujin Onsen"]
+]},
+25:{area:"ROAD TRIP",title:"Kumano → Nachikatsuura",route:"Ryujin → Kumano Hongu → Oyunohara → Nachikatsuura",food:"kyotofood.html",stops:[
+ ["Morning","♨️ Ryujin Morning","Breakfast · onsen · check out.",""],
+ ["Late Morning","🚗 Drive toward Kumano Hongu","",""],
+ ["Midday","⛩️ Kumano Hongu Taisha","Main shrine visit.","Kumano Hongu Taisha"],
+ ["Early Afternoon","⛩️ Oyunohara Grand Torii","Large torii and former shrine site.","Oyunohara Grand Torii"],
+ ["Afternoon","🚗 Continue to Nachikatsuura","",""],
+ ["Evening","🌊 Nachikatsuura","Check in · dinner · rest.","Kamenoi Hotel Nachi Katsuura"]
+]},
+26:{area:"ROAD TRIP → OSAKA",title:"Nachi → Osaka",route:"Nachi Falls → Nachikatsuura → Osaka",food:"osakafood.html",stops:[
+ ["Early Morning","🌊 Kii-Katsuura Morning","Quick local morning.","Kii Katsuura Station"],
+ ["Morning","💧 Nachi Falls + Nachi Taisha","Aim early for fewer people.","Nachi Falls Wakayama"],
+ ["Late Morning","🧳 Return / Check Out","Collect luggage.",""],
+ ["Afternoon","🚗 Drive to Osaka","Long final road-trip leg.",""],
+ ["Evening","🌃 Check in Osaka","Easy dinner and rest.",""]
+]},
+27:{area:"OSAKA",title:"Flexible Osaka Day",route:"Sightseeing · shopping · food · recovery",food:"osakafood.html",stops:[
+ ["Morning","☕ Easy Start","Recovery after the road trip.",""],
+ ["Daytime","🌃 Osaka","Sightseeing / shopping / food.","Osaka"],
+ ["Evening","🍽️ Dinner","Use Osaka Food Finder.",""]
+]},
+28:{area:"OSAKA BASE",title:"Narai-juku Day Trip",route:"Osaka → Nagoya → Narai-juku → Nagoya → Osaka",food:"osakafood.html",stops:[
+ ["Morning","🚄 Osaka → Nagoya","Shinkansen.",""],
+ ["Late Morning","🚆 Nagoya → Kiso Valley","Continue toward Narai.",""],
+ ["Afternoon","🏘️ Narai-juku","Historic post town · cafés · shops · photos.","Narai-juku Nagano"],
+ ["Late Afternoon","🚆 Narai → Nagoya","Return with buffer.",""],
+ ["Dinner","🍖 Yabaton · Nagoya","Miso-katsu dinner.","Yabaton Nagoya"],
+ ["Night","🚄 Nagoya → Osaka","",""]
+]},
+29:{area:"OSAKA",title:"Flexible Osaka Day",route:"Sightseeing · shopping · food",food:"osakafood.html",stops:[
+ ["Morning","🌃 Osaka","Choose based on what you still want to see.","Osaka"],
+ ["Afternoon","🛍️ Shopping / Sightseeing","",""],
+ ["Evening","🍽️ Dinner","Osaka Food Finder.",""]
+]},
+30:{area:"OSAKA",title:"Final Full Day",route:"Final sightseeing · shopping · dinner",food:"osakafood.html",stops:[
+ ["Morning","🌃 Osaka","Final sightseeing.","Osaka"],
+ ["Afternoon","🛍️ Last Shopping","",""],
+ ["Evening","🍽️ Final Dinner","Pick one last priority restaurant.",""]
+]},
+31:{area:"OSAKA",title:"Fly Home",route:"Check out → Airport → Home",food:"osakafood.html",stops:[
+ ["Morning","🧳 Pack + Check Out","",""],
+ ["Before Flight","🚆 Travel to Airport","Leave a generous buffer.","Kansai International Airport"],
+ ["✈️","Fly Home","",""]
+]}
+};
 
+const start = new Date(2026,9,18);
+const end = new Date(2026,9,31);
+const todayBox = document.getElementById("todayCard");
+let previewDay = null;
+
+function mapURL(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q)}
+
+function storageKey(day){return "japan2026_progress_day_"+day}
+function getProgress(day){
+  const n = Number(localStorage.getItem(storageKey(day)) || 0);
+  return Math.max(0, Math.min(n, itinerary[day].stops.length));
+}
+function setProgress(day,n){
+  localStorage.setItem(storageKey(day), String(Math.max(0,Math.min(n,itinerary[day].stops.length))));
+}
+
+function activeTripDay(){
+  const now=new Date();
+  const local=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(local>=start && local<=end) return now.getDate();
+  return null;
+}
+
+function renderDayCard(day, isPreview=false){
+  const x=itinerary[day], p=getProgress(day), total=x.stops.length;
+  const finished=p>=total;
+  const cur=finished ? x.stops[total-1] : x.stops[p];
+  const pct=finished ? 100 : Math.round((p/total)*100);
+  const label=isPreview ? "PREVIEW DAY" : "● TODAY";
+  const weekday=new Date(2026,9,day).toLocaleDateString("en-SG",{weekday:"long"}).toUpperCase();
+
+  todayBox.innerHTML=`<div class="today">
+    <div class="today-top">
+      <div class="today-label">${label}</div>
+      <div class="today-date">${weekday} · ${day} OCT</div>
+    </div>
+    <h2>${x.title}</h2>
+    <div class="today-route">${x.route}</div>
+
+    <div class="progress"><div style="width:${pct}%"></div></div>
+    <div class="progress-label">${finished ? "DAY COMPLETE ✓" : `${p} / ${total} completed`}</div>
+
+    <div class="now-box">
+      <div class="now-label">${finished ? "FINISHED" : "NOW"}</div>
+      <div class="now-place">${finished ? "✓ Day complete" : cur[1]}</div>
+      ${finished ? "" : `<div class="now-time">${cur[0]}</div>`}
+      ${finished ? `<div class="now-note">You've completed everything on today's list.</div>` : (cur[2]?`<div class="now-note">${cur[2]}</div>`:"")}
+      <div class="actions">
+        <a class="btn primary" href="schedule.html#day-${day}">📅 FULL DAY</a>
+        ${!finished && cur[3] ? `<a class="btn map" target="_blank" href="${mapURL(cur[3])}">📍 MAP</a>` : `<a class="btn map" href="${x.food}">🍽️ FOOD</a>`}
+      </div>
+      <div class="controls">
+        <button class="btn back" id="backBtn" ${p===0?"disabled":""}>← BACK</button>
+        <button class="btn done" id="doneBtn" ${finished?"disabled":""}>${finished?"✓ COMPLETE":"✓ DONE · NEXT"}</button>
+      </div>
+    </div>
+
+    <div class="next-list">
+      <div class="next-title">${finished ? "Today's Stops" : "Up Next"}</div>
+      ${x.stops.map((s,i)=>{
+        const cls=i<p?"done":i===p&&!finished?"current":"";
+        const mark=i<p?'<span class="tick">✓</span>':`<span class="num">${i+1}</span>`;
+        return `<div class="next-item ${cls}">${mark}<div>${s[1]} <span style="color:#73818a">· ${s[0]}</span></div></div>`
+      }).join("")}
+    </div>
+    <button class="reset" id="resetBtn">Reset this day</button>
+  </div>`;
+
+  const back=document.getElementById("backBtn"), done=document.getElementById("doneBtn"), reset=document.getElementById("resetBtn");
+  if(back) back.onclick=()=>{setProgress(day,getProgress(day)-1);renderDayCard(day,isPreview)};
+  if(done) done.onclick=()=>{setProgress(day,getProgress(day)+1);renderDayCard(day,isPreview)};
+  if(reset) reset.onclick=()=>{setProgress(day,0);renderDayCard(day,isPreview)};
+}
+
+function renderPreTrip(){
+  const now=new Date(), local=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const days=Math.ceil((start-local)/86400000);
+  todayBox.innerHTML=`<div class="pretrip">
+    <div class="today-label">UPCOMING TRIP</div>
+    <strong>Japan starts in ${days} day${days===1?"":"s"}.</strong><br>
+    Preview any trip day below. Your test progress is saved on this phone.
+    <div class="preview-days">${Object.keys(itinerary).map(d=>`<button class="preview-day" data-day="${d}">${d}</button>`).join("")}</div>
+    <div class="actions">
+      <a class="btn primary" href="schedule.html">📅 VIEW TRIP SCHEDULE</a>
+      <a class="btn map" href="kyotofood.html">🍽️ FOOD</a>
+    </div>
+  </div>`;
+  document.querySelectorAll(".preview-day").forEach(b=>{
+    b.onclick=()=>{previewDay=Number(b.dataset.day);renderDayCard(previewDay,true)}
+  });
+}
+
+function render(){
+  const active=activeTripDay();
+  const now=new Date(), local=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(active) renderDayCard(active,false);
+  else if(local<start) renderPreTrip();
+  else {
+    todayBox.innerHTML=`<div class="pretrip"><div class="today-label">JAPAN AUTUMN 2026</div>
+    <strong>Your trip schedule is still here.</strong><br>Open the schedule or either food finder whenever you want.
+    <div class="actions"><a class="btn primary" href="schedule.html">📅 VIEW SCHEDULE</a><a class="btn map" href="kyotofood.html">🍽️ FOOD</a></div></div>`;
+  }
+}
+render();
+</script>
 </body>
 </html>
