@@ -1,281 +1,682 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070c10">
 
-    <title>Japan Autumn Trip 2026</title>
+<title>Japan Trip · October 2026</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+
+:root{
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel-light:#151c23;
+  --line:#29323b;
+  --line-soft:rgba(255,255,255,.07);
+
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+
+  --red:#c96f68;
+  --blue:#5c9dff;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+
+  background:
+    radial-gradient(circle at 50% -15%,#17202a 0%,transparent 38%),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  line-height:1.5;
+}
+
+.page{
+  max-width:760px;
+  margin:auto;
+
+  padding:
+    28px
+    14px
+    calc(100px + env(safe-area-inset-bottom));
+}
+
+
+/* ==============================
+   HERO
+============================== */
+
+.hero{
+  padding:18px 4px 30px;
+}
+
+.eyebrow{
+  color:var(--red);
+
+  font-size:11px;
+  font-weight:800;
+
+  letter-spacing:.13em;
+  text-transform:uppercase;
+
+  margin-bottom:10px;
+}
+
+.hero h1{
+  margin:0;
+
+  font-family:Georgia,"Times New Roman",serif;
+
+  font-size:42px;
+  line-height:1.03;
+
+  letter-spacing:-.035em;
+
+  color:#fff;
+}
+
+.hero-description{
+  margin:14px 0 0;
+
+  color:var(--muted);
+
+  font-size:15px;
+
+  max-width:540px;
+}
+
+.hero-meta{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:7px;
+
+  margin-top:18px;
+}
+
+.pill{
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.035);
+
+  border-radius:999px;
+
+  padding:7px 10px;
+
+  color:#ccd3d8;
+
+  font-size:12px;
+  font-weight:650;
+}
+
+
+/* ==============================
+   SECTIONS
+============================== */
+
+.section{
+  margin-bottom:30px;
+}
+
+.section-label{
+  margin:0 2px 10px;
+
+  color:var(--red);
+
+  font-size:11px;
+  font-weight:800;
+
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+
+/* ==============================
+   MAIN BUTTONS
+============================== */
+
+.menu{
+  display:grid;
+  grid-template-columns:1fr;
+
+  gap:12px;
+}
+
+.menu-card{
+  position:relative;
+
+  display:block;
+
+  min-height:155px;
+
+  padding:20px;
+
+  text-decoration:none;
+
+  color:inherit;
+
+  border:1px solid var(--line);
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #161e25,
+      #0f151a
+    );
+
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.17);
+
+  overflow:hidden;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
+}
+
+.menu-card:active{
+  transform:scale(.985);
+}
+
+.menu-icon{
+  width:48px;
+  height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:14px;
+
+  margin-bottom:18px;
+
+  font-size:23px;
+
+  background:rgba(201,111,104,.10);
+
+  border:1px solid rgba(201,111,104,.16);
+}
+
+.menu-card.food .menu-icon{
+  background:rgba(92,157,255,.10);
+
+  border-color:rgba(92,157,255,.16);
+}
+
+.menu-title{
+  color:#fff;
+
+  font-size:20px;
+  font-weight:800;
+
+  letter-spacing:-.015em;
+}
+
+.menu-description{
+  color:var(--muted);
+
+  margin-top:5px;
+
+  font-size:13px;
+}
+
+.menu-arrow{
+  position:absolute;
+
+  right:19px;
+  bottom:18px;
+
+  color:var(--red);
+
+  font-size:22px;
+}
+
+.menu-card.food .menu-arrow{
+  color:var(--blue);
+}
+
+
+/* ==============================
+   TRIP AT A GLANCE
+============================== */
+
+.glance{
+  border:1px solid var(--line);
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #141b21,
+      #0e1419
+    );
+
+  overflow:hidden;
+}
+
+.glance-row{
+  display:grid;
+
+  grid-template-columns:72px 43px 1fr;
+
+  align-items:center;
+
+  min-height:72px;
+
+  padding:12px 14px;
+
+  border-bottom:1px solid var(--line-soft);
+}
+
+.glance-row:last-child{
+  border-bottom:0;
+}
+
+.glance-date{
+  color:var(--red);
+
+  font-size:12px;
+  font-weight:800;
+}
+
+.glance-icon{
+  font-size:20px;
+}
+
+.glance-title{
+  color:#fff;
+
+  font-size:14px;
+  font-weight:750;
+}
+
+.glance-sub{
+  color:var(--muted);
+
+  font-size:12px;
+
+  margin-top:2px;
+}
+
+
+/* ==============================
+   BOTTOM NAVIGATION
+============================== */
+
+.bottom-nav{
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:50;
+
+  background:rgba(10,14,18,.94);
+
+  border-top:1px solid var(--line);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  padding:
+    8px
+    12px
+    calc(8px + env(safe-area-inset-bottom));
+}
+
+.bottom-inner{
+  max-width:760px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:7px;
+}
+
+.bottom-link{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:5px;
+
+  min-height:44px;
+
+  border:1px solid #26333d;
+
+  border-radius:12px;
+
+  background:#121a20;
+
+  color:#cbd2d7;
+
+  text-decoration:none;
+
+  font-size:12px;
+  font-weight:750;
+}
+
+.bottom-link.active{
+  color:var(--red);
+
+  border-color:var(--red);
+
+  background:rgba(201,111,104,.08);
+}
+
+
+/* ==============================
+   DESKTOP
+============================== */
+
+@media(min-width:650px){
+
+  .page{
+    padding-top:42px;
+  }
+
+  .hero{
+    padding-bottom:38px;
+  }
+
+  .hero h1{
+    font-size:56px;
+  }
+
+  .menu{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .menu-card{
+    min-height:190px;
+    padding:23px;
+  }
+}
+
+
+/* ==============================
+   SMALL PHONES
+============================== */
+
+@media(max-width:390px){
+
+  .hero h1{
+    font-size:37px;
+  }
+
+  .page{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .glance-row{
+    grid-template-columns:66px 38px 1fr;
+  }
+}
+
+</style>
 </head>
+
 
 <body>
 
-<div class="site-shell">
+<main class="page">
 
-    <!-- header.html will load here -->
-    <div id="site-header"></div>
 
+  <!-- HERO -->
 
-    <main>
+  <section class="hero">
 
-        <!-- TRIP AT A GLANCE -->
+    <div class="eyebrow">
+      JAPAN · OCTOBER 2026 🇯🇵
+    </div>
 
-        <section class="section" id="overview">
+    <h1>
+      Japan Trip
+    </h1>
 
-            <div class="section-title">
-                <h2>Trip at a glance</h2>
-                <p>Japan · October 2026</p>
-            </div>
+    <p class="hero-description">
+    ♥ Traveling with wifey ♥
+    </p>
 
-            <div class="glance">
+    <div class="hero-meta">
 
-                <div class="card">
-                    <div class="card-row">
-                        <div class="icon blue">🗓️</div>
+      <div class="pill">
+        🗓️ 18–31 Oct
+      </div>
 
-                        <div>
-                            <div class="number">14</div>
-                            <div class="label">calendar days</div>
-                            <div class="detail">18–31 Oct 2026</div>
-                        </div>
-                    </div>
-                </div>
+      <div class="pill">
+        🚗 Road Trip · 23–26
+      </div>
 
+      <div class="pill">
+        🍁 Autumn Trip
+      </div>
 
-                <div class="card">
-                    <div class="card-row">
-                        <div class="icon red">♨️</div>
+    </div>
 
-                        <div>
-                            <div class="number">3</div>
-                            <div class="label">onsen / scenic stays</div>
-                            <div class="detail">
-                                Dorogawa · Ryujin · Nachikatsuura
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  </section>
 
 
-                <div class="card">
-                    <div class="card-row">
-                        <div class="icon green">📍</div>
 
-                        <div>
-                            <div class="number">4</div>
-                            <div class="label">major areas</div>
-                            <div class="detail">
-                                Kyoto · Wakayama · Osaka · Kiso Valley
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <!-- MAIN MENU -->
 
+  <section class="section">
 
-                <div class="card">
-                    <div class="card-row">
-                        <div class="icon orange">📷</div>
+    <div class="section-label">
+      What do you need?
+    </div>
 
-                        <div>
-                            <div class="number">1</div>
-                            <div class="label">Kiso Valley day trip</div>
-                            <div class="detail">Narai-juku</div>
-                        </div>
-                    </div>
-                </div>
+    <div class="menu">
 
-            </div>
 
-        </section>
+      <!-- SCHEDULE -->
 
+      <a href="schedule.html" class="menu-card">
 
-        <!-- OUR JOURNEY -->
+        <div class="menu-icon">
+          📅
+        </div>
 
-        <section class="section">
+        <div class="menu-title">
+          Trip Schedule
+        </div>
 
-            <div class="section-title">
-                <h2>Our Journey</h2>
-                <p>Kyoto → Wakayama → Osaka → Kiso Valley</p>
-            </div>
+        <div class="menu-description">
+          Where are we going today?
+        </div>
 
-            <div class="journey-card">
+        <div class="menu-arrow">
+          →
+        </div>
 
-                <div class="journey-stop">
-                    <div class="journey-date">18–22 OCT</div>
-                    <div class="journey-icon">⛩️</div>
+      </a>
 
-                    <div class="journey-info">
-                        <h3>Kyoto</h3>
-                        <p>Temples · Autumn scenery · Old Kyoto</p>
-                    </div>
-                </div>
 
 
-                <div class="journey-arrow">→</div>
+      <!-- FOOD -->
 
+      <a href="food.html" class="menu-card food">
 
-                <div class="journey-stop">
-                    <div class="journey-date">23–26 OCT</div>
-                    <div class="journey-icon">🚗</div>
+        <div class="menu-icon">
+          🍽️
+        </div>
 
-                    <div class="journey-info">
-                        <h3>Wakayama Road Trip</h3>
-                        <p>Dorogawa · Ryujin · Kumano · Nachi</p>
-                    </div>
-                </div>
+        <div class="menu-title">
+          Kyoto Food Finder
+        </div>
 
+        <div class="menu-description">
+          Find food by area or cuisine.
+        </div>
 
-                <div class="journey-arrow">→</div>
+        <div class="menu-arrow">
+          →
+        </div>
 
+      </a>
 
-                <div class="journey-stop">
-                    <div class="journey-date">26–30 OCT</div>
-                    <div class="journey-icon">🌃</div>
 
-                    <div class="journey-info">
-                        <h3>Osaka</h3>
-                        <p>Food · Shopping · Day trips</p>
-                    </div>
-                </div>
+    </div>
 
+  </section>
 
-                <div class="journey-arrow">→</div>
 
 
-                <div class="journey-stop">
-                    <div class="journey-date">28 OCT</div>
-                    <div class="journey-icon">🚆</div>
+  <!-- TRIP AT A GLANCE -->
 
-                    <div class="journey-info">
-                        <h3>Narai-juku</h3>
-                        <p>Nagoya → Kiso Valley → Nagoya</p>
-                    </div>
-                </div>
+  <section class="section">
 
-            </div>
+    <div class="section-label">
+      Trip at a glance
+    </div>
 
-        </section>
+    <div class="glance">
 
 
-        <!-- ROAD TRIP -->
+      <!-- KYOTO -->
 
-        <section class="section">
+      <div class="glance-row">
 
-            <div class="section-title">
-                <h2>Road Trip</h2>
-                <p>23–26 October</p>
-            </div>
+        <div class="glance-date">
+          18–22
+        </div>
 
-            <div class="route-card">
+        <div class="glance-icon">
+          ⛩️
+        </div>
 
-                <div class="route-day">
-                    <span class="route-date">23 OCT</span>
-                    <strong>Kyoto</strong>
-                    <span>→</span>
-                    <strong>Soni Highlands</strong>
-                    <span>→</span>
-                    <strong>Dorogawa Onsen</strong>
-                </div>
+        <div>
 
+          <div class="glance-title">
+            Kyoto
+          </div>
 
-                <div class="route-day">
-                    <span class="route-date">24 OCT</span>
-                    <strong>Dorogawa</strong>
-                    <span>→</span>
-                    <strong>Koyasan</strong>
-                    <span>→</span>
-                    <strong>Koya-Ryujin Skyline</strong>
-                    <span>→</span>
-                    <strong>Ryujin Onsen</strong>
-                </div>
+          <div class="glance-sub">
+            Higashiyama · Arashiyama · Ine · Kibune
+          </div>
 
+        </div>
 
-                <div class="route-day">
-                    <span class="route-date">25 OCT</span>
-                    <strong>Ryujin</strong>
-                    <span>→</span>
-                    <strong>Kumano Hongu Taisha</strong>
-                    <span>→</span>
-                    <strong>Nachikatsuura</strong>
-                </div>
+      </div>
 
 
-                <div class="route-day">
-                    <span class="route-date">26 OCT</span>
-                    <strong>Nachi Falls</strong>
-                    <span>→</span>
-                    <strong>Kii-Katsuura</strong>
-                    <span>→</span>
-                    <strong>Osaka</strong>
-                </div>
 
-            </div>
+      <!-- ROAD TRIP -->
 
-        </section>
+      <div class="glance-row">
 
+        <div class="glance-date">
+          23–26
+        </div>
 
-        <!-- FEATURED STAYS -->
+        <div class="glance-icon">
+          🚗
+        </div>
 
-        <section class="section">
+        <div>
 
-            <div class="section-title">
-                <h2>Featured Stays</h2>
-                <p>Mountain onsen → historic ryokan → coast</p>
-            </div>
+          <div class="glance-title">
+            Road Trip
+          </div>
 
-            <div class="stay-grid">
+          <div class="glance-sub">
+            Dorogawa · Ryujin · Kumano · Nachi
+          </div>
 
-                <div class="stay-card">
-                    <div class="stay-date">23–24 OCT</div>
-                    <div class="stay-icon">♨️</div>
+        </div>
 
-                    <h3>Dorogawa Onsen</h3>
-                    <p>Mountain onsen town</p>
-                </div>
+      </div>
 
 
-                <div class="stay-card">
-                    <div class="stay-date">24–25 OCT</div>
-                    <div class="stay-icon">♨️</div>
 
-                    <h3>Kamigoten</h3>
-                    <p>Ryujin Onsen</p>
-                </div>
+      <!-- OSAKA -->
 
+      <div class="glance-row">
 
-                <div class="stay-card">
-                    <div class="stay-date">25–26 OCT</div>
-                    <div class="stay-icon">🌊</div>
+        <div class="glance-date">
+          27–31
+        </div>
 
-                    <h3>Kamenoi Hotel</h3>
-                    <p>Nachi Katsuura</p>
-                </div>
+        <div class="glance-icon">
+          🌃
+        </div>
 
-            </div>
+        <div>
 
-        </section>
+          <div class="glance-title">
+            Osaka
+          </div>
 
-    </main>
+          <div class="glance-sub">
+            Osaka base · Narai-juku day trip
+          </div>
 
+        </div>
 
-    <footer class="site-footer">
+      </div>
 
-        <p>Japan Autumn Trip · October 2026</p>
 
-        <p class="footer-small">
-            Kyoto · Wakayama · Osaka · Kiso Valley
-        </p>
+    </div>
 
-    </footer>
+  </section>
 
-</div>
 
+</main>
 
-<!-- THIS loads header.html -->
-<script src="script.js"></script>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+  <div class="bottom-inner">
+
+    <a href="index.html" class="bottom-link active">
+      🏠 Home
+    </a>
+
+    <a href="schedule.html" class="bottom-link">
+      📅 Schedule
+    </a>
+
+    <a href="food.html" class="bottom-link">
+      🍽️ Food
+    </a>
+
+  </div>
+
+</nav>
+
 
 </body>
-
 </html>
