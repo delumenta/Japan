@@ -33,7 +33,6 @@
 
   --text:#f5f5f3;
   --muted:#aeb5bc;
-  --muted-blue:#91a5b3;
 
   --red:#c96f68;
   --blue:#5c9dff;
@@ -96,13 +95,13 @@ header{
   z-index:40;
 
   background:
-    rgba(7,12,16,.96);
+    rgba(7,12,16,.97);
 
   border-bottom:
     1px solid var(--line);
 
   padding:
-    10px
+    8px
     12px
     8px;
 
@@ -121,53 +120,74 @@ header{
 
 
 /* =========================================================
-   HEADER TOP
+   TOP NAV
 ========================================================= */
 
-.header-top{
+.top-nav{
 
-  display:flex;
+  display:grid;
 
-  align-items:center;
+  grid-template-columns:
+    repeat(3,1fr);
 
-  gap:10px;
+  gap:6px;
+
+  margin-bottom:8px;
 
 }
 
-.home-button{
+.nav-link{
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  min-height:37px;
+  min-height:33px;
 
   padding:
-    6px
-    10px;
+    5px
+    6px;
 
   border:
     1px solid var(--line);
 
-  border-radius:10px;
+  border-radius:9px;
 
-  background:#121a20;
+  background:#11181e;
 
   color:var(--muted);
 
   text-decoration:none;
 
-  font-size:11px;
+  font-size:9px;
 
-  font-weight:750;
+  font-weight:800;
 
   white-space:nowrap;
 
 }
 
+.nav-link:hover{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
 .header-title{
-  min-width:0;
+
+  margin:
+    0
+    1px
+    7px;
+
 }
 
 .header-title h1{
@@ -181,7 +201,9 @@ header{
     "Times New Roman",
     serif;
 
-  font-size:22px;
+  font-size:21px;
+
+  line-height:1.2;
 
   letter-spacing:-.025em;
 
@@ -189,11 +211,11 @@ header{
 
 .header-title div{
 
-  margin-top:1px;
+  margin-top:2px;
 
   color:var(--muted);
 
-  font-size:10px;
+  font-size:9px;
 
 }
 
@@ -202,26 +224,20 @@ header{
    SEARCH
 ========================================================= */
 
-.search-wrap{
-
-  margin-top:8px;
-
-}
-
 .search-box{
 
   width:100%;
 
-  min-height:41px;
+  min-height:39px;
 
   padding:
-    9px
-    12px;
+    8px
+    11px;
 
   border:
     1px solid var(--line);
 
-  border-radius:12px;
+  border-radius:11px;
 
   outline:none;
 
@@ -231,7 +247,7 @@ header{
 
   font:inherit;
 
-  font-size:12px;
+  font-size:11px;
 
 }
 
@@ -245,14 +261,14 @@ header{
 
 
 /* =========================================================
-   STICKY BROWSE CONTROLS
+   BROWSE
 ========================================================= */
 
 .sticky-browse{
 
-  margin-top:8px;
+  margin-top:7px;
 
-  padding-top:8px;
+  padding-top:7px;
 
   border-top:
     1px solid var(--line-soft);
@@ -261,7 +277,7 @@ header{
 
 
 /* =========================================================
-   MODE SWITCH
+   BY AREA / BY FOOD
 ========================================================= */
 
 .mode-switch{
@@ -272,7 +288,7 @@ header{
     1fr
     1fr;
 
-  gap:7px;
+  gap:6px;
 
   margin-bottom:7px;
 
@@ -282,7 +298,7 @@ header{
 
   appearance:none;
 
-  min-height:37px;
+  min-height:36px;
 
   border:
     1px solid var(--line);
@@ -295,7 +311,7 @@ header{
 
   font-size:10px;
 
-  font-weight:800;
+  font-weight:850;
 
   cursor:pointer;
 
@@ -308,7 +324,7 @@ header{
   border-color:var(--red);
 
   background:
-    rgba(201,111,104,.10);
+    rgba(201,111,104,.11);
 
 }
 
@@ -317,15 +333,11 @@ header{
    CHIPS
 ========================================================= */
 
-.chip-section{
-  margin:0;
-}
-
 .chips{
 
   display:flex;
 
-  gap:7px;
+  gap:6px;
 
   overflow-x:auto;
 
@@ -335,8 +347,6 @@ header{
     3px;
 
   scrollbar-width:none;
-
-  scroll-snap-type:x proximity;
 
 }
 
@@ -350,11 +360,11 @@ header{
 
   flex:0 0 auto;
 
-  min-height:31px;
+  min-height:30px;
 
   padding:
     5px
-    10px;
+    9px;
 
   border:
     1px solid var(--line);
@@ -373,8 +383,6 @@ header{
 
   white-space:nowrap;
 
-  scroll-snap-align:start;
-
 }
 
 .chip.active{
@@ -384,7 +392,7 @@ header{
   border-color:var(--red);
 
   background:
-    rgba(201,111,104,.11);
+    rgba(201,111,104,.12);
 
 }
 
@@ -400,7 +408,7 @@ main{
   margin:auto;
 
   padding:
-    14px
+    13px
     12px
     105px;
 
@@ -424,7 +432,7 @@ main{
   margin:
     2px
     2px
-    12px;
+    11px;
 
 }
 
@@ -455,12 +463,12 @@ main{
 
 
 /* =========================================================
-   FOOD GROUP
+   CUISINE GROUP
 ========================================================= */
 
 .food-group{
 
-  margin-bottom:22px;
+  margin-bottom:21px;
 
 }
 
@@ -470,10 +478,10 @@ main{
 
   align-items:center;
 
-  gap:8px;
+  gap:7px;
 
   margin:
-    5px
+    4px
     2px
     9px;
 
@@ -498,27 +506,23 @@ main{
 
   font-size:9px;
 
-  font-weight:700;
-
 }
 
 
 /* =========================================================
-   RESTAURANT CARD
+   CARD
 ========================================================= */
 
 .restaurant-card{
 
-  position:relative;
-
   margin-bottom:9px;
 
-  padding:13px;
+  padding:12px;
 
   border:
     1px solid var(--line);
 
-  border-radius:16px;
+  border-radius:15px;
 
   background:
     linear-gradient(
@@ -535,7 +539,7 @@ main{
 
   align-items:flex-start;
 
-  gap:10px;
+  gap:9px;
 
 }
 
@@ -543,16 +547,16 @@ main{
 
   flex:0 0 auto;
 
-  min-width:30px;
+  min-width:29px;
 
-  height:30px;
+  height:29px;
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  border-radius:9px;
+  border-radius:8px;
 
   background:
     rgba(201,111,104,.10);
@@ -613,7 +617,7 @@ main{
 
   gap:5px;
 
-  margin-top:8px;
+  margin-top:7px;
 
 }
 
@@ -622,8 +626,6 @@ main{
   display:inline-flex;
 
   align-items:center;
-
-  min-height:24px;
 
   padding:
     4px
@@ -649,11 +651,11 @@ main{
 
   color:#fff;
 
-  background:
-    rgba(92,157,255,.08);
-
   border-color:
     rgba(92,157,255,.18);
+
+  background:
+    rgba(92,157,255,.08);
 
 }
 
@@ -661,23 +663,11 @@ main{
 
   color:#f2cf72;
 
-  background:
-    rgba(227,184,92,.08);
-
   border-color:
     rgba(227,184,92,.22);
 
-}
-
-.badge.hot{
-
-  color:#ff9d74;
-
   background:
-    rgba(244,163,77,.08);
-
-  border-color:
-    rgba(244,163,77,.22);
+    rgba(227,184,92,.08);
 
 }
 
@@ -685,11 +675,23 @@ main{
 
   color:#e8c770;
 
+  border-color:
+    rgba(227,184,92,.22);
+
   background:
     rgba(227,184,92,.08);
 
+}
+
+.badge.hot{
+
+  color:#ff9d74;
+
   border-color:
-    rgba(227,184,92,.22);
+    rgba(244,163,77,.22);
+
+  background:
+    rgba(244,163,77,.08);
 
 }
 
@@ -697,99 +699,102 @@ main{
 
   color:#aebdff;
 
-  background:
-    rgba(92,157,255,.08);
-
   border-color:
     rgba(92,157,255,.20);
+
+  background:
+    rgba(92,157,255,.08);
 
 }
 
 
 /* =========================================================
-   CARD INFO
+   BUDGET
 ========================================================= */
 
-.card-info{
+.budget-box{
 
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    1fr;
-
-  gap:7px;
-
-  margin-top:10px;
-
-}
-
-.info-box{
+  margin-top:9px;
 
   padding:
-    7px
-    8px;
+    8px
+    9px;
+
+  border:
+    1px solid var(--line-soft);
 
   border-radius:10px;
 
   background:
     rgba(255,255,255,.025);
 
-  border:
-    1px solid var(--line-soft);
-
 }
 
-.info-label{
+.budget-label{
 
-  color:#77838c;
+  color:#78848d;
 
   font-size:7px;
 
-  font-weight:800;
-
-  text-transform:uppercase;
+  font-weight:850;
 
   letter-spacing:.08em;
 
-}
-
-.info-value{
-
-  margin-top:2px;
-
-  color:#d9dee1;
-
-  font-size:9px;
-
-  font-weight:700;
+  text-transform:uppercase;
 
 }
 
-.why-go{
+.budget-value{
 
-  margin-top:9px;
+  margin-top:3px;
 
-  color:var(--muted);
+  color:#fff;
 
   font-size:10px;
 
-  line-height:1.5;
+  font-weight:800;
+
+}
+
+.budget-note{
+
+  margin-top:2px;
+
+  color:var(--muted);
+
+  font-size:8px;
 
 }
 
 
 /* =========================================================
-   CARD ACTIONS
+   WHY
+========================================================= */
+
+.why-go{
+
+  margin-top:8px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  line-height:1.45;
+
+}
+
+
+/* =========================================================
+   ACTIONS
 ========================================================= */
 
 .card-actions{
 
   display:flex;
 
-  gap:7px;
+  gap:6px;
 
-  margin-top:10px;
+  margin-top:9px;
 
 }
 
@@ -800,13 +805,13 @@ main{
   align-items:center;
   justify-content:center;
 
-  min-height:35px;
+  min-height:34px;
 
   padding:
-    7px
+    6px
     10px;
 
-  border-radius:10px;
+  border-radius:9px;
 
   border:
     1px solid rgba(201,111,104,.25);
@@ -820,7 +825,7 @@ main{
 
   font-size:9px;
 
-  font-weight:800;
+  font-weight:850;
 
   cursor:pointer;
 
@@ -828,28 +833,28 @@ main{
 
 .card-btn.info{
 
+  color:var(--blue);
+
   border-color:
     rgba(92,157,255,.22);
 
   background:
     rgba(92,157,255,.07);
 
-  color:var(--blue);
-
 }
 
 
 /* =========================================================
-   EXPANDED INFO
+   EXTRA INFO
 ========================================================= */
 
 .extra-info{
 
   display:none;
 
-  margin-top:10px;
+  margin-top:9px;
 
-  padding-top:10px;
+  padding-top:9px;
 
   border-top:
     1px solid var(--line-soft);
@@ -868,23 +873,25 @@ main{
 
 
 /* =========================================================
-   EMPTY STATE
+   EMPTY
 ========================================================= */
 
 .empty-state{
 
   padding:
-    32px
-    18px;
+    30px
+    17px;
 
   border:
     1px dashed #35414a;
 
-  border-radius:17px;
+  border-radius:15px;
 
   text-align:center;
 
   color:var(--muted);
+
+  font-size:11px;
 
 }
 
@@ -900,7 +907,7 @@ main{
 
 
 /* =========================================================
-   BOTTOM FILTER
+   BOTTOM FILTERS
 ========================================================= */
 
 .bottom-filter{
@@ -914,15 +921,15 @@ main{
   z-index:50;
 
   padding:
+    7px
     8px
-    10px
-    calc(8px + env(safe-area-inset-bottom));
-
-  background:
-    rgba(7,12,16,.97);
+    calc(7px + env(safe-area-inset-bottom));
 
   border-top:
     1px solid var(--line);
+
+  background:
+    rgba(7,12,16,.97);
 
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
@@ -940,7 +947,7 @@ main{
   grid-template-columns:
     repeat(4,1fr);
 
-  gap:6px;
+  gap:5px;
 
 }
 
@@ -948,11 +955,11 @@ main{
 
   appearance:none;
 
-  min-height:42px;
+  min-height:41px;
 
   padding:
-    5px
-    3px;
+    4px
+    2px;
 
   border:
     1px solid #26333d;
@@ -963,7 +970,7 @@ main{
 
   color:#aeb5bc;
 
-  font-size:9px;
+  font-size:8.5px;
 
   font-weight:850;
 
@@ -978,7 +985,7 @@ main{
   border-color:var(--red);
 
   background:
-    rgba(201,111,104,.12);
+    rgba(201,111,104,.13);
 
 }
 
@@ -987,45 +994,18 @@ main{
    MOBILE
 ========================================================= */
 
-@media(max-width:480px){
+@media(max-width:380px){
 
   .header-title h1{
-    font-size:20px;
+    font-size:19px;
   }
 
-  .restaurant-card{
-    padding:12px;
-  }
-
-  .restaurant-name{
-    font-size:14px;
-  }
-
-  .bottom-btn{
-    font-size:8.5px;
-  }
-
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media(max-width:360px){
-
-  .header-title h1{
-    font-size:18px;
-  }
-
-  .bottom-btn{
+  .nav-link{
     font-size:8px;
   }
 
-  .home-button{
-    padding:
-      6px
-      8px;
+  .bottom-btn{
+    font-size:7.8px;
   }
 
 }
@@ -1039,7 +1019,7 @@ main{
 
 
 <!-- =========================================================
-     STICKY HEADER
+     STICKY TOP
 ========================================================= -->
 
 <header>
@@ -1047,45 +1027,64 @@ main{
   <div class="header-inner">
 
 
-    <div class="header-top">
+    <!-- NAVIGATION -->
+
+    <div class="top-nav">
 
       <a
         href="index.html"
-        class="home-button"
+        class="nav-link"
       >
-        ← Home
+        🏠 Home
       </a>
 
+      <a
+        href="schedule.html"
+        class="nav-link"
+      >
+        📅 Schedule
+      </a>
 
-      <div class="header-title">
+      <a
+        href="osakafood.html"
+        class="nav-link"
+      >
+        🍜 Osaka Food
+      </a>
 
-        <h1>
-          🍽️ Kyoto Food Finder
-        </h1>
+    </div>
 
-        <div>
-          Find somewhere to eat
-        </div>
 
+
+    <!-- TITLE -->
+
+    <div class="header-title">
+
+      <h1>
+        🍽️ Kyoto Food Finder
+      </h1>
+
+      <div>
+        Pick an area or choose what you feel like eating
       </div>
 
     </div>
 
 
 
-    <div class="search-wrap">
+    <!-- SEARCH -->
 
-      <input
-        type="search"
-        id="searchInput"
-        class="search-box"
-        placeholder="Search restaurant, food or area..."
-        autocomplete="off"
-      >
-
-    </div>
+    <input
+      type="search"
+      id="searchInput"
+      class="search-box"
+      placeholder="Search restaurant, food or area..."
+      autocomplete="off"
+    >
 
 
+
+    <!-- BROWSE -->
 
     <div class="sticky-browse">
 
@@ -1110,10 +1109,7 @@ main{
 
 
 
-      <div
-        class="chip-section"
-        id="areaSection"
-      >
+      <div id="areaSection">
 
         <div
           class="chips"
@@ -1125,7 +1121,6 @@ main{
 
 
       <div
-        class="chip-section"
         id="foodSection"
         style="display:none;"
       >
@@ -1176,7 +1171,7 @@ main{
 
 
 <!-- =========================================================
-     BOTTOM FILTER
+     BOTTOM FILTERS
 ========================================================= -->
 
 <div class="bottom-filter">
@@ -1231,7 +1226,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Karasuma Oike",
   Rank:1,
-  Price:"¥",
+  Budget:"< ¥1K",
   Why:"Popular Kyoto bakery with a strong local following.",
   Tag:"⭐",
   Recognition:"Top 100 2026"
@@ -1243,7 +1238,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Kawaramachi",
   Rank:2,
-  Price:"¥",
+  Budget:"< ¥1K",
   Why:"Well-known Kyoto bakery and easy downtown stop.",
   Tag:"",
   Recognition:"Top 100 2026"
@@ -1255,7 +1250,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Karasuma Oike",
   Rank:3,
-  Price:"¥",
+  Budget:"¥1K–2K",
   Why:"Excellent bakery option around central Kyoto.",
   Tag:"",
   Recognition:"Bread WEST Top 100 2026"
@@ -1267,7 +1262,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Shijo Karasuma",
   Rank:4,
-  Price:"¥¥",
+  Budget:"¥1K–2K",
   Why:"Pastries and desserts in central Kyoto.",
   Tag:"",
   Recognition:"Bread Top 100 2019–2023"
@@ -1279,7 +1274,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Oike",
   Rank:5,
-  Price:"¥",
+  Budget:"< ¥1K",
   Why:"Convenient French-style bakery in central Kyoto.",
   Tag:"",
   Recognition:""
@@ -1291,12 +1286,14 @@ const restaurants = [
   Area:"Higashiyama",
   Location:"Kiyomizu",
   Rank:6,
-  Price:"¥¥",
+  Budget:"¥1K–2K",
   Why:"Useful bakery and pastry stop while exploring Higashiyama.",
   Tag:"",
   Recognition:""
 },
 
+
+/* CURRY */
 
 {
   Name:"Curry & Tempura Koisus",
@@ -1304,7 +1301,7 @@ const restaurants = [
   Area:"Higashiyama",
   Location:"Gion",
   Rank:1,
-  Price:"¥¥",
+  Budget:"¥2K–5K",
   Why:"Interesting curry and tempura combination around Gion.",
   Tag:"⭐",
   Recognition:""
@@ -1316,12 +1313,14 @@ const restaurants = [
   Area:"Other Kyoto",
   Location:"Kyoto",
   Rank:2,
-  Price:"¥",
-  Why:"Casual Kyoto curry option.",
+  Budget:"☀️ ¥2K–3K · 🌙 ¥4K–5K",
+  Why:"Highly regarded Kyoto curry option.",
   Tag:"",
-  Recognition:""
+  Recognition:"Curry WEST Top 100 2026"
 },
 
+
+/* GYOZA */
 
 {
   Name:"Chao Chao Gyoza",
@@ -1329,12 +1328,14 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:1,
-  Price:"¥",
+  Budget:"¥2K–3K",
   Why:"Easy casual gyoza stop in central Kyoto.",
   Tag:"⭐",
   Recognition:""
 },
 
+
+/* IZAKAYA */
 
 {
   Name:"Sumiro Man",
@@ -1342,7 +1343,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Nishiki",
   Rank:1,
-  Price:"¥¥",
+  Budget:"🌙 ¥3K–4K",
   Why:"Strong downtown izakaya choice near Nishiki.",
   Tag:"⭐",
   Recognition:"Hot Restaurant 2025 & 2026"
@@ -1354,7 +1355,7 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Kyoto Station",
   Rank:2,
-  Price:"¥¥",
+  Budget:"🌙 ¥6K–8K",
   Why:"Useful flexible izakaya around Kyoto Station.",
   Tag:"🌙",
   Recognition:""
@@ -1366,12 +1367,14 @@ const restaurants = [
   Area:"Downtown",
   Location:"Pontocho",
   Rank:3,
-  Price:"¥¥",
+  Budget:"~ ¥3K–5K",
   Why:"Flexible Pontocho option for an evening meal.",
   Tag:"🌙",
   Recognition:""
 },
 
+
+/* KAISENDON */
 
 {
   Name:"Genkai Don",
@@ -1379,12 +1382,14 @@ const restaurants = [
   Area:"Downtown",
   Location:"Nishiki",
   Rank:1,
-  Price:"¥¥",
+  Budget:"~ ¥2K–5K",
   Why:"Seafood rice bowl option around Nishiki.",
   Tag:"⭐",
   Recognition:""
 },
 
+
+/* OYAKODON */
 
 {
   Name:"Wabiya Korekido",
@@ -1392,8 +1397,8 @@ const restaurants = [
   Area:"Higashiyama",
   Location:"Gion",
   Rank:1,
-  Price:"¥¥",
-  Why:"One of the main oyakodon choices around Gion.",
+  Budget:"☀️ ~ ¥2.2K",
+  Why:"Famous Gion oyakodon and one of the main lunch choices.",
   Tag:"⭐",
   Recognition:"Tabelog recognition"
 },
@@ -1404,12 +1409,14 @@ const restaurants = [
   Area:"North Kyoto",
   Location:"Nishijin",
   Rank:2,
-  Price:"¥¥",
+  Budget:"☀️ ¥1K–2K",
   Why:"Traditional oyakodon option in northern Kyoto.",
   Tag:"",
   Recognition:""
 },
 
+
+/* RAMEN */
 
 {
   Name:"Menya Inoichi",
@@ -1417,7 +1424,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:1,
-  Price:"¥",
+  Budget:"¥1K–2K",
   Why:"One of the priority ramen choices in central Kyoto.",
   Tag:"⭐",
   Recognition:"Ramen WEST Top 100"
@@ -1429,7 +1436,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:2,
-  Price:"¥",
+  Budget:"~ ¥1K–2K",
   Why:"Popular ramen choice around central Kyoto.",
   Tag:"⭐",
   Recognition:""
@@ -1441,7 +1448,7 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Gojo",
   Rank:3,
-  Price:"¥",
+  Budget:"¥1K–2K",
   Why:"Strong ramen option south of central Kyoto.",
   Tag:"",
   Recognition:"Ramen WEST Top 100"
@@ -1453,7 +1460,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:4,
-  Price:"¥",
+  Budget:"~ ¥1K–2K",
   Why:"Convenient central Kyoto ramen option.",
   Tag:"",
   Recognition:""
@@ -1465,7 +1472,7 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Kyoto Station",
   Rank:5,
-  Price:"¥",
+  Budget:"¥1K–2K",
   Why:"Classic Kyoto ramen near Kyoto Station.",
   Tag:"⭐",
   Recognition:"Ramen WEST Top 100"
@@ -1477,7 +1484,7 @@ const restaurants = [
   Area:"Higashiyama",
   Location:"Gion",
   Rank:6,
-  Price:"¥¥",
+  Budget:"¥2K–3K",
   Why:"Duck noodle option conveniently located in Gion.",
   Tag:"⭐",
   Recognition:"Ramen WEST Top 100"
@@ -1487,14 +1494,16 @@ const restaurants = [
   Name:"Salmon Noodle Kyoto",
   Food:"Ramen / Tsukemen",
   Area:"Fushimi",
-  Location:"Fushimi",
+  Location:"Fushimi Inari",
   Rank:7,
-  Price:"¥¥",
-  Why:"Useful flexible noodle option with a different style.",
+  Budget:"¥1K–2K",
+  Why:"Flexible salmon noodle option around the Fushimi Inari area.",
   Tag:"🌙",
   Recognition:""
 },
 
+
+/* SEAFOOD */
 
 {
   Name:"Masoho Hanare",
@@ -1502,12 +1511,14 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Kyoto Station",
   Rank:1,
-  Price:"¥¥",
+  Budget:"🌙 ¥3K–4K",
   Why:"Seafood option conveniently located around Kyoto Station.",
   Tag:"",
   Recognition:""
 },
 
+
+/* SUSHI */
 
 {
   Name:"Odai Sushi",
@@ -1515,7 +1526,7 @@ const restaurants = [
   Area:"Arashiyama",
   Location:"Saga",
   Rank:1,
-  Price:"¥¥",
+  Budget:"~ ¥2K–4K",
   Why:"Good sushi option for an Arashiyama day.",
   Tag:"⭐",
   Recognition:""
@@ -1527,7 +1538,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Pontocho",
   Rank:2,
-  Price:"¥¥",
+  Budget:"~ ¥3K–5K",
   Why:"Convenient sushi around Pontocho.",
   Tag:"⭐",
   Recognition:""
@@ -1539,7 +1550,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Central Kyoto",
   Rank:3,
-  Price:"¥¥",
+  Budget:"☀️ ¥2K–3K · 🌙 ¥4K–5K",
   Why:"Strong central sushi choice.",
   Tag:"",
   Recognition:"Hot Restaurant 2025 & 2026"
@@ -1551,7 +1562,7 @@ const restaurants = [
   Area:"Arashiyama",
   Location:"Arashiyama",
   Rank:4,
-  Price:"¥¥",
+  Budget:"~ ¥3K–5K",
   Why:"Another useful sushi choice around Arashiyama.",
   Tag:"",
   Recognition:""
@@ -1563,8 +1574,8 @@ const restaurants = [
   Area:"Downtown",
   Location:"Nishiki",
   Rank:5,
-  Price:"¥¥¥",
-  Why:"Sushi option around Nishiki.",
+  Budget:"¥3K–7K",
+  Why:"Sushi option around Nishiki with several omakase levels.",
   Tag:"",
   Recognition:""
 },
@@ -1575,8 +1586,8 @@ const restaurants = [
   Area:"Higashiyama",
   Location:"Gion",
   Rank:6,
-  Price:"¥¥",
-  Why:"Convenient Gion sushi option.",
+  Budget:"¥6K–12K+",
+  Why:"Higher-end traditional sushi option in Gion.",
   Tag:"",
   Recognition:""
 },
@@ -1587,8 +1598,8 @@ const restaurants = [
   Area:"Higashiyama",
   Location:"Gion",
   Rank:7,
-  Price:"¥¥¥",
-  Why:"Higher-end sushi option around Gion.",
+  Budget:"☀️ ¥8K–10K · 🌙 ¥15K–20K",
+  Why:"Premium sushi and omakase option around Gion.",
   Tag:"",
   Recognition:""
 },
@@ -1599,12 +1610,14 @@ const restaurants = [
   Area:"Downtown",
   Location:"Central Kyoto",
   Rank:8,
-  Price:"¥¥",
+  Budget:"~ ¥5K–10K",
   Why:"Central Kyoto sushi alternative.",
   Tag:"",
   Recognition:""
 },
 
+
+/* TEMPURA */
 
 {
   Name:"Tempura no Mise Gen",
@@ -1612,12 +1625,14 @@ const restaurants = [
   Area:"Downtown",
   Location:"Kiyamachi",
   Rank:1,
-  Price:"¥¥",
+  Budget:"~ ¥1K–3K",
   Why:"Tempura option around Kiyamachi.",
   Tag:"⭐",
   Recognition:""
 },
 
+
+/* TONKATSU */
 
 {
   Name:"Katsukura",
@@ -1625,7 +1640,7 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Kyoto Station",
   Rank:1,
-  Price:"¥¥",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥2K–3K",
   Why:"Reliable Kyoto tonkatsu and especially convenient around Kyoto Station.",
   Tag:"⭐",
   Recognition:""
@@ -1637,12 +1652,14 @@ const restaurants = [
   Area:"Downtown",
   Location:"Kyoto City Hall",
   Rank:2,
-  Price:"¥¥",
+  Budget:"☀️ ¥2K–3K · 🌙 ¥3K–4K",
   Why:"Highly regarded tonkatsu option in central Kyoto.",
   Tag:"",
   Recognition:"Tonkatsu Top 100 2026"
 },
 
+
+/* UDON / SOBA */
 
 {
   Name:"Omen Ginkakuji",
@@ -1650,8 +1667,8 @@ const restaurants = [
   Area:"Okazaki",
   Location:"Ginkakuji",
   Rank:1,
-  Price:"¥¥",
-  Why:"Excellent option around the Philosopher's Path / Ginkakuji area.",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥3K–4K",
+  Why:"Excellent option around the Philosopher's Path and Ginkakuji area.",
   Tag:"⭐",
   Recognition:""
 },
@@ -1662,7 +1679,7 @@ const restaurants = [
   Area:"Okazaki",
   Location:"Okazaki",
   Rank:2,
-  Price:"¥",
+  Budget:"¥1K–2K",
   Why:"Highly regarded udon in the Okazaki area.",
   Tag:"⭐",
   Recognition:"Udon WEST Top 100"
@@ -1674,10 +1691,10 @@ const restaurants = [
   Area:"Downtown",
   Location:"Karasuma Oike",
   Rank:3,
-  Price:"¥¥",
-  Why:"Traditional Kyoto soba and a good flexible lunch option.",
+  Budget:"Check status",
+  Why:"Traditional Kyoto soba option. Check the intended location and current operating status before visiting.",
   Tag:"⭐",
-  Recognition:""
+  Recognition:"⚠️ Check current status"
 },
 
 {
@@ -1686,12 +1703,14 @@ const restaurants = [
   Area:"Okazaki",
   Location:"Okazaki",
   Rank:4,
-  Price:"¥",
+  Budget:"~ ¥1K–2K",
   Why:"Strong udon choice around Okazaki.",
   Tag:"",
   Recognition:"Udon WEST Top 100"
 },
 
+
+/* UNAGI */
 
 {
   Name:"Nezameya",
@@ -1699,7 +1718,7 @@ const restaurants = [
   Area:"Fushimi",
   Location:"Fushimi Inari",
   Rank:1,
-  Price:"¥¥",
+  Budget:"☀️ ¥1K–2K",
   Why:"Very convenient traditional food stop beside Fushimi Inari.",
   Tag:"⭐",
   Recognition:""
@@ -1711,12 +1730,14 @@ const restaurants = [
   Area:"Fushimi",
   Location:"Fushimi Inari",
   Rank:2,
-  Price:"¥¥",
-  Why:"Another unagi option directly around Fushimi Inari.",
+  Budget:"¥4K–6.5K",
+  Why:"Hitsumabushi and unagi option directly around Fushimi Inari.",
   Tag:"",
   Recognition:""
 },
 
+
+/* WASHOKU */
 
 {
   Name:"Gohanya Isshin Kyoto",
@@ -1724,7 +1745,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:1,
-  Price:"¥¥",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥4K–5K",
   Why:"Japanese set-meal option in central Kyoto.",
   Tag:"⭐",
   Recognition:""
@@ -1736,7 +1757,7 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Kyoto Station",
   Rank:2,
-  Price:"¥¥",
+  Budget:"☀️ ¥1K–2K · 🌙 ~ ¥3K–4K",
   Why:"Vegetable-focused Kyoto-style meal near Kyoto Station.",
   Tag:"",
   Recognition:""
@@ -1748,12 +1769,14 @@ const restaurants = [
   Area:"Arashiyama",
   Location:"Arashiyama",
   Rank:3,
-  Price:"¥¥¥",
+  Budget:"¥4K–5K",
   Why:"Scenic Arashiyama meal option.",
   Tag:"⭐",
   Recognition:""
 },
 
+
+/* YAKITORI */
 
 {
   Name:"Kuchibashi Modern",
@@ -1761,7 +1784,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Shijo Karasuma",
   Rank:1,
-  Price:"¥¥",
+  Budget:"~ ¥5K–8K",
   Why:"One of the stronger yakitori choices in central Kyoto.",
   Tag:"⭐",
   Recognition:"Yakitori WEST Top 100"
@@ -1773,7 +1796,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Pontocho",
   Rank:2,
-  Price:"¥¥",
+  Budget:"~ ¥4K–6K",
   Why:"Convenient yakitori option for a Pontocho evening.",
   Tag:"",
   Recognition:""
@@ -1785,7 +1808,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Pontocho",
   Rank:3,
-  Price:"¥¥",
+  Budget:"🌙 ¥3K–4K",
   Why:"Another Pontocho yakitori choice.",
   Tag:"",
   Recognition:""
@@ -1797,8 +1820,8 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:4,
-  Price:"¥¥",
-  Why:"Useful flexible late-night chicken / yakitori option.",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥3K–4K",
+  Why:"Useful flexible chicken and yakitori option.",
   Tag:"🌙",
   Recognition:""
 },
@@ -1809,7 +1832,7 @@ const restaurants = [
   Area:"Downtown",
   Location:"Downtown",
   Rank:5,
-  Price:"¥¥",
+  Budget:"~ ¥4K–6K",
   Why:"One of the most useful late-night flexible choices in Kyoto.",
   Tag:"⭐ 🌙",
   Recognition:"Hot Restaurant 2025 & 2026"
@@ -1821,7 +1844,7 @@ const restaurants = [
   Area:"Kyoto Station",
   Location:"Kyoto Station",
   Rank:6,
-  Price:"¥¥",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥5K–6K",
   Why:"Strong yakitori choice around Kyoto Station.",
   Tag:"",
   Recognition:"Hot Restaurant 2025 & 2026"
@@ -1832,7 +1855,7 @@ const restaurants = [
 
 
 /* =========================================================
-   OPTIONS
+   AREA OPTIONS
 ========================================================= */
 
 const areaOptions = [
@@ -1848,6 +1871,11 @@ const areaOptions = [
 
 ];
 
+
+
+/* =========================================================
+   FOOD OPTIONS
+========================================================= */
 
 const foodOptions = [
 
@@ -1907,6 +1935,8 @@ let selectedArea = "";
 
 let selectedFood = "";
 
+let selectedLocation = "";
+
 let searchTerm = "";
 
 const activeFilters =
@@ -1951,7 +1981,7 @@ const bottomButtons =
 
 
 /* =========================================================
-   SPECIAL FILTERS
+   SPECIAL FILTER CHECKS
 ========================================================= */
 
 function isPick(r){
@@ -1981,14 +2011,14 @@ function isHot(r){
 
 function isTabelog(r){
 
-  const recognition =
+  const text =
     (r.Recognition || "")
       .toLowerCase();
 
   return (
-    recognition.includes("top 100")
+    text.includes("top 100")
     ||
-    recognition.includes("tabelog")
+    text.includes("tabelog")
   );
 
 }
@@ -1996,7 +2026,7 @@ function isTabelog(r){
 
 
 /* =========================================================
-   CREATE CHIPS
+   CREATE AREA / FOOD CHIPS
 ========================================================= */
 
 function createChips(){
@@ -2005,19 +2035,24 @@ function createChips(){
   foodChips.innerHTML = "";
 
 
+  /* ALL AREA */
+
   const allArea =
     document.createElement("button");
 
   allArea.className =
     "chip active";
 
+  allArea.dataset.value = "";
+
   allArea.textContent =
     "All Areas";
 
-  allArea.dataset.value = "";
-
   areaChips.appendChild(allArea);
 
+
+
+  /* AREAS */
 
   areaOptions.forEach(area => {
 
@@ -2038,19 +2073,25 @@ function createChips(){
   });
 
 
+
+  /* ALL FOOD */
+
   const allFood =
     document.createElement("button");
 
   allFood.className =
     "chip active";
 
+  allFood.dataset.value = "";
+
   allFood.textContent =
     "All Food";
 
-  allFood.dataset.value = "";
-
   foodChips.appendChild(allFood);
 
+
+
+  /* FOOD */
 
   foodOptions.forEach(food => {
 
@@ -2064,14 +2105,21 @@ function createChips(){
       food;
 
     button.textContent =
-      (cuisineEmoji[food] || "🍽️")
-      + " "
-      + food;
+      `${cuisineEmoji[food] || "🍽️"} ${food}`;
 
     foodChips.appendChild(button);
 
   });
 
+
+
+  /* =======================================================
+     AREA CLICK
+
+     IMPORTANT:
+     Clicking an Area automatically clears
+     Food + exact Location + Search.
+  ======================================================= */
 
   areaChips
     .querySelectorAll(".chip")
@@ -2081,19 +2129,25 @@ function createChips(){
         "click",
         () => {
 
+          browseMode = "area";
+
           selectedArea =
             button.dataset.value;
 
-          areaChips
-            .querySelectorAll(".chip")
-            .forEach(b => {
+          selectedFood = "";
 
-              b.classList.toggle(
-                "active",
-                b === button
-              );
+          selectedLocation = "";
 
-            });
+          searchTerm = "";
+
+          searchInput.value = "";
+
+
+          syncModeButtons();
+
+          syncAreaChips();
+
+          syncFoodChips();
 
           render();
 
@@ -2103,6 +2157,15 @@ function createChips(){
     });
 
 
+
+  /* =======================================================
+     FOOD CLICK
+
+     IMPORTANT:
+     Clicking Food automatically clears
+     Area + exact Location + Search.
+  ======================================================= */
+
   foodChips
     .querySelectorAll(".chip")
     .forEach(button => {
@@ -2111,23 +2174,164 @@ function createChips(){
         "click",
         () => {
 
+          browseMode = "food";
+
           selectedFood =
             button.dataset.value;
 
-          foodChips
-            .querySelectorAll(".chip")
-            .forEach(b => {
+          selectedArea = "";
 
-              b.classList.toggle(
-                "active",
-                b === button
-              );
+          selectedLocation = "";
 
-            });
+          searchTerm = "";
+
+          searchInput.value = "";
+
+
+          syncModeButtons();
+
+          syncAreaChips();
+
+          syncFoodChips();
 
           render();
 
         }
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   MODE SWITCH
+
+   AREA -> clears FOOD
+   FOOD -> clears AREA / LOCATION
+========================================================= */
+
+modeButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+
+      browseMode =
+        button.dataset.mode;
+
+
+      searchTerm = "";
+
+      searchInput.value = "";
+
+
+      if(browseMode === "area"){
+
+        selectedFood = "";
+
+      }
+
+      else{
+
+        selectedArea = "";
+
+        selectedLocation = "";
+
+      }
+
+
+      syncModeButtons();
+
+      syncAreaChips();
+
+      syncFoodChips();
+
+      render();
+
+    }
+  );
+
+});
+
+
+
+/* =========================================================
+   SYNC MODE
+========================================================= */
+
+function syncModeButtons(){
+
+  modeButtons.forEach(button => {
+
+    button.classList.toggle(
+      "active",
+      button.dataset.mode === browseMode
+    );
+
+  });
+
+
+  if(browseMode === "area"){
+
+    areaSection.style.display =
+      "block";
+
+    foodSection.style.display =
+      "none";
+
+  }
+
+  else{
+
+    areaSection.style.display =
+      "none";
+
+    foodSection.style.display =
+      "block";
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SYNC AREA
+========================================================= */
+
+function syncAreaChips(){
+
+  areaChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.value === selectedArea
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   SYNC FOOD
+========================================================= */
+
+function syncFoodChips(){
+
+  foodChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.value === selectedFood
       );
 
     });
@@ -2145,23 +2349,54 @@ function getFilteredRestaurants(){
   return restaurants.filter(r => {
 
 
+    /* AREA */
+
     if(
+      browseMode === "area"
+      &&
       selectedArea
       &&
       r.Area !== selectedArea
     ){
+
       return false;
+
     }
 
 
+    /* EXACT LOCATION */
+
     if(
+      browseMode === "area"
+      &&
+      selectedLocation
+      &&
+      r.Location.toLowerCase()
+        !==
+      selectedLocation.toLowerCase()
+    ){
+
+      return false;
+
+    }
+
+
+    /* FOOD */
+
+    if(
+      browseMode === "food"
+      &&
       selectedFood
       &&
       r.Food !== selectedFood
     ){
+
       return false;
+
     }
 
+
+    /* SEARCH */
 
     if(searchTerm){
 
@@ -2171,6 +2406,7 @@ function getFilteredRestaurants(){
         r.Food,
         r.Area,
         r.Location,
+        r.Budget,
         r.Why,
         r.Recognition
 
@@ -2182,19 +2418,24 @@ function getFilteredRestaurants(){
       if(
         !haystack.includes(searchTerm)
       ){
+
         return false;
+
       }
 
     }
 
 
     /*
-       Bottom filters use OR logic.
+       SPECIAL BOTTOM FILTERS
 
-       Example:
-       Picks + Hot
-       = restaurants that are
-       Picks OR Hot.
+       These use OR logic.
+
+       ⭐ + 🔥
+       = Picks OR Hot.
+
+       They do NOT interfere with
+       Area / Food browse mode.
     */
 
     if(activeFilters.size){
@@ -2222,7 +2463,9 @@ function getFilteredRestaurants(){
       if(
         !matches.some(Boolean)
       ){
+
         return false;
+
       }
 
     }
@@ -2245,49 +2488,66 @@ function buildBadges(r){
   let html = "";
 
 
-  html +=
-    `<span class="badge cuisine">
+  html += `
+
+    <span class="badge cuisine">
+
       ${cuisineEmoji[r.Food] || "🍽️"}
       ${r.Food}
-    </span>`;
+
+    </span>
+
+  `;
 
 
   if(isPick(r)){
 
-    html +=
-      `<span class="badge pick">
+    html += `
+
+      <span class="badge pick">
         ⭐ Pick
-      </span>`;
+      </span>
+
+    `;
 
   }
 
 
   if(isTabelog(r)){
 
-    html +=
-      `<span class="badge tabelog">
+    html += `
+
+      <span class="badge tabelog">
         🏆 Tabelog
-      </span>`;
+      </span>
+
+    `;
 
   }
 
 
   if(isHot(r)){
 
-    html +=
-      `<span class="badge hot">
+    html += `
+
+      <span class="badge hot">
         🔥 Hot
-      </span>`;
+      </span>
+
+    `;
 
   }
 
 
   if(isFlexible(r)){
 
-    html +=
-      `<span class="badge flexible">
+    html += `
+
+      <span class="badge flexible">
         🌙 Flexible
-      </span>`;
+      </span>
+
+    `;
 
   }
 
@@ -2306,14 +2566,8 @@ function restaurantCard(r){
 
   const mapsQuery =
     encodeURIComponent(
-      r.Name + " Kyoto Japan"
+      `${r.Name} Kyoto Japan`
     );
-
-
-  const recognition =
-    r.Recognition
-      ? r.Recognition
-      : "—";
 
 
   return `
@@ -2359,36 +2613,19 @@ function restaurantCard(r){
       </div>
 
 
-      <div class="card-info">
 
+      <div class="budget-box">
 
-        <div class="info-box">
-
-          <div class="info-label">
-            Price
-          </div>
-
-          <div class="info-value">
-            ${r.Price}
-          </div>
-
+        <div class="budget-label">
+          💴 Budget / person
         </div>
 
-
-        <div class="info-box">
-
-          <div class="info-label">
-            Recognition
-          </div>
-
-          <div class="info-value">
-            ${recognition}
-          </div>
-
+        <div class="budget-value">
+          ${r.Budget}
         </div>
-
 
       </div>
+
 
 
       <div class="why-go">
@@ -2398,12 +2635,14 @@ function restaurantCard(r){
       </div>
 
 
+
       <div class="card-actions">
 
 
         <a
           href="https://www.google.com/maps/search/?api=1&query=${mapsQuery}"
           target="_blank"
+          rel="noopener noreferrer"
           class="card-btn"
         >
           📍 Maps
@@ -2411,6 +2650,7 @@ function restaurantCard(r){
 
 
         <button
+          type="button"
           class="card-btn info"
           onclick="toggleInfo(this)"
         >
@@ -2419,6 +2659,7 @@ function restaurantCard(r){
 
 
       </div>
+
 
 
       <div class="extra-info">
@@ -2438,7 +2679,7 @@ function restaurantCard(r){
 
         <br>
 
-        💴 ${r.Price}
+        💴 ${r.Budget}
 
         ${
           r.Recognition
@@ -2460,7 +2701,7 @@ function restaurantCard(r){
 
 
 /* =========================================================
-   TOGGLE INFO
+   INFO BUTTON
 ========================================================= */
 
 function toggleInfo(button){
@@ -2498,19 +2739,7 @@ function renderAreaMode(list){
 
   if(!list.length){
 
-    results.innerHTML = `
-
-      <div class="empty-state">
-
-        <strong>
-          No restaurants found
-        </strong>
-
-        Try another area, food type or filter.
-
-      </div>
-
-    `;
+    showEmpty();
 
     return;
 
@@ -2523,7 +2752,9 @@ function renderAreaMode(list){
   list.forEach(r => {
 
     if(!grouped[r.Food]){
+
       grouped[r.Food] = [];
+
     }
 
     grouped[r.Food].push(r);
@@ -2531,14 +2762,14 @@ function renderAreaMode(list){
   });
 
 
-  const foodOrder =
+  const orderedFoods =
     foodOptions.filter(
       food => grouped[food]
     );
 
 
   results.innerHTML =
-    foodOrder
+    orderedFoods
       .map(food => {
 
 
@@ -2572,9 +2803,10 @@ function renderAreaMode(list){
             </div>
 
 
-            ${group
-              .map(restaurantCard)
-              .join("")
+            ${
+              group
+                .map(restaurantCard)
+                .join("")
             }
 
 
@@ -2597,19 +2829,7 @@ function renderFoodMode(list){
 
   if(!list.length){
 
-    results.innerHTML = `
-
-      <div class="empty-state">
-
-        <strong>
-          No restaurants found
-        </strong>
-
-        Try another food type, area or filter.
-
-      </div>
-
-    `;
+    showEmpty();
 
     return;
 
@@ -2634,14 +2854,47 @@ function renderFoodMode(list){
 
 
 /* =========================================================
-   UPDATE TITLE
+   EMPTY
+========================================================= */
+
+function showEmpty(){
+
+  results.innerHTML = `
+
+    <div class="empty-state">
+
+      <strong>
+        No restaurants found
+      </strong>
+
+      Try another area, food type,
+      search or bottom filter.
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   RESULT TITLE
 ========================================================= */
 
 function updateTitle(list){
 
   if(browseMode === "area"){
 
-    if(selectedArea){
+
+    if(selectedLocation){
+
+      resultsTitle.textContent =
+        `📍 ${selectedLocation}`;
+
+    }
+
+    else if(selectedArea){
 
       resultsTitle.textContent =
         selectedArea;
@@ -2660,12 +2913,11 @@ function updateTitle(list){
 
   else{
 
+
     if(selectedFood){
 
       resultsTitle.textContent =
-        (cuisineEmoji[selectedFood] || "🍽️")
-        + " "
-        + selectedFood;
+        `${cuisineEmoji[selectedFood] || "🍽️"} ${selectedFood}`;
 
     }
 
@@ -2680,13 +2932,11 @@ function updateTitle(list){
 
 
   resultCount.textContent =
-    list.length
-    +
-    (
+    `${list.length} ${
       list.length === 1
-      ? " restaurant"
-      : " restaurants"
-    );
+        ? "restaurant"
+        : "restaurants"
+    }`;
 
 }
 
@@ -2722,61 +2972,6 @@ function render(){
 
 
 /* =========================================================
-   MODE SWITCH
-========================================================= */
-
-modeButtons.forEach(button => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-
-      browseMode =
-        button.dataset.mode;
-
-
-      modeButtons.forEach(b => {
-
-        b.classList.toggle(
-          "active",
-          b === button
-        );
-
-      });
-
-
-      if(browseMode === "area"){
-
-        areaSection.style.display =
-          "block";
-
-        foodSection.style.display =
-          "none";
-
-      }
-
-      else{
-
-        areaSection.style.display =
-          "none";
-
-        foodSection.style.display =
-          "block";
-
-      }
-
-
-      render();
-
-    }
-  );
-
-});
-
-
-
-/* =========================================================
    BOTTOM FILTERS
 ========================================================= */
 
@@ -2791,9 +2986,7 @@ bottomButtons.forEach(button => {
         button.dataset.filter;
 
 
-      if(
-        activeFilters.has(filter)
-      ){
+      if(activeFilters.has(filter)){
 
         activeFilters.delete(filter);
 
@@ -2845,6 +3038,16 @@ searchInput.addEventListener(
 
 /* =========================================================
    URL PARAMETERS
+
+   Examples:
+
+   kyotofood.html?area=Arashiyama
+
+   kyotofood.html?location=Gion
+
+   kyotofood.html?location=Fushimi%20Inari
+
+   kyotofood.html?food=Ramen%20%2F%20Tsukemen
 ========================================================= */
 
 function loadURLParameters(){
@@ -2865,6 +3068,9 @@ function loadURLParameters(){
     params.get("food");
 
 
+
+  /* AREA */
+
   if(
     area
     &&
@@ -2875,12 +3081,24 @@ function loadURLParameters(){
 
     selectedArea = area;
 
+    selectedFood = "";
+
+    selectedLocation = "";
+
   }
 
+
+
+  /* EXACT LOCATION */
 
   if(location){
 
     browseMode = "area";
+
+    selectedFood = "";
+
+    selectedLocation =
+      location;
 
 
     const match =
@@ -2898,16 +3116,13 @@ function loadURLParameters(){
       selectedArea =
         match.Area;
 
-      searchTerm =
-        location.toLowerCase();
-
-      searchInput.value =
-        location;
-
     }
 
   }
 
+
+
+  /* FOOD */
 
   if(
     food
@@ -2919,75 +3134,18 @@ function loadURLParameters(){
 
     selectedFood = food;
 
-  }
+    selectedArea = "";
 
-
-  updateUIFromState();
-
-}
-
-
-
-/* =========================================================
-   SYNC UI
-========================================================= */
-
-function updateUIFromState(){
-
-
-  modeButtons.forEach(button => {
-
-    button.classList.toggle(
-      "active",
-      button.dataset.mode === browseMode
-    );
-
-  });
-
-
-  if(browseMode === "area"){
-
-    areaSection.style.display =
-      "block";
-
-    foodSection.style.display =
-      "none";
-
-  }
-
-  else{
-
-    areaSection.style.display =
-      "none";
-
-    foodSection.style.display =
-      "block";
+    selectedLocation = "";
 
   }
 
 
-  areaChips
-    .querySelectorAll(".chip")
-    .forEach(button => {
+  syncModeButtons();
 
-      button.classList.toggle(
-        "active",
-        button.dataset.value === selectedArea
-      );
+  syncAreaChips();
 
-    });
-
-
-  foodChips
-    .querySelectorAll(".chip")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.value === selectedFood
-      );
-
-    });
+  syncFoodChips();
 
 }
 
