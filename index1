@@ -13,26 +13,15 @@
   --bg:#070c10;
   --panel:#10161c;
   --panel-light:#151c23;
-  --panel-active:#172027;
   --line:#29323b;
   --line-soft:rgba(255,255,255,.07);
 
   --text:#f5f5f3;
   --muted:#aeb5bc;
-  --muted-blue:#91a5b3;
 
-  /* soft muted red — same feeling as Food Finder */
   --red:#c96f68;
-
   --blue:#5c9dff;
-  --green:#67c587;
-  --orange:#f4a34d;
 }
-
-
-/* ===============================
-   GLOBAL
-================================ */
 
 *{
   box-sizing:border-box;
@@ -46,11 +35,7 @@ body{
   margin:0;
 
   background:
-    radial-gradient(
-      circle at 50% -15%,
-      #17202a 0%,
-      transparent 38%
-    ),
+    radial-gradient(circle at 50% -15%,#17202a 0%,transparent 38%),
     var(--bg);
 
   color:var(--text);
@@ -67,15 +52,6 @@ body{
   line-height:1.5;
 }
 
-a{
-  color:inherit;
-}
-
-
-/* ===============================
-   PAGE
-================================ */
-
 .page{
   max-width:760px;
   margin:auto;
@@ -87,9 +63,9 @@ a{
 }
 
 
-/* ===============================
+/* ==============================
    HERO
-================================ */
+============================== */
 
 .hero{
   padding:18px 4px 30px;
@@ -110,10 +86,7 @@ a{
 .hero h1{
   margin:0;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+  font-family:Georgia,"Times New Roman",serif;
 
   font-size:42px;
   line-height:1.03;
@@ -127,6 +100,7 @@ a{
   margin:14px 0 0;
 
   color:var(--muted);
+
   font-size:15px;
 
   max-width:540px;
@@ -157,12 +131,11 @@ a{
 }
 
 
-/* ===============================
-   SECTION TITLES
-================================ */
+/* ==============================
+   SECTIONS
+============================== */
 
 .section{
-  margin-top:4px;
   margin-bottom:30px;
 }
 
@@ -179,9 +152,9 @@ a{
 }
 
 
-/* ===============================
-   MAIN MENU
-================================ */
+/* ==============================
+   MAIN BUTTONS
+============================== */
 
 .menu{
   display:grid;
@@ -201,7 +174,10 @@ a{
 
   text-decoration:none;
 
+  color:inherit;
+
   border:1px solid var(--line);
+
   border-radius:22px;
 
   background:
@@ -218,8 +194,7 @@ a{
 
   transition:
     transform .18s ease,
-    border-color .18s ease,
-    background .18s ease;
+    border-color .18s ease;
 }
 
 .menu-card:active{
@@ -230,23 +205,24 @@ a{
   width:48px;
   height:48px;
 
-  border-radius:14px;
-
   display:flex;
   align-items:center;
   justify-content:center;
+
+  border-radius:14px;
 
   margin-bottom:18px;
 
   font-size:23px;
 
-  border:1px solid rgba(201,111,104,.16);
-
   background:rgba(201,111,104,.10);
+
+  border:1px solid rgba(201,111,104,.16);
 }
 
 .menu-card.food .menu-icon{
   background:rgba(92,157,255,.10);
+
   border-color:rgba(92,157,255,.16);
 }
 
@@ -283,9 +259,9 @@ a{
 }
 
 
-/* ===============================
+/* ==============================
    TRIP AT A GLANCE
-================================ */
+============================== */
 
 .glance{
   border:1px solid var(--line);
@@ -347,39 +323,9 @@ a{
 }
 
 
-/* ===============================
-   QUICK NOTE
-================================ */
-
-.note{
-  display:flex;
-
-  gap:11px;
-
-  align-items:flex-start;
-
-  border:1px solid var(--line);
-
-  border-radius:16px;
-
-  padding:14px;
-
-  background:#10161c;
-
-  color:var(--muted);
-
-  font-size:12px;
-}
-
-.note-icon{
-  font-size:17px;
-  line-height:1.4;
-}
-
-
-/* ===============================
-   BOTTOM NAV
-================================ */
+/* ==============================
+   BOTTOM NAVIGATION
+============================== */
 
 .bottom-nav{
   position:fixed;
@@ -426,6 +372,7 @@ a{
   min-height:44px;
 
   border:1px solid #26333d;
+
   border-radius:12px;
 
   background:#121a20;
@@ -447,9 +394,9 @@ a{
 }
 
 
-/* ===============================
+/* ==============================
    DESKTOP
-================================ */
+============================== */
 
 @media(min-width:650px){
 
@@ -473,13 +420,12 @@ a{
     min-height:190px;
     padding:23px;
   }
-
 }
 
 
-/* ===============================
-   SMALL MOBILE
-================================ */
+/* ==============================
+   SMALL PHONES
+============================== */
 
 @media(max-width:390px){
 
@@ -495,7 +441,6 @@ a{
   .glance-row{
     grid-template-columns:66px 38px 1fr;
   }
-
 }
 
 </style>
@@ -507,9 +452,7 @@ a{
 <main class="page">
 
 
-  <!-- =================================
-       HERO
-  ================================== -->
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -546,9 +489,7 @@ a{
 
 
 
-  <!-- =================================
-       CHOOSE
-  ================================== -->
+  <!-- MAIN MENU -->
 
   <section class="section">
 
@@ -561,10 +502,7 @@ a{
 
       <!-- SCHEDULE -->
 
-      <a
-        href="schedule.html"
-        class="menu-card"
-      >
+      <a href="schedule.html" class="menu-card">
 
         <div class="menu-icon">
           📅
@@ -588,10 +526,7 @@ a{
 
       <!-- FOOD -->
 
-      <a
-        href="food.html"
-        class="menu-card food"
-      >
+      <a href="food.html" class="menu-card food">
 
         <div class="menu-icon">
           🍽️
@@ -618,9 +553,7 @@ a{
 
 
 
-  <!-- =================================
-       TRIP AT A GLANCE
-  ================================== -->
+  <!-- TRIP AT A GLANCE -->
 
   <section class="section">
 
@@ -630,6 +563,8 @@ a{
 
     <div class="glance">
 
+
+      <!-- KYOTO -->
 
       <div class="glance-row">
 
@@ -642,18 +577,22 @@ a{
         </div>
 
         <div>
+
           <div class="glance-title">
             Kyoto
           </div>
 
           <div class="glance-sub">
-            Temples · Arashiyama · Ine · Kibune
+            Higashiyama · Arashiyama · Ine · Kibune
           </div>
+
         </div>
 
       </div>
 
 
+
+      <!-- ROAD TRIP -->
 
       <div class="glance-row">
 
@@ -666,6 +605,7 @@ a{
         </div>
 
         <div>
+
           <div class="glance-title">
             Road Trip
           </div>
@@ -673,11 +613,14 @@ a{
           <div class="glance-sub">
             Dorogawa · Ryujin · Kumano · Nachi
           </div>
+
         </div>
 
       </div>
 
 
+
+      <!-- OSAKA -->
 
       <div class="glance-row">
 
@@ -690,6 +633,7 @@ a{
         </div>
 
         <div>
+
           <div class="glance-title">
             Osaka
           </div>
@@ -697,6 +641,7 @@ a{
           <div class="glance-sub">
             Osaka base · Narai-juku day trip
           </div>
+
         </div>
 
       </div>
@@ -707,61 +652,25 @@ a{
   </section>
 
 
-
-  <!-- =================================
-       NOTE
-  ================================== -->
-
-  <section class="section">
-
-    <div class="note">
-
-      <div class="note-icon">
-        💡
-      </div>
-
-      <div>
-        Use <strong style="color:#fff">Schedule</strong>
-        to see today's route and timings.
-        Use <strong style="color:#fff">Food</strong>
-        when you need somewhere to eat nearby.
-      </div>
-
-    </div>
-
-  </section>
-
-
 </main>
 
 
 
-<!-- =================================
-     BOTTOM NAV
-================================== -->
+<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
   <div class="bottom-inner">
 
-    <a
-      href="index.html"
-      class="bottom-link active"
-    >
+    <a href="index.html" class="bottom-link active">
       🏠 Home
     </a>
 
-    <a
-      href="schedule.html"
-      class="bottom-link"
-    >
+    <a href="schedule.html" class="bottom-link">
       📅 Schedule
     </a>
 
-    <a
-      href="food.html"
-      class="bottom-link"
-    >
+    <a href="food.html" class="bottom-link">
       🍽️ Food
     </a>
 
