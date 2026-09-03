@@ -40,7 +40,8 @@
   --blue:#5c9dff;
   --green:#67c587;
   --orange:#f4a34d;
-
+  --gold:#e3bb62;
+  --purple:#a98be8;
 }
 
 
@@ -96,7 +97,7 @@ header{
 
   z-index:20;
 
-  background:rgba(7,12,16,.92);
+  background:rgba(7,12,16,.94);
 
   border-bottom:1px solid var(--line);
 
@@ -109,9 +110,6 @@ header{
     0 10px 30px rgba(0,0,0,.20);
 
 }
-
-
-/* top row */
 
 .header-top{
 
@@ -126,9 +124,6 @@ header{
   gap:11px;
 
 }
-
-
-/* home button */
 
 .home-button{
 
@@ -169,9 +164,6 @@ header{
 
 }
 
-
-/* title */
-
 header h1{
 
   margin:0;
@@ -188,9 +180,6 @@ header h1{
   letter-spacing:-.025em;
 
 }
-
-
-/* search */
 
 .search{
 
@@ -219,9 +208,7 @@ header h1{
 }
 
 .search::placeholder{
-
   color:#77838d;
-
 }
 
 .search:focus{
@@ -247,7 +234,7 @@ main{
   padding:
     16px
     12px
-    96px;
+    104px;
 
 }
 
@@ -371,7 +358,67 @@ main{
 
   color:var(--muted);
 
-  margin:0 2px 11px;
+  margin:0 2px 12px;
+
+}
+
+
+/* =========================================
+   CUISINE GROUP
+========================================= */
+
+.cuisine-group{
+
+  margin-bottom:24px;
+
+}
+
+.cuisine-heading{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin:
+    18px
+    2px
+    9px;
+
+  padding-bottom:8px;
+
+  border-bottom:1px solid var(--line);
+
+}
+
+.cuisine-icon{
+
+  font-size:19px;
+
+}
+
+.cuisine-name{
+
+  color:#fff;
+
+  font-size:13px;
+
+  font-weight:850;
+
+  letter-spacing:.04em;
+
+  text-transform:uppercase;
+
+}
+
+.cuisine-total{
+
+  margin-left:auto;
+
+  color:var(--muted);
+
+  font-size:11px;
 
 }
 
@@ -413,7 +460,9 @@ main{
 }
 
 
-/* rank */
+/* =========================================
+   RANK
+========================================= */
 
 .rank{
 
@@ -423,38 +472,37 @@ main{
 
   border-radius:14px;
 
-  background:rgba(92,157,255,.14);
+  background:rgba(92,157,255,.12);
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  font-weight:800;
+  font-weight:850;
 
   color:var(--blue);
 
   font-size:14px;
 
-  border:
-    1px solid rgba(92,157,255,.10);
+  border:1px solid rgba(92,157,255,.12);
 
 }
 
 .rank.star{
 
-  background:
-    rgba(201,111,104,.13);
+  background:rgba(201,111,104,.13);
 
   color:var(--red);
 
-  border-color:
-    rgba(201,111,104,.11);
+  border-color:rgba(201,111,104,.14);
 
 }
 
 
-/* restaurant information */
+/* =========================================
+   RESTAURANT INFO
+========================================= */
 
 .info{
 
@@ -466,7 +514,7 @@ main{
 
 .name{
 
-  font-weight:750;
+  font-weight:800;
 
   font-size:17px;
 
@@ -476,13 +524,43 @@ main{
 
 }
 
+.food-label{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  margin-top:7px;
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  color:#eef1f3;
+
+  font-size:10px;
+
+  font-weight:850;
+
+  letter-spacing:.04em;
+
+  text-transform:uppercase;
+
+}
+
 .meta{
 
   color:var(--muted-blue);
 
   font-size:12px;
 
-  margin-top:5px;
+  margin-top:7px;
 
   line-height:1.5;
 
@@ -519,19 +597,55 @@ main{
 
 .badge{
 
-  font-size:11px;
+  font-size:10px;
 
-  padding:4px 8px;
+  font-weight:750;
+
+  padding:5px 8px;
 
   border-radius:999px;
 
-  background:
-    rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
 
-  color:#cbd2d7;
+}
 
-  border:
-    1px solid rgba(255,255,255,.07);
+.badge.pick{
+
+  background:rgba(227,187,98,.08);
+
+  border-color:rgba(227,187,98,.20);
+
+  color:#e7c86e;
+
+}
+
+.badge.tabelog{
+
+  background:rgba(92,157,255,.08);
+
+  border-color:rgba(92,157,255,.20);
+
+  color:#79adff;
+
+}
+
+.badge.hot{
+
+  background:rgba(244,163,77,.08);
+
+  border-color:rgba(244,163,77,.22);
+
+  color:#ffae58;
+
+}
+
+.badge.flex{
+
+  background:rgba(169,139,232,.08);
+
+  border-color:rgba(169,139,232,.20);
+
+  color:#baa3ec;
 
 }
 
@@ -552,22 +666,17 @@ main{
 
 }
 
-
-/* Maps */
-
 .map{
 
   display:block;
 
   text-align:center;
 
-  background:
-    rgba(201,111,104,.10);
+  background:rgba(201,111,104,.10);
 
   color:var(--red);
 
-  border:
-    1px solid rgba(201,111,104,.28);
+  border:1px solid rgba(201,111,104,.28);
 
   text-decoration:none;
 
@@ -580,9 +689,6 @@ main{
   font-size:13px;
 
 }
-
-
-/* info */
 
 .details{
 
@@ -602,9 +708,6 @@ main{
 
 }
 
-
-/* hidden extra info */
-
 .extra{
 
   display:none;
@@ -613,8 +716,7 @@ main{
 
   padding-top:10px;
 
-  border-top:
-    1px solid var(--line-soft);
+  border-top:1px solid var(--line-soft);
 
   font-size:12px;
 
@@ -622,6 +724,35 @@ main{
 
   line-height:1.6;
 
+}
+
+
+/* =========================================
+   LOCATION NOTICE
+========================================= */
+
+.location-notice{
+
+  display:none;
+
+  margin-bottom:14px;
+
+  padding:11px 13px;
+
+  border-radius:14px;
+
+  border:1px solid rgba(92,157,255,.20);
+
+  background:rgba(92,157,255,.06);
+
+  color:#cbd6df;
+
+  font-size:12px;
+
+}
+
+.location-notice strong{
+  color:#fff;
 }
 
 
@@ -655,8 +786,7 @@ main{
 
   z-index:25;
 
-  background:
-    rgba(15,20,26,.94);
+  background:rgba(15,20,26,.96);
 
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
@@ -665,7 +795,7 @@ main{
 
   padding:
     8px
-    12px
+    8px
     calc(8px + env(safe-area-inset-bottom));
 
 }
@@ -679,24 +809,27 @@ main{
   display:grid;
 
   grid-template-columns:
-    1fr 1fr 1fr;
+    1fr 1fr 1fr 1fr;
 
-  gap:8px;
+  gap:6px;
 
 }
 
 .bottom button{
 
-  border:
-    1px solid #26333d;
+  min-height:42px;
 
-  border-radius:12px;
+  border:1px solid #26333d;
 
-  padding:10px 7px;
+  border-radius:11px;
+
+  padding:8px 4px;
 
   background:#121a20;
 
   font-weight:750;
+
+  font-size:10px;
 
   color:#cbd2d7;
 
@@ -706,10 +839,9 @@ main{
 
 .bottom button.active{
 
-  background:
-    rgba(201,111,104,.08);
+  background:rgba(201,111,104,.08);
 
-  color:var(--red);
+  color:#fff;
 
   border-color:var(--red);
 
@@ -723,21 +855,19 @@ main{
 @media(min-width:650px){
 
   header{
-
     padding-top:18px;
-
   }
 
   header h1{
-
     font-size:30px;
-
   }
 
   .card{
-
     padding:18px;
+  }
 
+  .bottom button{
+    font-size:12px;
   }
 
 }
@@ -750,15 +880,11 @@ main{
 @media(max-width:400px){
 
   .header-top{
-
     gap:8px;
-
   }
 
   header h1{
-
-    font-size:22px;
-
+    font-size:21px;
   }
 
   .home-button{
@@ -766,6 +892,16 @@ main{
     padding:7px 9px;
 
     font-size:11px;
+
+  }
+
+  .bottom button{
+
+    font-size:9px;
+
+    padding:
+      8px
+      2px;
 
   }
 
@@ -778,10 +914,6 @@ main{
 
 <body>
 
-
-<!-- =====================================
-     HEADER
-===================================== -->
 
 <header>
 
@@ -812,14 +944,8 @@ main{
 
 
 
-<!-- =====================================
-     MAIN
-===================================== -->
-
 <main>
 
-
-  <!-- AREA / FOOD -->
 
   <div class="mode">
 
@@ -840,7 +966,12 @@ main{
 
 
 
-  <!-- FILTER TITLE -->
+  <div
+    class="location-notice"
+    id="locationNotice"
+  ></div>
+
+
 
   <div
     class="section-title"
@@ -851,16 +982,12 @@ main{
 
 
 
-  <!-- FILTER CHIPS -->
-
   <div
     id="chips"
     class="chips"
   ></div>
 
 
-
-  <!-- RESULT COUNT -->
 
   <div
     id="count"
@@ -869,8 +996,6 @@ main{
 
 
 
-  <!-- RESTAURANTS -->
-
   <div id="list"></div>
 
 
@@ -878,26 +1003,35 @@ main{
 
 
 
-<!-- =====================================
-     BOTTOM FILTER
-===================================== -->
-
 <div class="bottom">
 
   <div class="bottom-inner">
 
     <button
-      id="allBtn"
-      class="active"
+      id="pickBtn"
+      data-tag="pick"
     >
-      All
-    </button>
-
-    <button id="starBtn">
       ⭐ Picks
     </button>
 
-    <button id="moonBtn">
+    <button
+      id="tabelogBtn"
+      data-tag="tabelog"
+    >
+      🏆 Tabelog
+    </button>
+
+    <button
+      id="hotBtn"
+      data-tag="hot"
+    >
+      🔥 Hot
+    </button>
+
+    <button
+      id="flexBtn"
+      data-tag="flex"
+    >
       🌙 Flexible
     </button>
 
@@ -908,6 +1042,7 @@ main{
 
 
 <script>
+
 
 /* =========================================
    RESTAURANTS
@@ -1507,7 +1642,7 @@ const restaurants = [
 
 
 /* =========================================
-   FILTER OPTIONS
+   OPTIONS
 ========================================= */
 
 const areaOptions = [
@@ -1546,6 +1681,45 @@ const foodOptions = [
 
 
 /* =========================================
+   CUISINE EMOJIS
+========================================= */
+
+const cuisineEmoji = {
+
+  "Sushi / Omakase":"🍣",
+
+  "Ramen / Tsukemen":"🍜",
+
+  "Yakitori / Chicken":"🍗",
+
+  "Udon / Soba":"🥢",
+
+  "Oyakodon":"🍳",
+
+  "Tonkatsu":"🐷",
+
+  "Unagi":"🐟",
+
+  "Kaisendon":"🐟",
+
+  "Tempura":"🍤",
+
+  "Curry":"🍛",
+
+  "Izakaya":"🍶",
+
+  "Washoku":"🍚",
+
+  "Seafood":"🦐",
+
+  "Gyoza":"🥟",
+
+  "Bakery / Pâtisserie":"🥐"
+
+};
+
+
+/* =========================================
    STATE
 ========================================= */
 
@@ -1553,7 +1727,9 @@ let mode = "area";
 
 let selected = "All";
 
-let tag = "all";
+let activeTag = null;
+
+let locationFilter = null;
 
 
 const $ = selector =>
@@ -1561,7 +1737,7 @@ const $ = selector =>
 
 
 /* =========================================
-   ESCAPE HTML
+   ESCAPE
 ========================================= */
 
 const esc = value =>
@@ -1584,6 +1760,55 @@ const esc = value =>
 
 
 /* =========================================
+   HELPERS
+========================================= */
+
+function isPick(r){
+
+  return (r.Tag || "").includes("⭐");
+
+}
+
+function isFlexible(r){
+
+  return (r.Tag || "").includes("🌙");
+
+}
+
+function isHot(r){
+
+  return (r.Recognition || "")
+    .toLowerCase()
+    .includes("hot restaurant");
+
+}
+
+function isTabelog(r){
+
+  const recognition =
+    (r.Recognition || "").toLowerCase();
+
+  return (
+
+    recognition.includes("top 100")
+
+    ||
+
+    recognition.includes("tabelog")
+
+  );
+
+}
+
+
+function emojiFor(food){
+
+  return cuisineEmoji[food] || "🍽️";
+
+}
+
+
+/* =========================================
    CHANGE MODE
 ========================================= */
 
@@ -1593,12 +1818,13 @@ function setMode(newMode){
 
   selected = "All";
 
+  locationFilter = null;
+
 
   $("#areaMode").classList.toggle(
     "active",
     newMode === "area"
   );
-
 
   $("#foodMode").classList.toggle(
     "active",
@@ -1611,6 +1837,12 @@ function setMode(newMode){
       ? "Broad Area"
       : "Food Type";
 
+
+  $("#locationNotice").style.display =
+    "none";
+
+
+  updateURL();
 
   renderChips();
 
@@ -1638,25 +1870,39 @@ function renderChips(){
 
   $("#chips").innerHTML =
 
-    options.map(option => `
+    options.map(option => {
 
-      <button
+      const label =
 
-        class="chip ${
-          option === selected
-            ? "active"
-            : ""
-        }"
+        mode === "food"
+        && option !== "All"
 
-        data-v="${esc(option)}"
+          ? `${emojiFor(option)} ${option}`
 
-      >
+          : option;
 
-        ${esc(option)}
 
-      </button>
+      return `
 
-    `).join("");
+        <button
+
+          class="chip ${
+            option === selected
+              ? "active"
+              : ""
+          }"
+
+          data-v="${esc(option)}"
+
+        >
+
+          ${esc(label)}
+
+        </button>
+
+      `;
+
+    }).join("");
 
 
   document
@@ -1667,6 +1913,13 @@ function renderChips(){
 
         selected =
           button.dataset.v;
+
+        locationFilter = null;
+
+        $("#locationNotice").style.display =
+          "none";
+
+        updateURL();
 
         renderChips();
 
@@ -1680,27 +1933,29 @@ function renderChips(){
 
 
 /* =========================================
-   TAG FILTER
+   BOTTOM FILTER
 ========================================= */
 
-function tagOK(restaurant){
+function filterTagOK(restaurant){
 
-  if(tag === "star"){
-
-    return (
-      restaurant.Tag || ""
-    ).includes("⭐");
-
-  }
+  if(!activeTag)
+    return true;
 
 
-  if(tag === "moon"){
+  if(activeTag === "pick")
+    return isPick(restaurant);
 
-    return (
-      restaurant.Tag || ""
-    ).includes("🌙");
 
-  }
+  if(activeTag === "tabelog")
+    return isTabelog(restaurant);
+
+
+  if(activeTag === "hot")
+    return isHot(restaurant);
+
+
+  if(activeTag === "flex")
+    return isFlexible(restaurant);
 
 
   return true;
@@ -1708,8 +1963,368 @@ function tagOK(restaurant){
 }
 
 
+function setTagFilter(tag){
+
+  activeTag =
+    activeTag === tag
+      ? null
+      : tag;
+
+
+  document
+    .querySelectorAll(".bottom button")
+    .forEach(button => {
+
+      button.classList.toggle(
+
+        "active",
+
+        button.dataset.tag === activeTag
+
+      );
+
+    });
+
+
+  render();
+
+}
+
+
 /* =========================================
-   RENDER RESTAURANTS
+   URL
+========================================= */
+
+function updateURL(){
+
+  const params =
+    new URLSearchParams();
+
+
+  if(locationFilter){
+
+    params.set(
+      "location",
+      locationFilter
+    );
+
+  }
+
+  else if(
+    mode === "area"
+    &&
+    selected !== "All"
+  ){
+
+    params.set(
+      "area",
+      selected
+    );
+
+  }
+
+  else if(
+    mode === "food"
+    &&
+    selected !== "All"
+  ){
+
+    params.set(
+      "food",
+      selected
+    );
+
+  }
+
+
+  const query =
+    params.toString();
+
+
+  history.replaceState(
+
+    null,
+
+    "",
+
+    window.location.pathname
+    +
+    (query ? "?" + query : "")
+
+  );
+
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+function restaurantCard(
+  restaurant,
+  index
+){
+
+  const rank =
+
+    restaurant["Food Rank"]
+
+      ? `#${restaurant["Food Rank"]}`
+
+      : "—";
+
+
+  const mapQuery =
+
+    encodeURIComponent(
+
+      `${restaurant.Restaurant} Kyoto Japan`
+
+    );
+
+
+  let badges = "";
+
+
+  if(isPick(restaurant)){
+
+    badges += `
+
+      <span class="badge pick">
+        ⭐ PICK
+      </span>
+
+    `;
+
+  }
+
+
+  if(isTabelog(restaurant)){
+
+    badges += `
+
+      <span class="badge tabelog">
+        🏆 TABELOG TOP 100
+      </span>
+
+    `;
+
+  }
+
+
+  if(isHot(restaurant)){
+
+    badges += `
+
+      <span class="badge hot">
+        🔥 HOT RESTAURANT
+      </span>
+
+    `;
+
+  }
+
+
+  if(isFlexible(restaurant)){
+
+    badges += `
+
+      <span class="badge flex">
+        🌙 FLEXIBLE
+      </span>
+
+    `;
+
+  }
+
+
+  return `
+
+    <article class="card">
+
+      <div class="top">
+
+
+        <div
+          class="rank ${
+            isPick(restaurant)
+              ? "star"
+              : ""
+          }"
+        >
+
+          ${rank}
+
+        </div>
+
+
+        <div class="info">
+
+
+          <div class="name">
+
+            ${esc(
+              restaurant.Restaurant
+            )}
+
+          </div>
+
+
+          <div class="food-label">
+
+            <span>
+              ${emojiFor(
+                restaurant["Food Type"]
+              )}
+            </span>
+
+            <span>
+              ${esc(
+                restaurant["Food Type"]
+              )}
+            </span>
+
+          </div>
+
+
+          <div class="meta">
+
+            📍
+            ${esc(
+              restaurant.Location
+            )}
+
+            ·
+
+            ${esc(
+              restaurant["Broad Area"]
+            )}
+
+            ·
+
+            💴
+            ${esc(
+              restaurant["¥ / pp"]
+            )}
+
+          </div>
+
+
+          <div class="why">
+
+            ${esc(
+              restaurant["Why go"]
+            )}
+
+          </div>
+
+
+          <div class="badges">
+
+            ${badges}
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="actions">
+
+
+        <a
+
+          class="map"
+
+          href="https://www.google.com/maps/search/?api=1&query=${mapQuery}"
+
+          target="_blank"
+
+          rel="noopener noreferrer"
+
+        >
+
+          📍 Open in Maps
+
+        </a>
+
+
+        <button
+
+          class="details"
+
+          onclick="toggleExtra(${index})"
+
+        >
+
+          Info
+
+        </button>
+
+
+      </div>
+
+
+
+      <div
+        class="extra"
+        id="x${index}"
+      >
+
+        <b>Food rank:</b>
+        ${rank}
+        within
+        ${esc(
+          restaurant["Food Type"]
+        )}
+
+        <br>
+
+        <b>Broad area:</b>
+        ${esc(
+          restaurant["Broad Area"]
+        )}
+
+        <br>
+
+        <b>Specific location:</b>
+        ${esc(
+          restaurant.Location
+        )}
+
+        ${
+          restaurant.Recognition
+
+            ? `
+
+              <br>
+
+              <b>Recognition:</b>
+              ${esc(
+                restaurant.Recognition
+              )}
+
+            `
+
+            : ""
+
+        }
+
+      </div>
+
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================
+   RENDER
 ========================================= */
 
 function render(){
@@ -1725,17 +2340,39 @@ function render(){
   let rows = restaurants.filter(
     restaurant => {
 
-      const categoryOK =
 
-        selected === "All"
+      let categoryOK = true;
 
-        ||
 
-        (
+      if(locationFilter){
+
+        categoryOK =
+
+          restaurant.Location
+            .toLowerCase()
+
+          ===
+
+          locationFilter
+            .toLowerCase();
+
+      }
+
+      else if(
+        selected !== "All"
+      ){
+
+        categoryOK =
+
           mode === "area"
-            ? restaurant["Broad Area"] === selected
-            : restaurant["Food Type"] === selected
-        );
+
+            ? restaurant["Broad Area"]
+                === selected
+
+            : restaurant["Food Type"]
+                === selected;
+
+      }
 
 
       const searchOK =
@@ -1752,18 +2389,23 @@ function render(){
 
 
       return (
+
         categoryOK
+
         &&
+
         searchOK
+
         &&
-        tagOK(restaurant)
+
+        filterTagOK(restaurant)
+
       );
 
     }
+
   );
 
-
-  /* SORT */
 
   rows.sort((a,b) => {
 
@@ -1774,39 +2416,12 @@ function render(){
     ){
 
       return (
+
         (a["Food Rank"] || 999)
+
         -
+
         (b["Food Rank"] || 999)
-      );
-
-    }
-
-
-    if(
-      mode === "area"
-      &&
-      selected !== "All"
-    ){
-
-      return (
-
-        a.Location.localeCompare(
-          b.Location
-        )
-
-        ||
-
-        a["Food Type"].localeCompare(
-          b["Food Type"]
-        )
-
-        ||
-
-        (
-          (a["Food Rank"] || 999)
-          -
-          (b["Food Rank"] || 999)
-        )
 
       );
 
@@ -1821,18 +2436,16 @@ function render(){
 
       ||
 
-      (
-        (a["Food Rank"] || 999)
-        -
-        (b["Food Rank"] || 999)
-      )
+      (a["Food Rank"] || 999)
+
+      -
+
+      (b["Food Rank"] || 999)
 
     );
 
   });
 
-
-  /* COUNT */
 
   $("#count").textContent =
 
@@ -1842,8 +2455,6 @@ function render(){
         : "s"
     }`;
 
-
-  /* EMPTY */
 
   if(!rows.length){
 
@@ -1862,214 +2473,118 @@ function render(){
   }
 
 
-  /* CARDS */
+  /* =====================================
+     AREA MODE:
+     GROUP BY FOOD TYPE
+  ===================================== */
+
+  if(
+    mode === "area"
+    ||
+    locationFilter
+  ){
+
+    const grouped = {};
+
+
+    rows.forEach(
+      restaurant => {
+
+        const food =
+          restaurant["Food Type"];
+
+
+        if(!grouped[food]){
+
+          grouped[food] = [];
+
+        }
+
+
+        grouped[food].push(
+          restaurant
+        );
+
+      }
+    );
+
+
+    $("#list").innerHTML =
+
+      Object
+        .keys(grouped)
+        .sort()
+        .map(food => {
+
+          const group =
+            grouped[food];
+
+
+          return `
+
+            <section class="cuisine-group">
+
+              <div class="cuisine-heading">
+
+                <span class="cuisine-icon">
+
+                  ${emojiFor(food)}
+
+                </span>
+
+                <span class="cuisine-name">
+
+                  ${esc(food)}
+
+                </span>
+
+                <span class="cuisine-total">
+
+                  ${group.length}
+
+                </span>
+
+              </div>
+
+
+              ${group.map(
+                (restaurant,index) =>
+
+                  restaurantCard(
+                    restaurant,
+                    `${food.replace(/\W/g,"")}${index}`
+                  )
+
+              ).join("")}
+
+
+            </section>
+
+          `;
+
+        }).join("");
+
+
+    return;
+
+  }
+
+
+  /* =====================================
+     FOOD MODE
+  ===================================== */
 
   $("#list").innerHTML =
 
-    rows.map((restaurant,index) => {
-
-
-      const rank =
-
-        restaurant["Food Rank"]
-
-          ? `#${restaurant["Food Rank"]}`
-
-          : "—";
-
-
-      const isStar =
-
-        (restaurant.Tag || "")
-          .includes("⭐");
-
-
-      const mapQuery =
-
-        encodeURIComponent(
-
-          `${restaurant.Restaurant} Kyoto Japan`
-
-        );
-
-
-      const recognition =
-
-        restaurant.Recognition
-
-          ? `<span class="badge">
-               ${esc(restaurant.Recognition)}
-             </span>`
-
-          : "";
-
-
-      const tagBadge =
-
-        restaurant.Tag
-
-          ? `<span class="badge">
-               ${esc(restaurant.Tag)}
-             </span>`
-
-          : "";
-
-
-      return `
-
-        <article class="card">
-
-
-          <div class="top">
-
-
-            <div
-              class="rank ${
-                isStar
-                  ? "star"
-                  : ""
-              }"
-            >
-
-              ${rank}
-
-            </div>
-
-
-            <div class="info">
-
-
-              <div class="name">
-
-                ${esc(
-                  restaurant.Restaurant
-                )}
-
-              </div>
-
-
-              <div class="meta">
-
-                ${esc(
-                  restaurant["Food Type"]
-                )}
-
-                ·
-
-                ${esc(
-                  restaurant["Broad Area"]
-                )}
-
-                ·
-
-                ${esc(
-                  restaurant.Location
-                )}
-
-                ·
-
-                ${esc(
-                  restaurant["¥ / pp"]
-                )}
-
-              </div>
-
-
-              <div class="why">
-
-                ${esc(
-                  restaurant["Why go"]
-                )}
-
-              </div>
-
-
-              <div class="badges">
-
-                ${tagBadge}
-
-                ${recognition}
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-
-          <div class="actions">
-
-
-            <a
-
-              class="map"
-
-              href="https://www.google.com/maps/search/?api=1&query=${mapQuery}"
-
-              target="_blank"
-
-              rel="noopener noreferrer"
-
-            >
-
-              📍 Open in Maps
-
-            </a>
-
-
-            <button
-
-              class="details"
-
-              onclick="toggleExtra(${index})"
-
-            >
-
-              Info
-
-            </button>
-
-
-          </div>
-
-
-
-          <div
-            class="extra"
-            id="x${index}"
-          >
-
-            <b>Food rank:</b>
-            ${rank}
-            within
-            ${esc(
-              restaurant["Food Type"]
-            )}
-
-            <br>
-
-            <b>Broad area:</b>
-            ${esc(
-              restaurant["Broad Area"]
-            )}
-
-            <br>
-
-            <b>Specific location:</b>
-            ${esc(
-              restaurant.Location
-            )}
-
-          </div>
-
-
-        </article>
-
-      `;
-
-    }).join("");
+    rows.map(
+      (restaurant,index) =>
+
+        restaurantCard(
+          restaurant,
+          index
+        )
+
+    ).join("");
 
 }
 
@@ -2084,6 +2599,10 @@ window.toggleExtra = index => {
     $("#x" + index);
 
 
+  if(!element)
+    return;
+
+
   element.style.display =
 
     element.style.display === "block"
@@ -2096,7 +2615,7 @@ window.toggleExtra = index => {
 
 
 /* =========================================
-   EVENTS
+   SEARCH
 ========================================= */
 
 $("#search").addEventListener(
@@ -2104,6 +2623,10 @@ $("#search").addEventListener(
   render
 );
 
+
+/* =========================================
+   MODES
+========================================= */
 
 $("#areaMode").onclick =
   () => setMode("area");
@@ -2114,56 +2637,153 @@ $("#foodMode").onclick =
 
 
 /* =========================================
-   BOTTOM FILTER
+   BOTTOM BUTTONS
 ========================================= */
 
-function setTag(newTag){
+document
+  .querySelectorAll(".bottom button")
+  .forEach(button => {
 
-  tag = newTag;
+    button.addEventListener(
+      "click",
+      () => {
+
+        setTagFilter(
+          button.dataset.tag
+        );
+
+      }
+    );
+
+  });
 
 
-  $("#allBtn").classList.toggle(
-    "active",
-    newTag === "all"
-  );
+/* =========================================
+   INITIAL URL LOAD
+========================================= */
+
+function loadFromURL(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
 
-  $("#starBtn").classList.toggle(
-    "active",
-    newTag === "star"
-  );
+  const urlArea =
+    params.get("area");
 
 
-  $("#moonBtn").classList.toggle(
-    "active",
-    newTag === "moon"
-  );
+  const urlFood =
+    params.get("food");
 
+
+  const urlLocation =
+    params.get("location");
+
+
+  if(urlLocation){
+
+    mode = "area";
+
+    selected = "All";
+
+    locationFilter =
+      urlLocation;
+
+
+    $("#areaMode")
+      .classList
+      .add("active");
+
+
+    $("#foodMode")
+      .classList
+      .remove("active");
+
+
+    $("#filterTitle").textContent =
+      "Nearby Location";
+
+
+    $("#locationNotice").innerHTML =
+
+      `Showing restaurants in
+       <strong>${esc(urlLocation)}</strong>`;
+
+
+    $("#locationNotice").style.display =
+      "block";
+
+  }
+
+
+  else if(
+    urlArea
+    &&
+    areaOptions.includes(urlArea)
+  ){
+
+    mode = "area";
+
+    selected = urlArea;
+
+
+    $("#areaMode")
+      .classList
+      .add("active");
+
+
+    $("#foodMode")
+      .classList
+      .remove("active");
+
+
+    $("#filterTitle").textContent =
+      "Broad Area";
+
+  }
+
+
+  else if(
+    urlFood
+    &&
+    foodOptions.includes(urlFood)
+  ){
+
+    mode = "food";
+
+    selected = urlFood;
+
+
+    $("#foodMode")
+      .classList
+      .add("active");
+
+
+    $("#areaMode")
+      .classList
+      .remove("active");
+
+
+    $("#filterTitle").textContent =
+      "Food Type";
+
+  }
+
+
+  renderChips();
 
   render();
 
 }
 
 
-$("#allBtn").onclick =
-  () => setTag("all");
-
-
-$("#starBtn").onclick =
-  () => setTag("star");
-
-
-$("#moonBtn").onclick =
-  () => setTag("moon");
-
-
 /* =========================================
    INITIAL LOAD
 ========================================= */
 
-renderChips();
-
-render();
+loadFromURL();
 
 </script>
 
