@@ -1,0 +1,1782 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070c10">
+
+<title>Osaka Food Finder</title>
+
+<style>
+:root{
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel-light:#151c23;
+  --panel-active:#172027;
+  --line:#29323b;
+  --line-soft:rgba(255,255,255,.07);
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --red:#c96f68;
+  --blue:#5c9dff;
+  --green:#67c587;
+  --orange:#f4a34d;
+  --gold:#e3b85c;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -20%, #17202a 0%, transparent 38%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.5;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:rgba(7,12,16,.97);
+  border-bottom:1px solid var(--line);
+  padding:8px 12px 8px;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.header-inner{ max-width:760px; margin:auto; }
+
+.top-nav{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin-bottom:8px;
+}
+
+.nav-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:33px;
+  padding:5px 6px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#11181e;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:9px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.nav-link:hover{ color:#fff; border-color:var(--red); }
+
+.header-title{ margin:0 1px 7px; }
+
+.header-title h1{
+  margin:0;
+  color:#fff;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+  line-height:1.2;
+  letter-spacing:-.025em;
+}
+
+.header-title div{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.search-box{
+  width:100%;
+  min-height:39px;
+  padding:8px 11px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  outline:none;
+  background:#10171d;
+  color:#fff;
+  font:inherit;
+  font-size:11px;
+}
+
+.search-box::placeholder{ color:#77828b; }
+.search-box:focus{ border-color:var(--red); }
+
+.sticky-browse{
+  margin-top:7px;
+  padding-top:7px;
+  border-top:1px solid var(--line-soft);
+}
+
+.mode-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-bottom:7px;
+}
+
+.mode-btn{
+  appearance:none;
+  min-height:36px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#121a20;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.mode-btn.active{
+  color:#fff;
+  border-color:var(--red);
+  background:rgba(201,111,104,.11);
+}
+
+.chips{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:1px 1px 3px;
+  scrollbar-width:none;
+}
+
+.chips::-webkit-scrollbar{ display:none; }
+
+.chip{
+  appearance:none;
+  flex:0 0 auto;
+  min-height:30px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#10171d;
+  color:#c5ccd1;
+  font-size:9px;
+  font-weight:750;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.chip.active{
+  color:#fff;
+  border-color:var(--red);
+  background:rgba(201,111,104,.12);
+}
+
+main{
+  max-width:760px;
+  margin:auto;
+  padding:13px 12px 105px;
+}
+
+.results-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:10px;
+  margin:2px 2px 11px;
+}
+
+.results-head h2{
+  margin:0;
+  color:#fff;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+}
+
+.result-count{
+  color:var(--muted);
+  font-size:9px;
+  white-space:nowrap;
+}
+
+.food-group{ margin-bottom:21px; }
+
+.food-group-title{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin:4px 2px 9px;
+  padding-bottom:7px;
+  border-bottom:1px solid var(--line-soft);
+  color:#fff;
+  font-size:14px;
+  font-weight:850;
+}
+
+.food-group-count{
+  margin-left:auto;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.restaurant-card{
+  margin-bottom:9px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:linear-gradient(145deg,#141c22,#0d1318);
+}
+
+.card-top{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+}
+
+.rank{
+  flex:0 0 auto;
+  min-width:29px;
+  height:29px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:rgba(201,111,104,.10);
+  border:1px solid rgba(201,111,104,.20);
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+}
+
+.restaurant-main{ flex:1; min-width:0; }
+
+.restaurant-name{
+  margin:0;
+  color:#fff;
+  font-size:14px;
+  font-weight:850;
+  line-height:1.25;
+}
+
+.restaurant-location{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:7px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  color:#cbd2d7;
+  font-size:8px;
+  font-weight:800;
+}
+
+.badge.cuisine{
+  color:#fff;
+  border-color:rgba(92,157,255,.18);
+  background:rgba(92,157,255,.08);
+}
+
+.badge.pick{
+  color:#f2cf72;
+  border-color:rgba(227,184,92,.22);
+  background:rgba(227,184,92,.08);
+}
+
+.badge.tabelog{
+  color:#e8c770;
+  border-color:rgba(227,184,92,.22);
+  background:rgba(227,184,92,.08);
+}
+
+.badge.hot{
+  color:#ff9d74;
+  border-color:rgba(244,163,77,.22);
+  background:rgba(244,163,77,.08);
+}
+
+.badge.flexible{
+  color:#aebdff;
+  border-color:rgba(92,157,255,.20);
+  background:rgba(92,157,255,.08);
+}
+
+.badge.near{
+  color:#9ce9b6;
+  border-color:rgba(103,197,135,.20);
+  background:rgba(103,197,135,.08);
+}
+
+.score-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-top:9px;
+}
+
+.score-box,
+.budget-box{
+  padding:8px 9px;
+  border:1px solid var(--line-soft);
+  border-radius:10px;
+  background:rgba(255,255,255,.025);
+}
+
+.score-label,
+.budget-label{
+  color:#78848d;
+  font-size:7px;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.score-value,
+.budget-value{
+  margin-top:3px;
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+}
+
+.why-go{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.45;
+}
+
+.card-actions{
+  display:flex;
+  gap:6px;
+  margin-top:9px;
+}
+
+.card-btn{
+  flex:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:6px 8px;
+  border-radius:9px;
+  border:1px solid rgba(201,111,104,.25);
+  background:rgba(201,111,104,.08);
+  color:var(--red);
+  text-decoration:none;
+  font-size:9px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.card-btn.tabelog-link{
+  color:var(--gold);
+  border-color:rgba(227,184,92,.22);
+  background:rgba(227,184,92,.07);
+}
+
+.card-btn.info{
+  color:var(--blue);
+  border-color:rgba(92,157,255,.22);
+  background:rgba(92,157,255,.07);
+}
+
+.extra-info{
+  display:none;
+  margin-top:9px;
+  padding-top:9px;
+  border-top:1px solid var(--line-soft);
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.55;
+}
+
+.extra-info.open{ display:block; }
+
+.empty-state{
+  padding:30px 17px;
+  border:1px dashed #35414a;
+  border-radius:15px;
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.empty-state strong{
+  display:block;
+  margin-bottom:5px;
+  color:#fff;
+}
+
+.bottom-filter{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:50;
+  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line);
+  background:rgba(7,12,16,.97);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.bottom-filter-inner{
+  max-width:760px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+}
+
+.bottom-btn{
+  appearance:none;
+  min-height:41px;
+  padding:4px 2px;
+  border:1px solid #26333d;
+  border-radius:10px;
+  background:#11181e;
+  color:#aeb5bc;
+  font-size:8.5px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.bottom-btn.active{
+  color:#fff;
+  border-color:var(--red);
+  background:rgba(201,111,104,.13);
+}
+
+@media(max-width:380px){
+  .header-title h1{ font-size:19px; }
+  .nav-link{ font-size:8px; }
+  .bottom-btn{ font-size:7.8px; }
+  .card-btn{ font-size:8px; padding:5px 4px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="top-nav">
+      <a href="index.html" class="nav-link">🏠 Home</a>
+      <a href="schedule.html" class="nav-link">📅 Schedule</a>
+      <a href="kyotofood.html" class="nav-link">🍵 Kyoto Food</a>
+    </div>
+
+    <div class="header-title">
+      <h1>🍽️ Osaka Food Finder</h1>
+      <div>Tabelog-first · based around Hotel Hankyu International / Umeda</div>
+    </div>
+
+    <input
+      type="search"
+      id="searchInput"
+      class="search-box"
+      placeholder="Search restaurant, food, area or Tabelog score..."
+      autocomplete="off"
+    >
+
+    <div class="sticky-browse">
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="area">📍 By Area</button>
+        <button class="mode-btn" data-mode="food">🍜 By Food</button>
+      </div>
+
+      <div id="areaSection">
+        <div class="chips" id="areaChips"></div>
+      </div>
+
+      <div id="foodSection" style="display:none;">
+        <div class="chips" id="foodChips"></div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<main>
+  <div class="results-head">
+    <h2 id="resultsTitle">All Osaka Food</h2>
+    <div class="result-count" id="resultCount"></div>
+  </div>
+
+  <div id="results"></div>
+</main>
+
+<div class="bottom-filter">
+  <div class="bottom-filter-inner">
+    <button class="bottom-btn" data-filter="pick">⭐ Picks</button>
+    <button class="bottom-btn" data-filter="tabelog">🏆 Top 100</button>
+    <button class="bottom-btn" data-filter="hot">🔥 Hot</button>
+    <button class="bottom-btn" data-filter="flexible">🌙 Flexible</button>
+  </div>
+</div>
+
+<script>
+
+/* =========================================================
+   OSAKA RESTAURANTS
+   Tabelog scores checked Sep 2026.
+   Scores and budgets can change.
+   Max 4 entries per food category.
+========================================================= */
+
+const restaurants = [
+
+/* =========================================================
+   RAMEN / TSUKEMEN
+========================================================= */
+
+{
+  Name:"Mugi to Mensuke",
+  Japanese:"麦と麺助",
+  Food:"Ramen / Tsukemen",
+  Area:"Umeda / Nakatsu",
+  Location:"Nakatsu",
+  Rank:1,
+  Tabelog:"3.84",
+  Budget:"¥2K–4K",
+  Why:"Highest-priority ramen pick near your hotel. Refined, destination-level ramen and one of Osaka's strongest Tabelog choices.",
+  Tag:"⭐",
+  Recognition:"Ramen OSAKA Top 100 2025",
+  TabelogURL:"https://tabelog.com/en/osaka/A2701/A270101/27104891/"
+},
+
+{
+  Name:"Menya Takei Hankyu Umeda",
+  Japanese:"京都 麺屋たけ井 阪急梅田店",
+  Food:"Ramen / Tsukemen",
+  Area:"Umeda / Nakatsu",
+  Location:"Hankyu Osaka-Umeda",
+  Rank:2,
+  Tabelog:"3.70",
+  Budget:"¥1K–2K",
+  Why:"Excellent thick seafood-pork tsukemen and extremely convenient from Hotel Hankyu International. Located inside Hankyu Osaka-Umeda Station.",
+  Tag:"⭐ 🌙",
+  Recognition:"Ramen OSAKA Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27092383/"
+},
+
+{
+  Name:"Moeyo Mensuke",
+  Japanese:"燃えよ麺助",
+  Food:"Ramen / Tsukemen",
+  Area:"Fukushima",
+  Location:"Fukushima",
+  Rank:3,
+  Tabelog:"3.76",
+  Budget:"< ¥2K",
+  Why:"One of Osaka's most famous ramen shops. Worth the short trip from Umeda when you want a serious ramen stop.",
+  Tag:"⭐",
+  Recognition:"Ramen OSAKA Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270108/27091454/"
+},
+
+{
+  Name:"Kamo to Negi Umeda",
+  Japanese:"らぁ麺 鴨と葱 梅田店",
+  Food:"Ramen / Tsukemen",
+  Area:"Umeda / Nakatsu",
+  Location:"Inogate Osaka",
+  Rank:4,
+  Tabelog:"3.58",
+  Budget:"¥1K–2K",
+  Why:"Unique duck-and-leek ramen using duck, leek and water for the broth. Also has duck tsukemen and oyakodon.",
+  Tag:"⭐ 🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27143692/"
+},
+
+
+/* =========================================================
+   SUSHI / OMAKASE
+========================================================= */
+
+{
+  Name:"Etchuya",
+  Japanese:"越中屋",
+  Food:"Sushi / Omakase",
+  Area:"South Osaka",
+  Location:"Tengachaya",
+  Rank:1,
+  Tabelog:"3.78",
+  Budget:"¥8K–10K",
+  Why:"Excellent value for a proper Tabelog Top 100 sushi restaurant. One of the best quality-to-price sushi choices in Osaka.",
+  Tag:"⭐",
+  Recognition:"Sushi WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270406/27018365/"
+},
+
+{
+  Name:"Kurosugi",
+  Japanese:"黒杉",
+  Food:"Sushi / Omakase",
+  Area:"Umeda / Kitashinchi",
+  Location:"Dojima / Kitashinchi",
+  Rank:2,
+  Tabelog:"3.69",
+  Budget:"☀️ ¥6K–8K · 🌙 ¥30K–40K",
+  Why:"Top-100 sushi close to Umeda. Lunch is the smart way to try it without paying the much higher dinner price.",
+  Tag:"⭐",
+  Recognition:"Sushi WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/en/osaka/A2701/A270101/27086390/"
+},
+
+{
+  Name:"Ecchu ya Stand-up Sushi",
+  Japanese:"越中屋",
+  Food:"Sushi / Omakase",
+  Area:"South Osaka",
+  Location:"Tengachaya",
+  Rank:3,
+  Tabelog:"3.63",
+  Budget:"¥4K–5K",
+  Why:"This is the budget sushi sweet spot: Tabelog above 3.6, standing-counter style, and still comfortably below your usual combined dinner budget.",
+  Tag:"⭐",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/en/osaka/A2701/A270406/27049989/"
+},
+
+{
+  Name:"Sushi Miki",
+  Japanese:"鮨 実紀",
+  Food:"Sushi / Omakase",
+  Area:"Umeda / Kitashinchi",
+  Location:"Kitashinchi",
+  Rank:4,
+  Tabelog:"4.11",
+  Budget:"¥15K–20K",
+  Why:"The splurge sushi slot. Very high Tabelog score and convenient from Umeda, but keep this for a special meal rather than a normal dinner.",
+  Tag:"",
+  Recognition:"Sushi WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27118905/"
+},
+
+
+/* =========================================================
+   CASUAL SUSHI
+========================================================= */
+
+{
+  Name:"Kaiten Sushi Sakae",
+  Japanese:"回転すし さかえ 阪急東通り店",
+  Food:"Casual Sushi",
+  Area:"Umeda / Nakatsu",
+  Location:"Hankyu Higashidori",
+  Rank:1,
+  Tabelog:"3.48",
+  Budget:"¥1K–2K",
+  Why:"My casual-sushi pick around Umeda. Conveyor sushi, very late opening hours and a much stronger Tabelog score than the big budget chains.",
+  Tag:"⭐ 🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27002305/"
+},
+
+{
+  Name:"Sushi Sakaba Teppei",
+  Japanese:"鮨酒場てっぺい",
+  Food:"Casual Sushi",
+  Area:"Umeda / Kitashinchi",
+  Location:"Higashi-Umeda",
+  Rank:2,
+  Tabelog:"3.53",
+  Budget:"¥4K–5K",
+  Why:"Sushi + seafood + izakaya in one place. A stronger food-focused alternative when you want casual sushi without going full omakase.",
+  Tag:"⭐ 🌙",
+  Recognition:"Hot Restaurant 2026",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27129935/"
+},
+
+{
+  Name:"Umeda Yoshinozushi",
+  Japanese:"梅田 吉野寿司",
+  Food:"Casual Sushi",
+  Area:"Umeda / Nakatsu",
+  Location:"Shin-Umeda Shokudogai",
+  Rank:3,
+  Tabelog:"3.43",
+  Budget:"¥2K–3K",
+  Why:"Traditional, simple and extremely convenient from your hotel. Good for an unfussy sushi meal without booking.",
+  Tag:"🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27004262/"
+},
+
+{
+  Name:"Sushi Sakaba Sashisu",
+  Japanese:"すし酒場 さしす",
+  Food:"Casual Sushi",
+  Area:"Umeda / Kitashinchi",
+  Location:"Osaka Station 3rd Building",
+  Rank:4,
+  Tabelog:"3.42",
+  Budget:"¥2K–3K",
+  Why:"Very popular casual sushi-izakaya. Best used for fun/value rather than as your serious sushi meal.",
+  Tag:"🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27115113/"
+},
+
+
+/* =========================================================
+   YAKITORI
+========================================================= */
+
+{
+  Name:"Sumibi Yakitori Ikoka",
+  Japanese:"炭火焼鳥 いこか",
+  Food:"Yakitori / Chicken",
+  Area:"Honmachi",
+  Location:"Sakaisuji-Hommachi",
+  Rank:1,
+  Tabelog:"3.72",
+  Budget:"¥6K–8K",
+  Why:"Best balance of Top-100 quality and sane pricing. Proper charcoal yakitori without moving into ¥15K–20K fine-dining territory.",
+  Tag:"⭐",
+  Recognition:"Yakitori WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270106/27092595/"
+},
+
+{
+  Name:"Sumibi Yakitori Kichizo",
+  Japanese:"炭火焼鳥 きち蔵",
+  Food:"Yakitori / Chicken",
+  Area:"Honmachi",
+  Location:"Awaza",
+  Rank:2,
+  Tabelog:"3.72",
+  Budget:"¥6K–8K",
+  Why:"Another excellent value Top-100 yakitori choice. Strong option when you specifically want proper skewers and charcoal grilling.",
+  Tag:"⭐",
+  Recognition:"Yakitori WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270105/27060726/"
+},
+
+{
+  Name:"Yakitori Enami",
+  Japanese:"焼鳥エナミ",
+  Food:"Yakitori / Chicken",
+  Area:"Tenma / Minamimorimachi",
+  Location:"Minamimorimachi",
+  Rank:3,
+  Tabelog:"3.71",
+  Budget:"¥8K–10K",
+  Why:"Slightly more expensive, but still below the premium omakase-yakitori tier and firmly Top-100 quality.",
+  Tag:"",
+  Recognition:"Yakitori WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270103/27126273/"
+},
+
+{
+  Name:"Yakitori Unaru",
+  Japanese:"焼鳥 うなる",
+  Food:"Yakitori / Chicken",
+  Area:"Umeda / Kitashinchi",
+  Location:"Oebashi / Kitashinchi",
+  Rank:4,
+  Tabelog:"3.60",
+  Budget:"¥5K–6K",
+  Why:"Cheaper, convenient and still a solid 3.60 on Tabelog. Good practical choice when you do not want to travel far for skewers.",
+  Tag:"⭐ 🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27155163/"
+},
+
+
+/* =========================================================
+   OYAKODON
+========================================================= */
+
+{
+  Name:"Ichi Fuji Shokudo",
+  Japanese:"一富士食堂",
+  Food:"Oyakodon",
+  Area:"Tenma / Minamimorimachi",
+  Location:"Osaka Tenmangu",
+  Rank:1,
+  Tabelog:"3.71",
+  Budget:"¥1K–2K",
+  Why:"Best-value oyakodon pick. Traditional Osaka shokudo, very strong Tabelog rating and a Top-100 award while staying inexpensive.",
+  Tag:"⭐",
+  Recognition:"Shokudo Top 100 2026",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270103/27031421/"
+},
+
+{
+  Name:"Ichioka 45",
+  Japanese:"市岡45",
+  Food:"Oyakodon",
+  Area:"Umeda / Kitashinchi",
+  Location:"Dojima / Kitashinchi",
+  Rank:2,
+  Tabelog:"3.64",
+  Budget:"¥5K–6K",
+  Why:"Chicken specialist using Kagoshima chicken. More of a full chicken dinner than a simple donburi stop, with oyakodon among its specialties.",
+  Tag:"⭐",
+  Recognition:"Chicken Cuisine Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27112684/"
+},
+
+{
+  Name:"Kamo to Kamoshi Kodou",
+  Japanese:"鴨と醸し 鼓道",
+  Food:"Oyakodon",
+  Area:"North Osaka",
+  Location:"Ryokuchi-koen",
+  Rank:3,
+  Tabelog:"3.63",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥6K–8K",
+  Why:"Most unusual oyakodon pick: duck/chicken dishes with excellent soba. Worth travelling for if you want something different.",
+  Tag:"",
+  Recognition:"Soba WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2706/A270601/27098528/"
+},
+
+{
+  Name:"Warau",
+  Japanese:"笑卵",
+  Food:"Oyakodon",
+  Area:"Umeda / Nakatsu",
+  Location:"Shin-Umeda Shokudogai",
+  Rank:4,
+  Tabelog:"3.48",
+  Budget:"< ¥1K",
+  Why:"Your easiest oyakodon fallback: very close to the hotel, inexpensive and dedicated to oyakodon.",
+  Tag:"⭐ 🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27091574/"
+},
+
+
+/* =========================================================
+   IZAKAYA
+========================================================= */
+
+{
+  Name:"Sakaba Yamato",
+  Japanese:"酒場 やまと",
+  Food:"Izakaya",
+  Area:"Umeda / Nakatsu",
+  Location:"Higashi-Umeda",
+  Rank:1,
+  Tabelog:"3.56",
+  Budget:"¥3K–4K",
+  Why:"Old-school seafood izakaya atmosphere, very convenient from Umeda, with a genuine Tabelog Izakaya Top-100 award.",
+  Tag:"⭐ 🌙",
+  Recognition:"Izakaya WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27054292/"
+},
+
+{
+  Name:"Sushi Sakaba Teppei",
+  Japanese:"鮨酒場てっぺい",
+  Food:"Izakaya",
+  Area:"Umeda / Kitashinchi",
+  Location:"Higashi-Umeda",
+  Rank:2,
+  Tabelog:"3.53",
+  Budget:"¥4K–5K",
+  Why:"Strong seafood/sushi izakaya choice and a current Tabelog Hot Restaurant. Easy normal-night dinner.",
+  Tag:"⭐ 🌙",
+  Recognition:"Hot Restaurant 2026",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27129935/"
+},
+
+{
+  Name:"Rikimaru Robatayaki Magome",
+  Japanese:"力丸 炉ばた焼 馬籠",
+  Food:"Izakaya",
+  Area:"Umeda / Nakatsu",
+  Location:"Shibata",
+  Rank:3,
+  Tabelog:"3.38",
+  Budget:"¥2K–3K",
+  Why:"Not here for the score: go for the fun robatayaki experience, grilled seafood and food served on the long wooden paddle.",
+  Tag:"⭐ 🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27002490/"
+},
+
+{
+  Name:"Sushi Sakaba Sashisu",
+  Japanese:"すし酒場 さしす",
+  Food:"Izakaya",
+  Area:"Umeda / Kitashinchi",
+  Location:"Osaka Station 3rd Building",
+  Rank:4,
+  Tabelog:"3.42",
+  Budget:"¥2K–3K",
+  Why:"Busy, fun, inexpensive sushi-izakaya. Use this when atmosphere and value matter more than chasing the highest score.",
+  Tag:"🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27115113/"
+},
+
+
+/* =========================================================
+   SET MEALS / WASHOKU
+========================================================= */
+
+{
+  Name:"Ichi Fuji Shokudo",
+  Japanese:"一富士食堂",
+  Food:"Set Meals / Washoku",
+  Area:"Tenma / Minamimorimachi",
+  Location:"Osaka Tenmangu",
+  Rank:1,
+  Tabelog:"3.71",
+  Budget:"¥1K–2K",
+  Why:"One of the strongest old-school Japanese set-meal picks in Osaka. Useful beyond oyakodon if you want comfort-food shokudo dishes.",
+  Tag:"⭐",
+  Recognition:"Shokudo Top 100 2026",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270103/27031421/"
+},
+
+{
+  Name:"Ichioka 45",
+  Japanese:"市岡45",
+  Food:"Set Meals / Washoku",
+  Area:"Umeda / Kitashinchi",
+  Location:"Dojima / Kitashinchi",
+  Rank:2,
+  Tabelog:"3.64",
+  Budget:"¥5K–6K",
+  Why:"Good for a chicken-focused Japanese dinner: grilled chicken, chicken dishes, mizutaki and oyakodon rather than beef-heavy food.",
+  Tag:"⭐",
+  Recognition:"Chicken Cuisine Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27112684/"
+},
+
+{
+  Name:"Kamo to Kamoshi Kodou",
+  Japanese:"鴨と醸し 鼓道",
+  Food:"Set Meals / Washoku",
+  Area:"North Osaka",
+  Location:"Ryokuchi-koen",
+  Rank:3,
+  Tabelog:"3.63",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥6K–8K",
+  Why:"Duck cuisine + soba makes this much more interesting than a generic set meal. Good destination lunch.",
+  Tag:"",
+  Recognition:"Soba WEST Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2706/A270601/27098528/"
+},
+
+{
+  Name:"Torisanwa LUCUA Osaka",
+  Japanese:"鶏三和 LUCUA大阪店",
+  Food:"Set Meals / Washoku",
+  Area:"Umeda / Nakatsu",
+  Location:"LUCUA Osaka",
+  Rank:4,
+  Tabelog:"3.15",
+  Budget:"¥1K–2K",
+  Why:"Not a foodie destination, but an extremely convenient chicken-set and oyakodon fallback at Osaka Station.",
+  Tag:"🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27081027/"
+},
+
+
+/* =========================================================
+   OSAKA SPECIALTIES
+========================================================= */
+
+{
+  Name:"Okonomiyaki Kiji Honten",
+  Japanese:"お好み焼 きじ 本店",
+  Food:"Osaka Specialties",
+  Area:"Umeda / Nakatsu",
+  Location:"Shin-Umeda Shokudogai",
+  Rank:1,
+  Tabelog:"3.66",
+  Budget:"¥1K–2K",
+  Why:"The Osaka-specialty priority pick: excellent okonomiyaki, Top-100 recognition and walking distance from your hotel.",
+  Tag:"⭐",
+  Recognition:"Okonomiyaki Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27000297/"
+},
+
+{
+  Name:"Negiyaki Yamamoto Honten",
+  Japanese:"ねぎ焼やまもと 本店",
+  Food:"Osaka Specialties",
+  Area:"Juso",
+  Location:"Juso",
+  Rank:2,
+  Tabelog:"3.55",
+  Budget:"¥2K–3K",
+  Why:"Go specifically for negiyaki, Osaka's spring-onion-heavy cousin of okonomiyaki. The original branch has Top-100 recognition.",
+  Tag:"⭐",
+  Recognition:"Okonomiyaki Top 100 2025",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270302/27000981/"
+},
+
+{
+  Name:"Negiyaki Yamamoto Umeda EST",
+  Japanese:"ねぎ焼やまもと 梅田エスト店",
+  Food:"Osaka Specialties",
+  Area:"Umeda / Nakatsu",
+  Location:"Umeda EST",
+  Rank:3,
+  Tabelog:"3.52",
+  Budget:"☀️ ¥1K–2K · 🌙 ¥2K–3K",
+  Why:"Convenient Umeda version when you want negiyaki without travelling to Juso.",
+  Tag:"🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/en/osaka/A2701/A270101/27003858/"
+},
+
+{
+  Name:"Rikimaru Robatayaki Magome",
+  Japanese:"力丸 炉ばた焼 馬籠",
+  Food:"Osaka Specialties",
+  Area:"Umeda / Nakatsu",
+  Location:"Shibata",
+  Rank:4,
+  Tabelog:"3.38",
+  Budget:"¥2K–3K",
+  Why:"A fun Osaka-night experience: robatayaki, seafood, skewers and the big wooden paddle service.",
+  Tag:"⭐ 🌙",
+  Recognition:"",
+  TabelogURL:"https://tabelog.com/osaka/A2701/A270101/27002490/"
+}
+
+];
+
+
+/* =========================================================
+   AREA OPTIONS
+========================================================= */
+
+const areaOptions = [
+  "Umeda / Nakatsu",
+  "Umeda / Kitashinchi",
+  "Fukushima",
+  "Tenma / Minamimorimachi",
+  "Honmachi",
+  "Juso",
+  "South Osaka",
+  "North Osaka"
+];
+
+
+/* =========================================================
+   FOOD OPTIONS
+========================================================= */
+
+const foodOptions = [
+  "Ramen / Tsukemen",
+  "Sushi / Omakase",
+  "Casual Sushi",
+  "Yakitori / Chicken",
+  "Oyakodon",
+  "Izakaya",
+  "Set Meals / Washoku",
+  "Osaka Specialties"
+];
+
+
+/* =========================================================
+   EMOJIS
+========================================================= */
+
+const cuisineEmoji = {
+  "Ramen / Tsukemen":"🍜",
+  "Sushi / Omakase":"🍣",
+  "Casual Sushi":"🍣",
+  "Yakitori / Chicken":"🍢",
+  "Oyakodon":"🍳",
+  "Izakaya":"🍶",
+  "Set Meals / Washoku":"🍱",
+  "Osaka Specialties":"🔥"
+};
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let browseMode = "area";
+let selectedArea = "";
+let selectedFood = "";
+let selectedLocation = "";
+let searchTerm = "";
+const activeFilters = new Set();
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const areaChips = document.getElementById("areaChips");
+const foodChips = document.getElementById("foodChips");
+const areaSection = document.getElementById("areaSection");
+const foodSection = document.getElementById("foodSection");
+const results = document.getElementById("results");
+const resultsTitle = document.getElementById("resultsTitle");
+const resultCount = document.getElementById("resultCount");
+const searchInput = document.getElementById("searchInput");
+const modeButtons = document.querySelectorAll(".mode-btn");
+const bottomButtons = document.querySelectorAll(".bottom-btn");
+
+
+/* =========================================================
+   SPECIAL FILTER CHECKS
+========================================================= */
+
+function isPick(r){
+  return (r.Tag || "").includes("⭐");
+}
+
+function isFlexible(r){
+  return (r.Tag || "").includes("🌙");
+}
+
+function isHot(r){
+  return (r.Recognition || "").toLowerCase().includes("hot restaurant");
+}
+
+function isTabelog(r){
+  const text = (r.Recognition || "").toLowerCase();
+  return text.includes("top 100");
+}
+
+function isNearHotel(r){
+  return r.Area === "Umeda / Nakatsu";
+}
+
+
+/* =========================================================
+   CREATE AREA / FOOD CHIPS
+========================================================= */
+
+function createChips(){
+
+  areaChips.innerHTML = "";
+  foodChips.innerHTML = "";
+
+  const allArea = document.createElement("button");
+  allArea.className = "chip active";
+  allArea.dataset.value = "";
+  allArea.textContent = "All Areas";
+  areaChips.appendChild(allArea);
+
+  areaOptions.forEach(area => {
+    const button = document.createElement("button");
+    button.className = "chip";
+    button.dataset.value = area;
+    button.textContent = area;
+    areaChips.appendChild(button);
+  });
+
+  const allFood = document.createElement("button");
+  allFood.className = "chip active";
+  allFood.dataset.value = "";
+  allFood.textContent = "All Food";
+  foodChips.appendChild(allFood);
+
+  foodOptions.forEach(food => {
+    const button = document.createElement("button");
+    button.className = "chip";
+    button.dataset.value = food;
+    button.textContent = `${cuisineEmoji[food] || "🍽️"} ${food}`;
+    foodChips.appendChild(button);
+  });
+
+  areaChips.querySelectorAll(".chip").forEach(button => {
+    button.addEventListener("click", () => {
+      browseMode = "area";
+      selectedArea = button.dataset.value;
+      selectedFood = "";
+      selectedLocation = "";
+      searchTerm = "";
+      searchInput.value = "";
+      syncModeButtons();
+      syncAreaChips();
+      syncFoodChips();
+      render();
+    });
+  });
+
+  foodChips.querySelectorAll(".chip").forEach(button => {
+    button.addEventListener("click", () => {
+      browseMode = "food";
+      selectedFood = button.dataset.value;
+      selectedArea = "";
+      selectedLocation = "";
+      searchTerm = "";
+      searchInput.value = "";
+      syncModeButtons();
+      syncAreaChips();
+      syncFoodChips();
+      render();
+    });
+  });
+}
+
+
+/* =========================================================
+   MODE SWITCH
+========================================================= */
+
+modeButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    browseMode = button.dataset.mode;
+    searchTerm = "";
+    searchInput.value = "";
+
+    if(browseMode === "area"){
+      selectedFood = "";
+    } else {
+      selectedArea = "";
+      selectedLocation = "";
+    }
+
+    syncModeButtons();
+    syncAreaChips();
+    syncFoodChips();
+    render();
+  });
+});
+
+
+/* =========================================================
+   SYNC MODE
+========================================================= */
+
+function syncModeButtons(){
+  modeButtons.forEach(button => {
+    button.classList.toggle("active", button.dataset.mode === browseMode);
+  });
+
+  if(browseMode === "area"){
+    areaSection.style.display = "block";
+    foodSection.style.display = "none";
+  } else {
+    areaSection.style.display = "none";
+    foodSection.style.display = "block";
+  }
+}
+
+function syncAreaChips(){
+  areaChips.querySelectorAll(".chip").forEach(button => {
+    button.classList.toggle("active", button.dataset.value === selectedArea);
+  });
+}
+
+function syncFoodChips(){
+  foodChips.querySelectorAll(".chip").forEach(button => {
+    button.classList.toggle("active", button.dataset.value === selectedFood);
+  });
+}
+
+
+/* =========================================================
+   FILTER RESTAURANTS
+========================================================= */
+
+function getFilteredRestaurants(){
+
+  return restaurants.filter(r => {
+
+    if(
+      browseMode === "area" &&
+      selectedArea &&
+      r.Area !== selectedArea
+    ){
+      return false;
+    }
+
+    if(
+      browseMode === "area" &&
+      selectedLocation
+    ){
+      const wanted = selectedLocation.trim().toLowerCase();
+      const restaurantLocation = (r.Location || "").trim().toLowerCase();
+      const restaurantArea = (r.Area || "").trim().toLowerCase();
+
+      if(
+        restaurantLocation !== wanted &&
+        restaurantArea !== wanted
+      ){
+        return false;
+      }
+    }
+
+    if(
+      browseMode === "food" &&
+      selectedFood &&
+      r.Food !== selectedFood
+    ){
+      return false;
+    }
+
+    if(searchTerm){
+      const haystack = [
+        r.Name,
+        r.Japanese,
+        r.Food,
+        r.Area,
+        r.Location,
+        r.Budget,
+        r.Why,
+        r.Recognition,
+        r.Tabelog
+      ].join(" ").toLowerCase();
+
+      if(!haystack.includes(searchTerm)){
+        return false;
+      }
+    }
+
+    if(activeFilters.size){
+
+      const matches = [];
+
+      if(activeFilters.has("pick")){
+        matches.push(isPick(r));
+      }
+
+      if(activeFilters.has("tabelog")){
+        matches.push(isTabelog(r));
+      }
+
+      if(activeFilters.has("hot")){
+        matches.push(isHot(r));
+      }
+
+      if(activeFilters.has("flexible")){
+        matches.push(isFlexible(r));
+      }
+
+      if(!matches.some(Boolean)){
+        return false;
+      }
+    }
+
+    return true;
+  });
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+function buildBadges(r){
+
+  let html = `
+    <span class="badge cuisine">
+      ${cuisineEmoji[r.Food] || "🍽️"} ${r.Food}
+    </span>
+  `;
+
+  if(isPick(r)){
+    html += `<span class="badge pick">⭐ Pick</span>`;
+  }
+
+  if(isTabelog(r)){
+    html += `<span class="badge tabelog">🏆 Top 100</span>`;
+  }
+
+  if(isHot(r)){
+    html += `<span class="badge hot">🔥 Hot</span>`;
+  }
+
+  if(isFlexible(r)){
+    html += `<span class="badge flexible">🌙 Flexible</span>`;
+  }
+
+  if(isNearHotel(r)){
+    html += `<span class="badge near">🚶 Near Hotel</span>`;
+  }
+
+  return html;
+}
+
+
+/* =========================================================
+   RESTAURANT CARD
+========================================================= */
+
+function restaurantCard(r){
+
+  const mapsQuery = encodeURIComponent(`${r.Name} Osaka Japan`);
+
+  return `
+    <article class="restaurant-card">
+
+      <div class="card-top">
+
+        <div class="rank">#${r.Rank}</div>
+
+        <div class="restaurant-main">
+
+          <h3 class="restaurant-name">
+            ${r.Name}
+          </h3>
+
+          <div class="restaurant-location">
+            ${r.Japanese ? `${r.Japanese}<br>` : ""}
+            📍 ${r.Location} · ${r.Area}
+          </div>
+
+          <div class="badges">
+            ${buildBadges(r)}
+          </div>
+
+        </div>
+      </div>
+
+      <div class="score-row">
+
+        <div class="score-box">
+          <div class="score-label">⭐ Tabelog</div>
+          <div class="score-value">${r.Tabelog}</div>
+        </div>
+
+        <div class="budget-box">
+          <div class="budget-label">💴 Budget / person</div>
+          <div class="budget-value">${r.Budget}</div>
+        </div>
+
+      </div>
+
+      <div class="why-go">
+        ${r.Why}
+      </div>
+
+      <div class="card-actions">
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=${mapsQuery}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-btn"
+        >
+          📍 Maps
+        </a>
+
+        <a
+          href="${r.TabelogURL}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-btn tabelog-link"
+        >
+          🏆 Tabelog
+        </a>
+
+        <button
+          type="button"
+          class="card-btn info"
+          onclick="toggleInfo(this)"
+        >
+          ℹ️ Info
+        </button>
+
+      </div>
+
+      <div class="extra-info">
+
+        <strong style="color:#fff;">
+          ${r.Name}
+        </strong>
+
+        ${r.Japanese ? `<br>${r.Japanese}` : ""}
+
+        <br>
+        ${cuisineEmoji[r.Food] || "🍽️"} ${r.Food}
+
+        <br>
+        📍 ${r.Location} · ${r.Area}
+
+        <br>
+        ⭐ Tabelog ${r.Tabelog}
+
+        <br>
+        💴 ${r.Budget}
+
+        ${
+          r.Recognition
+          ? `<br>🏆 ${r.Recognition}`
+          : ""
+        }
+
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* =========================================================
+   INFO BUTTON
+========================================================= */
+
+function toggleInfo(button){
+  const card = button.closest(".restaurant-card");
+  const info = card.querySelector(".extra-info");
+
+  info.classList.toggle("open");
+
+  button.textContent =
+    info.classList.contains("open")
+      ? "✕ Close"
+      : "ℹ️ Info";
+}
+
+
+/* =========================================================
+   AREA MODE
+========================================================= */
+
+function renderAreaMode(list){
+
+  if(!list.length){
+    showEmpty();
+    return;
+  }
+
+  const grouped = {};
+
+  list.forEach(r => {
+    if(!grouped[r.Food]){
+      grouped[r.Food] = [];
+    }
+    grouped[r.Food].push(r);
+  });
+
+  const orderedFoods = foodOptions.filter(food => grouped[food]);
+
+  results.innerHTML = orderedFoods.map(food => {
+
+    const group = grouped[food].sort((a,b) => a.Rank - b.Rank);
+
+    return `
+      <section class="food-group">
+
+        <div class="food-group-title">
+          <span>${cuisineEmoji[food] || "🍽️"}</span>
+          <span>${food}</span>
+          <span class="food-group-count">${group.length}</span>
+        </div>
+
+        ${group.map(restaurantCard).join("")}
+
+      </section>
+    `;
+  }).join("");
+}
+
+
+/* =========================================================
+   FOOD MODE
+========================================================= */
+
+function renderFoodMode(list){
+
+  if(!list.length){
+    showEmpty();
+    return;
+  }
+
+  const sorted = [...list].sort((a,b) => a.Rank - b.Rank);
+  results.innerHTML = sorted.map(restaurantCard).join("");
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+function showEmpty(){
+  results.innerHTML = `
+    <div class="empty-state">
+      <strong>No restaurants found</strong>
+      Try another area, food type, search or bottom filter.
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   RESULT TITLE
+========================================================= */
+
+function updateTitle(list){
+
+  if(browseMode === "area"){
+
+    if(selectedLocation){
+      resultsTitle.textContent = `📍 ${selectedLocation}`;
+    } else if(selectedArea){
+      resultsTitle.textContent = selectedArea;
+    } else {
+      resultsTitle.textContent = "All Osaka Food";
+    }
+
+  } else {
+
+    if(selectedFood){
+      resultsTitle.textContent =
+        `${cuisineEmoji[selectedFood] || "🍽️"} ${selectedFood}`;
+    } else {
+      resultsTitle.textContent = "All Food Types";
+    }
+  }
+
+  resultCount.textContent =
+    `${list.length} ${list.length === 1 ? "restaurant" : "restaurants"}`;
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+  const list = getFilteredRestaurants();
+  updateTitle(list);
+
+  if(browseMode === "area"){
+    renderAreaMode(list);
+  } else {
+    renderFoodMode(list);
+  }
+}
+
+
+/* =========================================================
+   BOTTOM FILTERS
+========================================================= */
+
+bottomButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const filter = button.dataset.filter;
+
+    if(activeFilters.has(filter)){
+      activeFilters.delete(filter);
+      button.classList.remove("active");
+    } else {
+      activeFilters.add(filter);
+      button.classList.add("active");
+    }
+
+    render();
+  });
+});
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener("input", () => {
+  searchTerm = searchInput.value.trim().toLowerCase();
+  render();
+});
+
+
+/* =========================================================
+   URL PARAMETERS
+========================================================= */
+
+function loadURLParameters(){
+
+  const params = new URLSearchParams(window.location.search);
+
+  const area = (params.get("area") || "").trim();
+  const location = (params.get("location") || "").trim();
+  const food = (params.get("food") || "").trim();
+
+  /* Direct links should start clean */
+  activeFilters.clear();
+
+  bottomButtons.forEach(button => {
+    button.classList.remove("active");
+  });
+
+  /* AREA */
+  if(area){
+    const areaMatch = areaOptions.find(
+      option => option.toLowerCase() === area.toLowerCase()
+    );
+
+    if(areaMatch){
+      browseMode = "area";
+      selectedArea = areaMatch;
+      selectedFood = "";
+      selectedLocation = "";
+    }
+  }
+
+  /* EXACT LOCATION / SUB-AREA */
+  if(location){
+    browseMode = "area";
+    selectedFood = "";
+    selectedLocation = location;
+
+    const match = restaurants.find(
+      r =>
+        (r.Location || "").toLowerCase() === location.toLowerCase() ||
+        (r.Area || "").toLowerCase() === location.toLowerCase()
+    );
+
+    if(match){
+      selectedArea = match.Area;
+    } else {
+      selectedArea = "";
+    }
+  }
+
+  /* FOOD */
+  if(food){
+    const foodMatch = foodOptions.find(
+      option => option.toLowerCase() === food.toLowerCase()
+    );
+
+    if(foodMatch){
+      browseMode = "food";
+      selectedFood = foodMatch;
+      selectedArea = "";
+      selectedLocation = "";
+    }
+  }
+
+  syncModeButtons();
+  syncAreaChips();
+  syncFoodChips();
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+createChips();
+loadURLParameters();
+render();
+
+</script>
+
+</body>
+</html>
