@@ -2364,19 +2364,39 @@ function getFilteredRestaurants(){
     }
 
 
-    /* EXACT LOCATION */
+    /* EXACT LOCATION / SUB-AREA */
 
     if(
       browseMode === "area"
       &&
       selectedLocation
-      &&
-      r.Location.toLowerCase()
-        !==
-      selectedLocation.toLowerCase()
     ){
 
-      return false;
+      const wanted =
+        selectedLocation
+          .trim()
+          .toLowerCase();
+
+      const restaurantLocation =
+        (r.Location || "")
+          .trim()
+          .toLowerCase();
+
+      const restaurantArea =
+        (r.Area || "")
+          .trim()
+          .toLowerCase();
+
+
+      if(
+        restaurantLocation !== wanted
+        &&
+        restaurantArea !== wanted
+      ){
+
+        return false;
+
+      }
 
     }
 
@@ -3059,37 +3079,55 @@ function loadURLParameters(){
 
 
   const area =
-    params.get("area");
+    (params.get("area") || "").trim();
 
   const location =
-    params.get("location");
+    (params.get("location") || "").trim();
 
   const food =
-    params.get("food");
+    (params.get("food") || "").trim();
 
+
+  /*
+     Deep links from schedule/index should open
+     directly to the requested browse result.
+  */
+
+  activeFilters.clear();
+
+  bottomButtons.forEach(button => {
+    button.classList.remove("active");
+  });
 
 
   /* AREA */
 
-  if(
-    area
-    &&
-    areaOptions.includes(area)
-  ){
+  if(area){
 
-    browseMode = "area";
+    const areaMatch =
+      areaOptions.find(
+        option =>
+          option.toLowerCase()
+          ===
+          area.toLowerCase()
+      );
 
-    selectedArea = area;
+    if(areaMatch){
 
-    selectedFood = "";
+      browseMode = "area";
 
-    selectedLocation = "";
+      selectedArea = areaMatch;
+
+      selectedFood = "";
+
+      selectedLocation = "";
+
+    }
 
   }
 
 
-
-  /* EXACT LOCATION */
+  /* EXACT LOCATION / SUB-AREA */
 
   if(location){
 
@@ -3097,14 +3135,18 @@ function loadURLParameters(){
 
     selectedFood = "";
 
-    selectedLocation =
-      location;
+    selectedLocation = location;
 
 
     const match =
       restaurants.find(
         r =>
-          r.Location
+          (r.Location || "")
+            .toLowerCase()
+            ===
+          location.toLowerCase()
+          ||
+          (r.Area || "")
             .toLowerCase()
             ===
           location.toLowerCase()
@@ -3113,30 +3155,42 @@ function loadURLParameters(){
 
     if(match){
 
-      selectedArea =
-        match.Area;
+      selectedArea = match.Area;
+
+    }
+
+    else{
+
+      selectedArea = "";
 
     }
 
   }
 
 
-
   /* FOOD */
 
-  if(
-    food
-    &&
-    foodOptions.includes(food)
-  ){
+  if(food){
 
-    browseMode = "food";
+    const foodMatch =
+      foodOptions.find(
+        option =>
+          option.toLowerCase()
+          ===
+          food.toLowerCase()
+      );
 
-    selectedFood = food;
+    if(foodMatch){
 
-    selectedArea = "";
+      browseMode = "food";
 
-    selectedLocation = "";
+      selectedFood = foodMatch;
+
+      selectedArea = "";
+
+      selectedLocation = "";
+
+    }
 
   }
 
@@ -3148,7 +3202,6 @@ function loadURLParameters(){
   syncFoodChips();
 
 }
-
 
 
 /* =========================================================
