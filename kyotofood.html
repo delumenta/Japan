@@ -128,7 +128,7 @@ header{
   display:grid;
 
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(5,1fr);
 
   gap:6px;
 
@@ -707,6 +707,88 @@ main{
 
 }
 
+.badge.planned{
+
+  color:#cbbcff;
+
+  border-color:
+    rgba(173,140,255,.24);
+
+  background:
+    rgba(173,140,255,.08);
+
+}
+
+.badge.booked{
+
+  color:#9fe1b5;
+
+  border-color:
+    rgba(103,197,135,.28);
+
+  background:
+    rgba(103,197,135,.08);
+
+}
+
+.plan-box{
+
+  margin-top:9px;
+
+  padding:
+    8px
+    9px;
+
+  border:
+    1px solid rgba(173,140,255,.18);
+
+  border-radius:10px;
+
+  background:
+    rgba(173,140,255,.05);
+
+}
+
+.plan-box.booked{
+
+  border-color:
+    rgba(103,197,135,.22);
+
+  background:
+    rgba(103,197,135,.05);
+
+}
+
+.plan-label{
+
+  color:#9f8ee4;
+
+  font-size:7px;
+
+  font-weight:850;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+.plan-box.booked .plan-label{
+  color:var(--green);
+}
+
+.plan-value{
+
+  margin-top:3px;
+
+  color:#fff;
+
+  font-size:10px;
+
+  font-weight:800;
+
+}
+
 
 /* =========================================================
    BUDGET
@@ -1052,6 +1134,13 @@ main{
         🍜 Osaka Food
       </a>
 
+      <a
+        href="reservations.html"
+        class="nav-link"
+      >
+        🎟️ Reservations
+      </a>
+
     </div>
 
 
@@ -1206,6 +1295,13 @@ main{
       🌙 Flexible
     </button>
 
+    <button
+      class="bottom-btn"
+      data-filter="booked"
+    >
+      ✅ Booked
+    </button>
+
   </div>
 
 </div>
@@ -1338,11 +1434,27 @@ const restaurants = [
 /* IZAKAYA */
 
 {
+  Name:"Odashi to Nihonshu Setsu",
+  Japanese:"お出汁と日本酒 せつ",
+  Food:"Izakaya",
+  Area:"Downtown",
+  Location:"Karasuma",
+  Rank:1,
+  Budget:"🌙 ~ ¥4K–6K",
+  Why:"Dashi-focused Kyoto izakaya for oden, kamameshi, seasonal dishes and sake. One of the priority dinners for this trip.",
+  Tag:"⭐",
+  Recognition:"",
+  Status:"Booked",
+  Plan:"20 Oct · 19:45 · 2 people",
+  MapsQuery:"お出汁と日本酒 せつ 421 Izutsuya-cho Kyoto"
+},
+
+{
   Name:"Sumiro Man",
   Food:"Izakaya",
   Area:"Downtown",
   Location:"Nishiki",
-  Rank:1,
+  Rank:2,
   Budget:"🌙 ¥3K–4K",
   Why:"Strong downtown izakaya choice near Nishiki.",
   Tag:"⭐",
@@ -1354,7 +1466,7 @@ const restaurants = [
   Food:"Izakaya",
   Area:"Kyoto Station",
   Location:"Kyoto Station",
-  Rank:2,
+  Rank:3,
   Budget:"🌙 ¥6K–8K",
   Why:"Useful flexible izakaya around Kyoto Station.",
   Tag:"🌙",
@@ -1366,7 +1478,7 @@ const restaurants = [
   Food:"Izakaya",
   Area:"Downtown",
   Location:"Pontocho",
-  Rank:3,
+  Rank:4,
   Budget:"~ ¥3K–5K",
   Why:"Flexible Pontocho option for an evening meal.",
   Tag:"🌙",
@@ -1524,10 +1636,10 @@ const restaurants = [
   Name:"Odai Sushi",
   Food:"Sushi / Omakase",
   Area:"Arashiyama",
-  Location:"Saga",
+  Location:"Saga-Arashiyama",
   Rank:1,
   Budget:"~ ¥2K–4K",
-  Why:"Good sushi option for an Arashiyama day.",
+  Why:"Tiny old-school sushi counter with an elderly chef and lots of local character. Excellent Arashiyama option, but closed Monday — so not for 19 Oct.",
   Tag:"⭐",
   Recognition:""
 },
@@ -1537,7 +1649,7 @@ const restaurants = [
   Food:"Sushi / Omakase",
   Area:"Downtown",
   Location:"Pontocho",
-  Rank:2,
+  Rank:3,
   Budget:"~ ¥3K–5K",
   Why:"Convenient sushi around Pontocho.",
   Tag:"⭐",
@@ -1549,7 +1661,7 @@ const restaurants = [
   Food:"Sushi / Omakase",
   Area:"Downtown",
   Location:"Central Kyoto",
-  Rank:3,
+  Rank:4,
   Budget:"☀️ ¥2K–3K · 🌙 ¥4K–5K",
   Why:"Strong central sushi choice.",
   Tag:"",
@@ -1561,11 +1673,13 @@ const restaurants = [
   Food:"Sushi / Omakase",
   Area:"Arashiyama",
   Location:"Arashiyama",
-  Rank:4,
+  Rank:2,
   Budget:"~ ¥3K–5K",
-  Why:"Another useful sushi choice around Arashiyama.",
-  Tag:"",
-  Recognition:""
+  Why:"Tiny old-school sushi counter run by an elderly couple. Priority lunch choice for the 19 Oct Arashiyama day.",
+  Tag:"⭐",
+  Recognition:"",
+  Status:"Planned",
+  Plan:"19 Oct · target ~12:00 lunch"
 },
 
 {
@@ -1662,11 +1776,24 @@ const restaurants = [
 /* UDON / SOBA */
 
 {
+  Name:"Teuchi Udon Kendonya",
+  Japanese:"手打うどん けんどん屋",
+  Food:"Udon / Soba",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:1,
+  Budget:"¥1K–2K",
+  Why:"Excellent handmade udon near Fushimi Inari. Strong lunch option if staying around the shrine.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
   Name:"Omen Ginkakuji",
   Food:"Udon / Soba",
   Area:"Okazaki",
   Location:"Ginkakuji",
-  Rank:1,
+  Rank:2,
   Budget:"☀️ ¥1K–2K · 🌙 ¥3K–4K",
   Why:"Excellent option around the Philosopher's Path and Ginkakuji area.",
   Tag:"⭐",
@@ -1678,7 +1805,7 @@ const restaurants = [
   Food:"Udon / Soba",
   Area:"Okazaki",
   Location:"Okazaki",
-  Rank:2,
+  Rank:3,
   Budget:"¥1K–2K",
   Why:"Highly regarded udon in the Okazaki area.",
   Tag:"⭐",
@@ -1690,7 +1817,7 @@ const restaurants = [
   Food:"Udon / Soba",
   Area:"Downtown",
   Location:"Karasuma Oike",
-  Rank:3,
+  Rank:4,
   Budget:"Check status",
   Why:"Traditional Kyoto soba option. Check the intended location and current operating status before visiting.",
   Tag:"⭐",
@@ -1702,7 +1829,7 @@ const restaurants = [
   Food:"Udon / Soba",
   Area:"Okazaki",
   Location:"Okazaki",
-  Rank:4,
+  Rank:5,
   Budget:"~ ¥1K–2K",
   Why:"Strong udon choice around Okazaki.",
   Tag:"",
@@ -1719,7 +1846,7 @@ const restaurants = [
   Location:"Fushimi Inari",
   Rank:1,
   Budget:"☀️ ¥1K–2K",
-  Why:"Very convenient traditional food stop beside Fushimi Inari.",
+  Why:"Historic traditional restaurant beside Fushimi Inari serving unagi, inari sushi and udon. Convenient after the shrine, but skip it if heading directly to Arashiyama for lunch.",
   Tag:"⭐",
   Recognition:""
 },
@@ -1744,7 +1871,7 @@ const restaurants = [
   Food:"Washoku",
   Area:"Downtown",
   Location:"Downtown",
-  Rank:1,
+  Rank:2,
   Budget:"☀️ ¥1K–2K · 🌙 ¥4K–5K",
   Why:"Japanese set-meal option in central Kyoto.",
   Tag:"⭐",
@@ -1756,7 +1883,7 @@ const restaurants = [
   Food:"Washoku",
   Area:"Kyoto Station",
   Location:"Kyoto Station",
-  Rank:2,
+  Rank:3,
   Budget:"☀️ ¥1K–2K · 🌙 ~ ¥3K–4K",
   Why:"Vegetable-focused Kyoto-style meal near Kyoto Station.",
   Tag:"",
@@ -1768,9 +1895,9 @@ const restaurants = [
   Food:"Washoku",
   Area:"Arashiyama",
   Location:"Arashiyama",
-  Rank:3,
+  Rank:1,
   Budget:"¥4K–5K",
-  Why:"Scenic Arashiyama meal option.",
+  Why:"Scenic Arashiyama five-bowl seasonal meal. Best for presentation, river scenery and a photogenic Kyoto lunch; easy to reserve.",
   Tag:"⭐",
   Recognition:""
 },
@@ -1829,8 +1956,8 @@ const restaurants = [
 {
   Name:"Yakitori Tsujiya",
   Food:"Yakitori / Chicken",
-  Area:"Downtown",
-  Location:"Downtown",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
   Rank:5,
   Budget:"~ ¥4K–6K",
   Why:"One of the most useful late-night flexible choices in Kyoto.",
@@ -2020,6 +2147,14 @@ function isTabelog(r){
     ||
     text.includes("tabelog")
   );
+
+}
+
+function isBooked(r){
+
+  return (r.Status || "")
+    .toLowerCase()
+    === "booked";
 
 }
 
@@ -2423,12 +2558,15 @@ function getFilteredRestaurants(){
       const haystack = [
 
         r.Name,
+        r.Japanese,
         r.Food,
         r.Area,
         r.Location,
         r.Budget,
         r.Why,
-        r.Recognition
+        r.Recognition,
+        r.Plan,
+        r.Status
 
       ]
       .join(" ")
@@ -2477,6 +2615,10 @@ function getFilteredRestaurants(){
 
       if(activeFilters.has("flexible")){
         matches.push(isFlexible(r));
+      }
+
+      if(activeFilters.has("booked")){
+        matches.push(isBooked(r));
       }
 
 
@@ -2571,6 +2713,30 @@ function buildBadges(r){
 
   }
 
+  if((r.Status || "").toLowerCase() === "planned"){
+
+    html += `
+
+      <span class="badge planned">
+        📅 Planned
+      </span>
+
+    `;
+
+  }
+
+  if(isBooked(r)){
+
+    html += `
+
+      <span class="badge booked">
+        ✅ Booked
+      </span>
+
+    `;
+
+  }
+
 
   return html;
 
@@ -2586,8 +2752,29 @@ function restaurantCard(r){
 
   const mapsQuery =
     encodeURIComponent(
+      r.MapsQuery
+      ||
       `${r.Name} Kyoto Japan`
     );
+
+  const planBox =
+    r.Plan
+      ?
+      `
+        <div class="plan-box ${isBooked(r) ? "booked" : ""}">
+
+          <div class="plan-label">
+            ${isBooked(r) ? "✅ Reservation" : "📅 Trip plan"}
+          </div>
+
+          <div class="plan-value">
+            ${r.Plan}
+          </div>
+
+        </div>
+      `
+      :
+      "";
 
 
   return `
@@ -2610,6 +2797,14 @@ function restaurantCard(r){
             ${r.Name}
           </h3>
 
+          ${
+            r.Japanese
+            ?
+            `<div style="margin-top:2px;color:#8f99a2;font-size:9px;">${r.Japanese}</div>`
+            :
+            ""
+          }
+
 
           <div class="restaurant-location">
 
@@ -2631,6 +2826,8 @@ function restaurantCard(r){
 
 
       </div>
+
+      ${planBox}
 
 
 
@@ -2688,6 +2885,14 @@ function restaurantCard(r){
           ${r.Name}
         </strong>
 
+        ${
+          r.Japanese
+          ?
+          `<br>${r.Japanese}`
+          :
+          ""
+        }
+
         <br>
 
         ${cuisineEmoji[r.Food] || "🍽️"}
@@ -2700,6 +2905,14 @@ function restaurantCard(r){
         <br>
 
         💴 ${r.Budget}
+
+        ${
+          r.Plan
+          ?
+          `<br>📅 ${r.Plan}`
+          :
+          ""
+        }
 
         ${
           r.Recognition
