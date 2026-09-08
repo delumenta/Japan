@@ -1,23 +1,1254 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="utf-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
 
-    <title>
-        Kyoto · Japan Autumn Trip 2026
-    </title>
+<meta name="theme-color" content="#070c10">
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<title>Kyoto Food Finder</title>
+
+
+<style>
+
+/* =========================================================
+   COLORS
+========================================================= */
+
+:root{
+  --bg:#070c10;
+
+  --panel:#10161c;
+  --panel-light:#151c23;
+  --panel-active:#172027;
+
+  --line:#29323b;
+  --line-soft:rgba(255,255,255,.07);
+
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+
+  --red:#c96f68;
+  --blue:#5c9dff;
+  --green:#67c587;
+  --orange:#f4a34d;
+  --gold:#e3b85c;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  margin:0;
+
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      #17202a 0%,
+      transparent 38%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  line-height:1.5;
+
+}
+
+
+/* =========================================================
+   STICKY HEADER
+========================================================= */
+
+header{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:40;
+
+  background:
+    rgba(7,12,16,.97);
+
+  border-bottom:
+    1px solid var(--line);
+
+  padding:
+    8px
+    12px
+    8px;
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+}
+
+.header-inner{
+
+  max-width:760px;
+
+  margin:auto;
+
+}
+
+
+/* =========================================================
+   TOP NAV
+========================================================= */
+
+.top-nav{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:6px;
+
+  margin-bottom:8px;
+
+}
+
+.nav-link{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:33px;
+
+  padding:
+    5px
+    6px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#11181e;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  font-weight:800;
+
+  white-space:nowrap;
+
+}
+
+.nav-link:hover{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.header-title{
+
+  margin:
+    0
+    1px
+    7px;
+
+}
+
+.header-title h1{
+
+  margin:0;
+
+  color:#fff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:21px;
+
+  line-height:1.2;
+
+  letter-spacing:-.025em;
+
+}
+
+.header-title div{
+
+  margin-top:2px;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box{
+
+  width:100%;
+
+  min-height:39px;
+
+  padding:
+    8px
+    11px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:11px;
+
+  outline:none;
+
+  background:#10171d;
+
+  color:#fff;
+
+  font:inherit;
+
+  font-size:11px;
+
+}
+
+.search-box::placeholder{
+  color:#77828b;
+}
+
+.search-box:focus{
+  border-color:var(--red);
+}
+
+
+/* =========================================================
+   BROWSE
+========================================================= */
+
+.sticky-browse{
+
+  margin-top:7px;
+
+  padding-top:7px;
+
+  border-top:
+    1px solid var(--line-soft);
+
+}
+
+
+/* =========================================================
+   BY AREA / BY FOOD
+========================================================= */
+
+.mode-switch{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:6px;
+
+  margin-bottom:7px;
+
+}
+
+.mode-btn{
+
+  appearance:none;
+
+  min-height:36px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:10px;
+
+  background:#121a20;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  font-weight:850;
+
+  cursor:pointer;
+
+}
+
+.mode-btn.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.11);
+
+}
+
+
+/* =========================================================
+   CHIPS
+========================================================= */
+
+.chips{
+
+  display:flex;
+
+  gap:6px;
+
+  overflow-x:auto;
+
+  padding:
+    1px
+    1px
+    3px;
+
+  scrollbar-width:none;
+
+}
+
+.chips::-webkit-scrollbar{
+  display:none;
+}
+
+.chip{
+
+  appearance:none;
+
+  flex:0 0 auto;
+
+  min-height:30px;
+
+  padding:
+    5px
+    9px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:999px;
+
+  background:#10171d;
+
+  color:#c5ccd1;
+
+  font-size:9px;
+
+  font-weight:750;
+
+  cursor:pointer;
+
+  white-space:nowrap;
+
+}
+
+.chip.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.12);
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+main{
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+    13px
+    12px
+    165px;
+
+}
+
+
+/* =========================================================
+   RESULTS HEADER
+========================================================= */
+
+.results-head{
+
+  display:flex;
+
+  align-items:flex-end;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin:
+    2px
+    2px
+    11px;
+
+}
+
+.results-head h2{
+
+  margin:0;
+
+  color:#fff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:21px;
+
+}
+
+.result-count{
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   CUISINE GROUP
+========================================================= */
+
+.food-group{
+
+  margin-bottom:21px;
+
+}
+
+.food-group-title{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  margin:
+    4px
+    2px
+    9px;
+
+  padding-bottom:7px;
+
+  border-bottom:
+    1px solid var(--line-soft);
+
+  color:#fff;
+
+  font-size:14px;
+
+  font-weight:850;
+
+}
+
+.food-group-count{
+
+  margin-left:auto;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.restaurant-card{
+
+  margin-bottom:9px;
+
+  padding:12px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #141c22,
+      #0d1318
+    );
+
+}
+
+.card-top{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  gap:9px;
+
+}
+
+.rank{
+
+  flex:0 0 auto;
+
+  min-width:29px;
+
+  height:29px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:
+    rgba(201,111,104,.10);
+
+  border:
+    1px solid rgba(201,111,104,.20);
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:900;
+
+}
+
+.restaurant-main{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.restaurant-name{
+
+  margin:0;
+
+  color:#fff;
+
+  font-size:14px;
+
+  font-weight:850;
+
+  line-height:1.25;
+
+}
+
+.restaurant-location{
+
+  margin-top:3px;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badges{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:5px;
+
+  margin-top:7px;
+
+}
+
+.badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:
+    4px
+    7px;
+
+  border-radius:999px;
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:#cbd2d7;
+
+  font-size:8px;
+
+  font-weight:800;
+
+}
+
+.badge.cuisine{
+
+  color:#fff;
+
+  border-color:
+    rgba(92,157,255,.18);
+
+  background:
+    rgba(92,157,255,.08);
+
+}
+
+.badge.pick{
+
+  color:#f2cf72;
+
+  border-color:
+    rgba(227,184,92,.22);
+
+  background:
+    rgba(227,184,92,.08);
+
+}
+
+.badge.tabelog{
+
+  color:#e8c770;
+
+  border-color:
+    rgba(227,184,92,.22);
+
+  background:
+    rgba(227,184,92,.08);
+
+}
+
+.badge.hot{
+
+  color:#ff9d74;
+
+  border-color:
+    rgba(244,163,77,.22);
+
+  background:
+    rgba(244,163,77,.08);
+
+}
+
+.badge.flexible{
+
+  color:#aebdff;
+
+  border-color:
+    rgba(92,157,255,.20);
+
+  background:
+    rgba(92,157,255,.08);
+
+}
+
+.badge.planned{
+
+  color:#cbbcff;
+
+  border-color:
+    rgba(173,140,255,.24);
+
+  background:
+    rgba(173,140,255,.08);
+
+}
+
+.badge.booked{
+
+  color:#9fe1b5;
+
+  border-color:
+    rgba(103,197,135,.28);
+
+  background:
+    rgba(103,197,135,.08);
+
+}
+
+.plan-box{
+
+  margin-top:9px;
+
+  padding:
+    8px
+    9px;
+
+  border:
+    1px solid rgba(173,140,255,.18);
+
+  border-radius:10px;
+
+  background:
+    rgba(173,140,255,.05);
+
+}
+
+.plan-box.booked{
+
+  border-color:
+    rgba(103,197,135,.22);
+
+  background:
+    rgba(103,197,135,.05);
+
+}
+
+.plan-label{
+
+  color:#9f8ee4;
+
+  font-size:7px;
+
+  font-weight:850;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+.plan-box.booked .plan-label{
+  color:var(--green);
+}
+
+.plan-value{
+
+  margin-top:3px;
+
+  color:#fff;
+
+  font-size:10px;
+
+  font-weight:800;
+
+}
+
+
+/* =========================================================
+   BUDGET
+========================================================= */
+
+.budget-box{
+
+  margin-top:9px;
+
+  padding:
+    8px
+    9px;
+
+  border:
+    1px solid var(--line-soft);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.025);
+
+}
+
+.budget-label{
+
+  color:#78848d;
+
+  font-size:7px;
+
+  font-weight:850;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+.budget-value{
+
+  margin-top:3px;
+
+  color:#fff;
+
+  font-size:10px;
+
+  font-weight:800;
+
+}
+
+.budget-note{
+
+  margin-top:2px;
+
+  color:var(--muted);
+
+  font-size:8px;
+
+}
+
+
+/* =========================================================
+   WHY
+========================================================= */
+
+.why-go{
+
+  margin-top:8px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  line-height:1.45;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.card-actions{
+
+  display:flex;
+
+  gap:6px;
+
+  margin-top:9px;
+
+}
+
+.card-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:34px;
+
+  padding:
+    6px
+    10px;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(201,111,104,.25);
+
+  background:
+    rgba(201,111,104,.08);
+
+  color:var(--red);
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  font-weight:850;
+
+  cursor:pointer;
+
+}
+
+.card-btn.info{
+
+  color:var(--blue);
+
+  border-color:
+    rgba(92,157,255,.22);
+
+  background:
+    rgba(92,157,255,.07);
+
+}
+
+
+/* =========================================================
+   EXTRA INFO
+========================================================= */
+
+.extra-info{
+
+  display:none;
+
+  margin-top:9px;
+
+  padding-top:9px;
+
+  border-top:
+    1px solid var(--line-soft);
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  line-height:1.55;
+
+}
+
+.extra-info.open{
+  display:block;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state{
+
+  padding:
+    30px
+    17px;
+
+  border:
+    1px dashed #35414a;
+
+  border-radius:15px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
+.empty-state strong{
+
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#fff;
+
+}
+
+
+/* =========================================================
+   BOTTOM FILTERS
+========================================================= */
+
+.bottom-filter{
+
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:61px;
+
+  z-index:50;
+
+  padding:
+    7px
+    8px
+    calc(7px + env(safe-area-inset-bottom));
+
+  border-top:
+    1px solid var(--line);
+
+  background:
+    rgba(7,12,16,.97);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+}
+
+.bottom-filter-inner{
+
+  max-width:760px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:5px;
+
+}
+
+.bottom-btn{
+
+  appearance:none;
+
+  min-height:41px;
+
+  padding:
+    4px
+    2px;
+
+  border:
+    1px solid #26333d;
+
+  border-radius:10px;
+
+  background:#11181e;
+
+  color:#aeb5bc;
+
+  font-size:8.5px;
+
+  font-weight:850;
+
+  cursor:pointer;
+
+}
+
+.bottom-btn.active{
+
+  color:#fff;
+
+  border-color:var(--red);
+
+  background:
+    rgba(201,111,104,.13);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:380px){
+
+  .header-title h1{
+    font-size:19px;
+  }
+
+  .nav-link{
+    font-size:8px;
+  }
+
+  .bottom-btn{
+    font-size:7.8px;
+  }
+
+}
+
+
+/* =========================================
+   SHARED BOTTOM NAV
+========================================= */
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:80;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
+  background:rgba(7,12,16,.97);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.bottom-nav a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  min-height:47px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.02em;
+  border-radius:11px;
+}
+
+.bottom-nav .nav-icon{
+  font-size:17px;
+  line-height:1;
+}
+
+.bottom-nav a.active{
+  color:#fff;
+  background:rgba(201,111,104,.10);
+  border:1px solid rgba(201,111,104,.25);
+}
+
+@media(min-width:700px){
+  .bottom-nav{
+    left:50%;
+    right:auto;
+    width:min(820px,100%);
+    transform:translateX(-50%);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+    border-radius:16px 16px 0 0;
+  }
+}
+
+
+/* =========================================
+   COMPACT FOOD FINDER OVERRIDES
+========================================= */
+
+/* top navigation removed; fixed bottom nav is the site navigation */
+.restaurant-card{
+  margin-bottom:6px;
+  padding:9px 10px;
+  border-radius:12px;
+}
+
+.card-top{ gap:7px; }
+
+.rank{
+  min-width:24px;
+  height:24px;
+  border-radius:7px;
+  font-size:9px;
+}
+
+.restaurant-name{
+  font-size:13px;
+  line-height:1.18;
+}
+
+.restaurant-location{
+  margin-top:2px;
+  font-size:8px;
+  line-height:1.3;
+}
+
+.badges{
+  gap:3px;
+  margin-top:5px;
+}
+
+.badge{
+  padding:2px 5px;
+  font-size:7px;
+}
+
+.plan-box{
+  margin-top:6px;
+  padding:6px 7px;
+  border-radius:8px;
+}
+
+.plan-value{ font-size:9px; }
+
+.score-row{
+  gap:5px;
+  margin-top:6px;
+}
+
+.score-box,
+.budget-box{
+  padding:5px 7px;
+  border-radius:8px;
+}
+
+.budget-box{ margin-top:6px; }
+
+.score-label,
+.budget-label{ font-size:6px; }
+
+.score-value,
+.budget-value{
+  margin-top:1px;
+  font-size:9px;
+}
+
+.budget-note{ font-size:7px; }
+
+.why-go{
+  margin-top:5px;
+  font-size:9px;
+  line-height:1.32;
+}
+
+.card-actions{
+  gap:4px;
+  margin-top:6px;
+}
+
+.card-btn{
+  min-height:28px;
+  padding:4px 7px;
+  border-radius:7px;
+  font-size:8px;
+}
+
+.extra-info{
+  margin-top:6px;
+  padding-top:6px;
+  font-size:8px;
+  line-height:1.45;
+}
+
+</style>
 
 </head>
 
@@ -25,1234 +1256,2308 @@
 <body>
 
 
-<div class="site-shell">
+<!-- =========================================================
+     STICKY TOP
+========================================================= -->
 
+<header>
 
-    <!-- =====================================================
-         SHARED HEADER
-         ===================================================== -->
+  <div class="header-inner">
 
-    <div id="site-header"></div>
 
+    <!-- NAVIGATION -->
+<!-- TITLE -->
 
+    <div class="header-title">
 
-    <main>
+      <h1>
+        🍽️ Kyoto Food Finder
+      </h1>
 
+      <div>
+        18–22 Oct · Century Kyoto (18–21) → Granvia Kyoto (21–23)
+      </div>
 
-        <!-- =====================================================
-             OUR JOURNEY / DAY TABS
-             ===================================================== -->
+    </div>
 
-        <section class="section">
 
-            <div class="section-title">
 
-                <h2>
-                    Our Journey
-                </h2>
+    <!-- SEARCH -->
 
-                <span>
-                    Kyoto · 18–22 October
-                </span>
+    <input
+      type="search"
+      id="searchInput"
+      class="search-box"
+      placeholder="Search restaurant, food or area..."
+      autocomplete="off"
+    >
 
-            </div>
 
 
+    <!-- BROWSE -->
 
-            <div class="kyoto-journey">
+    <div class="sticky-browse">
 
 
-                <!-- 18 -->
+      <div class="mode-switch">
 
-                <button
-                    class="journey-day-card active"
-                    data-day="18"
-                    onclick="showKyotoDay('18')"
-                >
+        <button
+          class="mode-btn active"
+          data-mode="area"
+        >
+          📍 By Area
+        </button>
 
-                    <div class="stay-date">
-                        18 OCT
-                    </div>
+        <button
+          class="mode-btn"
+          data-mode="food"
+        >
+          🍜 By Food
+        </button>
 
-                    <div class="stay-icon">
-                        🏮
-                    </div>
+      </div>
 
-                    <h3>
-                        Arrival + Gion
-                    </h3>
 
-                    <p>
-                        Higashiyama · Gion · Pontocho
-                    </p>
 
-                </button>
-
-
-                <div class="journey-arrow">
-                    →
-                </div>
-
-
-
-                <!-- 19 -->
-
-                <button
-                    class="journey-day-card"
-                    data-day="19"
-                    onclick="showKyotoDay('19')"
-                >
-
-                    <div class="stay-date">
-                        19 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        🎋
-                    </div>
-
-                    <h3>
-                        Arashiyama
-                    </h3>
-
-                    <p>
-                        Bamboo · River · Sagano
-                    </p>
-
-                </button>
-
-
-                <div class="journey-arrow">
-                    →
-                </div>
-
-
-
-                <!-- 20 -->
-
-                <button
-                    class="journey-day-card"
-                    data-day="20"
-                    onclick="showKyotoDay('20')"
-                >
-
-                    <div class="stay-date">
-                        20 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        🦌
-                    </div>
-
-                    <h3>
-                        Nara
-                    </h3>
-
-                    <p>
-                        Park · Temples · Mt Wakakusa
-                    </p>
-
-                </button>
-
-
-                <div class="journey-arrow">
-                    →
-                </div>
-
-
-
-                <!-- 21 -->
-
-                <button
-                    class="journey-day-card"
-                    data-day="21"
-                    onclick="showKyotoDay('21')"
-                >
-
-                    <div class="stay-date">
-                        21 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        ⛩️
-                    </div>
-
-                    <h3>
-                        East Kyoto
-                    </h3>
-
-                    <p>
-                        Nanzen-ji · Philosopher's Path
-                    </p>
-
-                </button>
-
-
-                <div class="journey-arrow">
-                    →
-                </div>
-
-
-
-                <!-- 22 -->
-
-                <button
-                    class="journey-day-card"
-                    data-day="22"
-                    onclick="showKyotoDay('22')"
-                >
-
-                    <div class="stay-date">
-                        22 OCT
-                    </div>
-
-                    <div class="stay-icon">
-                        🍁
-                    </div>
-
-                    <h3>
-                        Kyoto
-                    </h3>
-
-                    <p>
-                        Fushimi · Flexible Kyoto
-                    </p>
-
-                </button>
-
-
-            </div>
-
-        </section>
-
-
-
-
-
-        <!-- =====================================================
-             18 OCTOBER
-             ===================================================== -->
+      <div id="areaSection">
 
         <div
-            class="kyoto-day-content active"
-            id="kyoto-day-18"
-        >
+          class="chips"
+          id="areaChips"
+        ></div>
 
+      </div>
 
-            <!-- =============================================
-                 DAY TITLE
-                 ============================================= -->
 
-            <section class="section">
 
-                <div class="section-title">
-
-                    <h2>
-                        18 October
-                    </h2>
-
-                    <span>
-                        Arrival · Higashiyama · Gion
-                    </span>
-
-                </div>
-
-
-
-                <!-- =============================================
-                     PLACES TODAY
-                     ============================================= -->
-
-                <div class="day-subheading">
-
-                    <h3>
-                        Places We're Visiting Today
-                    </h3>
-
-                    <span>
-                        Old Kyoto → Gion → Pontocho
-                    </span>
-
-                </div>
-
-
-
-                <div class="stay-grid">
-
-
-                    <!-- HIGASHIYAMA -->
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            AFTERNOON
-                        </div>
-
-                        <div class="stay-icon">
-                            🏮
-                        </div>
-
-                        <h3>
-                            Higashiyama
-                        </h3>
-
-                        <p>
-                            Ninenzaka · Sannenzaka · Yasaka Pagoda
-                        </p>
-
-
-                        <div class="place-access">
-
-                            <span>
-                                🚉 Gion-Shijo Station
-                            </span>
-
-                            <span>
-                                🚶 ~15–20 min → Ninenzaka
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- GION -->
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            EVENING
-                        </div>
-
-                        <div class="stay-icon">
-                            ⛩️
-                        </div>
-
-                        <h3>
-                            Gion
-                        </h3>
-
-                        <p>
-                            Yasaka Shrine · Hanamikoji · Gion Shirakawa
-                        </p>
-
-
-                        <div class="place-access">
-
-                            <span>
-                                🚉 Gion-Shijo Station
-                            </span>
-
-                            <span>
-                                🚶 ~5–10 min → Gion
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- PONTOCHO -->
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            NIGHT
-                        </div>
-
-                        <div class="stay-icon">
-                            🌙
-                        </div>
-
-                        <h3>
-                            Pontocho
-                        </h3>
-
-                        <p>
-                            Pontocho Alley · Kamo River
-                        </p>
-
-
-                        <div class="place-access">
-
-                            <span>
-                                🚉 Gion-Shijo Station
-                            </span>
-
-                            <span>
-                                🚶 ~5 min → Pontocho
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =============================================
-                 SCHEDULE
-                 ============================================= -->
-
-            <section class="section">
-
-                <div class="section-title">
-
-                    <h2>
-                        Schedule
-                    </h2>
-
-                    <span>
-                        18 October · Free &amp; Easy
-                    </span>
-
-                </div>
-
-
-
-                <div class="route-card day-route-card">
-
-
-                    <!-- CHECK IN -->
-
-                    <div class="route-day">
-
-                        <span class="route-date">
-                            3:00 PM
-                        </span>
-
-                        <div class="route-info">
-
-                            <strong>
-                                Check In
-                            </strong>
-
-                            <small>
-                                Hotel · Drop luggage · Freshen up
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- LATE LUNCH -->
-
-                    <div class="route-day">
-
-                        <span class="route-date">
-                            3:30 PM
-                        </span>
-
-                        <div class="route-info">
-
-                            <strong>
-                                Late Lunch
-                            </strong>
-
-                            <small>
-                                Near hotel / Higashiyama
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- HIGASHIYAMA -->
-
-                    <div class="route-day">
-
-                        <span class="route-date">
-                            4:00–5:30 PM
-                        </span>
-
-                        <div class="route-info">
-
-                            <strong>
-                                Higashiyama
-                            </strong>
-
-                            <small>
-                                Ninenzaka · Sannenzaka · Yasaka Pagoda
-                            </small>
-
-                            <div class="route-transfer">
-                                🚶 Continue on foot → Gion
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- GION -->
-
-                    <div class="route-day">
-
-                        <span class="route-date">
-                            6:00–7:00 PM
-                        </span>
-
-                        <div class="route-info">
-
-                            <strong>
-                                Gion
-                            </strong>
-
-                            <small>
-                                Yasaka Shrine · Hanamikoji · Gion Shirakawa
-                            </small>
-
-                            <div class="route-transfer">
-                                🚶 Walk toward Pontocho / Kawaramachi
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- DINNER -->
-
-                    <div class="route-day">
-
-                        <span class="route-date">
-                            7:00–8:30 PM
-                        </span>
-
-                        <div class="route-info">
-
-                            <strong>
-                                Dinner
-                            </strong>
-
-                            <small>
-                                Gion / Kawaramachi
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- PONTOCHO -->
-
-                    <div class="route-day">
-
-                        <span class="route-date">
-                            8:30 PM+
-                        </span>
-
-                        <div class="route-info">
-
-                            <strong>
-                                Pontocho
-                            </strong>
-
-                            <small>
-                                Pontocho Alley · Kamo River
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =============================================
-                 FOOD
-                 ============================================= -->
-
-            <section class="section">
-
-                <div class="section-title">
-
-                    <h2>
-                        Food
-                    </h2>
-
-                    <span>
-                        Late Lunch → Dinner
-                    </span>
-
-                </div>
-
-
-
-                <div class="stay-grid">
-
-
-                    <!-- LUNCH -->
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            LATE LUNCH
-                        </div>
-
-                        <div class="stay-icon">
-                            🍜
-                        </div>
-
-                        <h3>
-                            Restaurant To Add
-                        </h3>
-
-                        <p>
-                            Soba · Japanese
-                        </p>
-
-
-                        <div class="place-access">
-
-                            <span>
-                                💴 ¥1,000–2,000
-                            </span>
-
-                            <span>
-                                🚶 Near Higashiyama
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- DINNER -->
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            ⭐ DINNER PICK
-                        </div>
-
-                        <div class="stay-icon">
-                            🍶
-                        </div>
-
-                        <h3>
-                            Restaurant To Add
-                        </h3>
-
-                        <p>
-                            Japanese · Izakaya
-                        </p>
-
-
-                        <div class="place-access">
-
-                            <span>
-                                💴 ¥3,000–5,000
-                            </span>
-
-                            <span>
-                                🚶 Near Gion
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- DINNER OPTION -->
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            DINNER OPTION
-                        </div>
-
-                        <div class="stay-icon">
-                            🥩
-                        </div>
-
-                        <h3>
-                            Restaurant To Add
-                        </h3>
-
-                        <p>
-                            Yakiniku · Wagyu
-                        </p>
-
-
-                        <div class="place-access">
-
-                            <span>
-                                💴 ¥4,000–7,000
-                            </span>
-
-                            <span>
-                                🚶 Near Pontocho
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </section>
-
-
-        </div>
-
-
-
-
-
-        <!-- =====================================================
-             19 OCTOBER
-             ===================================================== -->
+      <div
+        id="foodSection"
+        style="display:none;"
+      >
 
         <div
-            class="kyoto-day-content"
-            id="kyoto-day-19"
-        >
+          class="chips"
+          id="foodChips"
+        ></div>
 
-            <section class="section">
+      </div>
 
-                <div class="section-title">
 
-                    <h2>
-                        19 October
-                    </h2>
+    </div>
 
-                    <span>
-                        Arashiyama
-                    </span>
 
-                </div>
+  </div>
 
+</header>
 
-                <div class="stay-grid">
 
 
-                    <div class="stay-card">
+<!-- =========================================================
+     RESULTS
+========================================================= -->
 
-                        <div class="stay-date">
-                            MORNING
-                        </div>
+<main>
 
-                        <div class="stay-icon">
-                            🎋
-                        </div>
 
-                        <h3>
-                            Arashiyama
-                        </h3>
+  <div class="results-head">
 
-                        <p>
-                            Bamboo Grove · Togetsukyo
-                        </p>
+    <h2 id="resultsTitle">
+      All Kyoto Food
+    </h2>
 
-                    </div>
+    <div
+      class="result-count"
+      id="resultCount"
+    ></div>
 
+  </div>
 
-                    <div class="stay-card">
 
-                        <div class="stay-date">
-                            AFTERNOON
-                        </div>
+  <div id="results"></div>
 
-                        <div class="stay-icon">
-                            🚂
-                        </div>
 
-                        <h3>
-                            Sagano
-                        </h3>
+</main>
 
-                        <p>
-                            Romantic Train · Hozugawa
-                        </p>
 
-                    </div>
 
+<!-- =========================================================
+     BOTTOM FILTERS
+========================================================= -->
 
-                    <div class="stay-card">
+<div class="bottom-filter">
 
-                        <div class="stay-date">
-                            EVENING
-                        </div>
+  <div class="bottom-filter-inner">
 
-                        <div class="stay-icon">
-                            🌙
-                        </div>
+    <button
+      class="bottom-btn"
+      data-filter="pick"
+    >
+      ⭐ Picks
+    </button>
 
-                        <h3>
-                            Kyoto
-                        </h3>
+    <button
+      class="bottom-btn"
+      data-filter="tabelog"
+    >
+      🏆 Tabelog
+    </button>
 
-                        <p>
-                            Dinner · Free Evening
-                        </p>
+    <button
+      class="bottom-btn"
+      data-filter="hot"
+    >
+      🔥 Hot
+    </button>
 
-                    </div>
+    <button
+      class="bottom-btn"
+      data-filter="flexible"
+    >
+      🌙 Flexible
+    </button>
 
+    <button
+      class="bottom-btn"
+      data-filter="booked"
+    >
+      ✅ Booked
+    </button>
 
-                </div>
-
-            </section>
-
-        </div>
-
-
-
-
-
-        <!-- =====================================================
-             20 OCTOBER
-             ===================================================== -->
-
-        <div
-            class="kyoto-day-content"
-            id="kyoto-day-20"
-        >
-
-            <section class="section">
-
-                <div class="section-title">
-
-                    <h2>
-                        20 October
-                    </h2>
-
-                    <span>
-                        Nara · Mt Wakakusa
-                    </span>
-
-                </div>
-
-
-                <div class="stay-grid">
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            DAY
-                        </div>
-
-                        <div class="stay-icon">
-                            🦌
-                        </div>
-
-                        <h3>
-                            Nara Park
-                        </h3>
-
-                        <p>
-                            Deer · Todai-ji
-                        </p>
-
-                    </div>
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            AFTERNOON
-                        </div>
-
-                        <div class="stay-icon">
-                            ⛩️
-                        </div>
-
-                        <h3>
-                            Kasuga Area
-                        </h3>
-
-                        <p>
-                            Kasuga Taisha · Park
-                        </p>
-
-                    </div>
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            SUNSET
-                        </div>
-
-                        <div class="stay-icon">
-                            🌄
-                        </div>
-
-                        <h3>
-                            Mt Wakakusa
-                        </h3>
-
-                        <p>
-                            Nara View · Sunset
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-            </section>
-
-        </div>
-
-
-
-
-
-        <!-- =====================================================
-             21 OCTOBER
-             ===================================================== -->
-
-        <div
-            class="kyoto-day-content"
-            id="kyoto-day-21"
-        >
-
-            <section class="section">
-
-                <div class="section-title">
-
-                    <h2>
-                        21 October
-                    </h2>
-
-                    <span>
-                        East Kyoto
-                    </span>
-
-                </div>
-
-
-                <div class="stay-grid">
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            MORNING
-                        </div>
-
-                        <div class="stay-icon">
-                            ⛩️
-                        </div>
-
-                        <h3>
-                            Nanzen-ji
-                        </h3>
-
-                        <p>
-                            Suirokaku Aqueduct
-                        </p>
-
-                    </div>
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            LATE MORNING
-                        </div>
-
-                        <div class="stay-icon">
-                            🍂
-                        </div>
-
-                        <h3>
-                            Philosopher's Path
-                        </h3>
-
-                        <p>
-                            Canal Walk · East Kyoto
-                        </p>
-
-                    </div>
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            AFTERNOON
-                        </div>
-
-                        <div class="stay-icon">
-                            🚒
-                        </div>
-
-                        <h3>
-                            Disaster Center
-                        </h3>
-
-                        <p>
-                            Kyoto City Disaster Prevention Center
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-            </section>
-
-        </div>
-
-
-
-
-
-        <!-- =====================================================
-             22 OCTOBER
-             ===================================================== -->
-
-        <div
-            class="kyoto-day-content"
-            id="kyoto-day-22"
-        >
-
-            <section class="section">
-
-                <div class="section-title">
-
-                    <h2>
-                        22 October
-                    </h2>
-
-                    <span>
-                        Flexible Kyoto
-                    </span>
-
-                </div>
-
-
-                <div class="stay-grid">
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            MORNING
-                        </div>
-
-                        <div class="stay-icon">
-                            ⛩️
-                        </div>
-
-                        <h3>
-                            Fushimi Inari
-                        </h3>
-
-                        <p>
-                            Shrine · Senbon Torii
-                        </p>
-
-                    </div>
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            AFTERNOON
-                        </div>
-
-                        <div class="stay-icon">
-                            🍁
-                        </div>
-
-                        <h3>
-                            Flexible Kyoto
-                        </h3>
-
-                        <p>
-                            Shopping · Café · Rest
-                        </p>
-
-                    </div>
-
-
-                    <div class="stay-card">
-
-                        <div class="stay-date">
-                            EVENING
-                        </div>
-
-                        <div class="stay-icon">
-                            🌙
-                        </div>
-
-                        <h3>
-                            Kyoto
-                        </h3>
-
-                        <p>
-                            Dinner · Free Evening
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-            </section>
-
-        </div>
-
-
-
-    </main>
-
-
-
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
-
-    <footer class="site-footer">
-
-        <p>
-            Kyoto · Japan Autumn Trip 2026
-        </p>
-
-        <p class="footer-small">
-            18–22 October 2026
-        </p>
-
-    </footer>
-
+  </div>
 
 </div>
 
 
 
-<!-- =====================================================
-     SHARED JS
-     ===================================================== -->
-
-<script src="script.js"></script>
-
-
-
-<!-- =====================================================
-     KYOTO DAY TABS
-     ===================================================== -->
-
 <script>
 
-function showKyotoDay(day) {
+/* =========================================================
+   RESTAURANTS
+========================================================= */
 
-    const sections =
-        document.querySelectorAll(
-            ".kyoto-day-content"
-        );
+const restaurants = [
+
+{
+  Name:"Flip up!",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Karasuma Oike",
+  Rank:1,
+  Budget:"< ¥1K",
+  Why:"Popular Kyoto bakery with a strong local following.",
+  Tag:"⭐",
+  Recognition:"Top 100 2026"
+},
+
+{
+  Name:"Wälder",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Kawaramachi",
+  Rank:2,
+  Budget:"< ¥1K",
+  Why:"Well-known Kyoto bakery and easy downtown stop.",
+  Tag:"",
+  Recognition:"Top 100 2026"
+},
+
+{
+  Name:"fiveran",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Karasuma Oike",
+  Rank:3,
+  Budget:"¥1K–2K",
+  Why:"Excellent bakery option around central Kyoto.",
+  Tag:"",
+  Recognition:"Bread WEST Top 100 2026"
+},
+
+{
+  Name:"PÂTISSERIE.S",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Shijo Karasuma",
+  Rank:4,
+  Budget:"¥1K–2K",
+  Why:"Pastries and desserts in central Kyoto.",
+  Tag:"",
+  Recognition:"Bread Top 100 2019–2023"
+},
+
+{
+  Name:"Le Petit Mec Oike",
+  Food:"Bakery / Pâtisserie",
+  Area:"Downtown",
+  Location:"Oike",
+  Rank:5,
+  Budget:"< ¥1K",
+  Why:"Convenient French-style bakery in central Kyoto.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"LIBERTÉ PÂTISSERIE BOULANGERIE Kyoto Kiyomizu",
+  Food:"Bakery / Pâtisserie",
+  Area:"Higashiyama",
+  Location:"Kiyomizu",
+  Rank:6,
+  Budget:"¥1K–2K",
+  Why:"Useful bakery and pastry stop while exploring Higashiyama.",
+  Tag:"",
+  Recognition:""
+},
 
 
-    const cards =
-        document.querySelectorAll(
-            ".journey-day-card"
-        );
+/* CURRY */
+
+{
+  Name:"Curry & Tempura Koisus",
+  Food:"Curry",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:1,
+  Budget:"¥2K–5K",
+  Why:"Interesting curry and tempura combination around Gion.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Shinrin Shokudo",
+  Food:"Curry",
+  Area:"Other Kyoto",
+  Location:"Kyoto",
+  Rank:2,
+  Budget:"☀️ ¥2K–3K · 🌙 ¥4K–5K",
+  Why:"Highly regarded Kyoto curry option.",
+  Tag:"",
+  Recognition:"Curry WEST Top 100 2026"
+},
 
 
-    sections.forEach(section => {
-        section.classList.remove("active");
-    });
+/* GYOZA */
+
+{
+  Name:"Chao Chao Gyoza",
+  Food:"Gyoza",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:1,
+  Budget:"¥2K–3K",
+  Why:"Easy casual gyoza stop in central Kyoto.",
+  Tag:"⭐",
+  Recognition:""
+},
 
 
-    cards.forEach(card => {
-        card.classList.remove("active");
-    });
+/* IZAKAYA */
+
+{
+  Name:"Odashi to Nihonshu Setsu",
+  Japanese:"お出汁と日本酒 せつ",
+  Food:"Izakaya",
+  Area:"Downtown",
+  Location:"Karasuma",
+  Rank:1,
+  Budget:"🌙 ~ ¥4K–6K",
+  Why:"Dashi-focused Kyoto izakaya for oden, kamameshi, seasonal dishes and sake. One of the priority dinners for this trip.",
+  Tag:"⭐",
+  Recognition:"",
+  Status:"Booked",
+  Plan:"20 Oct · 19:45 · 2 people",
+  MapsQuery:"お出汁と日本酒 せつ 421 Izutsuya-cho Kyoto"
+},
+
+{
+  Name:"Sumiro Man",
+  Food:"Izakaya",
+  Area:"Downtown",
+  Location:"Nishiki",
+  Rank:2,
+  Budget:"🌙 ¥3K–4K",
+  Why:"Strong downtown izakaya choice near Nishiki.",
+  Tag:"⭐",
+  Recognition:"Hot Restaurant 2025 & 2026"
+},
+
+{
+  Name:"Kurakura",
+  Food:"Izakaya",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:3,
+  Budget:"🌙 ¥6K–8K",
+  Why:"Useful flexible izakaya around Kyoto Station.",
+  Tag:"🌙",
+  Recognition:""
+},
+
+{
+  Name:"Suzume",
+  Food:"Izakaya",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:4,
+  Budget:"~ ¥3K–5K",
+  Why:"Flexible Pontocho option for an evening meal.",
+  Tag:"🌙",
+  Recognition:""
+},
 
 
-    const selectedSection =
-        document.getElementById(
-            "kyoto-day-" + day
-        );
+/* KAISENDON */
+
+{
+  Name:"Genkai Don",
+  Food:"Kaisendon",
+  Area:"Downtown",
+  Location:"Nishiki",
+  Rank:1,
+  Budget:"~ ¥2K–5K",
+  Why:"Seafood rice bowl option around Nishiki.",
+  Tag:"⭐",
+  Recognition:""
+},
 
 
-    const selectedCard =
-        document.querySelector(
-            '.journey-day-card[data-day="' +
-            day +
-            '"]'
-        );
+/* OYAKODON */
+
+{
+  Name:"Wabiya Korekido",
+  Food:"Oyakodon",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:1,
+  Budget:"☀️ ~ ¥2.2K",
+  Why:"Famous Gion oyakodon and one of the main lunch choices.",
+  Tag:"⭐",
+  Recognition:"Tabelog recognition"
+},
+
+{
+  Name:"Toriwa-ro",
+  Food:"Oyakodon",
+  Area:"North Kyoto",
+  Location:"Nishijin",
+  Rank:2,
+  Budget:"☀️ ¥1K–2K",
+  Why:"Traditional oyakodon option in northern Kyoto.",
+  Tag:"",
+  Recognition:""
+},
 
 
-    if (selectedSection) {
-        selectedSection.classList.add("active");
-    }
+/* RAMEN */
+
+{
+  Name:"Menya Inoichi",
+  Food:"Ramen / Tsukemen",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:1,
+  Budget:"¥1K–2K",
+  Why:"One of the priority ramen choices in central Kyoto.",
+  Tag:"⭐",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Sen-no-Kaze",
+  Food:"Ramen / Tsukemen",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:2,
+  Budget:"~ ¥1K–2K",
+  Why:"Popular ramen choice around central Kyoto.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Ginjo Ramen Kubota",
+  Food:"Ramen / Tsukemen",
+  Area:"Kyoto Station",
+  Location:"Gojo",
+  Rank:3,
+  Budget:"¥1K–2K",
+  Why:"Strong ramen option south of central Kyoto.",
+  Tag:"",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Takamatsu",
+  Food:"Ramen / Tsukemen",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:4,
+  Budget:"~ ¥1K–2K",
+  Why:"Convenient central Kyoto ramen option.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Daiichi Asahi",
+  Food:"Ramen / Tsukemen",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:5,
+  Budget:"¥1K–2K",
+  Why:"Classic Kyoto ramen near Kyoto Station.",
+  Tag:"⭐",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Gion Duck Noodles",
+  Food:"Ramen / Tsukemen",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:6,
+  Budget:"¥2K–3K",
+  Why:"Duck noodle option conveniently located in Gion.",
+  Tag:"⭐",
+  Recognition:"Ramen WEST Top 100"
+},
+
+{
+  Name:"Salmon Noodle Kyoto",
+  Food:"Ramen / Tsukemen",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:7,
+  Budget:"¥1K–2K",
+  Why:"Flexible salmon noodle option around the Fushimi Inari area.",
+  Tag:"🌙",
+  Recognition:""
+},
 
 
-    if (selectedCard) {
-        selectedCard.classList.add("active");
-    }
+/* SEAFOOD */
+
+{
+  Name:"Masoho Hanare",
+  Food:"Seafood",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:1,
+  Budget:"🌙 ¥3K–4K",
+  Why:"Seafood option conveniently located around Kyoto Station.",
+  Tag:"",
+  Recognition:""
+},
 
 
-    history.replaceState(
-        null,
-        "",
-        "#day-" + day
-    );
+/* SUSHI */
+
+{
+  Name:"Odai Sushi",
+  Food:"Sushi / Omakase",
+  Area:"Arashiyama",
+  Location:"Saga-Arashiyama",
+  Rank:1,
+  Budget:"~ ¥2K–4K",
+  Why:"Tiny old-school sushi counter with an elderly chef and lots of local character. Excellent Arashiyama option, but closed Monday — so not for 19 Oct.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Sushi Tetsu",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:3,
+  Budget:"~ ¥3K–5K",
+  Why:"Convenient sushi around Pontocho.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Sushi Dokoro Susabiyu",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Central Kyoto",
+  Rank:4,
+  Budget:"☀️ ¥2K–3K · 🌙 ¥4K–5K",
+  Why:"Strong central sushi choice.",
+  Tag:"",
+  Recognition:"Hot Restaurant 2025 & 2026"
+},
+
+{
+  Name:"Takara Sushi",
+  Food:"Sushi / Omakase",
+  Area:"Arashiyama",
+  Location:"Arashiyama",
+  Rank:2,
+  Budget:"~ ¥3K–5K",
+  Why:"Tiny old-school sushi counter run by an elderly couple. Priority lunch choice for the 19 Oct Arashiyama day.",
+  Tag:"⭐",
+  Recognition:"",
+  Status:"Planned",
+  Plan:"19 Oct · target ~12:00 lunch"
+},
+
+{
+  Name:"Nishiki Sushi Shin",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Nishiki",
+  Rank:5,
+  Budget:"¥3K–7K",
+  Why:"Sushi option around Nishiki with several omakase levels.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Gion Takezushi",
+  Food:"Sushi / Omakase",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:6,
+  Budget:"¥6K–12K+",
+  Why:"Higher-end traditional sushi option in Gion.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Gion Sushi Yoshi",
+  Food:"Sushi / Omakase",
+  Area:"Higashiyama",
+  Location:"Gion",
+  Rank:7,
+  Budget:"☀️ ¥8K–10K · 🌙 ¥15K–20K",
+  Why:"Premium sushi and omakase option around Gion.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Sushi Ishimatsu",
+  Food:"Sushi / Omakase",
+  Area:"Downtown",
+  Location:"Central Kyoto",
+  Rank:8,
+  Budget:"~ ¥5K–10K",
+  Why:"Central Kyoto sushi alternative.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* TEMPURA */
+
+{
+  Name:"Tempura no Mise Gen",
+  Food:"Tempura",
+  Area:"Downtown",
+  Location:"Kiyamachi",
+  Rank:1,
+  Budget:"~ ¥1K–3K",
+  Why:"Tempura option around Kiyamachi.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+
+/* TONKATSU */
+
+{
+  Name:"Katsukura",
+  Food:"Tonkatsu",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:1,
+  Budget:"☀️ ¥1K–2K · 🌙 ¥2K–3K",
+  Why:"Reliable Kyoto tonkatsu and especially convenient around Kyoto Station.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Tonkatsu Yamamoto",
+  Food:"Tonkatsu",
+  Area:"Downtown",
+  Location:"Kyoto City Hall",
+  Rank:2,
+  Budget:"☀️ ¥2K–3K · 🌙 ¥3K–4K",
+  Why:"Highly regarded tonkatsu option in central Kyoto.",
+  Tag:"",
+  Recognition:"Tonkatsu Top 100 2026"
+},
+
+
+/* UDON / SOBA */
+
+{
+  Name:"Teuchi Udon Kendonya",
+  Japanese:"手打うどん けんどん屋",
+  Food:"Udon / Soba",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:1,
+  Budget:"¥1K–2K",
+  Why:"Excellent handmade udon near Fushimi Inari. Strong lunch option if staying around the shrine.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Omen Ginkakuji",
+  Food:"Udon / Soba",
+  Area:"Okazaki",
+  Location:"Ginkakuji",
+  Rank:2,
+  Budget:"☀️ ¥1K–2K · 🌙 ¥3K–4K",
+  Why:"Excellent option around the Philosopher's Path and Ginkakuji area.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Yamamoto Menzou",
+  Food:"Udon / Soba",
+  Area:"Okazaki",
+  Location:"Okazaki",
+  Rank:3,
+  Budget:"¥1K–2K",
+  Why:"Highly regarded udon in the Okazaki area.",
+  Tag:"⭐",
+  Recognition:"Udon WEST Top 100"
+},
+
+{
+  Name:"Honke Owariya",
+  Food:"Udon / Soba",
+  Area:"Downtown",
+  Location:"Karasuma Oike",
+  Rank:4,
+  Budget:"Check status",
+  Why:"Traditional Kyoto soba option. Check the intended location and current operating status before visiting.",
+  Tag:"⭐",
+  Recognition:"⚠️ Check current status"
+},
+
+{
+  Name:"Okakita",
+  Food:"Udon / Soba",
+  Area:"Okazaki",
+  Location:"Okazaki",
+  Rank:5,
+  Budget:"~ ¥1K–2K",
+  Why:"Strong udon choice around Okazaki.",
+  Tag:"",
+  Recognition:"Udon WEST Top 100"
+},
+
+
+/* UNAGI */
+
+{
+  Name:"Nezameya",
+  Food:"Unagi",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:1,
+  Budget:"☀️ ¥1K–2K",
+  Why:"Historic traditional restaurant beside Fushimi Inari serving unagi, inari sushi and udon. Convenient after the shrine, but skip it if heading directly to Arashiyama for lunch.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"DORAIMON",
+  Food:"Unagi",
+  Area:"Fushimi",
+  Location:"Fushimi Inari",
+  Rank:2,
+  Budget:"¥4K–6.5K",
+  Why:"Hitsumabushi and unagi option directly around Fushimi Inari.",
+  Tag:"",
+  Recognition:""
+},
+
+
+/* WASHOKU */
+
+{
+  Name:"Gohanya Isshin Kyoto",
+  Food:"Washoku",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:2,
+  Budget:"☀️ ¥1K–2K · 🌙 ¥4K–5K",
+  Why:"Japanese set-meal option in central Kyoto.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+{
+  Name:"Tsuke-yasai ISOISM",
+  Food:"Washoku",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:3,
+  Budget:"☀️ ¥1K–2K · 🌙 ~ ¥3K–4K",
+  Why:"Vegetable-focused Kyoto-style meal near Kyoto Station.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Itsuki Chaya",
+  Food:"Washoku",
+  Area:"Arashiyama",
+  Location:"Arashiyama",
+  Rank:1,
+  Budget:"¥4K–5K",
+  Why:"Scenic Arashiyama five-bowl seasonal meal. Best for presentation, river scenery and a photogenic Kyoto lunch; easy to reserve.",
+  Tag:"⭐",
+  Recognition:""
+},
+
+
+/* YAKITORI */
+
+{
+  Name:"Kuchibashi Modern",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Shijo Karasuma",
+  Rank:1,
+  Budget:"~ ¥5K–8K",
+  Why:"One of the stronger yakitori choices in central Kyoto.",
+  Tag:"⭐",
+  Recognition:"Yakitori WEST Top 100"
+},
+
+{
+  Name:"Pontocho Torihara",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:2,
+  Budget:"~ ¥4K–6K",
+  Why:"Convenient yakitori option for a Pontocho evening.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Pontocho Yasohachi",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Pontocho",
+  Rank:3,
+  Budget:"🌙 ¥3K–4K",
+  Why:"Another Pontocho yakitori choice.",
+  Tag:"",
+  Recognition:""
+},
+
+{
+  Name:"Ibushi Dori Ichika",
+  Food:"Yakitori / Chicken",
+  Area:"Downtown",
+  Location:"Downtown",
+  Rank:4,
+  Budget:"☀️ ¥1K–2K · 🌙 ¥3K–4K",
+  Why:"Useful flexible chicken and yakitori option.",
+  Tag:"🌙",
+  Recognition:""
+},
+
+{
+  Name:"Yakitori Tsujiya",
+  Food:"Yakitori / Chicken",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:5,
+  Budget:"~ ¥4K–6K",
+  Why:"One of the most useful late-night flexible choices in Kyoto.",
+  Tag:"⭐ 🌙",
+  Recognition:"Hot Restaurant 2025 & 2026"
+},
+
+{
+  Name:"Kokekoko",
+  Food:"Yakitori / Chicken",
+  Area:"Kyoto Station",
+  Location:"Kyoto Station",
+  Rank:6,
+  Budget:"☀️ ¥1K–2K · 🌙 ¥5K–6K",
+  Why:"Strong yakitori choice around Kyoto Station.",
+  Tag:"",
+  Recognition:"Hot Restaurant 2025 & 2026"
+}
+
+];
+
+
+
+/* =========================================================
+   AREA OPTIONS
+========================================================= */
+
+const areaOptions = [
+
+  "Arashiyama",
+  "Downtown",
+  "Fushimi",
+  "Higashiyama",
+  "Kyoto Station",
+  "North Kyoto",
+  "Okazaki",
+  "Other Kyoto"
+
+];
+
+
+
+/* =========================================================
+   FOOD OPTIONS
+========================================================= */
+
+const foodOptions = [
+
+  "Sushi / Omakase",
+  "Ramen / Tsukemen",
+  "Yakitori / Chicken",
+  "Udon / Soba",
+  "Oyakodon",
+  "Tonkatsu",
+  "Unagi",
+  "Kaisendon",
+  "Tempura",
+  "Curry",
+  "Izakaya",
+  "Washoku",
+  "Seafood",
+  "Gyoza",
+  "Bakery / Pâtisserie"
+
+];
+
+
+
+/* =========================================================
+   EMOJIS
+========================================================= */
+
+const cuisineEmoji = {
+
+  "Sushi / Omakase":"🍣",
+  "Ramen / Tsukemen":"🍜",
+  "Yakitori / Chicken":"🍗",
+  "Udon / Soba":"🥢",
+  "Oyakodon":"🍳",
+  "Tonkatsu":"🐷",
+  "Unagi":"🐟",
+  "Kaisendon":"🐟",
+  "Tempura":"🍤",
+  "Curry":"🍛",
+  "Izakaya":"🍶",
+  "Washoku":"🍚",
+  "Seafood":"🦐",
+  "Gyoza":"🥟",
+  "Bakery / Pâtisserie":"🥐"
+
+};
+
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let browseMode = "area";
+
+let selectedArea = "";
+
+let selectedFood = "";
+
+let selectedLocation = "";
+
+let searchTerm = "";
+
+const activeFilters =
+  new Set();
+
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const areaChips =
+  document.getElementById("areaChips");
+
+const foodChips =
+  document.getElementById("foodChips");
+
+const areaSection =
+  document.getElementById("areaSection");
+
+const foodSection =
+  document.getElementById("foodSection");
+
+const results =
+  document.getElementById("results");
+
+const resultsTitle =
+  document.getElementById("resultsTitle");
+
+const resultCount =
+  document.getElementById("resultCount");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const modeButtons =
+  document.querySelectorAll(".mode-btn");
+
+const bottomButtons =
+  document.querySelectorAll(".bottom-btn");
+
+
+
+/* =========================================================
+   SPECIAL FILTER CHECKS
+========================================================= */
+
+function isPick(r){
+
+  return (r.Tag || "")
+    .includes("⭐");
+
+}
+
+
+function isFlexible(r){
+
+  return (r.Tag || "")
+    .includes("🌙");
+
+}
+
+
+function isHot(r){
+
+  return (r.Recognition || "")
+    .toLowerCase()
+    .includes("hot restaurant");
+
+}
+
+
+function isTabelog(r){
+
+  const text =
+    (r.Recognition || "")
+      .toLowerCase();
+
+  return (
+    text.includes("top 100")
+    ||
+    text.includes("tabelog")
+  );
+
+}
+
+function isBooked(r){
+
+  return (r.Status || "")
+    .toLowerCase()
+    === "booked";
 
 }
 
 
 
-/* Open correct day after refresh */
+/* =========================================================
+   CREATE AREA / FOOD CHIPS
+========================================================= */
 
-window.addEventListener(
-    "load",
-    function () {
+function createChips(){
 
-        const hash =
-            window.location.hash;
-
-
-        if (
-            hash.startsWith("#day-")
-        ) {
-
-            const day =
-                hash.replace(
-                    "#day-",
-                    ""
-                );
+  areaChips.innerHTML = "";
+  foodChips.innerHTML = "";
 
 
-            if (
-                ["18", "19", "20", "21", "22"]
-                .includes(day)
-            ) {
+  /* ALL AREA */
 
-                showKyotoDay(day);
+  const allArea =
+    document.createElement("button");
 
-            }
+  allArea.className =
+    "chip active";
+
+  allArea.dataset.value = "";
+
+  allArea.textContent =
+    "All Areas";
+
+  areaChips.appendChild(allArea);
+
+
+
+  /* AREAS */
+
+  areaOptions.forEach(area => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "chip";
+
+    button.dataset.value =
+      area;
+
+    button.textContent =
+      area;
+
+    areaChips.appendChild(button);
+
+  });
+
+
+
+  /* ALL FOOD */
+
+  const allFood =
+    document.createElement("button");
+
+  allFood.className =
+    "chip active";
+
+  allFood.dataset.value = "";
+
+  allFood.textContent =
+    "All Food";
+
+  foodChips.appendChild(allFood);
+
+
+
+  /* FOOD */
+
+  foodOptions.forEach(food => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "chip";
+
+    button.dataset.value =
+      food;
+
+    button.textContent =
+      `${cuisineEmoji[food] || "🍽️"} ${food}`;
+
+    foodChips.appendChild(button);
+
+  });
+
+
+
+  /* =======================================================
+     AREA CLICK
+
+     IMPORTANT:
+     Clicking an Area automatically clears
+     Food + exact Location + Search.
+  ======================================================= */
+
+  areaChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          browseMode = "area";
+
+          selectedArea =
+            button.dataset.value;
+
+          selectedFood = "";
+
+          selectedLocation = "";
+
+          searchTerm = "";
+
+          searchInput.value = "";
+
+
+          syncModeButtons();
+
+          syncAreaChips();
+
+          syncFoodChips();
+
+          render();
 
         }
+      );
+
+    });
+
+
+
+  /* =======================================================
+     FOOD CLICK
+
+     IMPORTANT:
+     Clicking Food automatically clears
+     Area + exact Location + Search.
+  ======================================================= */
+
+  foodChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          browseMode = "food";
+
+          selectedFood =
+            button.dataset.value;
+
+          selectedArea = "";
+
+          selectedLocation = "";
+
+          searchTerm = "";
+
+          searchInput.value = "";
+
+
+          syncModeButtons();
+
+          syncAreaChips();
+
+          syncFoodChips();
+
+          render();
+
+        }
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   MODE SWITCH
+
+   AREA -> clears FOOD
+   FOOD -> clears AREA / LOCATION
+========================================================= */
+
+modeButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+
+      browseMode =
+        button.dataset.mode;
+
+
+      searchTerm = "";
+
+      searchInput.value = "";
+
+
+      if(browseMode === "area"){
+
+        selectedFood = "";
+
+      }
+
+      else{
+
+        selectedArea = "";
+
+        selectedLocation = "";
+
+      }
+
+
+      syncModeButtons();
+
+      syncAreaChips();
+
+      syncFoodChips();
+
+      render();
 
     }
+  );
+
+});
+
+
+
+/* =========================================================
+   SYNC MODE
+========================================================= */
+
+function syncModeButtons(){
+
+  modeButtons.forEach(button => {
+
+    button.classList.toggle(
+      "active",
+      button.dataset.mode === browseMode
+    );
+
+  });
+
+
+  if(browseMode === "area"){
+
+    areaSection.style.display =
+      "block";
+
+    foodSection.style.display =
+      "none";
+
+  }
+
+  else{
+
+    areaSection.style.display =
+      "none";
+
+    foodSection.style.display =
+      "block";
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SYNC AREA
+========================================================= */
+
+function syncAreaChips(){
+
+  areaChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.value === selectedArea
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   SYNC FOOD
+========================================================= */
+
+function syncFoodChips(){
+
+  foodChips
+    .querySelectorAll(".chip")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.value === selectedFood
+      );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   FILTER RESTAURANTS
+========================================================= */
+
+function getFilteredRestaurants(){
+
+  return restaurants.filter(r => {
+
+
+    /* AREA */
+
+    if(
+      browseMode === "area"
+      &&
+      selectedArea
+      &&
+      r.Area !== selectedArea
+    ){
+
+      return false;
+
+    }
+
+
+    /* EXACT LOCATION / SUB-AREA */
+
+    if(
+      browseMode === "area"
+      &&
+      selectedLocation
+    ){
+
+      const wanted =
+        selectedLocation
+          .trim()
+          .toLowerCase();
+
+      const restaurantLocation =
+        (r.Location || "")
+          .trim()
+          .toLowerCase();
+
+      const restaurantArea =
+        (r.Area || "")
+          .trim()
+          .toLowerCase();
+
+
+      if(
+        restaurantLocation !== wanted
+        &&
+        restaurantArea !== wanted
+      ){
+
+        return false;
+
+      }
+
+    }
+
+
+    /* FOOD */
+
+    if(
+      browseMode === "food"
+      &&
+      selectedFood
+      &&
+      r.Food !== selectedFood
+    ){
+
+      return false;
+
+    }
+
+
+    /* SEARCH */
+
+    if(searchTerm){
+
+      const haystack = [
+
+        r.Name,
+        r.Japanese,
+        r.Food,
+        r.Area,
+        r.Location,
+        r.Budget,
+        r.Why,
+        r.Recognition,
+        r.Plan,
+        r.Status
+
+      ]
+      .join(" ")
+      .toLowerCase();
+
+
+      if(
+        !haystack.includes(searchTerm)
+      ){
+
+        return false;
+
+      }
+
+    }
+
+
+    /*
+       SPECIAL BOTTOM FILTERS
+
+       These use OR logic.
+
+       ⭐ + 🔥
+       = Picks OR Hot.
+
+       They do NOT interfere with
+       Area / Food browse mode.
+    */
+
+    if(activeFilters.size){
+
+      const matches = [];
+
+
+      if(activeFilters.has("pick")){
+        matches.push(isPick(r));
+      }
+
+      if(activeFilters.has("tabelog")){
+        matches.push(isTabelog(r));
+      }
+
+      if(activeFilters.has("hot")){
+        matches.push(isHot(r));
+      }
+
+      if(activeFilters.has("flexible")){
+        matches.push(isFlexible(r));
+      }
+
+      if(activeFilters.has("booked")){
+        matches.push(isBooked(r));
+      }
+
+
+      if(
+        !matches.some(Boolean)
+      ){
+
+        return false;
+
+      }
+
+    }
+
+
+    return true;
+
+  });
+
+}
+
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+function buildBadges(r){
+
+  let html = "";
+
+
+  html += `
+
+    <span class="badge cuisine">
+
+      ${cuisineEmoji[r.Food] || "🍽️"}
+      ${r.Food}
+
+    </span>
+
+  `;
+
+
+  if(isPick(r)){
+
+    html += `
+
+      <span class="badge pick">
+        ⭐ Pick
+      </span>
+
+    `;
+
+  }
+
+
+  if(isTabelog(r)){
+
+    html += `
+
+      <span class="badge tabelog">
+        🏆 Tabelog
+      </span>
+
+    `;
+
+  }
+
+
+  if(isHot(r)){
+
+    html += `
+
+      <span class="badge hot">
+        🔥 Hot
+      </span>
+
+    `;
+
+  }
+
+
+  if(isFlexible(r)){
+
+    html += `
+
+      <span class="badge flexible">
+        🌙 Flexible
+      </span>
+
+    `;
+
+  }
+
+  if((r.Status || "").toLowerCase() === "planned"){
+
+    html += `
+
+      <span class="badge planned">
+        📅 Planned
+      </span>
+
+    `;
+
+  }
+
+  if(isBooked(r)){
+
+    html += `
+
+      <span class="badge booked">
+        ✅ Booked
+      </span>
+
+    `;
+
+  }
+
+
+  return html;
+
+}
+
+
+
+/* =========================================================
+   RESTAURANT CARD
+========================================================= */
+
+function restaurantCard(r){
+
+  const mapsQuery =
+    encodeURIComponent(
+      r.MapsQuery
+      ||
+      `${r.Name} Kyoto Japan`
+    );
+
+  const planBox =
+    r.Plan
+      ?
+      `
+        <div class="plan-box ${isBooked(r) ? "booked" : ""}">
+
+          <div class="plan-label">
+            ${isBooked(r) ? "✅ Reservation" : "📅 Trip plan"}
+          </div>
+
+          <div class="plan-value">
+            ${r.Plan}
+          </div>
+
+        </div>
+      `
+      :
+      "";
+
+
+  return `
+
+    <article class="restaurant-card">
+
+
+      <div class="card-top">
+
+
+        <div class="rank">
+          #${r.Rank}
+        </div>
+
+
+        <div class="restaurant-main">
+
+
+          <h3 class="restaurant-name">
+            ${r.Name}
+          </h3>
+
+          ${
+            r.Japanese
+            ?
+            `<div style="margin-top:2px;color:#8f99a2;font-size:9px;">${r.Japanese}</div>`
+            :
+            ""
+          }
+
+
+          <div class="restaurant-location">
+
+            📍 ${r.Location}
+            ·
+            ${r.Area}
+
+          </div>
+
+
+          <div class="badges">
+
+            ${buildBadges(r)}
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+      ${planBox}
+
+
+
+      <div class="budget-box">
+
+        <div class="budget-label">
+          💴 Budget / person
+        </div>
+
+        <div class="budget-value">
+          ${r.Budget}
+        </div>
+
+      </div>
+
+
+
+      <div class="why-go">
+
+        ${r.Why}
+
+      </div>
+
+
+
+      <div class="card-actions">
+
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=${mapsQuery}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-btn"
+        >
+          📍 Maps
+        </a>
+
+
+        <button
+          type="button"
+          class="card-btn info"
+          onclick="toggleInfo(this)"
+        >
+          ℹ️ Info
+        </button>
+
+
+      </div>
+
+
+
+      <div class="extra-info">
+
+        <strong style="color:#fff;">
+          ${r.Name}
+        </strong>
+
+        ${
+          r.Japanese
+          ?
+          `<br>${r.Japanese}`
+          :
+          ""
+        }
+
+        <br>
+
+        ${cuisineEmoji[r.Food] || "🍽️"}
+        ${r.Food}
+
+        <br>
+
+        📍 ${r.Location} · ${r.Area}
+
+        <br>
+
+        💴 ${r.Budget}
+
+        ${
+          r.Plan
+          ?
+          `<br>📅 ${r.Plan}`
+          :
+          ""
+        }
+
+        ${
+          r.Recognition
+          ?
+          `<br>🏆 ${r.Recognition}`
+          :
+          ""
+        }
+
+      </div>
+
+
+    </article>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   INFO BUTTON
+========================================================= */
+
+function toggleInfo(button){
+
+  const card =
+    button.closest(
+      ".restaurant-card"
+    );
+
+  const info =
+    card.querySelector(
+      ".extra-info"
+    );
+
+
+  info.classList.toggle(
+    "open"
+  );
+
+
+  button.textContent =
+    info.classList.contains("open")
+      ? "✕ Close"
+      : "ℹ️ Info";
+
+}
+
+
+
+/* =========================================================
+   AREA MODE
+========================================================= */
+
+function renderAreaMode(list){
+
+  if(!list.length){
+
+    showEmpty();
+
+    return;
+
+  }
+
+
+  const grouped = {};
+
+
+  list.forEach(r => {
+
+    if(!grouped[r.Food]){
+
+      grouped[r.Food] = [];
+
+    }
+
+    grouped[r.Food].push(r);
+
+  });
+
+
+  const orderedFoods =
+    foodOptions.filter(
+      food => grouped[food]
+    );
+
+
+  results.innerHTML =
+    orderedFoods
+      .map(food => {
+
+
+        const group =
+          grouped[food]
+            .sort(
+              (a,b) =>
+                a.Rank - b.Rank
+            );
+
+
+        return `
+
+          <section class="food-group">
+
+
+            <div class="food-group-title">
+
+              <span>
+                ${cuisineEmoji[food] || "🍽️"}
+              </span>
+
+              <span>
+                ${food}
+              </span>
+
+              <span class="food-group-count">
+                ${group.length}
+              </span>
+
+            </div>
+
+
+            ${
+              group
+                .map(restaurantCard)
+                .join("")
+            }
+
+
+          </section>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+
+/* =========================================================
+   FOOD MODE
+========================================================= */
+
+function renderFoodMode(list){
+
+  if(!list.length){
+
+    showEmpty();
+
+    return;
+
+  }
+
+
+  const sorted =
+    [...list]
+      .sort(
+        (a,b) =>
+          a.Rank - b.Rank
+      );
+
+
+  results.innerHTML =
+    sorted
+      .map(restaurantCard)
+      .join("");
+
+}
+
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+function showEmpty(){
+
+  results.innerHTML = `
+
+    <div class="empty-state">
+
+      <strong>
+        No restaurants found
+      </strong>
+
+      Try another area, food type,
+      search or bottom filter.
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   RESULT TITLE
+========================================================= */
+
+function updateTitle(list){
+
+  if(browseMode === "area"){
+
+
+    if(selectedLocation){
+
+      resultsTitle.textContent =
+        `📍 ${selectedLocation}`;
+
+    }
+
+    else if(selectedArea){
+
+      resultsTitle.textContent =
+        selectedArea;
+
+    }
+
+    else{
+
+      resultsTitle.textContent =
+        "All Kyoto Food";
+
+    }
+
+  }
+
+
+  else{
+
+
+    if(selectedFood){
+
+      resultsTitle.textContent =
+        `${cuisineEmoji[selectedFood] || "🍽️"} ${selectedFood}`;
+
+    }
+
+    else{
+
+      resultsTitle.textContent =
+        "All Food Types";
+
+    }
+
+  }
+
+
+  resultCount.textContent =
+    `${list.length} ${
+      list.length === 1
+        ? "restaurant"
+        : "restaurants"
+    }`;
+
+}
+
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+  const list =
+    getFilteredRestaurants();
+
+
+  updateTitle(list);
+
+
+  if(browseMode === "area"){
+
+    renderAreaMode(list);
+
+  }
+
+  else{
+
+    renderFoodMode(list);
+
+  }
+
+}
+
+
+
+/* =========================================================
+   BOTTOM FILTERS
+========================================================= */
+
+bottomButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+
+      const filter =
+        button.dataset.filter;
+
+
+      if(activeFilters.has(filter)){
+
+        activeFilters.delete(filter);
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+
+      else{
+
+        activeFilters.add(filter);
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      render();
+
+    }
+  );
+
+});
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+  "input",
+  () => {
+
+    searchTerm =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+    render();
+
+  }
 );
+
+
+
+/* =========================================================
+   URL PARAMETERS
+
+   Examples:
+
+   kyotofood.html?area=Arashiyama
+
+   kyotofood.html?location=Gion
+
+   kyotofood.html?location=Fushimi%20Inari
+
+   kyotofood.html?food=Ramen%20%2F%20Tsukemen
+========================================================= */
+
+function loadURLParameters(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const area =
+    (params.get("area") || "").trim();
+
+  const location =
+    (params.get("location") || "").trim();
+
+  const food =
+    (params.get("food") || "").trim();
+
+
+  /*
+     Deep links from schedule/index should open
+     directly to the requested browse result.
+  */
+
+  activeFilters.clear();
+
+  bottomButtons.forEach(button => {
+    button.classList.remove("active");
+  });
+
+
+  /* AREA */
+
+  if(area){
+
+    const areaMatch =
+      areaOptions.find(
+        option =>
+          option.toLowerCase()
+          ===
+          area.toLowerCase()
+      );
+
+    if(areaMatch){
+
+      browseMode = "area";
+
+      selectedArea = areaMatch;
+
+      selectedFood = "";
+
+      selectedLocation = "";
+
+    }
+
+  }
+
+
+  /* EXACT LOCATION / SUB-AREA */
+
+  if(location){
+
+    browseMode = "area";
+
+    selectedFood = "";
+
+    selectedLocation = location;
+
+
+    const match =
+      restaurants.find(
+        r =>
+          (r.Location || "")
+            .toLowerCase()
+            ===
+          location.toLowerCase()
+          ||
+          (r.Area || "")
+            .toLowerCase()
+            ===
+          location.toLowerCase()
+      );
+
+
+    if(match){
+
+      selectedArea = match.Area;
+
+    }
+
+    else{
+
+      selectedArea = "";
+
+    }
+
+  }
+
+
+  /* FOOD */
+
+  if(food){
+
+    const foodMatch =
+      foodOptions.find(
+        option =>
+          option.toLowerCase()
+          ===
+          food.toLowerCase()
+      );
+
+    if(foodMatch){
+
+      browseMode = "food";
+
+      selectedFood = foodMatch;
+
+      selectedArea = "";
+
+      selectedLocation = "";
+
+    }
+
+  }
+
+
+  syncModeButtons();
+
+  syncAreaChips();
+
+  syncFoodChips();
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+createChips();
+
+loadURLParameters();
+
+render();
 
 </script>
 
 
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html"><span class="nav-icon">🏠</span><span>HOME</span></a>
+  <a href="schedule.html"><span class="nav-icon">📅</span><span>SCHEDULE</span></a>
+  <a href="bookings.html"><span class="nav-icon">⭐</span><span>HUB</span></a>
+  <a href="kyotofood.html" class="active" aria-current="page"><span class="nav-icon">⛩️</span><span>KYOTO FOOD</span></a>
+  <a href="osakafood.html"><span class="nav-icon">🌃</span><span>OSAKA FOOD</span></a>
+</nav>
 </body>
 
 </html>
