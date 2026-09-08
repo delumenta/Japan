@@ -255,7 +255,7 @@ main{
   padding:
     15px
     12px
-    80px;
+    105px;
 
 }
 
@@ -768,6 +768,65 @@ main{
 
   margin-bottom:5px;
 
+}
+
+
+
+/* =========================================
+   BOTTOM NAV
+========================================= */
+
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:50;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
+  background:rgba(7,12,16,.96);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.bottom-nav a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  min-height:47px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.02em;
+  border-radius:11px;
+}
+
+.bottom-nav .nav-icon{
+  font-size:17px;
+  line-height:1;
+}
+
+.bottom-nav a.active{
+  color:#fff;
+  background:rgba(201,111,104,.10);
+  border:1px solid rgba(201,111,104,.25);
+}
+
+@media(min-width:700px){
+  .bottom-nav{
+    left:50%;
+    right:auto;
+    width:min(820px,100%);
+    transform:translateX(-50%);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+    border-radius:16px 16px 0 0;
+  }
 }
 
 
@@ -2420,6 +2479,30 @@ main{
 </section>
 
 </main>
+
+
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html">
+    <span class="nav-icon">🏠</span>
+    <span>HOME</span>
+  </a>
+  <a href="schedule.html" class="active" aria-current="page">
+    <span class="nav-icon">📅</span>
+    <span>SCHEDULE</span>
+  </a>
+  <a href="bookings.html">
+    <span class="nav-icon">⭐</span>
+    <span>HUB</span>
+  </a>
+  <a href="kyotofood.html">
+    <span class="nav-icon">⛩️</span>
+    <span>KYOTO FOOD</span>
+  </a>
+  <a href="osakafood.html">
+    <span class="nav-icon">🌃</span>
+    <span>OSAKA FOOD</span>
+  </a>
+</nav>
 
 <script>
 
