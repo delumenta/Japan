@@ -103,10 +103,30 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;line-height:1.05;m
 .tripline strong{color:#e8eaeb}
 .bottom-nav{
   position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 10px calc(7px + env(safe-area-inset-bottom));
-  background:rgba(7,12,16,.96);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px
+  background:rgba(7,12,16,.96);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:4px
 }
 .bottom-nav a{min-height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);font-size:9px;font-weight:850;border-radius:10px}
 .bottom-nav a.active{color:#fff;background:rgba(201,111,104,.10)}
+
+.booking-card{
+  grid-column:1/-1;min-height:76px;padding:12px 14px;border-radius:16px;
+  border:1px solid rgba(244,163,77,.28);text-decoration:none;color:var(--text);
+  background:linear-gradient(145deg,rgba(244,163,77,.07),#0e1419);
+  display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;
+  position:relative;overflow:hidden
+}
+.booking-card .icon{font-size:21px}
+.booking-card h3{margin:0 0 2px;font-family:Georgia,"Times New Roman",serif;font-size:16px}
+.booking-card p{margin:0;color:var(--muted);font-size:9px;line-height:1.4}
+.booking-card .go{color:var(--orange);font-size:14px;font-weight:900}
+.day-booking{
+  margin-top:9px;padding:9px 10px;border:1px solid rgba(244,163,77,.24);
+  border-radius:11px;background:rgba(244,163,77,.055)
+}
+.day-booking-label{font-size:8px;color:var(--orange);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.day-booking-text{margin-top:3px;color:#e8eaeb;font-size:10px;font-weight:800;line-height:1.4}
+.day-booking a{color:#f2c38f;text-decoration:none}
+
 @media(max-width:390px){
   h1{font-size:28px}.today{padding:13px}.now-place{font-size:19px}.card{padding:12px}
 }
@@ -116,7 +136,7 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;line-height:1.05;m
 <main>
   <div class="eyebrow">Japan · Autumn 2026</div>
   <h1>Japan Trip</h1>
-  <div class="sub">18–31 October 2026 · Kyoto → Mountains → Osaka</div>
+  <div class="sub">18–30 October 2026 · Kyoto → Mountains → Osaka</div>
 
   <section id="todayCard"></section>
 
@@ -126,6 +146,11 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;line-height:1.05;m
       <a class="card schedule" href="schedule.html">
         <div class="icon">📅</div><h3>Schedule</h3>
         <p>Full day-by-day plan · routes · transport · Maps</p><span class="go">→</span>
+      </a>
+      <a class="booking-card" href="bookings.html">
+        <div class="icon">⭐</div>
+        <div><h3>Trip Hub</h3><p>Bookings · tickets · things to arrange · don't-miss highlights</p></div>
+        <span class="go">→</span>
       </a>
       <a class="card" href="kyotofood.html">
         <div class="icon">⛩️</div><h3>Kyoto Food</h3>
@@ -138,124 +163,165 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;line-height:1.05;m
     </div>
   </section>
 
-  <div class="tripline"><strong>KYOTO</strong> · 18–22 Oct　→　<strong>ROAD TRIP</strong> · 23–26 Oct　→　<strong>OSAKA</strong> · 26–31 Oct</div>
+  <div class="tripline"><strong>KYOTO</strong> · 18–22 Oct　→　<strong>ROAD TRIP</strong> · 23–26 Oct　→　<strong>OSAKA</strong> · 26–30 Oct</div>
 </main>
 
 <nav class="bottom-nav">
   <a href="index.html" class="active">🏠 HOME</a>
   <a href="schedule.html">📅 SCHEDULE</a>
+  <a href="bookings.html">⭐ HUB</a>
   <a href="kyotofood.html">⛩️ KYOTO FOOD</a>
   <a href="osakafood.html">🌃 OSAKA FOOD</a>
 </nav>
 
 <script>
 const itinerary = {
-18:{area:"KYOTO",title:"Higashiyama + Gion",route:"Arrival → Higashiyama → Gion → Pontocho",food:"kyotofood.html",stops:[
+18:{area:"KYOTO",title:"Arrival + Higashiyama",route:"Arrival → Kiyomizu → Gion → Pontocho → Kyoto Station",food:"kyotofood.html",booking:"🔒 Hotel Century Kyoto · 18–21 Oct",stops:[
  ["~1:00 PM","🚆 Arrive Kyoto","Head to hotel / leave luggage.","Kyoto Station"],
- ["~3:00 PM","🏨 Hotel Check-in","Freshen up.",""],
- ["~3:30 PM","🍜 Late Lunch","Keep it convenient.",""],
- ["4:00–5:30 PM","🏮 Higashiyama","Ninenzaka · Sannenzaka · Yasaka Pagoda.","Ninenzaka Kyoto"],
- ["~6:00 PM","🏮 Gion","Yasaka Shrine · Hanamikoji · Gion Shirakawa.","Gion Kyoto"],
- ["~7:00 PM","🍽️ Dinner","Gion / Kawaramachi / Pontocho.",""],
- ["8:30 PM+","🌃 Pontocho + Kamo River","Relaxed evening stroll.","Pontocho Kyoto"]
+ ["~3:00 PM","🏨 Hotel Century Kyoto Check-in","Stay: 18–21 Oct.","Hotel Century Kyoto"],
+ ["3:15–3:45 PM","🍜 Late Lunch / Snack","Keep it quick.",""],
+ ["4:30–5:15 PM","⛩️ Kiyomizu-dera Area","Temple area and views.","Kiyomizu-dera Kyoto"],
+ ["5:15–6:15 PM","🏘️ Sannenzaka → Ninenzaka → Yasaka Pagoda","Historic streets and photos.","Yasaka Pagoda Kyoto"],
+ ["6:15–7:15 PM","🏮 Yasaka Shrine → Gion","Hanamikoji and Shirakawa.","Gion Kyoto"],
+ ["7:15–8:45 PM","🍽️ Pontocho Dinner","Dinner + short Kamo River stroll.","Pontocho Kyoto"],
+ ["9:15–10:00 PM","✨ Kyoto Station Night View","Grand Staircase + Skyway.","Kyoto Station"]
 ]},
-19:{area:"KYOTO",title:"Arashiyama",route:"Bamboo Grove → Kameyama → Saga-Toriimoto → Togetsukyo",food:"kyotofood.html",stops:[
- ["6:45 AM","🚆 Leave Hotel","Head to Arashiyama early.",""],
- ["~7:30 AM","🎋 Bamboo Grove","Walk before the main crowds.","Arashiyama Bamboo Grove Kyoto"],
- ["~8:00 AM","🌄 Kameyama Viewpoint","Hozu River and mountain views.","Kameyama Park Observation Deck Arashiyama"],
- ["~8:30 AM","🏘️ Saga-Toriimoto","Preserved street.","Saga Toriimoto Preserved Street Kyoto"],
- ["~9:30 AM","🌉 Togetsukyo Bridge","River and mountain views.","Togetsukyo Bridge Kyoto"],
- ["~10:15 AM","🚆 Leave Arashiyama","Head to next planned stop.",""],
- ["Late Morning","🚒 Disaster Prevention Center","Disaster-prevention experience.","Kyoto City Disaster Prevention Center"]
+19:{area:"KYOTO",title:"Fushimi + Arashiyama",route:"Fushimi Inari → Takara Sushi → Arashiyama → Evening Lighting",food:"kyotofood.html",booking:"🍣 Takara Sushi · target 11:30–11:45 AM · walk-in plan",stops:[
+ ["~6:45 AM","🚆 Leave Hotel","Head to Fushimi Inari.",""],
+ ["~7:15 AM","⛩️ Fushimi Inari","Senbon Torii · walk partway up.","Fushimi Inari Taisha"],
+ ["9:30–10:15 AM","🍙 Descend + Snack","Quick break.",""],
+ ["~10:15 AM","🚆 Fushimi → Arashiyama","",""],
+ ["11:30 AM–12:15 PM","🍣 Takara Sushi","Primary lunch target.","Takara Sushi Arashiyama Kyoto"],
+ ["12:20–12:45 PM","🌉 Togetsukyo Bridge","","Togetsukyo Bridge Kyoto"],
+ ["12:50–1:20 PM","🎋 Bamboo Grove","","Arashiyama Bamboo Grove Kyoto"],
+ ["1:20–1:45 PM","🌄 Kameyama Viewpoint","","Kameyama Park Observation Deck Arashiyama"],
+ ["~2:15 PM","🏘️ Saga-Toriimoto","","Saga Toriimoto Preserved Street Kyoto"],
+ ["2:30–3:00 PM","🪨 Adashino Nenbutsu-ji","","Adashino Nenbutsuji Kyoto"],
+ ["3:15–4:00 PM","🗿 Otagi Nenbutsu-ji · Optional","","Otagi Nenbutsuji Kyoto"],
+ ["5:00 PM onward","✨ Arashiyama Evening Lighting","Stay into the evening.","Arashiyama Kyoto"]
 ]},
-20:{area:"KYOTO",title:"Fushimi + Kurama + Kibune",route:"Fushimi Inari → Kurama → Kibune → Kifune Shrine",food:"kyotofood.html",stops:[
- ["~7:15 AM","🚆 Leave Hotel","Head to Fushimi Inari.",""],
- ["7:45–9:30 AM","⛩️ Fushimi Inari","Senbon Torii · walk partway up.","Fushimi Inari Taisha"],
- ["9:30–11:00 AM","🍜 Break / Early Lunch","Eat before travelling north.",""],
- ["Late Morning","🚆 Travel North","Head toward Kurama.",""],
- ["~2:15 PM","👺 Kurama Village","Station · Tengu · village streets.","Kurama Station Kyoto"],
- ["~3:40 PM","🌲 Kibune Village","River · bridges · traditional street.","Kibune Kyoto"],
- ["⭐ ~4:50 PM","🏮 Kifune Shrine","Lantern steps before sunset.","Kifune Shrine Kyoto"],
- ["~5:16 PM","🌅 Sunset","Stay a little into dusk.",""],
- ["~5:45 PM","🚆 Leave Kibune","Return to central Kyoto.",""],
- ["~7:00 PM+","🍽️ Dinner","Downtown Kyoto.",""]
+20:{area:"KYOTO",title:"Kifune Lanterns + Setsu",route:"Disaster Center → Rurikō-in → Kibune → Kifune → Setsu",food:"kyotofood.html",booking:"🔒 Setsu · 7:45 PM · 2 pax　·　⏳ Kifune taxi to arrange",stops:[
+ ["~9:15 AM","🚆 Leave Hotel","Head to Disaster Prevention Center.",""],
+ ["10:00 AM–12:00 PM","🚒 Disaster Prevention Center","","Kyoto City Disaster Prevention Center"],
+ ["12:00–1:00 PM","🍜 Lunch","",""],
+ ["~2:00–3:00 PM","🍁 Rurikō-in · If Practical","Skip if timing threatens Kifune.","Rurikoin Kyoto"],
+ ["~4:00 PM","🌲 Kibune Village","River and village walk.","Kibune Kyoto"],
+ ["~4:45 PM","⛩️ Kifune Shrine","Reach before sunset.","Kifune Shrine Kyoto"],
+ ["5:45–6:20 PM","🏮 Lantern Staircase · Dark","Main photo window.","Kifune Shrine Kyoto"],
+ ["~6:30 PM","🚕 Taxi / Uber Pickup","Preferred transfer: Kokusaikaikan.",""],
+ ["7:45 PM","🔒 Setsu · BOOKED","Dinner for 2 · wife no beef.","Odashi to Nihonshu Setsu Kyoto"]
 ]},
-21:{area:"KYOTO",title:"Ine Day Trip",route:"Kyoto → Ine → Kyoto",food:"kyotofood.html",stops:[
- ["Morning","🚆 Leave Kyoto","Start early for northern Kyoto Prefecture.",""],
- ["Late Morning","🌊 Arrive Ine","Begin funaya / waterfront sightseeing.","Ine no Funaya Kyoto"],
- ["Lunch","🍱 Lunch in Ine","Seafood or local café.",""],
- ["Afternoon","🌊 Continue Ine","Relaxed exploration.","Ine Kyoto"],
- ["Evening","🌃 Return Kyoto","Dinner near Kyoto Station if convenient.",""]
+21:{area:"KYOTO",title:"Ine Day Trip",route:"Century Kyoto → Hotel Granvia Kyoto → Ine → Kyoto",food:"kyotofood.html",booking:"🔒 Hotel change today · Century Kyoto → Hotel Granvia Kyoto · stay 21–23 Oct",stops:[
+ ["Morning","🧳 Hotel Change","Check out Hotel Century Kyoto and move luggage to Hotel Granvia Kyoto.","Hotel Granvia Kyoto"],
+ ["~7:00 AM","🚆 Leave Kyoto","Long journey north.",""],
+ ["~10:30–11:00 AM","🌊 Arrive Ine","","Ine Kyoto Japan"],
+ ["11:00 AM–12:30 PM","🏘️ Ine Funaya","Boathouses and waterfront.","Ine no Funaya Kyoto"],
+ ["~12:30 PM","🐟 Lunch in Ine","",""],
+ ["1:30–3:30 PM","🌊 Continue Ine","Viewpoints / boat if wanted.","Ine Kyoto"],
+ ["~3:30–4:00 PM","🚌 Begin Return","",""],
+ ["~7:00 PM","🌃 Return Kyoto","Dinner near Kyoto Station.",""]
 ]},
-22:{area:"KYOTO",title:"Nanzen-ji + Mom + teamLab",route:"Nanzen-ji → Philosopher's Path → Mom → teamLab",food:"kyotofood.html",stops:[
- ["Morning","⛩️ Nanzen-ji","Temple grounds first.","Nanzenji Kyoto"],
- ["Morning","🧱 Suirokaku Aqueduct","Inside Nanzen-ji area.","Suirokaku Aqueduct Kyoto"],
- ["Late Morning","🍁 Philosopher's Path","Walk as much as you feel like.","Philosopher's Path Kyoto"],
- ["~2:00 PM","👩 Meet Mom + Lunch","Lunch together.",""],
- ["2:00–5:30 PM","☕ Time with Mom","Relaxed shopping / café.",""],
- ["After 5:30 PM","✨ teamLab Biovortex Kyoto","","teamLab Biovortex Kyoto"]
+22:{area:"KYOTO",title:"Nanzen-ji + teamLab",route:"Suirokaku → Nanzen-ji → Kodaiji → Mom → teamLab",food:"kyotofood.html",booking:"⏳ teamLab Biovortex · planned ~7:00 PM · ticket status to check",stops:[
+ ["~8:00 AM","🚆 Leave Hotel","",""],
+ ["8:15–8:45 AM","🧱 Suirokaku Aqueduct","","Suirokaku Aqueduct Kyoto"],
+ ["8:45–9:30 AM","⛩️ Nanzen-ji","","Nanzenji Kyoto"],
+ ["9:30–10:00 AM","🌿 Keage Incline","","Keage Incline Kyoto"],
+ ["10:00–10:30 AM","🚶 Philosopher's Path · Optional","","Philosopher's Path Kyoto"],
+ ["11:00 AM–12:00 PM","⛩️ Kodaiji","","Kodaiji Kyoto"],
+ ["12:00–12:30 PM","🏘️ Nene-no-Michi","","Nene no Michi Kyoto"],
+ ["~2:00 PM","👩 Meet Mom + Lunch","",""],
+ ["2:00–5:30 PM","☕ Time with Mom","",""],
+ ["~7:00 PM","✨ teamLab Biovortex","","teamLab Biovortex Kyoto"]
 ]},
-23:{area:"ROAD TRIP",title:"Soni → Dorogawa",route:"Kyoto → Soni Highlands → Dorogawa Onsen",food:"kyotofood.html",stops:[
- ["Morning","🧳 Check Out + Pick Up Car","Leave Kyoto.",""],
- ["Late Morning","🚗 Drive toward Soni Highlands","",""],
- ["Early Afternoon","🌾 Soni Highlands","Pampas grass and mountain views.","Soni Highlands Nara"],
- ["Late Afternoon","🚗 Continue to Dorogawa","",""],
- ["Evening","♨️ Dorogawa Onsen","Check in · town walk · dinner · onsen.","Dorogawa Onsen Nara"]
+23:{area:"ROAD TRIP",title:"Soni → Dorogawa",route:"Kyoto → Soni Highlands → Dorogawa Onsen",food:"kyotofood.html",booking:"🔒 Kadojin · Dorogawa Onsen · 23–24 Oct　·　⏳ Rental car details to check",stops:[
+ ["~8:00 AM","🍳 Breakfast + Pack","",""],
+ ["~9:00 AM","🏨 Check Out","",""],
+ ["~9:30 AM","🚗 Pick Up Car + Leave Kyoto","",""],
+ ["~12:00 PM","🍜 Lunch En Route","",""],
+ ["~1:30 PM","🌾 Soni Highlands","Main scenic stop.","Soni Highlands Nara"],
+ ["~4:00 PM","🚗 Leave Soni","",""],
+ ["~5:15 PM","♨️ Kadojin · Dorogawa Onsen","Check in · dinner · onsen.","Kadojin Dorogawa Onsen"]
 ]},
-24:{area:"ROAD TRIP",title:"Koyasan → Ryujin",route:"Dorogawa → Koyasan → Koya-Ryujin Skyline → Kamigoten",food:"kyotofood.html",stops:[
- ["Morning","♨️ Dorogawa Morning","Breakfast · onsen · check out.",""],
- ["Late Morning","🚗 Drive to Koyasan","",""],
- ["Midday","⛩️ Koyasan","Sightseeing + lunch.","Koyasan Wakayama"],
- ["Afternoon","🏔️ Koya-Ryujin Skyline","Scenic mountain drive.","Koya Ryujin Skyline"],
- ["Evening","♨️ Kamigoten · Ryujin Onsen","Check in · dinner · onsen.","Kamigoten Ryujin Onsen"]
+24:{area:"ROAD TRIP",title:"Skyline → Gomadanzan → Ryujin",route:"Dorogawa → Koya-Ryujin Skyline → Mt. Gomadanzan → Ryujin",food:"kyotofood.html",booking:"🔒 Kamigoten · Ryujin Onsen · 24–25 Oct",stops:[
+ ["~7:30 AM","🍳 Ryokan Breakfast","",""],
+ ["8:30–9:30 AM","♨️ Dorogawa Morning","",""],
+ ["~10:00 AM","🚗 Check Out + Leave","",""],
+ ["10:00 AM–12:00 PM","🏔️ Mountain Drive","",""],
+ ["~12:00 PM","🍜 Lunch","",""],
+ ["~1:00 PM","🚗 Koya-Ryujin Skyline","Begin scenic ridge drive.","Koya Ryujin Skyline"],
+ ["1:00–2:30 PM","🏔️ Skyline + Photo Stops","",""],
+ ["~2:30 PM","⛰️ Mt. Gomadanzan / Gomasan Sky Tower","","Gomasan Sky Tower Wakayama"],
+ ["~3:30 PM","🚗 Continue to Ryujin","",""],
+ ["~4:30 PM","♨️ Kamigoten / Ryujin Onsen","Check in · dinner · onsen.","Kamigoten Ryujin Onsen"]
 ]},
-25:{area:"ROAD TRIP",title:"Kumano → Nachikatsuura",route:"Ryujin → Kumano Hongu → Oyunohara → Nachikatsuura",food:"kyotofood.html",stops:[
- ["Morning","♨️ Ryujin Morning","Breakfast · onsen · check out.",""],
- ["Late Morning","🚗 Drive toward Kumano Hongu","",""],
- ["Midday","⛩️ Kumano Hongu Taisha","Main shrine visit.","Kumano Hongu Taisha"],
- ["Early Afternoon","⛩️ Oyunohara Grand Torii","Large torii and former shrine site.","Oyunohara Grand Torii"],
- ["Afternoon","🚗 Continue to Nachikatsuura","",""],
- ["Evening","🌊 Nachikatsuura","Check in · dinner · rest.","Kamenoi Hotel Nachi Katsuura"]
+25:{area:"ROAD TRIP",title:"Kumano → Nachikatsuura",route:"Ryujin → Kumano Hongu → Oyunohara → Nachikatsuura",food:"kyotofood.html",booking:"🔒 Kamenoi Hotel Nachi Katsuura · 25–26 Oct",stops:[
+ ["~7:30 AM","🍳 Breakfast","",""],
+ ["8:30–9:30 AM","♨️ Morning Soak","",""],
+ ["~10:00 AM","🚗 Check Out","",""],
+ ["10:00–11:30 AM","🌲 Scenic Drive Toward Kumano","",""],
+ ["~11:30 AM","🍜 Lunch","",""],
+ ["~12:30 PM","⛩️ Kumano Hongu Taisha","","Kumano Hongu Taisha"],
+ ["1:40–2:20 PM","⛩️ Oyunohara Giant Torii","","Oyunohara"],
+ ["~2:30 PM","🚗 Leave for Nachikatsuura","",""],
+ ["~4:00 PM","🌊 Arrive Nachikatsuura","Hotel check-in.","Kamenoi Hotel Nachi Katsuura"]
 ]},
-26:{area:"ROAD TRIP → OSAKA",title:"Nachi → Osaka",route:"Nachi Falls → Nachikatsuura → Osaka",food:"osakafood.html",stops:[
- ["Early Morning","🌊 Kii-Katsuura Morning","Quick local morning.","Kii Katsuura Station"],
- ["Morning","💧 Nachi Falls + Nachi Taisha","Aim early for fewer people.","Nachi Falls Wakayama"],
- ["Late Morning","🧳 Return / Check Out","Collect luggage.",""],
- ["Afternoon","🚗 Drive to Osaka","Long final road-trip leg.",""],
- ["Evening","🌃 Check in Osaka","Easy dinner and rest.",""]
+26:{area:"ROAD TRIP → OSAKA",title:"Nachi + Kamikura → Osaka",route:"Nachi Falls → Nachi Taisha → Pagoda → Kamikura if time → Osaka",food:"osakafood.html",booking:"🔒 Hotel Hankyu International · Osaka · 26–30 Oct",stops:[
+ ["~6:30 AM","🌅 Wake + Breakfast","",""],
+ ["~7:30 AM","🚗 Leave Hotel","",""],
+ ["~8:00 AM","🌊 Nachi Falls","","Nachi Falls Wakayama"],
+ ["~9:00 AM","⛩️ Kumano Nachi Taisha","","Kumano Nachi Taisha"],
+ ["10:00–10:45 AM","🏯 Seiganto-ji + Pagoda","Classic Nachi view.","Seigantoji Pagoda Nachi"],
+ ["11:30 AM–12:30 PM","🐟 Kii-Katsuura Lunch","",""],
+ ["~1:30–2:15 PM","⛩️ Kamikura Jinja · IF TIME","Steep steps; optional.","Kamikura Shrine Shingu"],
+ ["~2:15 PM","🚗 Begin Drive to Osaka","",""],
+ ["~6:00–7:00 PM","🌃 Arrive Osaka / Return Car","",""],
+ ["~7:00 PM","🏨 Osaka Check-in","","Hotel Hankyu International Osaka"]
 ]},
-27:{area:"OSAKA",title:"Flexible Osaka Day",route:"Sightseeing · shopping · food · recovery",food:"osakafood.html",stops:[
- ["Morning","☕ Easy Start","Recovery after the road trip.",""],
- ["Daytime","🌃 Osaka","Sightseeing / shopping / food.","Osaka"],
- ["Evening","🍽️ Dinner","Use Osaka Food Finder.",""]
+27:{area:"OSAKA",title:"Namba + MIRACLE WORLD",route:"ROUND1 → Kuromon → Namba Yasaka → OURLOG → MIRACLE WORLD → Hozenji",food:"osakafood.html",booking:"🎮 No fixed booking stored · ROUND1 / MIRACLE WORLD are activity targets",stops:[
+ ["~9:00 AM","🚆 Head to Namba","",""],
+ ["9:30 AM–12:00 PM","🎳 ROUND1 Sennichimae / Spo-Cha","","ROUND1 Stadium Sennichimae Osaka"],
+ ["12:15–1:30 PM","🐟 Kuromon Market","Lunch + snacks.","Kuromon Market Osaka"],
+ ["1:45–2:15 PM","🦁 Namba Yasaka Shrine","","Namba Yasaka Shrine Osaka"],
+ ["2:30–3:15 PM","☕ OURLOG Coffee","Wife priority.","OURLOG Coffee Namba Osaka"],
+ ["3:30–5:00 PM","✨ MIRACLE WORLD Osaka","","MIRACLE WORLD Osaka"],
+ ["5:15–6:00 PM","🏮 Hozenji Yokocho + Hozenji","","Hozenji Yokocho Osaka"],
+ ["6:00 PM onward","🌃 Dotonbori + Namba","","Dotonbori Osaka"]
 ]},
-28:{area:"OSAKA BASE",title:"Narai-juku Day Trip",route:"Osaka → Nagoya → Narai-juku → Nagoya → Osaka",food:"osakafood.html",stops:[
- ["Morning","🚄 Osaka → Nagoya","Shinkansen.",""],
- ["Late Morning","🚆 Nagoya → Kiso Valley","Continue toward Narai.",""],
- ["Afternoon","🏘️ Narai-juku","Historic post town · cafés · shops · photos.","Narai-juku Nagano"],
- ["Late Afternoon","🚆 Narai → Nagoya","Return with buffer.",""],
- ["Dinner","🍖 Yabaton · Nagoya","Miso-katsu dinner.","Yabaton Nagoya"],
- ["Night","🚄 Nagoya → Osaka","",""]
+28:{area:"OSAKA BASE",title:"Mentai + Pokémon Observatory",route:"Osaka → Tokoname → Mentai Park → Toyohashi → Pokémon → Osaka",food:"osakafood.html",booking:"⏳ Pokémon Observatory ticket + Shinkansen tickets to check/book",stops:[
+ ["~7:30 AM","🚆 Leave Hotel","",""],
+ ["~8:30 AM","🚄 Shin-Osaka → Nagoya","",""],
+ ["~9:40 AM","🚆 Nagoya → Tokoname","",""],
+ ["10:30 AM–12:00 PM","🐟 Mentai Park + Lunch","","Mentai Park Tokoname"],
+ ["~12:15 PM","🚆 Tokoname → Toyohashi","Via Jingū-mae.",""],
+ ["~1:50 PM","🚆 Toyohashi → Futagawa","",""],
+ ["2:15–4:00 PM","🔭 Pokémon Observatory","Toyohashi Museum of Natural History.","Toyohashi Museum of Natural History"],
+ ["~5:00 PM","🚄 Toyohashi → Shin-Osaka","Hikari / Kodama.",""],
+ ["~7:30 PM","🍽️ Dinner in Osaka","",""]
 ]},
-29:{area:"OSAKA",title:"Flexible Osaka Day",route:"Sightseeing · shopping · food",food:"osakafood.html",stops:[
- ["Morning","🌃 Osaka","Choose based on what you still want to see.","Osaka"],
- ["Afternoon","🛍️ Shopping / Sightseeing","",""],
- ["Evening","🍽️ Dinner","Osaka Food Finder.",""]
+29:{area:"OSAKA",title:"Nara + Wakakusa Sunset",route:"Osaka → Nara Park → Todaiji / Kasuga → Mt. Wakakusa → Osaka",food:"osakafood.html",booking:"🌄 No fixed booking · keep afternoon flexible for sunset",stops:[
+ ["~9:30 AM","🚆 Leave Osaka","",""],
+ ["~10:30 AM","🦌 Nara Park","","Nara Park"],
+ ["11:30 AM–12:30 PM","⛩️ Todaiji","","Todaiji Nara"],
+ ["12:30–1:30 PM","🍜 Lunch","",""],
+ ["1:30–3:00 PM","⛩️ Kasuga Taisha / Naramachi · Flexible","",""],
+ ["~3:15 PM","🚶 Head to Mt. Wakakusa","",""],
+ ["3:45–5:15 PM","🌄 Mt. Wakakusa","Protect the sunset window.","Mount Wakakusa Nara"],
+ ["~5:45 PM","🚶 Descend","",""],
+ ["~7:30 PM","🌃 Osaka + Dinner","",""]
 ]},
-30:{area:"OSAKA",title:"Final Full Day",route:"Final sightseeing · shopping · dinner",food:"osakafood.html",stops:[
- ["Morning","🌃 Osaka","Final sightseeing.","Osaka"],
- ["Afternoon","🛍️ Last Shopping","",""],
- ["Evening","🍽️ Final Dinner","Pick one last priority restaurant.",""]
-]},
-31:{area:"OSAKA",title:"Fly Home",route:"Check out → Airport → Home",food:"osakafood.html",stops:[
- ["Morning","🧳 Pack + Check Out","",""],
- ["Before Flight","🚆 Travel to Airport","Leave a generous buffer.","Kansai International Airport"],
- ["✈️","Fly Home","",""]
+30:{area:"OSAKA",title:"Fly Home · 6 PM",route:"Easy Morning → Final Lunch → Airport → Home",food:"osakafood.html",booking:"✈️ Flight home · 6:00 PM · FIXED",stops:[
+ ["~8:00 AM","🍳 Breakfast","",""],
+ ["9:00–11:30 AM","🛍️ Last-minute Shopping","Stay near hotel.",""],
+ ["11:30 AM–12:30 PM","🍽️ Final Lunch","",""],
+ ["~12:30 PM","🏨 Collect Luggage","",""],
+ ["~1:30 PM","🚆 Leave for Airport","Keep generous buffer.","Kansai International Airport"],
+ ["~2:30–3:00 PM","🛫 Arrive Airport","","Kansai International Airport"],
+ ["6:00 PM","✈️ Fly Home","",""]
 ]}
 };
 
 const start = new Date(2026,9,18);
-const end = new Date(2026,9,31);
+const end = new Date(2026,9,30);
 const todayBox = document.getElementById("todayCard");
 let previewDay = null;
 
@@ -292,6 +358,7 @@ function renderDayCard(day, isPreview=false){
     </div>
     <h2>${x.title}</h2>
     <div class="today-route">${x.route}</div>
+    ${x.booking ? `<div class="day-booking"><div class="day-booking-label">Booking / Important Today</div><div class="day-booking-text">${x.booking} · <a href="bookings.html">Trip Hub →</a></div></div>` : ""}
 
     <div class="progress"><div style="width:${pct}%"></div></div>
     <div class="progress-label">${finished ? "DAY COMPLETE ✓" : `${p} / ${total} completed`}</div>
@@ -338,7 +405,7 @@ function renderPreTrip(){
     <div class="preview-days">${Object.keys(itinerary).map(d=>`<button class="preview-day" data-day="${d}">${d}</button>`).join("")}</div>
     <div class="actions">
       <a class="btn primary" href="schedule.html">📅 VIEW TRIP SCHEDULE</a>
-      <a class="btn map" href="kyotofood.html">🍽️ FOOD</a>
+      <a class="btn map" href="bookings.html">⭐ TRIP HUB</a>
     </div>
   </div>`;
   document.querySelectorAll(".preview-day").forEach(b=>{
