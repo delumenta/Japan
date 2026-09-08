@@ -847,2645 +847,1576 @@ main{
 </head>
 
 
+
 <body>
 
-
 <header>
-
   <div class="header-top">
-
-    <a
-      href="index.html"
-      class="home-button"
-    >
-      ← Home
-    </a>
-
+    <a href="index.html" class="home-button">← Home</a>
     <div class="header-title">
-
       <h1>📅 Japan Trip Schedule</h1>
-
-      <div>18–31 October 2026</div>
-
+      <div>18–30 October 2026</div>
     </div>
-
   </div>
-
 
   <div class="trip-filter">
-
-    <button
-      class="trip-btn active"
-      data-trip="all"
-    >
-      ALL
-    </button>
-
-    <button
-      class="trip-btn"
-      data-trip="kyoto"
-    >
-      ⛩️ KYOTO
-    </button>
-
-    <button
-      class="trip-btn"
-      data-trip="road"
-    >
-      🚗 ROAD TRIP
-    </button>
-
-    <button
-      class="trip-btn"
-      data-trip="osaka"
-    >
-      🌃 OSAKA
-    </button>
-
+    <button class="trip-btn active" data-trip="all">ALL</button>
+    <button class="trip-btn" data-trip="kyoto">⛩️ KYOTO</button>
+    <button class="trip-btn" data-trip="road">🚗 ROAD TRIP</button>
+    <button class="trip-btn" data-trip="osaka">🌃 OSAKA</button>
   </div>
-
 </header>
 
-
-
 <main>
-
-
-<!-- =====================================
-     DATE CARDS
-===================================== -->
-
-<section class="date-section">
-
-  <div
-    class="section-label"
-    id="dateLabel"
-  >
-    All Trip Dates
-  </div>
-
-
-  <div
-    class="date-scroll"
-    id="dateScroll"
-  >
-
-
+  <section class="date-section">
+    <div class="section-label" id="dateLabel">All Trip Dates</div>
+    <div class="date-scroll" id="dateScroll">
+      
     <button class="day-card active" data-day="18" data-trip="kyoto">
-
       <div class="day-number">18 OCT</div>
-
       <div class="day-area">Kyoto</div>
-
-      <div class="day-summary">
-        Arrival + Kaguya Lighting
-      </div>
-
-      <div class="day-level">
-        🟢 Easy · 2.5/10
-      </div>
-
+      <div class="day-summary">Arrival + Higashiyama</div>
+      <div class="day-level">🟠 Moderate · 5/10</div>
     </button>
-
-
     <button class="day-card" data-day="19" data-trip="kyoto">
-
       <div class="day-number">19 OCT</div>
-
       <div class="day-area">Kyoto</div>
-
-      <div class="day-summary">
-        Arashiyama + Gion Evening
-      </div>
-
-      <div class="day-level">
-        🟠 Moderate · 6.5/10
-      </div>
-
+      <div class="day-summary">Fushimi + Arashiyama</div>
+      <div class="day-level">🟠 Moderate+ · 6.5/10</div>
     </button>
-
-
     <button class="day-card" data-day="20" data-trip="kyoto">
-
       <div class="day-number">20 OCT</div>
-
       <div class="day-area">Kyoto</div>
-
-      <div class="day-summary">
-        Fushimi + Kurama + Kibune
-      </div>
-
-      <div class="day-level">
-        🟠 Moderate · 5.5/10
-      </div>
-
+      <div class="day-summary">Kifune Lanterns + Setsu</div>
+      <div class="day-level">🟠 Moderate · 5.5/10</div>
     </button>
-
-
     <button class="day-card" data-day="21" data-trip="kyoto">
-
       <div class="day-number">21 OCT</div>
-
       <div class="day-area">Kyoto</div>
-
-      <div class="day-summary">
-        Ine Day Trip
-      </div>
-
-      <div class="day-level">
-        🟠 Moderate · 5.5/10
-      </div>
-
+      <div class="day-summary">Ine Day Trip</div>
+      <div class="day-level">🟠 Moderate · 5.5/10</div>
     </button>
-
-
     <button class="day-card" data-day="22" data-trip="kyoto">
-
       <div class="day-number">22 OCT</div>
-
       <div class="day-area">Kyoto</div>
-
-      <div class="day-summary">
-        Nanzen-ji + Kodaiji + teamLab
-      </div>
-
-      <div class="day-level">
-        🟡 Moderate · 5/10
-      </div>
-
+      <div class="day-summary">Nanzen-ji + teamLab</div>
+      <div class="day-level">🟡 Moderate · 5/10</div>
     </button>
-
-
     <button class="day-card" data-day="23" data-trip="road">
-
       <div class="day-number">23 OCT</div>
-
       <div class="day-area">Road Trip</div>
-
-      <div class="day-summary">
-        Soni → Dorogawa
-      </div>
-
-      <div class="day-level">
-        🟡 Easy–Moderate · 4/10
-      </div>
-
+      <div class="day-summary">Soni → Dorogawa</div>
+      <div class="day-level">🟡 Easy–Moderate · 4/10</div>
     </button>
-
-
     <button class="day-card" data-day="24" data-trip="road">
-
       <div class="day-number">24 OCT</div>
-
       <div class="day-area">Road Trip</div>
-
-      <div class="day-summary">
-        Koyasan → Ryujin
-      </div>
-
-      <div class="day-level">
-        🟠 Moderate · 5/10
-      </div>
-
+      <div class="day-summary">Skyline → Gomadanzan → Ryujin</div>
+      <div class="day-level">🟠 Moderate · 5/10</div>
     </button>
-
-
     <button class="day-card" data-day="25" data-trip="road">
-
       <div class="day-number">25 OCT</div>
-
       <div class="day-area">Road Trip</div>
-
-      <div class="day-summary">
-        Kumano → Nachikatsuura
-      </div>
-
-      <div class="day-level">
-        🟠 Moderate · 5/10
-      </div>
-
+      <div class="day-summary">Kumano → Nachikatsuura</div>
+      <div class="day-level">🟠 Moderate · 5/10</div>
     </button>
-
-
     <button class="day-card" data-day="26" data-trip="road">
-
       <div class="day-number">26 OCT</div>
-
       <div class="day-area">Road Trip</div>
-
-      <div class="day-summary">
-        Nachi → Osaka
-      </div>
-
-      <div class="day-level">
-        🟠 Moderate+ · 6/10
-      </div>
-
+      <div class="day-summary">Nachi + Kamikura → Osaka</div>
+      <div class="day-level">🟠 Moderate+ · 6/10</div>
     </button>
-
-
     <button class="day-card" data-day="27" data-trip="osaka">
-
       <div class="day-number">27 OCT</div>
-
       <div class="day-area">Osaka</div>
-
-      <div class="day-summary">
-        Flexible Osaka Day
-      </div>
-
-      <div class="day-level">
-        🟢 Easy
-      </div>
-
+      <div class="day-summary">Namba + MIRACLE WORLD</div>
+      <div class="day-level">🟠 Moderate · 5/10</div>
     </button>
-
-
     <button class="day-card" data-day="28" data-trip="osaka">
-
       <div class="day-number">28 OCT</div>
-
       <div class="day-area">Osaka Base</div>
-
-      <div class="day-summary">
-        Narai-juku Day Trip
-      </div>
-
-      <div class="day-level">
-        🔴 Long Day · 7/10
-      </div>
-
+      <div class="day-summary">Mentai + Pokémon Observatory</div>
+      <div class="day-level">🔴 Long Day · 7/10</div>
     </button>
-
-
     <button class="day-card" data-day="29" data-trip="osaka">
-
       <div class="day-number">29 OCT</div>
-
       <div class="day-area">Osaka</div>
-
-      <div class="day-summary">
-        Flexible Osaka Day
-      </div>
-
-      <div class="day-level">
-        🟢 Flexible
-      </div>
-
+      <div class="day-summary">Nara + Wakakusa Sunset</div>
+      <div class="day-level">🟠 Moderate · 6/10</div>
     </button>
-
-
     <button class="day-card" data-day="30" data-trip="osaka">
-
       <div class="day-number">30 OCT</div>
-
       <div class="day-area">Osaka</div>
-
-      <div class="day-summary">
-        Final Full Day
-      </div>
-
-      <div class="day-level">
-        🟢 Flexible
-      </div>
-
+      <div class="day-summary">Fly Home · 6 PM</div>
+      <div class="day-level">✈️ Departure</div>
     </button>
+    </div>
+  </section>
 
-
-    <button class="day-card" data-day="31" data-trip="osaka">
-
-      <div class="day-number">31 OCT</div>
-
-      <div class="day-area">Osaka</div>
-
-      <div class="day-summary">
-        Fly Home
-      </div>
-
-      <div class="day-level">
-        ✈️ Departure
-      </div>
-
-    </button>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================================================================
-     18 OCT
-================================================================ -->
-
+  
 <section class="day-content active" id="day-18">
-
   <div class="day-hero">
     <div class="day-date">18 OCTOBER · KYOTO</div>
-
-    <h2>🎋 Arrival + Kaguya Evening</h2>
-
-    <div class="day-route">
-      Arrival → Hotel → Late Lunch → Kaguya Lighting
-    </div>
-
-    <div class="stats">
-      <span class="stat">🟢 Easy · 2.5/10</span>
-      <span class="stat">🧳 Arrival day</span>
-      <span class="stat">✨ Evening illumination</span>
-    </div>
+    <h2>🏮 Arrival + Higashiyama + Gion</h2>
+    <div class="day-route">Arrival → Hotel → Kiyomizu → Sannenzaka / Ninenzaka → Gion → Pontocho → Kyoto Station</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🧳 Arrival day</span><span class="stat">🌃 Kyoto Station night view</span></div>
   </div>
-
   <div class="schedule-title">Today's Schedule</div>
-
   <div class="timeline">
-
+    
     <div class="schedule-item">
       <div class="schedule-time">~1:00 PM</div>
       <div class="schedule-main">
         <div class="schedule-place">🚆 Arrive Kyoto</div>
-        <div class="schedule-note">
-          Head to hotel and leave luggage. Keep the first afternoon easy.
-        </div>
+        <div class="schedule-note">Head to the hotel and leave luggage.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
       <div class="schedule-time">~3:00 PM</div>
       <div class="schedule-main">
         <div class="schedule-place">🏨 Hotel Check-in</div>
-        <div class="schedule-note">
-          Check in, freshen up and settle in.
-        </div>
+        <div class="schedule-note">Check in, freshen up and keep luggage sorted.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~3:30 PM</div>
+      <div class="schedule-time">3:15–3:45 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🍜 Late Lunch</div>
-        <div class="schedule-note">
-          Keep lunch convenient and fairly light before the evening illumination.
-        </div>
-        <div class="actions">
-          <a href="food.html?area=Downtown" class="action food">
-            🍽️ Kyoto Food
-          </a>
-        </div>
+        <div class="schedule-place">🍜 Late Lunch / Snack</div>
+        <div class="schedule-note">Keep it fairly quick so you still have time for Higashiyama.</div>
+        <div class="actions"><a href="kyotofood.html?area=Downtown" class="action food">🍽️ Kyoto Food</a></div>
       </div>
     </div>
-
+    <div class="schedule-item">
+      <div class="schedule-time">~4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚕 Head to Higashiyama</div>
+        <div class="schedule-note">Taxi or train toward Kiyomizu-dera.</div>
+        
+      </div>
+    </div>
     <div class="schedule-item">
       <div class="schedule-time">4:30–5:15 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🛏️ Rest + Refresh</div>
-        <div class="schedule-note">
-          Easy hotel break. Higashiyama and Gion are moved to 19 Oct.
-        </div>
+        <div class="schedule-place">⛩️ Kiyomizu-dera Area</div>
+        <div class="schedule-note">Main temple area and views before dusk.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
     </div>
+    <div class="schedule-item">
+      <div class="schedule-time">5:15–6:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏘️ Sannenzaka → Ninenzaka → Yasaka Pagoda</div>
+        <div class="schedule-note">Walk downhill through the historic streets and stop for photos.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Yasaka+Pagoda+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">6:15–7:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏮 Yasaka Shrine → Gion</div>
+        <div class="schedule-note">Hanamikoji and Gion Shirakawa as the streets light up.</div>
+        <div class="actions"><a href="kyotofood.html?location=Gion" class="action food">🍽️ Gion Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">7:15–8:45 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍽️ Pontocho Dinner</div>
+        <div class="schedule-note">Dinner around Pontocho / Kawaramachi, then a short Kamo River stroll.</div>
+        <div class="actions"><a href="kyotofood.html?location=Pontocho" class="action food">🍽️ Pontocho Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~9:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Head to Kyoto Station</div>
+        <div class="schedule-note">Finish the first night with the station views.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">9:15–10:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">✨ Kyoto Station Grand Staircase + Skyway</div>
+        <div class="schedule-note">Grand Staircase illumination, Skyway and elevated night views.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kyoto+Station" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~10:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏨 Return Hotel</div>
+        <div class="schedule-note">Easy end to the arrival day.</div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="highlight"><strong>⭐ Priority:</strong> Kyoto Station at night stays in the plan. If arrival or check-in runs late, shorten Higashiyama rather than dropping the station.</div>
+</section>
 
+<section class="day-content" id="day-19">
+  <div class="day-hero">
+    <div class="day-date">19 OCTOBER · KYOTO</div>
+    <h2>⛩️ Fushimi Inari + Arashiyama</h2>
+    <div class="day-route">Fushimi Inari → Arashiyama → Takara Sushi → Bamboo Grove → Old Saga → Evening Lighting</div>
+    <div class="stats"><span class="stat">🟠 Moderate+ · 6.5/10</span><span class="stat">🚶 Full sightseeing day</span><span class="stat">🍣 Takara Sushi target</span></div>
+  </div>
+  <div class="schedule-title">Today's Schedule</div>
+  <div class="timeline">
+    
+    <div class="schedule-item">
+      <div class="schedule-time">~6:45 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Leave Hotel</div>
+        <div class="schedule-note">Early start for Fushimi Inari.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:15 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Arrive Fushimi Inari</div>
+        <div class="schedule-note">Start before the main crowds.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">7:15–9:30 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Fushimi Inari / Senbon Torii</div>
+        <div class="schedule-note">Walk the torii route partway up; no need to summit.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">9:30–10:15 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍙 Descend + Snack</div>
+        <div class="schedule-note">Quick break; Nezameya takeaway is optional.</div>
+        <div class="actions"><a href="kyotofood.html?location=Fushimi%20Inari" class="action food">🍽️ Fushimi Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~10:15 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Fushimi → Arashiyama</div>
+        <div class="schedule-note">Travel across Kyoto.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~11:20 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🎋 Arrive Arashiyama</div>
+        <div class="schedule-note">Head toward the lunch area.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">11:30 AM–12:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍣 Takara Sushi</div>
+        <div class="schedule-note">Primary lunch target. Tiny counter, so keep the time flexible if there is a short queue.</div>
+        <div class="actions"><a href="kyotofood.html?area=Arashiyama" class="action food">🍽️ Arashiyama Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">12:20–12:45 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌉 Togetsukyo Bridge + River</div>
+        <div class="schedule-note">River and mountain views.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">12:50–1:20 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🎋 Arashiyama Bamboo Grove</div>
+        <div class="schedule-note">Walk through the grove after lunch.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">1:20–1:45 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌄 Kameyama Park Viewpoint</div>
+        <div class="schedule-note">Hozu River viewpoint.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏘️ Saga-Toriimoto</div>
+        <div class="schedule-note">Quieter preserved street in Old Saga.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Saga+Toriimoto+Preserved+Street+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">2:30–3:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🪨 Adashino Nenbutsu-ji</div>
+        <div class="schedule-note">Atmospheric temple and small bamboo path.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Adashino+Nenbutsuji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">3:15–4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🗿 Otagi Nenbutsu-ji · Optional</div>
+        <div class="schedule-note">Do this if energy and timing are good; otherwise turn back earlier.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Otagi+Nenbutsuji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">4:00–5:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">☕ Central Arashiyama / Café / Shopping</div>
+        <div class="schedule-note">Return toward the central area and rest.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">5:00 PM onward</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🎋✨ Arashiyama Evening Lighting</div>
+        <div class="schedule-note">Stay into the evening for the lighting / illumination atmosphere.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:00–7:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Leave Arashiyama</div>
+        <div class="schedule-note">Head back toward central Kyoto.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~8:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍽️ Dinner / Hotel</div>
+        <div class="schedule-note">Flexible dinner depending on where you finish.</div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="highlight"><strong>🌿 Optional:</strong> Tenryu-ji only if you are ahead of time. Takara Sushi, Bamboo Grove and the evening lighting take priority.</div>
+</section>
+
+<section class="day-content" id="day-20">
+  <div class="day-hero">
+    <div class="day-date">20 OCTOBER · KYOTO</div>
+    <h2>🏮 Disaster Center + Rurikō-in + Kifune + Setsu</h2>
+    <div class="day-route">Disaster Prevention Center → Rurikō-in if practical → Kibune → Kifune Lanterns → Setsu</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 5.5/10</span><span class="stat">🏮 Kifune after dark</span><span class="stat">🔒 Setsu · 7:45 PM</span></div>
+  </div>
+  <div class="schedule-title">Today's Schedule</div>
+  <div class="timeline">
+    
+    <div class="schedule-item">
+      <div class="schedule-time">~8:30 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍳 Breakfast + Easy Start</div>
+        <div class="schedule-note">No need for another dawn start.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~9:15 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Leave Hotel</div>
+        <div class="schedule-note">Head to Kyoto City Disaster Prevention Center.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">10:00 AM–12:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚒 Kyoto City Disaster Prevention Center</div>
+        <div class="schedule-note">Disaster-prevention exhibits and experiences.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kyoto+City+Disaster+Prevention+Center" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">12:00–1:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍜 Lunch</div>
+        <div class="schedule-note">Keep lunch practical before travelling north.</div>
+        <div class="actions"><a href="kyotofood.html" class="action food">🍽️ Kyoto Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~1:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Head North</div>
+        <div class="schedule-note">Travel toward Yase / Rurikō-in.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:00–3:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍁 Rurikō-in · If Practical</div>
+        <div class="schedule-note">Do it only if the opening / entry timing works smoothly. Skip rather than compromising Kifune.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Rurikoin+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~3:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Travel Toward Kibune</div>
+        <div class="schedule-note">Continue north.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌲 Kibune Village</div>
+        <div class="schedule-note">River, village streets and bridges before sunset.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kibune+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">4:00–4:45 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌊 Kibune Walk</div>
+        <div class="schedule-note">Relaxed photos along the river.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:45 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Kifune Shrine</div>
+        <div class="schedule-note">Reach the shrine before sunset.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kifune+Shrine+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
     <div class="schedule-item">
       <div class="schedule-time">~5:15 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🚆 Head to Kaguya Lighting</div>
-        <div class="schedule-note">
-          Travel to the evening bamboo illumination. Exact event timing and access can be locked closer to the trip.
-        </div>
+        <div class="schedule-place">🌅 Sunset</div>
+        <div class="schedule-note">Stay in position as the lanterns become more visible.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">Evening</div>
+      <div class="schedule-time">5:20–5:45 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🎋✨ Kaguya Lighting</div>
-        <div class="schedule-note">
-          Main activity for the evening. Take your time rather than squeezing in another sightseeing area.
-        </div>
+        <div class="schedule-place">🔵 Blue Hour</div>
+        <div class="schedule-note">Lantern staircase starts looking much better.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~8:00 PM+</div>
+      <div class="schedule-time">5:45–6:20 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🍽️ Dinner</div>
-        <div class="schedule-note">
-          Keep dinner flexible depending on where the Kaguya event finishes.
-        </div>
-        <div class="actions">
-          <a href="food.html?area=Downtown" class="action food">
-            🍽️ Kyoto Food
-          </a>
-        </div>
+        <div class="schedule-place">🏮 Kifune Lantern Staircase · Dark</div>
+        <div class="schedule-note">Main photo window after proper darkness.</div>
+        
       </div>
     </div>
-
-  </div>
-
-  <div class="highlight">
-    <strong>✨ Arrival-day plan:</strong>
-    No need to rush Higashiyama before Kaguya. The full Higashiyama → Gion → Pontocho walk is kept together on 19 Oct.
-  </div>
-
-</section>
-
-
-<!-- ================================================================
-     19 OCT
-================================================================ -->
-
-<section class="day-content" id="day-19">
-
-  <div class="day-hero">
-    <div class="day-date">19 OCTOBER · KYOTO</div>
-
-    <h2>🎋 Arashiyama + Old Kyoto Evening</h2>
-
-    <div class="day-route">
-      Arashiyama → Lunch → Disaster Center → Higashiyama → Gion → Pontocho
-    </div>
-
-    <div class="stats">
-      <span class="stat">🟠 Moderate · 6.5/10</span>
-      <span class="stat">🚶 Full sightseeing day</span>
-      <span class="stat">🍣 Lunch in Arashiyama</span>
-    </div>
-  </div>
-
-  <div class="schedule-title">Today's Schedule</div>
-
-  <div class="timeline">
-
     <div class="schedule-item">
-      <div class="schedule-time">7:15–7:30 AM</div>
+      <div class="schedule-time">~6:30 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Hotel</div>
-        <div class="schedule-note">
-          Head to Arashiyama. Aim to reach the Bamboo Grove around 8:00–8:15 AM.
-        </div>
+        <div class="schedule-place">🚕 Taxi / Uber Pickup</div>
+        <div class="schedule-note">Leave Kifune; Kokusaikaikan is the preferred transfer point.</div>
+        
       </div>
     </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00–8:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🎋 Arashiyama Bamboo Grove</div>
-        <div class="schedule-note">
-          Early enough to beat the main daytime crowds. Continue toward Kameyama rather than lingering near the entrance.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-          <a href="food.html?area=Arashiyama" class="action food">🍽️ Arashiyama Food</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~8:30–8:50 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌄 Kameyama Park Viewpoint</div>
-        <div class="schedule-note">
-          Hozu River and mountain views before continuing into Old Saga.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Kameyama+Park+Observation+Deck+Arashiyama"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~9:15–9:40 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏘️ Saga-Toriimoto Preserved Street</div>
-        <div class="schedule-note">
-          Walk through the quieter historic streets and traditional houses of Old Saga.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Saga+Toriimoto+Preserved+Street+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~9:40–10:15 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🪨 Adashino Nenbutsu-ji</div>
-        <div class="schedule-note">
-          Atmospheric temple beside Saga-Toriimoto with stone memorial figures and a small bamboo path.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Adashino+Nenbutsuji+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~10:25–11:05 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🗿 Otagi Nenbutsu-ji</div>
-        <div class="schedule-note">
-          Furthest point of the morning route, known for its many quirky Rakan statues.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Otagi+Nenbutsuji+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~11:05 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚕 Return to Central Arashiyama</div>
-        <div class="schedule-note">
-          Taxi is the easiest option from the Otagi area.
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~11:25–11:50 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌉 Togetsukyo Bridge + Katsura River</div>
-        <div class="schedule-note">
-          River and bridge photos with the Arashiyama mountains behind.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-          <a href="food.html?area=Arashiyama" class="action food">🍽️ Food Nearby</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~12:00–1:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍣 Lunch in Arashiyama</div>
-        <div class="schedule-note">
-          Proper lunch break after the morning walk. Odai Sushi · Takara Sushi · Itsuki Chaya are the main alternatives.
-        </div>
-        <div class="actions">
-          <a href="food.html?area=Arashiyama" class="action food">🍽️ Arashiyama Food</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~1:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Arashiyama</div>
-        <div class="schedule-note">
-          Head toward Kyoto City Disaster Prevention Center.
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~2:00–3:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚒 Kyoto City Disaster Prevention Center</div>
-        <div class="schedule-note">
-          Disaster-prevention experiences and exhibits. Exact activity/session timing can be checked closer to the trip.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Kyoto+City+Disaster+Prevention+Center"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~3:30–4:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Head to Higashiyama</div>
-        <div class="schedule-note">
-          Begin the old-Kyoto evening as one continuous walking route.
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~4:15–5:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏮 Higashiyama</div>
-        <div class="schedule-note">
-          Yasaka Pagoda → Ninenzaka / Sannenzaka → Nene-no-Michi → Yasaka Shrine.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Yasaka+Pagoda+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-          <a href="food.html?area=Higashiyama" class="action food">🍽️ Higashiyama Food</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="schedule-item">
-      <div class="schedule-time">~5:45–7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏮 Gion</div>
-        <div class="schedule-note">
-          Yasaka Shrine → Hanamikoji → Gion Shirakawa → walk toward the Kamo River.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-          <a href="food.html?location=Gion" class="action food">🍽️ Gion Food</a>
-        </div>
-      </div>
-    </div>
-
     <div class="schedule-item">
       <div class="schedule-time">~7:00 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🍽️ Pontocho Dinner</div>
-        <div class="schedule-note">
-          Dinner around Pontocho / Kawaramachi. Pontocho Torihara · Pontocho Yasohachi · Sushi Tetsu are good alternatives from the food list.
-        </div>
-        <div class="actions">
-          <a href="food.html?location=Pontocho" class="action food">🍽️ Pontocho Food</a>
-        </div>
+        <div class="schedule-place">🚇 Kokusaikaikan → Downtown</div>
+        <div class="schedule-note">Karasuma Line toward Karasuma Oike.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">8:30 PM+</div>
+      <div class="schedule-time">7:45 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🌃 Pontocho + Kamo River</div>
-        <div class="schedule-note">
-          Relaxed lantern-lit alley and river stroll before returning to the hotel.
-        </div>
+        <div class="schedule-place">🔒 Setsu · BOOKED for 2</div>
+        <div class="schedule-note">Dinner at お出汁と日本酒 せつ. Wife: no beef.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Odashi+to+Nihonshu+Setsu+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
     </div>
-
-  </div>
-
-  <div class="highlight">
-    <strong>🌿 Optional · Only if ahead of schedule</strong>
-
-    <div class="optional-stop">
-      <div class="optional-name">⛩️ Tenryu-ji</div>
-      <div class="optional-note">
-        Famous Zen temple beside the Bamboo Grove. Skip rather than rush the rest of the morning.
-      </div>
-      <div class="actions">
-        <a href="https://www.google.com/maps/search/?api=1&query=Tenryuji+Temple+Kyoto"
-           target="_blank" class="action">📍 Maps</a>
-      </div>
-    </div>
-
-    <div class="optional-stop">
-      <div class="optional-name">🍁 Jojakko-ji</div>
-      <div class="optional-note">
-        Pretty hillside temple, but 19 Oct is early for peak autumn colour. Treat it as a bonus rather than a must.
-      </div>
-      <div class="actions">
-        <a href="https://www.google.com/maps/search/?api=1&query=Jojakkoji+Temple+Kyoto"
-           target="_blank" class="action">📍 Maps</a>
+    <div class="schedule-item">
+      <div class="schedule-time">~9:30 PM+</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏨 Return Hotel</div>
+        <div class="schedule-note">Easy end after dinner.</div>
+        
       </div>
     </div>
   </div>
-
+  <div class="highlight"><strong>⭐ Priority:</strong> Kifune lanterns after dark + the 7:45 PM Setsu booking. Rurikō-in is the part to drop if the day starts running late.</div>
 </section>
 
-
-<!-- ================================================================
-     20 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-20"
->
-
+<section class="day-content" id="day-21">
   <div class="day-hero">
-
-    <div class="day-date">
-      20 OCTOBER · KYOTO
-    </div>
-
-    <h2>
-      ⛩️ Fushimi → Kurama → Kibune
-    </h2>
-
-    <div class="day-route">
-      Fushimi Inari → Kurama Village → Kibune Village → Lantern Steps
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">
-        🟠 Moderate · 5.5/10
-      </span>
-
-      <span class="stat">
-        🚶 Moderate walking
-      </span>
-
-      <span class="stat">
-        🌅 Sunset ~5:16 PM
-      </span>
-
-    </div>
-
+    <div class="day-date">21 OCTOBER · KYOTO</div>
+    <h2>🌊 Ine Day Trip</h2>
+    <div class="day-route">Kyoto → Ine → Funaya Village → Kyoto</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 5.5/10</span><span class="stat">🚶 ~4–6 km</span><span class="stat">🚌 Long travel day</span></div>
   </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~7:15 AM
-      </div>
-
+      <div class="schedule-time">~7:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Leave Hotel
-        </div>
-
+        <div class="schedule-place">🚆 Leave Kyoto</div>
+        <div class="schedule-note">Long journey north toward Ine.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        7:45–9:30 AM
-      </div>
-
+      <div class="schedule-time">~10:30–11:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ⛩️ Fushimi Inari
-        </div>
-
-        <div class="schedule-note">
-          Senbon Torii and walk partway up. No need to climb the entire mountain.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-          <a
-            href="food.html?location=Fushimi%20Inari"
-            class="action food"
-          >
-            🍽️ Food Nearby
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🌊 Arrive Ine</div>
+        <div class="schedule-note">Begin around the waterfront and funaya area.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Ine+Kyoto+Japan" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        9:30–11:00 AM
-      </div>
-
+      <div class="schedule-time">11:00 AM–12:30 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🍜 Break / Early Lunch
-        </div>
-
-        <div class="schedule-note">
-          Eat before travelling north.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="food.html?location=Fushimi%20Inari"
-            class="action food"
-          >
-            🍽️ Fushimi Inari Food
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🏘️ Ine Funaya</div>
+        <div class="schedule-note">Boathouses, waterfront, village streets and harbour views.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
+      <div class="schedule-time">~12:30 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Travel North
-        </div>
-
-        <div class="schedule-note">
-          Travel toward Demachiyanagi and the Eizan Railway.
-        </div>
-
+        <div class="schedule-place">🐟 Lunch in Ine</div>
+        <div class="schedule-note">Keep flexible depending on transport timing.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~2:15 PM
-      </div>
-
+      <div class="schedule-time">1:30–3:30 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          👺 Kurama Village
-        </div>
-
-        <div class="schedule-note">
-          Kurama Station · Tengu · mountain village streets. No Kurama-dera and no mountain hike.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Kurama+Station+Kyoto"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🌊 Continue Ine</div>
+        <div class="schedule-note">Viewpoints / boat if wanted / relaxed village time.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~3:00 PM
-      </div>
-
+      <div class="schedule-time">~3:30–4:00 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚃 Kurama → Kibune
-        </div>
-
-        <div class="schedule-note">
-          Return by Eizan train toward Kibuneguchi, then continue up toward Kibune.
-        </div>
-
+        <div class="schedule-place">🚌 Begin Return Journey</div>
+        <div class="schedule-note">Start heading back toward Kyoto.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~3:40–4:30 PM
-      </div>
-
+      <div class="schedule-time">~7:00 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌲 Kibune Village
-        </div>
-
-        <div class="schedule-note">
-          River · bridges · traditional restaurants · ryokan street.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Kibune+Kyoto"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🌃 Return Kyoto</div>
+        <div class="schedule-note">Dinner near Kyoto Station.</div>
+        <div class="actions"><a href="kyotofood.html?area=Kyoto%20Station" class="action food">🍽️ Kyoto Station Food</a></div>
       </div>
-
     </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        ⭐ ~4:50 PM
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🏮 Kifune Shrine Lantern Steps
-        </div>
-
-        <div class="schedule-note">
-          Arrive before sunset and stay as the lantern atmosphere becomes stronger.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Kifune+Shrine+Kyoto"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~5:16 PM
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌅 Sunset
-        </div>
-
-        <div class="schedule-note">
-          Stay until roughly 5:35–5:40 PM for dusk photos.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~5:45 PM
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Leave Kibune
-        </div>
-
-        <div class="schedule-note">
-          Return to central Kyoto.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        ~7:00 PM+
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🍽️ Dinner
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="food.html?area=Downtown"
-            class="action food"
-          >
-            🍽️ Kyoto Food
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
   </div>
-
-
-  <div class="highlight">
-
-    <strong>🌿 Optional · If We Have Time</strong>
-
-
-    <div class="optional-stop">
-
-      <div class="optional-name">
-        🌊 Demachiyanagi
-      </div>
-
-      <div class="optional-note">
-        Easiest extra. Kamo/Takano river area, café or snack while transferring to the Eizan line.
-      </div>
-
-      <div class="actions">
-
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Demachiyanagi+Kyoto"
-          target="_blank"
-          class="action"
-        >
-          📍 Maps
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="optional-stop">
-
-      <div class="optional-name">
-        ⛩️ Shimogamo Shrine
-      </div>
-
-      <div class="optional-note">
-        Historic shrine with the forested Tadasu-no-Mori approach. Best extra sightseeing stop if we are ahead of schedule.
-      </div>
-
-      <div class="actions">
-
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Shimogamo+Shrine+Kyoto"
-          target="_blank"
-          class="action"
-        >
-          📍 Maps
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="optional-stop">
-
-      <div class="optional-name">
-        🌳 Kyoto Botanical Gardens
-      </div>
-
-      <div class="optional-note">
-        Gardens, ponds and open space. Best alternative if we want something different from another temple.
-      </div>
-
-      <div class="actions">
-
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Kyoto+Botanical+Gardens"
-          target="_blank"
-          class="action"
-        >
-          📍 Maps
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="highlight">
-
-    <strong>Important:</strong>
-    Kurama → Kibune transport should be checked again closer to the trip because the exact Eizan train / bus timetable may change.
-
-  </div>
-
+  <div class="highlight"><strong>🚌 Transport:</strong> Keep the exact trains and buses flexible until the October timetable is locked.</div>
 </section>
-
-
-
-<!-- ================================================================
-     21 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-21"
->
-
-  <div class="day-hero">
-
-    <div class="day-date">
-      21 OCTOBER · KYOTO
-    </div>
-
-    <h2>
-      🌊 Ine Day Trip
-    </h2>
-
-    <div class="day-route">
-      Kyoto → Ine → Funaya Village → Kyoto
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">
-        🟠 Moderate · 5.5/10
-      </span>
-
-      <span class="stat">
-        🚶 ~4–6 km
-      </span>
-
-      <span class="stat">
-        🚌 Long travel day
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
-  <div class="timeline">
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Leave Kyoto
-        </div>
-
-        <div class="schedule-note">
-          Long journey north toward Ine.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌊 Arrive Ine
-        </div>
-
-        <div class="schedule-note">
-          Begin around the waterfront and funaya area.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Ine+Kyoto+Japan"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        Midday
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🏘️ Ine Funaya
-        </div>
-
-        <div class="schedule-note">
-          Boathouses · waterfront · village streets · harbour views.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        Lunch
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🐟 Lunch in Ine
-        </div>
-
-        <div class="schedule-note">
-          Keep flexible depending on transport timing.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        Afternoon
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌊 Continue Ine
-        </div>
-
-        <div class="schedule-note">
-          Relaxed exploration before beginning the return journey.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="schedule-item">
-
-      <div class="schedule-time">
-        Evening
-      </div>
-
-      <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌃 Return Kyoto
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="food.html?area=Kyoto%20Station"
-            class="action food"
-          >
-            🍽️ Kyoto Station Food
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ================================================================
-     22 OCT
-================================================================ -->
 
 <section class="day-content" id="day-22">
-
   <div class="day-hero">
     <div class="day-date">22 OCTOBER · KYOTO</div>
-
     <h2>🧱 Nanzen-ji + Kodaiji + Mom + teamLab</h2>
-
-    <div class="day-route">
-      Suirokaku → Nanzen-ji → Keage Incline → Kodaiji → Mom → teamLab
-    </div>
-
-    <div class="stats">
-      <span class="stat">🟡 Moderate · 5/10</span>
-      <span class="stat">🚶 Morning walking</span>
-      <span class="stat">☕ Relaxed afternoon</span>
-    </div>
+    <div class="day-route">Suirokaku → Nanzen-ji → Keage → Philosopher's Path → Kodaiji → Mom → teamLab</div>
+    <div class="stats"><span class="stat">🟡 Moderate · 5/10</span><span class="stat">🚶 Temple morning</span><span class="stat">✨ teamLab evening</span></div>
   </div>
-
   <div class="schedule-title">Today's Schedule</div>
-
   <div class="timeline">
-
+    
     <div class="schedule-item">
       <div class="schedule-time">~8:00 AM</div>
       <div class="schedule-main">
         <div class="schedule-place">🚆 Leave Hotel</div>
-        <div class="schedule-note">
-          Easy morning start. Aim for Suirokaku around 8:15 AM.
-        </div>
+        <div class="schedule-note">Head toward Nanzen-ji.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~8:15–8:45 AM</div>
+      <div class="schedule-time">8:15–8:45 AM</div>
       <div class="schedule-main">
         <div class="schedule-place">🧱 Suirokaku Aqueduct</div>
-        <div class="schedule-note">
-          First target of the morning for softer light and fewer people.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Suirokaku+Aqueduct+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
+        <div class="schedule-note">Quiet morning photos.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Suirokaku+Aqueduct+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~8:45–9:20 AM</div>
+      <div class="schedule-time">8:45–9:30 AM</div>
       <div class="schedule-main">
         <div class="schedule-place">⛩️ Nanzen-ji</div>
-        <div class="schedule-note">
-          Explore the temple grounds after Suirokaku. No need to rush through every sub-temple.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Nanzenji+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-          <a href="food.html?area=Okazaki" class="action food">🍽️ Okazaki Food</a>
-        </div>
+        <div class="schedule-note">Temple grounds and main areas.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Nanzenji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~9:25–9:50 AM</div>
+      <div class="schedule-time">9:30–10:00 AM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🛤️ Keage Incline</div>
-        <div class="schedule-note">
-          Old railway tracks close to Nanzen-ji. Short photo and walking stop.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Keage+Incline+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
+        <div class="schedule-place">🌿 Keage Incline</div>
+        <div class="schedule-note">Short walk and photos.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Keage+Incline+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~10:00–10:30 AM</div>
+      <div class="schedule-time">10:00–10:30 AM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🍁 Philosopher's Path · Optional</div>
-        <div class="schedule-note">
-          Walk only a short section if you feel like it. Skip it entirely if you prefer the cleaner route south toward Kodaiji.
-        </div>
+        <div class="schedule-place">🚶 Philosopher's Path · Optional</div>
+        <div class="schedule-note">Short section only; skip if you prefer a slower morning.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
       <div class="schedule-time">~10:30 AM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🚕 Head to Kodaiji</div>
-        <div class="schedule-note">
-          Taxi south rather than spending time backtracking on foot.
-        </div>
+        <div class="schedule-place">🚕 Taxi to Kodaiji</div>
+        <div class="schedule-note">Move back toward Higashiyama.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~11:00 AM–12:00 PM</div>
+      <div class="schedule-time">11:00 AM–12:00 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🏯 Kodaiji Temple</div>
-        <div class="schedule-note">
-          Temple and gardens before the afternoon plans with Mom.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Kodaiji+Temple+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
+        <div class="schedule-place">⛩️ Kodaiji</div>
+        <div class="schedule-note">Temple visit.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kodaiji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~12:00–12:30 PM</div>
+      <div class="schedule-time">12:00–12:30 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">🏮 Nene-no-Michi</div>
-        <div class="schedule-note">
-          Short relaxed walk around Kodaiji. No need to repeat the full Higashiyama route from 19 Oct.
-        </div>
+        <div class="schedule-place">🏘️ Nene-no-Michi</div>
+        <div class="schedule-note">Short atmospheric walk.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">~12:30–1:45 PM</div>
+      <div class="schedule-time">12:30–1:45 PM</div>
       <div class="schedule-main">
         <div class="schedule-place">☕ Free Time / Travel</div>
-        <div class="schedule-note">
-          Coffee, snack or light shopping, then head toward the meeting point.
-        </div>
+        <div class="schedule-note">Coffee, rest or travel toward Mom.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
       <div class="schedule-time">~2:00 PM</div>
       <div class="schedule-main">
         <div class="schedule-place">👩 Meet Mom + Lunch</div>
-        <div class="schedule-note">
-          Lunch together, followed by an intentionally relaxed afternoon.
-        </div>
+        <div class="schedule-note">Lunch together.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
       <div class="schedule-time">2:00–5:30 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">☕ Time with Mom</div>
-        <div class="schedule-note">
-          Shopping, café and easy family time after the morning sightseeing.
-        </div>
+        <div class="schedule-place">👩 Mom / Shopping / Café</div>
+        <div class="schedule-note">Keep the afternoon relaxed.</div>
+        
       </div>
     </div>
-
     <div class="schedule-item">
-      <div class="schedule-time">After 5:30 PM</div>
+      <div class="schedule-time">~5:30 PM</div>
       <div class="schedule-main">
-        <div class="schedule-place">✨ teamLab Biovortex Kyoto</div>
-        <div class="schedule-note">
-          Main evening activity.
-        </div>
-        <div class="actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=teamLab+Biovortex+Kyoto"
-             target="_blank" class="action">📍 Maps</a>
-        </div>
+        <div class="schedule-place">🚆 Head Toward teamLab</div>
+        <div class="schedule-note">Travel to the venue.</div>
+        
       </div>
     </div>
-
+    <div class="schedule-item">
+      <div class="schedule-time">~7:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">✨ teamLab Biovortex</div>
+        <div class="schedule-note">Evening immersive-art visit.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">Afterward</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍽️ Dinner / Hotel</div>
+        <div class="schedule-note">Flexible dinner after teamLab.</div>
+        
+      </div>
+    </div>
   </div>
-
-  <div class="highlight">
-    <strong>🍁 Philosopher's Path:</strong>
-    Optional on this version. Suirokaku → Nanzen-ji → Keage → Kodaiji is the cleaner route because the Philosopher's Path takes you north while Kodaiji is south.
-  </div>
-
+  
 </section>
 
-
-<!-- ================================================================
-     23 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-23"
->
-
+<section class="day-content" id="day-23">
   <div class="day-hero">
-
-    <div class="day-date">
-      23 OCTOBER · ROAD TRIP
-    </div>
-
-    <h2>
-      🚗 Kyoto → Soni → Dorogawa
-    </h2>
-
-    <div class="day-route">
-      Kyoto → Soni Highlands → Dorogawa Onsen
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">🟡 4/10</span>
-      <span class="stat">🚗 Scenic driving</span>
-      <span class="stat">♨️ Onsen night</span>
-
-    </div>
-
+    <div class="day-date">23 OCTOBER · ROAD TRIP</div>
+    <h2>🌾 Kyoto → Soni Highlands → Dorogawa</h2>
+    <div class="day-route">Kyoto → Soni Highlands → Dorogawa Onsen</div>
+    <div class="stats"><span class="stat">🟡 Easy–Moderate · 4/10</span><span class="stat">🚗 Road trip begins</span><span class="stat">♨️ Ryokan evening</span></div>
   </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
+      <div class="schedule-time">~8:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🍳 Relaxed Kyoto Morning
-        </div>
-
-        <div class="schedule-note">
-          Breakfast · pack · check out.
-        </div>
-
+        <div class="schedule-place">🍳 Breakfast + Pack</div>
+        <div class="schedule-note">Relaxed start in Kyoto.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
+      <div class="schedule-time">~9:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚗 Begin Road Trip
-        </div>
-
-        <div class="schedule-note">
-          Leave Kyoto and drive toward Nara Prefecture.
-        </div>
-
+        <div class="schedule-place">🏨 Check Out</div>
+        <div class="schedule-note">Collect luggage.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Afternoon
-      </div>
-
+      <div class="schedule-time">~9:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌾 Soni Highlands
-        </div>
-
-        <div class="schedule-note">
-          Scenic walk and mountain landscape.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Soni+Highlands+Nara"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🚗 Pick Up Car + Leave Kyoto</div>
+        <div class="schedule-note">Start the road trip.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Afternoon
-      </div>
-
+      <div class="schedule-time">~12:00 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚗 Drive to Dorogawa
-        </div>
-
+        <div class="schedule-place">🍜 Lunch En Route</div>
+        <div class="schedule-note">Nara / route-dependent stop.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Evening
-      </div>
-
+      <div class="schedule-time">~1:30 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ♨️ Dorogawa Onsen
-        </div>
-
-        <div class="schedule-note">
-          Check in · ryokan dinner · onsen · evening town walk.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Dorogawa+Onsen"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🌾 Arrive Soni Highlands</div>
+        <div class="schedule-note">Main scenic stop of the afternoon.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Soni+Highlands+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
+    <div class="schedule-item">
+      <div class="schedule-time">1:30–4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌾 Soni Highlands</div>
+        <div class="schedule-note">Walk, photos and scenery.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Leave Soni</div>
+        <div class="schedule-note">Drive to Dorogawa.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~5:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">♨️ Arrive Dorogawa Onsen</div>
+        <div class="schedule-note">Check in to the ryokan.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Dorogawa+Onsen+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">5:30 PM+</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍱 Ryokan Dinner + Onsen</div>
+        <div class="schedule-note">Private onsen / yukata walk around town afterward.</div>
+        
+      </div>
+    </div>
   </div>
-
+  
 </section>
 
-
-
-<!-- ================================================================
-     24 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-24"
->
-
+<section class="day-content" id="day-24">
   <div class="day-hero">
-
-    <div class="day-date">
-      24 OCTOBER · ROAD TRIP
-    </div>
-
-    <h2>
-      🏔️ Dorogawa → Koyasan → Ryujin
-    </h2>
-
-    <div class="day-route">
-      Dorogawa → Koyasan → Koya-Ryujin Skyline → Kamigoten
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">🟠 5/10</span>
-      <span class="stat">🚗 Mountain roads</span>
-      <span class="stat">♨️ Ryujin Onsen</span>
-
-    </div>
-
+    <div class="day-date">24 OCTOBER · ROAD TRIP</div>
+    <h2>🏔️ Koya-Ryujin Skyline + Mt. Gomadanzan</h2>
+    <div class="day-route">Dorogawa → Koya-Ryujin Skyline → Mt. Gomadanzan → Ryujin Onsen</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🚗 Scenic mountain drive</span><span class="stat">♨️ Kamigoten</span></div>
   </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
+      <div class="schedule-time">~7:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ♨️ Dorogawa Morning
-        </div>
-
-        <div class="schedule-note">
-          Morning soak · breakfast · check out.
-        </div>
-
+        <div class="schedule-place">🍳 Ryokan Breakfast</div>
+        <div class="schedule-note">Slow morning.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
+      <div class="schedule-time">8:30–9:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚗 Drive to Koyasan
-        </div>
-
+        <div class="schedule-place">♨️ Dorogawa Morning</div>
+        <div class="schedule-note">Onsen / short town walk.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Midday
-      </div>
-
+      <div class="schedule-time">~10:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ⛩️ Koyasan
-        </div>
-
-        <div class="schedule-note">
-          Main sightseeing + lunch.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Koyasan+Wakayama"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🚗 Check Out + Leave Dorogawa</div>
+        <div class="schedule-note">Head toward the mountain route.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Afternoon
-      </div>
-
+      <div class="schedule-time">10:00 AM–12:00 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🏔️ Koya-Ryujin Skyline
-        </div>
-
-        <div class="schedule-note">
-          Scenic mountain drive toward Ryujin.
-        </div>
-
+        <div class="schedule-place">🏔️ Mountain Drive</div>
+        <div class="schedule-note">Travel toward the Koya-Ryujin route.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Evening
-      </div>
-
+      <div class="schedule-time">~12:00 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ♨️ Kamigoten · Ryujin Onsen
-        </div>
-
-        <div class="schedule-note">
-          Check in · dinner · onsen.
-        </div>
-
+        <div class="schedule-place">🍜 Lunch</div>
+        <div class="schedule-note">Stop before or around the scenic-drive section.</div>
+        
       </div>
-
     </div>
-
+    <div class="schedule-item">
+      <div class="schedule-time">~1:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Enter Koya-Ryujin Skyline</div>
+        <div class="schedule-note">Begin the scenic ridge drive.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">1:00–2:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏔️ Skyline + Photo Stops</div>
+        <div class="schedule-note">Take the drive slowly and stop at viewpoints.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛰️ Mt. Gomadanzan / Gomasan Sky Tower</div>
+        <div class="schedule-note">Main viewpoint stop.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Gomasan+Sky+Tower+Wakayama" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">2:30–3:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌄 Gomadanzan Area</div>
+        <div class="schedule-note">Viewpoint / short exploration.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~3:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Continue to Ryujin</div>
+        <div class="schedule-note">Descend toward Ryujin Onsen.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">♨️ Arrive Kamigoten / Ryujin Onsen</div>
+        <div class="schedule-note">Check in and settle down.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kamigoten+Ryujin+Onsen" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">5:00 PM+</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍱 Onsen + Ryokan Dinner</div>
+        <div class="schedule-note">Relax for the evening.</div>
+        
+      </div>
+    </div>
   </div>
-
+  <div class="highlight"><strong>📌 Correction:</strong> 24 Oct is the Koya-Ryujin Skyline + Mt. Gomadanzan day. No Koyasan sightseeing block is scheduled here.</div>
 </section>
 
-
-
-<!-- ================================================================
-     25 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-25"
->
-
+<section class="day-content" id="day-25">
   <div class="day-hero">
-
-    <div class="day-date">
-      25 OCTOBER · ROAD TRIP
-    </div>
-
-    <h2>
-      ⛩️ Ryujin → Kumano → Nachikatsuura
-    </h2>
-
-    <div class="day-route">
-      Ryujin → Kumano Hongu → Oyunohara → Nachikatsuura
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">🟠 5/10</span>
-      <span class="stat">🚗 Scenic drive</span>
-      <span class="stat">🌊 Coastal night</span>
-
-    </div>
-
+    <div class="day-date">25 OCTOBER · ROAD TRIP</div>
+    <h2>⛩️ Ryujin → Kumano Hongu → Nachikatsuura</h2>
+    <div class="day-route">Ryujin → Scenic Drive → Kumano Hongu Taisha → Oyunohara → Nachikatsuura</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🚗 Scenic drive</span><span class="stat">⛩️ Kumano</span></div>
   </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
+      <div class="schedule-time">~7:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ♨️ Ryujin Morning
-        </div>
-
-        <div class="schedule-note">
-          Breakfast · morning soak · check out.
-        </div>
-
+        <div class="schedule-place">🍳 Breakfast</div>
+        <div class="schedule-note">Breakfast at Kamigoten.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
+      <div class="schedule-time">8:30–9:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚗 Drive toward Kumano
-        </div>
-
+        <div class="schedule-place">♨️ Morning Soak</div>
+        <div class="schedule-note">Relax before driving.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Midday
-      </div>
-
+      <div class="schedule-time">~10:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ⛩️ Kumano Hongu Taisha
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Kumano+Hongu+Taisha"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🚗 Check Out</div>
+        <div class="schedule-note">Leave Ryujin.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Afternoon
-      </div>
-
+      <div class="schedule-time">10:00–11:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ⛩️ Oyunohara Torii
-        </div>
-
-        <div class="schedule-note">
-          Giant torii and surrounding landscape.
-        </div>
-
+        <div class="schedule-place">🌲 Scenic Drive Toward Kumano</div>
+        <div class="schedule-note">Enjoy the road south.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Afternoon
-      </div>
-
+      <div class="schedule-time">~11:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚗 Drive to Nachikatsuura
-        </div>
-
+        <div class="schedule-place">🍜 Lunch</div>
+        <div class="schedule-note">Lunch around the route / Hongu area.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Evening
-      </div>
-
+      <div class="schedule-time">~12:30 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌊 Nachikatsuura
-        </div>
-
-        <div class="schedule-note">
-          Check in at Kamenoi Hotel Nachi Katsuura · dinner · relax.
-        </div>
-
+        <div class="schedule-place">⛩️ Kumano Hongu Taisha</div>
+        <div class="schedule-note">Main shrine visit.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kumano+Hongu+Taisha" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
+    <div class="schedule-item">
+      <div class="schedule-time">12:30–1:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Shrine Grounds</div>
+        <div class="schedule-note">Explore without rushing.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">1:40–2:20 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Oyunohara Giant Torii</div>
+        <div class="schedule-note">Short nearby stop.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Oyunohara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Leave for Nachikatsuura</div>
+        <div class="schedule-note">Continue east.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌊 Arrive Nachikatsuura</div>
+        <div class="schedule-note">Check into Kamenoi Hotel.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏨 Kamenoi Hotel Nachi Katsuura</div>
+        <div class="schedule-note">Relax / waterfront.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">Evening</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍱 Dinner + Onsen</div>
+        <div class="schedule-note">Hotel evening.</div>
+        
+      </div>
+    </div>
   </div>
-
+  
 </section>
 
-
-
-<!-- ================================================================
-     26 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-26"
->
-
+<section class="day-content" id="day-26">
   <div class="day-hero">
-
-    <div class="day-date">
-      26 OCTOBER · ROAD TRIP
-    </div>
-
-    <h2>
-      🌊 Nachi → Osaka
-    </h2>
-
-    <div class="day-route">
-      Nachi Falls → Nachi Taisha → Kii-Katsuura → Osaka
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">🟠 Moderate+ · 6/10</span>
-      <span class="stat">🚗 Long drive</span>
-      <span class="stat">🌃 Osaka tonight</span>
-
-    </div>
-
+    <div class="day-date">26 OCTOBER · ROAD TRIP</div>
+    <h2>🌊 Nachi + Kamikura Jinja → Osaka</h2>
+    <div class="day-route">Nachi Falls → Kumano Nachi Taisha → Seiganto-ji Pagoda → Kamikura Jinja if time → Osaka</div>
+    <div class="stats"><span class="stat">🟠 Moderate+ · 6/10</span><span class="stat">🌊 Early Nachi</span><span class="stat">⛩️ Kamikura optional</span></div>
   </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Early Morning
-      </div>
-
+      <div class="schedule-time">~6:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌊 Nachi Falls
-        </div>
-
-        <div class="schedule-note">
-          Go earlier for a quieter visit.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Nachi+Falls+Wakayama"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🌅 Wake + Breakfast</div>
+        <div class="schedule-note">Early start for quieter Nachi.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
+      <div class="schedule-time">~7:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          ⛩️ Kumano Nachi Taisha
-        </div>
-
+        <div class="schedule-place">🚗 Leave Hotel</div>
+        <div class="schedule-note">Drive toward Nachi.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
+      <div class="schedule-time">~8:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🐟 Kii-Katsuura
-        </div>
-
-        <div class="schedule-note">
-          Town / market / lunch depending on timing.
-        </div>
-
+        <div class="schedule-place">🌊 Nachi Falls</div>
+        <div class="schedule-note">Main waterfall stop.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Nachi+Falls+Wakayama" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Afternoon
-      </div>
-
+      <div class="schedule-time">8:00–8:45 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚗 Drive to Osaka
-        </div>
-
-        <div class="schedule-note">
-          Long final road-trip leg.
-        </div>
-
+        <div class="schedule-place">🌊 Falls</div>
+        <div class="schedule-note">Photos and short exploration.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Evening
-      </div>
-
+      <div class="schedule-time">~9:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🌃 Check in Osaka
-        </div>
-
-        <div class="schedule-note">
-          Easy dinner and rest.
-        </div>
-
+        <div class="schedule-place">⛩️ Kumano Nachi Taisha</div>
+        <div class="schedule-note">Continue up to the shrine.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kumano+Nachi+Taisha" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
+    <div class="schedule-item">
+      <div class="schedule-time">9:00–10:00 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Shrine Visit</div>
+        <div class="schedule-note">Explore the shrine area.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">10:00–10:45 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏯 Seiganto-ji + Pagoda</div>
+        <div class="schedule-note">Classic pagoda + Nachi Falls view.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Seigantoji+Pagoda+Nachi" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~11:00 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Leave Nachi</div>
+        <div class="schedule-note">Head back toward Kii-Katsuura.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">11:30 AM–12:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🐟 Kii-Katsuura Lunch</div>
+        <div class="schedule-note">Market / tuna lunch if convenient.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~1:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Drive Toward Shingu</div>
+        <div class="schedule-note">Kamikura stop if timing and energy are good.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~1:30–2:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Kamikura Jinja · IF TIME</div>
+        <div class="schedule-note">Steep stone steps. Skip if tired or if you are behind schedule.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kamikura+Shrine+Shingu" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚗 Begin Drive to Osaka</div>
+        <div class="schedule-note">Long return drive.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~6:00–7:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌃 Arrive Osaka / Return Car</div>
+        <div class="schedule-note">Then head to Hotel Hankyu International.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏨 Osaka Check-in</div>
+        <div class="schedule-note">Easy dinner afterward.</div>
+        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
+      </div>
+    </div>
   </div>
-
+  <div class="highlight"><strong>⚠️ Kamikura:</strong> Optional because the approach is steep and you still have the long drive to Osaka.</div>
 </section>
 
-
-
-<!-- ================================================================
-     27 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-27"
->
-
+<section class="day-content" id="day-27">
   <div class="day-hero">
-
-    <div class="day-date">
-      27 OCTOBER · OSAKA
-    </div>
-
-    <h2>
-      🌃 Flexible Osaka Day
-    </h2>
-
-    <div class="day-route">
-      Osaka
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">
-        🟢 Flexible
-      </span>
-
-      <span class="stat">
-        😴 Recovery day possible
-      </span>
-
-    </div>
-
+    <div class="day-date">27 OCTOBER · OSAKA</div>
+    <h2>🎮 Namba + MIRACLE WORLD + Hozenji</h2>
+    <div class="day-route">ROUND1 Spo-Cha → Kuromon → Namba Yasaka → OURLOG → MIRACLE WORLD → Hozenji → Dotonbori</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🎮 Activity day</span><span class="stat">🌃 Namba evening</span></div>
   </div>
-
-
-  <div class="flex-day">
-
-    <div class="flex-icon">
-      🌃
-    </div>
-
-    <strong>
-      Schedule not locked yet
-    </strong>
-
-    Keep this day flexible for Osaka sightseeing, shopping, food or rest after the road trip.
-
-  </div>
-
-</section>
-
-
-
-<!-- ================================================================
-     28 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-28"
->
-
-  <div class="day-hero">
-
-    <div class="day-date">
-      28 OCTOBER · OSAKA BASE
-    </div>
-
-    <h2>
-      🚆 Narai-juku Day Trip
-    </h2>
-
-    <div class="day-route">
-      Osaka → Nagoya → Narai-juku → Nagoya → Osaka
-    </div>
-
-    <div class="stats">
-
-      <span class="stat">
-        🔴 Long Day · 7/10
-      </span>
-
-      <span class="stat">
-        🚆 Lots of train time
-      </span>
-
-      <span class="stat">
-        🏘️ Kiso Valley
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="schedule-title">
-    Today's Schedule
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
+      <div class="schedule-time">~8:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚄 Osaka → Nagoya
-        </div>
-
-        <div class="schedule-note">
-          Shinkansen to Nagoya.
-        </div>
-
+        <div class="schedule-place">🍳 Breakfast</div>
+        <div class="schedule-note">Easy Osaka morning.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Morning
-      </div>
-
+      <div class="schedule-time">~9:00 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Nagoya → Kiso Valley
-        </div>
-
-        <div class="schedule-note">
-          Continue toward Narai.
-        </div>
-
+        <div class="schedule-place">🚆 Head to Namba</div>
+        <div class="schedule-note">Start with the activity block.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Afternoon
-      </div>
-
+      <div class="schedule-time">9:30 AM–12:00 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🏘️ Narai-juku
-        </div>
-
-        <div class="schedule-note">
-          Historic post town · old street · cafés · shops · photos. Around 3 hours is enough for your pace.
-        </div>
-
-        <div class="actions">
-
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Narai-juku+Nagano"
-            target="_blank"
-            class="action"
-          >
-            📍 Maps
-          </a>
-
-        </div>
-
+        <div class="schedule-place">🎳 ROUND1 Stadium Sennichimae / Spo-Cha</div>
+        <div class="schedule-note">Arcade, sports and activities.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=ROUND1+Stadium+Sennichimae+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Late Afternoon
-      </div>
-
+      <div class="schedule-time">12:15–1:30 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Narai → Nagoya
-        </div>
-
-        <div class="schedule-note">
-          Begin return journey before it gets too late.
-        </div>
-
+        <div class="schedule-place">🐟 Kuromon Market</div>
+        <div class="schedule-note">Lunch and snacks.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kuromon+Market+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Dinner
-      </div>
-
+      <div class="schedule-time">1:45–2:15 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🍖 Yabaton · Nagoya
-        </div>
-
-        <div class="schedule-note">
-          Miso-katsu dinner before heading back to Osaka.
-        </div>
-
+        <div class="schedule-place">🦁 Namba Yasaka Shrine</div>
+        <div class="schedule-note">Quick lion-head shrine stop.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Namba+Yasaka+Shrine+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Night
-      </div>
-
+      <div class="schedule-time">2:30–3:15 PM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚄 Nagoya → Osaka
-        </div>
-
+        <div class="schedule-place">☕ OURLOG Coffee</div>
+        <div class="schedule-note">Wife priority stop.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=OURLOG+Coffee+Namba+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
       </div>
-
     </div>
-
-
+    <div class="schedule-item">
+      <div class="schedule-time">3:30–5:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">✨ MIRACLE WORLD Osaka</div>
+        <div class="schedule-note">Immersive / digital-art activity.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=MIRACLE+WORLD+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">5:15–6:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏮 Hozenji Yokocho + Hozenji</div>
+        <div class="schedule-note">Atmospheric alley and temple together with MIRACLE WORLD.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Hozenji+Yokocho+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">6:00 PM onward</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌃 Dotonbori + Namba</div>
+        <div class="schedule-note">Lights, walking and shopping.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍽️ Dinner</div>
+        <div class="schedule-note">Choose from the Osaka food list.</div>
+        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">After Dinner</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🛍️ Shinsaibashi / Dotonbori</div>
+        <div class="schedule-note">Optional shopping if you still have energy.</div>
+        
+      </div>
+    </div>
   </div>
-
-
-  <div class="highlight">
-
-    <strong>Train times:</strong>
-    Lock the actual 28 Oct train timings closer to the trip rather than hard-coding an unconfirmed timetable now.
-
-  </div>
-
+  
 </section>
 
-
-
-<!-- ================================================================
-     29 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-29"
->
-
+<section class="day-content" id="day-28">
   <div class="day-hero">
-
-    <div class="day-date">
-      29 OCTOBER · OSAKA
-    </div>
-
-    <h2>
-      🌃 Flexible Osaka Day
-    </h2>
-
-    <div class="stats">
-
-      <span class="stat">
-        🟢 Flexible
-      </span>
-
-    </div>
-
+    <div class="day-date">28 OCTOBER · OSAKA BASE</div>
+    <h2>🐟 Mentai Park + Pokémon Observatory</h2>
+    <div class="day-route">Osaka → Nagoya / Tokoname → Mentai Park → Toyohashi → Pokémon Observatory → Osaka</div>
+    <div class="stats"><span class="stat">🔴 Long Day · 7/10</span><span class="stat">🚄 Shinkansen</span><span class="stat">🔭 Pokémon Observatory</span></div>
   </div>
-
-
-  <div class="flex-day">
-
-    <div class="flex-icon">
-      🛍️
-    </div>
-
-    <strong>
-      Schedule not locked yet
-    </strong>
-
-    Osaka sightseeing / shopping / food day.
-
-  </div>
-
-</section>
-
-
-
-<!-- ================================================================
-     30 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-30"
->
-
-  <div class="day-hero">
-
-    <div class="day-date">
-      30 OCTOBER · OSAKA
-    </div>
-
-    <h2>
-      🌃 Final Full Day
-    </h2>
-
-    <div class="stats">
-
-      <span class="stat">
-        🟢 Flexible
-      </span>
-
-      <span class="stat">
-        🛍️ Last full day
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="flex-day">
-
-    <div class="flex-icon">
-      🌙
-    </div>
-
-    <strong>
-      Schedule not locked yet
-    </strong>
-
-    Final Osaka sightseeing, shopping and dinner.
-
-  </div>
-
-</section>
-
-
-
-<!-- ================================================================
-     31 OCT
-================================================================ -->
-
-<section
-  class="day-content"
-  id="day-31"
->
-
-  <div class="day-hero">
-
-    <div class="day-date">
-      31 OCTOBER · OSAKA
-    </div>
-
-    <h2>
-      ✈️ Fly Home
-    </h2>
-
-    <div class="stats">
-
-      <span class="stat">
-        ✈️ Departure Day
-      </span>
-
-    </div>
-
-  </div>
-
-
+  <div class="schedule-title">Today's Schedule</div>
   <div class="timeline">
-
-
+    
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Morning
-      </div>
-
+      <div class="schedule-time">~7:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🧳 Pack + Check Out
-        </div>
-
+        <div class="schedule-place">🚆 Leave Hotel</div>
+        <div class="schedule-note">Head to Shin-Osaka.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        Before Flight
-      </div>
-
+      <div class="schedule-time">~8:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          🚆 Travel to Airport
-        </div>
-
-        <div class="schedule-note">
-          Exact timing will depend on flight departure time.
-        </div>
-
+        <div class="schedule-place">🚄 Shin-Osaka → Nagoya</div>
+        <div class="schedule-note">Reserved Shinkansen.</div>
+        
       </div>
-
     </div>
-
-
     <div class="schedule-item">
-
-      <div class="schedule-time">
-        ✈️
-      </div>
-
+      <div class="schedule-time">~9:30 AM</div>
       <div class="schedule-main">
-
-        <div class="schedule-place">
-          Fly Home
-        </div>
-
+        <div class="schedule-place">🚆 Arrive Nagoya</div>
+        <div class="schedule-note">Transfer to Meitetsu.</div>
+        
       </div>
-
     </div>
-
-
+    <div class="schedule-item">
+      <div class="schedule-time">~9:40 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Nagoya → Tokoname</div>
+        <div class="schedule-note">Use a service that actually stops at Tokoname.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~10:25 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚕 Tokoname → Mentai Park</div>
+        <div class="schedule-note">Short taxi.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">10:30 AM–12:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🐟 Mentai Park Tokoname + Lunch</div>
+        <div class="schedule-note">Factory/shop visit plus early lunch.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Mentai+Park+Tokoname" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~12:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚕 Taxi to Tokoname Station</div>
+        <div class="schedule-note">Continue toward Toyohashi.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~12:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Tokoname → Toyohashi</div>
+        <div class="schedule-note">Travel via Jingū-mae; no need to backtrack to Nagoya.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~1:40 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Arrive Toyohashi</div>
+        <div class="schedule-note">Transfer to JR for Futagawa.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~1:50 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Toyohashi → Futagawa</div>
+        <div class="schedule-note">Short local ride.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚶 Futagawa → Non Hoi Park East Gate</div>
+        <div class="schedule-note">Use the East Gate route.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">2:15–4:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🔭 Pokémon Observatory</div>
+        <div class="schedule-note">Special exhibition at Toyohashi Museum of Natural History.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Toyohashi+Museum+of+Natural+History" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~4:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Futagawa → Toyohashi</div>
+        <div class="schedule-note">Begin return.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~5:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚄 Toyohashi → Shin-Osaka</div>
+        <div class="schedule-note">Hikari / Kodama service.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌃 Back in Osaka</div>
+        <div class="schedule-note">Dinner near hotel or Namba.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍽️ Dinner</div>
+        <div class="schedule-note">Flexible Osaka dinner.</div>
+        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
+      </div>
+    </div>
   </div>
-
+  <div class="highlight"><strong>🚄 Tickets:</strong> Keep the exact 28 Oct train times flexible until you book them. The plan is two one-way Shinkansen journeys rather than a Nagoya round trip.</div>
 </section>
 
+<section class="day-content" id="day-29">
+  <div class="day-hero">
+    <div class="day-date">29 OCTOBER · OSAKA</div>
+    <h2>🦌 Nara + Mt. Wakakusa Sunset</h2>
+    <div class="day-route">Osaka → Nara Park → Todaiji / Kasuga → Mt. Wakakusa Sunset → Osaka</div>
+    <div class="stats"><span class="stat">🟠 Moderate · 6/10</span><span class="stat">🦌 Nara</span><span class="stat">🌄 Wakakusa sunset</span></div>
+  </div>
+  <div class="schedule-title">Today's Schedule</div>
+  <div class="timeline">
+    
+    <div class="schedule-item">
+      <div class="schedule-time">~9:30 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Leave Osaka</div>
+        <div class="schedule-note">Travel to Nara.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~10:30 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🦌 Arrive Nara</div>
+        <div class="schedule-note">Start around Nara Park.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">10:30–11:30 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🦌 Nara Park</div>
+        <div class="schedule-note">Deer and park walk.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Nara+Park" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">11:30 AM–12:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Todaiji / Surrounding Area</div>
+        <div class="schedule-note">Main temple or nearby sightseeing.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Todaiji+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">12:30–1:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍜 Lunch</div>
+        <div class="schedule-note">Lunch in central Nara.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">1:30–3:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">⛩️ Kasuga Taisha / Naramachi · Flexible</div>
+        <div class="schedule-note">Choose based on energy and interest.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~3:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚶 Head Toward Mt. Wakakusa</div>
+        <div class="schedule-note">Do not overfill the afternoon.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">3:45–5:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌄 Mt. Wakakusa</div>
+        <div class="schedule-note">Climb / viewpoint and wait for sunset.</div>
+        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Mount+Wakakusa+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~5:15 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌅 Sunset + City View</div>
+        <div class="schedule-note">Main goal of the day.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~5:45 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚶 Descend</div>
+        <div class="schedule-note">Head back toward the station.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~6:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Leave Nara</div>
+        <div class="schedule-note">Return to Osaka.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~7:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🌃 Osaka + Dinner</div>
+        <div class="schedule-note">Dinner in Osaka.</div>
+        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="highlight"><strong>🌄 Priority:</strong> Protect the Mt. Wakakusa sunset window. Drop an afternoon sight if needed rather than arriving late.</div>
+</section>
+
+<section class="day-content" id="day-30">
+  <div class="day-hero">
+    <div class="day-date">30 OCTOBER · OSAKA</div>
+    <h2>✈️ Final Morning + Fly Home</h2>
+    <div class="day-route">Easy Osaka Morning → Final Lunch → Collect Luggage → Airport → 6:00 PM Flight</div>
+    <div class="stats"><span class="stat">✈️ Departure day</span><span class="stat">🛍️ Easy morning</span><span class="stat">🕕 Flight · 6:00 PM</span></div>
+  </div>
+  <div class="schedule-title">Today's Schedule</div>
+  <div class="timeline">
+    
+    <div class="schedule-item">
+      <div class="schedule-time">~8:00 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍳 Breakfast</div>
+        <div class="schedule-note">Relaxed final morning.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">9:00–11:30 AM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🛍️ Last-minute Shopping / Easy Osaka</div>
+        <div class="schedule-note">Stay fairly close to the hotel; no major sightseeing commitment.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">11:30 AM–12:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🍽️ Final Lunch</div>
+        <div class="schedule-note">One last Osaka meal.</div>
+        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~12:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🏨 Return Hotel + Collect Luggage</div>
+        <div class="schedule-note">Final packing and check-out.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~1:30 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🚆 Leave for Airport</div>
+        <div class="schedule-note">Keep a generous departure buffer.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">~2:30–3:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🛫 Arrive Airport</div>
+        <div class="schedule-note">Check-in, security and airport shopping.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">3:00–5:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">🧳 Airport Time</div>
+        <div class="schedule-note">Relax before boarding.</div>
+        
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">6:00 PM</div>
+      <div class="schedule-main">
+        <div class="schedule-place">✈️ Fly Home</div>
+        <div class="schedule-note">End of trip.</div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="highlight"><strong>✈️ Departure:</strong> 30 Oct is no longer a full Osaka sightseeing day. The trip ends with the 6:00 PM flight, so 31 Oct has been removed.</div>
+</section>
 
 </main>
-
-
 
 <script>
 
@@ -3654,7 +2585,7 @@ function setTripFilter(filter){
   else if(filter === "osaka"){
 
     dateLabel.textContent =
-      "Osaka · 27–31 October";
+      "Osaka · 27–30 October";
 
     showDay("27");
 
@@ -3722,7 +2653,5 @@ if(hash.startsWith("#day-")){
 
 </script>
 
-
 </body>
-
 </html>
