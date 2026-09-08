@@ -1248,6 +1248,31 @@ main{
   line-height:1.45;
 }
 
+
+
+/* =========================================
+   ULTRA-COMPACT QUICK FILTER BAR
+========================================= */
+.bottom-filter{
+  padding:4px 6px calc(4px + env(safe-area-inset-bottom));
+}
+.bottom-filter-inner{
+  max-width:760px;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:3px;
+}
+.bottom-btn{
+  min-height:28px;
+  padding:2px 2px;
+  border-radius:7px;
+  font-size:7.2px;
+  line-height:1.05;
+  white-space:nowrap;
+}
+@media(max-width:380px){
+  .bottom-btn{font-size:6.8px;}
+}
+
 </style>
 
 </head>
