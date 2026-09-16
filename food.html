@@ -4190,6 +4190,9 @@ async function removeFromMyFood(
 ========================================================= */
 
 let googlePlaceAutocomplete = null;
+
+let selectedGoogleLatitude = null;
+let selectedGoogleLongitude = null;
 let googlePlacesReady = false;
 
 
@@ -4269,198 +4272,115 @@ function guessCuisine(types){
 
 async function initGooglePlaces(){
 
-  const host =
-    document.getElementById(
-      "googlePlaceSearch"
-    );
-
-  if(!host){
-    return;
-  }
-
-  if(
-    typeof loadGoogleMaps !==
-    "function"
-  ){
-
-    setPlaceStatus(
-      "google-maps.js was not loaded. Check that the file is in the same GitHub folder as food.html.",
-      "error"
-    );
-
-    return;
-  }
+  const host = document.getElementById("googlePlaceSearch");
+  if(!host) return;
 
   try{
 
-    setPlaceStatus(
-      "Loading Google Places…"
-    );
+    setPlaceStatus("Loading Google Places…");
 
-    await loadGoogleMaps();
+    if(
+      typeof window.loadGoogleMaps !== "function" ||
+      typeof window.getGooglePlaces !== "function" ||
+      typeof window.createGooglePlaceAutocomplete !== "function" ||
+      typeof window.getGooglePlaceDetails !== "function" ||
+      typeof window.normalizeGooglePlace !== "function"
+    ){
+      throw new Error("The new google-maps.js helper functions were not found.");
+    }
 
-    const {
-      PlaceAutocompleteElement
-    } =
-      await google.maps.importLibrary(
-        "places"
-      );
+    await window.loadGoogleMaps();
+    await window.getGooglePlaces();
 
     googlePlaceAutocomplete =
-      new PlaceAutocompleteElement({
-        includedRegionCodes:["jp"]
-      });
-
-    googlePlaceAutocomplete.placeholder =
-      "Search restaurant in Japan…";
-
-    host.replaceChildren(
-      googlePlaceAutocomplete
-    );
-
-    googlePlaceAutocomplete
-      .addEventListener(
-        "gmp-select",
-        async event => {
-
-          try{
-
-            setPlaceStatus(
-              "Getting place details…"
-            );
-
-            const prediction =
-              event.placePrediction;
-
-            if(!prediction){
-              throw new Error(
-                "No Google place was selected."
-              );
-            }
-
-            const place =
-              prediction.toPlace();
-
-            await place.fetchFields({
-              fields:[
-                "displayName",
-                "formattedAddress",
-                "addressComponents",
-                "googleMapsURI",
-                "websiteURI",
-                "types"
-              ]
-            });
-
-            const components =
-              place.addressComponents || [];
-
-            const city =
-              addressPart(
-                components,
-                [
-                  "locality",
-                  "postal_town",
-                  "administrative_area_level_2"
-                ]
-              );
-
-            const area =
-              addressPart(
-                components,
-                [
-                  "sublocality_level_1",
-                  "sublocality",
-                  "administrative_area_level_3"
-                ]
-              );
-
-            document.getElementById(
-              "newName"
-            ).value =
-              place.displayName || "";
-
-            document.getElementById(
-              "newCity"
-            ).value =
-              city || selectedCity || "";
-
-            document.getElementById(
-              "newArea"
-            ).value =
-              area || "";
-
-            document.getElementById(
-              "newLocation"
-            ).value =
-              place.formattedAddress || "";
-
-            document.getElementById(
-              "newMaps"
-            ).value =
-              place.googleMapsURI || "";
-
-            document.getElementById(
-              "newWebsite"
-            ).value =
-              place.websiteURI || "";
-
-            const cuisineInput =
-              document.getElementById(
-                "newCuisine"
-              );
-
-            if(!cuisineInput.value.trim()){
-
-              cuisineInput.value =
-                guessCuisine(
-                  place.types
-                );
-
-            }
-
-            setPlaceStatus(
-              `✓ ${place.displayName || "Restaurant"} selected. Check the details below, then add your Tabelog rating/URL and notes.`,
-              "success"
-            );
-
-          }
-
-          catch(error){
-
-            console.error(
-              "Google Places selection error:",
-              error
-            );
-
-            setPlaceStatus(
-              error.message ||
-              "Couldn't load this Google place.",
-              "error"
-            );
-
-          }
-
+      await window.createGooglePlaceAutocomplete(
+        host,
+        {
+          placeholder:"Search restaurant in Japan..."
         }
       );
+
+    googlePlaceAutocomplete.addEventListener(
+      "gmp-select",
+      async event => {
+
+        try{
+
+          setPlaceStatus("Getting place details…");
+
+          const place =
+            await window.getGooglePlaceDetails(event);
+
+          const data =
+            window.normalizeGooglePlace(place);
+
+          selectedGoogleLatitude =
+            data.latitude ?? null;
+
+          selectedGoogleLongitude =
+            data.longitude ?? null;
+
+          document.getElementById("newName").value =
+            data.name || "";
+
+          document.getElementById("newCity").value =
+            data.city || selectedCity || "";
+
+          document.getElementById("newArea").value =
+            data.area || "";
+
+          document.getElementById("newLocation").value =
+            data.address || "";
+
+          document.getElementById("newMaps").value =
+            data.maps_url || "";
+
+          document.getElementById("newWebsite").value =
+            data.website_url || "";
+
+          const cuisineInput =
+            document.getElementById("newCuisine");
+
+          if(!cuisineInput.value.trim()){
+            cuisineInput.value =
+              guessCuisine(place.types || []);
+          }
+
+          setPlaceStatus(
+            `✓ ${data.name || "Restaurant"} selected. Check the details below, then add your Tabelog rating/URL, budget and notes.`,
+            "success"
+          );
+
+        }
+        catch(error){
+
+          console.error("Google Places selection error:", error);
+
+          setPlaceStatus(
+            "Google place error: " +
+            (error.message || String(error)),
+            "error"
+          );
+
+        }
+
+      }
+    );
 
     googlePlacesReady = true;
 
     setPlaceStatus(
-      "Search a restaurant, then choose the correct Google result. The form below will fill automatically."
+      "Search for a restaurant in Japan. Select a Google result to autofill the form."
     );
 
   }
-
   catch(error){
 
-    console.error(
-      "Google Places init error:",
-      error
-    );
+    console.error("Google Places init error:", error);
 
     setPlaceStatus(
-      "Google Places couldn't start. Check your API key, website restriction, and that Places API (New) is enabled.",
+      "Google Places error: " +
+      (error.message || String(error)),
       "error"
     );
 
@@ -4490,6 +4410,9 @@ const closeAdd =
 
 
 openAdd.onclick = () => {
+
+  selectedGoogleLatitude = null;
+  selectedGoogleLongitude = null;
 
   if(!currentUser){
 
@@ -4770,6 +4693,12 @@ addForm.addEventListener(
 
             rating:rating,
 
+            latitude:
+              selectedGoogleLatitude,
+
+            longitude:
+              selectedGoogleLongitude,
+
             status:
               "active",
 
@@ -4862,6 +4791,9 @@ addForm.addEventListener(
 
 
       addForm.reset();
+
+      selectedGoogleLatitude = null;
+      selectedGoogleLongitude = null;
 
 
       document.getElementById(
