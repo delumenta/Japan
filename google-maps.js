@@ -140,3 +140,7 @@ function loadGoogleMaps() {
 
 // Make Google Maps loader available to other pages
 window.loadGoogleMaps = loadGoogleMaps;
+
+window.loadGoogleMaps = loadGoogleMaps;
+    at runTest (https://delumenta.github.io/Japan/food1.html:281:13)
+    at https://delumenta.github.io/Japan/food1.html:559:1
