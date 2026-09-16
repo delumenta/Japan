@@ -993,7 +993,10 @@ h1{
 
     <!-- MY TRIPS -->
 
-    <div class="more-link disabled">
+    <a
+      id="tripsLink"
+      class="more-link"
+    >
 
       <div class="more-link-icon">
         🧳
@@ -1006,7 +1009,7 @@ h1{
         </div>
 
         <div class="more-link-sub">
-          Create and switch trips · coming next
+          Create and switch trips
         </div>
 
       </div>
@@ -1015,7 +1018,7 @@ h1{
         →
       </div>
 
-    </div>
+    </a>
 
 
     <!-- PLACES -->
@@ -3107,6 +3110,12 @@ document.getElementById(
   "profileLink"
 ).href =
   `profile.html?trip=${TRIP_ID}`;
+
+
+document.getElementById(
+  "tripsLink"
+).href =
+  `trips.html?trip=${TRIP_ID}`;
 
 
 /* =========================================================
