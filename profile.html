@@ -19,33 +19,21 @@
   --muted2:#75828b;
   --red:#c96f68;
   --green:#67c587;
-  --orange:#f4a34d;
   --blue:#5c9dff;
   --gold:#e3b85c;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   min-height:100vh;
-
   background:
-    radial-gradient(
-      circle at 50% -10%,
-      #17212a 0%,
-      transparent 38%
-    ),
+    radial-gradient(circle at 50% -10%,#17212a 0%,transparent 38%),
     var(--bg);
-
   color:var(--text);
-
   font-family:
     Inter,
     ui-sans-serif,
@@ -56,11 +44,7 @@ body{
     sans-serif;
 }
 
-button,
-input,
-select{
-  font:inherit;
-}
+button,input,select{font:inherit}
 
 
 /* =========================================================
@@ -71,18 +55,12 @@ header{
   position:sticky;
   top:0;
   z-index:40;
-
   padding:
     calc(11px + env(safe-area-inset-top))
-    14px
-    10px;
-
+    14px 10px;
   border-bottom:1px solid var(--line);
-
   background:rgba(7,12,16,.96);
-
   backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
 }
 
 .header-inner{
@@ -92,31 +70,20 @@ header{
 
 .eyebrow{
   color:var(--red);
-
   font-size:8px;
   font-weight:900;
-
   letter-spacing:.14em;
-  text-transform:uppercase;
 }
 
 h1{
   margin:3px 0 0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:24px;
-  line-height:1.1;
 }
 
 .header-sub{
   margin-top:3px;
-
   color:var(--muted);
-
   font-size:8px;
 }
 
@@ -127,26 +94,15 @@ h1{
 
 main{
   max-width:760px;
-
   margin:auto;
-
-  padding:
-    13px
-    13px
-    100px;
+  padding:13px 13px 100px;
 }
 
 .section-label{
-  margin:
-    18px
-    2px
-    7px;
-
+  margin:18px 2px 7px;
   color:#91a5b3;
-
   font-size:7px;
   font-weight:900;
-
   letter-spacing:.13em;
 }
 
@@ -161,49 +117,30 @@ main{
 
 .profile-card{
   padding:12px;
-
   border:1px solid var(--line);
   border-radius:15px;
-
   background:
-    linear-gradient(
-      145deg,
-      #151d23,
-      #0e1419
-    );
+    linear-gradient(145deg,#151d23,#0e1419);
 }
 
 .profile-top{
   display:flex;
   align-items:center;
-
   gap:11px;
 }
 
 .avatar{
   flex:0 0 45px;
-
   width:45px;
   height:45px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   overflow:hidden;
-
   border:1px solid #35414a;
   border-radius:50%;
-
   background:#1a232a;
-
-  color:#fff;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:18px;
   font-weight:800;
 }
@@ -211,7 +148,6 @@ main{
 .avatar img{
   width:100%;
   height:100%;
-
   object-fit:cover;
 }
 
@@ -221,83 +157,55 @@ main{
 }
 
 .profile-name{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:16px;
   font-weight:800;
 }
 
 .profile-email{
   margin-top:2px;
-
   color:var(--muted);
-
   font-size:7px;
-
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
-.profile-role{
-  margin-top:3px;
-
+.account-role{
+  margin-top:4px;
   color:#7f8c94;
-
   font-size:6px;
   font-weight:900;
-
   letter-spacing:.08em;
-
   text-transform:uppercase;
 }
 
 .edit-profile{
   min-height:32px;
-
   padding:5px 9px;
-
   border:1px solid var(--line);
   border-radius:8px;
-
   background:#151d23;
-
   color:#cbd1d5;
-
   font-size:7px;
   font-weight:900;
-
   cursor:pointer;
 }
 
 
 /* =========================================================
-   USER ID
+   UID
 ========================================================= */
 
 .user-id-box{
   display:flex;
   align-items:center;
-
   gap:8px;
-
   margin-top:11px;
-
-  padding:
-    8px
-    9px;
-
-  border:
-    1px solid
-    rgba(92,157,255,.18);
-
+  padding:8px 9px;
+  border:1px solid rgba(92,157,255,.18);
   border-radius:10px;
-
-  background:
-    rgba(92,157,255,.045);
+  background:rgba(92,157,255,.045);
 }
 
 .user-id-info{
@@ -307,72 +215,43 @@ main{
 
 .user-id-label{
   color:#7f9ab3;
-
   font-size:6px;
   font-weight:900;
-
   letter-spacing:.1em;
 }
 
 .user-id-value{
   margin-top:3px;
-
   color:#cbd8e3;
-
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
-
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
   font-size:7px;
-
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .copy-id-btn{
-  flex:0 0 auto;
-
   min-width:55px;
   min-height:30px;
-
   padding:5px 8px;
-
-  border:
-    1px solid
-    rgba(92,157,255,.25);
-
+  border:1px solid rgba(92,157,255,.25);
   border-radius:8px;
-
-  background:
-    rgba(92,157,255,.07);
-
+  background:rgba(92,157,255,.07);
   color:#a9caff;
-
   font-size:7px;
   font-weight:900;
-
   cursor:pointer;
 }
 
 
 /* =========================================================
-   TRIP
+   TRIP CARD
 ========================================================= */
 
 .trip-card{
   padding:12px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.30);
-
+  border:1px solid rgba(201,111,104,.30);
   border-radius:15px;
-
   background:
     linear-gradient(
       145deg,
@@ -383,55 +262,98 @@ main{
 
 .trip-top{
   display:flex;
-
   align-items:flex-start;
   justify-content:space-between;
-
   gap:8px;
 }
 
 .trip-name{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:17px;
 }
 
 .trip-country{
   margin-top:3px;
-
   color:#8f9ba3;
-
   font-size:7px;
 }
 
 .trip-dates{
   margin-top:2px;
-
   color:var(--muted);
-
   font-size:7px;
 }
 
-.owner-pill{
+.role-pill{
   flex:0 0 auto;
-
   padding:4px 7px;
-
-  border:
-    1px solid
-    rgba(227,184,92,.25);
-
   border-radius:999px;
-
-  background:
-    rgba(227,184,92,.08);
-
-  color:#e7c97d;
-
   font-size:6px;
+  font-weight:900;
+}
+
+.role-pill.owner{
+  border:1px solid rgba(227,184,92,.25);
+  background:rgba(227,184,92,.08);
+  color:#e7c97d;
+}
+
+.role-pill.editor{
+  border:1px solid rgba(103,197,135,.25);
+  background:rgba(103,197,135,.08);
+  color:#afe3bf;
+}
+
+.role-pill.viewer{
+  border:1px solid rgba(92,157,255,.25);
+  background:rgba(92,157,255,.08);
+  color:#aacbff;
+}
+
+
+/* =========================================================
+   NO TRIP
+========================================================= */
+
+.no-trip{
+  padding:16px 12px;
+  border:1px dashed #35414a;
+  border-radius:14px;
+  background:#0e1419;
+  text-align:center;
+}
+
+.no-trip-icon{
+  font-size:25px;
+}
+
+.no-trip-title{
+  margin-top:6px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:15px;
+}
+
+.no-trip-text{
+  max-width:380px;
+  margin:5px auto 0;
+  color:#7f8b93;
+  font-size:7px;
+  line-height:1.55;
+}
+
+.trip-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:42px;
+  margin-top:10px;
+  border:1px solid rgba(92,157,255,.25);
+  border-radius:10px;
+  background:rgba(92,157,255,.07);
+  color:#b5d2ff;
+  text-decoration:none;
+  font-size:8px;
   font-weight:900;
 }
 
@@ -441,57 +363,35 @@ main{
 ========================================================= */
 
 .member-list{
-  margin-top:8px;
-
   overflow:hidden;
-
   border:1px solid var(--line);
   border-radius:14px;
-
   background:#10161c;
 }
 
 .member{
   display:flex;
   align-items:center;
-
   gap:9px;
-
   min-height:57px;
-
   padding:8px 10px;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.055);
+  border-bottom:1px solid rgba(255,255,255,.055);
 }
 
-.member:last-child{
-  border-bottom:0;
-}
+.member:last-child{border-bottom:0}
 
 .member-avatar{
   flex:0 0 34px;
-
   width:34px;
   height:34px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   overflow:hidden;
-
   border:1px solid #34404a;
   border-radius:50%;
-
   background:#182129;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:12px;
   font-weight:800;
 }
@@ -499,7 +399,6 @@ main{
 .member-avatar img{
   width:100%;
   height:100%;
-
   object-fit:cover;
 }
 
@@ -509,122 +408,71 @@ main{
 }
 
 .member-name{
-  color:#f1f2f1;
-
   font-size:9px;
   font-weight:900;
 }
 
 .member-access{
   margin-top:2px;
-
   color:#7e8a92;
-
   font-size:6.5px;
 }
 
 .role-badge{
-  flex:0 0 auto;
-
   padding:4px 7px;
-
   border-radius:999px;
-
   font-size:6px;
   font-weight:900;
 }
 
 .role-badge.owner{
-  border:
-    1px solid
-    rgba(227,184,92,.22);
-
-  background:
-    rgba(227,184,92,.07);
-
   color:#e4c67c;
+  background:rgba(227,184,92,.07);
+  border:1px solid rgba(227,184,92,.22);
 }
 
 .role-badge.editor{
-  border:
-    1px solid
-    rgba(103,197,135,.22);
-
-  background:
-    rgba(103,197,135,.07);
-
   color:#aee5bf;
+  background:rgba(103,197,135,.07);
+  border:1px solid rgba(103,197,135,.22);
 }
 
 .role-badge.viewer{
-  border:
-    1px solid
-    rgba(92,157,255,.22);
-
-  background:
-    rgba(92,157,255,.07);
-
   color:#a8caff;
+  background:rgba(92,157,255,.07);
+  border:1px solid rgba(92,157,255,.22);
 }
 
 .member-menu{
-  flex:0 0 30px;
-
   width:30px;
   height:30px;
-
   border:0;
   border-radius:7px;
-
   background:transparent;
-
   color:#87939b;
-
   cursor:pointer;
 }
 
-
-/* =========================================================
-   ADD MEMBER
-========================================================= */
-
 .share-button{
   width:100%;
-
   min-height:43px;
-
   margin-top:8px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.32);
-
+  border:1px solid rgba(201,111,104,.32);
   border-radius:11px;
-
-  background:
-    rgba(201,111,104,.09);
-
+  background:rgba(201,111,104,.09);
   color:#f0cfcc;
-
   font-size:8px;
   font-weight:900;
-
   cursor:pointer;
 }
 
 .permission-note{
   margin-top:8px;
-
   padding:9px 10px;
-
   border:1px solid var(--line);
   border-radius:10px;
-
-  background:
-    rgba(255,255,255,.018);
-
+  background:rgba(255,255,255,.018);
   color:#79868e;
-
   font-size:7px;
   line-height:1.55;
 }
@@ -638,93 +486,75 @@ main{
    SHEETS
 ========================================================= */
 
-.backdrop{
+.backdrop,
+.more-backdrop{
   position:fixed;
-
   inset:0;
-
   z-index:100;
-
   display:none;
   align-items:flex-end;
-
   background:rgba(0,0,0,.72);
-
   backdrop-filter:blur(4px);
 }
 
-.backdrop.open{
+.more-backdrop{
+  z-index:150;
+}
+
+.backdrop.open,
+.more-backdrop.open{
   display:flex;
 }
 
-.sheet{
+.sheet,
+.more-sheet{
   width:100%;
-
   max-height:90vh;
-
   overflow:auto;
-
   padding:
-    8px
-    14px
+    8px 14px
     calc(18px + env(safe-area-inset-bottom));
-
   border:1px solid var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
+  border-radius:20px 20px 0 0;
   background:#0d1318;
+}
+
+.more-sheet{
+  max-width:760px;
+  margin:0 auto;
 }
 
 .handle{
   width:38px;
   height:4px;
-
-  margin:
-    2px
-    auto
-    13px;
-
+  margin:2px auto 13px;
   border-radius:999px;
-
   background:#39454d;
 }
 
-.sheet-head{
+.sheet-head,
+.more-head{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
   gap:10px;
-
   margin-bottom:13px;
 }
 
-.sheet-title{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+.sheet-title,
+.more-title{
+  font-family:Georgia,"Times New Roman",serif;
   font-size:19px;
 }
 
-.close{
+.close,
+.more-close{
   width:34px;
   height:34px;
-
   border:1px solid var(--line);
   border-radius:9px;
-
   background:#151c22;
-
   color:#fff;
-
   cursor:pointer;
 }
 
@@ -739,11 +569,8 @@ main{
 
 .field label{
   display:block;
-
   margin-bottom:4px;
-
   color:#aeb5bc;
-
   font-size:7px;
   font-weight:900;
 }
@@ -751,20 +578,13 @@ main{
 .field input,
 .field select{
   width:100%;
-
   min-height:43px;
-
   padding:8px 10px;
-
   border:1px solid var(--line);
   border-radius:9px;
-
   outline:none;
-
   background:#10171d;
-
   color:#fff;
-
   font-size:10px;
 }
 
@@ -775,245 +595,88 @@ main{
 
 .help{
   margin-top:5px;
-
   color:#74818a;
-
   font-size:7px;
   line-height:1.45;
 }
 
-.primary{
+.primary,
+.danger{
   width:100%;
-
   min-height:44px;
-
   margin-top:4px;
-
-  border:
-    1px solid
-    rgba(103,197,135,.3);
-
   border-radius:10px;
-
-  background:
-    rgba(103,197,135,.10);
-
-  color:#b6e9c6;
-
   font-size:8px;
   font-weight:900;
-
   cursor:pointer;
 }
 
-.primary:disabled{
-  opacity:.5;
+.primary{
+  border:1px solid rgba(103,197,135,.3);
+  background:rgba(103,197,135,.10);
+  color:#b6e9c6;
 }
 
 .danger{
-  width:100%;
-
-  min-height:40px;
-
-  margin-top:7px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.25);
-
-  border-radius:10px;
-
-  background:
-    rgba(201,111,104,.05);
-
+  border:1px solid rgba(201,111,104,.25);
+  background:rgba(201,111,104,.05);
   color:#df938c;
+}
 
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
+.primary:disabled,
+.danger:disabled{
+  opacity:.5;
 }
 
 .message{
   display:none;
-
   margin-top:9px;
-
   padding:8px;
-
   border-radius:8px;
-
   font-size:7px;
-  line-height:1.4;
 }
 
 .message.error{
   display:block;
-
-  border:
-    1px solid
-    rgba(201,111,104,.25);
-
-  background:
-    rgba(201,111,104,.07);
-
+  border:1px solid rgba(201,111,104,.25);
+  background:rgba(201,111,104,.07);
   color:#ffc3bf;
 }
 
 .message.success{
   display:block;
-
-  border:
-    1px solid
-    rgba(103,197,135,.25);
-
-  background:
-    rgba(103,197,135,.07);
-
+  border:1px solid rgba(103,197,135,.25);
+  background:rgba(103,197,135,.07);
   color:#b9ebc8;
 }
 
 
 /* =========================================================
-   STATE
+   MORE
 ========================================================= */
-
-.state{
-  padding:24px 15px;
-
-  border:1px dashed #35414a;
-  border-radius:13px;
-
-  color:var(--muted);
-
-  text-align:center;
-
-  font-size:8px;
-  line-height:1.5;
-}
-
-.state strong{
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#fff;
-
-  font-size:11px;
-}
-
-
-/* =========================================================
-   MORE SHEET
-========================================================= */
-
-.more-backdrop{
-  position:fixed;
-
-  inset:0;
-
-  z-index:150;
-
-  display:none;
-  align-items:flex-end;
-
-  background:
-    rgba(0,0,0,.68);
-
-  backdrop-filter:blur(4px);
-}
-
-.more-backdrop.open{
-  display:flex;
-}
-
-.more-sheet{
-  width:100%;
-  max-width:760px;
-
-  margin:0 auto;
-
-  padding:
-    8px
-    13px
-    calc(18px + env(safe-area-inset-bottom));
-
-  border:1px solid var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
-  background:#0d1318;
-}
-
-.more-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:9px;
-}
-
-.more-title{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-}
-
-.more-close{
-  width:32px;
-  height:32px;
-
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  background:#151c22;
-
-  color:#fff;
-
-  cursor:pointer;
-}
 
 .more-link{
   min-height:58px;
-
   display:flex;
   align-items:center;
-
   gap:10px;
-
   padding:9px 10px;
   margin-bottom:6px;
-
   border:1px solid var(--line);
   border-radius:11px;
-
   background:#11181e;
-
   color:#fff;
-
   text-decoration:none;
 }
 
 .more-link.active{
-  border-color:
-    rgba(201,111,104,.32);
-
-  background:
-    rgba(201,111,104,.08);
+  border-color:rgba(201,111,104,.32);
+  background:rgba(201,111,104,.08);
 }
 
 .more-link-icon{
-  flex:0 0 31px;
-
+  width:31px;
   font-size:18px;
-
   text-align:center;
 }
 
@@ -1028,16 +691,33 @@ main{
 
 .more-link-sub{
   margin-top:2px;
-
   color:#7f8b93;
-
   font-size:6.5px;
 }
 
 .more-link-arrow{
   color:#8d9aa2;
+}
 
-  font-size:12px;
+
+/* =========================================================
+   STATE
+========================================================= */
+
+.state{
+  padding:24px 15px;
+  border:1px dashed #35414a;
+  border-radius:13px;
+  color:var(--muted);
+  text-align:center;
+  font-size:8px;
+}
+
+.state strong{
+  display:block;
+  margin-bottom:4px;
+  color:#fff;
+  font-size:11px;
 }
 
 
@@ -1047,58 +727,36 @@ main{
 
 .bottom-nav{
   position:fixed;
-
   left:0;
   right:0;
   bottom:0;
-
   z-index:80;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   gap:3px;
-
   padding:
-    6px
-    7px
+    6px 7px
     calc(6px + env(safe-area-inset-bottom));
-
   border-top:1px solid var(--line);
-
-  background:
-    rgba(7,12,16,.98);
-
+  background:rgba(7,12,16,.98);
   backdrop-filter:blur(18px);
 }
 
 .bottom-nav a,
 .bottom-nav button{
   min-height:46px;
-
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
   justify-content:center;
-
   gap:2px;
-
   border:0;
   border-radius:10px;
-
   background:transparent;
-
   color:var(--muted);
-
   text-decoration:none;
-
   font-size:8px;
   font-weight:800;
-
   cursor:pointer;
 }
 
@@ -1108,18 +766,11 @@ main{
 
 .bottom-nav .active{
   color:#fff;
-
-  border:
-    1px solid
-    rgba(201,111,104,.22);
-
-  background:
-    rgba(201,111,104,.08);
+  border:1px solid rgba(201,111,104,.22);
+  background:rgba(201,111,104,.08);
 }
 
-
 @media(min-width:700px){
-
   .sheet{
     max-width:600px;
     margin:auto;
@@ -1128,13 +779,9 @@ main{
   .bottom-nav{
     left:50%;
     right:auto;
-
     width:min(820px,100%);
-
-    transform:
-      translateX(-50%);
+    transform:translateX(-50%);
   }
-
 }
 </style>
 </head>
@@ -1143,19 +790,11 @@ main{
 <body>
 
 
-<!-- =======================================================
-     HEADER
-======================================================= -->
-
 <header>
-
   <div class="header-inner">
 
-    <div
-      id="headerEyebrow"
-      class="eyebrow"
-    >
-      TRIP
+    <div class="eyebrow">
+      ACCOUNT
     </div>
 
     <h1>
@@ -1163,39 +802,29 @@ main{
     </h1>
 
     <div
-      id="headerTrip"
+      id="headerSub"
       class="header-sub"
     >
-      Loading…
+      Loading profile…
     </div>
 
   </div>
-
 </header>
 
-
-<!-- =======================================================
-     MAIN
-======================================================= -->
 
 <main id="main">
 
   <div class="state">
-
-    <strong>
-      Loading profile…
-    </strong>
-
-    Getting your trip and sharing details.
-
+    <strong>Loading profile…</strong>
+    Getting your account details.
   </div>
 
 </main>
 
 
-<!-- =======================================================
+<!-- =========================================================
      EDIT PROFILE
-======================================================= -->
+========================================================= -->
 
 <div
   id="profileSheet"
@@ -1205,7 +834,6 @@ main{
   <div class="sheet">
 
     <div class="handle"></div>
-
 
     <div class="sheet-head">
 
@@ -1254,10 +882,6 @@ main{
           placeholder="https://..."
         >
 
-        <div class="help">
-          Optional. We can add proper photo uploading later.
-        </div>
-
       </div>
 
 
@@ -1278,13 +902,12 @@ main{
     </form>
 
   </div>
-
 </div>
 
 
-<!-- =======================================================
-     ADD PERSON
-======================================================= -->
+<!-- =========================================================
+     ADD MEMBER
+========================================================= -->
 
 <div
   id="memberSheet"
@@ -1294,7 +917,6 @@ main{
   <div class="sheet">
 
     <div class="handle"></div>
-
 
     <div class="sheet-head">
 
@@ -1329,8 +951,8 @@ main{
         >
 
         <div class="help">
-          Ask the person to open their Profile page
-          and tap COPY beside their Supabase User ID.
+          Ask the person to open Profile and
+          press COPY beside their Supabase User ID.
         </div>
 
       </div>
@@ -1349,7 +971,7 @@ main{
           </option>
 
           <option value="editor">
-            ✏️ Editor · can view & edit
+            ✏️ Editor · can edit
           </option>
 
         </select>
@@ -1374,13 +996,12 @@ main{
     </form>
 
   </div>
-
 </div>
 
 
-<!-- =======================================================
+<!-- =========================================================
      EDIT MEMBER
-======================================================= -->
+========================================================= -->
 
 <div
   id="editMemberSheet"
@@ -1390,7 +1011,6 @@ main{
   <div class="sheet">
 
     <div class="handle"></div>
-
 
     <div class="sheet-head">
 
@@ -1432,11 +1052,11 @@ main{
       <select id="editMemberRole">
 
         <option value="viewer">
-          👁️ Viewer · can view
+          👁️ Viewer
         </option>
 
         <option value="editor">
-          ✏️ Editor · can view & edit
+          ✏️ Editor
         </option>
 
       </select>
@@ -1468,13 +1088,12 @@ main{
     ></div>
 
   </div>
-
 </div>
 
 
-<!-- =======================================================
-     MORE SHEET
-======================================================= -->
+<!-- =========================================================
+     MORE
+========================================================= -->
 
 <div
   id="moreBackdrop"
@@ -1484,7 +1103,6 @@ main{
   <div class="more-sheet">
 
     <div class="handle"></div>
-
 
     <div class="more-head">
 
@@ -1506,6 +1124,7 @@ main{
     <a
       id="moreProfile"
       class="more-link active"
+      href="profile.html"
     >
 
       <div class="more-link-icon">
@@ -1519,7 +1138,7 @@ main{
         </div>
 
         <div class="more-link-sub">
-          Profile · trip members · User ID
+          Profile · User ID · trip members
         </div>
 
       </div>
@@ -1532,7 +1151,6 @@ main{
 
 
     <a
-      id="moreTrips"
       class="more-link"
       href="trips.html"
     >
@@ -1560,94 +1178,46 @@ main{
     </a>
 
   </div>
-
 </div>
 
 
-<!-- =======================================================
-     NAVIGATION
-======================================================= -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
->
+<nav class="bottom-nav">
 
   <a id="navHome">
-
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    <span>
-      HOME
-    </span>
-
+    <span class="nav-icon">🏠</span>
+    <span>HOME</span>
   </a>
-
 
   <a id="navPlan">
-
-    <span class="nav-icon">
-      📅
-    </span>
-
-    <span>
-      PLAN
-    </span>
-
+    <span class="nav-icon">📅</span>
+    <span>PLAN</span>
   </a>
-
 
   <a id="navFood">
-
-    <span class="nav-icon">
-      🍽️
-    </span>
-
-    <span>
-      FOOD
-    </span>
-
+    <span class="nav-icon">🍽️</span>
+    <span>FOOD</span>
   </a>
-
 
   <a id="navHub">
-
-    <span class="nav-icon">
-      ⭐
-    </span>
-
-    <span>
-      HUB
-    </span>
-
+    <span class="nav-icon">⭐</span>
+    <span>HUB</span>
   </a>
-
 
   <button
     id="navMore"
     class="active"
     type="button"
-    aria-current="page"
   >
-
-    <span class="nav-icon">
-      ⋯
-    </span>
-
-    <span>
-      MORE
-    </span>
-
+    <span class="nav-icon">⋯</span>
+    <span>MORE</span>
   </button>
 
 </nav>
 
-
-<!-- =======================================================
-     SUPABASE
-======================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -1656,94 +1226,20 @@ main{
 <script>
 
 /* =========================================================
-   CURRENT TRIP
-========================================================= */
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
-
-
-const urlTripId =
-  Number(
-    params.get("trip")
-  );
-
-
-const savedTripId =
-  Number(
-    localStorage.getItem(
-      "current_trip_id"
-    )
-  );
-
-
-const TRIP_ID =
-  urlTripId ||
-  savedTripId ||
-  1;
-
-
-/*
-  Remember current trip.
-*/
-
-localStorage.setItem(
-  "current_trip_id",
-  String(TRIP_ID)
-);
-
-
-/* =========================================================
    STATE
 ========================================================= */
 
 let currentUser = null;
-
 let profile = null;
 
-let ownerProfile = null;
-
 let trip = null;
-
+let ownerProfile = null;
 let members = [];
 
+let currentTripId = null;
+let myRole = null;
+
 let editingMemberId = null;
-
-
-/* =========================================================
-   NAV
-========================================================= */
-
-document.getElementById(
-  "navHome"
-).href =
-  `index.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "navPlan"
-).href =
-  `schedule.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "navFood"
-).href =
-  `food.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "navHub"
-).href =
-  `bookings.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "moreProfile"
-).href =
-  `profile.html?trip=${TRIP_ID}`;
 
 
 /* =========================================================
@@ -1752,14 +1248,12 @@ document.getElementById(
 
 function esc(value){
 
-  return String(
-    value ?? ""
-  )
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
@@ -1795,10 +1289,7 @@ function initials(name){
 }
 
 
-function avatarHTML(
-  person,
-  cssClass
-){
+function avatarHTML(person, cssClass){
 
   const name =
     person?.display_name ||
@@ -1808,49 +1299,33 @@ function avatarHTML(
   if(person?.avatar_url){
 
     return `
-
       <div class="${cssClass}">
-
         <img
           src="${esc(person.avatar_url)}"
           alt="${esc(name)}"
         >
-
       </div>
-
     `;
 
   }
 
 
   return `
-
     <div class="${cssClass}">
       ${esc(initials(name))}
     </div>
-
   `;
 
 }
 
 
-function roleDescription(role){
+function isOwner(){
 
-  if(role === "owner"){
-
-    return "Owns and manages this trip";
-
-  }
-
-
-  if(role === "editor"){
-
-    return "Can view and edit this trip";
-
-  }
-
-
-  return "Can view this trip";
+  return Boolean(
+    trip &&
+    currentUser &&
+    trip.owner_id === currentUser.id
+  );
 
 }
 
@@ -1880,7 +1355,6 @@ function prettyTripDates(){
 
 
   return (
-
     start.toLocaleDateString(
       "en-SG",
       {
@@ -1888,13 +1362,9 @@ function prettyTripDates(){
         month:"short"
       }
     )
-
     +
-
     " – "
-
     +
-
     end.toLocaleDateString(
       "en-SG",
       {
@@ -1903,57 +1373,24 @@ function prettyTripDates(){
         year:"numeric"
       }
     )
-
-  );
-
-}
-
-
-function isOwner(){
-
-  return Boolean(
-    currentUser &&
-    trip &&
-    currentUser.id ===
-    trip.owner_id
-  );
-
-}
-
-
-function myTripRole(){
-
-  if(isOwner()){
-    return "owner";
-  }
-
-
-  const membership =
-    members.find(
-      member =>
-        member.user_id ===
-        currentUser?.id
-    );
-
-
-  return (
-    membership?.role ||
-    "viewer"
   );
 
 }
 
 
 /* =========================================================
-   LOAD PAGE
+   START
 ========================================================= */
 
-async function load(){
+async function start(){
 
   try{
 
     /*
-      GET LOGGED-IN USER
+      FIRST:
+      Find out who is logged in.
+
+      Nothing about trips yet.
     */
 
     const userResult =
@@ -1971,7 +1408,7 @@ async function load(){
 
     if(!currentUser){
 
-      window.location.href =
+      location.href =
         "login.html";
 
       return;
@@ -1980,142 +1417,45 @@ async function load(){
 
 
     /*
-      LOAD PROFILE + TRIP
+      SECOND:
+      Load THIS USER'S PROFILE.
+
+      This happens independently
+      from trips.
     */
 
-    const [
-      profileResult,
-      tripResult
-    ] =
-      await Promise.all([
-
-        db
-          .from("profiles")
-          .select(`
-            id,
-            display_name,
-            avatar_url,
-            role,
-            created_at,
-            updated_at
-          `)
-          .eq(
-            "id",
-            currentUser.id
-          )
-          .maybeSingle(),
-
-        db
-          .from("trips")
-          .select("*")
-          .eq(
-            "id",
-            TRIP_ID
-          )
-          .single()
-
-      ]);
-
-
-    if(profileResult.error){
-      throw profileResult.error;
-    }
-
-
-    if(tripResult.error){
-      throw tripResult.error;
-    }
-
-
-    profile =
-      profileResult.data;
-
-
-    trip =
-      tripResult.data;
+    await loadMyProfile();
 
 
     /*
-      CREATE PROFILE IF THIS ACCOUNT
-      DOESN'T HAVE ONE YET.
+      Render profile immediately.
+
+      So even if trip loading fails,
+      the user can still see:
+      - their name
+      - email
+      - UID
+      - copy button
     */
 
-    if(!profile){
-
-      const fallbackName =
-        currentUser
-          .user_metadata
-          ?.display_name
-
-        ||
-
-        currentUser
-          .email
-          ?.split("@")[0]
-
-        ||
-
-        "Traveller";
-
-
-      const createResult =
-        await db
-          .from("profiles")
-          .insert({
-            id:
-              currentUser.id,
-
-            display_name:
-              fallbackName
-          })
-          .select()
-          .single();
-
-
-      if(createResult.error){
-        throw createResult.error;
-      }
-
-
-      profile =
-        createResult.data;
-
-    }
+    render();
 
 
     /*
-      LOAD OWNER PROFILE
+      THIRD:
+      Try to find a usable current trip.
+
+      Failure here DOES NOT destroy
+      the profile page.
     */
 
-    const ownerResult =
-      await db
-        .from("profiles")
-        .select(`
-          id,
-          display_name,
-          avatar_url
-        `)
-        .eq(
-          "id",
-          trip.owner_id
-        )
-        .maybeSingle();
-
-
-    if(!ownerResult.error){
-
-      ownerProfile =
-        ownerResult.data;
-
-    }
+    await findCurrentTrip();
 
 
     /*
-      LOAD MEMBERS
+      Render again with trip info
+      if we found one.
     */
-
-    await loadMembers();
-
 
     render();
 
@@ -2138,7 +1478,7 @@ async function load(){
 
         ${esc(
           error.message ||
-          "Unknown database error."
+          "Unknown error."
         )}
 
       </div>
@@ -2151,10 +1491,386 @@ async function load(){
 
 
 /* =========================================================
-   LOAD MEMBERS
+   LOAD MY PROFILE
 ========================================================= */
 
-async function loadMembers(){
+async function loadMyProfile(){
+
+  const result =
+    await db
+      .from("profiles")
+      .select(`
+        id,
+        display_name,
+        avatar_url,
+        role,
+        created_at,
+        updated_at
+      `)
+      .eq(
+        "id",
+        currentUser.id
+      )
+      .maybeSingle();
+
+
+  if(result.error){
+    throw result.error;
+  }
+
+
+  profile =
+    result.data;
+
+
+  /*
+    If account exists but profile row
+    somehow doesn't, create it.
+  */
+
+  if(!profile){
+
+    const fallbackName =
+      currentUser
+        .user_metadata
+        ?.display_name
+
+      ||
+
+      currentUser
+        .email
+        ?.split("@")[0]
+
+      ||
+
+      "Traveller";
+
+
+    const createResult =
+      await db
+        .from("profiles")
+        .insert({
+
+          id:
+            currentUser.id,
+
+          display_name:
+            fallbackName
+
+        })
+        .select()
+        .single();
+
+
+    if(createResult.error){
+      throw createResult.error;
+    }
+
+
+    profile =
+      createResult.data;
+
+  }
+
+}
+
+
+/* =========================================================
+   FIND CURRENT TRIP
+========================================================= */
+
+async function findCurrentTrip(){
+
+  /*
+    Reset trip state.
+
+    The profile remains loaded.
+  */
+
+  trip = null;
+  ownerProfile = null;
+  members = [];
+  myRole = null;
+
+
+  const params =
+    new URLSearchParams(
+      location.search
+    );
+
+
+  const urlTrip =
+    Number(
+      params.get("trip")
+    );
+
+
+  const savedTrip =
+    Number(
+      localStorage.getItem(
+        "current_trip_id"
+      )
+    );
+
+
+  /*
+    Try URL trip first,
+    then remembered trip.
+  */
+
+  const candidates =
+    [
+      urlTrip,
+      savedTrip
+    ]
+    .filter(
+      (value,index,array) =>
+        value &&
+        array.indexOf(value) === index
+    );
+
+
+  for(const tripId of candidates){
+
+    const found =
+      await tryLoadTrip(
+        tripId
+      );
+
+
+    if(found){
+
+      currentTripId =
+        tripId;
+
+
+      localStorage.setItem(
+        "current_trip_id",
+        String(tripId)
+      );
+
+
+      setNavLinks();
+
+
+      return;
+
+    }
+
+  }
+
+
+  /*
+    No current trip was accessible.
+
+    IMPORTANT:
+    Do not throw an error.
+
+    The user's profile is still valid.
+  */
+
+  currentTripId = null;
+
+  setNavLinks();
+
+}
+
+
+/* =========================================================
+   TRY LOAD TRIP
+========================================================= */
+
+async function tryLoadTrip(tripId){
+
+  try{
+
+    const result =
+      await db
+        .from("trips")
+        .select(`
+          id,
+          owner_id,
+          name,
+          country,
+          start_date,
+          end_date,
+          description,
+          status
+        `)
+        .eq(
+          "id",
+          tripId
+        )
+        .maybeSingle();
+
+
+    /*
+      RLS may mean the trip simply
+      isn't visible to this user.
+
+      That should NOT break Profile.
+    */
+
+    if(result.error){
+
+      console.warn(
+        "Trip unavailable:",
+        result.error
+      );
+
+      return false;
+
+    }
+
+
+    if(!result.data){
+      return false;
+    }
+
+
+    trip =
+      result.data;
+
+
+    /*
+      Work out this user's trip role.
+    */
+
+    if(
+      trip.owner_id ===
+      currentUser.id
+    ){
+
+      myRole = "owner";
+
+    }
+
+    else{
+
+      const membership =
+        await db
+          .from("trip_members")
+          .select(`
+            id,
+            trip_id,
+            user_id,
+            role
+          `)
+          .eq(
+            "trip_id",
+            trip.id
+          )
+          .eq(
+            "user_id",
+            currentUser.id
+          )
+          .maybeSingle();
+
+
+      if(membership.error){
+
+        console.warn(
+          "Membership unavailable:",
+          membership.error
+        );
+
+        trip = null;
+
+        return false;
+
+      }
+
+
+      /*
+        Don't allow somebody to treat a
+        random visible trip as current
+        unless they're actually a member.
+      */
+
+      if(!membership.data){
+
+        trip = null;
+
+        return false;
+
+      }
+
+
+      myRole =
+        membership.data.role === "editor"
+        ?
+        "editor"
+        :
+        "viewer";
+
+    }
+
+
+    await loadTripPeople();
+
+
+    return true;
+
+  }
+
+  catch(error){
+
+    console.warn(
+      "Could not load trip:",
+      error
+    );
+
+
+    trip = null;
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD TRIP PEOPLE
+========================================================= */
+
+async function loadTripPeople(){
+
+  if(!trip){
+    return;
+  }
+
+
+  /*
+    OWNER PROFILE
+  */
+
+  const ownerResult =
+    await db
+      .from("profiles")
+      .select(`
+        id,
+        display_name,
+        avatar_url
+      `)
+      .eq(
+        "id",
+        trip.owner_id
+      )
+      .maybeSingle();
+
+
+  if(!ownerResult.error){
+
+    ownerProfile =
+      ownerResult.data;
+
+  }
+
+
+  /*
+    MEMBERS
+  */
 
   const memberResult =
     await db
@@ -2168,7 +1884,7 @@ async function loadMembers(){
       `)
       .eq(
         "trip_id",
-        TRIP_ID
+        trip.id
       )
       .order(
         "created_at",
@@ -2179,7 +1895,17 @@ async function loadMembers(){
 
 
   if(memberResult.error){
-    throw memberResult.error;
+
+    console.warn(
+      "Could not load members:",
+      memberResult.error
+    );
+
+
+    members = [];
+
+    return;
+
   }
 
 
@@ -2196,25 +1922,25 @@ async function loadMembers(){
   }
 
 
-  const userIds =
+  const ids =
     [
       ...new Set(
         rawMembers
           .map(
-            member =>
-              member.user_id
+            row =>
+              row.user_id
           )
           .filter(Boolean)
       )
     ];
 
 
-  if(!userIds.length){
+  if(!ids.length){
 
     members =
       rawMembers.map(
-        member => ({
-          ...member,
+        row => ({
+          ...row,
           profile:null
         })
       );
@@ -2224,7 +1950,7 @@ async function loadMembers(){
   }
 
 
-  const profileResult =
+  const profilesResult =
     await db
       .from("profiles")
       .select(`
@@ -2234,57 +1960,114 @@ async function loadMembers(){
       `)
       .in(
         "id",
-        userIds
+        ids
       );
 
 
-  if(profileResult.error){
+  if(profilesResult.error){
 
     console.warn(
-      "Could not load member profiles:",
-      profileResult.error
+      "Member profiles unavailable:",
+      profilesResult.error
     );
 
 
     members =
       rawMembers.map(
-        member => ({
-          ...member,
+        row => ({
+          ...row,
           profile:null
         })
       );
-
 
     return;
 
   }
 
 
-  const memberProfiles =
-    profileResult.data || [];
+  const profiles =
+    profilesResult.data || [];
 
 
   members =
     rawMembers.map(
-      member => {
+      row => ({
 
-        const matchedProfile =
-          memberProfiles.find(
+        ...row,
+
+        profile:
+          profiles.find(
             person =>
               person.id ===
-              member.user_id
+              row.user_id
           )
           ||
-          null;
+          null
 
-
-        return {
-          ...member,
-          profile:matchedProfile
-        };
-
-      }
+      })
     );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function setNavLinks(){
+
+  const suffix =
+    currentTripId
+    ?
+    `?trip=${currentTripId}`
+    :
+    "";
+
+
+  document.getElementById(
+    "navHome"
+  ).href =
+    `index.html${suffix}`;
+
+
+  document.getElementById(
+    "navPlan"
+  ).href =
+    currentTripId
+    ?
+    `schedule.html?trip=${currentTripId}`
+    :
+    "trips.html";
+
+
+  document.getElementById(
+    "navFood"
+  ).href =
+    currentTripId
+    ?
+    `food.html?trip=${currentTripId}`
+    :
+    "trips.html";
+
+
+  document.getElementById(
+    "navHub"
+  ).href =
+    currentTripId
+    ?
+    `bookings.html?trip=${currentTripId}`
+    :
+    "trips.html";
+
+
+  document.getElementById(
+    "moreProfile"
+  ).href =
+    currentTripId
+    ?
+    `profile.html?trip=${currentTripId}`
+    :
+    "profile.html";
 
 }
 
@@ -2295,62 +2078,26 @@ async function loadMembers(){
 
 function render(){
 
+  if(
+    !currentUser ||
+    !profile
+  ){
+    return;
+  }
+
+
   document.getElementById(
-    "headerTrip"
+    "headerSub"
   ).textContent =
-    trip.name;
+    trip
+    ?
+    trip.name
+    :
+    "Your account";
 
 
-  document.getElementById(
-    "headerEyebrow"
-  ).textContent =
-    `${trip.country || "TRIP"} TRIP`;
+  let html = `
 
-
-  document.title =
-    `Profile & Sharing · ${trip.name}`;
-
-
-  const owner =
-    ownerProfile
-
-    ||
-
-    (
-      currentUser.id ===
-      trip.owner_id
-
-      ?
-
-      profile
-
-      :
-
-      {
-        display_name:
-          "Trip Owner",
-
-        avatar_url:null
-      }
-    );
-
-
-  const otherMembers =
-    members.filter(
-      member =>
-        member.user_id !==
-        trip.owner_id
-    );
-
-
-  document.getElementById(
-    "main"
-  ).innerHTML = `
-
-
-    <!-- ===================================================
-         MY PROFILE
-    ==================================================== -->
 
     <div class="section-label">
       MY PROFILE
@@ -2358,7 +2105,6 @@ function render(){
 
 
     <div class="profile-card">
-
 
       <div class="profile-top">
 
@@ -2390,27 +2136,13 @@ function render(){
           </div>
 
 
-          <div class="profile-role">
+          <div class="account-role">
 
-            ${
-              isOwner()
-
-              ?
-
-              "TRIP OWNER"
-
-              :
-
-              myTripRole() === "editor"
-
-              ?
-
-              "TRIP EDITOR"
-
-              :
-
-              "TRIP VIEWER"
-            }
+            ACCOUNT ·
+            ${esc(
+              profile.role ||
+              "user"
+            )}
 
           </div>
 
@@ -2428,8 +2160,6 @@ function render(){
       </div>
 
 
-      <!-- SUPABASE UID -->
-
       <div class="user-id-box">
 
         <div class="user-id-info">
@@ -2438,8 +2168,8 @@ function render(){
             SUPABASE USER ID
           </div>
 
+
           <div
-            id="myUserId"
             class="user-id-value"
             title="${esc(currentUser.id)}"
           >
@@ -2461,162 +2191,208 @@ function render(){
 
     </div>
 
+  `;
 
 
-    <!-- ===================================================
-         CURRENT TRIP
-    ==================================================== -->
+  /*
+    TRIP EXISTS
+  */
 
-    <div class="section-label">
-      CURRENT TRIP
-    </div>
+  if(trip){
+
+    html += `
+
+      <div class="section-label">
+        CURRENT TRIP
+      </div>
 
 
-    <div class="trip-card">
+      <div class="trip-card">
 
-      <div class="trip-top">
+        <div class="trip-top">
 
-        <div>
+          <div>
 
-          <div class="trip-name">
-            ${esc(trip.name)}
+            <div class="trip-name">
+              ${esc(trip.name)}
+            </div>
+
+
+            ${
+              trip.country
+
+              ?
+
+              `
+                <div class="trip-country">
+                  🌏 ${esc(trip.country)}
+                </div>
+              `
+
+              :
+
+              ""
+            }
+
+
+            <div class="trip-dates">
+
+              ${esc(
+                prettyTripDates()
+              )}
+
+            </div>
+
           </div>
 
 
-          ${
-            trip.country
+          <span
+            class="
+              role-pill
+              ${esc(myRole || "viewer")}
+            "
+          >
 
-            ?
+            ${
+              myRole === "owner"
+              ?
+              "👑 OWNER"
+              :
+              myRole === "editor"
+              ?
+              "✏️ EDITOR"
+              :
+              "👁️ VIEWER"
+            }
 
-            `
-              <div class="trip-country">
-                🌏 ${esc(trip.country)}
-              </div>
-            `
-
-            :
-
-            ""
-          }
-
-
-          <div class="trip-dates">
-
-            ${esc(
-              prettyTripDates()
-            )}
-
-          </div>
+          </span>
 
         </div>
 
+      </div>
+
+
+      <div class="section-label">
+        TRIP MEMBERS
+      </div>
+
+
+      <div class="member-list">
+
+        ${renderOwner()}
 
         ${
-          isOwner()
-
-          ?
-
-          `
-            <span class="owner-pill">
-              👑 OWNER
-            </span>
-          `
-
-          :
-
-          ""
+          members
+            .filter(
+              member =>
+                member.user_id !==
+                trip.owner_id
+            )
+            .map(renderMember)
+            .join("")
         }
 
       </div>
 
-    </div>
-
-
-
-    <!-- ===================================================
-         TRIP MEMBERS
-    ==================================================== -->
-
-    <div class="section-label">
-      TRIP MEMBERS
-    </div>
-
-
-    <div class="member-list">
-
-      ${renderOwner(owner)}
-
 
       ${
-        otherMembers.length
+        isOwner()
 
         ?
 
-        otherMembers
-          .map(renderMember)
-          .join("")
+        `
+          <button
+            id="shareButton"
+            class="share-button"
+            type="button"
+          >
+            ＋ ADD PERSON
+          </button>
+        `
 
         :
 
         ""
       }
 
-    </div>
+
+      <div class="permission-note">
+
+        <strong>👑 Owner</strong>
+        manages the trip and members.
+
+        <br>
+
+        <strong>✏️ Editor</strong>
+        can view and edit shared trip content.
+
+        <br>
+
+        <strong>👁️ Viewer</strong>
+        can view the trip.
+
+      </div>
+
+    `;
+
+  }
 
 
-    ${
-      isOwner()
+  /*
+    NO ACCESSIBLE TRIP
+  */
 
-      ?
+  else{
 
-      `
-        <button
-          id="shareButton"
-          class="share-button"
-          type="button"
+    html += `
+
+      <div class="section-label">
+        CURRENT TRIP
+      </div>
+
+
+      <div class="no-trip">
+
+        <div class="no-trip-icon">
+          🧳
+        </div>
+
+        <div class="no-trip-title">
+          No trip selected
+        </div>
+
+        <div class="no-trip-text">
+
+          Your profile is working.
+
+          Open My Trips to create a trip
+          or open a trip that has been
+          shared with you.
+
+        </div>
+
+
+        <a
+          class="trip-button"
+          href="trips.html"
         >
-          ＋ ADD PERSON
-        </button>
-      `
+          🧳 MY TRIPS
+        </a>
 
-      :
+      </div>
 
-      ""
-    }
+    `;
 
-
-    <div class="permission-note">
-
-      <strong>
-        👑 Owner
-      </strong>
-
-      can manage the trip and its members.
-
-      <br>
-
-      <strong>
-        ✏️ Editor
-      </strong>
-
-      can view and edit the itinerary,
-      bookings and trip food.
-
-      <br>
-
-      <strong>
-        👁️ Viewer
-      </strong>
-
-      can view the shared trip without
-      changing it.
-
-    </div>
-
-  `;
+  }
 
 
-  bindPageEvents();
+  document.getElementById(
+    "main"
+  ).innerHTML =
+    html;
+
+
+  bindRenderedEvents();
 
 }
 
@@ -2625,15 +2401,24 @@ function render(){
    OWNER
 ========================================================= */
 
-function renderOwner(person){
+function renderOwner(){
 
   const owner =
-    person || {
-      display_name:
-        "Trip Owner",
+    ownerProfile
 
-      avatar_url:null
-    };
+    ||
+
+    (
+      currentUser.id ===
+      trip.owner_id
+      ?
+      profile
+      :
+      {
+        display_name:"Trip Owner",
+        avatar_url:null
+      }
+    );
 
 
   return `
@@ -2658,13 +2443,9 @@ function renderOwner(person){
           ${
             currentUser.id ===
             trip.owner_id
-
             ?
-
             " · You"
-
             :
-
             ""
           }
 
@@ -2696,15 +2477,14 @@ function renderOwner(person){
 function renderMember(member){
 
   const person =
-    member.profile || {
-      display_name:
-        "Trip Member",
-
+    member.profile ||
+    {
+      display_name:"Trip Member",
       avatar_url:null
     };
 
 
-  const safeRole =
+  const role =
     member.role === "editor"
     ?
     "editor"
@@ -2734,13 +2514,9 @@ function renderMember(member){
           ${
             member.user_id ===
             currentUser.id
-
             ?
-
             " · You"
-
             :
-
             ""
           }
 
@@ -2749,11 +2525,13 @@ function renderMember(member){
 
         <div class="member-access">
 
-          ${esc(
-            roleDescription(
-              safeRole
-            )
-          )}
+          ${
+            role === "editor"
+            ?
+            "Can view and edit this trip"
+            :
+            "Can view this trip"
+          }
 
         </div>
 
@@ -2761,14 +2539,9 @@ function renderMember(member){
 
 
       <span
-        class="
-          role-badge
-          ${safeRole}
-        "
+        class="role-badge ${role}"
       >
-
-        ${safeRole.toUpperCase()}
-
+        ${role.toUpperCase()}
       </span>
 
 
@@ -2782,7 +2555,6 @@ function renderMember(member){
             class="member-menu"
             type="button"
             data-member="${Number(member.id)}"
-            aria-label="Edit member"
           >
             ⋯
           </button>
@@ -2801,137 +2573,50 @@ function renderMember(member){
 
 
 /* =========================================================
-   PAGE EVENTS
+   RENDER EVENTS
 ========================================================= */
 
-function bindPageEvents(){
+function bindRenderedEvents(){
 
-  const editProfileButton =
+  const edit =
     document.getElementById(
       "editProfileButton"
     );
 
 
-  if(editProfileButton){
+  if(edit){
 
-    editProfileButton.onclick =
+    edit.onclick =
       openProfileSheet;
 
   }
 
 
-  const shareButton =
-    document.getElementById(
-      "shareButton"
-    );
-
-
-  if(shareButton){
-
-    shareButton.onclick =
-      openMemberSheet;
-
-  }
-
-
-  /*
-    COPY SUPABASE USER ID
-  */
-
-  const copyButton =
+  const copy =
     document.getElementById(
       "copyUserId"
     );
 
 
-  if(copyButton){
+  if(copy){
 
-    copyButton.onclick =
-      async () => {
+    copy.onclick =
+      () =>
+        copyUserId(copy);
 
-        try{
-
-          await navigator.clipboard
-            .writeText(
-              currentUser.id
-            );
+  }
 
 
-          copyButton.textContent =
-            "COPIED ✓";
+  const share =
+    document.getElementById(
+      "shareButton"
+    );
 
 
-          setTimeout(
-            () => {
+  if(share){
 
-              copyButton.textContent =
-                "COPY";
-
-            },
-            1500
-          );
-
-        }
-
-        catch(error){
-
-          /*
-            Fallback for browsers where
-            clipboard API is unavailable.
-          */
-
-          const temporary =
-            document.createElement(
-              "textarea"
-            );
-
-
-          temporary.value =
-            currentUser.id;
-
-
-          temporary.style.position =
-            "fixed";
-
-
-          temporary.style.opacity =
-            "0";
-
-
-          document.body
-            .appendChild(
-              temporary
-            );
-
-
-          temporary.select();
-
-
-          document.execCommand(
-            "copy"
-          );
-
-
-          temporary.remove();
-
-
-          copyButton.textContent =
-            "COPIED ✓";
-
-
-          setTimeout(
-            () => {
-
-              copyButton.textContent =
-                "COPY";
-
-            },
-            1500
-          );
-
-        }
-
-      };
+    share.onclick =
+      openMemberSheet;
 
   }
 
@@ -2944,15 +2629,12 @@ function bindPageEvents(){
       button => {
 
         button.onclick =
-          () => {
-
+          () =>
             openEditMember(
               Number(
                 button.dataset.member
               )
             );
-
-          };
 
       }
     );
@@ -2961,8 +2643,85 @@ function bindPageEvents(){
 
 
 /* =========================================================
-   NORMAL SHEETS
+   COPY UID
 ========================================================= */
+
+async function copyUserId(button){
+
+  try{
+
+    await navigator.clipboard
+      .writeText(
+        currentUser.id
+      );
+
+  }
+
+  catch(error){
+
+    const temp =
+      document.createElement(
+        "textarea"
+      );
+
+
+    temp.value =
+      currentUser.id;
+
+
+    document.body
+      .appendChild(temp);
+
+
+    temp.select();
+
+
+    document.execCommand(
+      "copy"
+    );
+
+
+    temp.remove();
+
+  }
+
+
+  button.textContent =
+    "COPIED ✓";
+
+
+  setTimeout(
+    () => {
+
+      button.textContent =
+        "COPY";
+
+    },
+    1500
+  );
+
+}
+
+
+/* =========================================================
+   CLOSE SHEETS
+========================================================= */
+
+function closeSheets(){
+
+  document
+    .querySelectorAll(
+      ".backdrop"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "open"
+        )
+    );
+
+}
+
 
 document
   .querySelectorAll(
@@ -2992,9 +2751,7 @@ document
             event.target ===
             backdrop
           ){
-
             closeSheets();
-
           }
 
         };
@@ -3003,29 +2760,8 @@ document
   );
 
 
-function closeSheets(){
-
-  document
-    .querySelectorAll(
-      ".backdrop"
-    )
-    .forEach(
-      sheet => {
-
-        sheet
-          .classList
-          .remove(
-            "open"
-          );
-
-      }
-    );
-
-}
-
-
 /* =========================================================
-   EDIT PROFILE
+   PROFILE EDIT
 ========================================================= */
 
 function openProfileSheet(){
@@ -3083,16 +2819,9 @@ document.getElementById(
       );
 
 
-    button.disabled =
-      true;
-
-
-    button.textContent =
-      "SAVING…";
-
-
-    message.className =
-      "message";
+    button.disabled = true;
+    button.textContent = "SAVING…";
+    message.className = "message";
 
 
     try{
@@ -3100,6 +2829,14 @@ document.getElementById(
       const name =
         document.getElementById(
           "profileName"
+        )
+        .value
+        .trim();
+
+
+      const avatar =
+        document.getElementById(
+          "profileAvatar"
         )
         .value
         .trim();
@@ -3114,24 +2851,16 @@ document.getElementById(
       }
 
 
-      const avatar =
-        document.getElementById(
-          "profileAvatar"
-        )
-        .value
-        .trim();
-
-
       const result =
         await db
           .from("profiles")
           .update({
-            display_name:
-              name,
+
+            display_name:name,
 
             avatar_url:
-              avatar ||
-              null
+              avatar || null
+
           })
           .eq(
             "id",
@@ -3151,22 +2880,13 @@ document.getElementById(
 
 
       if(
-        currentUser.id ===
-        trip.owner_id
+        trip &&
+        trip.owner_id ===
+        currentUser.id
       ){
 
-        ownerProfile = {
-
-          id:
-            profile.id,
-
-          display_name:
-            profile.display_name,
-
-          avatar_url:
-            profile.avatar_url
-
-        };
+        ownerProfile =
+          profile;
 
       }
 
@@ -3190,9 +2910,7 @@ document.getElementById(
 
     finally{
 
-      button.disabled =
-        false;
-
+      button.disabled = false;
 
       button.textContent =
         "SAVE PROFILE";
@@ -3209,22 +2927,24 @@ document.getElementById(
 
 function openMemberSheet(){
 
+  if(!trip || !isOwner()){
+    return;
+  }
+
+
   document.getElementById(
     "memberUserId"
-  ).value =
-    "";
+  ).value = "";
 
 
   document.getElementById(
     "memberRole"
-  ).value =
-    "viewer";
+  ).value = "viewer";
 
 
   document.getElementById(
     "memberMessage"
-  ).className =
-    "message";
+  ).className = "message";
 
 
   document.getElementById(
@@ -3260,9 +2980,7 @@ document.getElementById(
       );
 
 
-    button.disabled =
-      true;
-
+    button.disabled = true;
 
     button.textContent =
       "ADDING…";
@@ -3274,7 +2992,7 @@ document.getElementById(
 
     try{
 
-      if(!isOwner()){
+      if(!trip || !isOwner()){
 
         throw new Error(
           "Only the trip owner can add people."
@@ -3298,22 +3016,6 @@ document.getElementById(
         .value;
 
 
-      if(!userId){
-
-        throw new Error(
-          "Enter the person's User ID."
-        );
-
-      }
-
-
-      /*
-        Basic UUID check.
-
-        This catches accidental spaces,
-        emails, names, etc.
-      */
-
       const uuidPattern =
         /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -3325,7 +3027,7 @@ document.getElementById(
       ){
 
         throw new Error(
-          "That doesn't look like a valid Supabase User ID."
+          "Please enter a valid Supabase User ID."
         );
 
       }
@@ -3343,34 +3045,29 @@ document.getElementById(
       }
 
 
-      const duplicate =
+      if(
         members.some(
           member =>
             member.user_id ===
             userId
-        );
-
-
-      if(duplicate){
+        )
+      ){
 
         throw new Error(
-          "This person is already a member of this trip."
+          "This person is already on the trip."
         );
 
       }
 
 
       /*
-        CHECK PROFILE
+        Check profile exists.
       */
 
-      const profileCheck =
+      const profileResult =
         await db
           .from("profiles")
-          .select(`
-            id,
-            display_name
-          `)
+          .select("id")
           .eq(
             "id",
             userId
@@ -3378,23 +3075,19 @@ document.getElementById(
           .maybeSingle();
 
 
-      if(profileCheck.error){
-        throw profileCheck.error;
+      if(profileResult.error){
+        throw profileResult.error;
       }
 
 
-      if(!profileCheck.data){
+      if(!profileResult.data){
 
         throw new Error(
-          "No profile was found for that User ID. The person needs to create an account and open Profile first."
+          "No profile was found for that User ID."
         );
 
       }
 
-
-      /*
-        ADD MEMBERSHIP
-      */
 
       const result =
         await db
@@ -3402,7 +3095,7 @@ document.getElementById(
           .insert({
 
             trip_id:
-              TRIP_ID,
+              trip.id,
 
             user_id:
               userId,
@@ -3422,7 +3115,7 @@ document.getElementById(
       }
 
 
-      await loadMembers();
+      await loadTripPeople();
 
 
       closeSheets();
@@ -3444,9 +3137,7 @@ document.getElementById(
 
     finally{
 
-      button.disabled =
-        false;
-
+      button.disabled = false;
 
       button.textContent =
         "ADD TO TRIP";
@@ -3458,10 +3149,15 @@ document.getElementById(
 
 
 /* =========================================================
-   OPEN MEMBER EDITOR
+   EDIT MEMBER
 ========================================================= */
 
 function openEditMember(id){
+
+  if(!isOwner()){
+    return;
+  }
+
 
   const member =
     members.find(
@@ -3480,17 +3176,10 @@ function openEditMember(id){
     member.id;
 
 
-  const person =
-    member.profile || {
-      display_name:
-        "Trip Member"
-    };
-
-
   document.getElementById(
     "editMemberName"
   ).value =
-    person.display_name ||
+    member.profile?.display_name ||
     member.user_id;
 
 
@@ -3531,20 +3220,13 @@ document.getElementById(
 .onclick =
   async () => {
 
-    if(!editingMemberId){
+    if(
+      !editingMemberId ||
+      !trip ||
+      !isOwner()
+    ){
       return;
     }
-
-
-    if(!isOwner()){
-      return;
-    }
-
-
-    const button =
-      document.getElementById(
-        "saveMemberRole"
-      );
 
 
     const message =
@@ -3553,26 +3235,13 @@ document.getElementById(
       );
 
 
-    button.disabled =
-      true;
-
-
-    button.textContent =
-      "SAVING…";
-
-
-    message.className =
-      "message";
+    const role =
+      document.getElementById(
+        "editMemberRole"
+      ).value;
 
 
     try{
-
-      const role =
-        document.getElementById(
-          "editMemberRole"
-        )
-        .value;
-
 
       const result =
         await db
@@ -3593,7 +3262,7 @@ document.getElementById(
           )
           .eq(
             "trip_id",
-            TRIP_ID
+            trip.id
           );
 
 
@@ -3602,8 +3271,7 @@ document.getElementById(
       }
 
 
-      await loadMembers();
-
+      await loadTripPeople();
 
       closeSheets();
 
@@ -3622,17 +3290,6 @@ document.getElementById(
 
     }
 
-    finally{
-
-      button.disabled =
-        false;
-
-
-      button.textContent =
-        "SAVE ACCESS";
-
-    }
-
   };
 
 
@@ -3648,6 +3305,7 @@ document.getElementById(
 
     if(
       !editingMemberId ||
+      !trip ||
       !isOwner()
     ){
       return;
@@ -3668,86 +3326,67 @@ document.getElementById(
 
 
     const name =
-      member
-        .profile
-        ?.display_name
-
-      ||
-
+      member.profile?.display_name ||
       "this person";
 
 
-    const confirmed =
-      confirm(
+    if(
+      !confirm(
         `Remove ${name} from this trip?`
-      );
-
-
-    if(!confirmed){
+      )
+    ){
       return;
     }
 
 
-    const message =
+    const result =
+      await db
+        .from("trip_members")
+        .delete()
+        .eq(
+          "id",
+          editingMemberId
+        )
+        .eq(
+          "trip_id",
+          trip.id
+        );
+
+
+    if(result.error){
+
       document.getElementById(
         "editMemberMessage"
-      );
+      ).textContent =
+        result.error.message;
 
 
-    message.className =
-      "message";
-
-
-    try{
-
-      const result =
-        await db
-          .from("trip_members")
-          .delete()
-          .eq(
-            "id",
-            editingMemberId
-          )
-          .eq(
-            "trip_id",
-            TRIP_ID
-          );
-
-
-      if(result.error){
-        throw result.error;
-      }
-
-
-      editingMemberId =
-        null;
-
-
-      await loadMembers();
-
-
-      closeSheets();
-
-      render();
-
-    }
-
-    catch(error){
-
-      message.textContent =
-        error.message;
-
-
-      message.className =
+      document.getElementById(
+        "editMemberMessage"
+      ).className =
         "message error";
 
+
+      return;
+
     }
+
+
+    editingMemberId = null;
+
+
+    await loadTripPeople();
+
+
+    closeSheets();
+
+    render();
 
   };
 
 
 /* =========================================================
-   MORE MENU
+   MORE
 ========================================================= */
 
 const moreBackdrop =
@@ -3756,38 +3395,28 @@ const moreBackdrop =
   );
 
 
-function openMore(){
-
-  moreBackdrop
-    .classList
-    .add(
-      "open"
-    );
-
-}
-
-
-function closeMore(){
-
-  moreBackdrop
-    .classList
-    .remove(
-      "open"
-    );
-
-}
-
-
 document.getElementById(
   "navMore"
 ).onclick =
-  openMore;
+  () => {
+
+    moreBackdrop.classList.add(
+      "open"
+    );
+
+  };
 
 
 document.getElementById(
   "closeMore"
 ).onclick =
-  closeMore;
+  () => {
+
+    moreBackdrop.classList.remove(
+      "open"
+    );
+
+  };
 
 
 moreBackdrop.onclick =
@@ -3798,7 +3427,9 @@ moreBackdrop.onclick =
       moreBackdrop
     ){
 
-      closeMore();
+      moreBackdrop.classList.remove(
+        "open"
+      );
 
     }
 
@@ -3806,10 +3437,17 @@ moreBackdrop.onclick =
 
 
 /* =========================================================
-   START
+   INITIAL NAV
 ========================================================= */
 
-load();
+setNavLinks();
+
+
+/* =========================================================
+   GO
+========================================================= */
+
+start();
 
 </script>
 
