@@ -1,146 +1,132 @@
 // =====================================================
-// GOOGLE MAPS / PLACES
+// GOOGLE MAPS / PLACES CONFIG
 // =====================================================
 
-// Put your NEW restricted browser API key here.
-const GOOGLE_MAPS_API_KEY = "AIzaSyD1tFdxoch8ihGkoLA7OYoEuG2k93CGi80"E";
+// IMPORTANT:
+// Put your NEW restricted Google Maps API key below.
+// Do not use an old/revoked key.
+
+const GOOGLE_MAPS_API_KEY = "AIzaSyD1tFdxoch8ihGkoLA7OYoEuG2k93CGi80";
+
+
+// =====================================================
+// GOOGLE MAPS LOADER
+// =====================================================
 
 let googleMapsPromise = null;
 
-
-// =====================================================
-// LOAD GOOGLE MAPS
-// =====================================================
-
 function loadGoogleMaps() {
 
+  // If Google Maps is already loaded, return it immediately.
+  if (
+    window.google &&
+    window.google.maps &&
+    typeof window.google.maps.importLibrary === "function"
+  ) {
+    return Promise.resolve(window.google.maps);
+  }
+
+
+  // If we're already loading Google Maps, don't load it twice.
   if (googleMapsPromise) {
     return googleMapsPromise;
   }
 
-  googleMapsPromise = new Promise(
-    (resolve, reject) => {
 
-      // Already loaded
-      if (
-        window.google &&
-        window.google.maps &&
-        window.google.maps.importLibrary
-      ) {
-        resolve(window.google.maps);
-        return;
-      }
+  googleMapsPromise = new Promise((resolve, reject) => {
 
-      // Google's current bootstrap loader
-      (g => {
-        var h, a, k,
-          p = "The Google Maps JavaScript API",
-          c = "google",
-          l = "importLibrary",
-          q = "__ib__",
-          m = document,
-          b = window;
-
-        b = b[c] || (b[c] = {});
-
-        var d = b.maps || (b.maps = {}),
-          r = new Set(),
-          e = new URLSearchParams(),
-          u = () =>
-            h ||
-            (h = new Promise(async (f, n) => {
-
-              await (
-                a = m.createElement("script")
-              );
-
-              e.set(
-                "libraries",
-                [...r] + ""
-              );
-
-              for (k in g) {
-
-                e.set(
-                  k.replace(
-                    /[A-Z]/g,
-                    t =>
-                      "_" +
-                      t[0].toLowerCase()
-                  ),
-                  g[k]
-                );
-
-              }
-
-              e.set(
-                "callback",
-                c + ".maps." + q
-              );
-
-              a.src =
-                `https://maps.${c}apis.com/maps/api/js?`
-                + e;
-
-              d[q] = f;
-
-              a.onerror =
-                () =>
-                  h = n(
-                    Error(
-                      p +
-                      " could not load."
-                    )
-                  );
-
-              m.head.append(a);
-
-            }));
-
-        d[l]
-          ? console.warn(
-              p +
-              " only loads once. Ignoring:",
-              g
-            )
-          : d[l] =
-              (f, ...n) =>
-                r.add(f) &&
-                u().then(
-                  () =>
-                    d[l](f, ...n)
-                );
-
-      })({
-        key: GOOGLE_MAPS_API_KEY,
-        v: "weekly"
-      });
+    const callbackName = "__googleMapsReady";
 
 
-      // Actually request Places.
-      google.maps
-        .importLibrary("places")
-        .then(() => {
-          resolve(
-            google.maps
-          );
-        })
-        .catch(error => {
+    // =================================================
+    // GOOGLE CALLBACK
+    // =================================================
+
+    window[callbackName] = function () {
+
+      try {
+
+        if (
+          window.google &&
+          window.google.maps &&
+          typeof window.google.maps.importLibrary === "function"
+        ) {
+
+          resolve(window.google.maps);
+
+        } else {
 
           googleMapsPromise = null;
-          reject(error);
 
-        });
+          reject(
+            new Error(
+              "Google Maps loaded, but importLibrary() is unavailable."
+            )
+          );
 
-    }
-  );
+        }
+
+      } catch (error) {
+
+        googleMapsPromise = null;
+        reject(error);
+
+      }
+
+    };
+
+
+    // =================================================
+    // CREATE GOOGLE MAPS SCRIPT
+    // =================================================
+
+    const script = document.createElement("script");
+
+
+    script.src =
+      "https://maps.googleapis.com/maps/api/js" +
+      "?key=" + encodeURIComponent(GOOGLE_MAPS_API_KEY) +
+      "&v=weekly" +
+      "&loading=async" +
+      "&callback=" + callbackName;
+
+
+    script.async = true;
+
+
+    // =================================================
+    // SCRIPT LOAD ERROR
+    // =================================================
+
+    script.onerror = function () {
+
+      googleMapsPromise = null;
+
+      reject(
+        new Error(
+          "Google Maps JavaScript API could not be loaded. " +
+          "Check your API key, website restrictions, API restrictions, and billing."
+        )
+      );
+
+    };
+
+
+    // =================================================
+    // ADD GOOGLE SCRIPT TO PAGE
+    // =================================================
+
+    document.head.appendChild(script);
+
+  });
+
 
   return googleMapsPromise;
 }
 
-// Make Google Maps loader available to other pages
-window.loadGoogleMaps = loadGoogleMaps;
+
+// =====================================================
+// MAKE FUNCTION AVAILABLE TO OTHER HTML PAGES
+// =====================================================
 
 window.loadGoogleMaps = loadGoogleMaps;
-    at runTest (https://delumenta.github.io/Japan/food1.html:281:13)
-    at https://delumenta.github.io/Japan/food1.html:559:1
