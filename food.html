@@ -879,6 +879,52 @@ main{
 
 
 /* =========================================================
+   GOOGLE PLACES AUTOFILL
+========================================================= */
+
+.google-place-box{
+  grid-column:1/-1;
+  margin-bottom:2px;
+  padding:10px;
+  border:1px solid rgba(92,157,255,.22);
+  border-radius:11px;
+  background:rgba(92,157,255,.05);
+}
+
+.google-place-label{
+  margin-bottom:6px;
+  color:#aeb5bc;
+  font-size:7px;
+  font-weight:900;
+}
+
+#googlePlaceSearch{
+  width:100%;
+}
+
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+  width:100%;
+  min-height:42px;
+}
+
+.place-status{
+  margin-top:6px;
+  color:#81909a;
+  font-size:7px;
+  line-height:1.4;
+}
+
+.place-status.success{
+  color:#9fe1b5;
+}
+
+.place-status.error{
+  color:#ffc5c1;
+}
+
+
+/* =========================================================
    FORM
 ========================================================= */
 
@@ -1495,6 +1541,24 @@ main{
       <div class="form-grid">
 
 
+        <div class="google-place-box">
+
+          <div class="google-place-label">
+            🔎 GOOGLE PLACES AUTOFILL
+          </div>
+
+          <div id="googlePlaceSearch"></div>
+
+          <div
+            id="googlePlaceStatus"
+            class="place-status"
+          >
+            Search a restaurant, then choose the correct Google result. The form below will fill automatically.
+          </div>
+
+        </div>
+
+
         <div class="field full">
 
           <label>
@@ -1898,6 +1962,9 @@ main{
 ></script>
 
 <script src="supabase.js"></script>
+
+<!-- Google Maps / Places loader -->
+<script src="google-maps.js"></script>
 
 
 
@@ -4119,6 +4186,290 @@ async function removeFromMyFood(
 
 
 /* =========================================================
+   GOOGLE PLACES AUTOFILL
+========================================================= */
+
+let googlePlaceAutocomplete = null;
+let googlePlacesReady = false;
+
+
+function setPlaceStatus(message,type=""){
+
+  const el =
+    document.getElementById(
+      "googlePlaceStatus"
+    );
+
+  if(!el){
+    return;
+  }
+
+  el.textContent = message;
+  el.className =
+    `place-status ${type}`.trim();
+
+}
+
+
+function addressPart(
+  components,
+  wantedTypes
+){
+
+  const item =
+    (components || []).find(
+      component =>
+        wantedTypes.some(
+          type =>
+            component.types?.includes(type)
+        )
+    );
+
+  return item?.longText ||
+         item?.shortText ||
+         "";
+
+}
+
+
+function guessCuisine(types){
+
+  const values =
+    (types || [])
+      .map(norm);
+
+  if(values.includes("ramen_restaurant"))
+    return "Ramen";
+
+  if(values.includes("sushi_restaurant"))
+    return "Sushi";
+
+  if(values.includes("japanese_restaurant"))
+    return "Japanese";
+
+  if(values.includes("seafood_restaurant"))
+    return "Seafood";
+
+  if(values.includes("cafe"))
+    return "Cafe";
+
+  if(values.includes("bakery"))
+    return "Bakery";
+
+  if(values.includes("bar"))
+    return "Bar";
+
+  if(values.includes("restaurant"))
+    return "Restaurant";
+
+  return "";
+
+}
+
+
+async function initGooglePlaces(){
+
+  const host =
+    document.getElementById(
+      "googlePlaceSearch"
+    );
+
+  if(!host){
+    return;
+  }
+
+  if(
+    typeof loadGoogleMaps !==
+    "function"
+  ){
+
+    setPlaceStatus(
+      "google-maps.js was not loaded. Check that the file is in the same GitHub folder as food.html.",
+      "error"
+    );
+
+    return;
+  }
+
+  try{
+
+    setPlaceStatus(
+      "Loading Google Places…"
+    );
+
+    await loadGoogleMaps();
+
+    const {
+      PlaceAutocompleteElement
+    } =
+      await google.maps.importLibrary(
+        "places"
+      );
+
+    googlePlaceAutocomplete =
+      new PlaceAutocompleteElement({
+        includedRegionCodes:["jp"]
+      });
+
+    googlePlaceAutocomplete.placeholder =
+      "Search restaurant in Japan…";
+
+    host.replaceChildren(
+      googlePlaceAutocomplete
+    );
+
+    googlePlaceAutocomplete
+      .addEventListener(
+        "gmp-select",
+        async event => {
+
+          try{
+
+            setPlaceStatus(
+              "Getting place details…"
+            );
+
+            const prediction =
+              event.placePrediction;
+
+            if(!prediction){
+              throw new Error(
+                "No Google place was selected."
+              );
+            }
+
+            const place =
+              prediction.toPlace();
+
+            await place.fetchFields({
+              fields:[
+                "displayName",
+                "formattedAddress",
+                "addressComponents",
+                "googleMapsURI",
+                "websiteURI",
+                "types"
+              ]
+            });
+
+            const components =
+              place.addressComponents || [];
+
+            const city =
+              addressPart(
+                components,
+                [
+                  "locality",
+                  "postal_town",
+                  "administrative_area_level_2"
+                ]
+              );
+
+            const area =
+              addressPart(
+                components,
+                [
+                  "sublocality_level_1",
+                  "sublocality",
+                  "administrative_area_level_3"
+                ]
+              );
+
+            document.getElementById(
+              "newName"
+            ).value =
+              place.displayName || "";
+
+            document.getElementById(
+              "newCity"
+            ).value =
+              city || selectedCity || "";
+
+            document.getElementById(
+              "newArea"
+            ).value =
+              area || "";
+
+            document.getElementById(
+              "newLocation"
+            ).value =
+              place.formattedAddress || "";
+
+            document.getElementById(
+              "newMaps"
+            ).value =
+              place.googleMapsURI || "";
+
+            document.getElementById(
+              "newWebsite"
+            ).value =
+              place.websiteURI || "";
+
+            const cuisineInput =
+              document.getElementById(
+                "newCuisine"
+              );
+
+            if(!cuisineInput.value.trim()){
+
+              cuisineInput.value =
+                guessCuisine(
+                  place.types
+                );
+
+            }
+
+            setPlaceStatus(
+              `✓ ${place.displayName || "Restaurant"} selected. Check the details below, then add your Tabelog rating/URL and notes.`,
+              "success"
+            );
+
+          }
+
+          catch(error){
+
+            console.error(
+              "Google Places selection error:",
+              error
+            );
+
+            setPlaceStatus(
+              error.message ||
+              "Couldn't load this Google place.",
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+    googlePlacesReady = true;
+
+    setPlaceStatus(
+      "Search a restaurant, then choose the correct Google result. The form below will fill automatically."
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Google Places init error:",
+      error
+    );
+
+    setPlaceStatus(
+      "Google Places couldn't start. Check your API key, website restriction, and that Places API (New) is enabled.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
    ADD MASTER RESTAURANT SHEET
 ========================================================= */
 
@@ -4610,6 +4961,7 @@ moreBackdrop.onclick =
 ========================================================= */
 
 loadData();
+initGooglePlaces();
 
 </script>
 
