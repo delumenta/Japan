@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
 <meta name="theme-color" content="#070c10">
+
 <title>Japan Trip</title>
 
 <style>
+
 :root{
   --bg:#070c10;
   --panel:#10161c;
@@ -21,27 +27,50 @@
   --gold:#e3b85c;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
   min-height:100vh;
   color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   background:
-    radial-gradient(circle at 50% -10%,#17212a 0%,transparent 36%),
+    radial-gradient(
+      circle at 50% -10%,
+      #17212a 0%,
+      transparent 36%
+    ),
     var(--bg);
 }
 
-button{font:inherit}
+button{
+  font:inherit;
+}
 
 main{
   width:100%;
   max-width:760px;
   margin:auto;
-  padding:18px 13px 100px;
+
+  padding:
+    18px
+    13px
+    100px;
 }
 
 
@@ -50,54 +79,88 @@ main{
 ========================================================= */
 
 .header{
-  margin-bottom:14px;
+  margin-bottom:13px;
 }
 
 .eyebrow{
   color:var(--red);
+
   font-size:8px;
   font-weight:900;
+
   letter-spacing:.14em;
   text-transform:uppercase;
 }
 
 h1{
   margin:5px 0 3px;
-  font-family:Georgia,"Times New Roman",serif;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:28px;
   line-height:1.08;
+
   letter-spacing:-.025em;
 }
 
 .subtitle{
   color:var(--muted);
+
   font-size:9px;
 }
+
+
+/* =========================================================
+   ROUTE
+========================================================= */
 
 .route{
   display:flex;
   align-items:center;
+
   gap:5px;
+
   margin-top:9px;
+
   overflow-x:auto;
+
   scrollbar-width:none;
 }
 
-.route::-webkit-scrollbar{display:none}
+.route::-webkit-scrollbar{
+  display:none;
+}
 
 .route-chip{
   flex:0 0 auto;
-  padding:4px 7px;
-  border:1px solid rgba(255,255,255,.06);
+
+  padding:
+    4px
+    7px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
   border-radius:999px;
-  background:rgba(255,255,255,.025);
+
+  background:
+    rgba(255,255,255,.025);
+
   color:#c5ccd1;
+
   font-size:7px;
   font-weight:900;
 }
 
 .route-arrow{
+  flex:0 0 auto;
+
   color:#53606a;
+
   font-size:8px;
 }
 
@@ -107,10 +170,16 @@ h1{
 ========================================================= */
 
 .countdown-card{
-  margin-bottom:17px;
-  padding:13px;
-  border:1px solid rgba(201,111,104,.34);
+  margin-bottom:15px;
+
+  padding:12px 13px;
+
+  border:
+    1px solid
+    rgba(201,111,104,.34);
+
   border-radius:16px;
+
   background:
     linear-gradient(
       145deg,
@@ -121,69 +190,98 @@ h1{
 
 .countdown-top{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
 }
 
 .countdown-label{
   color:var(--red);
+
   font-size:8px;
   font-weight:900;
+
   letter-spacing:.13em;
 }
 
 .countdown-date{
   color:var(--muted);
+
   font-size:7px;
   font-weight:800;
 }
 
 .countdown-main{
   display:flex;
+
   align-items:flex-end;
+
   gap:7px;
+
   margin-top:10px;
 }
 
 .countdown-number{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:37px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:36px;
   font-weight:800;
+
   line-height:.85;
 }
 
 .countdown-text{
   padding-bottom:2px;
+
   color:var(--muted);
+
   font-size:8px;
   font-weight:900;
+
   line-height:1.25;
 }
 
-.next-trip{
-  margin-top:11px;
+.first-day{
+  margin-top:10px;
+
   padding-top:9px;
-  border-top:1px solid rgba(255,255,255,.07);
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.07);
 }
 
-.next-label{
+.first-label{
   color:#7f8b94;
+
   font-size:7px;
   font-weight:900;
-  letter-spacing:.11em;
+
+  letter-spacing:.1em;
 }
 
-.next-title{
-  margin-top:4px;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:17px;
+.first-title{
+  margin-top:3px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:16px;
   font-weight:800;
 }
 
-.next-route{
+.first-route{
   margin-top:3px;
+
   color:#b7c0c6;
+
   font-size:8px;
   line-height:1.4;
 }
@@ -195,189 +293,254 @@ h1{
 
 .section-head{
   display:flex;
-  align-items:end;
+
+  align-items:center;
   justify-content:space-between;
+
   gap:10px;
-  margin:0 2px 7px;
+
+  margin:
+    0
+    2px
+    6px;
 }
 
 .section-title{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:18px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:17px;
   font-weight:800;
 }
 
 .section-note{
-  color:#74818a;
-  font-size:7px;
+  color:#6f7c85;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:.08em;
 }
 
 
 /* =========================================================
-   TRIP DAY LIST
+   HORIZONTAL DATES
 ========================================================= */
 
-.trip-days{
+.date-scroller{
   display:flex;
-  flex-direction:column;
-  gap:5px;
+
+  gap:6px;
+
+  overflow-x:auto;
+
+  padding:
+    1px
+    1px
+    7px;
+
+  margin-bottom:8px;
+
+  scroll-snap-type:x proximity;
+
+  scrollbar-width:none;
 }
 
-.day-card{
-  width:100%;
-  display:grid;
-  grid-template-columns:58px 1fr 16px;
-  gap:9px;
+.date-scroller::-webkit-scrollbar{
+  display:none;
+}
+
+.date-btn{
+  flex:
+    0
+    0
+    52px;
+
+  min-height:54px;
+
+  display:flex;
+
+  flex-direction:column;
+
   align-items:center;
-  min-height:61px;
-  padding:8px 9px;
+  justify-content:center;
+
+  padding:5px 3px;
+
   border:1px solid var(--line);
-  border-radius:12px;
+  border-radius:10px;
+
   background:
     linear-gradient(
       145deg,
       #141c22,
       #0d1318
     );
-  color:inherit;
-  text-align:left;
+
+  color:#aeb7bd;
+
   cursor:pointer;
+
+  scroll-snap-align:start;
 }
 
-.day-card:active{
-  transform:scale(.995);
+.date-btn .weekday{
+  color:#68757e;
+
+  font-size:6px;
+  font-weight:900;
 }
 
-.day-card.today{
-  border-color:rgba(103,197,135,.4);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(103,197,135,.08),
-      #0d1318 60%
-    );
-}
+.date-btn .number{
+  margin:2px 0 1px;
 
-.day-date{
-  text-align:center;
-  border-right:1px solid rgba(255,255,255,.07);
-  padding-right:8px;
-}
+  color:#f1f2f0;
 
-.day-number{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
   font-weight:800;
+
   line-height:1;
 }
 
-.day-month{
+.date-btn .month{
+  color:#8b969e;
+
+  font-size:6px;
+  font-weight:900;
+}
+
+.date-btn.selected{
+  border-color:
+    rgba(201,111,104,.58);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(201,111,104,.18),
+      rgba(201,111,104,.06)
+    );
+
+  box-shadow:
+    0 0 0 1px
+    rgba(201,111,104,.08);
+}
+
+.date-btn.selected .weekday,
+.date-btn.selected .month{
+  color:#d99b95;
+}
+
+.date-btn.today{
+  border-color:
+    rgba(103,197,135,.42);
+}
+
+.date-btn.today::after{
+  content:"TODAY";
+
   margin-top:2px;
-  color:var(--muted);
-  font-size:7px;
+
+  color:#77d498;
+
+  font-size:5px;
   font-weight:900;
 }
 
-.day-weekday{
-  margin-top:2px;
-  color:#66747e;
-  font-size:6px;
-  font-weight:900;
-}
+.date-btn.today.selected{
+  border-color:
+    rgba(103,197,135,.55);
 
-.day-main{
-  min-width:0;
-}
-
-.day-area{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  color:#fff;
-  font-size:9px;
-  font-weight:900;
-}
-
-.today-tag{
-  padding:2px 4px;
-  border-radius:999px;
-  background:rgba(103,197,135,.10);
-  color:#8fe0aa;
-  font-size:6px;
-}
-
-.day-places{
-  margin-top:3px;
-  overflow:hidden;
-  color:#aeb7bd;
-  font-size:8px;
-  line-height:1.4;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-.day-count{
-  margin-top:3px;
-  color:#65727c;
-  font-size:6px;
-  font-weight:800;
-}
-
-.day-arrow{
-  color:var(--red);
-  font-size:15px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(103,197,135,.13),
+      rgba(103,197,135,.04)
+    );
 }
 
 
 /* =========================================================
-   DAILY PREVIEW
+   DAY PREVIEW
 ========================================================= */
 
 .preview-card{
   overflow:hidden;
-  border:1px solid rgba(201,111,104,.35);
-  border-radius:16px;
+
+  border:1px solid var(--line);
+  border-radius:15px;
+
   background:var(--panel);
 }
 
 .preview-header{
-  padding:12px 13px 10px;
-  border-bottom:1px solid rgba(255,255,255,.065);
+  padding:
+    11px
+    12px
+    9px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
 }
 
 .preview-top{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
 }
 
 .preview-label{
   color:var(--red);
-  font-size:8px;
+
+  font-size:7px;
   font-weight:900;
-  letter-spacing:.13em;
+
+  letter-spacing:.12em;
 }
 
 .preview-date{
-  color:#b8c9d7;
-  font-size:8px;
+  color:#9fb2bf;
+
+  font-size:7px;
   font-weight:900;
 }
 
 .preview-title{
-  margin-top:7px;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
+  margin-top:5px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
   font-weight:800;
+
   line-height:1.2;
 }
 
 .preview-route{
   margin-top:3px;
-  color:#aeb7bd;
-  font-size:8px;
+
+  overflow:hidden;
+
+  color:#9ca7ae;
+
+  font-size:7px;
   line-height:1.4;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 
@@ -386,60 +549,97 @@ h1{
 ========================================================= */
 
 .timeline{
-  padding:5px 13px 7px;
+  padding:
+    5px
+    12px
+    7px;
 }
 
 .timeline-head{
-  margin:7px 0 4px;
+  margin:
+    6px
+    0
+    3px;
+
   color:#748793;
+
   font-size:7px;
   font-weight:900;
+
   letter-spacing:.12em;
 }
 
 .timeline-row{
   position:relative;
+
   display:grid;
-  grid-template-columns:74px 16px 1fr;
+
+  grid-template-columns:
+    70px
+    15px
+    1fr;
+
   gap:7px;
-  min-height:45px;
-  padding:6px 0;
+
+  min-height:40px;
+
+  padding:
+    6px
+    0;
 }
 
 .timeline-row:not(:last-child)::after{
   content:"";
+
   position:absolute;
-  left:81px;
-  top:29px;
-  bottom:-8px;
+
+  left:77px;
+  top:27px;
+  bottom:-7px;
+
   width:1px;
+
   background:#26323a;
 }
 
 .timeline-time{
-  padding-top:2px;
+  padding-top:1px;
+
   color:#9bb8d0;
+
   font-size:8px;
   font-weight:900;
+
   line-height:1.25;
 }
 
 .timeline-marker{
   position:relative;
+
   z-index:2;
+
   display:flex;
+
   justify-content:center;
-  padding-top:1px;
 }
 
 .dot{
   width:8px;
   height:8px;
+
   margin-top:3px;
-  border:2px solid #172029;
+
+  border:
+    2px solid
+    #172029;
+
   border-radius:50%;
+
   background:var(--red);
-  box-shadow:0 0 0 1px rgba(201,111,104,.35);
+
+  box-shadow:
+    0 0 0 1px
+    rgba(201,111,104,.35);
 }
 
 .timeline-content{
@@ -448,38 +648,64 @@ h1{
 
 .timeline-title{
   color:#f2f2f0;
+
   font-size:9px;
   font-weight:850;
+
   line-height:1.3;
 }
 
 .timeline-title a{
   color:inherit;
+
   text-decoration:none;
 }
 
 .timeline-place{
   margin-top:2px;
-  color:#77858f;
-  font-size:7px;
-  line-height:1.3;
-}
 
-.timeline-note{
-  margin-top:2px;
-  color:#a7b0b6;
+  color:#75838c;
+
   font-size:7px;
-  line-height:1.35;
+
+  line-height:1.3;
 }
 
 .optional{
   display:inline-block;
+
   margin-left:4px;
-  padding:1px 4px;
-  border:1px solid rgba(227,184,92,.2);
+
+  padding:
+    1px
+    4px;
+
+  border:
+    1px solid
+    rgba(227,184,92,.2);
+
   border-radius:999px;
-  color:#e3b85c;
+
+  color:var(--gold);
+
   font-size:6px;
+}
+
+
+/* =========================================================
+   EMPTY DAY
+========================================================= */
+
+.empty-day{
+  padding:
+    22px
+    14px;
+
+  color:var(--muted);
+
+  text-align:center;
+
+  font-size:8px;
 }
 
 
@@ -489,47 +715,61 @@ h1{
 
 .preview-footer{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:10px 13px;
-  border-top:1px solid rgba(255,255,255,.06);
-  background:rgba(0,0,0,.12);
-}
 
-.preview-footer button,
-.preview-footer a{
-  border:0;
-  background:none;
-  color:#aeb7bd;
-  text-decoration:none;
-  font-size:8px;
-  font-weight:900;
-  cursor:pointer;
+  align-items:center;
+  justify-content:flex-end;
+
+  padding:
+    9px
+    12px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+
+  background:
+    rgba(0,0,0,.12);
 }
 
 .preview-footer a{
   color:var(--red);
+
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:900;
 }
 
 
 /* =========================================================
-   EMPTY / ERROR
+   STATE
 ========================================================= */
 
 .state{
-  padding:28px 16px;
-  border:1px dashed #35414a;
+  padding:
+    28px
+    16px;
+
+  border:
+    1px dashed
+    #35414a;
+
   border-radius:14px;
+
   color:var(--muted);
+
   text-align:center;
+
   font-size:9px;
 }
 
 .state strong{
   display:block;
+
   margin-bottom:4px;
+
   color:#fff;
+
   font-size:12px;
 }
 
@@ -540,46 +780,76 @@ h1{
 
 .bottom-nav{
   position:fixed;
+
   left:0;
   right:0;
   bottom:0;
+
   z-index:80;
+
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+
+  grid-template-columns:
+    repeat(5,1fr);
+
   gap:3px;
+
   padding:
     6px
     7px
     calc(6px + env(safe-area-inset-bottom));
-  border-top:1px solid var(--line);
-  background:rgba(7,12,16,.98);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+
+  border-top:
+    1px solid
+    var(--line);
+
+  background:
+    rgba(7,12,16,.98);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
 }
 
 .bottom-nav a{
   min-height:46px;
+
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   gap:2px;
+
   border-radius:10px;
+
   color:var(--muted);
+
   text-decoration:none;
+
   font-size:8px;
   font-weight:800;
 }
 
 .nav-icon{
   font-size:16px;
+
   line-height:1;
 }
 
 .bottom-nav a.active{
   color:#fff;
-  border:1px solid rgba(201,111,104,.22);
-  background:rgba(201,111,104,.08);
+
+  border:
+    1px solid
+    rgba(201,111,104,.22);
+
+  background:
+    rgba(201,111,104,.08);
 }
 
 
@@ -588,6 +858,7 @@ h1{
 ========================================================= */
 
 @media(min-width:700px){
+
   main{
     padding-top:24px;
   }
@@ -595,88 +866,184 @@ h1{
   .bottom-nav{
     left:50%;
     right:auto;
+
     width:min(820px,100%);
-    transform:translateX(-50%);
-    border-left:1px solid var(--line);
-    border-right:1px solid var(--line);
-    border-radius:15px 15px 0 0;
+
+    transform:
+      translateX(-50%);
+
+    border-left:
+      1px solid
+      var(--line);
+
+    border-right:
+      1px solid
+      var(--line);
+
+    border-radius:
+      15px
+      15px
+      0
+      0;
   }
+
 }
 
 </style>
 </head>
 
+
 <body>
+
 
 <main>
 
+
+  <!-- HEADER -->
+
   <header class="header">
 
-    <div id="eyebrow" class="eyebrow">
+    <div
+      id="eyebrow"
+      class="eyebrow"
+    >
       LOADING TRIP
     </div>
+
 
     <h1 id="tripName">
       Japan Trip
     </h1>
 
-    <div id="tripSubtitle" class="subtitle">
+
+    <div
+      id="tripSubtitle"
+      class="subtitle"
+    >
       Loading itinerary…
     </div>
 
-    <div id="route" class="route"></div>
+
+    <div
+      id="route"
+      class="route"
+    ></div>
 
   </header>
 
 
+
+  <!-- CONTENT -->
+
   <section id="homeContent">
 
     <div class="state">
-      <strong>Loading your trip…</strong>
+
+      <strong>
+        Loading your trip…
+      </strong>
+
       Getting your itinerary from Supabase.
+
     </div>
 
   </section>
 
+
 </main>
+
 
 
 <!-- =========================================================
      BOTTOM NAV
 ========================================================= -->
 
-<nav class="bottom-nav" aria-label="Main navigation">
+<nav
+  class="bottom-nav"
+  aria-label="Main navigation"
+>
 
-  <a id="navHome" class="active" aria-current="page">
-    <span class="nav-icon">🏠</span>
-    <span>HOME</span>
+  <a
+    id="navHome"
+    class="active"
+    aria-current="page"
+  >
+    <span class="nav-icon">
+      🏠
+    </span>
+
+    <span>
+      HOME
+    </span>
   </a>
+
 
   <a id="navPlan">
-    <span class="nav-icon">📅</span>
-    <span>PLAN</span>
+
+    <span class="nav-icon">
+      📅
+    </span>
+
+    <span>
+      PLAN
+    </span>
+
   </a>
+
 
   <a id="navFood">
-    <span class="nav-icon">🍽️</span>
-    <span>FOOD</span>
+
+    <span class="nav-icon">
+      🍽️
+    </span>
+
+    <span>
+      FOOD
+    </span>
+
   </a>
+
 
   <a id="navHub">
-    <span class="nav-icon">⭐</span>
-    <span>HUB</span>
+
+    <span class="nav-icon">
+      ⭐
+    </span>
+
+    <span>
+      HUB
+    </span>
+
   </a>
 
+
   <a href="#">
-    <span class="nav-icon">⋯</span>
-    <span>MORE</span>
+
+    <span class="nav-icon">
+      ⋯
+    </span>
+
+    <span>
+      MORE
+    </span>
+
   </a>
 
 </nav>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 <script src="supabase.js"></script>
+
+
 
 <script>
 
@@ -685,14 +1052,23 @@ h1{
 ========================================================= */
 
 const params =
-  new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
 
 const TRIP_ID =
-  Number(params.get("trip") || 1);
+  Number(
+    params.get("trip") || 1
+  );
+
 
 let trip = null;
+
 let schedule = [];
+
 let groupedDays = {};
+
+let selectedDate = null;
 
 
 /* =========================================================
@@ -700,35 +1076,53 @@ let groupedDays = {};
 ========================================================= */
 
 const homeContent =
-  document.getElementById("homeContent");
+  document.getElementById(
+    "homeContent"
+  );
 
 const tripName =
-  document.getElementById("tripName");
+  document.getElementById(
+    "tripName"
+  );
 
 const tripSubtitle =
-  document.getElementById("tripSubtitle");
+  document.getElementById(
+    "tripSubtitle"
+  );
 
 const eyebrow =
-  document.getElementById("eyebrow");
+  document.getElementById(
+    "eyebrow"
+  );
 
 const route =
-  document.getElementById("route");
+  document.getElementById(
+    "route"
+  );
 
 
 /* =========================================================
    NAV
 ========================================================= */
 
-document.getElementById("navHome").href =
+document.getElementById(
+  "navHome"
+).href =
   `index.html?trip=${TRIP_ID}`;
 
-document.getElementById("navPlan").href =
+document.getElementById(
+  "navPlan"
+).href =
   `schedule.html?trip=${TRIP_ID}`;
 
-document.getElementById("navFood").href =
+document.getElementById(
+  "navFood"
+).href =
   `food.html?trip=${TRIP_ID}`;
 
-document.getElementById("navHub").href =
+document.getElementById(
+  "navHub"
+).href =
   `bookings.html?trip=${TRIP_ID}`;
 
 
@@ -737,16 +1131,43 @@ document.getElementById("navHub").href =
 ========================================================= */
 
 function text(value){
-  return String(value ?? "");
+
+  return String(
+    value ?? ""
+  );
+
 }
 
+
 function esc(value){
+
   return text(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
 }
 
 
@@ -755,44 +1176,78 @@ function esc(value){
 ========================================================= */
 
 function parseDate(value){
-  return new Date(value + "T12:00:00");
+
+  return new Date(
+    value +
+    "T12:00:00"
+  );
+
 }
+
 
 function localDateString(){
 
-  const d = new Date();
+  const d =
+    new Date();
 
-  const y = d.getFullYear();
 
-  const m =
-    String(d.getMonth()+1)
-    .padStart(2,"0");
+  const year =
+    d.getFullYear();
+
+
+  const month =
+    String(
+      d.getMonth() + 1
+    )
+    .padStart(
+      2,
+      "0"
+    );
+
 
   const day =
-    String(d.getDate())
-    .padStart(2,"0");
+    String(
+      d.getDate()
+    )
+    .padStart(
+      2,
+      "0"
+    );
 
-  return `${y}-${m}-${day}`;
+
+  return (
+    `${year}-${month}-${day}`
+  );
+
 }
+
 
 function formatRange(){
 
   const start =
-    parseDate(trip.start_date);
+    parseDate(
+      trip.start_date
+    );
+
 
   const end =
-    parseDate(trip.end_date);
+    parseDate(
+      trip.end_date
+    );
 
-  const a =
+
+  const startText =
     new Intl.DateTimeFormat(
       "en-GB",
       {
         day:"numeric",
         month:"short"
       }
-    ).format(start);
+    )
+    .format(start);
 
-  const b =
+
+  const endText =
     new Intl.DateTimeFormat(
       "en-GB",
       {
@@ -800,10 +1255,16 @@ function formatRange(){
         month:"short",
         year:"numeric"
       }
-    ).format(end);
+    )
+    .format(end);
 
-  return `${a} – ${b}`;
+
+  return (
+    `${startText} – ${endText}`
+  );
+
 }
+
 
 function formatPreviewDate(value){
 
@@ -815,38 +1276,61 @@ function formatPreviewDate(value){
       month:"short"
     }
   )
-  .format(parseDate(value))
+  .format(
+    parseDate(value)
+  )
   .toUpperCase();
+
 }
+
 
 function dateParts(value){
 
-  const d = parseDate(value);
+  const d =
+    parseDate(value);
+
 
   return {
-    day:
-      new Intl.DateTimeFormat(
-        "en-SG",
-        {day:"numeric"}
-      ).format(d),
-
-    month:
-      new Intl.DateTimeFormat(
-        "en-SG",
-        {month:"short"}
-      ).format(d).toUpperCase(),
 
     weekday:
       new Intl.DateTimeFormat(
         "en-SG",
-        {weekday:"short"}
-      ).format(d).toUpperCase()
+        {
+          weekday:"short"
+        }
+      )
+      .format(d)
+      .toUpperCase(),
+
+    day:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          day:"numeric"
+        }
+      )
+      .format(d),
+
+    month:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          month:"short"
+        }
+      )
+      .format(d)
+      .toUpperCase()
+
   };
+
 }
+
 
 function daysUntil(value){
 
-  const now = new Date();
+  const now =
+    new Date();
+
 
   const today =
     new Date(
@@ -855,22 +1339,32 @@ function daysUntil(value){
       now.getDate()
     );
 
+
   const target =
-    new Date(value + "T00:00:00");
+    new Date(
+      value +
+      "T00:00:00"
+    );
+
 
   return Math.ceil(
-    (target - today) / 86400000
+    (target - today) /
+    86400000
   );
+
 }
 
 
 /* =========================================================
-   LOAD DATA
+   LOAD TRIP
 ========================================================= */
 
 async function loadTrip(){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("trips")
       .select(`
@@ -881,19 +1375,33 @@ async function loadTrip(){
         end_date,
         description
       `)
-      .eq("id",TRIP_ID)
+      .eq(
+        "id",
+        TRIP_ID
+      )
       .single();
+
 
   if(error){
     throw error;
   }
 
+
   trip = data;
+
 }
+
+
+/* =========================================================
+   LOAD SCHEDULE
+========================================================= */
 
 async function loadSchedule(){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await db
       .from("schedule")
       .select(`
@@ -927,15 +1435,32 @@ async function loadSchedule(){
           maps_url
         )
       `)
-      .eq("trip_id",TRIP_ID)
-      .order("schedule_date",{ascending:true})
-      .order("sort_order",{ascending:true});
+      .eq(
+        "trip_id",
+        TRIP_ID
+      )
+      .order(
+        "schedule_date",
+        {
+          ascending:true
+        }
+      )
+      .order(
+        "sort_order",
+        {
+          ascending:true
+        }
+      );
+
 
   if(error){
     throw error;
   }
 
-  schedule = data || [];
+
+  schedule =
+    data || [];
+
 }
 
 
@@ -947,14 +1472,31 @@ function buildDays(){
 
   groupedDays = {};
 
-  schedule.forEach(item => {
 
-    if(!groupedDays[item.schedule_date]){
-      groupedDays[item.schedule_date] = [];
+  schedule.forEach(
+    item => {
+
+      if(
+        !groupedDays[
+          item.schedule_date
+        ]
+      ){
+
+        groupedDays[
+          item.schedule_date
+        ] = [];
+
+      }
+
+
+      groupedDays[
+        item.schedule_date
+      ]
+      .push(item);
+
     }
+  );
 
-    groupedDays[item.schedule_date].push(item);
-  });
 }
 
 
@@ -967,102 +1509,164 @@ function renderHeader(){
   tripName.textContent =
     trip.name;
 
+
   eyebrow.textContent =
     `${trip.country || "TRIP"} · ${formatRange()}`;
+
 
   if(TRIP_ID === 1){
 
     tripSubtitle.textContent =
       "Kyoto → Road Trip → Osaka";
 
+
     route.innerHTML = `
-      <span class="route-chip">⛩️ KYOTO · 18–22</span>
-      <span class="route-arrow">→</span>
-      <span class="route-chip">🚗 ROAD · 23–26</span>
-      <span class="route-arrow">→</span>
-      <span class="route-chip">🌃 OSAKA · 26–30</span>
-      <span class="route-arrow">→</span>
-      <span class="route-chip">✈️ HOME</span>
+
+      <span class="route-chip">
+        ⛩️ KYOTO · 18–22
+      </span>
+
+      <span class="route-arrow">
+        →
+      </span>
+
+      <span class="route-chip">
+        🚗 ROAD · 23–26
+      </span>
+
+      <span class="route-arrow">
+        →
+      </span>
+
+      <span class="route-chip">
+        🌃 OSAKA · 26–30
+      </span>
+
+      <span class="route-arrow">
+        →
+      </span>
+
+      <span class="route-chip">
+        ✈️ HOME
+      </span>
+
     `;
 
-  }else{
+  }
+
+  else{
 
     tripSubtitle.textContent =
-      trip.description || formatRange();
+      trip.description ||
+      formatRange();
+
 
     route.innerHTML = "";
+
   }
+
 }
 
 
 /* =========================================================
-   ITEM DISPLAY
+   DISPLAY NAME
 ========================================================= */
 
 function itemName(item){
 
   /*
-    Schedule title is deliberately first.
+    For Home, prefer the actual
+    linked place / restaurant.
 
-    Your schedule title often says things
-    like "Arrive Kyoto", "Late Lunch",
-    "Hotel Check-in", etc.
-
-    Linked place/restaurant is used below
-    as secondary information.
+    This makes Home about WHERE
+    you're going rather than
+    generic schedule labels.
   */
 
   return (
-    item.title ||
     item.place?.name ||
     item.restaurant?.name ||
-    "Schedule Item"
-  );
-}
-
-function linkedName(item){
-
-  const linked =
-    item.restaurant?.name ||
-    item.place?.name ||
     item.location_name ||
-    "";
+    item.title ||
+    "Location"
+  );
 
-  if(
-    linked &&
-    linked.toLowerCase() !==
-    text(item.title).toLowerCase()
-  ){
-    return linked;
-  }
-
-  return "";
 }
+
+
+/* =========================================================
+   TIME
+========================================================= */
 
 function itemTime(item){
 
+  /*
+    Preserve your manually entered
+    labels such as "~4:00 PM".
+  */
+
   if(item.time_label){
+
+    /*
+      If the label contains a range,
+      only show the starting time
+      on Home.
+
+      Example:
+      3:15–3:45 PM -> 3:15 PM-ish
+
+      But most location rows should
+      already have simple labels.
+    */
+
     return item.time_label;
+
   }
+
 
   if(item.start_time){
 
     const parts =
       item.start_time.split(":");
 
-    let hour = Number(parts[0]);
-    const minute = parts[1] || "00";
+
+    let hour =
+      Number(
+        parts[0]
+      );
+
+
+    const minute =
+      parts[1] || "00";
+
 
     const suffix =
-      hour >= 12 ? "PM" : "AM";
+      hour >= 12
+      ?
+      "PM"
+      :
+      "AM";
 
-    hour = hour % 12 || 12;
 
-    return `${hour}:${minute} ${suffix}`;
+    hour =
+      hour % 12 || 12;
+
+
+    return (
+      `${hour}:${minute} ${suffix}`
+    );
+
   }
 
+
   return "Flexible";
+
 }
+
+
+/* =========================================================
+   MAP
+========================================================= */
 
 function itemMap(item){
 
@@ -1072,68 +1676,190 @@ function itemMap(item){
     item.maps_url ||
     null
   );
+
 }
 
 
 /* =========================================================
-   ICONS
+   FILTER HOME LOCATIONS
+========================================================= */
+
+function isPreviewLocation(item){
+
+  /*
+    If linked to an actual place,
+    keep it.
+  */
+
+  if(item.place_id){
+    return true;
+  }
+
+
+  /*
+    If linked to an actual named
+    restaurant, keep it.
+
+    So Takara Sushi / Setsu etc.
+    can still appear.
+  */
+
+  if(item.restaurant_id){
+    return true;
+  }
+
+
+  const name =
+    text(
+      item.title
+    )
+    .toLowerCase();
+
+
+  /*
+    These are useful in the FULL PLAN,
+    but not in the Home location preview.
+  */
+
+  const hideWords = [
+
+    "breakfast",
+
+    "lunch",
+
+    "late lunch",
+
+    "dinner",
+
+    "snack",
+
+    "check-in",
+
+    "check in",
+
+    "check-out",
+
+    "check out",
+
+    "checkout",
+
+    "leave luggage",
+
+    "drop luggage",
+
+    "luggage",
+
+    "free time",
+
+    "rest",
+
+    "travel",
+
+    "train",
+
+    "drive",
+
+    "driving",
+
+    "depart",
+
+    "departure",
+
+    "arrive",
+
+    "arrival",
+
+    "return to hotel",
+
+    "back to hotel",
+
+    "head back",
+
+    "transfer"
+
+  ];
+
+
+  if(
+    hideWords.some(
+      word =>
+        name.includes(word)
+    )
+  ){
+
+    return false;
+
+  }
+
+
+  /*
+    Keep remaining custom items.
+
+    This allows things like:
+    TeamLab,
+    ROUND1,
+    market,
+    museum,
+    etc.
+  */
+
+  return true;
+
+}
+
+
+/* =========================================================
+   PREVIEW ITEMS
+========================================================= */
+
+function previewItems(date){
+
+  return (
+    groupedDays[date] || []
+  )
+  .filter(
+    isPreviewLocation
+  );
+
+}
+
+
+/* =========================================================
+   ICON
 ========================================================= */
 
 function itemIcon(item){
 
-  const type =
-    text(item.item_type)
+  const name =
+    text(
+      itemName(item)
+    )
     .toLowerCase();
 
-  const name =
-    text(item.title)
-    .toLowerCase();
 
   if(
-    type.includes("restaurant") ||
-    type.includes("food") ||
-    name.includes("lunch") ||
-    name.includes("dinner") ||
-    name.includes("breakfast") ||
-    name.includes("snack")
+    item.restaurant_id
   ){
     return "🍽️";
   }
 
-  if(
-    type.includes("hotel") ||
-    name.includes("check-in") ||
-    name.includes("hotel")
-  ){
-    return "🏨";
-  }
-
-  if(
-    type.includes("transport") ||
-    name.includes("train") ||
-    name.includes("travel") ||
-    name.includes("drive") ||
-    name.includes("arrive")
-  ){
-    return "🚆";
-  }
 
   if(
     name.includes("shrine") ||
+    name.includes("taisha") ||
     name.includes("temple") ||
-    type.includes("temple") ||
-    type.includes("shrine")
+    name.includes("ji ")
   ){
     return "⛩️";
   }
 
+
   if(
-    name.includes("mount") ||
-    name.includes("highland") ||
-    name.includes("viewpoint")
+    name.includes("bamboo")
   ){
-    return "🏔️";
+    return "🎋";
   }
+
 
   if(
     name.includes("waterfall") ||
@@ -1142,20 +1868,54 @@ function itemIcon(item){
     return "💧";
   }
 
+
+  if(
+    name.includes("mount") ||
+    name.includes("highland") ||
+    name.includes("viewpoint") ||
+    name.includes("observatory")
+  ){
+    return "🏔️";
+  }
+
+
   if(
     name.includes("market")
   ){
     return "🛍️";
   }
 
+
   if(
-    name.includes("airport") ||
-    name.includes("flight")
+    name.includes("teamlab")
   ){
-    return "✈️";
+    return "✨";
   }
 
+
+  if(
+    name.includes("round1")
+  ){
+    return "🎳";
+  }
+
+
+  if(
+    name.includes("museum")
+  ){
+    return "🏛️";
+  }
+
+
+  if(
+    name.includes("park")
+  ){
+    return "🌿";
+  }
+
+
   return "📍";
+
 }
 
 
@@ -1163,146 +1923,202 @@ function itemIcon(item){
    DAY AREA
 ========================================================= */
 
-function dayArea(date,items){
+function dayArea(
+  date,
+  items
+){
 
   /*
-    These labels are presentation only.
-    The actual locations underneath
-    still come from Supabase.
+    Current Japan trip labels.
+    These are just presentation labels.
   */
 
   if(TRIP_ID === 1){
 
-    if(date <= "2026-10-20"){
+    if(
+      date >= "2026-10-18" &&
+      date <= "2026-10-20"
+    ){
       return "⛩️ Kyoto";
     }
 
-    if(date === "2026-10-21"){
+
+    if(
+      date === "2026-10-21"
+    ){
       return "🌊 Ine";
     }
 
-    if(date === "2026-10-22"){
+
+    if(
+      date === "2026-10-22"
+    ){
       return "⛩️ Kyoto";
     }
 
-    if(date === "2026-10-23"){
+
+    if(
+      date === "2026-10-23"
+    ){
       return "🚗 Kyoto → Dorogawa";
     }
 
-    if(date === "2026-10-24"){
+
+    if(
+      date === "2026-10-24"
+    ){
       return "🏔️ Dorogawa → Ryujin";
     }
 
-    if(date === "2026-10-25"){
+
+    if(
+      date === "2026-10-25"
+    ){
       return "⛩️ Kumano";
     }
 
-    if(date === "2026-10-26"){
+
+    if(
+      date === "2026-10-26"
+    ){
       return "💧 Nachi → Osaka";
     }
 
-    if(date === "2026-10-27"){
+
+    if(
+      date === "2026-10-27"
+    ){
       return "🌃 Osaka";
     }
 
-    if(date === "2026-10-28"){
+
+    if(
+      date === "2026-10-28"
+    ){
       return "🚄 Aichi Day Trip";
     }
 
-    if(date === "2026-10-29"){
+
+    if(
+      date === "2026-10-29"
+    ){
       return "🦌 Nara";
     }
 
-    if(date === "2026-10-30"){
+
+    if(
+      date === "2026-10-30"
+    ){
       return "✈️ Departure";
     }
+
   }
 
-  const location =
-    items.find(x => x.location_name)
-      ?.location_name;
 
-  return location || "Japan";
+  const location =
+    items.find(
+      item =>
+        item.location_name
+    )
+    ?.location_name;
+
+
+  return (
+    location ||
+    "Japan"
+  );
+
 }
 
 
 /* =========================================================
-   DAY SUMMARY LOCATIONS
+   DAY SUMMARY
 ========================================================= */
 
-function usefulLocationNames(items){
+function daySummary(date){
 
-  const ignoreWords = [
-    "travel",
-    "drive",
-    "train",
-    "check-in",
-    "check out",
-    "checkout",
-    "arrive",
-    "depart",
-    "breakfast",
-    "lunch",
-    "dinner",
-    "snack",
-    "free time"
-  ];
+  const items =
+    previewItems(date);
+
 
   const names = [];
 
-  items.forEach(item => {
 
-    let name =
-      item.restaurant?.name ||
-      item.place?.name ||
-      item.location_name ||
-      item.title;
+  items.forEach(
+    item => {
 
-    if(!name){
-      return;
+      const name =
+        itemName(item);
+
+
+      if(
+        name &&
+        !names.includes(name)
+      ){
+
+        names.push(name);
+
+      }
+
     }
+  );
 
-    const lower =
-      name.toLowerCase();
-
-    const ignored =
-      ignoreWords.some(
-        word => lower.includes(word)
-      );
-
-    if(ignored && !item.place_id && !item.restaurant_id){
-      return;
-    }
-
-    if(!names.includes(name)){
-      names.push(name);
-    }
-  });
-
-  return names;
-}
-
-function daySummary(items){
-
-  const names =
-    usefulLocationNames(items);
-
-  if(!names.length){
-
-    return items
-      .slice(0,3)
-      .map(item => item.title)
-      .join(" · ");
-  }
 
   return names
-    .slice(0,4)
+    .slice(
+      0,
+      4
+    )
     .join(" · ");
+
 }
 
 
 /* =========================================================
-   COUNTDOWN CARD
+   PREVIEW ROUTE
+========================================================= */
+
+function previewRoute(date){
+
+  const items =
+    previewItems(date);
+
+
+  const names = [];
+
+
+  items.forEach(
+    item => {
+
+      const name =
+        itemName(item);
+
+
+      if(
+        name &&
+        !names.includes(name)
+      ){
+
+        names.push(name);
+
+      }
+
+    }
+  );
+
+
+  return names
+    .slice(
+      0,
+      5
+    )
+    .join(" → ");
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
 ========================================================= */
 
 function countdownHTML(){
@@ -1310,36 +2126,18 @@ function countdownHTML(){
   const today =
     localDateString();
 
-  if(today > trip.end_date){
 
-    return `
-      <div class="countdown-card">
-
-        <div class="countdown-label">
-          TRIP COMPLETE
-        </div>
-
-        <div class="next-title">
-          ${esc(trip.name)}
-        </div>
-
-        <div class="next-route">
-          Your itinerary is saved below.
-        </div>
-
-      </div>
-    `;
-  }
+  /*
+    DURING TRIP
+  */
 
   if(
     today >= trip.start_date &&
     today <= trip.end_date
   ){
 
-    const items =
-      groupedDays[today] || [];
-
     return `
+
       <div class="countdown-card">
 
         <div class="countdown-top">
@@ -1349,38 +2147,103 @@ function countdownHTML(){
           </div>
 
           <div class="countdown-date">
-            ${esc(formatPreviewDate(today))}
+
+            ${esc(
+              formatPreviewDate(
+                today
+              )
+            )}
+
           </div>
 
         </div>
 
-        <div class="next-title">
-          ${esc(dayArea(today,items))}
+
+        <div class="first-title">
+
+          ${esc(
+            dayArea(
+              today,
+              groupedDays[today] || []
+            )
+          )}
+
         </div>
 
-        <div class="next-route">
-          ${esc(daySummary(items))}
+
+        <div class="first-route">
+
+          ${esc(
+            daySummary(today)
+          )}
+
         </div>
 
       </div>
+
     `;
+
   }
+
+
+  /*
+    AFTER TRIP
+  */
+
+  if(
+    today > trip.end_date
+  ){
+
+    return `
+
+      <div class="countdown-card">
+
+        <div class="countdown-label">
+          TRIP COMPLETE
+        </div>
+
+        <div class="first-title">
+          ${esc(trip.name)}
+        </div>
+
+        <div class="first-route">
+          Your itinerary is saved below.
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /*
+    BEFORE TRIP
+  */
 
   const count =
     Math.max(
       0,
-      daysUntil(trip.start_date)
+      daysUntil(
+        trip.start_date
+      )
     );
 
+
+  const dates =
+    Object.keys(
+      groupedDays
+    )
+    .sort();
+
+
   const firstDate =
-    Object.keys(groupedDays)
-      .sort()[0] ||
+    dates[0] ||
     trip.start_date;
 
-  const firstItems =
-    groupedDays[firstDate] || [];
 
   return `
+
     <div class="countdown-card">
 
       <div class="countdown-top">
@@ -1395,6 +2258,7 @@ function countdownHTML(){
 
       </div>
 
+
       <div class="countdown-main">
 
         <div class="countdown-number">
@@ -1402,185 +2266,139 @@ function countdownHTML(){
         </div>
 
         <div class="countdown-text">
-          DAY${count === 1 ? "" : "S"}<br>
+
+          DAY${
+            count === 1
+            ?
+            ""
+            :
+            "S"
+          }
+
+          <br>
+
           TO GO
+
         </div>
 
       </div>
 
-      <div class="next-trip">
 
-        <div class="next-label">
-          FIRST DAY · ${esc(formatPreviewDate(firstDate))}
+      <div class="first-day">
+
+        <div class="first-label">
+
+          FIRST DAY ·
+
+          ${esc(
+            formatPreviewDate(
+              firstDate
+            )
+          )}
+
         </div>
 
-        <div class="next-title">
-          ${esc(dayArea(firstDate,firstItems))}
+
+        <div class="first-title">
+
+          ${esc(
+            dayArea(
+              firstDate,
+              groupedDays[firstDate] || []
+            )
+          )}
+
         </div>
 
-        <div class="next-route">
-          ${esc(daySummary(firstItems))}
+
+        <div class="first-route">
+
+          ${esc(
+            daySummary(
+              firstDate
+            )
+          )}
+
         </div>
 
       </div>
 
     </div>
+
   `;
+
 }
 
 
 /* =========================================================
-   TRIP OVERVIEW
+   DATE BUTTONS
 ========================================================= */
 
-function renderHome(){
-
-  const dates =
-    Object.keys(groupedDays).sort();
+function datesHTML(){
 
   const today =
     localDateString();
 
-  if(!dates.length){
 
-    homeContent.innerHTML = `
-      <div class="state">
-        <strong>No itinerary yet</strong>
-        There are no schedule items for this trip.
-      </div>
-    `;
+  const dates =
+    Object.keys(
+      groupedDays
+    )
+    .sort();
 
-    return;
-  }
 
-  homeContent.innerHTML = `
-
-    ${countdownHTML()}
-
-    <div class="section-head">
-
-      <div class="section-title">
-        Your Trip
-      </div>
-
-      <div class="section-note">
-        TAP A DAY TO PREVIEW
-      </div>
-
-    </div>
-
-    <div class="trip-days">
-
-      ${dates.map(date => {
+  return dates
+    .map(
+      date => {
 
         const parts =
           dateParts(date);
 
-        const items =
-          groupedDays[date];
 
         return `
 
           <button
-            class="day-card ${date === today ? "today" : ""}"
-            data-date="${date}"
+            class="
+              date-btn
+              ${
+                date === selectedDate
+                ?
+                "selected"
+                :
+                ""
+              }
+              ${
+                date === today
+                ?
+                "today"
+                :
+                ""
+              }
+            "
             type="button"
+            data-date="${date}"
           >
 
-            <div class="day-date">
+            <span class="weekday">
+              ${esc(parts.weekday)}
+            </span>
 
-              <div class="day-number">
-                ${esc(parts.day)}
-              </div>
+            <span class="number">
+              ${esc(parts.day)}
+            </span>
 
-              <div class="day-month">
-                ${esc(parts.month)}
-              </div>
-
-              <div class="day-weekday">
-                ${esc(parts.weekday)}
-              </div>
-
-            </div>
-
-
-            <div class="day-main">
-
-              <div class="day-area">
-
-                ${esc(dayArea(date,items))}
-
-                ${
-                  date === today
-                  ?
-                  `<span class="today-tag">TODAY</span>`
-                  :
-                  ""
-                }
-
-              </div>
-
-              <div class="day-places">
-                ${esc(daySummary(items))}
-              </div>
-
-              <div class="day-count">
-                ${items.length}
-                ${items.length === 1 ? "STOP" : "STOPS"}
-              </div>
-
-            </div>
-
-
-            <div class="day-arrow">
-              ›
-            </div>
+            <span class="month">
+              ${esc(parts.month)}
+            </span>
 
           </button>
 
         `;
 
-      }).join("")}
+      }
+    )
+    .join("");
 
-    </div>
-
-  `;
-
-  document
-    .querySelectorAll(".day-card")
-    .forEach(button => {
-
-      button.onclick = () => {
-        renderPreview(
-          button.dataset.date
-        );
-      };
-
-    });
-}
-
-
-/* =========================================================
-   PREVIEW TITLE
-========================================================= */
-
-function previewTitle(date,items){
-
-  return dayArea(date,items);
-}
-
-function previewRoute(items){
-
-  const names =
-    usefulLocationNames(items);
-
-  if(!names.length){
-    return "";
-  }
-
-  return names
-    .slice(0,5)
-    .join(" → ");
 }
 
 
@@ -1593,23 +2411,28 @@ function timelineRow(item){
   const map =
     itemMap(item);
 
-  const title =
+
+  const name =
     itemName(item);
 
-  const linked =
-    linkedName(item);
 
   return `
 
     <div class="timeline-row">
 
       <div class="timeline-time">
-        ${esc(itemTime(item))}
+
+        ${esc(
+          itemTime(item)
+        )}
+
       </div>
 
 
       <div class="timeline-marker">
+
         <span class="dot"></span>
+
       </div>
 
 
@@ -1621,78 +2444,67 @@ function timelineRow(item){
 
           ${
             map
+
             ?
+
             `
               <a
                 href="${esc(map)}"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                ${esc(title)}
+                ${esc(name)}
               </a>
             `
+
             :
-            esc(title)
+
+            esc(name)
           }
+
 
           ${
             item.is_optional
+
             ?
-            `<span class="optional">OPTIONAL</span>`
+
+            `
+              <span class="optional">
+                OPTIONAL
+              </span>
+            `
+
             :
+
             ""
           }
 
         </div>
-
-
-        ${
-          linked
-          ?
-          `
-            <div class="timeline-place">
-              📍 ${esc(linked)}
-            </div>
-          `
-          :
-          ""
-        }
-
-
-        ${
-          item.description
-          ?
-          `
-            <div class="timeline-note">
-              ${esc(item.description)}
-            </div>
-          `
-          :
-          ""
-        }
 
       </div>
 
     </div>
 
   `;
+
 }
 
 
 /* =========================================================
-   DAY PREVIEW
+   DAY PREVIEW HTML
 ========================================================= */
 
-function renderPreview(date){
+function previewHTML(date){
 
   const items =
+    previewItems(date);
+
+
+  const allItems =
     groupedDays[date] || [];
 
-  if(!items.length){
-    return;
-  }
 
-  homeContent.innerHTML = `
+  return `
 
     <div class="preview-card">
 
@@ -1705,44 +2517,92 @@ function renderPreview(date){
           </div>
 
           <div class="preview-date">
-            ${esc(formatPreviewDate(date))}
+
+            ${esc(
+              formatPreviewDate(
+                date
+              )
+            )}
+
           </div>
 
         </div>
 
 
         <div class="preview-title">
-          ${esc(previewTitle(date,items))}
+
+          ${esc(
+            dayArea(
+              date,
+              allItems
+            )
+          )}
+
         </div>
 
 
-        <div class="preview-route">
-          ${esc(previewRoute(items))}
-        </div>
+        ${
+          previewRoute(date)
+
+          ?
+
+          `
+            <div class="preview-route">
+
+              ${esc(
+                previewRoute(
+                  date
+                )
+              )}
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
 
       </div>
 
 
-      <div class="timeline">
+      ${
+        items.length
 
-        <div class="timeline-head">
-          TODAY'S PLAN
-        </div>
+        ?
 
-        ${items.map(timelineRow).join("")}
+        `
+          <div class="timeline">
 
-      </div>
+            <div class="timeline-head">
+              TODAY'S PLACES
+            </div>
+
+            ${
+              items
+                .map(
+                  timelineRow
+                )
+                .join("")
+            }
+
+          </div>
+        `
+
+        :
+
+        `
+          <div class="empty-day">
+
+            No location stops found
+            for this day.
+
+          </div>
+        `
+      }
 
 
       <div class="preview-footer">
-
-        <button
-          id="tripHome"
-          type="button"
-        >
-          ← TRIP HOME
-        </button>
-
 
         <a
           href="schedule.html?trip=${TRIP_ID}#${date}"
@@ -1756,23 +2616,266 @@ function renderPreview(date){
 
   `;
 
-
-  document.getElementById("tripHome")
-    .onclick = () => {
-
-      renderHome();
-
-      window.scrollTo({
-        top:0,
-        behavior:"smooth"
-      });
-    };
+}
 
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+/* =========================================================
+   SELECT DEFAULT DATE
+========================================================= */
+
+function chooseDefaultDate(){
+
+  const dates =
+    Object.keys(
+      groupedDays
+    )
+    .sort();
+
+
+  if(
+    !dates.length
+  ){
+
+    selectedDate = null;
+
+    return;
+
+  }
+
+
+  const today =
+    localDateString();
+
+
+  /*
+    During trip:
+    show today.
+  */
+
+  if(
+    groupedDays[today]
+  ){
+
+    selectedDate =
+      today;
+
+    return;
+
+  }
+
+
+  /*
+    Before trip:
+    show first day.
+  */
+
+  if(
+    today <
+    trip.start_date
+  ){
+
+    selectedDate =
+      dates[0];
+
+    return;
+
+  }
+
+
+  /*
+    After trip:
+    show last day.
+  */
+
+  selectedDate =
+    dates[
+      dates.length - 1
+    ];
+
+}
+
+
+/* =========================================================
+   RENDER HOME
+========================================================= */
+
+function renderHome(){
+
+  const dates =
+    Object.keys(
+      groupedDays
+    )
+    .sort();
+
+
+  if(
+    !dates.length
+  ){
+
+    homeContent.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          No itinerary yet
+        </strong>
+
+        There are no schedule
+        items for this trip.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  homeContent.innerHTML = `
+
+    ${countdownHTML()}
+
+
+    <div class="section-head">
+
+      <div class="section-title">
+        Day Preview
+      </div>
+
+      <div class="section-note">
+        SWIPE · TAP A DATE
+      </div>
+
+    </div>
+
+
+    <div
+      id="dateScroller"
+      class="date-scroller"
+    >
+
+      ${datesHTML()}
+
+    </div>
+
+
+    <div id="previewContainer">
+
+      ${previewHTML(
+        selectedDate
+      )}
+
+    </div>
+
+  `;
+
+
+  bindDateButtons();
+
+
+  /*
+    Scroll selected date into view
+    without moving the whole page.
+  */
+
+  requestAnimationFrame(
+    () => {
+
+      const selected =
+        document.querySelector(
+          ".date-btn.selected"
+        );
+
+
+      if(selected){
+
+        selected.scrollIntoView({
+          behavior:"smooth",
+          block:"nearest",
+          inline:"center"
+        });
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   DATE BUTTON EVENTS
+========================================================= */
+
+function bindDateButtons(){
+
+  document
+    .querySelectorAll(
+      ".date-btn"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            selectedDate =
+              button.dataset.date;
+
+
+            /*
+              Update selected styling
+              without rebuilding page.
+            */
+
+            document
+              .querySelectorAll(
+                ".date-btn"
+              )
+              .forEach(
+                btn => {
+
+                  btn.classList
+                    .toggle(
+                      "selected",
+                      btn.dataset.date ===
+                      selectedDate
+                    );
+
+                }
+              );
+
+
+            /*
+              Replace only the timeline.
+            */
+
+            document
+              .getElementById(
+                "previewContainer"
+              )
+              .innerHTML =
+                previewHTML(
+                  selectedDate
+                );
+
+
+            /*
+              Center selected date.
+            */
+
+            button.scrollIntoView({
+              behavior:"smooth",
+              block:"nearest",
+              inline:"center"
+            });
+
+          };
+
+      }
+    );
+
 }
 
 
@@ -1783,6 +2886,7 @@ function renderPreview(date){
 function showError(error){
 
   console.error(error);
+
 
   homeContent.innerHTML = `
 
@@ -1800,6 +2904,7 @@ function showError(error){
     </div>
 
   `;
+
 }
 
 
@@ -1816,15 +2921,25 @@ async function start(){
       loadSchedule()
     ]);
 
+
     buildDays();
+
     renderHeader();
+
+    chooseDefaultDate();
+
     renderHome();
 
-  }catch(error){
+  }
+
+  catch(error){
 
     showError(error);
+
   }
+
 }
+
 
 start();
 
