@@ -1,4440 +1,1091 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="utf-8">
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
->
-<meta name="theme-color" content="#070c10">
-
-<title>Plan · Japan Trip</title>
-
-<style>
-
-:root{
-  --bg:#070c10;
-  --panel:#10161c;
-  --panel2:#151c23;
-  --line:#29323b;
-  --text:#f5f5f3;
-  --muted:#aeb5bc;
-  --muted2:#74818a;
-  --red:#c96f68;
-  --blue:#5c9dff;
-  --green:#67c587;
-  --gold:#e3b85c;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  min-height:100vh;
-
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      #17212a 0%,
-      transparent 36%
-    ),
-    var(--bg);
-
-  color:var(--text);
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-}
-
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:40;
-
-  padding:
-    calc(10px + env(safe-area-inset-top))
-    12px
-    8px;
-
-  border-bottom:1px solid var(--line);
-
-  background:rgba(7,12,16,.97);
-
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-}
-
-.header-inner{
-  max-width:760px;
-  margin:auto;
-}
-
-.title-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.eyebrow{
-  color:var(--red);
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.14em;
-}
-
-h1{
-  margin:2px 0 0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:23px;
-  line-height:1.1;
-}
-
-.trip-name{
-  margin-top:2px;
-  color:var(--muted);
-  font-size:8px;
-}
-
-.edit-btn{
-  min-height:35px;
-  padding:6px 10px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.35);
-
-  border-radius:10px;
-
-  background:
-    rgba(201,111,104,.10);
-
-  color:#f4d4d1;
-
-  font-size:9px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.edit-btn.active{
-  border-color:
-    rgba(103,197,135,.35);
-
-  background:
-    rgba(103,197,135,.09);
-
-  color:#aee5bf;
-}
-
-
-/* =========================================================
-   DATE SCROLLER
-========================================================= */
-
-.date-scroller{
-  display:flex;
-  gap:5px;
-
-  margin-top:9px;
-
-  overflow-x:auto;
-  padding-bottom:2px;
-
-  scrollbar-width:none;
-}
-
-.date-scroller::-webkit-scrollbar{
-  display:none;
-}
-
-.date-btn{
-  flex:0 0 48px;
-
-  min-height:49px;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  padding:4px 2px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#10171d;
-
-  color:var(--muted);
-
-  cursor:pointer;
-}
-
-.date-weekday{
-  color:#6f7c85;
-
-  font-size:6px;
-  font-weight:900;
-}
-
-.date-number{
-  margin:2px 0 1px;
-
-  color:#fff;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:18px;
-  font-weight:800;
-
-  line-height:1;
-}
-
-.date-month{
-  font-size:6px;
-  font-weight:900;
-}
-
-.date-btn.active{
-  border-color:var(--red);
-
-  background:
-    rgba(201,111,104,.12);
-}
-
-.date-btn.active .date-weekday,
-.date-btn.active .date-month{
-  color:#d99b95;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-main{
-  max-width:760px;
-  margin:auto;
-
-  padding:
-    12px
-    12px
-    100px;
-}
-
-
-/* =========================================================
-   DAY HEADER
-========================================================= */
-
-.day-head{
-  margin-bottom:10px;
-}
-
-.day-date{
-  color:var(--red);
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:.12em;
-}
-
-.day-title{
-  margin-top:4px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:21px;
-  font-weight:800;
-}
-
-.day-summary{
-  margin-top:3px;
-
-  color:var(--muted);
-
-  font-size:8px;
-}
-
-
-/* =========================================================
-   TIMELINE
-========================================================= */
-
-.timeline{
-  border:1px solid var(--line);
-  border-radius:14px;
-
-  padding:
-    7px
-    11px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #121a20,
-      #0c1217
-    );
-}
-
-.timeline-row{
-  position:relative;
-
-  display:grid;
-
-  grid-template-columns:
-    72px
-    16px
-    1fr
-    auto;
-
-  gap:7px;
-
-  min-height:47px;
-
-  padding:
-    7px
-    0;
-}
-
-.timeline-row:not(:last-child)::after{
-  content:"";
-
-  position:absolute;
-
-  left:80px;
-  top:30px;
-  bottom:-8px;
-
-  width:1px;
-
-  background:#26323a;
-}
-
-.timeline-time{
-  padding-top:2px;
-
-  color:#9bb8d0;
-
-  font-size:8px;
-  font-weight:900;
-
-  line-height:1.25;
-}
-
-.marker{
-  position:relative;
-  z-index:2;
-
-  display:flex;
-  justify-content:center;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-
-  margin-top:4px;
-
-  border:2px solid #172029;
-  border-radius:50%;
-
-  background:var(--red);
-
-  box-shadow:
-    0 0 0 1px
-    rgba(201,111,104,.35);
-}
-
-.item-main{
-  min-width:0;
-}
-
-.item-title{
-  color:#f2f2f0;
-
-  font-size:9px;
-  font-weight:900;
-
-  line-height:1.3;
-}
-
-.item-title a{
-  color:inherit;
-  text-decoration:none;
-}
-
-.item-location{
-  margin-top:2px;
-
-  color:#77858f;
-
-  font-size:7px;
-}
-
-.item-note{
-  margin-top:3px;
-
-  color:#9fa9af;
-
-  font-size:7px;
-  line-height:1.4;
-}
-
-.optional{
-  display:inline-block;
-
-  margin-left:4px;
-
-  padding:1px 4px;
-
-  border:
-    1px solid
-    rgba(227,184,92,.22);
-
-  border-radius:999px;
-
-  color:var(--gold);
-
-  font-size:6px;
-}
-
-.row-edit{
-  display:none;
-
-  width:28px;
-  height:28px;
-
-  align-items:center;
-  justify-content:center;
-
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  background:#151c22;
-
-  color:#c6cdd2;
-
-  cursor:pointer;
-}
-
-.editing .row-edit{
-  display:flex;
-}
-
-
-/* =========================================================
-   ADD
-========================================================= */
-
-.add-row{
-  display:none;
-
-  margin-top:8px;
-}
-
-.editing .add-row{
-  display:block;
-}
-
-.add-item-btn{
-  width:100%;
-
-  min-height:41px;
-
-  border:
-    1px dashed
-    rgba(201,111,104,.42);
-
-  border-radius:11px;
-
-  background:
-    rgba(201,111,104,.06);
-
-  color:#e2a19b;
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-.state{
-  padding:28px 16px;
-
-  border:
-    1px dashed
-    #35414a;
-
-  border-radius:14px;
-
-  text-align:center;
-
-  color:var(--muted);
-
-  font-size:9px;
-}
-
-.state strong{
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#fff;
-
-  font-size:12px;
-}
-
-
-/* =========================================================
-   SHEET
-========================================================= */
-
-.sheet-backdrop{
-  position:fixed;
-
-  inset:0;
-
-  z-index:100;
-
-  display:none;
-  align-items:flex-end;
-
-  background:
-    rgba(0,0,0,.7);
-
-  backdrop-filter:blur(4px);
-}
-
-.sheet-backdrop.open{
-  display:flex;
-}
-
-.sheet{
-  width:100%;
-
-  max-height:
-    calc(92vh - env(safe-area-inset-top));
-
-  overflow-y:auto;
-
-  padding:
-    8px
-    14px
-    calc(18px + env(safe-area-inset-bottom));
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
-  background:#0d1318;
-}
-
-.sheet-handle{
-  width:38px;
-  height:4px;
-
-  margin:
-    2px
-    auto
-    12px;
-
-  border-radius:999px;
-
-  background:#39454d;
-}
-
-.sheet-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:10px;
-
-  margin-bottom:12px;
-}
-
-.sheet-title{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-}
-
-.close-btn{
-  width:34px;
-  height:34px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#151c22;
-
-  color:#fff;
-
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   TYPE
-========================================================= */
-
-.type-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:5px;
-
-  margin-bottom:11px;
-}
-
-.type-btn{
-  min-height:42px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#11181e;
-
-  color:var(--muted);
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.type-btn.active{
-  border-color:
-    rgba(201,111,104,.5);
-
-  background:
-    rgba(201,111,104,.11);
-
-  color:#fff;
-}
-
-
-/* =========================================================
-   GOOGLE PLACES AUTOFILL
-========================================================= */
-
-.google-place-box{
-  display:none;
-  grid-column:1/-1;
-  padding:10px;
-  border:1px solid rgba(92,157,255,.22);
-  border-radius:11px;
-  background:rgba(92,157,255,.05);
-}
-
-.google-place-box.show{
-  display:block;
-}
-
-.google-place-label{
-  margin-bottom:6px;
-  color:#aeb5bc;
-  font-size:7px;
-  font-weight:900;
-}
-
-#googlePlaceSearch{
-  width:100%;
-}
-
-#googlePlaceSearch gmp-place-autocomplete,
-gmp-place-autocomplete{
-  width:100%;
-  min-height:42px;
-}
-
-.place-status{
-  margin-top:6px;
-  color:#81909a;
-  font-size:7px;
-  line-height:1.4;
-}
-
-.place-status.success{
-  color:#9fe1b5;
-}
-
-.place-status.error{
-  color:#ffc5c1;
-}
-
-.place-divider{
-  grid-column:1/-1;
-  display:none;
-  align-items:center;
-  gap:8px;
-  color:#66737c;
-  font-size:6px;
-  font-weight:900;
-}
-
-.place-divider.show{
-  display:flex;
-}
-
-.place-divider::before,
-.place-divider::after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:rgba(255,255,255,.07);
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-grid{
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    1fr;
-
-  gap:9px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#aeb5bc;
-
-  font-size:7px;
-  font-weight:900;
-}
-
-.field input,
-.field textarea,
-.field select{
-  width:100%;
-
-  min-height:40px;
-
-  padding:
-    8px
-    9px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  outline:none;
-
-  background:#10171d;
-
-  color:#fff;
-
-  font-size:10px;
-}
-
-.field textarea{
-  min-height:65px;
-
-  resize:vertical;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-  border-color:var(--red);
-}
-
-.search-results{
-  display:none;
-
-  margin-top:5px;
-
-  overflow:hidden;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#10171d;
-}
-
-.search-results.show{
-  display:block;
-}
-
-.search-result{
-  width:100%;
-
-  display:block;
-
-  padding:8px 9px;
-
-  border:0;
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.06);
-
-  background:none;
-
-  color:#fff;
-
-  text-align:left;
-
-  cursor:pointer;
-}
-
-.search-result:last-child{
-  border-bottom:0;
-}
-
-.result-name{
-  font-size:9px;
-  font-weight:900;
-}
-
-.result-meta{
-  margin-top:2px;
-
-  color:#77858f;
-
-  font-size:7px;
-}
-
-
-/* =========================================================
-   CHECK
-========================================================= */
-
-.check-row{
-  display:flex;
-  align-items:center;
-
-  gap:7px;
-
-  min-height:40px;
-
-  margin-top:9px;
-
-  padding:
-    7px
-    9px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#11181e;
-
-  color:#d1d6da;
-
-  font-size:8px;
-  font-weight:800;
-}
-
-.check-row input{
-  width:15px;
-  height:15px;
-}
-
-
-/* =========================================================
-   FORM BUTTONS
-========================================================= */
-
-.sheet-actions{
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    2fr;
-
-  gap:6px;
-
-  margin-top:11px;
-}
-
-.delete-btn,
-.save-btn{
-  min-height:43px;
-
-  border-radius:10px;
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.delete-btn{
-  border:
-    1px solid
-    rgba(201,111,104,.25);
-
-  background:
-    rgba(201,111,104,.05);
-
-  color:#d98a83;
-}
-
-.save-btn{
-  border:
-    1px solid
-    rgba(103,197,135,.32);
-
-  background:
-    rgba(103,197,135,.10);
-
-  color:#aee5bf;
-}
-
-.save-btn:disabled,
-.delete-btn:disabled{
-  opacity:.5;
-}
-
-.form-message{
-  display:none;
-
-  margin-top:8px;
-
-  padding:8px;
-
-  border-radius:8px;
-
-  font-size:8px;
-}
-
-.form-message.error{
-  display:block;
-
-  border:
-    1px solid
-    rgba(201,111,104,.25);
-
-  background:
-    rgba(201,111,104,.07);
-
-  color:#ffc5c1;
-}
-
-
-/* =========================================================
-   MORE SHEET
-========================================================= */
-
-.more-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:150;
-  display:none;
-  align-items:flex-end;
-  background:rgba(0,0,0,.68);
-  backdrop-filter:blur(4px);
-}
-
-.more-backdrop.open{
-  display:flex;
-}
-
-.more-sheet{
-  width:100%;
-  max-width:760px;
-  margin:0 auto;
-  padding:8px 13px calc(18px + env(safe-area-inset-bottom));
-  border:1px solid var(--line);
-  border-radius:20px 20px 0 0;
-  background:#0d1318;
-}
-
-.more-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:9px;
-}
-
-.more-title{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:19px;
-}
-
-.more-close{
-  width:32px;
-  height:32px;
-  border:1px solid var(--line);
-  border-radius:8px;
-  background:#151c22;
-  color:#fff;
-  cursor:pointer;
-}
-
-.more-link{
-  min-height:58px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:9px 10px;
-  margin-bottom:6px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  background:#11181e;
-  color:#fff;
-  text-decoration:none;
-}
-
-.more-link.disabled{
-  opacity:.45;
-  cursor:default;
-}
-
-.more-link-icon{
-  flex:0 0 31px;
-  font-size:18px;
-  text-align:center;
-}
-
-.more-link-main{
-  flex:1;
-}
-
-.more-link-title{
-  font-size:9px;
-  font-weight:900;
-}
-
-.more-link-sub{
-  margin-top:2px;
-  color:#7f8b93;
-  font-size:6.5px;
-}
-
-.more-link-arrow{
-  color:#8d9aa2;
-  font-size:12px;
-}
-
-
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-.bottom-nav{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:80;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
-  gap:3px;
-
-  padding:
-    6px
-    7px
-    calc(6px + env(safe-area-inset-bottom));
-
-  border-top:1px solid var(--line);
-
-  background:
-    rgba(7,12,16,.98);
-
-  backdrop-filter:blur(18px);
-}
-
-.bottom-nav a,
-.bottom-nav button{
-  min-height:46px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:2px;
-
-  border-radius:10px;
-
-  color:var(--muted);
-
-  text-decoration:none;
-
-  font-size:8px;
-  font-weight:800;
-
-  border:0;
-  background:transparent;
-  cursor:pointer;
-}
-
-.nav-icon{
-  font-size:16px;
-}
-
-.bottom-nav .active{
-  color:#fff;
-
-  border:
-    1px solid
-    rgba(201,111,104,.22);
-
-  background:
-    rgba(201,111,104,.08);
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media(min-width:700px){
-
-  .sheet{
-    max-width:620px;
-    margin:auto;
-  }
-
-  .bottom-nav{
-    left:50%;
-    right:auto;
-
-    width:min(820px,100%);
-
-    transform:
-      translateX(-50%);
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Trip Map · Japan Autumn 2026</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+  <!-- Your existing Google Maps loader -->
+  <script src="google-maps.js"></script>
+
+  <style>
+    :root{
+      --bg:#070c10;
+      --panel:#10161c;
+      --panel-light:#151c23;
+      --line:#29323b;
+      --text:#f5f5f3;
+      --muted:#aeb5bc;
+      --red:#c96f68;
+      --blue:#5c9dff;
+      --green:#67c587;
+      --orange:#f4a34d;
+      --gold:#e3b85c;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      padding-bottom:96px;
+    }
+
+    button,
+    input{
+      font:inherit;
+    }
+
+    button{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .app{
+      width:min(100%, 820px);
+      margin:0 auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .hero{
+      padding:
+        calc(18px + env(safe-area-inset-top))
+        18px
+        14px;
+    }
+
+    .eyebrow{
+      color:var(--red);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1.6px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    h1{
+      margin:0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:30px;
+      line-height:1.05;
+      letter-spacing:-.5px;
+    }
+
+    .subtitle{
+      margin-top:7px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    /* =========================
+       DATE STRIP
+    ========================= */
+
+    .date-wrap{
+      padding:0 0 14px;
+    }
+
+    .dates{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding:2px 18px 7px;
+      scrollbar-width:none;
+      scroll-behavior:smooth;
+    }
+
+    .dates::-webkit-scrollbar{
+      display:none;
+    }
+
+    .date-chip{
+      flex:0 0 auto;
+      min-width:61px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--text);
+      border-radius:16px;
+      padding:9px 11px 8px;
+      cursor:pointer;
+      text-align:center;
+      transition:.18s ease;
+    }
+
+    .date-chip .day{
+      display:block;
+      color:var(--muted);
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:1px;
+      margin-bottom:2px;
+    }
+
+    .date-chip .num{
+      display:block;
+      font-family:Georgia, serif;
+      font-size:20px;
+      line-height:1;
+    }
+
+    .date-chip.active{
+      border-color:var(--red);
+      background:rgba(201,111,104,.15);
+      box-shadow:
+        inset 0 0 0 1px rgba(201,111,104,.15),
+        0 0 0 1px rgba(201,111,104,.03);
+    }
+
+    .date-chip.active .day{
+      color:var(--red);
+    }
+
+    /* =========================
+       SECTION
+    ========================= */
+
+    .section{
+      padding:0 14px 16px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      padding:0 4px 10px;
+    }
+
+    .section-label{
+      color:var(--muted);
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+    }
+
+    .section-title{
+      margin-top:3px;
+      font-family:Georgia, serif;
+      font-size:21px;
+    }
+
+    .count{
+      color:var(--muted);
+      font-size:11px;
+      white-space:nowrap;
+    }
+
+    /* =========================
+       MAP CARD
+    ========================= */
+
+    .map-card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:var(--panel);
+      box-shadow:0 12px 35px rgba(0,0,0,.22);
+    }
+
+    #map{
+      width:100%;
+      height:390px;
+      background:#182027;
+    }
+
+    .map-loading{
+      position:absolute;
+      inset:0;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(7,12,16,.90);
+      backdrop-filter:blur(4px);
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+      padding:30px;
+    }
+
+    .map-loading.hidden{
+      display:none;
+    }
+
+    .map-error{
+      position:absolute;
+      inset:0;
+      z-index:21;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:var(--panel);
+      padding:30px;
+      text-align:center;
+    }
+
+    .map-error.show{
+      display:flex;
+    }
+
+    .map-error-inner{
+      max-width:340px;
+    }
+
+    .map-error-icon{
+      font-size:30px;
+      margin-bottom:10px;
+    }
+
+    .map-error-title{
+      font-family:Georgia, serif;
+      font-size:20px;
+      margin-bottom:7px;
+    }
+
+    .map-error-text{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    /* =========================
+       MAP CONTROLS
+    ========================= */
+
+    .map-actions{
+      display:flex;
+      gap:8px;
+      padding:10px;
+      border-top:1px solid var(--line);
+      background:var(--panel);
+    }
+
+    .map-action{
+      flex:1;
+      border:1px solid var(--line);
+      background:var(--panel-light);
+      color:var(--text);
+      border-radius:13px;
+      padding:10px 8px;
+      font-size:11px;
+      font-weight:850;
+      cursor:pointer;
+    }
+
+    .map-action:active{
+      transform:scale(.98);
+    }
+
+    .map-action.primary{
+      border-color:rgba(92,157,255,.45);
+      color:#bcd5ff;
+      background:rgba(92,157,255,.10);
+    }
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .status{
+      margin-top:10px;
+      padding:11px 13px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--panel);
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.5;
+    }
+
+    .status strong{
+      color:var(--text);
+    }
+
+    /* =========================
+       STOP LIST
+    ========================= */
+
+    .stops{
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+
+    .stop{
+      display:grid;
+      grid-template-columns:42px 1fr auto;
+      gap:11px;
+      align-items:center;
+
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:var(--panel);
+      padding:12px;
+
+      cursor:pointer;
+      transition:.15s ease;
+    }
+
+    .stop:active{
+      transform:scale(.99);
+    }
+
+    .stop.no-location{
+      opacity:.62;
+    }
+
+    .stop-number{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:var(--red);
+      color:#fff;
+
+      border:3px solid rgba(255,255,255,.90);
+
+      font-size:13px;
+      font-weight:950;
+
+      box-shadow:0 3px 10px rgba(0,0,0,.28);
+    }
+
+    .stop.no-location .stop-number{
+      background:#555e66;
+    }
+
+    .stop-time{
+      color:var(--red);
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.5px;
+      margin-bottom:3px;
+    }
+
+    .stop-name{
+      font-family:Georgia, serif;
+      font-size:16px;
+      line-height:1.2;
+    }
+
+    .stop-location{
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.4;
+      margin-top:4px;
+    }
+
+    .stop-arrow{
+      color:var(--muted);
+      font-size:19px;
+      padding:5px;
+    }
+
+    .empty{
+      border:1px dashed var(--line);
+      border-radius:17px;
+      padding:28px 20px;
+      color:var(--muted);
+      text-align:center;
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    /* =========================
+       GOOGLE MAP INFO WINDOW
+    ========================= */
+
+    .info-window{
+      color:#111;
+      min-width:190px;
+      max-width:250px;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        sans-serif;
+      padding:2px 1px 4px;
+    }
+
+    .info-number{
+      color:#9c4e49;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:1px;
+      margin-bottom:4px;
+    }
+
+    .info-title{
+      font-family:Georgia, serif;
+      font-size:17px;
+      font-weight:700;
+      margin-bottom:4px;
+    }
+
+    .info-time{
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:4px;
+    }
+
+    .info-location{
+      color:#666;
+      font-size:11px;
+      line-height:1.4;
+      margin-bottom:10px;
+    }
+
+    .info-button{
+      display:inline-block;
+      border:0;
+      border-radius:9px;
+      background:#111;
+      color:white;
+      padding:8px 11px;
+      text-decoration:none;
+      font-size:10px;
+      font-weight:850;
+      cursor:pointer;
+    }
+
+    /* =========================
+       FULL SCREEN MAP
+    ========================= */
+
+    body.map-fullscreen{
+      overflow:hidden;
+    }
+
+    body.map-fullscreen .map-card{
+      position:fixed;
+      z-index:1000;
+      inset:0;
+      border:0;
+      border-radius:0;
+      background:var(--bg);
+      padding-top:env(safe-area-inset-top);
+    }
+
+    body.map-fullscreen #map{
+      height:calc(
+        100vh - 62px - env(safe-area-inset-top)
+      );
+    }
+
+    body.map-fullscreen .map-actions{
+      height:62px;
+      padding-bottom:
+        calc(10px + env(safe-area-inset-bottom));
+    }
+
+    /* =========================
+       BOTTOM NAV
+    ========================= */
+
+    .bottom-nav{
+      position:fixed;
+      z-index:500;
+      left:0;
+      right:0;
+      bottom:0;
+
+      padding:
+        7px 8px
+        calc(7px + env(safe-area-inset-bottom));
+
+      background:rgba(7,12,16,.96);
+      backdrop-filter:blur(18px);
+
+      border-top:1px solid var(--line);
+    }
+
+    .bottom-nav-inner{
+      width:min(100%,820px);
+      margin:0 auto;
+
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:2px;
+    }
+
+    .nav-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:3px;
+
+      min-height:50px;
+
+      color:#838c94;
+      text-decoration:none;
+      border-radius:12px;
+
+      font-size:8px;
+      font-weight:850;
+      letter-spacing:.7px;
+    }
+
+    .nav-icon{
+      font-size:18px;
+      line-height:1;
+    }
+
+    .nav-item.active{
+      color:var(--red);
+      background:rgba(201,111,104,.08);
+    }
+
+    @media(max-width:520px){
+      #map{
+        height:355px;
+      }
+
+      h1{
+        font-size:27px;
+      }
+
+      .section{
+        padding-left:10px;
+        padding-right:10px;
+      }
+
+      .hero{
+        padding-left:15px;
+        padding-right:15px;
+      }
+
+      .dates{
+        padding-left:15px;
+        padding-right:15px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+<div class="app">
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header class="hero">
+    <div class="eyebrow">Japan · Autumn 2026</div>
+    <h1>Your Trip Map</h1>
 
-<header>
-
-<div class="header-inner">
-
-  <div class="title-row">
-
-    <div>
-
-      <div class="eyebrow">
-        JAPAN TRIP
-      </div>
-
-      <h1>
-        📅 Plan
-      </h1>
-
-      <div
-        id="tripName"
-        class="trip-name"
-      >
-        Loading trip…
-      </div>
-
+    <div class="subtitle">
+      Pick a day to see your scheduled stops on the map.
     </div>
+  </header>
 
 
-    <button
-      id="editButton"
-      class="edit-btn"
-      type="button"
-    >
-      ✏️ EDIT
-    </button>
-
+  <!-- =========================
+       DATE CHIPS
+  ========================== -->
+  <div class="date-wrap">
+    <div class="dates" id="dateChips"></div>
   </div>
 
 
-  <div
-    id="dateScroller"
-    class="date-scroller"
-  ></div>
+  <!-- =========================
+       MAP
+  ========================== -->
+  <section class="section">
 
-</div>
-
-</header>
-
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<main id="main">
-
-  <div class="state">
-
-    <strong>
-      Loading plan…
-    </strong>
-
-    Getting your itinerary from Supabase.
-
-  </div>
-
-</main>
-
-
-
-<!-- =========================================================
-     EDIT / ADD SHEET
-========================================================= -->
-
-<div
-  id="editSheet"
-  class="sheet-backdrop"
->
-
-  <div class="sheet">
-
-    <div class="sheet-handle"></div>
-
-
-    <div class="sheet-head">
-
-      <div
-        id="sheetTitle"
-        class="sheet-title"
-      >
-        Edit Schedule
+    <div class="section-head">
+      <div>
+        <div class="section-label">Today's Route</div>
+        <div class="section-title" id="mapDateTitle">
+          Loading...
+        </div>
       </div>
 
-
-      <button
-        id="closeSheet"
-        class="close-btn"
-        type="button"
-      >
-        ✕
-      </button>
-
+      <div class="count" id="mapCount"></div>
     </div>
 
 
-    <!-- TYPE -->
+    <div class="map-card" id="mapCard">
 
-    <div
-      id="typeGrid"
-      class="type-grid"
-    >
+      <div id="map"></div>
 
-      <button
-        class="type-btn active"
-        type="button"
-        data-type="place"
-      >
-        📍 PLACE
-      </button>
-
-      <button
-        class="type-btn"
-        type="button"
-        data-type="restaurant"
-      >
-        🍽 FOOD
-      </button>
-
-      <button
-        class="type-btn"
-        type="button"
-        data-type="custom"
-      >
-        ✏️ CUSTOM
-      </button>
-
-    </div>
-
-
-    <form id="editForm">
-
-      <div class="form-grid">
-
-
-        <div
-          id="googlePlaceBox"
-          class="google-place-box show"
-        >
-
-          <div class="google-place-label">
-            🔎 SEARCH GOOGLE PLACES
-          </div>
-
-          <div id="googlePlaceSearch"></div>
-
-          <div
-            id="googlePlaceStatus"
-            class="place-status"
-          >
-            Search anywhere in Japan. Selecting a Google result will autofill the schedule item. When you save, a new place is also added to public.places if it is not already there.
-          </div>
-
-        </div>
-
-
-        <div
-          id="placeDivider"
-          class="place-divider show"
-        >
-          OR CHOOSE FROM YOUR SAVED PLACES
-        </div>
-
-
-        <!-- DATE -->
-
-        <div class="field">
-
-          <label>
-            DATE
-          </label>
-
-          <input
-            id="fieldDate"
-            type="date"
-            required
-          >
-
-        </div>
-
-
-        <!-- TIME -->
-
-        <div class="field">
-
-          <label>
-            TIME
-          </label>
-
-          <input
-            id="fieldTime"
-            type="time"
-          >
-
-        </div>
-
-
-        <!-- SEARCH -->
-
-        <div
-          id="searchField"
-          class="field full"
-        >
-
-          <label id="searchLabel">
-            PLACE
-          </label>
-
-          <input
-            id="entitySearch"
-            type="search"
-            placeholder="Search places..."
-            autocomplete="off"
-          >
-
-          <div
-            id="entityResults"
-            class="search-results"
-          ></div>
-
-        </div>
-
-
-        <!-- TITLE -->
-
-        <div class="field full">
-
-          <label>
-            TITLE
-          </label>
-
-          <input
-            id="fieldTitle"
-            required
-            placeholder="Schedule item"
-          >
-
-        </div>
-
-
-        <!-- LOCATION -->
-
-        <div class="field full">
-
-          <label>
-            LOCATION
-          </label>
-
-          <input
-            id="fieldLocation"
-            placeholder="Optional location"
-          >
-
-        </div>
-
-
-        <!-- NOTES -->
-
-        <div class="field full">
-
-          <label>
-            NOTES
-          </label>
-
-          <textarea
-            id="fieldNotes"
-            placeholder="Optional notes"
-          ></textarea>
-
-        </div>
-
+      <div class="map-loading" id="mapLoading">
+        Loading your trip map...
       </div>
 
+      <div class="map-error" id="mapError">
+        <div class="map-error-inner">
+          <div class="map-error-icon">🗺️</div>
 
-      <label class="check-row">
+          <div class="map-error-title">
+            Map unavailable
+          </div>
 
-        <input
-          id="fieldOptional"
-          type="checkbox"
-        >
+          <div class="map-error-text" id="mapErrorText">
+            Google Maps could not be loaded.
+          </div>
+        </div>
+      </div>
 
-        OPTIONAL
-
-      </label>
-
-
-      <div class="sheet-actions">
+      <div class="map-actions">
 
         <button
-          id="deleteButton"
-          class="delete-btn"
+          class="map-action primary"
           type="button"
-        >
-          🗑 DELETE
+          onclick="fitMapToStops()">
+          ◎ FIT ROUTE
         </button>
-
 
         <button
-          id="saveButton"
-          class="save-btn"
-          type="submit"
-        >
-          SAVE
+          class="map-action"
+          id="expandButton"
+          type="button"
+          onclick="toggleFullScreenMap()">
+          ⛶ EXPAND
         </button>
 
       </div>
-
-
-      <div
-        id="formMessage"
-        class="form-message"
-      ></div>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-
-<!-- =======================================================
-     MORE
-======================================================= -->
-
-<div
-  id="moreBackdrop"
-  class="more-backdrop"
->
-
-  <div class="more-sheet">
-
-    <div class="sheet-handle"></div>
-
-    <div class="more-head">
-
-      <div class="more-title">
-        More
-      </div>
-
-      <button
-        id="closeMore"
-        class="more-close"
-        type="button"
-      >
-        ✕
-      </button>
 
     </div>
 
 
-    <a
-      id="profileLink"
-      class="more-link"
-    >
-      <div class="more-link-icon">👤</div>
+    <div class="status" id="status">
+      <strong>Loading schedule...</strong>
+    </div>
 
-      <div class="more-link-main">
-        <div class="more-link-title">
-          Profile & Sharing
-        </div>
+  </section>
 
-        <div class="more-link-sub">
-          Your profile · manage trip members
-        </div>
+
+  <!-- =========================
+       STOPS
+  ========================== -->
+  <section class="section">
+
+    <div class="section-head">
+      <div>
+        <div class="section-label">Itinerary</div>
+        <div class="section-title">Stops</div>
       </div>
+    </div>
 
-      <div class="more-link-arrow">→</div>
+    <div class="stops" id="stopList"></div>
+
+  </section>
+
+</div>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================== -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+
+    <a class="nav-item" id="navHome" href="index.html">
+      <span class="nav-icon">⌂</span>
+      <span>HOME</span>
     </a>
 
+    <a class="nav-item" id="navPlan" href="schedule.html">
+      <span class="nav-icon">▦</span>
+      <span>PLAN</span>
+    </a>
 
-    <div class="more-link disabled">
-      <div class="more-link-icon">🧳</div>
+    <a class="nav-item" id="navFood" href="food.html">
+      <span class="nav-icon">♨</span>
+      <span>FOOD</span>
+    </a>
 
-      <div class="more-link-main">
-        <div class="more-link-title">
-          My Trips
-        </div>
+    <a class="nav-item active" id="navHub" href="maps.html">
+      <span class="nav-icon">⌖</span>
+      <span>MAP</span>
+    </a>
 
-        <div class="more-link-sub">
-          Create and switch trips · coming next
-        </div>
-      </div>
-
-      <div class="more-link-arrow">→</div>
-    </div>
-
-
-    <div class="more-link disabled">
-      <div class="more-link-icon">📍</div>
-
-      <div class="more-link-main">
-        <div class="more-link-title">
-          Places
-        </div>
-
-        <div class="more-link-sub">
-          Saved attractions · coming later
-        </div>
-      </div>
-
-      <div class="more-link-arrow">→</div>
-    </div>
+    <a class="nav-item" id="navMore" href="profile.html">
+      <span class="nav-icon">•••</span>
+      <span>MORE</span>
+    </a>
 
   </div>
-
-</div>
-
-
-<!-- =========================================================
-     NAV
-========================================================= -->
-
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
->
-
-  <a id="navHome">
-
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    <span>
-      HOME
-    </span>
-
-  </a>
-
-
-  <a
-    id="navPlan"
-    class="active"
-    aria-current="page"
-  >
-
-    <span class="nav-icon">
-      📅
-    </span>
-
-    <span>
-      PLAN
-    </span>
-
-  </a>
-
-
-  <a id="navFood">
-
-    <span class="nav-icon">
-      🍽️
-    </span>
-
-    <span>
-      FOOD
-    </span>
-
-  </a>
-
-
-  <a id="navHub">
-
-    <span class="nav-icon">
-      ⭐
-    </span>
-
-    <span>
-      HUB
-    </span>
-
-  </a>
-
-
-  <button
-    id="navMore"
-    type="button"
-  >
-
-    <span class="nav-icon">
-      ⋯
-    </span>
-
-    <span>
-      MORE
-    </span>
-
-  </button>
-
 </nav>
 
 
-
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
-
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-<script src="supabase.js"></script>
-
-<!-- Google Maps / Places loader -->
-<script src="google-maps.js"></script>
-
-
-
 <script>
+/* ============================================================
+   CONFIG
+============================================================ */
 
-/* =========================================================
-   TRIP
-========================================================= */
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+const params = new URLSearchParams(window.location.search);
 
 const TRIP_ID =
-  Number(
-    params.get("trip") || 1
-  );
+  Number(params.get("trip")) || 1;
+
+const START_DATE =
+  "2026-10-18";
+
+const END_DATE =
+  "2026-10-30";
 
 
-/* =========================================================
-   DATA
-========================================================= */
+/* ============================================================
+   STATE
+============================================================ */
 
-let trip = null;
+let scheduleRows = [];
 
-let schedule = [];
+let selectedDate =
+  params.get("date") || START_DATE;
 
-let places = [];
+let googleMap = null;
 
-let restaurants = [];
+let googleMaps = null;
 
-let groupedDays = {};
+let infoWindow = null;
 
-let selectedDate = null;
+let markers = [];
 
-let editing = false;
+let currentMappedStops = [];
 
-let editingId = null;
-
-let formType = "place";
-
-let selectedPlaceId = null;
-
-let selectedRestaurantId = null;
-
-/*
-  A Google result is kept here until SAVE.
-  This prevents simply tapping a suggestion
-  from creating unwanted rows in public.places.
-*/
-let pendingGooglePlace = null;
-
-let googlePlaceAutocomplete = null;
+let googleReady = false;
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const main =
-  document.getElementById(
-    "main"
-  );
-
-const tripName =
-  document.getElementById(
-    "tripName"
-  );
-
-const dateScroller =
-  document.getElementById(
-    "dateScroller"
-  );
-
-const editButton =
-  document.getElementById(
-    "editButton"
-  );
-
-const editSheet =
-  document.getElementById(
-    "editSheet"
-  );
-
-const sheetTitle =
-  document.getElementById(
-    "sheetTitle"
-  );
-
-const typeGrid =
-  document.getElementById(
-    "typeGrid"
-  );
-
-const searchField =
-  document.getElementById(
-    "searchField"
-  );
-
-const searchLabel =
-  document.getElementById(
-    "searchLabel"
-  );
-
-const entitySearch =
-  document.getElementById(
-    "entitySearch"
-  );
-
-const entityResults =
-  document.getElementById(
-    "entityResults"
-  );
-
-const fieldDate =
-  document.getElementById(
-    "fieldDate"
-  );
-
-const fieldTime =
-  document.getElementById(
-    "fieldTime"
-  );
-
-const fieldTitle =
-  document.getElementById(
-    "fieldTitle"
-  );
-
-const fieldLocation =
-  document.getElementById(
-    "fieldLocation"
-  );
-
-const fieldNotes =
-  document.getElementById(
-    "fieldNotes"
-  );
-
-const fieldOptional =
-  document.getElementById(
-    "fieldOptional"
-  );
-
-const deleteButton =
-  document.getElementById(
-    "deleteButton"
-  );
-
-const saveButton =
-  document.getElementById(
-    "saveButton"
-  );
-
-const formMessage =
-  document.getElementById(
-    "formMessage"
-  );
-
-const googlePlaceBox =
-  document.getElementById(
-    "googlePlaceBox"
-  );
-
-const placeDivider =
-  document.getElementById(
-    "placeDivider"
-  );
-
-
-/* =========================================================
-   NAV
-========================================================= */
-
-document.getElementById(
-  "navHome"
-).href =
-  `index.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "navPlan"
-).href =
-  `schedule.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "navFood"
-).href =
-  `food.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "navHub"
-).href =
-  `bookings.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "profileLink"
-).href =
-  `profile.html?trip=${TRIP_ID}`;
-
-
-/* =========================================================
+/* ============================================================
    HELPERS
-========================================================= */
+============================================================ */
 
-function text(value){
-
-  return String(
-    value ?? ""
-  );
-
-}
-
-
-function esc(value){
-
-  return text(value)
-
+function escapeHtml(value){
+  return String(value ?? "")
     .replaceAll("&","&amp;")
-
     .replaceAll("<","&lt;")
-
     .replaceAll(">","&gt;")
-
     .replaceAll('"',"&quot;")
-
     .replaceAll("'","&#039;");
-
 }
 
 
-function norm(value){
+function validCoordinate(value){
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+    return false;
+  }
 
-  return text(value)
-    .trim()
-    .toLowerCase();
+  const n = Number(value);
 
+  return Number.isFinite(n);
 }
 
 
-function parseDate(value){
+function hasCoordinates(row){
 
-  return new Date(
-    value +
-    "T12:00:00"
-  );
+  if(
+    !validCoordinate(row.latitude) ||
+    !validCoordinate(row.longitude)
+  ){
+    return false;
+  }
 
+  const lat = Number(row.latitude);
+  const lng = Number(row.longitude);
+
+  if(
+    lat < -90 ||
+    lat > 90 ||
+    lng < -180 ||
+    lng > 180
+  ){
+    return false;
+  }
+
+  if(lat === 0 && lng === 0){
+    return false;
+  }
+
+  return true;
 }
 
 
-function localDateString(){
+function formatTime(value){
 
-  const d =
-    new Date();
+  if(!value){
+    return "";
+  }
 
+  const parts =
+    String(value).split(":");
 
-  return [
-    d.getFullYear(),
+  let hour =
+    Number(parts[0]);
 
-    String(
-      d.getMonth()+1
-    ).padStart(2,"0"),
+  const minute =
+    parts[1] || "00";
 
-    String(
-      d.getDate()
-    ).padStart(2,"0")
+  const suffix =
+    hour >= 12 ? "PM" : "AM";
 
-  ].join("-");
+  hour =
+    hour % 12 || 12;
 
+  return `${hour}:${minute} ${suffix}`;
 }
 
 
-function formatDate(value){
+function getTimeText(row){
+
+  if(row.time_label){
+    return row.time_label;
+  }
+
+  if(row.start_time){
+    return formatTime(row.start_time);
+  }
+
+  return "";
+}
+
+
+function prettyDate(dateString){
+
+  const date =
+    new Date(dateString + "T12:00:00");
 
   return new Intl.DateTimeFormat(
-    "en-SG",
+    "en-GB",
     {
-      weekday:"long",
+      weekday:"short",
       day:"numeric",
-      month:"long"
+      month:"short"
     }
+  ).format(date);
+}
+
+
+function shortWeekday(dateString){
+
+  const date =
+    new Date(dateString + "T12:00:00");
+
+  return new Intl.DateTimeFormat(
+    "en-GB",
+    { weekday:"short" }
   )
-  .format(
-    parseDate(value)
-  )
+  .format(date)
   .toUpperCase();
-
 }
 
 
-function dateParts(value){
-
-  const d =
-    parseDate(value);
-
-
-  return {
-
-    weekday:
-      new Intl.DateTimeFormat(
-        "en-SG",
-        {
-          weekday:"short"
-        }
-      )
-      .format(d)
-      .toUpperCase(),
-
-    day:
-      new Intl.DateTimeFormat(
-        "en-SG",
-        {
-          day:"numeric"
-        }
-      )
-      .format(d),
-
-    month:
-      new Intl.DateTimeFormat(
-        "en-SG",
-        {
-          month:"short"
-        }
-      )
-      .format(d)
-      .toUpperCase()
-
-  };
-
-}
-
-
-/* =========================================================
-   GOOGLE PLACES AUTOFILL
-========================================================= */
-
-function setGooglePlaceStatus(
-  message,
-  type=""
-){
-
-  const el =
-    document.getElementById(
-      "googlePlaceStatus"
-    );
-
-  if(!el){
-    return;
-  }
-
-  el.textContent =
-    message;
-
-  el.className =
-    `place-status ${type}`.trim();
-
-}
-
-
-function googleAddressPart(
-  components,
-  wantedTypes
-){
-
-  const item =
-    (components || []).find(
-      component =>
-        wantedTypes.some(
-          type =>
-            component.types?.includes(type)
-        )
-    );
-
-  return (
-    item?.longText ||
-    item?.shortText ||
-    ""
+function dayNumber(dateString){
+  return Number(
+    dateString.split("-")[2]
   );
-
 }
 
 
-async function initGooglePlaces(){
+function dateRange(start,end){
 
-  const host = document.getElementById("googlePlaceSearch");
-  if(!host) return;
-
-  try{
-
-    setGooglePlaceStatus("Loading Google Places…");
-
-    if(
-      typeof window.loadGoogleMaps !== "function" ||
-      typeof window.getGooglePlaces !== "function" ||
-      typeof window.createGooglePlaceAutocomplete !== "function" ||
-      typeof window.getGooglePlaceDetails !== "function" ||
-      typeof window.normalizeGooglePlace !== "function"
-    ){
-      throw new Error("The new google-maps.js helper functions were not found.");
-    }
-
-    await window.loadGoogleMaps();
-    await window.getGooglePlaces();
-
-    googlePlaceAutocomplete =
-      await window.createGooglePlaceAutocomplete(
-        host,
-        {
-          placeholder:"Search attraction, shrine, hotel, museum..."
-        }
-      );
-
-    googlePlaceAutocomplete.addEventListener(
-      "gmp-select",
-      async event => {
-
-        try{
-
-          setGooglePlaceStatus("Getting place details…");
-
-          const place =
-            await window.getGooglePlaceDetails(event);
-
-          const data =
-            window.normalizeGooglePlace(place);
-
-          pendingGooglePlace = {
-            google_place_id:data.google_place_id || null,
-            name:data.name || "",
-            city:data.city || null,
-            area:data.area || null,
-            address:data.address || null,
-            maps_url:data.maps_url || null,
-            latitude:data.latitude ?? null,
-            longitude:data.longitude ?? null
-          };
-
-          selectedPlaceId = null;
-          selectedRestaurantId = null;
-
-          entitySearch.value =
-            pendingGooglePlace.name;
-
-          fieldTitle.value =
-            pendingGooglePlace.name;
-
-          fieldLocation.value =
-            [
-              pendingGooglePlace.area,
-              pendingGooglePlace.city
-            ]
-            .filter(Boolean)
-            .join(", ")
-            ||
-            pendingGooglePlace.address
-            ||
-            "";
-
-          setGooglePlaceStatus(
-            `✓ ${pendingGooglePlace.name} selected. Press SAVE to add/reuse it in public.places and add it to your schedule.`,
-            "success"
-          );
-
-        }
-        catch(error){
-
-          console.error("Google Places selection error:", error);
-
-          setGooglePlaceStatus(
-            "Google place error: " +
-            (error.message || String(error)),
-            "error"
-          );
-
-        }
-
-      }
-    );
-
-    setGooglePlaceStatus(
-      "Search anywhere in Japan. Select a Google result to autofill the schedule item."
-    );
-
-  }
-  catch(error){
-
-    console.error("Google Places init error:", error);
-
-    setGooglePlaceStatus(
-      "Google Places error: " +
-      (error.message || String(error)),
-      "error"
-    );
-
-  }
-
-}
-
-
-/*
-  Find an existing public.places row first.
-  If there isn't one, create it.
-
-  We deliberately insert only columns already
-  used by your current schedule.html places query:
-  name, city, area, address and maps_url.
-*/
-async function savePendingGooglePlace(){
-
-  if(!pendingGooglePlace){
-    return null;
-  }
-
-
-  const name =
-    pendingGooglePlace.name;
-
-
-  /*
-    First check the places already loaded
-    on this page, so we don't duplicate an
-    obvious existing place.
-  */
-
-  const existingLocal =
-    places.find(
-      place =>
-        norm(place.name) === norm(name)
-        &&
-        (
-          !pendingGooglePlace.city
-          ||
-          norm(place.city) ===
-          norm(pendingGooglePlace.city)
-        )
-    );
-
-
-  if(existingLocal){
-
-    pendingGooglePlace =
-      null;
-
-    return existingLocal.id;
-
-  }
-
-
-  /*
-    Also ask Supabase in case another device
-    added the place after this page loaded.
-  */
-
-  let query =
-    db
-      .from("places")
-      .select(`
-        id,
-        name,
-        name_japanese,
-        city,
-        area,
-        address,
-        maps_url
-      `)
-      .ilike(
-        "name",
-        name
-      )
-      .limit(5);
-
-
-  const check =
-    await query;
-
-
-  if(check.error){
-    throw check.error;
-  }
-
-
-  const existingRemote =
-    (check.data || []).find(
-      place =>
-        !pendingGooglePlace.city
-        ||
-        norm(place.city) ===
-        norm(pendingGooglePlace.city)
-    );
-
-
-  if(existingRemote){
-
-    if(
-      !places.some(
-        p =>
-          Number(p.id) ===
-          Number(existingRemote.id)
-      )
-    ){
-      places.push(
-        existingRemote
-      );
-    }
-
-    pendingGooglePlace =
-      null;
-
-    return existingRemote.id;
-
-  }
-
-
-  const insertResult =
-    await db
-      .from("places")
-      .insert({
-
-        name:
-          pendingGooglePlace.name,
-
-        city:
-          pendingGooglePlace.city,
-
-        area:
-          pendingGooglePlace.area,
-
-        address:
-          pendingGooglePlace.address,
-
-        maps_url:
-          pendingGooglePlace.maps_url
-
-      })
-      .select(`
-        id,
-        name,
-        name_japanese,
-        city,
-        area,
-        address,
-        maps_url
-      `)
-      .single();
-
-
-  if(insertResult.error){
-    throw insertResult.error;
-  }
-
-
-  places.push(
-    insertResult.data
-  );
-
-
-  const id =
-    insertResult.data.id;
-
-
-  pendingGooglePlace =
-    null;
-
-
-  return id;
-
-}
-
-
-/* =========================================================
-   LOAD
-========================================================= */
-
-async function loadData(){
-
-  try{
-
-
-    const [
-      tripResult,
-      scheduleResult,
-      placeResult,
-      restaurantResult
-    ] =
-      await Promise.all([
-
-
-        db
-          .from("trips")
-          .select(`
-            id,
-            name,
-            start_date,
-            end_date
-          `)
-          .eq(
-            "id",
-            TRIP_ID
-          )
-          .single(),
-
-
-        db
-          .from("schedule")
-          .select(`
-            id,
-            trip_id,
-            schedule_date,
-            start_time,
-            end_time,
-            time_label,
-            sort_order,
-            title,
-            item_type,
-            description,
-            notes,
-            restaurant_id,
-            place_id,
-            location_name,
-            address,
-            latitude,
-            longitude,
-            maps_url,
-            is_optional,
-            is_locked,
-
-            place:places(
-              id,
-              name,
-              city,
-              area,
-              maps_url
-            ),
-
-            restaurant:restaurants(
-              id,
-              name,
-              city,
-              area,
-              maps_url
-            )
-          `)
-          .eq(
-            "trip_id",
-            TRIP_ID
-          )
-          .order(
-            "schedule_date",
-            {
-              ascending:true
-            }
-          )
-          .order(
-            "sort_order",
-            {
-              ascending:true
-            }
-          ),
-
-
-        db
-          .from("places")
-          .select(`
-            id,
-            name,
-            name_japanese,
-            city,
-            area,
-            address,
-            maps_url
-          `)
-          .order(
-            "name",
-            {
-              ascending:true
-            }
-          ),
-
-
-        db
-          .from("restaurants")
-          .select(`
-            id,
-            name,
-            name_japanese,
-            city,
-            area,
-            location,
-            address,
-            maps_url
-          `)
-          .order(
-            "name",
-            {
-              ascending:true
-            }
-          )
-
-      ]);
-
-
-    if(tripResult.error){
-      throw tripResult.error;
-    }
-
-
-    if(scheduleResult.error){
-      throw scheduleResult.error;
-    }
-
-
-    if(placeResult.error){
-      throw placeResult.error;
-    }
-
-
-    if(restaurantResult.error){
-      throw restaurantResult.error;
-    }
-
-
-    trip =
-      tripResult.data;
-
-
-    schedule =
-      scheduleResult.data || [];
-
-
-    places =
-      placeResult.data || [];
-
-
-    restaurants =
-      restaurantResult.data || [];
-
-
-    tripName.textContent =
-      trip.name;
-
-
-    buildDays();
-
-    chooseDate();
-
-    renderDates();
-
-    renderDay();
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-
-    main.innerHTML = `
-
-      <div class="state">
-
-        <strong>
-          Couldn't load Plan
-        </strong>
-
-        ${esc(
-          error.message ||
-          "Unknown database error."
-        )}
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   GROUP
-========================================================= */
-
-function buildDays(){
-
-  groupedDays = {};
-
-
-  schedule.forEach(
-    item => {
-
-      if(
-        !groupedDays[
-          item.schedule_date
-        ]
-      ){
-
-        groupedDays[
-          item.schedule_date
-        ] = [];
-
-      }
-
-
-      groupedDays[
-        item.schedule_date
-      ]
-      .push(item);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   CHOOSE DATE
-========================================================= */
-
-function chooseDate(){
-
-  const dates =
-    Object.keys(
-      groupedDays
-    )
-    .sort();
-
-
-  if(!dates.length){
-
-    selectedDate =
-      trip.start_date;
-
-    return;
-
-  }
-
-
-  /*
-    Support links such as:
-    schedule.html?trip=1#2026-10-20
-  */
-
-  const hash =
-    window.location.hash
-      .replace("#","");
-
-
-  if(
-    groupedDays[hash]
-  ){
-
-    selectedDate =
-      hash;
-
-    return;
-
-  }
-
-
-  const today =
-    localDateString();
-
-
-  if(
-    groupedDays[today]
-  ){
-
-    selectedDate =
-      today;
-
-    return;
-
-  }
-
-
-  if(
-    today < trip.start_date
-  ){
-
-    selectedDate =
-      dates[0];
-
-    return;
-
-  }
-
-
-  selectedDate =
-    dates[
-      dates.length - 1
-    ];
-
-}
-
-
-/* =========================================================
-   DATE SCROLLER
-========================================================= */
-
-function renderDates(){
-
-  /*
-    Show every date in the trip,
-    even if a day currently has
-    no schedule rows.
-  */
-
-  const dates = [];
-
+  const result = [];
 
   let cursor =
-    parseDate(
-      trip.start_date
-    );
+    new Date(start + "T12:00:00");
 
+  const finish =
+    new Date(end + "T12:00:00");
 
-  const end =
-    parseDate(
-      trip.end_date
-    );
+  while(cursor <= finish){
 
+    const y =
+      cursor.getFullYear();
 
-  while(
-    cursor <= end
-  ){
-
-    const value = [
-
-      cursor.getFullYear(),
-
+    const m =
       String(
         cursor.getMonth()+1
-      )
-      .padStart(
-        2,
-        "0"
-      ),
+      ).padStart(2,"0");
 
+    const d =
       String(
         cursor.getDate()
-      )
-      .padStart(
-        2,
-        "0"
-      )
+      ).padStart(2,"0");
 
-    ].join("-");
-
-
-    dates.push(value);
-
+    result.push(
+      `${y}-${m}-${d}`
+    );
 
     cursor.setDate(
       cursor.getDate()+1
     );
-
   }
 
-
-  dateScroller.innerHTML =
-    dates
-      .map(
-        date => {
-
-          const parts =
-            dateParts(date);
+  return result;
+}
 
 
-          return `
+/* ============================================================
+   NAV LINKS
+============================================================ */
 
-            <button
-              class="
-                date-btn
-                ${
-                  date === selectedDate
-                  ?
-                  "active"
-                  :
-                  ""
-                }
-              "
-              type="button"
-              data-date="${date}"
-            >
+function setupNavigation(){
 
-              <span class="date-weekday">
-                ${esc(parts.weekday)}
-              </span>
+  const suffix =
+    `?trip=${encodeURIComponent(TRIP_ID)}`;
 
-              <span class="date-number">
-                ${esc(parts.day)}
-              </span>
+  document.getElementById("navHome").href =
+    "index.html" + suffix;
 
-              <span class="date-month">
-                ${esc(parts.month)}
-              </span>
+  document.getElementById("navPlan").href =
+    "schedule.html" + suffix;
 
-            </button>
+  document.getElementById("navFood").href =
+    "food.html" + suffix;
 
-          `;
+  document.getElementById("navHub").href =
+    "maps.html" + suffix;
 
-        }
-      )
-      .join("");
+  document.getElementById("navMore").href =
+    "profile.html" + suffix;
+}
 
 
-  dateScroller
-    .querySelectorAll(
-      ".date-btn"
-    )
-    .forEach(
-      button => {
+/* ============================================================
+   DATE CHIPS
+============================================================ */
 
-        button.onclick =
-          () => {
+function renderDateChips(){
 
-            selectedDate =
-              button.dataset.date;
-
-
-            history.replaceState(
-              null,
-              "",
-              `?trip=${TRIP_ID}#${selectedDate}`
-            );
-
-
-            renderDates();
-
-            renderDay();
-
-          };
-
-      }
+  const container =
+    document.getElementById(
+      "dateChips"
     );
 
+  const dates =
+    dateRange(
+      START_DATE,
+      END_DATE
+    );
 
-  requestAnimationFrame(
-    () => {
+  container.innerHTML =
+    dates.map(date => {
 
       const active =
-        dateScroller.querySelector(
-          ".date-btn.active"
-        );
-
-
-      active?.scrollIntoView({
-        behavior:"smooth",
-        block:"nearest",
-        inline:"center"
-      });
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   ITEM HELPERS
-========================================================= */
-
-function itemTime(item){
-
-  if(item.time_label){
-    return item.time_label;
-  }
-
-
-  if(item.start_time){
-
-    const parts =
-      item.start_time
-        .split(":");
-
-
-    let hour =
-      Number(
-        parts[0]
-      );
-
-
-    const minute =
-      parts[1] || "00";
-
-
-    const suffix =
-      hour >= 12
-      ?
-      "PM"
-      :
-      "AM";
-
-
-    hour =
-      hour % 12 || 12;
-
-
-    return (
-      `${hour}:${minute} ${suffix}`
-    );
-
-  }
-
-
-  return "Flexible";
-
-}
-
-
-function itemLocation(item){
-
-  return (
-    item.restaurant?.name ||
-    item.place?.name ||
-    item.location_name ||
-    ""
-  );
-
-}
-
-
-function itemMap(item){
-
-  return (
-    item.restaurant?.maps_url ||
-    item.place?.maps_url ||
-    item.maps_url ||
-    null
-  );
-
-}
-
-
-function itemIcon(item){
-
-  const type =
-    norm(
-      item.item_type
-    );
-
-
-  const title =
-    norm(
-      item.title
-    );
-
-
-  if(
-    item.restaurant_id ||
-    type.includes("food") ||
-    type.includes("restaurant") ||
-    title.includes("lunch") ||
-    title.includes("dinner") ||
-    title.includes("breakfast")
-  ){
-    return "🍽️";
-  }
-
-
-  if(
-    type.includes("hotel") ||
-    title.includes("hotel") ||
-    title.includes("check-in")
-  ){
-    return "🏨";
-  }
-
-
-  if(
-    type.includes("transport") ||
-    title.includes("train") ||
-    title.includes("drive") ||
-    title.includes("travel") ||
-    title.includes("arrive") ||
-    title.includes("depart")
-  ){
-    return "🚆";
-  }
-
-
-  if(
-    title.includes("shrine") ||
-    title.includes("temple") ||
-    title.includes("taisha")
-  ){
-    return "⛩️";
-  }
-
-
-  if(
-    title.includes("waterfall") ||
-    title.includes("falls")
-  ){
-    return "💧";
-  }
-
-
-  if(
-    title.includes("mount") ||
-    title.includes("highland") ||
-    title.includes("viewpoint")
-  ){
-    return "🏔️";
-  }
-
-
-  if(
-    title.includes("market")
-  ){
-    return "🛍️";
-  }
-
-
-  return "📍";
-
-}
-
-
-/* =========================================================
-   AREA
-========================================================= */
-
-function dayArea(date){
-
-  if(TRIP_ID === 1){
-
-    if(
-      date <= "2026-10-20"
-    ){
-      return "⛩️ Kyoto";
-    }
-
-
-    if(
-      date === "2026-10-21"
-    ){
-      return "🌊 Ine";
-    }
-
-
-    if(
-      date === "2026-10-22"
-    ){
-      return "⛩️ Kyoto";
-    }
-
-
-    if(
-      date === "2026-10-23"
-    ){
-      return "🚗 Kyoto → Dorogawa";
-    }
-
-
-    if(
-      date === "2026-10-24"
-    ){
-      return "🏔️ Dorogawa → Ryujin";
-    }
-
-
-    if(
-      date === "2026-10-25"
-    ){
-      return "⛩️ Kumano";
-    }
-
-
-    if(
-      date === "2026-10-26"
-    ){
-      return "💧 Nachi → Osaka";
-    }
-
-
-    if(
-      date === "2026-10-27"
-    ){
-      return "🌃 Osaka";
-    }
-
-
-    if(
-      date === "2026-10-28"
-    ){
-      return "🚄 Aichi Day Trip";
-    }
-
-
-    if(
-      date === "2026-10-29"
-    ){
-      return "🦌 Nara";
-    }
-
-
-    if(
-      date === "2026-10-30"
-    ){
-      return "✈️ Departure";
-    }
-
-  }
-
-
-  return "Japan";
-
-}
-
-
-/* =========================================================
-   DAY
-========================================================= */
-
-function renderDay(){
-
-  const items =
-    groupedDays[
-      selectedDate
-    ] || [];
-
-
-  main.classList.toggle(
-    "editing",
-    editing
-  );
-
-
-  main.innerHTML = `
-
-    <div class="day-head">
-
-      <div class="day-date">
-
-        ${esc(
-          formatDate(
-            selectedDate
-          )
-        )}
-
-      </div>
-
-
-      <div class="day-title">
-
-        ${esc(
-          dayArea(
-            selectedDate
-          )
-        )}
-
-      </div>
-
-
-      <div class="day-summary">
-
-        ${
-          items.length
-          ?
-          `${items.length} schedule item${items.length === 1 ? "" : "s"}`
-          :
-          "No schedule items yet"
-        }
-
-      </div>
-
-    </div>
-
-
-    ${
-      items.length
-
-      ?
-
-      `
-        <div class="timeline">
-
-          ${
-            items
-              .map(
-                timelineHTML
-              )
-              .join("")
-          }
-
-        </div>
-      `
-
-      :
-
-      `
-        <div class="state">
-
-          <strong>
-            Nothing planned yet
-          </strong>
-
-          Turn on Edit and add
-          something to this day.
-
-        </div>
-      `
-    }
-
-
-    <div class="add-row">
-
-      <button
-        id="addItemButton"
-        class="add-item-btn"
-        type="button"
-      >
-        ＋ ADD ITEM
-      </button>
-
-    </div>
-
-  `;
-
-
-  const addButton =
-    document.getElementById(
-      "addItemButton"
-    );
-
-
-  if(addButton){
-
-    addButton.onclick =
-      openNewItem;
-
-  }
-
-}
-
-
-/* =========================================================
-   TIMELINE HTML
-========================================================= */
-
-function timelineHTML(item){
-
-  const map =
-    itemMap(item);
-
-
-  const location =
-    itemLocation(item);
-
-
-  return `
-
-    <div class="timeline-row">
-
-      <div class="timeline-time">
-
-        ${esc(
-          itemTime(item)
-        )}
-
-      </div>
-
-
-      <div class="marker">
-
-        <span class="dot"></span>
-
-      </div>
-
-
-      <div class="item-main">
-
-        <div class="item-title">
-
-          ${itemIcon(item)}
-
-          ${
-            map
-
-            ?
-
-            `
-              <a
-                href="${esc(map)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ${esc(item.title)}
-              </a>
-            `
-
-            :
-
-            esc(item.title)
-          }
-
-
-          ${
-            item.is_optional
-
-            ?
-
-            `
-              <span class="optional">
-                OPTIONAL
-              </span>
-            `
-
-            :
-
-            ""
-          }
-
-        </div>
-
-
-        ${
-          location &&
-          norm(location) !==
-          norm(item.title)
-
-          ?
-
-          `
-            <div class="item-location">
-
-              📍 ${esc(location)}
-
-            </div>
-          `
-
-          :
-
-          ""
-        }
-
-
-        ${
-          item.notes ||
-          item.description
-
-          ?
-
-          `
-            <div class="item-note">
-
-              ${esc(
-                item.notes ||
-                item.description
-              )}
-
-            </div>
-          `
-
-          :
-
-          ""
-        }
-
-      </div>
-
-
-      <button
-        class="row-edit"
-        type="button"
-        onclick="openEditItem(${Number(item.id)})"
-        aria-label="Edit"
-      >
-        ✏️
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   EDIT MODE
-========================================================= */
-
-editButton.onclick =
-  () => {
-
-    editing =
-      !editing;
-
-
-    editButton.classList
-      .toggle(
-        "active",
-        editing
-      );
-
-
-    editButton.textContent =
-      editing
-      ?
-      "✓ DONE"
-      :
-      "✏️ EDIT";
-
-
-    renderDay();
-
-  };
-
-
-/* =========================================================
-   SHEET
-========================================================= */
-
-document.getElementById(
-  "closeSheet"
-).onclick =
-  closeEditSheet;
-
-
-editSheet.onclick =
-  event => {
-
-    if(
-      event.target ===
-      editSheet
-    ){
-
-      closeEditSheet();
-
-    }
-
-  };
-
-
-function closeEditSheet(){
-
-  editSheet.classList
-    .remove(
-      "open"
-    );
-
-
-  entityResults.classList
-    .remove(
-      "show"
-    );
-
-}
-
-
-/* =========================================================
-   TYPE
-========================================================= */
-
-typeGrid
-  .querySelectorAll(
-    "[data-type]"
-  )
-  .forEach(
-    button => {
-
-      button.onclick =
-        () => {
-
-          setFormType(
-            button.dataset.type
-          );
-
-        };
-
-    }
-  );
-
-
-function setFormType(type){
-
-  formType =
-    type;
-
-
-  googlePlaceBox.classList.toggle(
-    "show",
-    type === "place"
-  );
-
-  placeDivider.classList.toggle(
-    "show",
-    type === "place"
-  );
-
-
-  if(type !== "place"){
-    pendingGooglePlace = null;
-  }
-
-
-  typeGrid
-    .querySelectorAll(
-      "[data-type]"
-    )
-    .forEach(
-      button => {
-
-        button.classList
-          .toggle(
-            "active",
-            button.dataset.type ===
-            type
-          );
-
-      }
-    );
-
-
-  selectedPlaceId =
-    type === "place"
-    ?
-    selectedPlaceId
-    :
-    null;
-
-
-  selectedRestaurantId =
-    type === "restaurant"
-    ?
-    selectedRestaurantId
-    :
-    null;
-
-
-  if(
-    type === "custom"
-  ){
-
-    searchField.style.display =
-      "none";
-
-  }
-
-  else{
-
-    searchField.style.display =
-      "block";
-
-
-    if(
-      type === "place"
-    ){
-
-      searchLabel.textContent =
-        "PLACE";
-
-      entitySearch.placeholder =
-        "Search your places...";
-
-    }
-
-    else{
-
-      searchLabel.textContent =
-        "RESTAURANT";
-
-      entitySearch.placeholder =
-        "Search restaurants...";
-
-    }
-
-  }
-
-
-  entityResults.classList
-    .remove(
-      "show"
-    );
-
-}
-
-
-/* =========================================================
-   OPEN NEW
-========================================================= */
-
-function openNewItem(){
-
-  editingId =
-    null;
-
-
-  pendingGooglePlace =
-    null;
-
-
-  selectedPlaceId =
-    null;
-
-
-  selectedRestaurantId =
-    null;
-
-
-  sheetTitle.textContent =
-    "＋ Add Schedule Item";
-
-
-  deleteButton.style.display =
-    "none";
-
-
-  fieldDate.value =
-    selectedDate;
-
-
-  fieldTime.value =
-    "";
-
-
-  fieldTitle.value =
-    "";
-
-
-  fieldLocation.value =
-    "";
-
-
-  fieldNotes.value =
-    "";
-
-
-  fieldOptional.checked =
-    false;
-
-
-  entitySearch.value =
-    "";
-
-
-  setFormType(
-    "place"
-  );
-
-
-  formMessage.className =
-    "form-message";
-
-
-  editSheet.classList
-    .add(
-      "open"
-    );
-
-}
-
-
-/* =========================================================
-   OPEN EDIT
-========================================================= */
-
-function openEditItem(id){
-
-  pendingGooglePlace =
-    null;
-
-
-  const item =
-    schedule.find(
-      row =>
-        Number(row.id) ===
-        Number(id)
-    );
-
-
-  if(!item){
-    return;
-  }
-
-
-  editingId =
-    item.id;
-
-
-  selectedPlaceId =
-    item.place_id ||
-    null;
-
-
-  selectedRestaurantId =
-    item.restaurant_id ||
-    null;
-
-
-  sheetTitle.textContent =
-    "Edit Schedule Item";
-
-
-  deleteButton.style.display =
-    "block";
-
-
-  fieldDate.value =
-    item.schedule_date;
-
-
-  fieldTime.value =
-    item.start_time
-    ?
-    item.start_time.slice(0,5)
-    :
-    "";
-
-
-  fieldTitle.value =
-    item.title || "";
-
-
-  fieldLocation.value =
-    item.location_name || "";
-
-
-  fieldNotes.value =
-    item.notes ||
-    item.description ||
-    "";
-
-
-  fieldOptional.checked =
-    Boolean(
-      item.is_optional
-    );
-
-
-  entitySearch.value =
-    item.restaurant?.name ||
-    item.place?.name ||
-    "";
-
-
-  if(item.restaurant_id){
-
-    setFormType(
-      "restaurant"
-    );
-
-  }
-
-  else if(item.place_id){
-
-    setFormType(
-      "place"
-    );
-
-  }
-
-  else{
-
-    setFormType(
-      "custom"
-    );
-
-  }
-
-
-  formMessage.className =
-    "form-message";
-
-
-  editSheet.classList
-    .add(
-      "open"
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH PLACES / FOOD
-========================================================= */
-
-entitySearch.addEventListener(
-  "input",
-  () => {
-
-    if(formType === "place"){
-      pendingGooglePlace = null;
-    }
-
-
-    const query =
-      norm(
-        entitySearch.value
-      );
-
-
-    if(
-      query.length < 1
-    ){
-
-      entityResults.classList
-        .remove(
-          "show"
-        );
-
-      return;
-
-    }
-
-
-    const source =
-      formType === "restaurant"
-      ?
-      restaurants
-      :
-      places;
-
-
-    const matches =
-      source
-        .filter(
-          item => {
-
-            const haystack =
-              norm([
-                item.name,
-                item.name_japanese,
-                item.city,
-                item.area,
-                item.location
-              ].join(" "));
-
-
-            return haystack.includes(
-              query
-            );
-
-          }
-        )
-        .slice(
-          0,
-          8
-        );
-
-
-    if(
-      !matches.length
-    ){
-
-      entityResults.innerHTML = `
-
-        <div class="search-result">
-
-          <div class="result-name">
-            No matches
-          </div>
-
-          <div class="result-meta">
-            Try another name.
-          </div>
-
-        </div>
-
+        date === selectedDate;
+
+      return `
+        <button
+          class="date-chip
+                 ${active ? "active" : ""}"
+          data-date="${date}"
+          type="button"
+          onclick="selectDate('${date}')">
+
+          <span class="day">
+            ${shortWeekday(date)}
+          </span>
+
+          <span class="num">
+            ${dayNumber(date)}
+          </span>
+
+        </button>
       `;
 
+    }).join("");
 
-      entityResults.classList
-        .add(
-          "show"
-        );
+  requestAnimationFrame(() => {
 
+    const active =
+      container.querySelector(
+        ".date-chip.active"
+      );
 
-      return;
-
+    if(active){
+      active.scrollIntoView({
+        behavior:"smooth",
+        inline:"center",
+        block:"nearest"
+      });
     }
 
-
-    entityResults.innerHTML =
-      matches
-        .map(
-          item => `
-
-            <button
-              class="search-result"
-              type="button"
-              data-id="${Number(item.id)}"
-            >
-
-              <div class="result-name">
-
-                ${
-                  formType ===
-                  "restaurant"
-                  ?
-                  "🍽️"
-                  :
-                  "📍"
-                }
-
-                ${esc(item.name)}
-
-              </div>
-
-
-              <div class="result-meta">
-
-                ${esc(
-                  [
-                    item.area,
-                    item.city
-                  ]
-                  .filter(Boolean)
-                  .join(" · ")
-                )}
-
-              </div>
-
-            </button>
-
-          `
-        )
-        .join("");
-
-
-    entityResults.classList
-      .add(
-        "show"
-      );
-
-
-    entityResults
-      .querySelectorAll(
-        "[data-id]"
-      )
-      .forEach(
-        button => {
-
-          button.onclick =
-            () => {
-
-              chooseEntity(
-                Number(
-                  button.dataset.id
-                )
-              );
-
-            };
-
-        }
-      );
-
-  }
-);
-
-
-/* =========================================================
-   CHOOSE ENTITY
-========================================================= */
-
-function chooseEntity(id){
-
-  pendingGooglePlace =
-    null;
-
-
-  const source =
-    formType === "restaurant"
-    ?
-    restaurants
-    :
-    places;
-
-
-  const item =
-    source.find(
-      row =>
-        Number(row.id) ===
-        Number(id)
-    );
-
-
-  if(!item){
-    return;
-  }
-
-
-  if(
-    formType === "restaurant"
-  ){
-
-    selectedRestaurantId =
-      item.id;
-
-    selectedPlaceId =
-      null;
-
-  }
-
-  else{
-
-    selectedPlaceId =
-      item.id;
-
-    selectedRestaurantId =
-      null;
-
-  }
-
-
-  entitySearch.value =
-    item.name;
-
-
-  fieldTitle.value =
-    item.name;
-
-
-  fieldLocation.value =
-    [
-      item.area,
-      item.city
-    ]
-    .filter(Boolean)
-    .join(", ");
-
-
-  entityResults.classList
-    .remove(
-      "show"
-    );
-
+  });
 }
 
 
-/* =========================================================
-   SORT ORDER
-========================================================= */
+function selectDate(date){
 
-function nextSortOrder(date){
+  selectedDate = date;
 
-  const rows =
-    groupedDays[date] || [];
+  const url =
+    new URL(window.location.href);
 
+  url.searchParams.set(
+    "trip",
+    TRIP_ID
+  );
 
-  if(!rows.length){
-    return 10;
-  }
+  url.searchParams.set(
+    "date",
+    date
+  );
 
+  history.replaceState(
+    {},
+    "",
+    url
+  );
 
-  const max =
-    Math.max(
-      ...rows.map(
-        row =>
-          Number(
-            row.sort_order || 0
-          )
-      )
-    );
-
-
-  return max + 10;
-
+  renderDateChips();
+  renderSelectedDay();
 }
 
 
-/* =========================================================
-   SAVE
-========================================================= */
-
-document.getElementById(
-  "editForm"
-).addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-
-    saveButton.disabled =
-      true;
-
-
-    saveButton.textContent =
-      "SAVING…";
-
-
-    formMessage.className =
-      "form-message";
-
-
-    try{
-
-
-      const date =
-        fieldDate.value;
-
-
-      const time =
-        fieldTime.value;
-
-
-      const title =
-        fieldTitle.value.trim();
-
-
-      const location =
-        fieldLocation.value.trim();
-
-
-      const notes =
-        fieldNotes.value.trim();
-
-
-      if(!date){
-        throw new Error(
-          "Please choose a date."
-        );
-      }
-
-
-      if(!title){
-        throw new Error(
-          "Please enter a title."
-        );
-      }
-
-
-      /*
-        If Place/Food was selected but
-        the user typed without selecting
-        a result, save as Custom instead
-        of attaching the wrong ID.
-      */
-
-      let placeId =
-        formType === "place"
-        ?
-        selectedPlaceId
-        :
-        null;
-
-
-      /*
-        If this came from Google Places,
-        create/reuse public.places now and
-        attach the resulting ID to schedule.
-      */
-      if(
-        formType === "place"
-        &&
-        pendingGooglePlace
-      ){
-
-        placeId =
-          await savePendingGooglePlace();
-
-        selectedPlaceId =
-          placeId;
-
-      }
-
-
-      let restaurantId =
-        formType === "restaurant"
-        ?
-        selectedRestaurantId
-        :
-        null;
-
-
-      const payload = {
-
-        trip_id:
-          TRIP_ID,
-
-        schedule_date:
-          date,
-
-        start_time:
-          time
-          ?
-          `${time}:00`
-          :
-          null,
-
-        /*
-          We clear time_label when the
-          user explicitly chooses a time.
-          This means Home and Plan will
-          show the newly edited time.
-        */
-
-        time_label:
-          time
-          ?
-          null
-          :
-          null,
-
-        title:
-          title,
-
-        item_type:
-          formType === "restaurant"
-          ?
-          "restaurant"
-          :
-          formType === "place"
-          ?
-          "attraction"
-          :
-          "custom",
-
-        notes:
-          notes || null,
-
-        location_name:
-          location || null,
-
-        place_id:
-          placeId,
-
-        restaurant_id:
-          restaurantId,
-
-        is_optional:
-          fieldOptional.checked
-
-      };
-
-
-      /*
-        NEW ITEM
-      */
-
-      if(
-        editingId === null
-      ){
-
-        payload.sort_order =
-          nextSortOrder(
-            date
-          );
-
-
-        const result =
-          await db
-            .from("schedule")
-            .insert(
-              payload
-            )
-            .select()
-            .single();
-
-
-        if(result.error){
-          throw result.error;
-        }
-
-      }
-
-
-      /*
-        EDIT ITEM
-      */
-
-      else{
-
-        const result =
-          await db
-            .from("schedule")
-            .update(
-              payload
-            )
-            .eq(
-              "id",
-              editingId
-            )
-            .eq(
-              "trip_id",
-              TRIP_ID
-            );
-
-
-        if(result.error){
-          throw result.error;
-        }
-
-      }
-
-
-      selectedDate =
-        date;
-
-
-      closeEditSheet();
-
-
-      /*
-        Reload directly from Supabase.
-
-        This is important because
-        index.html reads the exact same
-        schedule table.
-      */
-
-      await reloadSchedule();
-
-
-    }
-
-    catch(error){
-
-      console.error(error);
-
-
-      formMessage.textContent =
-        error.message ||
-        "Couldn't save schedule item.";
-
-
-      formMessage.className =
-        "form-message error";
-
-    }
-
-    finally{
-
-      saveButton.disabled =
-        false;
-
-
-      saveButton.textContent =
-        "SAVE";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   DELETE
-========================================================= */
-
-deleteButton.onclick =
-  async () => {
-
-    if(
-      editingId === null
-    ){
-      return;
-    }
-
-
-    const item =
-      schedule.find(
-        row =>
-          Number(row.id) ===
-          Number(editingId)
-      );
-
-
-    if(!item){
-      return;
-    }
-
-
-    const okay =
-      confirm(
-        `Delete "${item.title}" from the schedule?`
-      );
-
-
-    if(!okay){
-      return;
-    }
-
-
-    deleteButton.disabled =
-      true;
-
-
-    try{
-
-      const result =
-        await db
-          .from("schedule")
-          .delete()
-          .eq(
-            "id",
-            editingId
-          )
-          .eq(
-            "trip_id",
-            TRIP_ID
-          );
-
-
-      if(result.error){
-        throw result.error;
-      }
-
-
-      closeEditSheet();
-
-
-      await reloadSchedule();
-
-    }
-
-    catch(error){
-
-      console.error(error);
-
-
-      formMessage.textContent =
-        error.message ||
-        "Couldn't delete item.";
-
-
-      formMessage.className =
-        "form-message error";
-
-    }
-
-    finally{
-
-      deleteButton.disabled =
-        false;
-
-    }
-
-  };
-
-
-/* =========================================================
-   RELOAD SCHEDULE
-========================================================= */
-
-async function reloadSchedule(){
-
-  const result =
-    await db
+/* ============================================================
+   SUPABASE
+============================================================ */
+
+async function loadSchedule(){
+
+  const status =
+    document.getElementById(
+      "status"
+    );
+
+  try{
+
+    const {
+      data,
+      error
+    } = await db
       .from("schedule")
       .select(`
         id,
@@ -4456,117 +1107,753 @@ async function reloadSchedule(){
         longitude,
         maps_url,
         is_optional,
-        is_locked,
-
-        place:places(
-          id,
-          name,
-          city,
-          area,
-          maps_url
-        ),
-
-        restaurant:restaurants(
-          id,
-          name,
-          city,
-          area,
-          maps_url
-        )
+        is_locked
       `)
-      .eq(
-        "trip_id",
-        TRIP_ID
+      .eq("trip_id",TRIP_ID)
+      .gte(
+        "schedule_date",
+        START_DATE
+      )
+      .lte(
+        "schedule_date",
+        END_DATE
       )
       .order(
         "schedule_date",
-        {
-          ascending:true
-        }
+        { ascending:true }
       )
       .order(
         "sort_order",
+        { ascending:true }
+      );
+
+    if(error){
+      throw error;
+    }
+
+    scheduleRows =
+      data || [];
+
+    status.innerHTML =
+      `<strong>${scheduleRows.length} schedule items loaded.</strong>
+       Choose a date above to view its map.`;
+
+    renderSelectedDay();
+
+  }catch(error){
+
+    console.error(error);
+
+    status.innerHTML =
+      `<strong>Could not load schedule.</strong><br>
+       ${escapeHtml(
+         error.message ||
+         "Unknown Supabase error."
+       )}`;
+
+    document.getElementById(
+      "stopList"
+    ).innerHTML =
+      `<div class="empty">
+        Your schedule could not be loaded.
+       </div>`;
+  }
+}
+
+
+/* ============================================================
+   SELECTED DAY
+============================================================ */
+
+function getSelectedRows(){
+
+  return scheduleRows
+    .filter(row =>
+      row.schedule_date ===
+      selectedDate
+    )
+    .sort((a,b) =>
+      Number(a.sort_order || 0) -
+      Number(b.sort_order || 0)
+    );
+}
+
+
+function renderSelectedDay(){
+
+  const rows =
+    getSelectedRows();
+
+  document.getElementById(
+    "mapDateTitle"
+  ).textContent =
+    prettyDate(selectedDate);
+
+  const mapped =
+    rows.filter(
+      hasCoordinates
+    );
+
+  document.getElementById(
+    "mapCount"
+  ).textContent =
+    `${mapped.length}/${rows.length} mapped`;
+
+  renderStops(rows);
+
+  if(googleReady){
+    renderMapStops(rows);
+  }
+}
+
+
+/* ============================================================
+   STOP LIST
+============================================================ */
+
+function renderStops(rows){
+
+  const container =
+    document.getElementById(
+      "stopList"
+    );
+
+  if(!rows.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        No schedule items found for
+        ${escapeHtml(
+          prettyDate(selectedDate)
+        )}.
+       </div>`;
+
+    return;
+  }
+
+  container.innerHTML =
+    rows.map((row,index) => {
+
+      const mapped =
+        hasCoordinates(row);
+
+      const time =
+        getTimeText(row);
+
+      const location =
+        row.location_name ||
+        row.address ||
+        "";
+
+      return `
+        <div
+          class="stop
+                 ${mapped
+                    ? ""
+                    : "no-location"}"
+          onclick="
+            ${mapped
+              ? `focusStop(${index})`
+              : ""}
+          ">
+
+          <div class="stop-number">
+            ${index+1}
+          </div>
+
+          <div>
+
+            ${
+              time
+              ? `<div class="stop-time">
+                   ${escapeHtml(time)}
+                 </div>`
+              : ""
+            }
+
+            <div class="stop-name">
+              ${escapeHtml(row.title)}
+            </div>
+
+            <div class="stop-location">
+
+              ${
+                mapped
+                ? "📍 "
+                : "⚠ "
+              }
+
+              ${
+                escapeHtml(
+                  location ||
+                  (
+                    mapped
+                      ? "Mapped location"
+                      : "No coordinates yet"
+                  )
+                )
+              }
+
+            </div>
+
+          </div>
+
+          <div class="stop-arrow">
+            ${mapped ? "›" : ""}
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+/* ============================================================
+   GOOGLE MAP LOADING
+============================================================ */
+
+async function initializeGoogleMap(){
+
+  const loading =
+    document.getElementById(
+      "mapLoading"
+    );
+
+  const errorBox =
+    document.getElementById(
+      "mapError"
+    );
+
+  const errorText =
+    document.getElementById(
+      "mapErrorText"
+    );
+
+  try{
+
+    /*
+      Your google-maps.js should provide
+      window.loadGoogleMaps().
+
+      This is the same loader pattern used
+      by your restaurant setup page.
+    */
+
+    if(
+      typeof window.loadGoogleMaps
+      !== "function"
+    ){
+      throw new Error(
+        "loadGoogleMaps() was not found in google-maps.js."
+      );
+    }
+
+    googleMaps =
+      await window.loadGoogleMaps();
+
+    /*
+      Depending on your loader,
+      it may return google.maps
+      OR Google may be available
+      through window.google.maps.
+    */
+
+    const maps =
+      googleMaps ||
+      window.google?.maps;
+
+    if(!maps){
+      throw new Error(
+        "Google Maps loaded, but google.maps was not available."
+      );
+    }
+
+    googleMaps = maps;
+
+    googleMap =
+      new googleMaps.Map(
+        document.getElementById(
+          "map"
+        ),
         {
-          ascending:true
+          center:{
+            lat:35.0116,
+            lng:135.7681
+          },
+
+          zoom:12,
+
+          mapTypeControl:false,
+
+          streetViewControl:false,
+
+          fullscreenControl:false,
+
+          clickableIcons:true,
+
+          gestureHandling:"greedy"
+        }
+      );
+
+    infoWindow =
+      new googleMaps.InfoWindow();
+
+    googleReady = true;
+
+    loading.classList.add(
+      "hidden"
+    );
+
+    errorBox.classList.remove(
+      "show"
+    );
+
+    renderSelectedDay();
+
+  }catch(error){
+
+    console.error(error);
+
+    loading.classList.add(
+      "hidden"
+    );
+
+    errorText.textContent =
+      error.message ||
+      "Google Maps could not be loaded.";
+
+    errorBox.classList.add(
+      "show"
+    );
+  }
+}
+
+
+/* ============================================================
+   MAP MARKERS
+============================================================ */
+
+function clearMarkers(){
+
+  markers.forEach(marker => {
+    marker.setMap(null);
+  });
+
+  markers = [];
+
+  currentMappedStops = [];
+
+  if(infoWindow){
+    infoWindow.close();
+  }
+}
+
+
+function createNumberMarker(number){
+
+  return {
+    path:
+      googleMaps.SymbolPath.CIRCLE,
+
+    fillColor:"#c96f68",
+    fillOpacity:1,
+
+    strokeColor:"#ffffff",
+    strokeWeight:3,
+
+    scale:15,
+
+    labelOrigin:
+      new googleMaps.Point(0,0)
+  };
+}
+
+
+function renderMapStops(rows){
+
+  if(!googleMap){
+    return;
+  }
+
+  clearMarkers();
+
+  /*
+    Preserve the original itinerary
+    number even if a stop is missing
+    coordinates.
+  */
+
+  currentMappedStops =
+    rows
+      .map((row,index) => ({
+        row,
+        itineraryNumber:index+1
+      }))
+      .filter(item =>
+        hasCoordinates(item.row)
+      );
+
+
+  if(!currentMappedStops.length){
+
+    googleMap.setCenter({
+      lat:35.0116,
+      lng:135.7681
+    });
+
+    googleMap.setZoom(11);
+
+    document.getElementById(
+      "status"
+    ).innerHTML =
+      `<strong>No mapped stops for this day yet.</strong>
+       Add latitude and longitude to your schedule locations
+       and they will appear here automatically.`;
+
+    return;
+  }
+
+
+  currentMappedStops.forEach(
+    (item,mappedIndex) => {
+
+      const row =
+        item.row;
+
+      const number =
+        item.itineraryNumber;
+
+      const position = {
+        lat:Number(row.latitude),
+        lng:Number(row.longitude)
+      };
+
+
+      const marker =
+        new googleMaps.Marker({
+
+          map:googleMap,
+
+          position,
+
+          title:row.title,
+
+          icon:
+            createNumberMarker(number),
+
+          label:{
+            text:String(number),
+            color:"#ffffff",
+            fontSize:"11px",
+            fontWeight:"900"
+          },
+
+          zIndex:
+            100 + number
+        });
+
+
+      marker.addListener(
+        "click",
+        () => {
+          openStopInfo(
+            row,
+            number,
+            marker
+          );
         }
       );
 
 
-  if(result.error){
-    throw result.error;
-  }
+      markers.push(marker);
 
+      item.marker =
+        marker;
 
-  schedule =
-    result.data || [];
-
-
-  buildDays();
-
-  renderDates();
-
-  renderDay();
-
-}
-
-
-/* =========================================================
-   MORE
-========================================================= */
-
-const moreBackdrop =
-  document.getElementById(
-    "moreBackdrop"
+      item.mappedIndex =
+        mappedIndex;
+    }
   );
 
 
-function openMore(){
+  fitMapToStops();
 
-  moreBackdrop
-    .classList
-    .add("open");
 
+  document.getElementById(
+    "status"
+  ).innerHTML =
+    `<strong>${currentMappedStops.length} mapped stops.</strong>
+     Tap a numbered marker to see the stop and open directions.`;
 }
 
 
-function closeMore(){
+/* ============================================================
+   INFO WINDOW
+============================================================ */
 
-  moreBackdrop
-    .classList
-    .remove("open");
+function googleDirectionsUrl(row){
 
+  const lat =
+    Number(row.latitude);
+
+  const lng =
+    Number(row.longitude);
+
+  return (
+    "https://www.google.com/maps/dir/?api=1" +
+    "&destination=" +
+    encodeURIComponent(
+      `${lat},${lng}`
+    )
+  );
 }
 
 
-document.getElementById(
-  "navMore"
-).onclick =
-  openMore;
+function openStopInfo(
+  row,
+  number,
+  marker
+){
+
+  const time =
+    getTimeText(row);
+
+  const location =
+    row.location_name ||
+    row.address ||
+    "";
+
+  const directions =
+    googleDirectionsUrl(row);
 
 
-document.getElementById(
-  "closeMore"
-).onclick =
-  closeMore;
+  const html = `
+    <div class="info-window">
+
+      <div class="info-number">
+        STOP ${number}
+      </div>
+
+      <div class="info-title">
+        ${escapeHtml(row.title)}
+      </div>
+
+      ${
+        time
+        ? `<div class="info-time">
+             ${escapeHtml(time)}
+           </div>`
+        : ""
+      }
+
+      ${
+        location
+        ? `<div class="info-location">
+             ${escapeHtml(location)}
+           </div>`
+        : ""
+      }
+
+      <a
+        class="info-button"
+        href="${directions}"
+        target="_blank"
+        rel="noopener">
+        DIRECTIONS →
+      </a>
+
+    </div>
+  `;
 
 
-moreBackdrop.onclick =
-  event => {
+  infoWindow.setContent(html);
 
-    if(event.target === moreBackdrop){
-      closeMore();
+  infoWindow.open({
+    map:googleMap,
+    anchor:marker
+  });
+}
+
+
+/* ============================================================
+   FOCUS STOP
+============================================================ */
+
+function focusStop(originalIndex){
+
+  const number =
+    originalIndex + 1;
+
+  const item =
+    currentMappedStops.find(
+      x =>
+        x.itineraryNumber === number
+    );
+
+  if(!item){
+    return;
+  }
+
+  googleMap.panTo(
+    item.marker.getPosition()
+  );
+
+  googleMap.setZoom(16);
+
+  openStopInfo(
+    item.row,
+    item.itineraryNumber,
+    item.marker
+  );
+
+  document.getElementById(
+    "mapCard"
+  ).scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+
+/* ============================================================
+   FIT MAP
+============================================================ */
+
+function fitMapToStops(){
+
+  if(
+    !googleMap ||
+    !markers.length
+  ){
+    return;
+  }
+
+  if(markers.length === 1){
+
+    googleMap.setCenter(
+      markers[0].getPosition()
+    );
+
+    googleMap.setZoom(15);
+
+    return;
+  }
+
+
+  const bounds =
+    new googleMaps.LatLngBounds();
+
+
+  markers.forEach(marker => {
+    bounds.extend(
+      marker.getPosition()
+    );
+  });
+
+
+  googleMap.fitBounds(
+    bounds,
+    55
+  );
+
+
+  /*
+    Prevent Google from zooming
+    ridiculously close when points
+    are near each other.
+  */
+
+  googleMaps.event.addListenerOnce(
+    googleMap,
+    "idle",
+    () => {
+
+      if(
+        googleMap.getZoom() > 16
+      ){
+        googleMap.setZoom(16);
+      }
+
+    }
+  );
+}
+
+
+/* ============================================================
+   FULL SCREEN
+============================================================ */
+
+function toggleFullScreenMap(){
+
+  const body =
+    document.body;
+
+  const button =
+    document.getElementById(
+      "expandButton"
+    );
+
+  const entering =
+    !body.classList.contains(
+      "map-fullscreen"
+    );
+
+
+  body.classList.toggle(
+    "map-fullscreen",
+    entering
+  );
+
+
+  button.textContent =
+    entering
+      ? "✕ CLOSE"
+      : "⛶ EXPAND";
+
+
+  setTimeout(() => {
+
+    if(
+      googleMap &&
+      googleMaps
+    ){
+
+      googleMaps.event.trigger(
+        googleMap,
+        "resize"
+      );
+
+      fitMapToStops();
     }
 
-  };
+  },120);
+}
 
 
-/* =========================================================
+/* ============================================================
    START
-========================================================= */
+============================================================ */
 
-loadData();
-initGooglePlaces();
+async function start(){
 
+  setupNavigation();
+
+  renderDateChips();
+
+  /*
+    Supabase and Google Maps can
+    load independently.
+  */
+
+  await Promise.allSettled([
+    loadSchedule(),
+    initializeGoogleMap()
+  ]);
+}
+
+
+start();
 </script>
 
 </body>
