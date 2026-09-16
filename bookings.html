@@ -1,477 +1,3404 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Trip Hub · Bookings & Highlights</title>
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#070c10">
+
+<title>Bookings · Japan Trip</title>
+
 <style>
+
 :root{
-  --bg:#0f151b;
-  --panel:#161d24;
-  --panel-light:#1d2630;
-  --line:#2a3540;
-  --text:#f3f6f8;
-  --muted:#9ba8b4;
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel2:#151c23;
+  --line:#29323b;
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --muted2:#74818a;
   --red:#c96f68;
   --green:#67c587;
   --orange:#f4a34d;
-  --blue:#73a7ff;
-  --shadow:0 8px 28px rgba(0,0,0,.22);
+  --blue:#5c9dff;
+  --gold:#e3b85c;
 }
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-body{padding-bottom:92px}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      #17212a 0%,
+      transparent 36%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header{
-  position:sticky;top:0;z-index:50;
-  background:rgba(15,21,27,.96);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line)
-}
-.header-top{
-  max-width:980px;margin:auto;padding:14px 16px;
-  display:flex;align-items:center;gap:14px
-}
-.home-button{
-  text-decoration:none;color:var(--text);font-weight:800;
-  padding:8px 10px;border:1px solid var(--line);border-radius:10px;
-  background:var(--panel)
-}
-.header-title h1{font-size:1.15rem;margin:0 0 2px}
-.header-title div{font-size:.78rem;color:var(--muted)}
-main{max-width:980px;margin:auto;padding:16px}
+  position:sticky;
+  top:0;
+  z-index:40;
 
-.hero{
-  background:linear-gradient(135deg,var(--panel-light),var(--panel));
-  border:1px solid var(--line);border-radius:18px;padding:18px;
-  box-shadow:var(--shadow);margin-bottom:14px
-}
-.hero h2{margin:0 0 6px;font-size:1.28rem}
-.hero p{margin:0;color:var(--muted);line-height:1.5}
+  padding:
+    calc(10px + env(safe-area-inset-top))
+    12px
+    10px;
 
-.summary-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 18px
-}
-.summary-card{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:13px;box-shadow:var(--shadow)
-}
-.summary-label{font-size:.72rem;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
-.summary-value{margin-top:5px;font-size:.96rem;font-weight:900;line-height:1.35}
-.summary-note{margin-top:4px;font-size:.8rem;color:var(--muted);line-height:1.4}
+  border-bottom:1px solid var(--line);
 
-.filter-row{
-  display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;
-  scrollbar-width:none
-}
-.filter-row::-webkit-scrollbar{display:none}
-.filter{
-  border:1px solid var(--line);background:var(--panel);color:var(--text);
-  padding:9px 12px;border-radius:999px;font-size:.78rem;font-weight:900;
-  white-space:nowrap;cursor:pointer
-}
-.filter.active{background:var(--red);border-color:var(--red)}
-
-.section-title{
-  font-size:.75rem;color:var(--muted);font-weight:900;
-  text-transform:uppercase;letter-spacing:.08em;margin:20px 2px 10px
-}
-
-.day-card{
-  background:var(--panel);border:1px solid var(--line);border-radius:18px;
-  margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)
-}
-.day-head{
-  display:flex;justify-content:space-between;gap:12px;align-items:center;
-  padding:14px 15px;border-bottom:1px solid var(--line)
-}
-.day-date{font-size:.76rem;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.day-title{font-size:1.05rem;font-weight:900;margin-top:2px}
-.day-open{
-  text-decoration:none;color:var(--text);font-size:.72rem;font-weight:900;
-  padding:7px 9px;border:1px solid var(--line);border-radius:9px;background:var(--panel-light)
-}
-
-.block{padding:13px 15px;border-bottom:1px solid var(--line)}
-.block:last-child{border-bottom:0}
-.block-label{
-  font-size:.7rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:8px
-}
-
-.row{
-  display:flex;align-items:flex-start;gap:10px;padding:7px 0
-}
-.row + .row{border-top:1px dashed rgba(255,255,255,.06)}
-.row-main{flex:1;min-width:0}
-.row-title{font-size:.91rem;font-weight:850;line-height:1.35}
-.row-note{font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:3px}
-.badge{
-  display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;
-  font-size:.64rem;font-weight:900;white-space:nowrap
-}
-.badge.booked{background:rgba(103,197,135,.14);color:var(--green);border:1px solid rgba(103,197,135,.28)}
-.badge.check{background:rgba(244,163,77,.14);color:var(--orange);border:1px solid rgba(244,163,77,.28)}
-.badge.priority{background:rgba(201,111,104,.14);color:#e39a94;border:1px solid rgba(201,111,104,.28)}
-.badge.fixed{background:rgba(115,167,255,.14);color:#9dc1ff;border:1px solid rgba(115,167,255,.28)}
-.badge.optional{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--line)}
-
-.checkrow{display:flex;align-items:flex-start;gap:9px}
-.checkrow input{width:18px;height:18px;margin-top:1px;accent-color:var(--red)}
-.checkrow.done .row-title,.checkrow.done .row-note{opacity:.42;text-decoration:line-through}
-
-
-
-.hidden{display:none!important}
-
-@media(max-width:700px){
-  .summary-grid{grid-template-columns:1fr}
-  .day-head{align-items:flex-start}
-}
-
-/* =========================================
-   SHARED BOTTOM NAV
-========================================= */
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:80;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
   background:rgba(7,12,16,.97);
-  border-top:1px solid var(--line);
+
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
 
-.bottom-nav a{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  min-height:47px;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.02em;
-  border-radius:11px;
+.header-inner{
+  max-width:760px;
+  margin:auto;
 }
 
-.bottom-nav .nav-icon{
-  font-size:17px;
+.title-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.eyebrow{
+  color:var(--red);
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+
+h1{
+  margin:2px 0 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:23px;
+  line-height:1.1;
+}
+
+.trip-name{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:8px;
+}
+
+.add-btn{
+  min-height:35px;
+  padding:6px 11px;
+
+  border:1px solid rgba(201,111,104,.35);
+  border-radius:10px;
+
+  background:rgba(201,111,104,.10);
+
+  color:#f4d4d1;
+
+  font-size:9px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+  max-width:760px;
+  margin:auto;
+
+  padding:
+    12px
+    12px
+    100px;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+
+  margin-bottom:11px;
+}
+
+.summary-card{
+  min-width:0;
+
+  padding:10px 7px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #121a20,
+      #0d1318
+    );
+
+  text-align:center;
+}
+
+.summary-number{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:22px;
+  font-weight:800;
+
   line-height:1;
+}
+
+.summary-label{
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.summary-card.action .summary-number{
+  color:var(--orange);
+}
+
+.summary-card.booked .summary-number{
+  color:var(--green);
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters{
+  display:flex;
+  gap:5px;
+
+  margin-bottom:7px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter-btn{
+  flex:0 0 auto;
+
+  min-height:34px;
+
+  padding:6px 10px;
+
+  border:1px solid var(--line);
+  border-radius:999px;
+
+  background:#10171d;
+
+  color:var(--muted);
+
+  font-size:7px;
+  font-weight:900;
+
+  white-space:nowrap;
+
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  border-color:rgba(201,111,104,.5);
+
+  background:rgba(201,111,104,.12);
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   TYPE FILTERS
+========================================================= */
+
+.type-filters{
+  display:flex;
+  gap:5px;
+
+  margin-bottom:15px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+}
+
+.type-filters::-webkit-scrollbar{
+  display:none;
+}
+
+.type-filter{
+  flex:0 0 auto;
+
+  min-height:30px;
+
+  padding:5px 9px;
+
+  border:1px solid var(--line);
+  border-radius:8px;
+
+  background:#0d1318;
+
+  color:#89959e;
+
+  font-size:7px;
+  font-weight:800;
+
+  cursor:pointer;
+}
+
+.type-filter.active{
+  color:#fff;
+  border-color:#4a5660;
+  background:#182129;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section{
+  margin-bottom:18px;
+}
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin:
+    0
+    2px
+    7px;
+}
+
+.section-title{
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:.1em;
+}
+
+.section-title.action{
+  color:var(--orange);
+}
+
+.section-title.booked{
+  color:var(--green);
+}
+
+.section-count{
+  color:var(--muted2);
+
+  font-size:7px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.date-group{
+  margin-bottom:11px;
+}
+
+.date-label{
+  margin:
+    0
+    2px
+    5px;
+
+  color:#7e8b94;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.07em;
+}
+
+
+/* =========================================================
+   BOOKING CARD
+========================================================= */
+
+.booking-card{
+  position:relative;
+
+  margin-bottom:6px;
+
+  padding:10px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #121a20,
+      #0c1217
+    );
+
+  cursor:pointer;
+}
+
+.booking-top{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+}
+
+.booking-icon{
+  flex:0 0 31px;
+
+  width:31px;
+  height:31px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid #2c3841;
+  border-radius:9px;
+
+  background:#151d24;
+
+  font-size:15px;
+}
+
+.booking-main{
+  flex:1;
+  min-width:0;
+}
+
+.booking-title{
+  color:#f2f2f0;
+
+  font-size:9px;
+  font-weight:900;
+
+  line-height:1.3;
+}
+
+.booking-meta{
+  margin-top:3px;
+
+  color:#89969f;
+
+  font-size:7px;
+  line-height:1.45;
+}
+
+.booking-note{
+  margin-top:5px;
+
+  color:#9da7ae;
+
+  font-size:7px;
+  line-height:1.45;
+}
+
+.status-badge{
+  flex:0 0 auto;
+
+  padding:3px 6px;
+
+  border-radius:999px;
+
+  font-size:6px;
+  font-weight:900;
+}
+
+.status-badge.planned{
+  border:1px solid rgba(244,163,77,.25);
+
+  background:rgba(244,163,77,.10);
+
+  color:#ffc176;
+}
+
+.status-badge.booked{
+  border:1px solid rgba(103,197,135,.25);
+
+  background:rgba(103,197,135,.10);
+
+  color:#aee5bf;
+}
+
+.status-badge.cancelled{
+  border:1px solid rgba(255,255,255,.10);
+
+  background:rgba(255,255,255,.04);
+
+  color:#818b92;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.detail-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+
+  margin-top:7px;
+}
+
+.detail-pill{
+  display:inline-flex;
+  align-items:center;
+
+  min-height:22px;
+
+  padding:3px 6px;
+
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:6px;
+
+  background:rgba(255,255,255,.025);
+
+  color:#929da5;
+
+  font-size:6px;
+  font-weight:800;
+}
+
+.detail-pill.link{
+  color:#a8caff;
+  text-decoration:none;
+}
+
+
+/* =========================================================
+   QUICK BOOK
+========================================================= */
+
+.quick-book{
+  width:100%;
+
+  min-height:31px;
+
+  margin-top:8px;
+
+  border:1px solid rgba(103,197,135,.25);
+  border-radius:8px;
+
+  background:rgba(103,197,135,.07);
+
+  color:#aee5bf;
+
+  font-size:7px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   EMPTY / STATE
+========================================================= */
+
+.empty,
+.state{
+  padding:22px 15px;
+
+  border:1px dashed #35414a;
+  border-radius:12px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:8px;
+  line-height:1.5;
+}
+
+.empty strong,
+.state strong{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#fff;
+
+  font-size:11px;
+}
+
+
+/* =========================================================
+   SHEET
+========================================================= */
+
+.sheet-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  display:none;
+  align-items:flex-end;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(4px);
+}
+
+.sheet-backdrop.open{
+  display:flex;
+}
+
+.sheet{
+  width:100%;
+
+  max-height:
+    calc(92vh - env(safe-area-inset-top));
+
+  overflow-y:auto;
+
+  padding:
+    8px
+    14px
+    calc(18px + env(safe-area-inset-bottom));
+
+  border:1px solid var(--line);
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
+  background:#0d1318;
+}
+
+.sheet-handle{
+  width:38px;
+  height:4px;
+
+  margin:
+    2px
+    auto
+    12px;
+
+  border-radius:999px;
+
+  background:#39454d;
+}
+
+.sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:12px;
+}
+
+.sheet-title{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
+}
+
+.close-btn{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#151c22;
+
+  color:#fff;
+
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#aeb5bc;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+
+  min-height:40px;
+
+  padding:8px 9px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  outline:none;
+
+  background:#10171d;
+
+  color:#fff;
+
+  font-size:10px;
+}
+
+.field textarea{
+  min-height:68px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:var(--red);
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.sheet-actions{
+  display:grid;
+
+  grid-template-columns:1fr 2fr;
+
+  gap:6px;
+
+  margin-top:12px;
+}
+
+.delete-btn,
+.save-btn{
+  min-height:43px;
+
+  border-radius:10px;
+
+  font-size:8px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.delete-btn{
+  border:1px solid rgba(201,111,104,.25);
+
+  background:rgba(201,111,104,.05);
+
+  color:#d98a83;
+}
+
+.save-btn{
+  border:1px solid rgba(103,197,135,.32);
+
+  background:rgba(103,197,135,.10);
+
+  color:#aee5bf;
+}
+
+.save-btn:disabled,
+.delete-btn:disabled{
+  opacity:.5;
+}
+
+.form-message{
+  display:none;
+
+  margin-top:8px;
+
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:8px;
+}
+
+.form-message.error{
+  display:block;
+
+  border:1px solid rgba(201,111,104,.25);
+
+  background:rgba(201,111,104,.07);
+
+  color:#ffc5c1;
+}
+
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom-nav{
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:80;
+
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+
+  gap:3px;
+
+  padding:
+    6px
+    7px
+    calc(6px + env(safe-area-inset-bottom));
+
+  border-top:1px solid var(--line);
+
+  background:rgba(7,12,16,.98);
+
+  backdrop-filter:blur(18px);
+}
+
+.bottom-nav a{
+  min-height:46px;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:2px;
+
+  border-radius:10px;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:800;
+}
+
+.nav-icon{
+  font-size:16px;
 }
 
 .bottom-nav a.active{
   color:#fff;
-  background:rgba(201,111,104,.10);
-  border:1px solid rgba(201,111,104,.25);
+
+  border:1px solid rgba(201,111,104,.22);
+
+  background:rgba(201,111,104,.08);
 }
 
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
 @media(min-width:700px){
+
+  .sheet{
+    max-width:620px;
+    margin:auto;
+  }
+
   .bottom-nav{
     left:50%;
     right:auto;
+
     width:min(820px,100%);
+
     transform:translateX(-50%);
-    border-left:1px solid var(--line);
-    border-right:1px solid var(--line);
-    border-radius:16px 16px 0 0;
   }
+
 }
 
 </style>
 </head>
+
+
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
-  <div class="header-top">
-    <a href="index.html" class="home-button">← Home</a>
-    <div class="header-title">
-      <h1>⭐ Trip Hub</h1>
-      <div>Bookings · On-the-day plans · Don't Miss</div>
+
+  <div class="header-inner">
+
+    <div class="title-row">
+
+      <div>
+
+        <div class="eyebrow">
+          JAPAN TRIP
+        </div>
+
+        <h1>
+          ⭐ Bookings
+        </h1>
+
+        <div
+          id="tripName"
+          class="trip-name"
+        >
+          Loading trip…
+        </div>
+
+      </div>
+
+
+      <button
+        id="addButton"
+        class="add-btn"
+        type="button"
+      >
+        ＋ ADD
+      </button>
+
     </div>
+
   </div>
+
 </header>
 
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
-  <div class="hero">
-    <h2>Japan · 18–30 October 2026</h2>
-    <p>This version is arranged by day, so you can immediately see what is booked, what still needs checking, and the highlight you should protect on that date.</p>
+
+  <div
+    id="content"
+    class="state"
+  >
+
+    <strong>
+      Loading bookings…
+    </strong>
+
+    Getting your booking list from Supabase.
+
   </div>
 
-  <div class="summary-grid">
-    <div class="summary-card">
-      <div class="summary-label">🔒 Confirmed</div>
-      <div class="summary-value">Century Kyoto · Granvia Kyoto · Kadojin · Kamigoten · Kamenoi · Hankyu International</div>
-      <div class="summary-note">Known locked items from your current trip plan.</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">⏳ Still to Check</div>
-      <div class="summary-value">teamLab · Rurikō-in · Kifune taxi · rental car · Pokémon · trains</div>
-      <div class="summary-note">Tick them off here as you confirm them.</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">⭐ Protect</div>
-      <div class="summary-value">Kyoto Station · Kifune lanterns · OURLOG · Nachi · Wakakusa</div>
-      <div class="summary-note">Things worth prioritising if a day starts running late.</div>
-    </div>
-  </div>
-
-  <div class="filter-row">
-    <button class="filter active" data-filter="all">ALL DAYS</button>
-    <button class="filter" data-filter="booked">🔒 HAS BOOKING</button>
-    <button class="filter" data-filter="check">⏳ NEEDS ACTION</button>
-    <button class="filter" data-filter="priority">⭐ HIGHLIGHTS</button>
-  </div>
-
-  <div class="section-title">Daily Bookings + Highlights</div>
-
-  <section class="day-card" data-types="priority">
-    <div class="day-head">
-      <div><div class="day-date">18 Oct · Kyoto</div><div class="day-title">Arrival + Higashiyama</div></div>
-      <a class="day-open" href="schedule.html#day-18">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏨 Hotel Century Kyoto · 18–21 Oct</div><div class="row-note">Arrival / check-in day. This is your Kyoto base for the first three nights.</div></div><span class="badge booked">BOOKED</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🌃 Kyoto Station at night</div><div class="row-note">Grand Staircase + Skyway / elevated station view. Protect this even if the afternoon runs late.</div></div><span class="badge priority">PRIORITY</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="priority">
-    <div class="day-head">
-      <div><div class="day-date">19 Oct · Kyoto</div><div class="day-title">Fushimi + Arashiyama</div></div>
-      <a class="day-open" href="schedule.html#day-19">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🍣 Takara Sushi</div><div class="row-note">Planned lunch target around 11:30–11:45 AM. Tiny counter; treat as a walk-in target unless you later confirm otherwise.</div></div><span class="badge optional">PLAN</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🎋 Arashiyama into the evening</div><div class="row-note">Fushimi is in the morning; the point is to stay in Arashiyama long enough for the evening lighting / atmosphere.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="booked check priority">
-    <div class="day-head">
-      <div><div class="day-date">20 Oct · Kyoto</div><div class="day-title">Kifune Lanterns + Setsu</div></div>
-      <a class="day-open" href="schedule.html#day-20">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🍶 Setsu · 7:45 PM · 2 pax</div><div class="row-note">Confirmed dinner at お出汁と日本酒 せつ. Wife: no beef.</div></div><span class="badge booked">BOOKED</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Need to check / arrange</div>
-      <div class="checkrow"><input type="checkbox" data-check="kifune-taxi"><div class="row-main"><div class="row-title">🚕 Kifune evening pickup</div><div class="row-note">Target around 6:30 PM; preferred transfer point is Kokusaikaikan.</div></div><span class="badge check">ARRANGE</span></div>
-      <div class="checkrow" style="margin-top:10px"><input type="checkbox" data-check="rurikoin"><div class="row-main"><div class="row-title">🍁 Rurikō-in entry / opening</div><div class="row-note">Optional. Skip if it threatens Kifune timing.</div></div><span class="badge check">CHECK</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏮 Kifune lantern staircase after dark</div><div class="row-note">Main photo window in your current plan is roughly 5:45–6:20 PM.</div></div><span class="badge priority">PRIORITY</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="">
-    <div class="day-head">
-      <div><div class="day-date">21 Oct · Kyoto</div><div class="day-title">Ine Day Trip</div></div>
-      <a class="day-open" href="schedule.html#day-21">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏨 Hotel Granvia Kyoto · 21–23 Oct</div><div class="row-note">Hotel change today: check out Hotel Century Kyoto and move to Hotel Granvia Kyoto before / around the Ine day trip.</div></div><span class="badge booked">BOOKED</span></div>
-      <div class="row"><div class="row-main"><div class="row-title">🚌 Ine transport</div><div class="row-note">No confirmed booking stored here yet. Exact train / bus timing stays flexible until timetable is locked.</div></div><span class="badge optional">FLEXIBLE</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🌊 Ine Funaya waterfront</div><div class="row-note">Main purpose of the day trip.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="check priority">
-    <div class="day-head">
-      <div><div class="day-date">22 Oct · Kyoto</div><div class="day-title">Nanzen-ji + teamLab</div></div>
-      <a class="day-open" href="schedule.html#day-22">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="checkrow"><input type="checkbox" data-check="teamlab"><div class="row-main"><div class="row-title">✨ teamLab Biovortex · around 7:00 PM</div><div class="row-note">Planned evening slot. Current booking status is not marked confirmed.</div></div><span class="badge check">TICKET</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🧱 Suirokaku + Nanzen-ji morning</div><div class="row-note">Best atmospheric part of the morning before the Mom / teamLab portion.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="booked check priority">
-    <div class="day-head">
-      <div><div class="day-date">23 Oct · Road Trip</div><div class="day-title">Soni → Dorogawa</div></div>
-      <a class="day-open" href="schedule.html#day-23">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">♨️ Kadojin · Dorogawa Onsen · 23–24 Oct</div><div class="row-note">Overnight with ryokan dinner / onsen.</div></div><span class="badge booked">BOOKED</span></div>
-      <div class="checkrow" style="margin-top:10px"><input type="checkbox" data-check="rental-car"><div class="row-main"><div class="row-title">🚗 Rental car · 23–26 Oct</div><div class="row-note">Check pickup / return details before departure.</div></div><span class="badge check">CHECK</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🌾 Soni Highlands</div><div class="row-note">Main scenic stop before Dorogawa.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="booked priority">
-    <div class="day-head">
-      <div><div class="day-date">24 Oct · Road Trip</div><div class="day-title">Skyline → Gomadanzan → Ryujin</div></div>
-      <a class="day-open" href="schedule.html#day-24">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">♨️ Kamigoten · Ryujin Onsen · 24–25 Oct</div><div class="row-note">Overnight after the mountain drive.</div></div><span class="badge booked">BOOKED</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏔️ Koya-Ryujin Skyline + Mt. Gomadanzan</div><div class="row-note">This is the dedicated scenic-drive day. No Koyasan sightseeing block.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="booked priority">
-    <div class="day-head">
-      <div><div class="day-date">25 Oct · Road Trip</div><div class="day-title">Kumano → Nachikatsuura</div></div>
-      <a class="day-open" href="schedule.html#day-25">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏨 Kamenoi Hotel Nachi Katsuura · 25–26 Oct</div><div class="row-note">Overnight before the early Nachi Falls morning.</div></div><span class="badge booked">BOOKED</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">⛩️ Kumano Hongu Taisha + Oyunohara</div><div class="row-note">The main cultural stops before heading to Nachikatsuura.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="booked priority">
-    <div class="day-head">
-      <div><div class="day-date">26 Oct · Road Trip → Osaka</div><div class="day-title">Nachi + Kamikura</div></div>
-      <a class="day-open" href="schedule.html#day-26">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏨 Hotel Hankyu International · Osaka · 26–30 Oct</div><div class="row-note">Osaka base begins after the road trip and continues until departure day.</div></div><span class="badge booked">BOOKED</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🏯 Seiganto-ji Pagoda + Nachi Falls</div><div class="row-note">Classic waterfall-and-pagoda view.</div></div><span class="badge priority">PRIORITY</span></div>
-      <div class="row"><div class="row-main"><div class="row-title">⛩️ Kamikura Jinja</div><div class="row-note">Optional if time and energy permit before the long drive to Osaka.</div></div><span class="badge optional">OPTIONAL</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="priority">
-    <div class="day-head">
-      <div><div class="day-date">27 Oct · Osaka</div><div class="day-title">Namba + MIRACLE WORLD</div></div>
-      <a class="day-open" href="schedule.html#day-27">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">🎮 ROUND1 / MIRACLE WORLD</div><div class="row-note">No confirmed booking stored yet. These remain activity targets rather than fixed reservations.</div></div><span class="badge optional">PLAN</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">☕ OURLOG Coffee</div><div class="row-note">Wife priority.</div></div><span class="badge priority">PRIORITY</span></div>
-      <div class="row"><div class="row-main"><div class="row-title">✨ MIRACLE WORLD → Hozenji Yokocho</div><div class="row-note">These two are deliberately grouped together.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="check priority">
-    <div class="day-head">
-      <div><div class="day-date">28 Oct · Aichi Day Trip</div><div class="day-title">Mentai + Pokémon Observatory</div></div>
-      <a class="day-open" href="schedule.html#day-28">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="checkrow"><input type="checkbox" data-check="pokemon"><div class="row-main"><div class="row-title">🔭 Pokémon Observatory</div><div class="row-note">Planned 2:15–4:00 PM at Toyohashi Museum of Natural History.</div></div><span class="badge check">TICKET</span></div>
-      <div class="checkrow" style="margin-top:10px"><input type="checkbox" data-check="shinkansen"><div class="row-main"><div class="row-title">🚄 Shinkansen tickets</div><div class="row-note">Shin-Osaka → Nagoya outbound; Toyohashi → Shin-Osaka return.</div></div><span class="badge check">BOOK</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🔭 Pokémon Observatory</div><div class="row-note">Main reason for the Toyohashi half of the day.</div></div><span class="badge priority">HIGHLIGHT</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="priority">
-    <div class="day-head">
-      <div><div class="day-date">29 Oct · Nara</div><div class="day-title">Nara + Mt. Wakakusa Sunset</div></div>
-      <a class="day-open" href="schedule.html#day-29">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">— No fixed booking</div><div class="row-note">Keep the day flexible so you can protect the sunset timing.</div></div><span class="badge optional">FLEXIBLE</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🌄 Mt. Wakakusa sunset</div><div class="row-note">Main goal. Shorten the afternoon sightseeing if needed.</div></div><span class="badge priority">PRIORITY</span></div>
-    </div>
-  </section>
-
-  <section class="day-card" data-types="booked">
-    <div class="day-head">
-      <div><div class="day-date">30 Oct · Departure</div><div class="day-title">Fly Home · 6:00 PM</div></div>
-      <a class="day-open" href="schedule.html#day-30">Open Day</a>
-    </div>
-    <div class="block">
-      <div class="block-label">Bookings on this day</div>
-      <div class="row"><div class="row-main"><div class="row-title">✈️ Flight Home · 6:00 PM</div><div class="row-note">Fixed departure. Keep the morning easy and avoid adding major sightseeing.</div></div><span class="badge fixed">FIXED</span></div>
-      <div class="row"><div class="row-main"><div class="row-title">🏨 Hotel checkout / luggage</div><div class="row-note">Collect luggage before leaving for the airport.</div></div><span class="badge booked">HOTEL</span></div>
-    </div>
-    <div class="block">
-      <div class="block-label">Don't miss</div>
-      <div class="row"><div class="row-main"><div class="row-title">🍽️ Final Osaka lunch</div><div class="row-note">Keep it near the hotel / transport route.</div></div><span class="badge optional">EASY</span></div>
-    </div>
-  </section>
-
-  <nav class="bottom-nav" aria-label="Main navigation">
-  <a href="index.html"><span class="nav-icon">🏠</span><span>HOME</span></a>
-  <a href="schedule.html"><span class="nav-icon">📅</span><span>SCHEDULE</span></a>
-  <a href="bookings.html" class="active" aria-current="page"><span class="nav-icon">⭐</span><span>HUB</span></a>
-  <a href="kyotofood.html"><span class="nav-icon">⛩️</span><span>KYOTO FOOD</span></a>
-  <a href="osakafood.html"><span class="nav-icon">🌃</span><span>OSAKA FOOD</span></a>
-</nav>
 </main>
 
+
+
+<!-- =========================================================
+     EDIT SHEET
+========================================================= -->
+
+<div
+  id="bookingSheet"
+  class="sheet-backdrop"
+>
+
+  <div class="sheet">
+
+    <div class="sheet-handle"></div>
+
+
+    <div class="sheet-head">
+
+      <div
+        id="sheetTitle"
+        class="sheet-title"
+      >
+        Add Booking
+      </div>
+
+
+      <button
+        id="closeSheet"
+        class="close-btn"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <form id="bookingForm">
+
+      <div class="form-grid">
+
+
+        <!-- STATUS -->
+
+        <div class="field">
+
+          <label>
+            STATUS
+          </label>
+
+          <select id="fieldStatus">
+
+            <option value="planned">
+              ⏳ To Book
+            </option>
+
+            <option value="booked">
+              ✅ Booked
+            </option>
+
+            <option value="cancelled">
+              ❌ Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- TYPE -->
+
+        <div class="field">
+
+          <label>
+            TYPE
+          </label>
+
+          <select id="fieldType">
+
+            <option value="accommodation">
+              🏨 Accommodation
+            </option>
+
+            <option value="restaurant">
+              🍽 Restaurant
+            </option>
+
+            <option value="ticket">
+              🎟 Ticket
+            </option>
+
+            <option value="transport">
+              🚆 Transport
+            </option>
+
+            <option value="car">
+              🚗 Car
+            </option>
+
+            <option value="activity">
+              🎡 Activity
+            </option>
+
+            <option value="other">
+              📌 Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="field full">
+
+          <label>
+            TITLE
+          </label>
+
+          <input
+            id="fieldTitle"
+            required
+            placeholder="e.g. teamLab Biovortex"
+          >
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <div class="field">
+
+          <label>
+            DATE
+          </label>
+
+          <input
+            id="fieldDate"
+            type="date"
+          >
+
+        </div>
+
+
+        <!-- TIME -->
+
+        <div class="field">
+
+          <label>
+            TIME
+          </label>
+
+          <input
+            id="fieldTime"
+            type="time"
+          >
+
+        </div>
+
+
+        <!-- PROVIDER -->
+
+        <div class="field full">
+
+          <label>
+            PROVIDER
+          </label>
+
+          <input
+            id="fieldProvider"
+            placeholder="e.g. Agoda, Klook, JR West"
+          >
+
+        </div>
+
+
+        <!-- LOCATION -->
+
+        <div class="field full">
+
+          <label>
+            LOCATION
+          </label>
+
+          <input
+            id="fieldLocation"
+            placeholder="e.g. Kyoto"
+          >
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="field full">
+
+          <label>
+            ADDRESS
+          </label>
+
+          <input
+            id="fieldAddress"
+            placeholder="Optional"
+          >
+
+        </div>
+
+
+        <!-- CONFIRMATION -->
+
+        <div class="field full">
+
+          <label>
+            CONFIRMATION NUMBER
+          </label>
+
+          <input
+            id="fieldConfirmation"
+            placeholder="Optional"
+          >
+
+        </div>
+
+
+        <!-- BOOKING URL -->
+
+        <div class="field full">
+
+          <label>
+            BOOKING / TICKET LINK
+          </label>
+
+          <input
+            id="fieldUrl"
+            type="url"
+            placeholder="https://..."
+          >
+
+        </div>
+
+
+        <!-- AMOUNT -->
+
+        <div class="field">
+
+          <label>
+            AMOUNT
+          </label>
+
+          <input
+            id="fieldAmount"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0"
+          >
+
+        </div>
+
+
+        <!-- CURRENCY -->
+
+        <div class="field">
+
+          <label>
+            CURRENCY
+          </label>
+
+          <select id="fieldCurrency">
+
+            <option value="JPY">
+              JPY
+            </option>
+
+            <option value="SGD">
+              SGD
+            </option>
+
+            <option value="USD">
+              USD
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- NOTES -->
+
+        <div class="field full">
+
+          <label>
+            NOTES
+          </label>
+
+          <textarea
+            id="fieldNotes"
+            placeholder="Anything you need to remember..."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="sheet-actions">
+
+        <button
+          id="deleteButton"
+          class="delete-btn"
+          type="button"
+        >
+          🗑 DELETE
+        </button>
+
+
+        <button
+          id="saveButton"
+          class="save-btn"
+          type="submit"
+        >
+          SAVE
+        </button>
+
+      </div>
+
+
+      <div
+        id="formMessage"
+        class="form-message"
+      ></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     BOTTOM NAV
+========================================================= -->
+
+<nav
+  class="bottom-nav"
+  aria-label="Main navigation"
+>
+
+  <a id="navHome">
+
+    <span class="nav-icon">
+      🏠
+    </span>
+
+    <span>
+      HOME
+    </span>
+
+  </a>
+
+
+  <a id="navPlan">
+
+    <span class="nav-icon">
+      📅
+    </span>
+
+    <span>
+      PLAN
+    </span>
+
+  </a>
+
+
+  <a id="navFood">
+
+    <span class="nav-icon">
+      🍽️
+    </span>
+
+    <span>
+      FOOD
+    </span>
+
+  </a>
+
+
+  <a
+    id="navHub"
+    class="active"
+    aria-current="page"
+  >
+
+    <span class="nav-icon">
+      ⭐
+    </span>
+
+    <span>
+      HUB
+    </span>
+
+  </a>
+
+
+  <a href="#">
+
+    <span class="nav-icon">
+      ⋯
+    </span>
+
+    <span>
+      MORE
+    </span>
+
+  </a>
+
+</nav>
+
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="supabase.js"></script>
+
+
 <script>
-const filters = document.querySelectorAll('.filter');
-const days = document.querySelectorAll('.day-card');
 
-filters.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    filters.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    days.forEach(day=>{
-      const types = (day.dataset.types || '').split(/\s+/);
-      day.classList.toggle('hidden', f !== 'all' && !types.includes(f));
-    });
-  });
-});
+/* =========================================================
+   TRIP
+========================================================= */
 
-document.querySelectorAll('input[data-check]').forEach(box=>{
-  const key='japanTripHub_'+box.dataset.check;
-  box.checked=localStorage.getItem(key)==='1';
-  const line=box.closest('.checkrow');
-  if(box.checked) line.classList.add('done');
-  box.addEventListener('change',()=>{
-    localStorage.setItem(key,box.checked?'1':'0');
-    line.classList.toggle('done',box.checked);
-  });
-});
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const TRIP_ID =
+  Number(
+    params.get("trip") || 1
+  );
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let trip = null;
+
+let bookings = [];
+
+let statusFilter = "all";
+
+let typeFilter = "all";
+
+let editingId = null;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const content =
+  document.getElementById(
+    "content"
+  );
+
+const tripName =
+  document.getElementById(
+    "tripName"
+  );
+
+const bookingSheet =
+  document.getElementById(
+    "bookingSheet"
+  );
+
+const sheetTitle =
+  document.getElementById(
+    "sheetTitle"
+  );
+
+const fieldStatus =
+  document.getElementById(
+    "fieldStatus"
+  );
+
+const fieldType =
+  document.getElementById(
+    "fieldType"
+  );
+
+const fieldTitle =
+  document.getElementById(
+    "fieldTitle"
+  );
+
+const fieldDate =
+  document.getElementById(
+    "fieldDate"
+  );
+
+const fieldTime =
+  document.getElementById(
+    "fieldTime"
+  );
+
+const fieldProvider =
+  document.getElementById(
+    "fieldProvider"
+  );
+
+const fieldLocation =
+  document.getElementById(
+    "fieldLocation"
+  );
+
+const fieldAddress =
+  document.getElementById(
+    "fieldAddress"
+  );
+
+const fieldConfirmation =
+  document.getElementById(
+    "fieldConfirmation"
+  );
+
+const fieldUrl =
+  document.getElementById(
+    "fieldUrl"
+  );
+
+const fieldAmount =
+  document.getElementById(
+    "fieldAmount"
+  );
+
+const fieldCurrency =
+  document.getElementById(
+    "fieldCurrency"
+  );
+
+const fieldNotes =
+  document.getElementById(
+    "fieldNotes"
+  );
+
+const deleteButton =
+  document.getElementById(
+    "deleteButton"
+  );
+
+const saveButton =
+  document.getElementById(
+    "saveButton"
+  );
+
+const formMessage =
+  document.getElementById(
+    "formMessage"
+  );
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+document.getElementById(
+  "navHome"
+).href =
+  `index.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "navPlan"
+).href =
+  `schedule.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "navFood"
+).href =
+  `food.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "navHub"
+).href =
+  `bookings.html?trip=${TRIP_ID}`;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function text(value){
+
+  return String(
+    value ?? ""
+  );
+
+}
+
+
+function esc(value){
+
+  return text(value)
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function parseDate(value){
+
+  return new Date(
+    value +
+    "T12:00:00"
+  );
+
+}
+
+
+function prettyDate(value){
+
+  if(!value){
+    return "NO DATE";
+  }
+
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      weekday:"short",
+      day:"numeric",
+      month:"short"
+    }
+  )
+  .format(
+    parseDate(value)
+  )
+  .toUpperCase();
+
+}
+
+
+function prettyTime(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  const parts =
+    value.split(":");
+
+
+  let hour =
+    Number(
+      parts[0]
+    );
+
+
+  const minute =
+    parts[1] || "00";
+
+
+  const suffix =
+    hour >= 12
+    ?
+    "PM"
+    :
+    "AM";
+
+
+  hour =
+    hour % 12 || 12;
+
+
+  return `${hour}:${minute} ${suffix}`;
+
+}
+
+
+function bookingIcon(type){
+
+  switch(type){
+
+    case "accommodation":
+      return "🏨";
+
+    case "restaurant":
+      return "🍽️";
+
+    case "ticket":
+      return "🎟️";
+
+    case "transport":
+      return "🚆";
+
+    case "car":
+      return "🚗";
+
+    case "activity":
+      return "🎡";
+
+    default:
+      return "📌";
+
+  }
+
+}
+
+
+function typeLabel(type){
+
+  switch(type){
+
+    case "accommodation":
+      return "STAY";
+
+    case "restaurant":
+      return "FOOD";
+
+    case "ticket":
+      return "TICKET";
+
+    case "transport":
+      return "TRANSPORT";
+
+    case "car":
+      return "CAR";
+
+    case "activity":
+      return "ACTIVITY";
+
+    default:
+      return "OTHER";
+
+  }
+
+}
+
+
+function statusLabel(status){
+
+  if(status === "booked"){
+    return "BOOKED";
+  }
+
+  if(status === "cancelled"){
+    return "CANCELLED";
+  }
+
+  return "TO BOOK";
+
+}
+
+
+function money(amount,currency){
+
+  if(
+    amount === null ||
+    amount === undefined ||
+    amount === ""
+  ){
+    return "";
+  }
+
+
+  const value =
+    Number(amount);
+
+
+  if(
+    Number.isNaN(value)
+  ){
+    return "";
+  }
+
+
+  return (
+    `${currency || "JPY"} ` +
+    value.toLocaleString(
+      "en-SG",
+      {
+        maximumFractionDigits:2
+      }
+    )
+  );
+
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+async function loadData(){
+
+  try{
+
+
+    const [
+      tripResult,
+      bookingResult
+    ] =
+      await Promise.all([
+
+
+        db
+          .from("trips")
+          .select(`
+            id,
+            name,
+            start_date,
+            end_date
+          `)
+          .eq(
+            "id",
+            TRIP_ID
+          )
+          .single(),
+
+
+        db
+          .from("bookings")
+          .select(`
+            id,
+            trip_id,
+            booking_type,
+            title,
+            provider,
+            booking_date,
+            start_time,
+            status,
+            confirmation_number,
+            restaurant_id,
+            place_id,
+            location_name,
+            address,
+            booking_url,
+            amount,
+            currency,
+            notes,
+            created_at,
+            updated_at
+          `)
+          .eq(
+            "trip_id",
+            TRIP_ID
+          )
+          .order(
+            "booking_date",
+            {
+              ascending:true,
+              nullsFirst:false
+            }
+          )
+          .order(
+            "start_time",
+            {
+              ascending:true,
+              nullsFirst:false
+            }
+          )
+
+      ]);
+
+
+    if(tripResult.error){
+      throw tripResult.error;
+    }
+
+
+    if(bookingResult.error){
+      throw bookingResult.error;
+    }
+
+
+    trip =
+      tripResult.data;
+
+
+    bookings =
+      bookingResult.data || [];
+
+
+    tripName.textContent =
+      trip.name;
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    content.className =
+      "state";
+
+
+    content.innerHTML = `
+
+      <strong>
+        Couldn't load bookings
+      </strong>
+
+      ${esc(
+        error.message ||
+        "Unknown database error."
+      )}
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function filteredBookings(){
+
+  return bookings.filter(
+    item => {
+
+      const statusMatch =
+        statusFilter === "all" ||
+        item.status === statusFilter;
+
+
+      const typeMatch =
+        typeFilter === "all" ||
+        item.booking_type === typeFilter;
+
+
+      return (
+        statusMatch &&
+        typeMatch
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+  const planned =
+    bookings.filter(
+      item =>
+        item.status === "planned"
+    );
+
+
+  const booked =
+    bookings.filter(
+      item =>
+        item.status === "booked"
+    );
+
+
+  const filtered =
+    filteredBookings();
+
+
+  content.className = "";
+
+
+  content.innerHTML = `
+
+    <div class="summary">
+
+      <div class="summary-card">
+
+        <div class="summary-number">
+          ${bookings.length}
+        </div>
+
+        <div class="summary-label">
+          TOTAL
+        </div>
+
+      </div>
+
+
+      <div class="summary-card action">
+
+        <div class="summary-number">
+          ${planned.length}
+        </div>
+
+        <div class="summary-label">
+          TO BOOK
+        </div>
+
+      </div>
+
+
+      <div class="summary-card booked">
+
+        <div class="summary-number">
+          ${booked.length}
+        </div>
+
+        <div class="summary-label">
+          BOOKED
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="filters">
+
+      ${statusFilterHTML(
+        "all",
+        "ALL"
+      )}
+
+      ${statusFilterHTML(
+        "planned",
+        "⏳ TO BOOK"
+      )}
+
+      ${statusFilterHTML(
+        "booked",
+        "✅ BOOKED"
+      )}
+
+      ${statusFilterHTML(
+        "cancelled",
+        "❌ CANCELLED"
+      )}
+
+    </div>
+
+
+    <div class="type-filters">
+
+      ${typeFilterHTML(
+        "all",
+        "ALL TYPES"
+      )}
+
+      ${typeFilterHTML(
+        "accommodation",
+        "🏨 STAYS"
+      )}
+
+      ${typeFilterHTML(
+        "restaurant",
+        "🍽 FOOD"
+      )}
+
+      ${typeFilterHTML(
+        "ticket",
+        "🎟 TICKETS"
+      )}
+
+      ${typeFilterHTML(
+        "transport",
+        "🚆 TRANSPORT"
+      )}
+
+      ${typeFilterHTML(
+        "car",
+        "🚗 CAR"
+      )}
+
+      ${typeFilterHTML(
+        "activity",
+        "🎡 ACTIVITY"
+      )}
+
+    </div>
+
+
+    ${
+      filtered.length
+
+      ?
+
+      renderFiltered(
+        filtered
+      )
+
+      :
+
+      `
+
+        <div class="empty">
+
+          <strong>
+            Nothing here
+          </strong>
+
+          No bookings match
+          these filters.
+
+        </div>
+
+      `
+    }
+
+  `;
+
+
+  bindFilters();
+
+  bindCards();
+
+}
+
+
+/* =========================================================
+   FILTER HTML
+========================================================= */
+
+function statusFilterHTML(
+  value,
+  label
+){
+
+  return `
+
+    <button
+      class="
+        filter-btn
+        ${
+          statusFilter === value
+          ?
+          "active"
+          :
+          ""
+        }
+      "
+      type="button"
+      data-status-filter="${value}"
+    >
+      ${label}
+    </button>
+
+  `;
+
+}
+
+
+function typeFilterHTML(
+  value,
+  label
+){
+
+  return `
+
+    <button
+      class="
+        type-filter
+        ${
+          typeFilter === value
+          ?
+          "active"
+          :
+          ""
+        }
+      "
+      type="button"
+      data-type-filter="${value}"
+    >
+      ${label}
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER FILTERED
+========================================================= */
+
+function renderFiltered(items){
+
+  /*
+    If ALL statuses are selected,
+    make TO BOOK the first section.
+
+    This makes the page act like
+    a reminder list first.
+  */
+
+  if(statusFilter === "all"){
+
+    const planned =
+      items.filter(
+        item =>
+          item.status === "planned"
+      );
+
+
+    const booked =
+      items.filter(
+        item =>
+          item.status === "booked"
+      );
+
+
+    const cancelled =
+      items.filter(
+        item =>
+          item.status === "cancelled"
+      );
+
+
+    let html = "";
+
+
+    if(planned.length){
+
+      html +=
+        renderSection(
+          "⏳ NEED TO BOOK / ARRANGE",
+          "action",
+          planned
+        );
+
+    }
+
+
+    if(booked.length){
+
+      html +=
+        renderSection(
+          "✅ BOOKED",
+          "booked",
+          booked
+        );
+
+    }
+
+
+    if(cancelled.length){
+
+      html +=
+        renderSection(
+          "❌ CANCELLED",
+          "",
+          cancelled
+        );
+
+    }
+
+
+    return html;
+
+  }
+
+
+  return renderSection(
+    statusFilter === "planned"
+    ?
+    "⏳ NEED TO BOOK / ARRANGE"
+    :
+    statusFilter === "booked"
+    ?
+    "✅ BOOKED"
+    :
+    "❌ CANCELLED",
+    statusFilter === "planned"
+    ?
+    "action"
+    :
+    statusFilter === "booked"
+    ?
+    "booked"
+    :
+    "",
+    items
+  );
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+function renderSection(
+  title,
+  cssClass,
+  items
+){
+
+  return `
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <div
+          class="
+            section-title
+            ${cssClass}
+          "
+        >
+          ${title}
+        </div>
+
+
+        <div class="section-count">
+
+          ${items.length}
+
+        </div>
+
+      </div>
+
+
+      ${renderDateGroups(items)}
+
+    </section>
+
+  `;
+
+}
+
+
+/* =========================================================
+   DATE GROUPS
+========================================================= */
+
+function renderDateGroups(items){
+
+  const groups = {};
+
+
+  items.forEach(
+    item => {
+
+      const key =
+        item.booking_date ||
+        "undated";
+
+
+      if(!groups[key]){
+        groups[key] = [];
+      }
+
+
+      groups[key].push(item);
+
+    }
+  );
+
+
+  const dates =
+    Object.keys(groups)
+      .sort(
+        (a,b) => {
+
+          if(a === "undated"){
+            return 1;
+          }
+
+          if(b === "undated"){
+            return -1;
+          }
+
+          return a.localeCompare(b);
+
+        }
+      );
+
+
+  return dates
+    .map(
+      date => `
+
+        <div class="date-group">
+
+          <div class="date-label">
+
+            ${
+              date === "undated"
+              ?
+              "NO DATE"
+              :
+              esc(
+                prettyDate(date)
+              )
+            }
+
+          </div>
+
+
+          ${
+            groups[date]
+              .map(
+                bookingHTML
+              )
+              .join("")
+          }
+
+        </div>
+
+      `
+    )
+    .join("");
+
+}
+
+
+/* =========================================================
+   BOOKING HTML
+========================================================= */
+
+function bookingHTML(item){
+
+  const meta = [];
+
+
+  if(item.start_time){
+
+    meta.push(
+      prettyTime(
+        item.start_time
+      )
+    );
+
+  }
+
+
+  meta.push(
+    typeLabel(
+      item.booking_type
+    )
+  );
+
+
+  if(item.location_name){
+
+    meta.push(
+      item.location_name
+    );
+
+  }
+
+
+  const details = [];
+
+
+  if(item.provider){
+
+    details.push(
+      `
+        <span class="detail-pill">
+          ${esc(item.provider)}
+        </span>
+      `
+    );
+
+  }
+
+
+  if(item.confirmation_number){
+
+    details.push(
+      `
+        <span class="detail-pill">
+          # ${esc(
+            item.confirmation_number
+          )}
+        </span>
+      `
+    );
+
+  }
+
+
+  const amount =
+    money(
+      item.amount,
+      item.currency
+    );
+
+
+  if(amount){
+
+    details.push(
+      `
+        <span class="detail-pill">
+          ${esc(amount)}
+        </span>
+      `
+    );
+
+  }
+
+
+  if(item.booking_url){
+
+    details.push(
+      `
+        <a
+          class="detail-pill link"
+          href="${esc(item.booking_url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="event.stopPropagation()"
+        >
+          OPEN ↗
+        </a>
+      `
+    );
+
+  }
+
+
+  return `
+
+    <article
+      class="booking-card"
+      data-booking-id="${Number(item.id)}"
+    >
+
+      <div class="booking-top">
+
+
+        <div class="booking-icon">
+
+          ${bookingIcon(
+            item.booking_type
+          )}
+
+        </div>
+
+
+        <div class="booking-main">
+
+          <div class="booking-title">
+
+            ${esc(item.title)}
+
+          </div>
+
+
+          <div class="booking-meta">
+
+            ${esc(
+              meta.join(" · ")
+            )}
+
+          </div>
+
+
+          ${
+            item.notes
+
+            ?
+
+            `
+              <div class="booking-note">
+
+                ${esc(item.notes)}
+
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+
+          ${
+            details.length
+
+            ?
+
+            `
+              <div class="detail-row">
+
+                ${details.join("")}
+
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+
+        <span
+          class="
+            status-badge
+            ${esc(item.status)}
+          "
+        >
+
+          ${statusLabel(
+            item.status
+          )}
+
+        </span>
+
+      </div>
+
+
+      ${
+        item.status === "planned"
+
+        ?
+
+        `
+          <button
+            class="quick-book"
+            type="button"
+            data-mark-booked="${Number(item.id)}"
+          >
+            ✓ MARK AS BOOKED
+          </button>
+        `
+
+        :
+
+        ""
+      }
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   BIND FILTERS
+========================================================= */
+
+function bindFilters(){
+
+  document
+    .querySelectorAll(
+      "[data-status-filter]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            statusFilter =
+              button.dataset
+                .statusFilter;
+
+
+            render();
+
+          };
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      "[data-type-filter]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            typeFilter =
+              button.dataset
+                .typeFilter;
+
+
+            render();
+
+          };
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   BIND CARDS
+========================================================= */
+
+function bindCards(){
+
+  document
+    .querySelectorAll(
+      "[data-booking-id]"
+    )
+    .forEach(
+      card => {
+
+        card.onclick =
+          event => {
+
+            if(
+              event.target.closest(
+                "[data-mark-booked]"
+              )
+            ){
+              return;
+            }
+
+
+            if(
+              event.target.closest(
+                "a"
+              )
+            ){
+              return;
+            }
+
+
+            openEdit(
+              Number(
+                card.dataset.bookingId
+              )
+            );
+
+          };
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      "[data-mark-booked]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          async event => {
+
+            event.stopPropagation();
+
+
+            await markBooked(
+              Number(
+                button.dataset
+                  .markBooked
+              )
+            );
+
+          };
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   QUICK MARK BOOKED
+========================================================= */
+
+async function markBooked(id){
+
+  const result =
+    await db
+      .from("bookings")
+      .update({
+        status:"booked"
+      })
+      .eq(
+        "id",
+        id
+      )
+      .eq(
+        "trip_id",
+        TRIP_ID
+      );
+
+
+  if(result.error){
+
+    alert(
+      result.error.message
+    );
+
+    return;
+
+  }
+
+
+  await reloadBookings();
+
+}
+
+
+/* =========================================================
+   OPEN ADD
+========================================================= */
+
+document.getElementById(
+  "addButton"
+).onclick =
+  openAdd;
+
+
+function openAdd(){
+
+  editingId =
+    null;
+
+
+  sheetTitle.textContent =
+    "＋ Add Booking";
+
+
+  deleteButton.style.display =
+    "none";
+
+
+  fieldStatus.value =
+    "planned";
+
+
+  fieldType.value =
+    "ticket";
+
+
+  fieldTitle.value =
+    "";
+
+
+  fieldDate.value =
+    "";
+
+
+  fieldTime.value =
+    "";
+
+
+  fieldProvider.value =
+    "";
+
+
+  fieldLocation.value =
+    "";
+
+
+  fieldAddress.value =
+    "";
+
+
+  fieldConfirmation.value =
+    "";
+
+
+  fieldUrl.value =
+    "";
+
+
+  fieldAmount.value =
+    "";
+
+
+  fieldCurrency.value =
+    "JPY";
+
+
+  fieldNotes.value =
+    "";
+
+
+  formMessage.className =
+    "form-message";
+
+
+  bookingSheet.classList
+    .add(
+      "open"
+    );
+
+}
+
+
+/* =========================================================
+   OPEN EDIT
+========================================================= */
+
+function openEdit(id){
+
+  const item =
+    bookings.find(
+      row =>
+        Number(row.id) ===
+        Number(id)
+    );
+
+
+  if(!item){
+    return;
+  }
+
+
+  editingId =
+    item.id;
+
+
+  sheetTitle.textContent =
+    "Edit Booking";
+
+
+  deleteButton.style.display =
+    "block";
+
+
+  fieldStatus.value =
+    item.status ||
+    "planned";
+
+
+  fieldType.value =
+    item.booking_type ||
+    "other";
+
+
+  fieldTitle.value =
+    item.title ||
+    "";
+
+
+  fieldDate.value =
+    item.booking_date ||
+    "";
+
+
+  fieldTime.value =
+    item.start_time
+    ?
+    item.start_time.slice(0,5)
+    :
+    "";
+
+
+  fieldProvider.value =
+    item.provider ||
+    "";
+
+
+  fieldLocation.value =
+    item.location_name ||
+    "";
+
+
+  fieldAddress.value =
+    item.address ||
+    "";
+
+
+  fieldConfirmation.value =
+    item.confirmation_number ||
+    "";
+
+
+  fieldUrl.value =
+    item.booking_url ||
+    "";
+
+
+  fieldAmount.value =
+    item.amount ??
+    "";
+
+
+  fieldCurrency.value =
+    item.currency ||
+    "JPY";
+
+
+  fieldNotes.value =
+    item.notes ||
+    "";
+
+
+  formMessage.className =
+    "form-message";
+
+
+  bookingSheet.classList
+    .add(
+      "open"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE SHEET
+========================================================= */
+
+document.getElementById(
+  "closeSheet"
+).onclick =
+  closeSheet;
+
+
+bookingSheet.onclick =
+  event => {
+
+    if(
+      event.target ===
+      bookingSheet
+    ){
+
+      closeSheet();
+
+    }
+
+  };
+
+
+function closeSheet(){
+
+  bookingSheet.classList
+    .remove(
+      "open"
+    );
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+document.getElementById(
+  "bookingForm"
+).addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+
+    saveButton.disabled =
+      true;
+
+
+    saveButton.textContent =
+      "SAVING…";
+
+
+    formMessage.className =
+      "form-message";
+
+
+    try{
+
+
+      const title =
+        fieldTitle.value.trim();
+
+
+      if(!title){
+
+        throw new Error(
+          "Please enter a title."
+        );
+
+      }
+
+
+      const payload = {
+
+        trip_id:
+          TRIP_ID,
+
+        booking_type:
+          fieldType.value,
+
+        title:
+          title,
+
+        provider:
+          fieldProvider.value
+            .trim() ||
+          null,
+
+        booking_date:
+          fieldDate.value ||
+          null,
+
+        start_time:
+          fieldTime.value
+          ?
+          `${fieldTime.value}:00`
+          :
+          null,
+
+        status:
+          fieldStatus.value,
+
+        confirmation_number:
+          fieldConfirmation.value
+            .trim() ||
+          null,
+
+        location_name:
+          fieldLocation.value
+            .trim() ||
+          null,
+
+        address:
+          fieldAddress.value
+            .trim() ||
+          null,
+
+        booking_url:
+          fieldUrl.value
+            .trim() ||
+          null,
+
+        amount:
+          fieldAmount.value !== ""
+          ?
+          Number(
+            fieldAmount.value
+          )
+          :
+          null,
+
+        currency:
+          fieldCurrency.value,
+
+        notes:
+          fieldNotes.value
+            .trim() ||
+          null
+
+      };
+
+
+      /*
+        ADD
+      */
+
+      if(
+        editingId === null
+      ){
+
+        const result =
+          await db
+            .from("bookings")
+            .insert(
+              payload
+            );
+
+
+        if(result.error){
+          throw result.error;
+        }
+
+      }
+
+
+      /*
+        EDIT
+      */
+
+      else{
+
+        const result =
+          await db
+            .from("bookings")
+            .update(
+              payload
+            )
+            .eq(
+              "id",
+              editingId
+            )
+            .eq(
+              "trip_id",
+              TRIP_ID
+            );
+
+
+        if(result.error){
+          throw result.error;
+        }
+
+      }
+
+
+      closeSheet();
+
+
+      await reloadBookings();
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      formMessage.textContent =
+        error.message ||
+        "Couldn't save booking.";
+
+
+      formMessage.className =
+        "form-message error";
+
+    }
+
+    finally{
+
+      saveButton.disabled =
+        false;
+
+
+      saveButton.textContent =
+        "SAVE";
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+deleteButton.onclick =
+  async () => {
+
+    if(
+      editingId === null
+    ){
+      return;
+    }
+
+
+    const item =
+      bookings.find(
+        row =>
+          Number(row.id) ===
+          Number(editingId)
+      );
+
+
+    if(!item){
+      return;
+    }
+
+
+    const okay =
+      confirm(
+        `Delete "${item.title}"?`
+      );
+
+
+    if(!okay){
+      return;
+    }
+
+
+    deleteButton.disabled =
+      true;
+
+
+    try{
+
+
+      const result =
+        await db
+          .from("bookings")
+          .delete()
+          .eq(
+            "id",
+            editingId
+          )
+          .eq(
+            "trip_id",
+            TRIP_ID
+          );
+
+
+      if(result.error){
+        throw result.error;
+      }
+
+
+      closeSheet();
+
+
+      await reloadBookings();
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      formMessage.textContent =
+        error.message ||
+        "Couldn't delete booking.";
+
+
+      formMessage.className =
+        "form-message error";
+
+    }
+
+    finally{
+
+      deleteButton.disabled =
+        false;
+
+    }
+
+  };
+
+
+/* =========================================================
+   RELOAD
+========================================================= */
+
+async function reloadBookings(){
+
+  const result =
+    await db
+      .from("bookings")
+      .select(`
+        id,
+        trip_id,
+        booking_type,
+        title,
+        provider,
+        booking_date,
+        start_time,
+        status,
+        confirmation_number,
+        restaurant_id,
+        place_id,
+        location_name,
+        address,
+        booking_url,
+        amount,
+        currency,
+        notes,
+        created_at,
+        updated_at
+      `)
+      .eq(
+        "trip_id",
+        TRIP_ID
+      )
+      .order(
+        "booking_date",
+        {
+          ascending:true,
+          nullsFirst:false
+        }
+      )
+      .order(
+        "start_time",
+        {
+          ascending:true,
+          nullsFirst:false
+        }
+      );
+
+
+  if(result.error){
+    throw result.error;
+  }
+
+
+  bookings =
+    result.data || [];
+
+
+  render();
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadData();
+
 </script>
 
 </body>
