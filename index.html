@@ -20,7 +20,7 @@
   --line:#29323b;
   --text:#f5f5f3;
   --muted:#aeb5bc;
-  --muted-blue:#91a5b3;
+  --muted2:#74818a;
   --red:#c96f68;
   --blue:#5c9dff;
   --green:#67c587;
@@ -59,62 +59,131 @@ body{
     var(--bg);
 }
 
+button{
+  font:inherit;
+}
+
 main{
+  width:100%;
   max-width:760px;
+
   margin:auto;
 
   padding:
-    20px
-    14px
-    105px;
+    18px
+    13px
+    95px;
 }
 
 
-/* =========================================
-   HERO
-========================================= */
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+  margin-bottom:14px;
+}
 
 .eyebrow{
   color:var(--red);
 
-  font-size:10px;
+  font-size:9px;
   font-weight:900;
 
-  letter-spacing:.16em;
+  letter-spacing:.14em;
   text-transform:uppercase;
 }
 
 h1{
-  margin:7px 0 4px;
+  margin:5px 0 3px;
 
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:31px;
-  line-height:1.05;
+  font-size:28px;
+  line-height:1.08;
 
-  letter-spacing:-.03em;
+  letter-spacing:-.025em;
 }
 
-.sub{
+.subtitle{
   color:var(--muted);
-  font-size:12px;
+
+  font-size:10px;
+  line-height:1.4;
 }
 
 
-/* =========================================
-   LOADING / ERROR
-========================================= */
+/* =========================================================
+   ROUTE STRIP
+========================================================= */
+
+.route-strip{
+  display:flex;
+
+  align-items:center;
+
+  gap:5px;
+
+  overflow-x:auto;
+
+  margin-top:10px;
+
+  padding-bottom:2px;
+
+  scrollbar-width:none;
+}
+
+.route-strip::-webkit-scrollbar{
+  display:none;
+}
+
+.route-stop{
+  flex:0 0 auto;
+
+  padding:
+    4px
+    7px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  color:#c4cbd0;
+
+  font-size:7px;
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+.route-arrow{
+  flex:0 0 auto;
+
+  color:#53606a;
+
+  font-size:8px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 .status{
-  margin-top:18px;
-
-  padding:22px 16px;
+  padding:
+    26px
+    16px;
 
   border:1px solid var(--line);
-  border-radius:18px;
+  border-radius:16px;
 
   background:var(--panel);
 
@@ -122,7 +191,7 @@ h1{
 
   text-align:center;
 
-  font-size:11px;
+  font-size:9px;
 }
 
 .status strong{
@@ -132,38 +201,45 @@ h1{
 
   color:#fff;
 
-  font-size:14px;
+  font-size:12px;
 }
 
 
-/* =========================================
-   TODAY CARD
-========================================= */
+/* =========================================================
+   MAIN CARD
+========================================================= */
 
-.today{
-  margin-top:18px;
+.home-card{
+  overflow:hidden;
 
   border:
     1px solid
-    rgba(201,111,104,.42);
+    rgba(201,111,104,.34);
 
-  border-radius:20px;
-
-  padding:15px;
+  border-radius:17px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(201,111,104,.10),
-      #10161c 55%
+      rgba(201,111,104,.08),
+      #10161c 48%
     );
 
   box-shadow:
-    0 10px 35px
-    rgba(0,0,0,.18);
+    0 12px 35px
+    rgba(0,0,0,.17);
 }
 
-.today-top{
+.card-inner{
+  padding:13px;
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.card-top{
   display:flex;
 
   align-items:center;
@@ -172,108 +248,118 @@ h1{
   gap:10px;
 }
 
-.today-label{
+.card-label{
   color:var(--red);
 
-  font-size:10px;
+  font-size:8px;
   font-weight:900;
 
-  letter-spacing:.14em;
+  letter-spacing:.13em;
   text-transform:uppercase;
 }
 
-.today-date{
+.card-date{
   color:var(--muted);
 
-  font-size:10px;
+  font-size:8px;
   font-weight:800;
 }
 
-.today h2{
-  margin:7px 0 3px;
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown{
+  display:flex;
+
+  align-items:flex-end;
+
+  gap:6px;
+
+  margin-top:10px;
+}
+
+.count-number{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:37px;
+  font-weight:800;
+
+  line-height:.85;
+
+  letter-spacing:-.04em;
+}
+
+.count-text{
+  padding-bottom:2px;
+
+  color:var(--muted);
+
+  font-size:8px;
+  font-weight:900;
+
+  line-height:1.3;
+}
+
+.first-day{
+  margin-top:13px;
+
+  padding-top:10px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.07);
+}
+
+.mini-label{
+  color:var(--muted);
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.day-title{
+  margin-top:4px;
 
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:22px;
+  font-size:19px;
+  font-weight:800;
+
+  line-height:1.2;
 }
 
-.today-route{
-  color:#d6dadd;
-
-  font-size:11px;
-  line-height:1.45;
-}
-
-
-/* =========================================
-   PROGRESS
-========================================= */
-
-.progress{
-  height:5px;
-
-  margin-top:12px;
+.day-route{
+  margin-top:3px;
 
   overflow:hidden;
 
-  border-radius:999px;
+  color:#bec5ca;
 
-  background:#1b252d;
-}
+  font-size:8px;
+  line-height:1.4;
 
-.progress > div{
-  height:100%;
-
-  background:var(--red);
-}
-
-.progress-label{
-  margin-top:5px;
-
-  color:var(--muted);
-
-  font-size:9px;
-  font-weight:800;
-
-  text-align:right;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 
-/* =========================================
-   CURRENT ITEM
-========================================= */
+/* =========================================================
+   TODAY
+========================================================= */
 
-.now-box{
-  margin-top:13px;
-
-  padding:13px;
-
-  border:1px solid var(--line);
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #151d23,
-      #0d1318
-    );
-}
-
-.now-label{
-  color:var(--green);
-
-  font-size:9px;
-  font-weight:900;
-
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-
-.now-place{
-  margin-top:4px;
+.today-title{
+  margin-top:7px;
 
   font-family:
     Georgia,
@@ -283,229 +369,337 @@ h1{
   font-size:21px;
   font-weight:800;
 
-  line-height:1.25;
+  line-height:1.2;
 }
 
-.now-time{
+.today-route{
   margin-top:3px;
 
-  color:var(--muted-blue);
+  overflow:hidden;
 
-  font-size:10px;
-  font-weight:850;
+  color:#bec5ca;
+
+  font-size:8px;
+  line-height:1.4;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
-.now-note{
-  margin-top:5px;
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-row{
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin-top:10px;
+}
+
+.progress{
+  flex:1;
+
+  height:4px;
+
+  overflow:hidden;
+
+  border-radius:999px;
+
+  background:#1d272e;
+}
+
+.progress-bar{
+  height:100%;
+
+  border-radius:999px;
+
+  background:var(--red);
+}
+
+.progress-text{
+  flex:0 0 auto;
 
   color:var(--muted);
 
-  font-size:10px;
-  line-height:1.45;
+  font-size:7px;
+  font-weight:900;
 }
 
 
-/* =========================================
+/* =========================================================
+   NOW
+========================================================= */
+
+.now{
+  margin-top:10px;
+
+  padding:
+    10px
+    11px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:
+    rgba(7,12,16,.38);
+}
+
+.now-head{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:8px;
+}
+
+.now-label{
+  color:var(--green);
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.13em;
+}
+
+.now-time{
+  color:#91a5b3;
+
+  font-size:8px;
+  font-weight:850;
+}
+
+.now-title{
+  margin-top:3px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:18px;
+  font-weight:800;
+
+  line-height:1.2;
+}
+
+.now-note{
+  margin-top:3px;
+
+  color:var(--muted);
+
+  font-size:8px;
+  line-height:1.4;
+}
+
+
+/* =========================================================
    BUTTONS
-========================================= */
+========================================================= */
 
 .actions{
   display:grid;
 
   grid-template-columns:
-    1fr
+    1.3fr
     1fr;
 
-  gap:7px;
+  gap:6px;
 
-  margin-top:11px;
+  margin-top:9px;
 }
 
 .btn{
-  min-height:40px;
+  min-height:36px;
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  padding:7px;
+  padding:6px;
 
   border:1px solid var(--line);
-  border-radius:10px;
+  border-radius:9px;
 
-  background:#151d23;
+  background:#141c22;
   color:#fff;
 
   text-decoration:none;
 
-  font-size:10px;
+  font-size:8px;
   font-weight:900;
 
   cursor:pointer;
 }
 
-.btn.primary{
-  color:#f3d4d1;
+.btn.done{
+  color:#bce8c9;
 
   border-color:
-    rgba(201,111,104,.42);
+    rgba(103,197,135,.28);
 
   background:
-    rgba(201,111,104,.12);
+    rgba(103,197,135,.08);
 }
 
 .btn.map{
-  color:#b8d1ff;
+  color:#bad2ff;
 
   border-color:
-    rgba(92,157,255,.28);
+    rgba(92,157,255,.26);
 
   background:
-    rgba(92,157,255,.08);
+    rgba(92,157,255,.07);
 }
 
-.btn.done{
-  color:#b9e5c7;
+.btn.primary{
+  color:#f4d3d0;
 
   border-color:
-    rgba(103,197,135,.32);
+    rgba(201,111,104,.34);
 
   background:
-    rgba(103,197,135,.10);
+    rgba(201,111,104,.09);
 }
 
-.btn.back{
-  color:var(--muted);
+.btn.secondary{
+  color:#c6cdd2;
 }
 
-.btn:disabled{
-  opacity:.38;
-  cursor:default;
+
+/* =========================================================
+   UP NEXT
+========================================================= */
+
+.up-next{
+  margin-top:11px;
 }
 
-.controls{
+.up-title{
+  margin-bottom:4px;
+
+  color:#82909a;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.12em;
+}
+
+.next-row{
   display:grid;
 
   grid-template-columns:
-    1fr
-    1.4fr;
+    55px
+    1fr;
 
   gap:7px;
 
-  margin-top:8px;
+  padding:
+    6px
+    0;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.055);
+
+  font-size:8px;
+}
+
+.next-time{
+  color:#91a5b3;
+  font-weight:850;
+}
+
+.next-name{
+  overflow:hidden;
+
+  color:#d9dde0;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 
-/* =========================================
-   NEXT ITEMS
-========================================= */
+/* =========================================================
+   CARD FOOTER
+========================================================= */
 
-.next-list{
-  margin-top:12px;
-}
+.card-footer{
+  display:flex;
 
-.next-title{
-  margin-bottom:6px;
-
-  color:var(--muted-blue);
-
-  font-size:9px;
-  font-weight:900;
-
-  letter-spacing:.13em;
-  text-transform:uppercase;
-}
-
-.next-item{
-  display:grid;
-
-  grid-template-columns:
-    21px
-    1fr;
+  align-items:center;
+  justify-content:space-between;
 
   gap:8px;
 
-  padding:8px 0;
+  padding:
+    9px
+    13px;
 
   border-top:
     1px solid
     rgba(255,255,255,.06);
 
-  color:#d8dcdf;
-
-  font-size:10px;
+  background:
+    rgba(0,0,0,.12);
 }
 
-.next-item.done{
-  opacity:.45;
-  text-decoration:line-through;
-}
-
-.next-item.current{
-  color:#fff;
-  font-weight:850;
-}
-
-.next-item .tick{
-  color:var(--green);
-}
-
-.next-item .num{
-  color:var(--muted);
-}
-
-.reset{
-  margin-top:9px;
-
-  padding:4px 0;
-
+.card-footer button,
+.card-footer a{
   border:0;
 
   background:none;
 
-  color:#76838c;
+  color:var(--muted);
 
-  font-size:9px;
-  font-weight:800;
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:850;
 
   cursor:pointer;
 }
 
-
-/* =========================================
-   PRETRIP
-========================================= */
-
-.pretrip{
-  margin-top:18px;
-
-  padding:15px;
-
-  border:
-    1px dashed
-    #34414b;
-
-  border-radius:18px;
-
-  color:var(--muted);
-
-  font-size:11px;
-  line-height:1.5;
+.card-footer .view{
+  color:var(--red);
 }
 
-.pretrip strong{
-  color:#fff;
+
+/* =========================================================
+   PREVIEW DAYS
+========================================================= */
+
+.preview-wrap{
+  margin-top:11px;
+}
+
+.preview-label{
+  margin:
+    0
+    2px
+    5px;
+
+  color:#7f8c95;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.12em;
 }
 
 .preview-days{
   display:flex;
 
-  gap:6px;
+  gap:5px;
 
   overflow-x:auto;
-
-  margin-top:11px;
 
   padding-bottom:3px;
 
@@ -519,18 +713,20 @@ h1{
 .preview-day{
   flex:0 0 auto;
 
-  min-width:50px;
-  min-height:40px;
+  min-width:43px;
+  min-height:31px;
 
-  padding:6px 8px;
+  padding:
+    4px
+    7px;
 
   border:1px solid var(--line);
-  border-radius:10px;
+  border-radius:8px;
 
-  background:#12191f;
-  color:#d8dcdf;
+  background:#10171d;
+  color:#aeb7bd;
 
-  font-size:10px;
+  font-size:7px;
   font-weight:900;
 
   cursor:pointer;
@@ -539,212 +735,63 @@ h1{
 .preview-day.active{
   color:#fff;
 
-  border-color:var(--red);
+  border-color:
+    rgba(201,111,104,.5);
 
   background:
-    rgba(201,111,104,.11);
+    rgba(201,111,104,.10);
 }
 
 
-/* =========================================
-   QUICK ACCESS
-========================================= */
+/* =========================================================
+   FREE / PAST
+========================================================= */
 
-.section{
-  margin-top:18px;
-}
-
-.section-title{
-  margin:0 2px 8px;
-
-  color:var(--muted-blue);
-
-  font-size:10px;
-  font-weight:900;
-
-  letter-spacing:.13em;
-  text-transform:uppercase;
-}
-
-.menu{
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    1fr;
-
-  gap:9px;
-}
-
-.card{
-  position:relative;
-
-  min-height:119px;
-
+.simple-card{
   padding:14px;
 
-  overflow:hidden;
-
   border:1px solid var(--line);
-  border-radius:18px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #151d23,
-      #0e1419
-    );
-
-  color:var(--text);
-
-  text-decoration:none;
-}
-
-.card.schedule{
-  grid-column:1/-1;
-  min-height:99px;
-}
-
-.card .icon{
-  font-size:23px;
-}
-
-.card h3{
-  margin:8px 0 3px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:18px;
-}
-
-.card p{
-  margin:0;
-
-  color:var(--muted);
-
-  font-size:10px;
-  line-height:1.4;
-}
-
-.card .go{
-  position:absolute;
-
-  right:12px;
-  bottom:9px;
-
-  color:var(--red);
-
-  font-size:14px;
-  font-weight:900;
-}
-
-
-/* =========================================
-   HUB CARD
-========================================= */
-
-.booking-card{
-  grid-column:1/-1;
-
-  min-height:76px;
-
-  display:grid;
-
-  grid-template-columns:
-    34px
-    1fr
-    auto;
-
-  gap:10px;
-
-  align-items:center;
-
-  padding:12px 14px;
-
-  border:
-    1px solid
-    rgba(244,163,77,.28);
-
   border-radius:16px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(244,163,77,.07),
-      #0e1419
-    );
-
-  color:var(--text);
-
-  text-decoration:none;
+  background:var(--panel);
 }
 
-.booking-card .icon{
-  font-size:21px;
+.simple-label{
+  color:var(--red);
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:.12em;
 }
 
-.booking-card h3{
-  margin:0 0 2px;
+.simple-card h2{
+  margin:
+    6px
+    0
+    4px;
 
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:16px;
+  font-size:20px;
 }
 
-.booking-card p{
+.simple-card p{
   margin:0;
 
   color:var(--muted);
 
   font-size:9px;
-  line-height:1.4;
-}
-
-.booking-card .go{
-  color:var(--orange);
-
-  font-size:14px;
-  font-weight:900;
+  line-height:1.5;
 }
 
 
-/* =========================================
-   TRIP LINE
-========================================= */
-
-.tripline{
-  margin-top:16px;
-
-  padding:11px 12px;
-
-  border:1px solid var(--line);
-  border-radius:14px;
-
-  background:
-    rgba(255,255,255,.025);
-
-  color:var(--muted);
-
-  font-size:10px;
-  line-height:1.55;
-
-  text-align:center;
-}
-
-.tripline strong{
-  color:#e8eaeb;
-}
-
-
-/* =========================================
+/* =========================================================
    BOTTOM NAV
-========================================= */
+========================================================= */
 
 .bottom-nav{
   position:fixed;
@@ -760,24 +807,25 @@ h1{
   grid-template-columns:
     repeat(5,1fr);
 
-  gap:4px;
+  gap:3px;
 
   padding:
+    6px
     7px
-    8px
-    calc(7px + env(safe-area-inset-bottom));
+    calc(6px + env(safe-area-inset-bottom));
+
+  border-top:1px solid var(--line);
 
   background:
-    rgba(7,12,16,.97);
-
-  border-top:
-    1px solid var(--line);
+    rgba(7,12,16,.98);
 
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
 
 .bottom-nav a{
+  min-height:46px;
+
   display:flex;
 
   flex-direction:column;
@@ -787,60 +835,54 @@ h1{
 
   gap:2px;
 
-  min-height:47px;
-
-  border-radius:11px;
+  border-radius:10px;
 
   color:var(--muted);
 
   text-decoration:none;
 
-  font-size:9px;
+  font-size:8px;
   font-weight:800;
 }
 
-.bottom-nav .nav-icon{
-  font-size:17px;
+.nav-icon{
+  font-size:16px;
   line-height:1;
 }
 
 .bottom-nav a.active{
   color:#fff;
 
-  background:
-    rgba(201,111,104,.10);
-
   border:
     1px solid
-    rgba(201,111,104,.25);
+    rgba(201,111,104,.22);
+
+  background:
+    rgba(201,111,104,.08);
 }
 
 
-/* =========================================
+/* =========================================================
    RESPONSIVE
-========================================= */
+========================================================= */
 
-@media(max-width:390px){
+@media(max-width:380px){
 
   h1{
-    font-size:28px;
+    font-size:26px;
   }
 
-  .today{
-    padding:13px;
-  }
-
-  .now-place{
-    font-size:19px;
-  }
-
-  .card{
-    padding:12px;
+  .count-number{
+    font-size:34px;
   }
 
 }
 
 @media(min-width:700px){
+
+  main{
+    padding-top:24px;
+  }
 
   .bottom-nav{
     left:50%;
@@ -851,15 +893,12 @@ h1{
     transform:
       translateX(-50%);
 
-    border-left:
-      1px solid var(--line);
-
-    border-right:
-      1px solid var(--line);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
 
     border-radius:
-      16px
-      16px
+      15px
+      15px
       0
       0;
   }
@@ -872,138 +911,66 @@ h1{
 
 <body>
 
+
 <main>
 
-  <div
-    class="eyebrow"
-    id="eyebrow"
-  >
-    Loading trip…
-  </div>
 
-  <h1 id="tripName">
-    Japan Trip
-  </h1>
+  <!-- HEADER -->
 
-  <div
-    class="sub"
-    id="tripSubtitle"
-  >
-    Loading…
-  </div>
+  <header class="header">
+
+    <div
+      id="eyebrow"
+      class="eyebrow"
+    >
+      Loading trip…
+    </div>
+
+    <h1 id="tripName">
+      Japan Trip
+    </h1>
+
+    <div
+      id="tripSubtitle"
+      class="subtitle"
+    >
+      Loading…
+    </div>
 
 
-  <!-- TODAY / UPCOMING -->
+    <div
+      id="routeStrip"
+      class="route-strip"
+    ></div>
 
-  <section id="todayCard">
+  </header>
+
+
+
+  <!-- MAIN HOME CONTENT -->
+
+  <section id="homeContent">
 
     <div class="status">
-      <strong>Loading your trip…</strong>
+
+      <strong>
+        Loading your trip…
+      </strong>
+
       Getting your schedule from Supabase.
-    </div>
-
-  </section>
-
-
-  <!-- QUICK ACCESS -->
-
-  <section class="section">
-
-    <div class="section-title">
-      Quick Access
-    </div>
-
-    <div class="menu">
-
-      <a
-        class="card schedule"
-        id="scheduleCard"
-        href="schedule.html"
-      >
-        <div class="icon">📅</div>
-
-        <h3>Schedule</h3>
-
-        <p>
-          Full day-by-day plan · routes · transport · Maps
-        </p>
-
-        <span class="go">→</span>
-      </a>
-
-
-      <a
-        class="booking-card"
-        id="hubCard"
-        href="bookings.html"
-      >
-
-        <div class="icon">
-          ⭐
-        </div>
-
-        <div>
-          <h3>Trip Hub</h3>
-
-          <p>
-            Bookings · tickets · things to arrange
-          </p>
-        </div>
-
-        <span class="go">→</span>
-
-      </a>
-
-
-      <a
-        class="card"
-        href="kyotofood.html"
-      >
-        <div class="icon">⛩️</div>
-
-        <h3>Kyoto Food</h3>
-
-        <p>
-          Rankings · filters · 🎲 Pick For Me
-        </p>
-
-        <span class="go">→</span>
-      </a>
-
-
-      <a
-        class="card"
-        href="osakafood.html"
-      >
-        <div class="icon">🌃</div>
-
-        <h3>Osaka Food</h3>
-
-        <p>
-          Osaka restaurant finder
-        </p>
-
-        <span class="go">→</span>
-      </a>
 
     </div>
 
   </section>
 
-
-  <div
-    class="tripline"
-    id="tripline"
-  >
-    Loading trip…
-  </div>
 
 </main>
 
 
-<!-- =========================================
+
+<!-- =========================================================
      BOTTOM NAV
-========================================= -->
+========================================================= -->
 
 <nav
   class="bottom-nav"
@@ -1011,47 +978,45 @@ h1{
 >
 
   <a
-    href="index.html"
+    id="navHome"
     class="active"
     aria-current="page"
-    id="navHome"
   >
     <span class="nav-icon">🏠</span>
     <span>HOME</span>
   </a>
 
-  <a
-    href="schedule.html"
-    id="navSchedule"
-  >
+
+  <a id="navPlan">
     <span class="nav-icon">📅</span>
-    <span>SCHEDULE</span>
+    <span>PLAN</span>
   </a>
 
-  <a
-    href="bookings.html"
-    id="navHub"
-  >
+
+  <a id="navFood">
+    <span class="nav-icon">🍽️</span>
+    <span>FOOD</span>
+  </a>
+
+
+  <a id="navHub">
     <span class="nav-icon">⭐</span>
     <span>HUB</span>
   </a>
 
-  <a href="kyotofood.html">
-    <span class="nav-icon">⛩️</span>
-    <span>KYOTO FOOD</span>
-  </a>
 
-  <a href="osakafood.html">
-    <span class="nav-icon">🌃</span>
-    <span>OSAKA FOOD</span>
+  <a href="#">
+    <span class="nav-icon">⋯</span>
+    <span>MORE</span>
   </a>
 
 </nav>
 
 
-<!-- =========================================
+
+<!-- =========================================================
      SUPABASE
-========================================= -->
+========================================================= -->
 
 <script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -1060,11 +1025,12 @@ h1{
 <script src="supabase.js"></script>
 
 
+
 <script>
 
-/* =========================================
+/* =========================================================
    TRIP
-========================================= */
+========================================================= */
 
 const params =
   new URLSearchParams(
@@ -1078,17 +1044,19 @@ const TRIP_ID =
 
 
 let trip = null;
+
 let schedule = [];
+
 let groupedDays = {};
 
 
-/* =========================================
+/* =========================================================
    ELEMENTS
-========================================= */
+========================================================= */
 
-const todayCard =
+const homeContent =
   document.getElementById(
-    "todayCard"
+    "homeContent"
   );
 
 const tripName =
@@ -1106,116 +1074,71 @@ const eyebrow =
     "eyebrow"
   );
 
-const tripline =
+const routeStrip =
   document.getElementById(
-    "tripline"
+    "routeStrip"
   );
 
 
-/* =========================================
-   HTML SAFETY
-========================================= */
+/* =========================================================
+   NAV
+========================================================= */
+
+document.getElementById(
+  "navHome"
+).href =
+  `index.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "navPlan"
+).href =
+  `schedule.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "navFood"
+).href =
+  `food.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "navHub"
+).href =
+  `bookings.html?trip=${TRIP_ID}`;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function text(value){
+
+  return String(
+    value ?? ""
+  );
+
+}
+
 
 function esc(value){
 
-  if(
-    value === null ||
-    value === undefined
-  ){
-    return "";
-  }
-
-  return String(value)
+  return text(value)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
+
 }
 
 
-/* =========================================
+/* =========================================================
    DATES
-========================================= */
+========================================================= */
 
-function parseDate(date){
+function parseDate(value){
 
   return new Date(
-    date + "T12:00:00"
+    value + "T12:00:00"
   );
-
-}
-
-
-function formatTripRange(){
-
-  const start =
-    parseDate(
-      trip.start_date
-    );
-
-  const end =
-    parseDate(
-      trip.end_date
-    );
-
-  const startText =
-    new Intl.DateTimeFormat(
-      "en-GB",
-      {
-        day:"numeric",
-        month:"short"
-      }
-    ).format(start);
-
-  const endText =
-    new Intl.DateTimeFormat(
-      "en-GB",
-      {
-        day:"numeric",
-        month:"short",
-        year:"numeric"
-      }
-    ).format(end);
-
-  return `${startText} – ${endText}`;
-
-}
-
-
-function formatDay(dateString){
-
-  const date =
-    parseDate(dateString);
-
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"short"
-    }
-  )
-  .format(date)
-  .toUpperCase();
-
-}
-
-
-function shortDay(dateString){
-
-  const date =
-    parseDate(dateString);
-
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      day:"numeric",
-      month:"short"
-    }
-  )
-  .format(date)
-  .toUpperCase();
 
 }
 
@@ -1238,14 +1161,124 @@ function todayString(){
       now.getDate()
     ).padStart(2,"0");
 
-  return `${year}-${month}-${day}`;
+  return (
+    `${year}-${month}-${day}`
+  );
 
 }
 
 
-/* =========================================
-   LOAD DATABASE
-========================================= */
+function formatRange(){
+
+  const start =
+    parseDate(
+      trip.start_date
+    );
+
+  const end =
+    parseDate(
+      trip.end_date
+    );
+
+
+  const startText =
+    new Intl.DateTimeFormat(
+      "en-GB",
+      {
+        day:"numeric",
+        month:"short"
+      }
+    )
+    .format(start);
+
+
+  const endText =
+    new Intl.DateTimeFormat(
+      "en-GB",
+      {
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+      }
+    )
+    .format(end);
+
+
+  return (
+    `${startText} – ${endText}`
+  );
+
+}
+
+
+function formatDay(value){
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      weekday:"short",
+      day:"numeric",
+      month:"short"
+    }
+  )
+  .format(
+    parseDate(value)
+  )
+  .toUpperCase();
+
+}
+
+
+function shortDay(value){
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  )
+  .format(
+    parseDate(value)
+  )
+  .toUpperCase();
+
+}
+
+
+function daysUntil(
+  dateString
+){
+
+  const now =
+    new Date();
+
+  const today =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+
+  const target =
+    new Date(
+      dateString +
+      "T00:00:00"
+    );
+
+
+  return Math.ceil(
+    (target - today) /
+    86400000
+  );
+
+}
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
 
 async function loadTrip(){
 
@@ -1263,12 +1296,17 @@ async function loadTrip(){
         end_date,
         description
       `)
-      .eq("id",TRIP_ID)
+      .eq(
+        "id",
+        TRIP_ID
+      )
       .single();
+
 
   if(error){
     throw error;
   }
+
 
   trip = data;
 
@@ -1276,12 +1314,6 @@ async function loadTrip(){
 
 
 async function loadSchedule(){
-
-  /*
-    Home only needs schedule data plus
-    the master place / restaurant details
-    needed for the current item.
-  */
 
   const {
     data,
@@ -1321,19 +1353,28 @@ async function loadSchedule(){
           booking_url
         )
       `)
-      .eq("trip_id",TRIP_ID)
+      .eq(
+        "trip_id",
+        TRIP_ID
+      )
       .order(
         "schedule_date",
-        {ascending:true}
+        {
+          ascending:true
+        }
       )
       .order(
         "sort_order",
-        {ascending:true}
+        {
+          ascending:true
+        }
       );
+
 
   if(error){
     throw error;
   }
+
 
   schedule =
     data || [];
@@ -1341,13 +1382,14 @@ async function loadSchedule(){
 }
 
 
-/* =========================================
-   GROUP DAYS
-========================================= */
+/* =========================================================
+   BUILD DAYS
+========================================================= */
 
 function buildDays(){
 
   groupedDays = {};
+
 
   schedule.forEach(item => {
 
@@ -1363,6 +1405,7 @@ function buildDays(){
 
     }
 
+
     groupedDays[
       item.schedule_date
     ].push(item);
@@ -1372,17 +1415,85 @@ function buildDays(){
 }
 
 
-/* =========================================
-   PROGRESS
-========================================= */
+/* =========================================================
+   HEADER
+========================================================= */
 
-function progressKey(date){
+function renderHeader(){
+
+  tripName.textContent =
+    trip.name;
+
+
+  eyebrow.textContent =
+    `${trip.country || "TRIP"} · ${formatRange()}`;
+
 
   /*
-    Includes trip ID so your brother's
-    progress can never overwrite yours
-    on the same device.
+    Keep the subtitle short on Home.
+    The full description doesn't really
+    need to be displayed here.
   */
+
+  if(TRIP_ID === 1){
+
+    tripSubtitle.textContent =
+      "Kyoto → Mountains → Osaka";
+
+
+    routeStrip.innerHTML = `
+
+      <span class="route-stop">
+        ⛩️ KYOTO · 18–22
+      </span>
+
+      <span class="route-arrow">
+        →
+      </span>
+
+      <span class="route-stop">
+        🚗 ROAD · 23–26
+      </span>
+
+      <span class="route-arrow">
+        →
+      </span>
+
+      <span class="route-stop">
+        🌃 OSAKA · 26–30
+      </span>
+
+      <span class="route-arrow">
+        →
+      </span>
+
+      <span class="route-stop">
+        ✈️ HOME
+      </span>
+
+    `;
+
+  }
+
+  else{
+
+    tripSubtitle.textContent =
+      trip.description ||
+      formatRange();
+
+
+    routeStrip.innerHTML = "";
+
+  }
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function progressKey(date){
 
   return (
     "trip_" +
@@ -1399,17 +1510,19 @@ function getProgress(date){
   const items =
     groupedDays[date] || [];
 
-  const value =
+
+  const stored =
     Number(
       localStorage.getItem(
         progressKey(date)
       ) || 0
     );
 
+
   return Math.max(
     0,
     Math.min(
-      value,
+      stored,
       items.length
     )
   );
@@ -1417,10 +1530,14 @@ function getProgress(date){
 }
 
 
-function setProgress(date,value){
+function setProgress(
+  date,
+  value
+){
 
   const items =
     groupedDays[date] || [];
+
 
   const safe =
     Math.max(
@@ -1431,6 +1548,7 @@ function setProgress(date,value){
       )
     );
 
+
   localStorage.setItem(
     progressKey(date),
     String(safe)
@@ -1439,75 +1557,103 @@ function setProgress(date,value){
 }
 
 
-/* =========================================
-   MAP
-========================================= */
+/* =========================================================
+   ITEM HELPERS
+========================================================= */
 
-function getMapURL(item){
+function itemName(item){
 
-  if(item.restaurant?.maps_url){
-    return item.restaurant.maps_url;
-  }
-
-  if(item.place?.maps_url){
-    return item.place.maps_url;
-  }
-
-  if(item.maps_url){
-    return item.maps_url;
-  }
-
-  return null;
+  return (
+    item.place?.name ||
+    item.restaurant?.name ||
+    item.title
+  );
 
 }
 
 
-/* =========================================
+function itemTime(item){
+
+  if(item.time_label){
+    return item.time_label;
+  }
+
+
+  if(item.start_time){
+
+    return item.start_time
+      .slice(
+        0,
+        5
+      );
+
+  }
+
+
+  return "Flexible";
+
+}
+
+
+function mapURL(item){
+
+  return (
+    item.restaurant?.maps_url ||
+    item.place?.maps_url ||
+    item.maps_url ||
+    null
+  );
+
+}
+
+
+/* =========================================================
    DAY TITLE
-========================================= */
+========================================================= */
 
-function getDayTitle(items){
+function dayTitle(items){
 
-  const linked =
-    items.filter(
-      item =>
-        item.place_id ||
-        item.restaurant_id
-    );
+  const important =
+    items
+      .filter(
+        item =>
+          item.place_id ||
+          item.restaurant_id
+      )
+      .slice(
+        0,
+        2
+      );
+
 
   const source =
-    linked.length
-      ? linked
-      : items;
+    important.length
+    ?
+    important
+    :
+    items.slice(0,2);
+
 
   const names =
     source
-      .slice(0,2)
-      .map(item => {
-
-        return (
-          item.place?.name ||
-          item.restaurant?.name ||
-          item.title
-        );
-
-      })
+      .map(itemName)
       .filter(Boolean);
 
-  if(!names.length){
-    return "Flexible Day";
-  }
 
-  return names.join(" + ");
+  return (
+    names.join(" + ")
+    ||
+    "Flexible Day"
+  );
 
 }
 
 
-/* =========================================
-   DAY ROUTE
-========================================= */
+/* =========================================================
+   ROUTE
+========================================================= */
 
-function getDayRoute(items){
+function dayRoute(items){
 
   const names =
     items
@@ -1516,181 +1662,162 @@ function getDayRoute(items){
           item.place_id ||
           item.restaurant_id
       )
-      .slice(0,5)
-      .map(item => {
-
-        return (
-          item.place?.name ||
-          item.restaurant?.name ||
-          item.title
-        );
-
-      })
+      .slice(
+        0,
+        4
+      )
+      .map(itemName)
       .filter(Boolean);
 
+
   if(!names.length){
-    return "Flexible itinerary";
+
+    return (
+      items
+        .slice(0,3)
+        .map(
+          item =>
+            item.title
+        )
+        .join(" → ")
+    );
+
   }
 
-  return names.join(" → ");
+
+  return names.join(
+    " → "
+  );
 
 }
 
 
-/* =========================================
-   RENDER DAY
-========================================= */
+/* =========================================================
+   BEFORE TRIP
+========================================================= */
 
-function renderDay(
-  date,
-  preview=false
-){
+function renderUpcoming(){
 
-  const items =
-    groupedDays[date] || [];
-
-  if(!items.length){
-    return;
-  }
+  const dates =
+    Object.keys(
+      groupedDays
+    ).sort();
 
 
-  const progress =
-    getProgress(date);
-
-  const finished =
-    progress >= items.length;
-
-  const current =
-    finished
-      ? items[items.length - 1]
-      : items[progress];
-
-  const percentage =
-    finished
-      ? 100
-      : Math.round(
-          progress /
-          items.length *
-          100
-        );
+  const firstDate =
+    dates[0] ||
+    trip.start_date;
 
 
-  const map =
-    finished
-      ? null
-      : getMapURL(current);
+  const firstItems =
+    groupedDays[
+      firstDate
+    ] || [];
 
 
-  const note =
-    current?.notes ||
-    current?.description ||
-    "";
+  const countdown =
+    Math.max(
+      0,
+      daysUntil(
+        trip.start_date
+      )
+    );
 
 
-  const title =
-    getDayTitle(items);
+  homeContent.innerHTML = `
 
-  const route =
-    getDayRoute(items);
+    <div class="home-card">
 
-
-  todayCard.innerHTML = `
-
-    <div class="today">
-
-      <div class="today-top">
-
-        <div class="today-label">
-          ${
-            preview
-              ? "PREVIEW DAY"
-              : "● TODAY"
-          }
-        </div>
-
-        <div class="today-date">
-          ${esc(formatDay(date))}
-        </div>
-
-      </div>
+      <div class="card-inner">
 
 
-      <h2>
-        ${esc(title)}
-      </h2>
+        <div class="card-top">
 
+          <div class="card-label">
+            UPCOMING TRIP
+          </div>
 
-      <div class="today-route">
-        ${esc(route)}
-      </div>
-
-
-      <div class="progress">
-
-        <div
-          style="width:${percentage}%"
-        ></div>
-
-      </div>
-
-
-      <div class="progress-label">
-
-        ${
-          finished
-            ? "DAY COMPLETE ✓"
-            : `${progress} / ${items.length} completed`
-        }
-
-      </div>
-
-
-      <div class="now-box">
-
-        <div class="now-label">
-
-          ${
-            finished
-              ? "FINISHED"
-              : "NOW"
-          }
+          <div class="card-date">
+            ${esc(formatRange())}
+          </div>
 
         </div>
 
 
-        <div class="now-place">
+        <div class="countdown">
 
-          ${
-            finished
-              ? "✓ Day complete"
-              : esc(current.title)
-          }
+          <div class="count-number">
+            ${countdown}
+          </div>
+
+          <div class="count-text">
+
+            DAY${
+              countdown === 1
+              ?
+              ""
+              :
+              "S"
+            }
+            <br>
+            TO GO
+
+          </div>
 
         </div>
 
 
-        ${
-          !finished
-          ?
-          `
-            <div class="now-time">
-              ${esc(
-                current.time_label ||
-                "Flexible"
-              )}
-            </div>
-          `
-          :
-          ""
-        }
+        <div class="first-day">
+
+          <div class="mini-label">
+
+            FIRST DAY ·
+            ${esc(
+              formatDay(
+                firstDate
+              )
+            )}
+
+          </div>
 
 
-        <div class="now-note">
+          <div class="day-title">
+
+            ${
+              firstItems.length
+              ?
+              esc(
+                dayTitle(
+                  firstItems
+                )
+              )
+              :
+              "Japan Trip Begins"
+            }
+
+          </div>
+
 
           ${
-            finished
-              ? "You've completed everything on this day's schedule."
-              : esc(note)
+            firstItems.length
+
+            ?
+
+            `
+              <div class="day-route">
+
+                ${esc(
+                  dayRoute(
+                    firstItems
+                  )
+                )}
+
+              </div>
+            `
+
+            :
+
+            ""
           }
 
         </div>
@@ -1700,331 +1827,62 @@ function renderDay(
 
           <a
             class="btn primary"
-            href="schedule.html?trip=${TRIP_ID}#${date}"
+            href="schedule.html?trip=${TRIP_ID}#${firstDate}"
           >
-            📅 FULL DAY
+            VIEW FIRST DAY →
           </a>
 
-
-          ${
-            map
-            ?
-            `
-              <a
-                class="btn map"
-                href="${esc(map)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                📍 MAP
-              </a>
-            `
-            :
-            `
-              <a
-                class="btn map"
-                href="${
-                  date <= "2026-10-25"
-                    ? "kyotofood.html"
-                    : "osakafood.html"
-                }"
-              >
-                🍽️ FOOD
-              </a>
-            `
-          }
+          <a
+            class="btn secondary"
+            href="bookings.html?trip=${TRIP_ID}"
+          >
+            ⭐ HUB
+          </a>
 
         </div>
-
-
-        <div class="controls">
-
-          <button
-            class="btn back"
-            id="backBtn"
-            ${
-              progress === 0
-                ? "disabled"
-                : ""
-            }
-          >
-            ← BACK
-          </button>
-
-
-          <button
-            class="btn done"
-            id="doneBtn"
-            ${
-              finished
-                ? "disabled"
-                : ""
-            }
-          >
-
-            ${
-              finished
-                ? "✓ COMPLETE"
-                : "✓ DONE · NEXT"
-            }
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="next-list">
-
-        <div class="next-title">
-          ${
-            finished
-              ? "Today's Schedule"
-              : "Up Next"
-          }
-        </div>
-
-
-        ${items.map(
-          (item,index) => {
-
-            const done =
-              index < progress;
-
-            const isCurrent =
-              index === progress &&
-              !finished;
-
-            const className =
-              done
-                ? "done"
-                : (
-                    isCurrent
-                      ? "current"
-                      : ""
-                  );
-
-            const marker =
-              done
-                ? `<span class="tick">✓</span>`
-                : `<span class="num">${index + 1}</span>`;
-
-            return `
-
-              <div
-                class="next-item ${className}"
-              >
-
-                ${marker}
-
-                <div>
-
-                  ${esc(item.title)}
-
-                  <span
-                    style="color:#73818a"
-                  >
-                    ·
-                    ${esc(
-                      item.time_label ||
-                      "Flexible"
-                    )}
-                  </span>
-
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        ).join("")}
-
-      </div>
-
-
-      <button
-        class="reset"
-        id="resetBtn"
-      >
-        Reset this day
-      </button>
-
-    </div>
-
-  `;
-
-
-  const back =
-    document.getElementById(
-      "backBtn"
-    );
-
-  const done =
-    document.getElementById(
-      "doneBtn"
-    );
-
-  const reset =
-    document.getElementById(
-      "resetBtn"
-    );
-
-
-  if(back){
-
-    back.onclick = () => {
-
-      setProgress(
-        date,
-        getProgress(date) - 1
-      );
-
-      renderDay(
-        date,
-        preview
-      );
-
-    };
-
-  }
-
-
-  if(done){
-
-    done.onclick = () => {
-
-      setProgress(
-        date,
-        getProgress(date) + 1
-      );
-
-      renderDay(
-        date,
-        preview
-      );
-
-    };
-
-  }
-
-
-  if(reset){
-
-    reset.onclick = () => {
-
-      setProgress(
-        date,
-        0
-      );
-
-      renderDay(
-        date,
-        preview
-      );
-
-    };
-
-  }
-
-}
-
-
-/* =========================================
-   BEFORE TRIP
-========================================= */
-
-function renderPreTrip(){
-
-  const now =
-    new Date();
-
-  const today =
-    new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    );
-
-  const start =
-    new Date(
-      trip.start_date +
-      "T00:00:00"
-    );
-
-  const difference =
-    Math.ceil(
-      (start - today) /
-      86400000
-    );
-
-
-  const dates =
-    Object.keys(
-      groupedDays
-    ).sort();
-
-
-  todayCard.innerHTML = `
-
-    <div class="pretrip">
-
-      <div class="today-label">
-        UPCOMING TRIP
-      </div>
-
-
-      <strong>
-
-        ${
-          difference > 0
-            ? `${trip.name} starts in ${difference} day${difference === 1 ? "" : "s"}.`
-            : trip.name
-        }
-
-      </strong>
-
-      <br>
-
-      Preview any day below.
-
-
-      <div class="preview-days">
-
-        ${dates.map(date => `
-
-          <button
-            class="preview-day"
-            data-date="${date}"
-          >
-            ${esc(shortDay(date))}
-          </button>
-
-        `).join("")}
-
-      </div>
-
-
-      <div class="actions">
-
-        <a
-          class="btn primary"
-          href="schedule.html?trip=${TRIP_ID}"
-        >
-          📅 VIEW SCHEDULE
-        </a>
-
-        <a
-          class="btn map"
-          href="bookings.html?trip=${TRIP_ID}"
-        >
-          ⭐ TRIP HUB
-        </a>
 
       </div>
 
     </div>
+
+
+    ${
+      dates.length
+
+      ?
+
+      `
+        <div class="preview-wrap">
+
+          <div class="preview-label">
+            PREVIEW A DAY
+          </div>
+
+
+          <div class="preview-days">
+
+            ${dates.map(date => `
+
+              <button
+                class="preview-day"
+                data-date="${date}"
+              >
+                ${esc(
+                  shortDay(date)
+                )}
+              </button>
+
+            `).join("")}
+
+          </div>
+
+        </div>
+      `
+
+      :
+
+      ""
+    }
 
   `;
 
@@ -2037,9 +1895,8 @@ function renderPreTrip(){
 
       button.onclick = () => {
 
-        renderDay(
-          button.dataset.date,
-          true
+        renderPreview(
+          button.dataset.date
         );
 
       };
@@ -2049,28 +1906,504 @@ function renderPreTrip(){
 }
 
 
-/* =========================================
-   AFTER TRIP
-========================================= */
+/* =========================================================
+   PREVIEW
+========================================================= */
 
-function renderPastTrip(){
+function renderPreview(date){
 
-  todayCard.innerHTML = `
+  renderDayCard(
+    date,
+    true
+  );
 
-    <div class="pretrip">
+}
 
-      <div class="today-label">
-        ${esc(trip.name)}
+
+/* =========================================================
+   TODAY / PREVIEW DAY
+========================================================= */
+
+function renderDayCard(
+  date,
+  preview=false
+){
+
+  const items =
+    groupedDays[date] || [];
+
+
+  if(!items.length){
+
+    renderFreeDay();
+
+    return;
+
+  }
+
+
+  const progress =
+    getProgress(date);
+
+
+  const finished =
+    progress >=
+    items.length;
+
+
+  const current =
+    finished
+    ?
+    items[
+      items.length - 1
+    ]
+    :
+    items[progress];
+
+
+  const percent =
+    finished
+    ?
+    100
+    :
+    Math.round(
+      progress /
+      items.length *
+      100
+    );
+
+
+  const map =
+    finished
+    ?
+    null
+    :
+    mapURL(current);
+
+
+  const upcoming =
+    finished
+    ?
+    []
+    :
+    items.slice(
+      progress + 1,
+      progress + 3
+    );
+
+
+  const note =
+    current?.notes ||
+    current?.description ||
+    "";
+
+
+  homeContent.innerHTML = `
+
+    <div class="home-card">
+
+      <div class="card-inner">
+
+
+        <div class="card-top">
+
+          <div class="card-label">
+
+            ${
+              preview
+              ?
+              "PREVIEW"
+              :
+              "● TODAY"
+            }
+
+          </div>
+
+
+          <div class="card-date">
+
+            ${esc(
+              formatDay(date)
+            )}
+
+          </div>
+
+        </div>
+
+
+        <div class="today-title">
+
+          ${esc(
+            dayTitle(items)
+          )}
+
+        </div>
+
+
+        <div class="today-route">
+
+          ${esc(
+            dayRoute(items)
+          )}
+
+        </div>
+
+
+        <div class="progress-row">
+
+          <div class="progress">
+
+            <div
+              class="progress-bar"
+              style="width:${percent}%"
+            ></div>
+
+          </div>
+
+
+          <div class="progress-text">
+
+            ${
+              finished
+              ?
+              "COMPLETE ✓"
+              :
+              `${progress}/${items.length} DONE`
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="now">
+
+          <div class="now-head">
+
+            <div class="now-label">
+
+              ${
+                finished
+                ?
+                "FINISHED"
+                :
+                "NOW"
+              }
+
+            </div>
+
+
+            ${
+              !finished
+
+              ?
+
+              `
+                <div class="now-time">
+
+                  ${esc(
+                    itemTime(
+                      current
+                    )
+                  )}
+
+                </div>
+              `
+
+              :
+
+              ""
+            }
+
+          </div>
+
+
+          <div class="now-title">
+
+            ${
+              finished
+              ?
+              "✓ Day Complete"
+              :
+              esc(
+                current.title
+              )
+            }
+
+          </div>
+
+
+          ${
+            note && !finished
+
+            ?
+
+            `
+              <div class="now-note">
+
+                ${esc(note)}
+
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+
+          ${
+            !finished
+
+            ?
+
+            `
+              <div class="actions">
+
+                <button
+                  id="doneBtn"
+                  class="btn done"
+                  type="button"
+                >
+                  ✓ DONE · NEXT
+                </button>
+
+
+                ${
+                  map
+
+                  ?
+
+                  `
+                    <a
+                      class="btn map"
+                      href="${esc(map)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📍 MAP
+                    </a>
+                  `
+
+                  :
+
+                  `
+                    <a
+                      class="btn map"
+                      href="food.html?trip=${TRIP_ID}"
+                    >
+                      🍽️ FOOD
+                    </a>
+                  `
+                }
+
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+
+        ${
+          upcoming.length
+
+          ?
+
+          `
+            <div class="up-next">
+
+              <div class="up-title">
+                UP NEXT
+              </div>
+
+
+              ${upcoming.map(item => `
+
+                <div class="next-row">
+
+                  <div class="next-time">
+
+                    ${esc(
+                      itemTime(item)
+                    )}
+
+                  </div>
+
+
+                  <div class="next-name">
+
+                    ${esc(
+                      item.title
+                    )}
+
+                  </div>
+
+                </div>
+
+              `).join("")}
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
       </div>
 
-      <strong>
-        Your trip schedule is still here.
-      </strong>
 
-      <br>
+      <div class="card-footer">
 
-      You can reopen the itinerary,
-      restaurants and bookings anytime.
+
+        ${
+          preview
+
+          ?
+
+          `
+            <button
+              id="backHome"
+              type="button"
+            >
+              ← TRIP HOME
+            </button>
+          `
+
+          :
+
+          `
+            <button
+              id="backStep"
+              type="button"
+              ${
+                progress === 0
+                ?
+                "disabled"
+                :
+                ""
+              }
+            >
+              ← BACK
+            </button>
+          `
+        }
+
+
+        <a
+          class="view"
+          href="schedule.html?trip=${TRIP_ID}#${date}"
+        >
+          VIEW FULL DAY →
+        </a>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const doneBtn =
+    document.getElementById(
+      "doneBtn"
+    );
+
+
+  if(doneBtn){
+
+    doneBtn.onclick = () => {
+
+      setProgress(
+        date,
+        getProgress(date) + 1
+      );
+
+
+      renderDayCard(
+        date,
+        preview
+      );
+
+    };
+
+  }
+
+
+  const backStep =
+    document.getElementById(
+      "backStep"
+    );
+
+
+  if(backStep){
+
+    backStep.onclick = () => {
+
+      if(
+        getProgress(date) <= 0
+      ){
+        return;
+      }
+
+
+      setProgress(
+        date,
+        getProgress(date) - 1
+      );
+
+
+      renderDayCard(
+        date,
+        false
+      );
+
+    };
+
+  }
+
+
+  const backHome =
+    document.getElementById(
+      "backHome"
+    );
+
+
+  if(backHome){
+
+    backHome.onclick =
+      renderUpcoming;
+
+  }
+
+}
+
+
+/* =========================================================
+   FREE DAY
+========================================================= */
+
+function renderFreeDay(){
+
+  homeContent.innerHTML = `
+
+    <div class="simple-card">
+
+      <div class="simple-label">
+        TODAY
+      </div>
+
+      <h2>
+        Free Day
+      </h2>
+
+      <p>
+        Nothing is currently scheduled.
+      </p>
 
 
       <div class="actions">
@@ -2079,14 +2412,14 @@ function renderPastTrip(){
           class="btn primary"
           href="schedule.html?trip=${TRIP_ID}"
         >
-          📅 VIEW SCHEDULE
+          📅 VIEW PLAN
         </a>
 
         <a
           class="btn map"
-          href="bookings.html?trip=${TRIP_ID}"
+          href="food.html?trip=${TRIP_ID}"
         >
-          ⭐ TRIP HUB
+          🍽️ FIND FOOD
         </a>
 
       </div>
@@ -2098,11 +2431,60 @@ function renderPastTrip(){
 }
 
 
-/* =========================================
-   MAIN TODAY LOGIC
-========================================= */
+/* =========================================================
+   PAST TRIP
+========================================================= */
 
-function renderToday(){
+function renderPast(){
+
+  homeContent.innerHTML = `
+
+    <div class="simple-card">
+
+      <div class="simple-label">
+        TRIP COMPLETE
+      </div>
+
+      <h2>
+        ${esc(trip.name)}
+      </h2>
+
+      <p>
+        Your itinerary, restaurants and
+        bookings are still available below.
+      </p>
+
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="schedule.html?trip=${TRIP_ID}"
+        >
+          📅 VIEW PLAN
+        </a>
+
+        <a
+          class="btn map"
+          href="food.html?trip=${TRIP_ID}"
+        >
+          🍽️ FOOD
+        </a>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   HOME LOGIC
+========================================================= */
+
+function renderHome(){
 
   const today =
     todayString();
@@ -2112,7 +2494,7 @@ function renderToday(){
     groupedDays[today]
   ){
 
-    renderDay(
+    renderDayCard(
       today,
       false
     );
@@ -2126,7 +2508,7 @@ function renderToday(){
     today < trip.start_date
   ){
 
-    renderPreTrip();
+    renderUpcoming();
 
     return;
 
@@ -2137,168 +2519,28 @@ function renderToday(){
     today > trip.end_date
   ){
 
-    renderPastTrip();
+    renderPast();
 
     return;
 
   }
 
 
-  /*
-    We're inside the trip dates but there
-    happens to be no schedule for today.
-  */
-
-  todayCard.innerHTML = `
-
-    <div class="pretrip">
-
-      <div class="today-label">
-        TODAY
-      </div>
-
-      <strong>
-        No plans scheduled today.
-      </strong>
-
-      <br>
-
-      This is currently a free day.
-
-
-      <div class="actions">
-
-        <a
-          class="btn primary"
-          href="schedule.html?trip=${TRIP_ID}"
-        >
-          📅 VIEW SCHEDULE
-        </a>
-
-        <a
-          class="btn map"
-          href="bookings.html?trip=${TRIP_ID}"
-        >
-          ⭐ TRIP HUB
-        </a>
-
-      </div>
-
-    </div>
-
-  `;
+  renderFreeDay();
 
 }
 
 
-/* =========================================
-   TRIP HEADER
-========================================= */
-
-function renderTripInfo(){
-
-  tripName.textContent =
-    trip.name;
-
-
-  eyebrow.textContent =
-    `${trip.country || "Trip"} · ${formatTripRange()}`;
-
-
-  tripSubtitle.textContent =
-    trip.description ||
-    formatTripRange();
-
-
-  /*
-    For your current trip we keep the
-    familiar Kyoto → Road Trip → Osaka line.
-
-    Other users/trips get a generic line.
-  */
-
-  if(TRIP_ID === 1){
-
-    tripline.innerHTML = `
-      <strong>KYOTO</strong>
-      · 18–22 Oct
-     　→　
-      <strong>ROAD TRIP</strong>
-      · 23–26 Oct
-     　→　
-      <strong>OSAKA</strong>
-      · 26–30 Oct
-    `;
-
-  }
-
-  else{
-
-    tripline.innerHTML = `
-      <strong>
-        ${esc(trip.name)}
-      </strong>
-      ·
-      ${esc(formatTripRange())}
-    `;
-
-  }
-
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function updateLinks(){
-
-  const suffix =
-    `?trip=${TRIP_ID}`;
-
-
-  document.getElementById(
-    "navHome"
-  ).href =
-    "index.html" + suffix;
-
-
-  document.getElementById(
-    "navSchedule"
-  ).href =
-    "schedule.html" + suffix;
-
-
-  document.getElementById(
-    "navHub"
-  ).href =
-    "bookings.html" + suffix;
-
-
-  document.getElementById(
-    "scheduleCard"
-  ).href =
-    "schedule.html" + suffix;
-
-
-  document.getElementById(
-    "hubCard"
-  ).href =
-    "bookings.html" + suffix;
-
-}
-
-
-/* =========================================
+/* =========================================================
    ERROR
-========================================= */
+========================================================= */
 
 function showError(error){
 
   console.error(error);
 
 
-  todayCard.innerHTML = `
+  homeContent.innerHTML = `
 
     <div class="status">
 
@@ -2318,16 +2560,13 @@ function showError(error){
 }
 
 
-/* =========================================
+/* =========================================================
    START
-========================================= */
+========================================================= */
 
 async function start(){
 
   try{
-
-    updateLinks();
-
 
     await Promise.all([
       loadTrip(),
@@ -2337,9 +2576,9 @@ async function start(){
 
     buildDays();
 
-    renderTripInfo();
+    renderHeader();
 
-    renderToday();
+    renderHome();
 
   }
 
