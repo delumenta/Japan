@@ -3,13 +3,16 @@
 
 <head>
 <meta charset="utf-8">
+
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
+
 <meta name="theme-color" content="#070c10">
 
-<title>Plan · Japan Trip</title>
+<title>Plan · Travel</title>
+
 
 <style>
 
@@ -106,6 +109,7 @@ header{
   font-size:8px;
   font-weight:900;
   letter-spacing:.14em;
+  text-transform:uppercase;
 }
 
 h1{
@@ -202,7 +206,6 @@ h1{
 
 .date-weekday{
   color:#6f7c85;
-
   font-size:6px;
   font-weight:900;
 }
@@ -669,74 +672,358 @@ main{
 
 
 /* =========================================================
-   GOOGLE PLACES AUTOFILL
+   SAVED ENTITY PICKER
 ========================================================= */
 
-.google-place-box{
-  display:none;
+.entity-picker{
   grid-column:1/-1;
+
+  border:
+    1px solid
+    rgba(92,157,255,.20);
+
+  border-radius:12px;
+
   padding:10px;
-  border:1px solid rgba(92,157,255,.22);
-  border-radius:11px;
-  background:rgba(92,157,255,.05);
+
+  background:
+    rgba(92,157,255,.045);
 }
 
-.google-place-box.show{
+.entity-picker-title{
+  color:#dce9f6;
+
+  font-size:8px;
+  font-weight:900;
+
+  margin-bottom:3px;
+}
+
+.entity-picker-sub{
+  color:#74818a;
+
+  font-size:6.5px;
+  line-height:1.45;
+
+  margin-bottom:8px;
+}
+
+.entity-search-wrap{
+  position:relative;
+}
+
+.entity-search{
+  width:100%;
+
+  min-height:43px;
+
+  padding:
+    9px
+    38px
+    9px
+    10px;
+
+  border:1px solid var(--line);
+  border-radius:10px;
+
+  outline:none;
+
+  background:#0d1419;
+
+  color:#fff;
+
+  font-size:10px;
+}
+
+.entity-search:focus{
+  border-color:var(--blue);
+}
+
+.search-icon{
+  position:absolute;
+
+  right:12px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:#76838d;
+
+  pointer-events:none;
+}
+
+.entity-results{
+  display:none;
+
+  margin-top:6px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+  border-radius:10px;
+
+  background:#0d1419;
+}
+
+.entity-results.show{
   display:block;
 }
 
-.google-place-label{
-  margin-bottom:6px;
-  color:#aeb5bc;
-  font-size:7px;
-  font-weight:900;
-}
-
-#googlePlaceSearch{
+.entity-result{
   width:100%;
-}
 
-#googlePlaceSearch gmp-place-autocomplete,
-gmp-place-autocomplete{
-  width:100%;
-  min-height:42px;
-}
-
-.place-status{
-  margin-top:6px;
-  color:#81909a;
-  font-size:7px;
-  line-height:1.4;
-}
-
-.place-status.success{
-  color:#9fe1b5;
-}
-
-.place-status.error{
-  color:#ffc5c1;
-}
-
-.place-divider{
-  grid-column:1/-1;
-  display:none;
+  display:flex;
   align-items:center;
-  gap:8px;
-  color:#66737c;
-  font-size:6px;
-  font-weight:900;
+
+  gap:9px;
+
+  padding:10px;
+
+  border:0;
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
+
+  background:transparent;
+
+  color:#fff;
+
+  text-align:left;
+
+  cursor:pointer;
 }
 
-.place-divider.show{
+.entity-result:last-child{
+  border-bottom:0;
+}
+
+.entity-result:active{
+  background:
+    rgba(255,255,255,.04);
+}
+
+.entity-result-icon{
+  flex:0 0 27px;
+
+  width:27px;
+  height:27px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:#151d23;
+
+  font-size:14px;
+}
+
+.entity-result-main{
+  min-width:0;
+  flex:1;
+}
+
+.entity-result-name{
+  font-size:9px;
+  font-weight:900;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.entity-result-japanese{
+  margin-top:1px;
+
+  color:#9ca6ad;
+
+  font-size:7px;
+}
+
+.entity-result-meta{
+  margin-top:2px;
+
+  color:#6f7c85;
+
+  font-size:6.5px;
+}
+
+.entity-result-arrow{
+  color:#77858e;
+  font-size:12px;
+}
+
+.entity-empty{
+  padding:14px 10px;
+
+  color:#7d8992;
+
+  text-align:center;
+
+  font-size:8px;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
+
+.selected-entity{
+  display:none;
+
+  grid-column:1/-1;
+
+  align-items:center;
+
+  gap:9px;
+
+  padding:9px 10px;
+
+  border:
+    1px solid
+    rgba(103,197,135,.25);
+
+  border-radius:10px;
+
+  background:
+    rgba(103,197,135,.06);
+}
+
+.selected-entity.show{
   display:flex;
 }
 
-.place-divider::before,
-.place-divider::after{
-  content:"";
+.selected-icon{
+  flex:0 0 28px;
+
+  width:28px;
+  height:28px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:
+    rgba(103,197,135,.08);
+
+  font-size:15px;
+}
+
+.selected-main{
+  min-width:0;
   flex:1;
-  height:1px;
-  background:rgba(255,255,255,.07);
+}
+
+.selected-label{
+  color:#7f9387;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:.08em;
+}
+
+.selected-name{
+  margin-top:1px;
+
+  color:#b7edc8;
+
+  font-size:9px;
+  font-weight:900;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.selected-meta{
+  margin-top:2px;
+
+  color:#71847a;
+
+  font-size:6.5px;
+}
+
+.change-entity{
+  min-height:28px;
+
+  padding:5px 8px;
+
+  border:
+    1px solid
+    rgba(103,197,135,.22);
+
+  border-radius:8px;
+
+  background:
+    rgba(103,197,135,.05);
+
+  color:#9dd9b0;
+
+  font-size:7px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   ADD NEW MASTER LINK
+========================================================= */
+
+.master-help{
+  display:none;
+
+  grid-column:1/-1;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:8px;
+
+  padding:
+    8px
+    9px;
+
+  border:
+    1px dashed
+    #35414a;
+
+  border-radius:9px;
+
+  color:#7f8b93;
+
+  font-size:7px;
+}
+
+.master-help.show{
+  display:flex;
+}
+
+.master-help button{
+  min-height:29px;
+
+  padding:5px 8px;
+
+  border:
+    1px solid
+    rgba(92,157,255,.25);
+
+  border-radius:8px;
+
+  background:
+    rgba(92,157,255,.06);
+
+  color:#9bc4ff;
+
+  font-size:7px;
+  font-weight:900;
+
+  cursor:pointer;
 }
 
 
@@ -802,61 +1089,6 @@ gmp-place-autocomplete{
 .field textarea:focus,
 .field select:focus{
   border-color:var(--red);
-}
-
-.search-results{
-  display:none;
-
-  margin-top:5px;
-
-  overflow:hidden;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#10171d;
-}
-
-.search-results.show{
-  display:block;
-}
-
-.search-result{
-  width:100%;
-
-  display:block;
-
-  padding:8px 9px;
-
-  border:0;
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.06);
-
-  background:none;
-
-  color:#fff;
-
-  text-align:left;
-
-  cursor:pointer;
-}
-
-.search-result:last-child{
-  border-bottom:0;
-}
-
-.result-name{
-  font-size:9px;
-  font-weight:900;
-}
-
-.result-meta{
-  margin-top:2px;
-
-  color:#77858f;
-
-  font-size:7px;
 }
 
 
@@ -982,11 +1214,17 @@ gmp-place-autocomplete{
 
 .more-backdrop{
   position:fixed;
+
   inset:0;
+
   z-index:150;
+
   display:none;
   align-items:flex-end;
-  background:rgba(0,0,0,.68);
+
+  background:
+    rgba(0,0,0,.68);
+
   backdrop-filter:blur(4px);
 }
 
@@ -998,9 +1236,20 @@ gmp-place-autocomplete{
   width:100%;
   max-width:760px;
   margin:0 auto;
-  padding:8px 13px calc(18px + env(safe-area-inset-bottom));
+
+  padding:
+    8px
+    13px
+    calc(18px + env(safe-area-inset-bottom));
+
   border:1px solid var(--line);
-  border-radius:20px 20px 0 0;
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
   background:#0d1318;
 }
 
@@ -1008,46 +1257,59 @@ gmp-place-autocomplete{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   margin-bottom:9px;
 }
 
 .more-title{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:19px;
 }
 
 .more-close{
   width:32px;
   height:32px;
+
   border:1px solid var(--line);
   border-radius:8px;
+
   background:#151c22;
+
   color:#fff;
+
   cursor:pointer;
 }
 
 .more-link{
   min-height:58px;
+
   display:flex;
   align-items:center;
+
   gap:10px;
+
   padding:9px 10px;
   margin-bottom:6px;
+
   border:1px solid var(--line);
   border-radius:11px;
-  background:#11181e;
-  color:#fff;
-  text-decoration:none;
-}
 
-.more-link.disabled{
-  opacity:.45;
-  cursor:default;
+  background:#11181e;
+
+  color:#fff;
+
+  text-decoration:none;
 }
 
 .more-link-icon{
   flex:0 0 31px;
+
   font-size:18px;
+
   text-align:center;
 }
 
@@ -1062,7 +1324,9 @@ gmp-place-autocomplete{
 
 .more-link-sub{
   margin-top:2px;
+
   color:#7f8b93;
+
   font-size:6.5px;
 }
 
@@ -1129,6 +1393,7 @@ gmp-place-autocomplete{
 
   border:0;
   background:transparent;
+
   cursor:pointer;
 }
 
@@ -1190,8 +1455,11 @@ gmp-place-autocomplete{
 
     <div>
 
-      <div class="eyebrow">
-        JAPAN TRIP
+      <div
+        id="tripEyebrow"
+        class="eyebrow"
+      >
+        TRIP PLAN
       </div>
 
       <h1>
@@ -1300,6 +1568,7 @@ gmp-place-autocomplete{
         📍 PLACE
       </button>
 
+
       <button
         class="type-btn"
         type="button"
@@ -1307,6 +1576,7 @@ gmp-place-autocomplete{
       >
         🍽 FOOD
       </button>
+
 
       <button
         class="type-btn"
@@ -1324,32 +1594,127 @@ gmp-place-autocomplete{
       <div class="form-grid">
 
 
+        <!-- ===============================================
+             SAVED PLACE / RESTAURANT PICKER
+        ================================================ -->
+
         <div
-          id="googlePlaceBox"
-          class="google-place-box show"
+          id="entityPicker"
+          class="entity-picker"
         >
 
-          <div class="google-place-label">
-            🔎 SEARCH GOOGLE PLACES
+          <div
+            id="entityPickerTitle"
+            class="entity-picker-title"
+          >
+            📍 CHOOSE FROM SAVED PLACES
           </div>
 
-          <div id="googlePlaceSearch"></div>
 
           <div
-            id="googlePlaceStatus"
-            class="place-status"
+            id="entityPickerSub"
+            class="entity-picker-sub"
           >
-            Search anywhere in Japan. Selecting a Google result will autofill the schedule item. When you save, a new place is also added to public.places if it is not already there.
+            Search your master Places database.
           </div>
+
+
+          <div class="entity-search-wrap">
+
+            <input
+              id="entitySearch"
+              class="entity-search"
+              type="search"
+              placeholder="Search places..."
+              autocomplete="off"
+            >
+
+            <span class="search-icon">
+              🔎
+            </span>
+
+          </div>
+
+
+          <div
+            id="entityResults"
+            class="entity-results"
+          ></div>
 
         </div>
 
 
+        <!-- ===============================================
+             SELECTED ENTITY
+        ================================================ -->
+
         <div
-          id="placeDivider"
-          class="place-divider show"
+          id="selectedEntity"
+          class="selected-entity"
         >
-          OR CHOOSE FROM YOUR SAVED PLACES
+
+          <div
+            id="selectedEntityIcon"
+            class="selected-icon"
+          >
+            📍
+          </div>
+
+
+          <div class="selected-main">
+
+            <div
+              id="selectedEntityLabel"
+              class="selected-label"
+            >
+              SELECTED PLACE
+            </div>
+
+            <div
+              id="selectedEntityName"
+              class="selected-name"
+            ></div>
+
+            <div
+              id="selectedEntityMeta"
+              class="selected-meta"
+            ></div>
+
+          </div>
+
+
+          <button
+            id="changeEntityButton"
+            class="change-entity"
+            type="button"
+          >
+            CHANGE
+          </button>
+
+        </div>
+
+
+        <!-- ===============================================
+             MASTER LIST HELP
+        ================================================ -->
+
+        <div
+          id="masterHelp"
+          class="master-help"
+        >
+
+          <span id="masterHelpText">
+            Can't find the place?
+          </span>
+
+
+          <button
+            id="masterHelpButton"
+            type="button"
+          >
+            ＋ ADD NEW PLACE
+          </button>
+
         </div>
 
 
@@ -1386,28 +1751,18 @@ gmp-place-autocomplete{
         </div>
 
 
-        <!-- SEARCH -->
+        <!-- TIME LABEL -->
 
-        <div
-          id="searchField"
-          class="field full"
-        >
+        <div class="field full">
 
-          <label id="searchLabel">
-            PLACE
+          <label>
+            FLEXIBLE TIME LABEL
           </label>
 
           <input
-            id="entitySearch"
-            type="search"
-            placeholder="Search places..."
-            autocomplete="off"
+            id="fieldTimeLabel"
+            placeholder="e.g. Morning, ~3 PM, After lunch"
           >
-
-          <div
-            id="entityResults"
-            class="search-results"
-          ></div>
 
         </div>
 
@@ -1510,9 +1865,9 @@ gmp-place-autocomplete{
 
 
 
-<!-- =======================================================
+<!-- =========================================================
      MORE
-======================================================= -->
+========================================================= -->
 
 <div
   id="moreBackdrop"
@@ -1523,11 +1878,13 @@ gmp-place-autocomplete{
 
     <div class="sheet-handle"></div>
 
+
     <div class="more-head">
 
       <div class="more-title">
         More
       </div>
+
 
       <button
         id="closeMore"
@@ -1544,9 +1901,13 @@ gmp-place-autocomplete{
       id="profileLink"
       class="more-link"
     >
-      <div class="more-link-icon">👤</div>
+
+      <div class="more-link-icon">
+        👤
+      </div>
 
       <div class="more-link-main">
+
         <div class="more-link-title">
           Profile & Sharing
         </div>
@@ -1554,48 +1915,77 @@ gmp-place-autocomplete{
         <div class="more-link-sub">
           Your profile · manage trip members
         </div>
+
       </div>
 
-      <div class="more-link-arrow">→</div>
+      <div class="more-link-arrow">
+        →
+      </div>
+
     </a>
 
 
-    <div class="more-link disabled">
-      <div class="more-link-icon">🧳</div>
+    <a
+      id="tripsLink"
+      class="more-link"
+      href="trips.html"
+    >
+
+      <div class="more-link-icon">
+        🧳
+      </div>
 
       <div class="more-link-main">
+
         <div class="more-link-title">
           My Trips
         </div>
 
         <div class="more-link-sub">
-          Create and switch trips · coming next
+          Create · open · switch trips
         </div>
+
       </div>
 
-      <div class="more-link-arrow">→</div>
-    </div>
+      <div class="more-link-arrow">
+        →
+      </div>
+
+    </a>
 
 
-    <div class="more-link disabled">
-      <div class="more-link-icon">📍</div>
+    <a
+      id="placesLink"
+      class="more-link"
+      href="places-setup.html"
+    >
+
+      <div class="more-link-icon">
+        📍
+      </div>
 
       <div class="more-link-main">
+
         <div class="more-link-title">
           Places
         </div>
 
         <div class="more-link-sub">
-          Saved attractions · coming later
+          Manage your master places
         </div>
+
       </div>
 
-      <div class="more-link-arrow">→</div>
-    </div>
+      <div class="more-link-arrow">
+        →
+      </div>
+
+    </a>
 
   </div>
 
 </div>
+
 
 
 <!-- =========================================================
@@ -1692,9 +2082,6 @@ gmp-place-autocomplete{
 
 <script src="supabase.js"></script>
 
-<!-- Google Maps / Places loader -->
-<script src="google-maps.js"></script>
-
 
 
 <script>
@@ -1708,10 +2095,40 @@ const params =
     window.location.search
   );
 
-const TRIP_ID =
+
+const urlTripId =
   Number(
-    params.get("trip") || 1
+    params.get("trip")
   );
+
+
+const savedTripId =
+  Number(
+    localStorage.getItem(
+      "current_trip_id"
+    )
+  );
+
+
+const TRIP_ID =
+  urlTripId ||
+  savedTripId ||
+  1;
+
+
+/*
+  Remember the trip if it came
+  from the URL.
+*/
+
+if(TRIP_ID){
+
+  localStorage.setItem(
+    "current_trip_id",
+    String(TRIP_ID)
+  );
+
+}
 
 
 /* =========================================================
@@ -1740,15 +2157,6 @@ let selectedPlaceId = null;
 
 let selectedRestaurantId = null;
 
-/*
-  A Google result is kept here until SAVE.
-  This prevents simply tapping a suggestion
-  from creating unwanted rows in public.places.
-*/
-let pendingGooglePlace = null;
-
-let googlePlaceAutocomplete = null;
-
 
 /* =========================================================
    ELEMENTS
@@ -1759,109 +2167,184 @@ const main =
     "main"
   );
 
+
 const tripName =
   document.getElementById(
     "tripName"
   );
+
+
+const tripEyebrow =
+  document.getElementById(
+    "tripEyebrow"
+  );
+
 
 const dateScroller =
   document.getElementById(
     "dateScroller"
   );
 
+
 const editButton =
   document.getElementById(
     "editButton"
   );
+
 
 const editSheet =
   document.getElementById(
     "editSheet"
   );
 
+
 const sheetTitle =
   document.getElementById(
     "sheetTitle"
   );
+
 
 const typeGrid =
   document.getElementById(
     "typeGrid"
   );
 
-const searchField =
+
+const entityPicker =
   document.getElementById(
-    "searchField"
+    "entityPicker"
   );
 
-const searchLabel =
+
+const entityPickerTitle =
   document.getElementById(
-    "searchLabel"
+    "entityPickerTitle"
   );
+
+
+const entityPickerSub =
+  document.getElementById(
+    "entityPickerSub"
+  );
+
 
 const entitySearch =
   document.getElementById(
     "entitySearch"
   );
 
+
 const entityResults =
   document.getElementById(
     "entityResults"
   );
+
+
+const selectedEntity =
+  document.getElementById(
+    "selectedEntity"
+  );
+
+
+const selectedEntityIcon =
+  document.getElementById(
+    "selectedEntityIcon"
+  );
+
+
+const selectedEntityLabel =
+  document.getElementById(
+    "selectedEntityLabel"
+  );
+
+
+const selectedEntityName =
+  document.getElementById(
+    "selectedEntityName"
+  );
+
+
+const selectedEntityMeta =
+  document.getElementById(
+    "selectedEntityMeta"
+  );
+
+
+const masterHelp =
+  document.getElementById(
+    "masterHelp"
+  );
+
+
+const masterHelpText =
+  document.getElementById(
+    "masterHelpText"
+  );
+
+
+const masterHelpButton =
+  document.getElementById(
+    "masterHelpButton"
+  );
+
 
 const fieldDate =
   document.getElementById(
     "fieldDate"
   );
 
+
 const fieldTime =
   document.getElementById(
     "fieldTime"
   );
+
+
+const fieldTimeLabel =
+  document.getElementById(
+    "fieldTimeLabel"
+  );
+
 
 const fieldTitle =
   document.getElementById(
     "fieldTitle"
   );
 
+
 const fieldLocation =
   document.getElementById(
     "fieldLocation"
   );
+
 
 const fieldNotes =
   document.getElementById(
     "fieldNotes"
   );
 
+
 const fieldOptional =
   document.getElementById(
     "fieldOptional"
   );
+
 
 const deleteButton =
   document.getElementById(
     "deleteButton"
   );
 
+
 const saveButton =
   document.getElementById(
     "saveButton"
   );
 
+
 const formMessage =
   document.getElementById(
     "formMessage"
-  );
-
-const googlePlaceBox =
-  document.getElementById(
-    "googlePlaceBox"
-  );
-
-const placeDivider =
-  document.getElementById(
-    "placeDivider"
   );
 
 
@@ -1874,20 +2357,24 @@ document.getElementById(
 ).href =
   `index.html?trip=${TRIP_ID}`;
 
+
 document.getElementById(
   "navPlan"
 ).href =
   `schedule.html?trip=${TRIP_ID}`;
+
 
 document.getElementById(
   "navFood"
 ).href =
   `food.html?trip=${TRIP_ID}`;
 
+
 document.getElementById(
   "navHub"
 ).href =
   `bookings.html?trip=${TRIP_ID}`;
+
 
 document.getElementById(
   "profileLink"
@@ -1951,6 +2438,7 @@ function localDateString(){
 
 
   return [
+
     d.getFullYear(),
 
     String(
@@ -2026,455 +2514,15 @@ function dateParts(value){
 }
 
 
-/* =========================================================
-   GOOGLE PLACES AUTOFILL
-========================================================= */
-
-function setGooglePlaceStatus(
-  message,
-  type=""
-){
-
-  const el =
-    document.getElementById(
-      "googlePlaceStatus"
-    );
-
-  if(!el){
-    return;
-  }
-
-  el.textContent =
-    message;
-
-  el.className =
-    `place-status ${type}`.trim();
-
-}
-
-
-function googleAddressPart(
-  components,
-  wantedTypes
-){
-
-  const item =
-    (components || []).find(
-      component =>
-        wantedTypes.some(
-          type =>
-            component.types?.includes(type)
-        )
-    );
-
-  return (
-    item?.longText ||
-    item?.shortText ||
-    ""
-  );
-
-}
-
-
-async function initGooglePlaces(){
-
-  const host =
-    document.getElementById(
-      "googlePlaceSearch"
-    );
-
-  if(!host){
-    return;
-  }
-
-  if(
-    typeof loadGoogleMaps !==
-    "function"
-  ){
-
-    setGooglePlaceStatus(
-      "google-maps.js was not loaded. Make sure it is beside schedule.html in GitHub.",
-      "error"
-    );
-
-    return;
-  }
-
-  try{
-
-    setGooglePlaceStatus(
-      "Loading Google Places…"
-    );
-
-    await loadGoogleMaps();
-
-    const {
-      PlaceAutocompleteElement
-    } =
-      await google.maps.importLibrary(
-        "places"
-      );
-
-    googlePlaceAutocomplete =
-      new PlaceAutocompleteElement({
-        includedRegionCodes:["jp"]
-      });
-
-    googlePlaceAutocomplete.placeholder =
-      "Search attraction, shrine, hotel, museum…";
-
-    host.replaceChildren(
-      googlePlaceAutocomplete
-    );
-
-
-    googlePlaceAutocomplete
-      .addEventListener(
-        "gmp-select",
-        async event => {
-
-          try{
-
-            setGooglePlaceStatus(
-              "Getting place details…"
-            );
-
-            const prediction =
-              event.placePrediction;
-
-            if(!prediction){
-              throw new Error(
-                "No Google place was selected."
-              );
-            }
-
-            const place =
-              prediction.toPlace();
-
-            await place.fetchFields({
-              fields:[
-                "id",
-                "displayName",
-                "formattedAddress",
-                "addressComponents",
-                "googleMapsURI",
-                "location"
-              ]
-            });
-
-
-            const components =
-              place.addressComponents || [];
-
-
-            const city =
-              googleAddressPart(
-                components,
-                [
-                  "locality",
-                  "postal_town",
-                  "administrative_area_level_2"
-                ]
-              );
-
-
-            const area =
-              googleAddressPart(
-                components,
-                [
-                  "sublocality_level_1",
-                  "sublocality",
-                  "administrative_area_level_3"
-                ]
-              );
-
-
-            pendingGooglePlace = {
-
-              google_place_id:
-                place.id || null,
-
-              name:
-                place.displayName || "",
-
-              city:
-                city || null,
-
-              area:
-                area || null,
-
-              address:
-                place.formattedAddress || null,
-
-              maps_url:
-                place.googleMapsURI || null,
-
-              latitude:
-                typeof place.location?.lat === "function"
-                ?
-                place.location.lat()
-                :
-                place.location?.lat ?? null,
-
-              longitude:
-                typeof place.location?.lng === "function"
-                ?
-                place.location.lng()
-                :
-                place.location?.lng ?? null
-
-            };
-
-
-            /*
-              A Google selection is not yet a
-              public.places row. That happens
-              only when the user presses SAVE.
-            */
-
-            selectedPlaceId =
-              null;
-
-            selectedRestaurantId =
-              null;
-
-
-            entitySearch.value =
-              pendingGooglePlace.name;
-
-
-            fieldTitle.value =
-              pendingGooglePlace.name;
-
-
-            fieldLocation.value =
-              [
-                pendingGooglePlace.area,
-                pendingGooglePlace.city
-              ]
-              .filter(Boolean)
-              .join(", ")
-              ||
-              pendingGooglePlace.address
-              ||
-              "";
-
-
-            setGooglePlaceStatus(
-              `✓ ${pendingGooglePlace.name} selected. Press SAVE to add it to public.places and your schedule.`,
-              "success"
-            );
-
-          }
-
-          catch(error){
-
-            console.error(
-              "Google Places selection error:",
-              error
-            );
-
-            setGooglePlaceStatus(
-              error.message ||
-              "Couldn't load this Google place.",
-              "error"
-            );
-
-          }
-
-        }
-      );
-
-
-    setGooglePlaceStatus(
-      "Search anywhere in Japan. Select a Google result to autofill the schedule item."
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      "Google Places init error:",
-      error
-    );
-
-    setGooglePlaceStatus(
-      "Google Places couldn't start. Check your API key restrictions and Places API (New).",
-      "error"
-    );
-
-  }
-
-}
-
-
-/*
-  Find an existing public.places row first.
-  If there isn't one, create it.
-
-  We deliberately insert only columns already
-  used by your current schedule.html places query:
-  name, city, area, address and maps_url.
-*/
-async function savePendingGooglePlace(){
-
-  if(!pendingGooglePlace){
-    return null;
-  }
-
-
-  const name =
-    pendingGooglePlace.name;
-
-
-  /*
-    First check the places already loaded
-    on this page, so we don't duplicate an
-    obvious existing place.
-  */
-
-  const existingLocal =
-    places.find(
-      place =>
-        norm(place.name) === norm(name)
-        &&
-        (
-          !pendingGooglePlace.city
-          ||
-          norm(place.city) ===
-          norm(pendingGooglePlace.city)
-        )
-    );
-
-
-  if(existingLocal){
-
-    pendingGooglePlace =
-      null;
-
-    return existingLocal.id;
-
-  }
-
-
-  /*
-    Also ask Supabase in case another device
-    added the place after this page loaded.
-  */
-
-  let query =
-    db
-      .from("places")
-      .select(`
-        id,
-        name,
-        name_japanese,
-        city,
-        area,
-        address,
-        maps_url
-      `)
-      .ilike(
-        "name",
-        name
-      )
-      .limit(5);
-
-
-  const check =
-    await query;
-
-
-  if(check.error){
-    throw check.error;
-  }
-
-
-  const existingRemote =
-    (check.data || []).find(
-      place =>
-        !pendingGooglePlace.city
-        ||
-        norm(place.city) ===
-        norm(pendingGooglePlace.city)
-    );
-
-
-  if(existingRemote){
-
-    if(
-      !places.some(
-        p =>
-          Number(p.id) ===
-          Number(existingRemote.id)
-      )
-    ){
-      places.push(
-        existingRemote
-      );
-    }
-
-    pendingGooglePlace =
-      null;
-
-    return existingRemote.id;
-
-  }
-
-
-  const insertResult =
-    await db
-      .from("places")
-      .insert({
-
-        name:
-          pendingGooglePlace.name,
-
-        city:
-          pendingGooglePlace.city,
-
-        area:
-          pendingGooglePlace.area,
-
-        address:
-          pendingGooglePlace.address,
-
-        maps_url:
-          pendingGooglePlace.maps_url
-
-      })
-      .select(`
-        id,
-        name,
-        name_japanese,
-        city,
-        area,
-        address,
-        maps_url
-      `)
-      .single();
-
-
-  if(insertResult.error){
-    throw insertResult.error;
-  }
-
-
-  places.push(
-    insertResult.data
-  );
-
-
-  const id =
-    insertResult.data.id;
-
-
-  pendingGooglePlace =
-    null;
-
-
-  return id;
+function entityMeta(item){
+
+  return [
+    item.area,
+    item.city,
+    item.prefecture
+  ]
+  .filter(Boolean)
+  .join(" · ");
 
 }
 
@@ -2488,28 +2536,148 @@ async function loadData(){
   try{
 
 
+    /*
+      STEP 1
+
+      Load the current trip FIRST.
+
+      We need its country before loading
+      public.places and public.restaurants.
+    */
+
+    const tripResult =
+      await db
+        .from("trips")
+        .select(`
+          id,
+          name,
+          country,
+          start_date,
+          end_date
+        `)
+        .eq(
+          "id",
+          TRIP_ID
+        )
+        .single();
+
+
+    if(tripResult.error){
+      throw tripResult.error;
+    }
+
+
+    trip =
+      tripResult.data;
+
+
+    if(!trip){
+      throw new Error(
+        "Trip not found."
+      );
+    }
+
+
+    tripName.textContent =
+      trip.name;
+
+
+    tripEyebrow.textContent =
+      `${trip.country || "TRIP"} TRIP`;
+
+
+    document.title =
+      `Plan · ${trip.name}`;
+
+
+    /*
+      STEP 2
+
+      Now load:
+
+      - this trip's schedule
+      - places for this country
+      - restaurants for this country
+    */
+
+    let placesQuery =
+      db
+        .from("places")
+        .select(`
+          id,
+          name,
+          name_japanese,
+          country,
+          prefecture,
+          city,
+          area,
+          address,
+          latitude,
+          longitude,
+          maps_url
+        `)
+        .order(
+          "name",
+          {
+            ascending:true
+          }
+        );
+
+
+    let restaurantsQuery =
+      db
+        .from("restaurants")
+        .select(`
+          id,
+          name,
+          name_japanese,
+          country,
+          prefecture,
+          city,
+          area,
+          location,
+          address,
+          latitude,
+          longitude,
+          maps_url
+        `)
+        .order(
+          "name",
+          {
+            ascending:true
+          }
+        );
+
+
+    /*
+      Filter master lists according
+      to the current trip country.
+    */
+
+    if(trip.country){
+
+      placesQuery =
+        placesQuery.ilike(
+          "country",
+          trip.country
+        );
+
+
+      restaurantsQuery =
+        restaurantsQuery.ilike(
+          "country",
+          trip.country
+        );
+
+    }
+
+
     const [
-      tripResult,
       scheduleResult,
       placeResult,
       restaurantResult
     ] =
       await Promise.all([
-
-
-        db
-          .from("trips")
-          .select(`
-            id,
-            name,
-            start_date,
-            end_date
-          `)
-          .eq(
-            "id",
-            TRIP_ID
-          )
-          .single(),
 
 
         db
@@ -2539,16 +2707,29 @@ async function loadData(){
             place:places(
               id,
               name,
+              name_japanese,
+              country,
+              prefecture,
               city,
               area,
+              address,
+              latitude,
+              longitude,
               maps_url
             ),
 
             restaurant:restaurants(
               id,
               name,
+              name_japanese,
+              country,
+              prefecture,
               city,
               area,
+              location,
+              address,
+              latitude,
+              longitude,
               maps_url
             )
           `)
@@ -2570,50 +2751,12 @@ async function loadData(){
           ),
 
 
-        db
-          .from("places")
-          .select(`
-            id,
-            name,
-            name_japanese,
-            city,
-            area,
-            address,
-            maps_url
-          `)
-          .order(
-            "name",
-            {
-              ascending:true
-            }
-          ),
+        placesQuery,
 
 
-        db
-          .from("restaurants")
-          .select(`
-            id,
-            name,
-            name_japanese,
-            city,
-            area,
-            location,
-            address,
-            maps_url
-          `)
-          .order(
-            "name",
-            {
-              ascending:true
-            }
-          )
+        restaurantsQuery
 
       ]);
-
-
-    if(tripResult.error){
-      throw tripResult.error;
-    }
 
 
     if(scheduleResult.error){
@@ -2631,10 +2774,6 @@ async function loadData(){
     }
 
 
-    trip =
-      tripResult.data;
-
-
     schedule =
       scheduleResult.data || [];
 
@@ -2645,10 +2784,6 @@ async function loadData(){
 
     restaurants =
       restaurantResult.data || [];
-
-
-    tripName.textContent =
-      trip.name;
 
 
     buildDays();
@@ -2747,18 +2882,15 @@ function chooseDate(){
   }
 
 
-  /*
-    Support links such as:
-    schedule.html?trip=1#2026-10-20
-  */
-
   const hash =
     window.location.hash
       .replace("#","");
 
 
   if(
-    groupedDays[hash]
+    hash &&
+    hash >= trip.start_date &&
+    hash <= trip.end_date
   ){
 
     selectedDate =
@@ -2774,7 +2906,8 @@ function chooseDate(){
 
 
   if(
-    groupedDays[today]
+    today >= trip.start_date &&
+    today <= trip.end_date
   ){
 
     selectedDate =
@@ -2790,7 +2923,7 @@ function chooseDate(){
   ){
 
     selectedDate =
-      dates[0];
+      trip.start_date;
 
     return;
 
@@ -2798,9 +2931,7 @@ function chooseDate(){
 
 
   selectedDate =
-    dates[
-      dates.length - 1
-    ];
+    trip.end_date;
 
 }
 
@@ -2810,12 +2941,6 @@ function chooseDate(){
 ========================================================= */
 
 function renderDates(){
-
-  /*
-    Show every date in the trip,
-    even if a day currently has
-    no schedule rows.
-  */
 
   const dates = [];
 
@@ -3085,7 +3210,9 @@ function itemIcon(item){
     title.includes("drive") ||
     title.includes("travel") ||
     title.includes("arrive") ||
-    title.includes("depart")
+    title.includes("depart") ||
+    title.includes("head to") ||
+    title.includes("return")
   ){
     return "🚆";
   }
@@ -3130,12 +3257,19 @@ function itemIcon(item){
 
 
 /* =========================================================
-   AREA
+   DAY AREA
 ========================================================= */
 
 function dayArea(date){
 
-  if(TRIP_ID === 1){
+  /*
+    Keep your existing Japan labels.
+  */
+
+  if(
+    Number(TRIP_ID) === 1 &&
+    norm(trip.country) === "japan"
+  ){
 
     if(
       date <= "2026-10-20"
@@ -3216,7 +3350,13 @@ function dayArea(date){
   }
 
 
-  return "Japan";
+  /*
+    For Taiwan / future trips,
+    use the country rather than
+    hardcoding Japan.
+  */
+
+  return trip.country || "Trip";
 
 }
 
@@ -3591,22 +3731,6 @@ function setFormType(type){
     type;
 
 
-  googlePlaceBox.classList.toggle(
-    "show",
-    type === "place"
-  );
-
-  placeDivider.classList.toggle(
-    "show",
-    type === "place"
-  );
-
-
-  if(type !== "place"){
-    pendingGooglePlace = null;
-  }
-
-
   typeGrid
     .querySelectorAll(
       "[data-type]"
@@ -3625,68 +3749,154 @@ function setFormType(type){
     );
 
 
-  selectedPlaceId =
-    type === "place"
-    ?
-    selectedPlaceId
-    :
-    null;
-
-
-  selectedRestaurantId =
-    type === "restaurant"
-    ?
-    selectedRestaurantId
-    :
-    null;
-
-
-  if(
-    type === "custom"
-  ){
-
-    searchField.style.display =
-      "none";
-
-  }
-
-  else{
-
-    searchField.style.display =
-      "block";
-
-
-    if(
-      type === "place"
-    ){
-
-      searchLabel.textContent =
-        "PLACE";
-
-      entitySearch.placeholder =
-        "Search your places...";
-
-    }
-
-    else{
-
-      searchLabel.textContent =
-        "RESTAURANT";
-
-      entitySearch.placeholder =
-        "Search restaurants...";
-
-    }
-
-  }
-
-
   entityResults.classList
     .remove(
       "show"
     );
 
+
+  /*
+    CUSTOM
+  */
+
+  if(type === "custom"){
+
+    selectedPlaceId =
+      null;
+
+    selectedRestaurantId =
+      null;
+
+
+    entityPicker.style.display =
+      "none";
+
+
+    selectedEntity.classList
+      .remove(
+        "show"
+      );
+
+
+    masterHelp.classList
+      .remove(
+        "show"
+      );
+
+
+    return;
+
+  }
+
+
+  /*
+    PLACE / FOOD
+  */
+
+  entityPicker.style.display =
+    "block";
+
+
+  masterHelp.classList
+    .add(
+      "show"
+    );
+
+
+  if(type === "place"){
+
+    selectedRestaurantId =
+      null;
+
+
+    entityPickerTitle.textContent =
+      "📍 CHOOSE FROM SAVED PLACES";
+
+
+    entityPickerSub.textContent =
+      `Showing places for ${trip.country || "this trip"}.`;
+
+
+    entitySearch.placeholder =
+      "Search places...";
+
+
+    masterHelpText.textContent =
+      "Can't find the place?";
+
+
+    masterHelpButton.textContent =
+      "＋ ADD NEW PLACE";
+
+  }
+
+
+  else{
+
+    selectedPlaceId =
+      null;
+
+
+    entityPickerTitle.textContent =
+      "🍽 CHOOSE FROM SAVED RESTAURANTS";
+
+
+    entityPickerSub.textContent =
+      `Showing restaurants for ${trip.country || "this trip"}.`;
+
+
+    entitySearch.placeholder =
+      "Search restaurants...";
+
+
+    masterHelpText.textContent =
+      "Can't find the restaurant?";
+
+
+    masterHelpButton.textContent =
+      "＋ ADD RESTAURANT";
+
+  }
+
+
+  updateSelectedEntity();
+
 }
+
+
+/* =========================================================
+   MASTER HELP
+========================================================= */
+
+masterHelpButton.onclick =
+  () => {
+
+    /*
+      PLACE:
+      go to your master Places manager.
+
+      FOOD:
+      go to food.html, where restaurants
+      can be added to the master list.
+    */
+
+    if(formType === "place"){
+
+      location.href =
+        `places-setup.html?trip=${TRIP_ID}`;
+
+    }
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      location.href =
+        `food.html?trip=${TRIP_ID}`;
+
+    }
+
+  };
 
 
 /* =========================================================
@@ -3696,10 +3906,6 @@ function setFormType(type){
 function openNewItem(){
 
   editingId =
-    null;
-
-
-  pendingGooglePlace =
     null;
 
 
@@ -3724,6 +3930,10 @@ function openNewItem(){
 
 
   fieldTime.value =
+    "";
+
+
+  fieldTimeLabel.value =
     "";
 
 
@@ -3752,6 +3962,9 @@ function openNewItem(){
   );
 
 
+  updateSelectedEntity();
+
+
   formMessage.className =
     "form-message";
 
@@ -3761,6 +3974,14 @@ function openNewItem(){
       "open"
     );
 
+
+  /*
+    Show a few useful initial results
+    immediately.
+  */
+
+  renderEntityResults("");
+
 }
 
 
@@ -3769,10 +3990,6 @@ function openNewItem(){
 ========================================================= */
 
 function openEditItem(id){
-
-  pendingGooglePlace =
-    null;
-
 
   const item =
     schedule.find(
@@ -3821,6 +4038,11 @@ function openEditItem(id){
     "";
 
 
+  fieldTimeLabel.value =
+    item.time_label ||
+    "";
+
+
   fieldTitle.value =
     item.title || "";
 
@@ -3841,19 +4063,19 @@ function openEditItem(id){
     );
 
 
-  entitySearch.value =
-    item.restaurant?.name ||
-    item.place?.name ||
-    "";
-
-
   if(item.restaurant_id){
 
     setFormType(
       "restaurant"
     );
 
+
+    entitySearch.value =
+      item.restaurant?.name ||
+      "";
+
   }
+
 
   else if(item.place_id){
 
@@ -3861,7 +4083,13 @@ function openEditItem(id){
       "place"
     );
 
+
+    entitySearch.value =
+      item.place?.name ||
+      "";
+
   }
+
 
   else{
 
@@ -3869,7 +4097,14 @@ function openEditItem(id){
       "custom"
     );
 
+
+    entitySearch.value =
+      "";
+
   }
+
+
+  updateSelectedEntity();
 
 
   formMessage.className =
@@ -3885,117 +4120,159 @@ function openEditItem(id){
 
 
 /* =========================================================
-   SEARCH PLACES / FOOD
+   SEARCH
 ========================================================= */
+
+entitySearch.addEventListener(
+  "focus",
+  () => {
+
+    if(formType !== "custom"){
+
+      renderEntityResults(
+        entitySearch.value
+      );
+
+    }
+
+  }
+);
+
 
 entitySearch.addEventListener(
   "input",
   () => {
 
-    if(formType === "place"){
-      pendingGooglePlace = null;
+    if(formType === "custom"){
+      return;
     }
 
 
-    const query =
-      norm(
-        entitySearch.value
+    /*
+      Typing doesn't detach the current
+      entity yet.
+
+      It only searches for another one.
+    */
+
+    renderEntityResults(
+      entitySearch.value
+    );
+
+  }
+);
+
+
+/* =========================================================
+   RENDER SEARCH RESULTS
+========================================================= */
+
+function renderEntityResults(queryValue){
+
+  const query =
+    norm(
+      queryValue
+    );
+
+
+  const source =
+    formType === "restaurant"
+    ?
+    restaurants
+    :
+    places;
+
+
+  let matches =
+    source.filter(
+      item => {
+
+        if(!query){
+          return true;
+        }
+
+
+        const haystack =
+          norm([
+            item.name,
+            item.name_japanese,
+            item.country,
+            item.prefecture,
+            item.city,
+            item.area,
+            item.location,
+            item.address
+          ].join(" "));
+
+
+        return haystack.includes(
+          query
+        );
+
+      }
+    );
+
+
+  matches =
+    matches.slice(
+      0,
+      12
+    );
+
+
+  if(!matches.length){
+
+    entityResults.innerHTML = `
+
+      <div class="entity-empty">
+
+        No ${
+          formType === "restaurant"
+          ?
+          "restaurants"
+          :
+          "places"
+        } found.
+
+        <br><br>
+
+        Use the button below to add it
+        to your master database first.
+
+      </div>
+
+    `;
+
+
+    entityResults.classList
+      .add(
+        "show"
       );
 
 
-    if(
-      query.length < 1
-    ){
+    return;
 
-      entityResults.classList
-        .remove(
-          "show"
-        );
-
-      return;
-
-    }
+  }
 
 
-    const source =
-      formType === "restaurant"
-      ?
-      restaurants
-      :
-      places;
+  entityResults.innerHTML =
+    matches
+      .map(
+        item => {
+
+          const meta =
+            entityMeta(item);
 
 
-    const matches =
-      source
-        .filter(
-          item => {
-
-            const haystack =
-              norm([
-                item.name,
-                item.name_japanese,
-                item.city,
-                item.area,
-                item.location
-              ].join(" "));
-
-
-            return haystack.includes(
-              query
-            );
-
-          }
-        )
-        .slice(
-          0,
-          8
-        );
-
-
-    if(
-      !matches.length
-    ){
-
-      entityResults.innerHTML = `
-
-        <div class="search-result">
-
-          <div class="result-name">
-            No matches
-          </div>
-
-          <div class="result-meta">
-            Try another name.
-          </div>
-
-        </div>
-
-      `;
-
-
-      entityResults.classList
-        .add(
-          "show"
-        );
-
-
-      return;
-
-    }
-
-
-    entityResults.innerHTML =
-      matches
-        .map(
-          item => `
+          return `
 
             <button
-              class="search-result"
+              class="entity-result"
               type="button"
               data-id="${Number(item.id)}"
             >
 
-              <div class="result-name">
+              <div class="entity-result-icon">
 
                 ${
                   formType ===
@@ -4006,60 +4283,103 @@ entitySearch.addEventListener(
                   "📍"
                 }
 
-                ${esc(item.name)}
+              </div>
+
+
+              <div class="entity-result-main">
+
+                <div class="entity-result-name">
+
+                  ${esc(
+                    item.name
+                  )}
+
+                </div>
+
+
+                ${
+                  item.name_japanese
+
+                  ?
+
+                  `
+                    <div class="entity-result-japanese">
+
+                      ${esc(
+                        item.name_japanese
+                      )}
+
+                    </div>
+                  `
+
+                  :
+
+                  ""
+                }
+
+
+                ${
+                  meta
+
+                  ?
+
+                  `
+                    <div class="entity-result-meta">
+
+                      ${esc(meta)}
+
+                    </div>
+                  `
+
+                  :
+
+                  ""
+                }
 
               </div>
 
 
-              <div class="result-meta">
-
-                ${esc(
-                  [
-                    item.area,
-                    item.city
-                  ]
-                  .filter(Boolean)
-                  .join(" · ")
-                )}
-
+              <div class="entity-result-arrow">
+                ＋
               </div>
 
             </button>
 
-          `
-        )
-        .join("");
-
-
-    entityResults.classList
-      .add(
-        "show"
-      );
-
-
-    entityResults
-      .querySelectorAll(
-        "[data-id]"
-      )
-      .forEach(
-        button => {
-
-          button.onclick =
-            () => {
-
-              chooseEntity(
-                Number(
-                  button.dataset.id
-                )
-              );
-
-            };
+          `;
 
         }
-      );
+      )
+      .join("");
 
-  }
-);
+
+  entityResults.classList
+    .add(
+      "show"
+    );
+
+
+  entityResults
+    .querySelectorAll(
+      "[data-id]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            chooseEntity(
+              Number(
+                button.dataset.id
+              )
+            );
+
+          };
+
+      }
+    );
+
+}
 
 
 /* =========================================================
@@ -4067,10 +4387,6 @@ entitySearch.addEventListener(
 ========================================================= */
 
 function chooseEntity(id){
-
-  pendingGooglePlace =
-    null;
-
 
   const source =
     formType === "restaurant"
@@ -4100,15 +4416,18 @@ function chooseEntity(id){
     selectedRestaurantId =
       item.id;
 
+
     selectedPlaceId =
       null;
 
   }
 
+
   else{
 
     selectedPlaceId =
       item.id;
+
 
     selectedRestaurantId =
       null;
@@ -4138,7 +4457,186 @@ function chooseEntity(id){
       "show"
     );
 
+
+  updateSelectedEntity();
+
 }
+
+
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
+
+function updateSelectedEntity(){
+
+  let item =
+    null;
+
+
+  if(
+    formType === "place" &&
+    selectedPlaceId
+  ){
+
+    item =
+      places.find(
+        row =>
+          Number(row.id) ===
+          Number(selectedPlaceId)
+      );
+
+  }
+
+
+  else if(
+    formType === "restaurant" &&
+    selectedRestaurantId
+  ){
+
+    item =
+      restaurants.find(
+        row =>
+          Number(row.id) ===
+          Number(selectedRestaurantId)
+      );
+
+  }
+
+
+  if(!item){
+
+    selectedEntity.classList
+      .remove(
+        "show"
+      );
+
+    return;
+
+  }
+
+
+  selectedEntityIcon.textContent =
+    formType === "restaurant"
+    ?
+    "🍽️"
+    :
+    "📍";
+
+
+  selectedEntityLabel.textContent =
+    formType === "restaurant"
+    ?
+    "SELECTED RESTAURANT"
+    :
+    "SELECTED PLACE";
+
+
+  selectedEntityName.textContent =
+    item.name;
+
+
+  selectedEntityMeta.textContent =
+    entityMeta(item);
+
+
+  selectedEntity.classList
+    .add(
+      "show"
+    );
+
+}
+
+
+/* =========================================================
+   CHANGE ENTITY
+========================================================= */
+
+document.getElementById(
+  "changeEntityButton"
+).onclick =
+  () => {
+
+    if(
+      formType === "place"
+    ){
+
+      selectedPlaceId =
+        null;
+
+    }
+
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      selectedRestaurantId =
+        null;
+
+    }
+
+
+    entitySearch.value =
+      "";
+
+
+    updateSelectedEntity();
+
+
+    renderEntityResults("");
+
+
+    entitySearch.focus();
+
+  };
+
+
+/* =========================================================
+   TIME / TIME LABEL
+========================================================= */
+
+/*
+  If an exact time is entered,
+  clear the flexible label.
+
+  If a flexible label is entered,
+  clear the exact time.
+
+  This fixes the old:
+    time ? null : null
+  problem.
+*/
+
+fieldTime.addEventListener(
+  "input",
+  () => {
+
+    if(fieldTime.value){
+
+      fieldTimeLabel.value =
+        "";
+
+    }
+
+  }
+);
+
+
+fieldTimeLabel.addEventListener(
+  "input",
+  () => {
+
+    if(
+      fieldTimeLabel.value.trim()
+    ){
+
+      fieldTime.value =
+        "";
+
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -4208,6 +4706,10 @@ document.getElementById(
         fieldTime.value;
 
 
+      const timeLabel =
+        fieldTimeLabel.value.trim();
+
+
       const title =
         fieldTitle.value.trim();
 
@@ -4221,27 +4723,58 @@ document.getElementById(
 
 
       if(!date){
+
         throw new Error(
           "Please choose a date."
         );
+
       }
 
 
       if(!title){
+
         throw new Error(
           "Please enter a title."
         );
+
       }
 
 
       /*
-        If Place/Food was selected but
-        the user typed without selecting
-        a result, save as Custom instead
-        of attaching the wrong ID.
+        A PLACE must actually be selected
+        from public.places.
+
+        A RESTAURANT must actually be
+        selected from public.restaurants.
+
+        CUSTOM doesn't need an ID.
       */
 
-      let placeId =
+      if(
+        formType === "place" &&
+        !selectedPlaceId
+      ){
+
+        throw new Error(
+          "Please choose a saved place from the list."
+        );
+
+      }
+
+
+      if(
+        formType === "restaurant" &&
+        !selectedRestaurantId
+      ){
+
+        throw new Error(
+          "Please choose a saved restaurant from the list."
+        );
+
+      }
+
+
+      const placeId =
         formType === "place"
         ?
         selectedPlaceId
@@ -4249,27 +4782,7 @@ document.getElementById(
         null;
 
 
-      /*
-        If this came from Google Places,
-        create/reuse public.places now and
-        attach the resulting ID to schedule.
-      */
-      if(
-        formType === "place"
-        &&
-        pendingGooglePlace
-      ){
-
-        placeId =
-          await savePendingGooglePlace();
-
-        selectedPlaceId =
-          placeId;
-
-      }
-
-
-      let restaurantId =
+      const restaurantId =
         formType === "restaurant"
         ?
         selectedRestaurantId
@@ -4292,19 +4805,15 @@ document.getElementById(
           :
           null,
 
-        /*
-          We clear time_label when the
-          user explicitly chooses a time.
-          This means Home and Plan will
-          show the newly edited time.
-        */
-
         time_label:
           time
           ?
           null
           :
-          null,
+          (
+            timeLabel ||
+            null
+          ),
 
         title:
           title,
@@ -4388,11 +4897,24 @@ document.getElementById(
             .eq(
               "trip_id",
               TRIP_ID
-            );
+            )
+            .select();
 
 
         if(result.error){
           throw result.error;
+        }
+
+
+        if(
+          !result.data ||
+          !result.data.length
+        ){
+
+          throw new Error(
+            "The schedule item was not updated. Check your trip editing permission."
+          );
+
         }
 
       }
@@ -4405,18 +4927,10 @@ document.getElementById(
       closeEditSheet();
 
 
-      /*
-        Reload directly from Supabase.
-
-        This is important because
-        index.html reads the exact same
-        schedule table.
-      */
-
       await reloadSchedule();
 
-
     }
+
 
     catch(error){
 
@@ -4432,6 +4946,7 @@ document.getElementById(
         "form-message error";
 
     }
+
 
     finally{
 
@@ -4518,6 +5033,7 @@ deleteButton.onclick =
 
     }
 
+
     catch(error){
 
       console.error(error);
@@ -4532,6 +5048,7 @@ deleteButton.onclick =
         "form-message error";
 
     }
+
 
     finally{
 
@@ -4577,16 +5094,29 @@ async function reloadSchedule(){
         place:places(
           id,
           name,
+          name_japanese,
+          country,
+          prefecture,
           city,
           area,
+          address,
+          latitude,
+          longitude,
           maps_url
         ),
 
         restaurant:restaurants(
           id,
           name,
+          name_japanese,
+          country,
+          prefecture,
           city,
           area,
+          location,
+          address,
+          latitude,
+          longitude,
           maps_url
         )
       `)
@@ -4640,7 +5170,9 @@ function openMore(){
 
   moreBackdrop
     .classList
-    .add("open");
+    .add(
+      "open"
+    );
 
 }
 
@@ -4649,7 +5181,9 @@ function closeMore(){
 
   moreBackdrop
     .classList
-    .remove("open");
+    .remove(
+      "open"
+    );
 
 }
 
@@ -4669,8 +5203,13 @@ document.getElementById(
 moreBackdrop.onclick =
   event => {
 
-    if(event.target === moreBackdrop){
+    if(
+      event.target ===
+      moreBackdrop
+    ){
+
       closeMore();
+
     }
 
   };
@@ -4681,7 +5220,6 @@ moreBackdrop.onclick =
 ========================================================= */
 
 loadData();
-initGooglePlaces();
 
 </script>
 
