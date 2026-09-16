@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Japan Trip · Login</title>
+
+  <style>
+    :root {
+      --bg: #070c10;
+      --panel: #10161c;
+      --panel-light: #151c23;
+      --line: #29323b;
+      --text: #f5f5f3;
+      --muted: #aeb5bc;
+      --red: #c96f68;
+      --green: #67c587;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+    }
+
+    .login-wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .brand-icon {
+      font-size: 46px;
+      margin-bottom: 12px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .brand p {
+      color: var(--muted);
+      margin: 9px 0 0;
+      font-size: 14px;
+    }
+
+    .login-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 4px;
+
+      margin-bottom: 24px;
+    }
+
+    .tab {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+
+      padding: 11px;
+      border-radius: 9px;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--panel-light);
+      color: var(--text);
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+
+      padding: 13px 14px;
+
+      color: var(--text);
+      font-size: 16px;
+
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--red);
+    }
+
+    input::placeholder {
+      color: #68717a;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 65px;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+
+      padding: 8px;
+    }
+
+    .main-button {
+      width: 100%;
+
+      border: 0;
+      border-radius: 11px;
+
+      padding: 14px;
+
+      background: var(--red);
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      margin-top: 4px;
+    }
+
+    .main-button:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .message {
+      display: none;
+
+      margin-top: 16px;
+      padding: 12px 13px;
+
+      border-radius: 10px;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .message.error {
+      display: block;
+
+      background: rgba(201, 111, 104, 0.12);
+      border: 1px solid rgba(201, 111, 104, 0.35);
+
+      color: #efaaa5;
+    }
+
+    .message.success {
+      display: block;
+
+      background: rgba(103, 197, 135, 0.1);
+      border: 1px solid rgba(103, 197, 135, 0.3);
+
+      color: #8edba7;
+    }
+
+    .footer-note {
+      text-align: center;
+
+      margin-top: 18px;
+
+      color: #727b83;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 18px;
+      }
+
+      .login-card {
+        padding: 20px;
+      }
+
+      .brand h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <main class="login-wrap">
+
+    <!-- =========================
+         BRAND
+    ========================== -->
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        🇯🇵
+      </div>
+
+      <h1>Japan Trip</h1>
+
+      <p>
+        Plan · Eat · Explore
+      </p>
+
+    </div>
+
+
+    <!-- =========================
+         LOGIN CARD
+    ========================== -->
+
+    <section class="login-card">
+
+      <div class="tabs">
+
+        <button
+          id="signInTab"
+          class="tab active"
+          type="button"
+        >
+          SIGN IN
+        </button>
+
+        <button
+          id="signUpTab"
+          class="tab"
+          type="button"
+        >
+          CREATE ACCOUNT
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           FORM
+      ========================== -->
+
+      <form id="authForm">
+
+        <div class="field">
+
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="password">
+            Password
+          </label>
+
+          <div class="password-wrap">
+
+            <input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              minlength="8"
+              required
+            >
+
+            <button
+              id="showPassword"
+              class="show-password"
+              type="button"
+            >
+              SHOW
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Confirm password only appears during signup -->
+
+        <div
+          id="confirmPasswordField"
+          class="field hidden"
+        >
+
+          <label for="confirmPassword">
+            Confirm Password
+          </label>
+
+          <input
+            id="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Enter password again"
+            minlength="8"
+          >
+
+        </div>
+
+
+        <button
+          id="submitButton"
+          class="main-button"
+          type="submit"
+        >
+          SIGN IN
+        </button>
+
+
+        <div
+          id="message"
+          class="message"
+        ></div>
+
+      </form>
+
+    </section>
+
+
+    <div class="footer-note">
+      Your trips and schedules are private to your account.
+    </div>
+
+  </main>
+
+
+  <!-- =====================================================
+       SUPABASE
+  ====================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase.js"></script>
+
+
+  <!-- =====================================================
+       LOGIN LOGIC
+  ====================================================== -->
+
+  <script>
+
+    const signInTab =
+      document.getElementById("signInTab");
+
+    const signUpTab =
+      document.getElementById("signUpTab");
+
+    const authForm =
+      document.getElementById("authForm");
+
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const confirmPasswordInput =
+      document.getElementById("confirmPassword");
+
+    const confirmPasswordField =
+      document.getElementById("confirmPasswordField");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const message =
+      document.getElementById("message");
+
+    const showPassword =
+      document.getElementById("showPassword");
+
+
+    let authMode = "signin";
+
+
+    // =====================================================
+    // SHOW MESSAGE
+    // =====================================================
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className =
+        "message " + type;
+
+    }
+
+
+    function clearMessage() {
+
+      message.textContent = "";
+
+      message.className = "message";
+
+    }
+
+
+    // =====================================================
+    // SIGN IN TAB
+    // =====================================================
+
+    signInTab.addEventListener("click", () => {
+
+      authMode = "signin";
+
+      signInTab.classList.add("active");
+      signUpTab.classList.remove("active");
+
+      confirmPasswordField.classList.add("hidden");
+
+      confirmPasswordInput.required = false;
+
+      passwordInput.autocomplete =
+        "current-password";
+
+      submitButton.textContent =
+        "SIGN IN";
+
+      clearMessage();
+
+    });
+
+
+    // =====================================================
+    // CREATE ACCOUNT TAB
+    // =====================================================
+
+    signUpTab.addEventListener("click", () => {
+
+      authMode = "signup";
+
+      signUpTab.classList.add("active");
+      signInTab.classList.remove("active");
+
+      confirmPasswordField.classList.remove("hidden");
+
+      confirmPasswordInput.required = true;
+
+      passwordInput.autocomplete =
+        "new-password";
+
+      submitButton.textContent =
+        "CREATE ACCOUNT";
+
+      clearMessage();
+
+    });
+
+
+    // =====================================================
+    // SHOW / HIDE PASSWORD
+    // =====================================================
+
+    showPassword.addEventListener("click", () => {
+
+      const showing =
+        passwordInput.type === "text";
+
+      passwordInput.type =
+        showing ? "password" : "text";
+
+      confirmPasswordInput.type =
+        showing ? "password" : "text";
+
+      showPassword.textContent =
+        showing ? "SHOW" : "HIDE";
+
+    });
+
+
+    // =====================================================
+    // AUTH FORM
+    // =====================================================
+
+    authForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+
+        if (!email || !password) {
+
+          showMessage(
+            "Please enter your email and password.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+          authMode === "signin"
+            ? "SIGNING IN..."
+            : "CREATING ACCOUNT...";
+
+
+        // =================================================
+        // SIGN IN
+        // =================================================
+
+        if (authMode === "signin") {
+
+          const { data, error } =
+            await db.auth.signInWithPassword({
+
+              email: email,
+
+              password: password
+
+            });
+
+
+          if (error) {
+
+            showMessage(
+              error.message,
+              "error"
+            );
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+              "SIGN IN";
+
+            return;
+
+          }
+
+
+          // Successful login
+
+          window.location.href =
+            "index.html";
+
+        }
+
+
+        // =================================================
+        // CREATE ACCOUNT
+        // =================================================
+
+        else {
+
+          const confirmPassword =
+            confirmPasswordInput.value;
+
+
+          if (password !== confirmPassword) {
+
+            showMessage(
+              "Your passwords do not match.",
+              "error"
+            );
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+              "CREATE ACCOUNT";
+
+            return;
+
+          }
+
+
+          const { data, error } =
+            await db.auth.signUp({
+
+              email: email,
+
+              password: password
+
+            });
+
+
+          if (error) {
+
+            showMessage(
+              error.message,
+              "error"
+            );
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+              "CREATE ACCOUNT";
+
+            return;
+
+          }
+
+
+          // If email confirmation is enabled,
+          // Supabase creates the account but does
+          // not immediately create a logged-in session.
+
+          if (!data.session) {
+
+            showMessage(
+              "Account created! Check your email and confirm your account. Then come back here and sign in.",
+              "success"
+            );
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+              "CREATE ACCOUNT";
+
+            return;
+
+          }
+
+
+          // If email confirmation is disabled,
+          // the user is already logged in.
+
+          window.location.href =
+            "index.html";
+
+        }
+
+      }
+    );
+
+
+    // =====================================================
+    // ALREADY LOGGED IN?
+    //
+    // If Supabase already has a valid session,
+    // don't show the login page again.
+    // =====================================================
+
+    async function checkExistingSession() {
+
+      const { data } =
+        await db.auth.getSession();
+
+
+      if (data.session) {
+
+        window.location.href =
+          "index.html";
+
+      }
+
+    }
+
+
+    checkExistingSession();
+
+  </script>
+
+</body>
+</html>
