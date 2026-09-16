@@ -669,6 +669,78 @@ main{
 
 
 /* =========================================================
+   GOOGLE PLACES AUTOFILL
+========================================================= */
+
+.google-place-box{
+  display:none;
+  grid-column:1/-1;
+  padding:10px;
+  border:1px solid rgba(92,157,255,.22);
+  border-radius:11px;
+  background:rgba(92,157,255,.05);
+}
+
+.google-place-box.show{
+  display:block;
+}
+
+.google-place-label{
+  margin-bottom:6px;
+  color:#aeb5bc;
+  font-size:7px;
+  font-weight:900;
+}
+
+#googlePlaceSearch{
+  width:100%;
+}
+
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+  width:100%;
+  min-height:42px;
+}
+
+.place-status{
+  margin-top:6px;
+  color:#81909a;
+  font-size:7px;
+  line-height:1.4;
+}
+
+.place-status.success{
+  color:#9fe1b5;
+}
+
+.place-status.error{
+  color:#ffc5c1;
+}
+
+.place-divider{
+  grid-column:1/-1;
+  display:none;
+  align-items:center;
+  gap:8px;
+  color:#66737c;
+  font-size:6px;
+  font-weight:900;
+}
+
+.place-divider.show{
+  display:flex;
+}
+
+.place-divider::before,
+.place-divider::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:rgba(255,255,255,.07);
+}
+
+
+/* =========================================================
    FORM
 ========================================================= */
 
@@ -905,6 +977,102 @@ main{
 
 
 /* =========================================================
+   MORE SHEET
+========================================================= */
+
+.more-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:150;
+  display:none;
+  align-items:flex-end;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(4px);
+}
+
+.more-backdrop.open{
+  display:flex;
+}
+
+.more-sheet{
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  padding:8px 13px calc(18px + env(safe-area-inset-bottom));
+  border:1px solid var(--line);
+  border-radius:20px 20px 0 0;
+  background:#0d1318;
+}
+
+.more-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.more-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
+}
+
+.more-close{
+  width:32px;
+  height:32px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#151c22;
+  color:#fff;
+  cursor:pointer;
+}
+
+.more-link{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 10px;
+  margin-bottom:6px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#11181e;
+  color:#fff;
+  text-decoration:none;
+}
+
+.more-link.disabled{
+  opacity:.45;
+  cursor:default;
+}
+
+.more-link-icon{
+  flex:0 0 31px;
+  font-size:18px;
+  text-align:center;
+}
+
+.more-link-main{
+  flex:1;
+}
+
+.more-link-title{
+  font-size:9px;
+  font-weight:900;
+}
+
+.more-link-sub{
+  margin-top:2px;
+  color:#7f8b93;
+  font-size:6.5px;
+}
+
+.more-link-arrow{
+  color:#8d9aa2;
+  font-size:12px;
+}
+
+
+/* =========================================================
    BOTTOM NAV
 ========================================================= */
 
@@ -937,7 +1105,8 @@ main{
   backdrop-filter:blur(18px);
 }
 
-.bottom-nav a{
+.bottom-nav a,
+.bottom-nav button{
   min-height:46px;
 
   display:flex;
@@ -957,13 +1126,17 @@ main{
 
   font-size:8px;
   font-weight:800;
+
+  border:0;
+  background:transparent;
+  cursor:pointer;
 }
 
 .nav-icon{
   font-size:16px;
 }
 
-.bottom-nav a.active{
+.bottom-nav .active{
   color:#fff;
 
   border:
@@ -1151,6 +1324,35 @@ main{
       <div class="form-grid">
 
 
+        <div
+          id="googlePlaceBox"
+          class="google-place-box show"
+        >
+
+          <div class="google-place-label">
+            🔎 SEARCH GOOGLE PLACES
+          </div>
+
+          <div id="googlePlaceSearch"></div>
+
+          <div
+            id="googlePlaceStatus"
+            class="place-status"
+          >
+            Search anywhere in Japan. Selecting a Google result will autofill the schedule item. When you save, a new place is also added to public.places if it is not already there.
+          </div>
+
+        </div>
+
+
+        <div
+          id="placeDivider"
+          class="place-divider show"
+        >
+          OR CHOOSE FROM YOUR SAVED PLACES
+        </div>
+
+
         <!-- DATE -->
 
         <div class="field">
@@ -1308,6 +1510,94 @@ main{
 
 
 
+<!-- =======================================================
+     MORE
+======================================================= -->
+
+<div
+  id="moreBackdrop"
+  class="more-backdrop"
+>
+
+  <div class="more-sheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="more-head">
+
+      <div class="more-title">
+        More
+      </div>
+
+      <button
+        id="closeMore"
+        class="more-close"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <a
+      id="profileLink"
+      class="more-link"
+    >
+      <div class="more-link-icon">👤</div>
+
+      <div class="more-link-main">
+        <div class="more-link-title">
+          Profile & Sharing
+        </div>
+
+        <div class="more-link-sub">
+          Your profile · manage trip members
+        </div>
+      </div>
+
+      <div class="more-link-arrow">→</div>
+    </a>
+
+
+    <div class="more-link disabled">
+      <div class="more-link-icon">🧳</div>
+
+      <div class="more-link-main">
+        <div class="more-link-title">
+          My Trips
+        </div>
+
+        <div class="more-link-sub">
+          Create and switch trips · coming next
+        </div>
+      </div>
+
+      <div class="more-link-arrow">→</div>
+    </div>
+
+
+    <div class="more-link disabled">
+      <div class="more-link-icon">📍</div>
+
+      <div class="more-link-main">
+        <div class="more-link-title">
+          Places
+        </div>
+
+        <div class="more-link-sub">
+          Saved attractions · coming later
+        </div>
+      </div>
+
+      <div class="more-link-arrow">→</div>
+    </div>
+
+  </div>
+
+</div>
+
+
 <!-- =========================================================
      NAV
 ========================================================= -->
@@ -1373,7 +1663,10 @@ main{
   </a>
 
 
-  <a href="#">
+  <button
+    id="navMore"
+    type="button"
+  >
 
     <span class="nav-icon">
       ⋯
@@ -1383,7 +1676,7 @@ main{
       MORE
     </span>
 
-  </a>
+  </button>
 
 </nav>
 
@@ -1398,6 +1691,9 @@ main{
 ></script>
 
 <script src="supabase.js"></script>
+
+<!-- Google Maps / Places loader -->
+<script src="google-maps.js"></script>
 
 
 
@@ -1443,6 +1739,15 @@ let formType = "place";
 let selectedPlaceId = null;
 
 let selectedRestaurantId = null;
+
+/*
+  A Google result is kept here until SAVE.
+  This prevents simply tapping a suggestion
+  from creating unwanted rows in public.places.
+*/
+let pendingGooglePlace = null;
+
+let googlePlaceAutocomplete = null;
 
 
 /* =========================================================
@@ -1549,6 +1854,16 @@ const formMessage =
     "formMessage"
   );
 
+const googlePlaceBox =
+  document.getElementById(
+    "googlePlaceBox"
+  );
+
+const placeDivider =
+  document.getElementById(
+    "placeDivider"
+  );
+
 
 /* =========================================================
    NAV
@@ -1573,6 +1888,11 @@ document.getElementById(
   "navHub"
 ).href =
   `bookings.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "profileLink"
+).href =
+  `profile.html?trip=${TRIP_ID}`;
 
 
 /* =========================================================
@@ -1702,6 +2022,459 @@ function dateParts(value){
       .toUpperCase()
 
   };
+
+}
+
+
+/* =========================================================
+   GOOGLE PLACES AUTOFILL
+========================================================= */
+
+function setGooglePlaceStatus(
+  message,
+  type=""
+){
+
+  const el =
+    document.getElementById(
+      "googlePlaceStatus"
+    );
+
+  if(!el){
+    return;
+  }
+
+  el.textContent =
+    message;
+
+  el.className =
+    `place-status ${type}`.trim();
+
+}
+
+
+function googleAddressPart(
+  components,
+  wantedTypes
+){
+
+  const item =
+    (components || []).find(
+      component =>
+        wantedTypes.some(
+          type =>
+            component.types?.includes(type)
+        )
+    );
+
+  return (
+    item?.longText ||
+    item?.shortText ||
+    ""
+  );
+
+}
+
+
+async function initGooglePlaces(){
+
+  const host =
+    document.getElementById(
+      "googlePlaceSearch"
+    );
+
+  if(!host){
+    return;
+  }
+
+  if(
+    typeof loadGoogleMaps !==
+    "function"
+  ){
+
+    setGooglePlaceStatus(
+      "google-maps.js was not loaded. Make sure it is beside schedule.html in GitHub.",
+      "error"
+    );
+
+    return;
+  }
+
+  try{
+
+    setGooglePlaceStatus(
+      "Loading Google Places…"
+    );
+
+    await loadGoogleMaps();
+
+    const {
+      PlaceAutocompleteElement
+    } =
+      await google.maps.importLibrary(
+        "places"
+      );
+
+    googlePlaceAutocomplete =
+      new PlaceAutocompleteElement({
+        includedRegionCodes:["jp"]
+      });
+
+    googlePlaceAutocomplete.placeholder =
+      "Search attraction, shrine, hotel, museum…";
+
+    host.replaceChildren(
+      googlePlaceAutocomplete
+    );
+
+
+    googlePlaceAutocomplete
+      .addEventListener(
+        "gmp-select",
+        async event => {
+
+          try{
+
+            setGooglePlaceStatus(
+              "Getting place details…"
+            );
+
+            const prediction =
+              event.placePrediction;
+
+            if(!prediction){
+              throw new Error(
+                "No Google place was selected."
+              );
+            }
+
+            const place =
+              prediction.toPlace();
+
+            await place.fetchFields({
+              fields:[
+                "id",
+                "displayName",
+                "formattedAddress",
+                "addressComponents",
+                "googleMapsURI",
+                "location"
+              ]
+            });
+
+
+            const components =
+              place.addressComponents || [];
+
+
+            const city =
+              googleAddressPart(
+                components,
+                [
+                  "locality",
+                  "postal_town",
+                  "administrative_area_level_2"
+                ]
+              );
+
+
+            const area =
+              googleAddressPart(
+                components,
+                [
+                  "sublocality_level_1",
+                  "sublocality",
+                  "administrative_area_level_3"
+                ]
+              );
+
+
+            pendingGooglePlace = {
+
+              google_place_id:
+                place.id || null,
+
+              name:
+                place.displayName || "",
+
+              city:
+                city || null,
+
+              area:
+                area || null,
+
+              address:
+                place.formattedAddress || null,
+
+              maps_url:
+                place.googleMapsURI || null,
+
+              latitude:
+                typeof place.location?.lat === "function"
+                ?
+                place.location.lat()
+                :
+                place.location?.lat ?? null,
+
+              longitude:
+                typeof place.location?.lng === "function"
+                ?
+                place.location.lng()
+                :
+                place.location?.lng ?? null
+
+            };
+
+
+            /*
+              A Google selection is not yet a
+              public.places row. That happens
+              only when the user presses SAVE.
+            */
+
+            selectedPlaceId =
+              null;
+
+            selectedRestaurantId =
+              null;
+
+
+            entitySearch.value =
+              pendingGooglePlace.name;
+
+
+            fieldTitle.value =
+              pendingGooglePlace.name;
+
+
+            fieldLocation.value =
+              [
+                pendingGooglePlace.area,
+                pendingGooglePlace.city
+              ]
+              .filter(Boolean)
+              .join(", ")
+              ||
+              pendingGooglePlace.address
+              ||
+              "";
+
+
+            setGooglePlaceStatus(
+              `✓ ${pendingGooglePlace.name} selected. Press SAVE to add it to public.places and your schedule.`,
+              "success"
+            );
+
+          }
+
+          catch(error){
+
+            console.error(
+              "Google Places selection error:",
+              error
+            );
+
+            setGooglePlaceStatus(
+              error.message ||
+              "Couldn't load this Google place.",
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    setGooglePlaceStatus(
+      "Search anywhere in Japan. Select a Google result to autofill the schedule item."
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Google Places init error:",
+      error
+    );
+
+    setGooglePlaceStatus(
+      "Google Places couldn't start. Check your API key restrictions and Places API (New).",
+      "error"
+    );
+
+  }
+
+}
+
+
+/*
+  Find an existing public.places row first.
+  If there isn't one, create it.
+
+  We deliberately insert only columns already
+  used by your current schedule.html places query:
+  name, city, area, address and maps_url.
+*/
+async function savePendingGooglePlace(){
+
+  if(!pendingGooglePlace){
+    return null;
+  }
+
+
+  const name =
+    pendingGooglePlace.name;
+
+
+  /*
+    First check the places already loaded
+    on this page, so we don't duplicate an
+    obvious existing place.
+  */
+
+  const existingLocal =
+    places.find(
+      place =>
+        norm(place.name) === norm(name)
+        &&
+        (
+          !pendingGooglePlace.city
+          ||
+          norm(place.city) ===
+          norm(pendingGooglePlace.city)
+        )
+    );
+
+
+  if(existingLocal){
+
+    pendingGooglePlace =
+      null;
+
+    return existingLocal.id;
+
+  }
+
+
+  /*
+    Also ask Supabase in case another device
+    added the place after this page loaded.
+  */
+
+  let query =
+    db
+      .from("places")
+      .select(`
+        id,
+        name,
+        name_japanese,
+        city,
+        area,
+        address,
+        maps_url
+      `)
+      .ilike(
+        "name",
+        name
+      )
+      .limit(5);
+
+
+  const check =
+    await query;
+
+
+  if(check.error){
+    throw check.error;
+  }
+
+
+  const existingRemote =
+    (check.data || []).find(
+      place =>
+        !pendingGooglePlace.city
+        ||
+        norm(place.city) ===
+        norm(pendingGooglePlace.city)
+    );
+
+
+  if(existingRemote){
+
+    if(
+      !places.some(
+        p =>
+          Number(p.id) ===
+          Number(existingRemote.id)
+      )
+    ){
+      places.push(
+        existingRemote
+      );
+    }
+
+    pendingGooglePlace =
+      null;
+
+    return existingRemote.id;
+
+  }
+
+
+  const insertResult =
+    await db
+      .from("places")
+      .insert({
+
+        name:
+          pendingGooglePlace.name,
+
+        city:
+          pendingGooglePlace.city,
+
+        area:
+          pendingGooglePlace.area,
+
+        address:
+          pendingGooglePlace.address,
+
+        maps_url:
+          pendingGooglePlace.maps_url
+
+      })
+      .select(`
+        id,
+        name,
+        name_japanese,
+        city,
+        area,
+        address,
+        maps_url
+      `)
+      .single();
+
+
+  if(insertResult.error){
+    throw insertResult.error;
+  }
+
+
+  places.push(
+    insertResult.data
+  );
+
+
+  const id =
+    insertResult.data.id;
+
+
+  pendingGooglePlace =
+    null;
+
+
+  return id;
 
 }
 
@@ -2818,6 +3591,22 @@ function setFormType(type){
     type;
 
 
+  googlePlaceBox.classList.toggle(
+    "show",
+    type === "place"
+  );
+
+  placeDivider.classList.toggle(
+    "show",
+    type === "place"
+  );
+
+
+  if(type !== "place"){
+    pendingGooglePlace = null;
+  }
+
+
   typeGrid
     .querySelectorAll(
       "[data-type]"
@@ -2910,6 +3699,10 @@ function openNewItem(){
     null;
 
 
+  pendingGooglePlace =
+    null;
+
+
   selectedPlaceId =
     null;
 
@@ -2976,6 +3769,10 @@ function openNewItem(){
 ========================================================= */
 
 function openEditItem(id){
+
+  pendingGooglePlace =
+    null;
+
 
   const item =
     schedule.find(
@@ -3094,6 +3891,11 @@ function openEditItem(id){
 entitySearch.addEventListener(
   "input",
   () => {
+
+    if(formType === "place"){
+      pendingGooglePlace = null;
+    }
+
 
     const query =
       norm(
@@ -3265,6 +4067,10 @@ entitySearch.addEventListener(
 ========================================================= */
 
 function chooseEntity(id){
+
+  pendingGooglePlace =
+    null;
+
 
   const source =
     formType === "restaurant"
@@ -3441,6 +4247,26 @@ document.getElementById(
         selectedPlaceId
         :
         null;
+
+
+      /*
+        If this came from Google Places,
+        create/reuse public.places now and
+        attach the resulting ID to schedule.
+      */
+      if(
+        formType === "place"
+        &&
+        pendingGooglePlace
+      ){
+
+        placeId =
+          await savePendingGooglePlace();
+
+        selectedPlaceId =
+          placeId;
+
+      }
 
 
       let restaurantId =
@@ -3801,10 +4627,61 @@ async function reloadSchedule(){
 
 
 /* =========================================================
+   MORE
+========================================================= */
+
+const moreBackdrop =
+  document.getElementById(
+    "moreBackdrop"
+  );
+
+
+function openMore(){
+
+  moreBackdrop
+    .classList
+    .add("open");
+
+}
+
+
+function closeMore(){
+
+  moreBackdrop
+    .classList
+    .remove("open");
+
+}
+
+
+document.getElementById(
+  "navMore"
+).onclick =
+  openMore;
+
+
+document.getElementById(
+  "closeMore"
+).onclick =
+  closeMore;
+
+
+moreBackdrop.onclick =
+  event => {
+
+    if(event.target === moreBackdrop){
+      closeMore();
+    }
+
+  };
+
+
+/* =========================================================
    START
 ========================================================= */
 
 loadData();
+initGooglePlaces();
 
 </script>
 
