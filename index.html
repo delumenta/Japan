@@ -1,18 +1,12 @@
 <!doctype html>
 <html lang="en">
-
 <head>
 <meta charset="utf-8">
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070c10">
-
 <title>Japan Trip</title>
 
 <style>
-
 :root{
   --bg:#070c10;
   --panel:#10161c;
@@ -24,55 +18,30 @@
   --red:#c96f68;
   --blue:#5c9dff;
   --green:#67c587;
-  --orange:#f4a34d;
+  --gold:#e3b85c;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   min-height:100vh;
-
   color:var(--text);
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:
-    radial-gradient(
-      circle at 50% -15%,
-      #17212a 0%,
-      transparent 38%
-    ),
+    radial-gradient(circle at 50% -10%,#17212a 0%,transparent 36%),
     var(--bg);
 }
 
-button{
-  font:inherit;
-}
+button{font:inherit}
 
 main{
   width:100%;
   max-width:760px;
-
   margin:auto;
-
-  padding:
-    18px
-    13px
-    95px;
+  padding:18px 13px 100px;
 }
 
 
@@ -86,183 +55,50 @@ main{
 
 .eyebrow{
   color:var(--red);
-
-  font-size:9px;
+  font-size:8px;
   font-weight:900;
-
   letter-spacing:.14em;
   text-transform:uppercase;
 }
 
 h1{
   margin:5px 0 3px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:28px;
   line-height:1.08;
-
   letter-spacing:-.025em;
 }
 
 .subtitle{
   color:var(--muted);
-
-  font-size:10px;
-  line-height:1.4;
-}
-
-
-/* =========================================================
-   ROUTE STRIP
-========================================================= */
-
-.route-strip{
-  display:flex;
-
-  align-items:center;
-
-  gap:5px;
-
-  overflow-x:auto;
-
-  margin-top:10px;
-
-  padding-bottom:2px;
-
-  scrollbar-width:none;
-}
-
-.route-strip::-webkit-scrollbar{
-  display:none;
-}
-
-.route-stop{
-  flex:0 0 auto;
-
-  padding:
-    4px
-    7px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.06);
-
-  border-radius:999px;
-
-  background:
-    rgba(255,255,255,.025);
-
-  color:#c4cbd0;
-
-  font-size:7px;
-  font-weight:900;
-
-  white-space:nowrap;
-}
-
-.route-arrow{
-  flex:0 0 auto;
-
-  color:#53606a;
-
-  font-size:8px;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-  padding:
-    26px
-    16px;
-
-  border:1px solid var(--line);
-  border-radius:16px;
-
-  background:var(--panel);
-
-  color:var(--muted);
-
-  text-align:center;
-
   font-size:9px;
 }
 
-.status strong{
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#fff;
-
-  font-size:12px;
-}
-
-
-/* =========================================================
-   MAIN CARD
-========================================================= */
-
-.home-card{
-  overflow:hidden;
-
-  border:
-    1px solid
-    rgba(201,111,104,.34);
-
-  border-radius:17px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(201,111,104,.08),
-      #10161c 48%
-    );
-
-  box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.17);
-}
-
-.card-inner{
-  padding:13px;
-}
-
-
-/* =========================================================
-   CARD TOP
-========================================================= */
-
-.card-top{
+.route{
   display:flex;
-
   align-items:center;
-  justify-content:space-between;
-
-  gap:10px;
+  gap:5px;
+  margin-top:9px;
+  overflow-x:auto;
+  scrollbar-width:none;
 }
 
-.card-label{
-  color:var(--red);
+.route::-webkit-scrollbar{display:none}
 
-  font-size:8px;
+.route-chip{
+  flex:0 0 auto;
+  padding:4px 7px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  color:#c5ccd1;
+  font-size:7px;
   font-weight:900;
-
-  letter-spacing:.13em;
-  text-transform:uppercase;
 }
 
-.card-date{
-  color:var(--muted);
-
+.route-arrow{
+  color:#53606a;
   font-size:8px;
-  font-weight:800;
 }
 
 
@@ -270,522 +106,431 @@ h1{
    COUNTDOWN
 ========================================================= */
 
-.countdown{
-  display:flex;
-
-  align-items:flex-end;
-
-  gap:6px;
-
-  margin-top:10px;
-}
-
-.count-number{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:37px;
-  font-weight:800;
-
-  line-height:.85;
-
-  letter-spacing:-.04em;
-}
-
-.count-text{
-  padding-bottom:2px;
-
-  color:var(--muted);
-
-  font-size:8px;
-  font-weight:900;
-
-  line-height:1.3;
-}
-
-.first-day{
-  margin-top:13px;
-
-  padding-top:10px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.07);
-}
-
-.mini-label{
-  color:var(--muted);
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.day-title{
-  margin-top:4px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-  font-weight:800;
-
-  line-height:1.2;
-}
-
-.day-route{
-  margin-top:3px;
-
-  overflow:hidden;
-
-  color:#bec5ca;
-
-  font-size:8px;
-  line-height:1.4;
-
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-
-/* =========================================================
-   TODAY
-========================================================= */
-
-.today-title{
-  margin-top:7px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:21px;
-  font-weight:800;
-
-  line-height:1.2;
-}
-
-.today-route{
-  margin-top:3px;
-
-  overflow:hidden;
-
-  color:#bec5ca;
-
-  font-size:8px;
-  line-height:1.4;
-
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-.progress-row{
-  display:flex;
-
-  align-items:center;
-
-  gap:8px;
-
-  margin-top:10px;
-}
-
-.progress{
-  flex:1;
-
-  height:4px;
-
-  overflow:hidden;
-
-  border-radius:999px;
-
-  background:#1d272e;
-}
-
-.progress-bar{
-  height:100%;
-
-  border-radius:999px;
-
-  background:var(--red);
-}
-
-.progress-text{
-  flex:0 0 auto;
-
-  color:var(--muted);
-
-  font-size:7px;
-  font-weight:900;
-}
-
-
-/* =========================================================
-   NOW
-========================================================= */
-
-.now{
-  margin-top:10px;
-
-  padding:
-    10px
-    11px;
-
-  border:1px solid var(--line);
-  border-radius:12px;
-
+.countdown-card{
+  margin-bottom:17px;
+  padding:13px;
+  border:1px solid rgba(201,111,104,.34);
+  border-radius:16px;
   background:
-    rgba(7,12,16,.38);
+    linear-gradient(
+      145deg,
+      rgba(201,111,104,.09),
+      #10161c 52%
+    );
 }
 
-.now-head{
+.countdown-top{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
-  gap:8px;
+  gap:10px;
 }
 
-.now-label{
-  color:var(--green);
-
-  font-size:7px;
+.countdown-label{
+  color:var(--red);
+  font-size:8px;
   font-weight:900;
-
   letter-spacing:.13em;
 }
 
-.now-time{
-  color:#91a5b3;
-
-  font-size:8px;
-  font-weight:850;
-}
-
-.now-title{
-  margin-top:3px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:18px;
-  font-weight:800;
-
-  line-height:1.2;
-}
-
-.now-note{
-  margin-top:3px;
-
+.countdown-date{
   color:var(--muted);
+  font-size:7px;
+  font-weight:800;
+}
 
+.countdown-main{
+  display:flex;
+  align-items:flex-end;
+  gap:7px;
+  margin-top:10px;
+}
+
+.countdown-number{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:37px;
+  font-weight:800;
+  line-height:.85;
+}
+
+.countdown-text{
+  padding-bottom:2px;
+  color:var(--muted);
+  font-size:8px;
+  font-weight:900;
+  line-height:1.25;
+}
+
+.next-trip{
+  margin-top:11px;
+  padding-top:9px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.next-label{
+  color:#7f8b94;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.11em;
+}
+
+.next-title{
+  margin-top:4px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:17px;
+  font-weight:800;
+}
+
+.next-route{
+  margin-top:3px;
+  color:#b7c0c6;
   font-size:8px;
   line-height:1.4;
 }
 
 
 /* =========================================================
-   BUTTONS
+   SECTION
 ========================================================= */
 
-.actions{
-  display:grid;
-
-  grid-template-columns:
-    1.3fr
-    1fr;
-
-  gap:6px;
-
-  margin-top:9px;
-}
-
-.btn{
-  min-height:36px;
-
+.section-head{
   display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  padding:6px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#141c22;
-  color:#fff;
-
-  text-decoration:none;
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 2px 7px;
 }
 
-.btn.done{
-  color:#bce8c9;
-
-  border-color:
-    rgba(103,197,135,.28);
-
-  background:
-    rgba(103,197,135,.08);
+.section-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:18px;
+  font-weight:800;
 }
 
-.btn.map{
-  color:#bad2ff;
-
-  border-color:
-    rgba(92,157,255,.26);
-
-  background:
-    rgba(92,157,255,.07);
-}
-
-.btn.primary{
-  color:#f4d3d0;
-
-  border-color:
-    rgba(201,111,104,.34);
-
-  background:
-    rgba(201,111,104,.09);
-}
-
-.btn.secondary{
-  color:#c6cdd2;
+.section-note{
+  color:#74818a;
+  font-size:7px;
 }
 
 
 /* =========================================================
-   UP NEXT
+   TRIP DAY LIST
 ========================================================= */
 
-.up-next{
-  margin-top:11px;
+.trip-days{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
 }
 
-.up-title{
-  margin-bottom:4px;
+.day-card{
+  width:100%;
+  display:grid;
+  grid-template-columns:58px 1fr 16px;
+  gap:9px;
+  align-items:center;
+  min-height:61px;
+  padding:8px 9px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:
+    linear-gradient(
+      145deg,
+      #141c22,
+      #0d1318
+    );
+  color:inherit;
+  text-align:left;
+  cursor:pointer;
+}
 
-  color:#82909a;
+.day-card:active{
+  transform:scale(.995);
+}
 
+.day-card.today{
+  border-color:rgba(103,197,135,.4);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(103,197,135,.08),
+      #0d1318 60%
+    );
+}
+
+.day-date{
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.07);
+  padding-right:8px;
+}
+
+.day-number{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+  font-weight:800;
+  line-height:1;
+}
+
+.day-month{
+  margin-top:2px;
+  color:var(--muted);
   font-size:7px;
   font-weight:900;
-
-  letter-spacing:.12em;
 }
 
-.next-row{
-  display:grid;
-
-  grid-template-columns:
-    55px
-    1fr;
-
-  gap:7px;
-
-  padding:
-    6px
-    0;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.055);
-
-  font-size:8px;
+.day-weekday{
+  margin-top:2px;
+  color:#66747e;
+  font-size:6px;
+  font-weight:900;
 }
 
-.next-time{
-  color:#91a5b3;
-  font-weight:850;
+.day-main{
+  min-width:0;
 }
 
-.next-name{
+.day-area{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  color:#fff;
+  font-size:9px;
+  font-weight:900;
+}
+
+.today-tag{
+  padding:2px 4px;
+  border-radius:999px;
+  background:rgba(103,197,135,.10);
+  color:#8fe0aa;
+  font-size:6px;
+}
+
+.day-places{
+  margin-top:3px;
   overflow:hidden;
-
-  color:#d9dde0;
-
+  color:#aeb7bd;
+  font-size:8px;
+  line-height:1.4;
   white-space:nowrap;
   text-overflow:ellipsis;
 }
 
-
-/* =========================================================
-   CARD FOOTER
-========================================================= */
-
-.card-footer{
-  display:flex;
-
-  align-items:center;
-  justify-content:space-between;
-
-  gap:8px;
-
-  padding:
-    9px
-    13px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.06);
-
-  background:
-    rgba(0,0,0,.12);
+.day-count{
+  margin-top:3px;
+  color:#65727c;
+  font-size:6px;
+  font-weight:800;
 }
 
-.card-footer button,
-.card-footer a{
-  border:0;
-
-  background:none;
-
-  color:var(--muted);
-
-  text-decoration:none;
-
-  font-size:8px;
-  font-weight:850;
-
-  cursor:pointer;
-}
-
-.card-footer .view{
+.day-arrow{
   color:var(--red);
+  font-size:15px;
 }
 
 
 /* =========================================================
-   PREVIEW DAYS
+   DAILY PREVIEW
 ========================================================= */
 
-.preview-wrap{
-  margin-top:11px;
-}
-
-.preview-label{
-  margin:
-    0
-    2px
-    5px;
-
-  color:#7f8c95;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:.12em;
-}
-
-.preview-days{
-  display:flex;
-
-  gap:5px;
-
-  overflow-x:auto;
-
-  padding-bottom:3px;
-
-  scrollbar-width:none;
-}
-
-.preview-days::-webkit-scrollbar{
-  display:none;
-}
-
-.preview-day{
-  flex:0 0 auto;
-
-  min-width:43px;
-  min-height:31px;
-
-  padding:
-    4px
-    7px;
-
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  background:#10171d;
-  color:#aeb7bd;
-
-  font-size:7px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.preview-day.active{
-  color:#fff;
-
-  border-color:
-    rgba(201,111,104,.5);
-
-  background:
-    rgba(201,111,104,.10);
-}
-
-
-/* =========================================================
-   FREE / PAST
-========================================================= */
-
-.simple-card{
-  padding:14px;
-
-  border:1px solid var(--line);
+.preview-card{
+  overflow:hidden;
+  border:1px solid rgba(201,111,104,.35);
   border-radius:16px;
-
   background:var(--panel);
 }
 
-.simple-label{
-  color:var(--red);
+.preview-header{
+  padding:12px 13px 10px;
+  border-bottom:1px solid rgba(255,255,255,.065);
+}
 
+.preview-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.preview-label{
+  color:var(--red);
   font-size:8px;
   font-weight:900;
+  letter-spacing:.13em;
+}
 
+.preview-date{
+  color:#b8c9d7;
+  font-size:8px;
+  font-weight:900;
+}
+
+.preview-title{
+  margin-top:7px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+  font-weight:800;
+  line-height:1.2;
+}
+
+.preview-route{
+  margin-top:3px;
+  color:#aeb7bd;
+  font-size:8px;
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline{
+  padding:5px 13px 7px;
+}
+
+.timeline-head{
+  margin:7px 0 4px;
+  color:#748793;
+  font-size:7px;
+  font-weight:900;
   letter-spacing:.12em;
 }
 
-.simple-card h2{
-  margin:
-    6px
-    0
-    4px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:20px;
+.timeline-row{
+  position:relative;
+  display:grid;
+  grid-template-columns:74px 16px 1fr;
+  gap:7px;
+  min-height:45px;
+  padding:6px 0;
 }
 
-.simple-card p{
-  margin:0;
+.timeline-row:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:81px;
+  top:29px;
+  bottom:-8px;
+  width:1px;
+  background:#26323a;
+}
 
-  color:var(--muted);
+.timeline-time{
+  padding-top:2px;
+  color:#9bb8d0;
+  font-size:8px;
+  font-weight:900;
+  line-height:1.25;
+}
 
+.timeline-marker{
+  position:relative;
+  z-index:2;
+  display:flex;
+  justify-content:center;
+  padding-top:1px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  margin-top:3px;
+  border:2px solid #172029;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 0 1px rgba(201,111,104,.35);
+}
+
+.timeline-content{
+  min-width:0;
+}
+
+.timeline-title{
+  color:#f2f2f0;
   font-size:9px;
-  line-height:1.5;
+  font-weight:850;
+  line-height:1.3;
+}
+
+.timeline-title a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.timeline-place{
+  margin-top:2px;
+  color:#77858f;
+  font-size:7px;
+  line-height:1.3;
+}
+
+.timeline-note{
+  margin-top:2px;
+  color:#a7b0b6;
+  font-size:7px;
+  line-height:1.35;
+}
+
+.optional{
+  display:inline-block;
+  margin-left:4px;
+  padding:1px 4px;
+  border:1px solid rgba(227,184,92,.2);
+  border-radius:999px;
+  color:#e3b85c;
+  font-size:6px;
+}
+
+
+/* =========================================================
+   PREVIEW FOOTER
+========================================================= */
+
+.preview-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 13px;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.12);
+}
+
+.preview-footer button,
+.preview-footer a{
+  border:0;
+  background:none;
+  color:#aeb7bd;
+  text-decoration:none;
+  font-size:8px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.preview-footer a{
+  color:var(--red);
+}
+
+
+/* =========================================================
+   EMPTY / ERROR
+========================================================= */
+
+.state{
+  padding:28px 16px;
+  border:1px dashed #35414a;
+  border-radius:14px;
+  color:var(--muted);
+  text-align:center;
+  font-size:9px;
+}
+
+.state strong{
+  display:block;
+  margin-bottom:4px;
+  color:#fff;
+  font-size:12px;
 }
 
 
@@ -795,52 +540,33 @@ h1{
 
 .bottom-nav{
   position:fixed;
-
   left:0;
   right:0;
   bottom:0;
-
   z-index:80;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   gap:3px;
-
   padding:
     6px
     7px
     calc(6px + env(safe-area-inset-bottom));
-
   border-top:1px solid var(--line);
-
-  background:
-    rgba(7,12,16,.98);
-
+  background:rgba(7,12,16,.98);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
 
 .bottom-nav a{
   min-height:46px;
-
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
   justify-content:center;
-
   gap:2px;
-
   border-radius:10px;
-
   color:var(--muted);
-
   text-decoration:none;
-
   font-size:8px;
   font-weight:800;
 }
@@ -852,34 +578,16 @@ h1{
 
 .bottom-nav a.active{
   color:#fff;
-
-  border:
-    1px solid
-    rgba(201,111,104,.22);
-
-  background:
-    rgba(201,111,104,.08);
+  border:1px solid rgba(201,111,104,.22);
+  background:rgba(201,111,104,.08);
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   DESKTOP
 ========================================================= */
 
-@media(max-width:380px){
-
-  h1{
-    font-size:26px;
-  }
-
-  .count-number{
-    font-size:34px;
-  }
-
-}
-
 @media(min-width:700px){
-
   main{
     padding-top:24px;
   }
@@ -887,123 +595,77 @@ h1{
   .bottom-nav{
     left:50%;
     right:auto;
-
     width:min(820px,100%);
-
-    transform:
-      translateX(-50%);
-
+    transform:translateX(-50%);
     border-left:1px solid var(--line);
     border-right:1px solid var(--line);
-
-    border-radius:
-      15px
-      15px
-      0
-      0;
+    border-radius:15px 15px 0 0;
   }
-
 }
 
 </style>
 </head>
 
-
 <body>
-
 
 <main>
 
-
-  <!-- HEADER -->
-
   <header class="header">
 
-    <div
-      id="eyebrow"
-      class="eyebrow"
-    >
-      Loading trip…
+    <div id="eyebrow" class="eyebrow">
+      LOADING TRIP
     </div>
 
     <h1 id="tripName">
       Japan Trip
     </h1>
 
-    <div
-      id="tripSubtitle"
-      class="subtitle"
-    >
-      Loading…
+    <div id="tripSubtitle" class="subtitle">
+      Loading itinerary…
     </div>
 
-
-    <div
-      id="routeStrip"
-      class="route-strip"
-    ></div>
+    <div id="route" class="route"></div>
 
   </header>
 
 
-
-  <!-- MAIN HOME CONTENT -->
-
   <section id="homeContent">
 
-    <div class="status">
-
-      <strong>
-        Loading your trip…
-      </strong>
-
-      Getting your schedule from Supabase.
-
+    <div class="state">
+      <strong>Loading your trip…</strong>
+      Getting your itinerary from Supabase.
     </div>
 
   </section>
 
-
 </main>
-
 
 
 <!-- =========================================================
      BOTTOM NAV
 ========================================================= -->
 
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
->
+<nav class="bottom-nav" aria-label="Main navigation">
 
-  <a
-    id="navHome"
-    class="active"
-    aria-current="page"
-  >
+  <a id="navHome" class="active" aria-current="page">
     <span class="nav-icon">🏠</span>
     <span>HOME</span>
   </a>
-
 
   <a id="navPlan">
     <span class="nav-icon">📅</span>
     <span>PLAN</span>
   </a>
 
-
   <a id="navFood">
     <span class="nav-icon">🍽️</span>
     <span>FOOD</span>
   </a>
 
-
   <a id="navHub">
     <span class="nav-icon">⭐</span>
     <span>HUB</span>
   </a>
-
 
   <a href="#">
     <span class="nav-icon">⋯</span>
@@ -1013,18 +675,8 @@ h1{
 </nav>
 
 
-
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
-
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-
-
 
 <script>
 
@@ -1033,20 +685,13 @@ h1{
 ========================================================= */
 
 const params =
-  new URLSearchParams(
-    window.location.search
-  );
+  new URLSearchParams(window.location.search);
 
 const TRIP_ID =
-  Number(
-    params.get("trip") || 1
-  );
-
+  Number(params.get("trip") || 1);
 
 let trip = null;
-
 let schedule = [];
-
 let groupedDays = {};
 
 
@@ -1055,53 +700,35 @@ let groupedDays = {};
 ========================================================= */
 
 const homeContent =
-  document.getElementById(
-    "homeContent"
-  );
+  document.getElementById("homeContent");
 
 const tripName =
-  document.getElementById(
-    "tripName"
-  );
+  document.getElementById("tripName");
 
 const tripSubtitle =
-  document.getElementById(
-    "tripSubtitle"
-  );
+  document.getElementById("tripSubtitle");
 
 const eyebrow =
-  document.getElementById(
-    "eyebrow"
-  );
+  document.getElementById("eyebrow");
 
-const routeStrip =
-  document.getElementById(
-    "routeStrip"
-  );
+const route =
+  document.getElementById("route");
 
 
 /* =========================================================
    NAV
 ========================================================= */
 
-document.getElementById(
-  "navHome"
-).href =
+document.getElementById("navHome").href =
   `index.html?trip=${TRIP_ID}`;
 
-document.getElementById(
-  "navPlan"
-).href =
+document.getElementById("navPlan").href =
   `schedule.html?trip=${TRIP_ID}`;
 
-document.getElementById(
-  "navFood"
-).href =
+document.getElementById("navFood").href =
   `food.html?trip=${TRIP_ID}`;
 
-document.getElementById(
-  "navHub"
-).href =
+document.getElementById("navHub").href =
   `bookings.html?trip=${TRIP_ID}`;
 
 
@@ -1110,89 +737,62 @@ document.getElementById(
 ========================================================= */
 
 function text(value){
-
-  return String(
-    value ?? ""
-  );
-
+  return String(value ?? "");
 }
 
-
 function esc(value){
-
   return text(value)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
-
 }
 
 
 /* =========================================================
-   DATES
+   DATE HELPERS
 ========================================================= */
 
 function parseDate(value){
-
-  return new Date(
-    value + "T12:00:00"
-  );
-
+  return new Date(value + "T12:00:00");
 }
 
+function localDateString(){
 
-function todayString(){
+  const d = new Date();
 
-  const now =
-    new Date();
+  const y = d.getFullYear();
 
-  const year =
-    now.getFullYear();
-
-  const month =
-    String(
-      now.getMonth() + 1
-    ).padStart(2,"0");
+  const m =
+    String(d.getMonth()+1)
+    .padStart(2,"0");
 
   const day =
-    String(
-      now.getDate()
-    ).padStart(2,"0");
+    String(d.getDate())
+    .padStart(2,"0");
 
-  return (
-    `${year}-${month}-${day}`
-  );
-
+  return `${y}-${m}-${day}`;
 }
-
 
 function formatRange(){
 
   const start =
-    parseDate(
-      trip.start_date
-    );
+    parseDate(trip.start_date);
 
   const end =
-    parseDate(
-      trip.end_date
-    );
+    parseDate(trip.end_date);
 
-
-  const startText =
+  const a =
     new Intl.DateTimeFormat(
       "en-GB",
       {
         day:"numeric",
         month:"short"
       }
-    )
-    .format(start);
+    ).format(start);
 
-
-  const endText =
+  const b =
     new Intl.DateTimeFormat(
       "en-GB",
       {
@@ -1200,18 +800,12 @@ function formatRange(){
         month:"short",
         year:"numeric"
       }
-    )
-    .format(end);
+    ).format(end);
 
-
-  return (
-    `${startText} – ${endText}`
-  );
-
+  return `${a} – ${b}`;
 }
 
-
-function formatDay(value){
+function formatPreviewDate(value){
 
   return new Intl.DateTimeFormat(
     "en-SG",
@@ -1221,37 +815,38 @@ function formatDay(value){
       month:"short"
     }
   )
-  .format(
-    parseDate(value)
-  )
+  .format(parseDate(value))
   .toUpperCase();
-
 }
 
+function dateParts(value){
 
-function shortDay(value){
+  const d = parseDate(value);
 
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      day:"numeric",
-      month:"short"
-    }
-  )
-  .format(
-    parseDate(value)
-  )
-  .toUpperCase();
+  return {
+    day:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {day:"numeric"}
+      ).format(d),
 
+    month:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {month:"short"}
+      ).format(d).toUpperCase(),
+
+    weekday:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {weekday:"short"}
+      ).format(d).toUpperCase()
+  };
 }
 
+function daysUntil(value){
 
-function daysUntil(
-  dateString
-){
-
-  const now =
-    new Date();
+  const now = new Date();
 
   const today =
     new Date(
@@ -1260,32 +855,22 @@ function daysUntil(
       now.getDate()
     );
 
-
   const target =
-    new Date(
-      dateString +
-      "T00:00:00"
-    );
-
+    new Date(value + "T00:00:00");
 
   return Math.ceil(
-    (target - today) /
-    86400000
+    (target - today) / 86400000
   );
-
 }
 
 
 /* =========================================================
-   DATABASE
+   LOAD DATA
 ========================================================= */
 
 async function loadTrip(){
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await db
       .from("trips")
       .select(`
@@ -1296,29 +881,19 @@ async function loadTrip(){
         end_date,
         description
       `)
-      .eq(
-        "id",
-        TRIP_ID
-      )
+      .eq("id",TRIP_ID)
       .single();
-
 
   if(error){
     throw error;
   }
 
-
   trip = data;
-
 }
-
 
 async function loadSchedule(){
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await db
       .from("schedule")
       .select(`
@@ -1333,85 +908,53 @@ async function loadSchedule(){
         item_type,
         description,
         notes,
+        location_name,
+        maps_url,
         place_id,
         restaurant_id,
-        maps_url,
         is_optional,
         is_locked,
 
-        place:places (
+        place:places(
           id,
           name,
           maps_url
         ),
 
-        restaurant:restaurants (
+        restaurant:restaurants(
           id,
           name,
-          maps_url,
-          tabelog_url,
-          booking_url
+          maps_url
         )
       `)
-      .eq(
-        "trip_id",
-        TRIP_ID
-      )
-      .order(
-        "schedule_date",
-        {
-          ascending:true
-        }
-      )
-      .order(
-        "sort_order",
-        {
-          ascending:true
-        }
-      );
-
+      .eq("trip_id",TRIP_ID)
+      .order("schedule_date",{ascending:true})
+      .order("sort_order",{ascending:true});
 
   if(error){
     throw error;
   }
 
-
-  schedule =
-    data || [];
-
+  schedule = data || [];
 }
 
 
 /* =========================================================
-   BUILD DAYS
+   GROUP DAYS
 ========================================================= */
 
 function buildDays(){
 
   groupedDays = {};
 
-
   schedule.forEach(item => {
 
-    if(
-      !groupedDays[
-        item.schedule_date
-      ]
-    ){
-
-      groupedDays[
-        item.schedule_date
-      ] = [];
-
+    if(!groupedDays[item.schedule_date]){
+      groupedDays[item.schedule_date] = [];
     }
 
-
-    groupedDays[
-      item.schedule_date
-    ].push(item);
-
+    groupedDays[item.schedule_date].push(item);
   });
-
 }
 
 
@@ -1424,153 +967,77 @@ function renderHeader(){
   tripName.textContent =
     trip.name;
 
-
   eyebrow.textContent =
     `${trip.country || "TRIP"} · ${formatRange()}`;
-
-
-  /*
-    Keep the subtitle short on Home.
-    The full description doesn't really
-    need to be displayed here.
-  */
 
   if(TRIP_ID === 1){
 
     tripSubtitle.textContent =
-      "Kyoto → Mountains → Osaka";
+      "Kyoto → Road Trip → Osaka";
 
-
-    routeStrip.innerHTML = `
-
-      <span class="route-stop">
-        ⛩️ KYOTO · 18–22
-      </span>
-
-      <span class="route-arrow">
-        →
-      </span>
-
-      <span class="route-stop">
-        🚗 ROAD · 23–26
-      </span>
-
-      <span class="route-arrow">
-        →
-      </span>
-
-      <span class="route-stop">
-        🌃 OSAKA · 26–30
-      </span>
-
-      <span class="route-arrow">
-        →
-      </span>
-
-      <span class="route-stop">
-        ✈️ HOME
-      </span>
-
+    route.innerHTML = `
+      <span class="route-chip">⛩️ KYOTO · 18–22</span>
+      <span class="route-arrow">→</span>
+      <span class="route-chip">🚗 ROAD · 23–26</span>
+      <span class="route-arrow">→</span>
+      <span class="route-chip">🌃 OSAKA · 26–30</span>
+      <span class="route-arrow">→</span>
+      <span class="route-chip">✈️ HOME</span>
     `;
 
-  }
-
-  else{
+  }else{
 
     tripSubtitle.textContent =
-      trip.description ||
-      formatRange();
+      trip.description || formatRange();
 
-
-    routeStrip.innerHTML = "";
-
+    route.innerHTML = "";
   }
-
 }
 
 
 /* =========================================================
-   PROGRESS
-========================================================= */
-
-function progressKey(date){
-
-  return (
-    "trip_" +
-    TRIP_ID +
-    "_progress_" +
-    date
-  );
-
-}
-
-
-function getProgress(date){
-
-  const items =
-    groupedDays[date] || [];
-
-
-  const stored =
-    Number(
-      localStorage.getItem(
-        progressKey(date)
-      ) || 0
-    );
-
-
-  return Math.max(
-    0,
-    Math.min(
-      stored,
-      items.length
-    )
-  );
-
-}
-
-
-function setProgress(
-  date,
-  value
-){
-
-  const items =
-    groupedDays[date] || [];
-
-
-  const safe =
-    Math.max(
-      0,
-      Math.min(
-        value,
-        items.length
-      )
-    );
-
-
-  localStorage.setItem(
-    progressKey(date),
-    String(safe)
-  );
-
-}
-
-
-/* =========================================================
-   ITEM HELPERS
+   ITEM DISPLAY
 ========================================================= */
 
 function itemName(item){
 
+  /*
+    Schedule title is deliberately first.
+
+    Your schedule title often says things
+    like "Arrive Kyoto", "Late Lunch",
+    "Hotel Check-in", etc.
+
+    Linked place/restaurant is used below
+    as secondary information.
+  */
+
   return (
+    item.title ||
     item.place?.name ||
     item.restaurant?.name ||
-    item.title
+    "Schedule Item"
   );
-
 }
 
+function linkedName(item){
+
+  const linked =
+    item.restaurant?.name ||
+    item.place?.name ||
+    item.location_name ||
+    "";
+
+  if(
+    linked &&
+    linked.toLowerCase() !==
+    text(item.title).toLowerCase()
+  ){
+    return linked;
+  }
+
+  return "";
+}
 
 function itemTime(item){
 
@@ -1578,24 +1045,26 @@ function itemTime(item){
     return item.time_label;
   }
 
-
   if(item.start_time){
 
-    return item.start_time
-      .slice(
-        0,
-        5
-      );
+    const parts =
+      item.start_time.split(":");
 
+    let hour = Number(parts[0]);
+    const minute = parts[1] || "00";
+
+    const suffix =
+      hour >= 12 ? "PM" : "AM";
+
+    hour = hour % 12 || 12;
+
+    return `${hour}:${minute} ${suffix}`;
   }
 
-
   return "Flexible";
-
 }
 
-
-function mapURL(item){
+function itemMap(item){
 
   return (
     item.restaurant?.maps_url ||
@@ -1603,605 +1072,574 @@ function mapURL(item){
     item.maps_url ||
     null
   );
-
 }
 
 
 /* =========================================================
-   DAY TITLE
+   ICONS
 ========================================================= */
 
-function dayTitle(items){
+function itemIcon(item){
 
-  const important =
-    items
-      .filter(
-        item =>
-          item.place_id ||
-          item.restaurant_id
-      )
-      .slice(
-        0,
-        2
+  const type =
+    text(item.item_type)
+    .toLowerCase();
+
+  const name =
+    text(item.title)
+    .toLowerCase();
+
+  if(
+    type.includes("restaurant") ||
+    type.includes("food") ||
+    name.includes("lunch") ||
+    name.includes("dinner") ||
+    name.includes("breakfast") ||
+    name.includes("snack")
+  ){
+    return "🍽️";
+  }
+
+  if(
+    type.includes("hotel") ||
+    name.includes("check-in") ||
+    name.includes("hotel")
+  ){
+    return "🏨";
+  }
+
+  if(
+    type.includes("transport") ||
+    name.includes("train") ||
+    name.includes("travel") ||
+    name.includes("drive") ||
+    name.includes("arrive")
+  ){
+    return "🚆";
+  }
+
+  if(
+    name.includes("shrine") ||
+    name.includes("temple") ||
+    type.includes("temple") ||
+    type.includes("shrine")
+  ){
+    return "⛩️";
+  }
+
+  if(
+    name.includes("mount") ||
+    name.includes("highland") ||
+    name.includes("viewpoint")
+  ){
+    return "🏔️";
+  }
+
+  if(
+    name.includes("waterfall") ||
+    name.includes("falls")
+  ){
+    return "💧";
+  }
+
+  if(
+    name.includes("market")
+  ){
+    return "🛍️";
+  }
+
+  if(
+    name.includes("airport") ||
+    name.includes("flight")
+  ){
+    return "✈️";
+  }
+
+  return "📍";
+}
+
+
+/* =========================================================
+   DAY AREA
+========================================================= */
+
+function dayArea(date,items){
+
+  /*
+    These labels are presentation only.
+    The actual locations underneath
+    still come from Supabase.
+  */
+
+  if(TRIP_ID === 1){
+
+    if(date <= "2026-10-20"){
+      return "⛩️ Kyoto";
+    }
+
+    if(date === "2026-10-21"){
+      return "🌊 Ine";
+    }
+
+    if(date === "2026-10-22"){
+      return "⛩️ Kyoto";
+    }
+
+    if(date === "2026-10-23"){
+      return "🚗 Kyoto → Dorogawa";
+    }
+
+    if(date === "2026-10-24"){
+      return "🏔️ Dorogawa → Ryujin";
+    }
+
+    if(date === "2026-10-25"){
+      return "⛩️ Kumano";
+    }
+
+    if(date === "2026-10-26"){
+      return "💧 Nachi → Osaka";
+    }
+
+    if(date === "2026-10-27"){
+      return "🌃 Osaka";
+    }
+
+    if(date === "2026-10-28"){
+      return "🚄 Aichi Day Trip";
+    }
+
+    if(date === "2026-10-29"){
+      return "🦌 Nara";
+    }
+
+    if(date === "2026-10-30"){
+      return "✈️ Departure";
+    }
+  }
+
+  const location =
+    items.find(x => x.location_name)
+      ?.location_name;
+
+  return location || "Japan";
+}
+
+
+/* =========================================================
+   DAY SUMMARY LOCATIONS
+========================================================= */
+
+function usefulLocationNames(items){
+
+  const ignoreWords = [
+    "travel",
+    "drive",
+    "train",
+    "check-in",
+    "check out",
+    "checkout",
+    "arrive",
+    "depart",
+    "breakfast",
+    "lunch",
+    "dinner",
+    "snack",
+    "free time"
+  ];
+
+  const names = [];
+
+  items.forEach(item => {
+
+    let name =
+      item.restaurant?.name ||
+      item.place?.name ||
+      item.location_name ||
+      item.title;
+
+    if(!name){
+      return;
+    }
+
+    const lower =
+      name.toLowerCase();
+
+    const ignored =
+      ignoreWords.some(
+        word => lower.includes(word)
       );
 
+    if(ignored && !item.place_id && !item.restaurant_id){
+      return;
+    }
 
-  const source =
-    important.length
-    ?
-    important
-    :
-    items.slice(0,2);
+    if(!names.includes(name)){
+      names.push(name);
+    }
+  });
 
-
-  const names =
-    source
-      .map(itemName)
-      .filter(Boolean);
-
-
-  return (
-    names.join(" + ")
-    ||
-    "Flexible Day"
-  );
-
+  return names;
 }
 
-
-/* =========================================================
-   ROUTE
-========================================================= */
-
-function dayRoute(items){
+function daySummary(items){
 
   const names =
-    items
-      .filter(
-        item =>
-          item.place_id ||
-          item.restaurant_id
-      )
-      .slice(
-        0,
-        4
-      )
-      .map(itemName)
-      .filter(Boolean);
-
+    usefulLocationNames(items);
 
   if(!names.length){
 
-    return (
-      items
-        .slice(0,3)
-        .map(
-          item =>
-            item.title
-        )
-        .join(" → ")
-    );
-
+    return items
+      .slice(0,3)
+      .map(item => item.title)
+      .join(" · ");
   }
 
-
-  return names.join(
-    " → "
-  );
-
+  return names
+    .slice(0,4)
+    .join(" · ");
 }
 
 
 /* =========================================================
-   BEFORE TRIP
+   COUNTDOWN CARD
 ========================================================= */
 
-function renderUpcoming(){
+function countdownHTML(){
 
-  const dates =
-    Object.keys(
-      groupedDays
-    ).sort();
+  const today =
+    localDateString();
 
+  if(today > trip.end_date){
 
-  const firstDate =
-    dates[0] ||
-    trip.start_date;
+    return `
+      <div class="countdown-card">
 
+        <div class="countdown-label">
+          TRIP COMPLETE
+        </div>
 
-  const firstItems =
-    groupedDays[
-      firstDate
-    ] || [];
+        <div class="next-title">
+          ${esc(trip.name)}
+        </div>
 
+        <div class="next-route">
+          Your itinerary is saved below.
+        </div>
 
-  const countdown =
+      </div>
+    `;
+  }
+
+  if(
+    today >= trip.start_date &&
+    today <= trip.end_date
+  ){
+
+    const items =
+      groupedDays[today] || [];
+
+    return `
+      <div class="countdown-card">
+
+        <div class="countdown-top">
+
+          <div class="countdown-label">
+            ● TODAY
+          </div>
+
+          <div class="countdown-date">
+            ${esc(formatPreviewDate(today))}
+          </div>
+
+        </div>
+
+        <div class="next-title">
+          ${esc(dayArea(today,items))}
+        </div>
+
+        <div class="next-route">
+          ${esc(daySummary(items))}
+        </div>
+
+      </div>
+    `;
+  }
+
+  const count =
     Math.max(
       0,
-      daysUntil(
-        trip.start_date
-      )
+      daysUntil(trip.start_date)
     );
 
+  const firstDate =
+    Object.keys(groupedDays)
+      .sort()[0] ||
+    trip.start_date;
 
-  homeContent.innerHTML = `
+  const firstItems =
+    groupedDays[firstDate] || [];
 
-    <div class="home-card">
+  return `
+    <div class="countdown-card">
 
-      <div class="card-inner">
+      <div class="countdown-top">
 
-
-        <div class="card-top">
-
-          <div class="card-label">
-            UPCOMING TRIP
-          </div>
-
-          <div class="card-date">
-            ${esc(formatRange())}
-          </div>
-
+        <div class="countdown-label">
+          UPCOMING TRIP
         </div>
 
-
-        <div class="countdown">
-
-          <div class="count-number">
-            ${countdown}
-          </div>
-
-          <div class="count-text">
-
-            DAY${
-              countdown === 1
-              ?
-              ""
-              :
-              "S"
-            }
-            <br>
-            TO GO
-
-          </div>
-
+        <div class="countdown-date">
+          ${esc(formatRange())}
         </div>
 
+      </div>
 
-        <div class="first-day">
+      <div class="countdown-main">
 
-          <div class="mini-label">
-
-            FIRST DAY ·
-            ${esc(
-              formatDay(
-                firstDate
-              )
-            )}
-
-          </div>
-
-
-          <div class="day-title">
-
-            ${
-              firstItems.length
-              ?
-              esc(
-                dayTitle(
-                  firstItems
-                )
-              )
-              :
-              "Japan Trip Begins"
-            }
-
-          </div>
-
-
-          ${
-            firstItems.length
-
-            ?
-
-            `
-              <div class="day-route">
-
-                ${esc(
-                  dayRoute(
-                    firstItems
-                  )
-                )}
-
-              </div>
-            `
-
-            :
-
-            ""
-          }
-
+        <div class="countdown-number">
+          ${count}
         </div>
 
+        <div class="countdown-text">
+          DAY${count === 1 ? "" : "S"}<br>
+          TO GO
+        </div>
 
-        <div class="actions">
+      </div>
 
-          <a
-            class="btn primary"
-            href="schedule.html?trip=${TRIP_ID}#${firstDate}"
-          >
-            VIEW FIRST DAY →
-          </a>
+      <div class="next-trip">
 
-          <a
-            class="btn secondary"
-            href="bookings.html?trip=${TRIP_ID}"
-          >
-            ⭐ HUB
-          </a>
+        <div class="next-label">
+          FIRST DAY · ${esc(formatPreviewDate(firstDate))}
+        </div>
 
+        <div class="next-title">
+          ${esc(dayArea(firstDate,firstItems))}
+        </div>
+
+        <div class="next-route">
+          ${esc(daySummary(firstItems))}
         </div>
 
       </div>
 
     </div>
-
-
-    ${
-      dates.length
-
-      ?
-
-      `
-        <div class="preview-wrap">
-
-          <div class="preview-label">
-            PREVIEW A DAY
-          </div>
-
-
-          <div class="preview-days">
-
-            ${dates.map(date => `
-
-              <button
-                class="preview-day"
-                data-date="${date}"
-              >
-                ${esc(
-                  shortDay(date)
-                )}
-              </button>
-
-            `).join("")}
-
-          </div>
-
-        </div>
-      `
-
-      :
-
-      ""
-    }
-
   `;
-
-
-  document
-    .querySelectorAll(
-      ".preview-day"
-    )
-    .forEach(button => {
-
-      button.onclick = () => {
-
-        renderPreview(
-          button.dataset.date
-        );
-
-      };
-
-    });
-
 }
 
 
 /* =========================================================
-   PREVIEW
+   TRIP OVERVIEW
 ========================================================= */
 
-function renderPreview(date){
+function renderHome(){
 
-  renderDayCard(
-    date,
-    true
-  );
+  const dates =
+    Object.keys(groupedDays).sort();
 
-}
+  const today =
+    localDateString();
 
+  if(!dates.length){
 
-/* =========================================================
-   TODAY / PREVIEW DAY
-========================================================= */
-
-function renderDayCard(
-  date,
-  preview=false
-){
-
-  const items =
-    groupedDays[date] || [];
-
-
-  if(!items.length){
-
-    renderFreeDay();
+    homeContent.innerHTML = `
+      <div class="state">
+        <strong>No itinerary yet</strong>
+        There are no schedule items for this trip.
+      </div>
+    `;
 
     return;
-
   }
-
-
-  const progress =
-    getProgress(date);
-
-
-  const finished =
-    progress >=
-    items.length;
-
-
-  const current =
-    finished
-    ?
-    items[
-      items.length - 1
-    ]
-    :
-    items[progress];
-
-
-  const percent =
-    finished
-    ?
-    100
-    :
-    Math.round(
-      progress /
-      items.length *
-      100
-    );
-
-
-  const map =
-    finished
-    ?
-    null
-    :
-    mapURL(current);
-
-
-  const upcoming =
-    finished
-    ?
-    []
-    :
-    items.slice(
-      progress + 1,
-      progress + 3
-    );
-
-
-  const note =
-    current?.notes ||
-    current?.description ||
-    "";
-
 
   homeContent.innerHTML = `
 
-    <div class="home-card">
+    ${countdownHTML()}
 
-      <div class="card-inner">
+    <div class="section-head">
 
+      <div class="section-title">
+        Your Trip
+      </div>
 
-        <div class="card-top">
+      <div class="section-note">
+        TAP A DAY TO PREVIEW
+      </div>
 
-          <div class="card-label">
+    </div>
 
-            ${
-              preview
-              ?
-              "PREVIEW"
-              :
-              "● TODAY"
-            }
+    <div class="trip-days">
 
-          </div>
+      ${dates.map(date => {
 
+        const parts =
+          dateParts(date);
 
-          <div class="card-date">
+        const items =
+          groupedDays[date];
 
-            ${esc(
-              formatDay(date)
-            )}
+        return `
 
-          </div>
+          <button
+            class="day-card ${date === today ? "today" : ""}"
+            data-date="${date}"
+            type="button"
+          >
 
-        </div>
+            <div class="day-date">
 
+              <div class="day-number">
+                ${esc(parts.day)}
+              </div>
 
-        <div class="today-title">
+              <div class="day-month">
+                ${esc(parts.month)}
+              </div>
 
-          ${esc(
-            dayTitle(items)
-          )}
-
-        </div>
-
-
-        <div class="today-route">
-
-          ${esc(
-            dayRoute(items)
-          )}
-
-        </div>
-
-
-        <div class="progress-row">
-
-          <div class="progress">
-
-            <div
-              class="progress-bar"
-              style="width:${percent}%"
-            ></div>
-
-          </div>
-
-
-          <div class="progress-text">
-
-            ${
-              finished
-              ?
-              "COMPLETE ✓"
-              :
-              `${progress}/${items.length} DONE`
-            }
-
-          </div>
-
-        </div>
-
-
-        <div class="now">
-
-          <div class="now-head">
-
-            <div class="now-label">
-
-              ${
-                finished
-                ?
-                "FINISHED"
-                :
-                "NOW"
-              }
+              <div class="day-weekday">
+                ${esc(parts.weekday)}
+              </div>
 
             </div>
 
 
-            ${
-              !finished
+            <div class="day-main">
 
-              ?
+              <div class="day-area">
 
-              `
-                <div class="now-time">
-
-                  ${esc(
-                    itemTime(
-                      current
-                    )
-                  )}
-
-                </div>
-              `
-
-              :
-
-              ""
-            }
-
-          </div>
-
-
-          <div class="now-title">
-
-            ${
-              finished
-              ?
-              "✓ Day Complete"
-              :
-              esc(
-                current.title
-              )
-            }
-
-          </div>
-
-
-          ${
-            note && !finished
-
-            ?
-
-            `
-              <div class="now-note">
-
-                ${esc(note)}
-
-              </div>
-            `
-
-            :
-
-            ""
-          }
-
-
-          ${
-            !finished
-
-            ?
-
-            `
-              <div class="actions">
-
-                <button
-                  id="doneBtn"
-                  class="btn done"
-                  type="button"
-                >
-                  ✓ DONE · NEXT
-                </button>
-
+                ${esc(dayArea(date,items))}
 
                 ${
-                  map
-
+                  date === today
                   ?
-
-                  `
-                    <a
-                      class="btn map"
-                      href="${esc(map)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      📍 MAP
-                    </a>
-                  `
-
+                  `<span class="today-tag">TODAY</span>`
                   :
-
-                  `
-                    <a
-                      class="btn map"
-                      href="food.html?trip=${TRIP_ID}"
-                    >
-                      🍽️ FOOD
-                    </a>
-                  `
+                  ""
                 }
 
               </div>
+
+              <div class="day-places">
+                ${esc(daySummary(items))}
+              </div>
+
+              <div class="day-count">
+                ${items.length}
+                ${items.length === 1 ? "STOP" : "STOPS"}
+              </div>
+
+            </div>
+
+
+            <div class="day-arrow">
+              ›
+            </div>
+
+          </button>
+
+        `;
+
+      }).join("")}
+
+    </div>
+
+  `;
+
+  document
+    .querySelectorAll(".day-card")
+    .forEach(button => {
+
+      button.onclick = () => {
+        renderPreview(
+          button.dataset.date
+        );
+      };
+
+    });
+}
+
+
+/* =========================================================
+   PREVIEW TITLE
+========================================================= */
+
+function previewTitle(date,items){
+
+  return dayArea(date,items);
+}
+
+function previewRoute(items){
+
+  const names =
+    usefulLocationNames(items);
+
+  if(!names.length){
+    return "";
+  }
+
+  return names
+    .slice(0,5)
+    .join(" → ");
+}
+
+
+/* =========================================================
+   TIMELINE ROW
+========================================================= */
+
+function timelineRow(item){
+
+  const map =
+    itemMap(item);
+
+  const title =
+    itemName(item);
+
+  const linked =
+    linkedName(item);
+
+  return `
+
+    <div class="timeline-row">
+
+      <div class="timeline-time">
+        ${esc(itemTime(item))}
+      </div>
+
+
+      <div class="timeline-marker">
+        <span class="dot"></span>
+      </div>
+
+
+      <div class="timeline-content">
+
+        <div class="timeline-title">
+
+          ${itemIcon(item)}
+
+          ${
+            map
+            ?
             `
-
+              <a
+                href="${esc(map)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ${esc(title)}
+              </a>
+            `
             :
+            esc(title)
+          }
 
+          ${
+            item.is_optional
+            ?
+            `<span class="optional">OPTIONAL</span>`
+            :
             ""
           }
 
@@ -2209,96 +1647,107 @@ function renderDayCard(
 
 
         ${
-          upcoming.length
-
+          linked
           ?
-
           `
-            <div class="up-next">
-
-              <div class="up-title">
-                UP NEXT
-              </div>
-
-
-              ${upcoming.map(item => `
-
-                <div class="next-row">
-
-                  <div class="next-time">
-
-                    ${esc(
-                      itemTime(item)
-                    )}
-
-                  </div>
-
-
-                  <div class="next-name">
-
-                    ${esc(
-                      item.title
-                    )}
-
-                  </div>
-
-                </div>
-
-              `).join("")}
-
+            <div class="timeline-place">
+              📍 ${esc(linked)}
             </div>
           `
-
           :
+          ""
+        }
 
+
+        ${
+          item.description
+          ?
+          `
+            <div class="timeline-note">
+              ${esc(item.description)}
+            </div>
+          `
+          :
           ""
         }
 
       </div>
 
+    </div>
 
-      <div class="card-footer">
+  `;
+}
 
 
-        ${
-          preview
+/* =========================================================
+   DAY PREVIEW
+========================================================= */
 
-          ?
+function renderPreview(date){
 
-          `
-            <button
-              id="backHome"
-              type="button"
-            >
-              ← TRIP HOME
-            </button>
-          `
+  const items =
+    groupedDays[date] || [];
 
-          :
+  if(!items.length){
+    return;
+  }
 
-          `
-            <button
-              id="backStep"
-              type="button"
-              ${
-                progress === 0
-                ?
-                "disabled"
-                :
-                ""
-              }
-            >
-              ← BACK
-            </button>
-          `
-        }
+  homeContent.innerHTML = `
+
+    <div class="preview-card">
+
+      <div class="preview-header">
+
+        <div class="preview-top">
+
+          <div class="preview-label">
+            DAY PREVIEW
+          </div>
+
+          <div class="preview-date">
+            ${esc(formatPreviewDate(date))}
+          </div>
+
+        </div>
+
+
+        <div class="preview-title">
+          ${esc(previewTitle(date,items))}
+        </div>
+
+
+        <div class="preview-route">
+          ${esc(previewRoute(items))}
+        </div>
+
+      </div>
+
+
+      <div class="timeline">
+
+        <div class="timeline-head">
+          TODAY'S PLAN
+        </div>
+
+        ${items.map(timelineRow).join("")}
+
+      </div>
+
+
+      <div class="preview-footer">
+
+        <button
+          id="tripHome"
+          type="button"
+        >
+          ← TRIP HOME
+        </button>
 
 
         <a
-          class="view"
           href="schedule.html?trip=${TRIP_ID}#${date}"
         >
-          VIEW FULL DAY →
+          FULL PLAN →
         </a>
 
       </div>
@@ -2308,226 +1757,22 @@ function renderDayCard(
   `;
 
 
-  const doneBtn =
-    document.getElementById(
-      "doneBtn"
-    );
+  document.getElementById("tripHome")
+    .onclick = () => {
 
+      renderHome();
 
-  if(doneBtn){
-
-    doneBtn.onclick = () => {
-
-      setProgress(
-        date,
-        getProgress(date) + 1
-      );
-
-
-      renderDayCard(
-        date,
-        preview
-      );
-
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
     };
 
-  }
 
-
-  const backStep =
-    document.getElementById(
-      "backStep"
-    );
-
-
-  if(backStep){
-
-    backStep.onclick = () => {
-
-      if(
-        getProgress(date) <= 0
-      ){
-        return;
-      }
-
-
-      setProgress(
-        date,
-        getProgress(date) - 1
-      );
-
-
-      renderDayCard(
-        date,
-        false
-      );
-
-    };
-
-  }
-
-
-  const backHome =
-    document.getElementById(
-      "backHome"
-    );
-
-
-  if(backHome){
-
-    backHome.onclick =
-      renderUpcoming;
-
-  }
-
-}
-
-
-/* =========================================================
-   FREE DAY
-========================================================= */
-
-function renderFreeDay(){
-
-  homeContent.innerHTML = `
-
-    <div class="simple-card">
-
-      <div class="simple-label">
-        TODAY
-      </div>
-
-      <h2>
-        Free Day
-      </h2>
-
-      <p>
-        Nothing is currently scheduled.
-      </p>
-
-
-      <div class="actions">
-
-        <a
-          class="btn primary"
-          href="schedule.html?trip=${TRIP_ID}"
-        >
-          📅 VIEW PLAN
-        </a>
-
-        <a
-          class="btn map"
-          href="food.html?trip=${TRIP_ID}"
-        >
-          🍽️ FIND FOOD
-        </a>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PAST TRIP
-========================================================= */
-
-function renderPast(){
-
-  homeContent.innerHTML = `
-
-    <div class="simple-card">
-
-      <div class="simple-label">
-        TRIP COMPLETE
-      </div>
-
-      <h2>
-        ${esc(trip.name)}
-      </h2>
-
-      <p>
-        Your itinerary, restaurants and
-        bookings are still available below.
-      </p>
-
-
-      <div class="actions">
-
-        <a
-          class="btn primary"
-          href="schedule.html?trip=${TRIP_ID}"
-        >
-          📅 VIEW PLAN
-        </a>
-
-        <a
-          class="btn map"
-          href="food.html?trip=${TRIP_ID}"
-        >
-          🍽️ FOOD
-        </a>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   HOME LOGIC
-========================================================= */
-
-function renderHome(){
-
-  const today =
-    todayString();
-
-
-  if(
-    groupedDays[today]
-  ){
-
-    renderDayCard(
-      today,
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    today < trip.start_date
-  ){
-
-    renderUpcoming();
-
-    return;
-
-  }
-
-
-  if(
-    today > trip.end_date
-  ){
-
-    renderPast();
-
-    return;
-
-  }
-
-
-  renderFreeDay();
-
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
 
 
@@ -2539,10 +1784,9 @@ function showError(error){
 
   console.error(error);
 
-
   homeContent.innerHTML = `
 
-    <div class="status">
+    <div class="state">
 
       <strong>
         ⚠️ Couldn't load trip
@@ -2556,7 +1800,6 @@ function showError(error){
     </div>
 
   `;
-
 }
 
 
@@ -2573,23 +1816,15 @@ async function start(){
       loadSchedule()
     ]);
 
-
     buildDays();
-
     renderHeader();
-
     renderHome();
 
-  }
-
-  catch(error){
+  }catch(error){
 
     showError(error);
-
   }
-
 }
-
 
 start();
 
