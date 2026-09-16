@@ -3,43 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Places Direct Test</title>
+
+  <title>Google Places JS Test</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       background: #111;
-      color: white;
+      color: #fff;
       font-family: Arial, sans-serif;
-      padding: 30px;
+      padding: 40px 20px;
     }
 
     .box {
-      max-width: 650px;
-      margin: auto;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      margin-bottom: 25px;
     }
 
     #status {
       background: #222;
+      border: 1px solid #333;
       padding: 20px;
       border-radius: 12px;
-      margin: 20px 0;
+      line-height: 1.7;
       white-space: pre-wrap;
     }
 
-    .good { color: #72e895; }
-    .bad { color: #ff6b6b; }
+    .success {
+      color: #67e88f;
+    }
 
-    #search {
-      margin-top: 20px;
+    .error {
+      color: #ff7070;
+    }
+
+    #searchSection {
+      display: none;
+      margin-top: 25px;
+    }
+
+    #googlePlaceSearch {
+      margin-top: 12px;
     }
 
     #result {
+      display: none;
+      margin-top: 25px;
       background: #222;
+      border: 1px solid #333;
       padding: 20px;
       border-radius: 12px;
-      margin-top: 20px;
-      display: none;
       line-height: 1.7;
+    }
+
+    .label {
+      color: #999;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-top: 15px;
+    }
+
+    .value {
+      margin-top: 3px;
+      word-break: break-word;
     }
   </style>
 </head>
@@ -48,89 +87,180 @@
 
 <div class="box">
 
-  <h1>🍜 Google Places Direct Test</h1>
+  <h1>🍜 Google Places JS Test</h1>
 
-  <p>
-    This test does NOT use google-maps.js.
-  </p>
-
-  <div id="status">
-    Loading Google Maps...
+  <div class="subtitle">
+    This test IS using google-maps.js
   </div>
 
-  <div id="search"></div>
+
+  <div id="status">
+    Starting test...
+  </div>
+
+
+  <div id="searchSection">
+
+    <h2>🔎 Search Japan</h2>
+
+    <p>
+      Try searching for <strong>Yabaton Nagoya</strong>
+    </p>
+
+    <div id="googlePlaceSearch"></div>
+
+  </div>
+
 
   <div id="result"></div>
 
 </div>
 
 
+<!-- =====================================================
+     OUR SHARED GOOGLE MAPS FILE
+===================================================== -->
+
+<script src="google-maps.js"></script>
+
+
 <script>
 
-const API_KEY = "AIzaSyD1tFdxoch8ihGkoLA7OYoEuG2k93CGi80";
+async function startTest() {
 
+  const status =
+    document.getElementById("status");
 
-// =============================================
-// SHOW STATUS
-// =============================================
+  const searchSection =
+    document.getElementById("searchSection");
 
-function setStatus(message, good = false) {
+  const result =
+    document.getElementById("result");
 
-  const status = document.getElementById("status");
-
-  status.textContent = message;
-
-  status.className = good ? "good" : "bad";
-
-}
-
-
-// =============================================
-// LOAD GOOGLE MAPS DIRECTLY
-// =============================================
-
-window.googleMapsReady = async function () {
 
   try {
 
-    setStatus(
-      "✓ Google Maps JavaScript loaded.\n\nLoading Places..."
-    );
+    // =================================================
+    // TEST FUNCTIONS FROM google-maps.js
+    // =================================================
+
+    if (
+      typeof window.loadGoogleMaps !== "function"
+    ) {
+      throw new Error(
+        "loadGoogleMaps() was not found in google-maps.js"
+      );
+    }
 
 
-    // Load Places library
-    const places =
-      await google.maps.importLibrary("places");
+    if (
+      typeof window.getGooglePlaces !== "function"
+    ) {
+      throw new Error(
+        "getGooglePlaces() was not found in google-maps.js"
+      );
+    }
 
 
-    setStatus(
+    if (
+      typeof window.createGooglePlaceAutocomplete !== "function"
+    ) {
+      throw new Error(
+        "createGooglePlaceAutocomplete() was not found in google-maps.js"
+      );
+    }
+
+
+    if (
+      typeof window.getGooglePlaceDetails !== "function"
+    ) {
+      throw new Error(
+        "getGooglePlaceDetails() was not found in google-maps.js"
+      );
+    }
+
+
+    if (
+      typeof window.normalizeGooglePlace !== "function"
+    ) {
+      throw new Error(
+        "normalizeGooglePlace() was not found in google-maps.js"
+      );
+    }
+
+
+    status.textContent =
+      "✓ google-maps.js loaded\n" +
+      "✓ Helper functions found\n\n" +
+      "Loading Google Maps...";
+
+    status.className = "success";
+
+
+    // =================================================
+    // LOAD GOOGLE
+    // =================================================
+
+    await window.loadGoogleMaps();
+
+
+    status.textContent =
+      "✓ google-maps.js loaded\n" +
+      "✓ Helper functions found\n" +
+      "✓ Google Maps loaded\n\n" +
+      "Loading Places...";
+
+
+    // =================================================
+    // LOAD PLACES
+    // =================================================
+
+    await window.getGooglePlaces();
+
+
+    status.textContent =
+      "✓ google-maps.js loaded\n" +
+      "✓ Helper functions found\n" +
       "✓ Google Maps loaded\n" +
-      "✓ Places library loaded\n" +
-      "✓ importLibrary works",
-      true
-    );
+      "✓ Google Places loaded\n\n" +
+      "Creating autocomplete...";
 
 
-    // =========================================
+    // =================================================
     // CREATE AUTOCOMPLETE
-    // =========================================
+    // =================================================
 
     const autocomplete =
-      new places.PlaceAutocompleteElement();
+      await window.createGooglePlaceAutocomplete(
+        document.getElementById(
+          "googlePlaceSearch"
+        ),
+        {
+          placeholder:
+            "Search restaurant or place in Japan..."
+        }
+      );
 
 
-    autocomplete.placeholder =
-      "Search Yabaton Nagoya...";
+    status.textContent =
+      "✓ google-maps.js loaded\n" +
+      "✓ Helper functions found\n" +
+      "✓ Google Maps loaded\n" +
+      "✓ Google Places loaded\n" +
+      "✓ Autocomplete created\n" +
+      "✓ Japan restriction applied\n\n" +
+      "READY 🎉";
+
+    status.className = "success";
 
 
-    document
-      .getElementById("search")
-      .appendChild(autocomplete);
+    searchSection.style.display =
+      "block";
 
 
-    // =========================================
-    // SELECT PLACE
-    // =========================================
+    // =================================================
+    // PLACE SELECTED
+    // =================================================
 
     autocomplete.addEventListener(
       "gmp-select",
@@ -138,61 +268,187 @@ window.googleMapsReady = async function () {
 
         try {
 
-          const prediction =
-            event.placePrediction;
+          status.textContent =
+            "Place selected.\nFetching Google details...";
 
 
           const place =
-            prediction.toPlace();
+            await window.getGooglePlaceDetails(
+              event
+            );
 
 
-          await place.fetchFields({
-            fields: [
-              "displayName",
-              "formattedAddress",
-              "googleMapsURI",
-              "websiteURI"
-            ]
-          });
+          const data =
+            window.normalizeGooglePlace(
+              place
+            );
 
 
-          const result =
-            document.getElementById("result");
+          console.log(
+            "Google Place:",
+            place
+          );
 
 
-          result.style.display = "block";
+          console.log(
+            "Normalized:",
+            data
+          );
+
+
+          status.textContent =
+            "✓ Google Places working\n" +
+            "✓ Place details fetched\n" +
+            "✓ Address parsed\n\n" +
+            "SUCCESS 🎉";
+
+          status.className =
+            "success";
+
+
+          // =================================================
+          // DISPLAY RESULT
+          // =================================================
+
+          result.style.display =
+            "block";
 
 
           result.innerHTML = `
-            <strong>SUCCESS 🎉</strong>
-            <br><br>
 
-            <strong>Name:</strong><br>
-            ${place.displayName || "-"}
-            <br><br>
+            <h2>✅ Selected Place</h2>
 
-            <strong>Address:</strong><br>
-            ${place.formattedAddress || "-"}
-            <br><br>
 
-            <strong>Google Maps:</strong><br>
-            ${place.googleMapsURI || "-"}
-            <br><br>
+            <div class="label">
+              Name
+            </div>
 
-            <strong>Website:</strong><br>
-            ${place.websiteURI || "-"}
+            <div class="value">
+              ${data.name || "-"}
+            </div>
+
+
+            <div class="label">
+              Google Place ID
+            </div>
+
+            <div class="value">
+              ${data.google_place_id || "-"}
+            </div>
+
+
+            <div class="label">
+              Address
+            </div>
+
+            <div class="value">
+              ${data.address || "-"}
+            </div>
+
+
+            <div class="label">
+              City
+            </div>
+
+            <div class="value">
+              ${data.city || "-"}
+            </div>
+
+
+            <div class="label">
+              Area
+            </div>
+
+            <div class="value">
+              ${data.area || "-"}
+            </div>
+
+
+            <div class="label">
+              Prefecture
+            </div>
+
+            <div class="value">
+              ${data.prefecture || "-"}
+            </div>
+
+
+            <div class="label">
+              Latitude
+            </div>
+
+            <div class="value">
+              ${data.latitude ?? "-"}
+            </div>
+
+
+            <div class="label">
+              Longitude
+            </div>
+
+            <div class="value">
+              ${data.longitude ?? "-"}
+            </div>
+
+
+            <div class="label">
+              Google Maps URL
+            </div>
+
+            <div class="value">
+
+              ${
+                data.maps_url
+
+                ? `<a
+                     href="${data.maps_url}"
+                     target="_blank"
+                     style="color:#8ab4f8;"
+                   >
+                     Open Google Maps
+                   </a>`
+
+                : "-"
+              }
+
+            </div>
+
+
+            <div class="label">
+              Website
+            </div>
+
+            <div class="value">
+
+              ${
+                data.website_url
+
+                ? `<a
+                     href="${data.website_url}"
+                     target="_blank"
+                     style="color:#8ab4f8;"
+                   >
+                     ${data.website_url}
+                   </a>`
+
+                : "-"
+              }
+
+            </div>
+
           `;
 
-        }
 
-        catch (error) {
-
-          setStatus(
-            "PLACE SELECTION ERROR:\n\n" +
-            (error.message || error)
-          );
+        } catch (error) {
 
           console.error(error);
+
+          status.textContent =
+            "❌ PLACE DETAILS ERROR\n\n" +
+            (error.message || error);
+
+          status.className =
+            "error";
 
         }
 
@@ -200,56 +456,29 @@ window.googleMapsReady = async function () {
     );
 
 
-  }
-
-  catch (error) {
-
-    setStatus(
-      "PLACES ERROR:\n\n" +
-      (error.message || error)
-    );
+  } catch (error) {
 
     console.error(error);
 
+    status.textContent =
+      "❌ ERROR\n\n" +
+      (error.message || error) +
+      "\n\n" +
+      "Check the browser console for more information.";
+
+    status.className =
+      "error";
+
   }
 
-};
+}
 
 
-// =============================================
-// CREATE GOOGLE SCRIPT
-// =============================================
+// =====================================================
+// START
+// =====================================================
 
-const script =
-  document.createElement("script");
-
-
-script.src =
-  "https://maps.googleapis.com/maps/api/js" +
-  "?key=" + encodeURIComponent(API_KEY) +
-  "&v=weekly" +
-  "&loading=async" +
-  "&callback=googleMapsReady";
-
-
-script.async = true;
-
-
-script.onerror = function () {
-
-  setStatus(
-    "GOOGLE MAPS SCRIPT FAILED TO LOAD.\n\n" +
-    "Possible causes:\n" +
-    "• API key incorrect\n" +
-    "• Website restriction incorrect\n" +
-    "• Maps JavaScript API not enabled\n" +
-    "• Billing problem"
-  );
-
-};
-
-
-document.head.appendChild(script);
+startTest();
 
 </script>
 
