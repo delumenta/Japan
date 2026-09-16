@@ -890,17 +890,9 @@ h1{
 
 <main>
 
-  <div class="eyebrow">
-    Japan · Autumn 2026
-  </div>
-
-  <h1>
-    Japan Trip
-  </h1>
-
-  <div class="sub">
-    18–30 October 2026 · Kyoto → Mountains → Osaka
-  </div>
+  <div class="eyebrow">LOADING TRIP…</div>
+  <h1>My Trip</h1>
+  <div class="sub">Loading trip details…</div>
 
 
   <!-- CURRENT DAY -->
@@ -912,18 +904,7 @@ h1{
 
   <div class="tripline">
 
-    <strong>KYOTO</strong>
-    · 18–22 Oct
-
-    　→　
-
-    <strong>ROAD TRIP</strong>
-    · 23–26 Oct
-
-    　→　
-
-    <strong>OSAKA</strong>
-    · 26–30 Oct
+    <strong>Loading route…</strong>
 
   </div>
 
@@ -993,10 +974,7 @@ h1{
 
     <!-- MY TRIPS -->
 
-    <a
-      id="tripsLink"
-      class="more-link"
-    >
+    <div class="more-link disabled">
 
       <div class="more-link-icon">
         🧳
@@ -1009,7 +987,7 @@ h1{
         </div>
 
         <div class="more-link-sub">
-          Create and switch trips
+          Create and switch trips · coming next
         </div>
 
       </div>
@@ -1018,7 +996,7 @@ h1{
         →
       </div>
 
-    </a>
+    </div>
 
 
     <!-- PLACES -->
@@ -3112,17 +3090,204 @@ document.getElementById(
   `profile.html?trip=${TRIP_ID}`;
 
 
-document.getElementById(
-  "tripsLink"
-).href =
-  `trips.html?trip=${TRIP_ID}`;
-
-
 /* =========================================================
    START
 ========================================================= */
 
-renderDay();
+/* Dynamic Supabase startup replaces the old hard-coded startup. */
+
+async function loadTripFromDatabase(){
+
+  const preview = document.getElementById("dayPreview");
+
+  try{
+    const [tripResult, scheduleResult] = await Promise.all([
+      db.from("trips").select("*").eq("id", TRIP_ID).single(),
+      db.from("schedule").select("*")
+        .eq("trip_id", TRIP_ID)
+        .order("schedule_date", {ascending:true})
+        .order("sort_order", {ascending:true})
+    ]);
+
+    if(tripResult.error) throw tripResult.error;
+    if(scheduleResult.error) throw scheduleResult.error;
+
+    const trip = tripResult.data;
+    const rows = scheduleResult.data || [];
+
+    // ----- Dynamic page header -----
+    const start = trip.start_date ? new Date(trip.start_date + "T00:00:00") : null;
+    const end   = trip.end_date ? new Date(trip.end_date + "T00:00:00") : null;
+
+    const monthYear = start
+      ? start.toLocaleDateString("en-SG",{month:"long",year:"numeric"}).toUpperCase()
+      : "";
+
+    document.querySelector(".eyebrow").textContent =
+      [trip.country, monthYear].filter(Boolean).join(" · ");
+
+    document.querySelector("h1").textContent = trip.name || "My Trip";
+    document.title = trip.name || "My Trip";
+
+    const fmt = d => d
+      ? d.toLocaleDateString("en-SG",{day:"numeric",month:"long",year:"numeric"})
+      : "";
+
+    document.querySelector(".sub").textContent =
+      start && end ? `${fmt(start)} – ${fmt(end)}` : (trip.description || "");
+
+    // ----- Group schedule by date -----
+    const byDate = {};
+    rows.forEach(row => {
+      (byDate[row.schedule_date] ||= []).push(row);
+    });
+
+    const dates = Object.keys(byDate).sort();
+
+    // Dynamic route summary from actual schedule locations/titles.
+    const routeParts = [];
+    dates.forEach(date => {
+      const dayRows = byDate[date];
+      const candidate = dayRows.find(r => r.location_name)?.location_name
+        || dayRows.find(r => r.title)?.title;
+      if(candidate && !routeParts.includes(candidate)) routeParts.push(candidate);
+    });
+
+    const tripline = document.querySelector(".tripline");
+    if(tripline){
+      tripline.innerHTML = trip.description
+        ? `<strong>${trip.description}</strong>`
+        : `<strong>${trip.country || "TRIP"}</strong> · ${dates.length} planned day${dates.length===1?"":"s"}`;
+    }
+
+    if(!dates.length){
+      preview.innerHTML = `
+        <div class="day-card">
+          <div class="day-label">TRIP PREVIEW</div>
+          <h2>No plans added yet</h2>
+          <div class="day-area">${trip.country || ""}</div>
+          <a class="full-plan" href="schedule.html?trip=${TRIP_ID}">OPEN PLAN →</a>
+          ${renderFoodNearby()}
+        </div>`;
+      bindFoodNearby();
+      return;
+    }
+
+    const todayISO = new Date().toLocaleDateString("en-CA");
+    let selectedDate =
+      dates.includes(todayISO) ? todayISO :
+      (todayISO < dates[0] ? dates[0] : dates[dates.length-1]);
+
+    function timeText(row){
+      if(row.time_label) return row.time_label;
+      const pretty = t => {
+        if(!t) return "";
+        const [hh,mm] = t.split(":").map(Number);
+        const d = new Date(2000,0,1,hh,mm);
+        return d.toLocaleTimeString("en-SG",{hour:"numeric",minute:mm ? "2-digit" : undefined});
+      };
+      if(row.start_time && row.end_time) return `${pretty(row.start_time)} – ${pretty(row.end_time)}`;
+      if(row.start_time) return pretty(row.start_time);
+      return "";
+    }
+
+    function mapFor(row){
+      if(row.maps_url) return row.maps_url;
+      const q = row.location_name || row.address || row.title;
+      return q ? mapURL(q) : "";
+    }
+
+    function dayTitle(dayRows){
+      // Use the actual day's schedule rather than a hard-coded title.
+      // Prefer attraction/custom items and combine the first two meaningful stops.
+      const meaningful = dayRows.filter(r =>
+        !["transport","hotel"].includes(String(r.item_type || "").toLowerCase())
+      );
+      const source = meaningful.length ? meaningful : dayRows;
+      const names = source.slice(0,2).map(r =>
+        String(r.title || "").replace(/^[^\p{L}\p{N}]+/u,"").trim()
+      ).filter(Boolean);
+      return names.join(" + ") || "Trip Day";
+    }
+
+    function dayArea(dayRows){
+      const loc = dayRows.find(r => r.location_name)?.location_name;
+      if(loc) return loc.toUpperCase();
+
+      // fall back to country; avoids Japan/Kyoto being hard-coded for Taiwan etc.
+      return (trip.country || "TRIP").toUpperCase();
+    }
+
+    function renderDynamic(){
+      const dayRows = byDate[selectedDate] || [];
+      const date = new Date(selectedDate + "T00:00:00");
+      const weekday = date.toLocaleDateString("en-SG",{weekday:"long"}).toUpperCase();
+      const dayNum = date.getDate();
+      const mon = date.toLocaleDateString("en-SG",{month:"short"}).toUpperCase();
+
+      const dateButtons = dates.map(ds => {
+        const d = new Date(ds + "T00:00:00");
+        return `
+          <button class="date-btn ${ds===selectedDate?"active":""}" data-date="${ds}" type="button">
+            <span class="num">${d.getDate()}</span>
+            <span class="dow">${d.toLocaleDateString("en-SG",{weekday:"short"}).toUpperCase()}</span>
+          </button>`;
+      }).join("");
+
+      const blocks = dayRows.map(row => {
+        const map = mapFor(row);
+        return `
+          <div class="block">
+            <div class="block-head">
+              <div class="block-time">${timeText(row)}</div>
+              <div class="block-main">
+                <div class="block-name">${row.title || ""}</div>
+                ${row.notes ? `<div class="block-note">${row.notes}</div>` : ""}
+              </div>
+              ${map ? `<a class="block-map" href="${map}" target="_blank" rel="noopener noreferrer">📍</a>` : ""}
+            </div>
+          </div>`;
+      }).join("");
+
+      preview.innerHTML = `
+        <div class="day-card">
+          <div class="day-top">
+            <div class="day-label">TRIP PREVIEW</div>
+            <div class="day-date">${weekday} · ${dayNum} ${mon}</div>
+          </div>
+          <h2>${dayTitle(dayRows)}</h2>
+          <div class="day-area">${dayArea(dayRows)}</div>
+          <div class="date-scroll">${dateButtons}</div>
+          <div class="plan-title">DAY AT A GLANCE</div>
+          ${blocks}
+          <a class="full-plan" href="schedule.html?trip=${TRIP_ID}#${selectedDate}">FULL PLAN →</a>
+          ${renderFoodNearby()}
+        </div>`;
+
+      document.querySelectorAll("[data-date]").forEach(btn => {
+        btn.onclick = () => {
+          selectedDate = btn.dataset.date;
+          nearbyLoaded = false;
+          renderDynamic();
+        };
+      });
+      bindFoodNearby();
+    }
+
+    renderDynamic();
+
+  } catch(error){
+    console.error("Index load error:", error);
+    preview.innerHTML = `
+      <div class="day-card">
+        <div class="day-label">TRIP PREVIEW</div>
+        <h2>Could not load this trip</h2>
+        <div class="day-area">${error.message || "Supabase error"}</div>
+      </div>`;
+  }
+}
+
+loadTripFromDatabase();
 
 </script>
 
