@@ -4,40 +4,109 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Google Places Test</title>
+  <title>Google Places Diagnostic</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       background: #111;
-      color: white;
+      color: #fff;
       font-family: Arial, sans-serif;
-      padding: 30px;
+      padding: 30px 20px;
     }
 
     .box {
-      max-width: 500px;
-      margin: auto;
+      max-width: 650px;
+      margin: 0 auto;
     }
 
-    #status {
-      margin-top: 20px;
-      padding: 15px;
-      background: #222;
-      border-radius: 8px;
-      white-space: pre-wrap;
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    .diagnostics {
+      background: #1d1d1d;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .test {
+      padding: 10px 0;
+      border-bottom: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .test:last-child {
+      border-bottom: none;
+    }
+
+    .waiting {
+      color: #aaa;
     }
 
     .success {
-      color: #7CFF9B;
+      color: #76e397;
     }
 
     .error {
-      color: #FF7C7C;
+      color: #ff6b6b;
+    }
+
+    .search-section {
+      display: none;
+      margin-top: 25px;
+    }
+
+    #autocomplete {
+      margin-top: 15px;
+    }
+
+    #errorBox {
+      display: none;
+      background: #2a1717;
+      border: 1px solid #743737;
+      color: #ff8c8c;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 20px;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     #result {
+      display: none;
+      background: #1d1d1d;
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 12px;
       margin-top: 20px;
-      line-height: 1.7;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .label {
+      color: #999;
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-top: 14px;
+    }
+
+    .value {
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -46,98 +115,427 @@
 
 <div class="box">
 
-  <h2>🍜 Google Places Test</h2>
+  <h1>🍜 Google Places Test</h1>
 
-  <p>
-    Search for a restaurant in Japan:
-  </p>
-
-  <div id="autocomplete"></div>
-
-  <div id="status">
-    Loading Google Places...
+  <div class="subtitle">
+    Checking Google Maps + Places setup...
   </div>
 
+
+  <!-- DIAGNOSTIC RESULTS -->
+  <div class="diagnostics">
+
+    <div class="test">
+      <span>1. google-maps.js loaded</span>
+      <span id="test1" class="waiting">Checking...</span>
+    </div>
+
+    <div class="test">
+      <span>2. loadGoogleMaps() found</span>
+      <span id="test2" class="waiting">Checking...</span>
+    </div>
+
+    <div class="test">
+      <span>3. Google Maps loaded</span>
+      <span id="test3" class="waiting">Waiting...</span>
+    </div>
+
+    <div class="test">
+      <span>4. importLibrary() available</span>
+      <span id="test4" class="waiting">Waiting...</span>
+    </div>
+
+    <div class="test">
+      <span>5. Places library loaded</span>
+      <span id="test5" class="waiting">Waiting...</span>
+    </div>
+
+    <div class="test">
+      <span>6. Autocomplete available</span>
+      <span id="test6" class="waiting">Waiting...</span>
+    </div>
+
+  </div>
+
+
+  <!-- ERROR -->
+  <div id="errorBox"></div>
+
+
+  <!-- SEARCH -->
+  <div id="searchSection" class="search-section">
+
+    <h2>🔎 Search Restaurant</h2>
+
+    <p>
+      Try searching for:
+      <strong>Yabaton Nagoya</strong>
+    </p>
+
+    <div id="autocomplete"></div>
+
+  </div>
+
+
+  <!-- RESULT -->
   <div id="result"></div>
 
 </div>
 
 
-<!-- Your Google Maps loader -->
+<!-- =====================================================
+     LOAD OUR GOOGLE MAPS FILE
+===================================================== -->
+
 <script src="google-maps.js"></script>
+
 
 <script>
 
-async function startPlaces() {
+// =====================================================
+// HELPERS
+// =====================================================
 
-  const status = document.getElementById("status");
-  const container = document.getElementById("autocomplete");
-  const result = document.getElementById("result");
+function success(id) {
+
+  const el = document.getElementById(id);
+
+  el.textContent = "✓ PASS";
+  el.className = "success";
+
+}
+
+
+function fail(id) {
+
+  const el = document.getElementById(id);
+
+  el.textContent = "✕ FAIL";
+  el.className = "error";
+
+}
+
+
+function showError(error) {
+
+  const box = document.getElementById("errorBox");
+
+  box.style.display = "block";
+
+  box.textContent =
+    "ERROR DETAILS\n\n" +
+    (error?.stack ||
+     error?.message ||
+     String(error));
+
+}
+
+
+// =====================================================
+// START TEST
+// =====================================================
+
+async function runTest() {
 
   try {
 
-    // Load Google Maps
-    await loadGoogleMaps();
+    // -----------------------------------------------
+    // TEST 1
+    // Did google-maps.js execute?
+    // -----------------------------------------------
 
-    // Load Places library
-    const { PlaceAutocompleteElement } =
+    const scripts =
+      Array.from(document.scripts);
+
+    const googleFileFound =
+      scripts.some(script =>
+        script.src.includes("google-maps.js")
+      );
+
+    if (googleFileFound) {
+      success("test1");
+    } else {
+      fail("test1");
+
+      throw new Error(
+        "google-maps.js was not found on this page."
+      );
+    }
+
+
+    // -----------------------------------------------
+    // TEST 2
+    // Is loadGoogleMaps available?
+    // -----------------------------------------------
+
+    if (
+      typeof window.loadGoogleMaps === "function"
+    ) {
+
+      success("test2");
+
+    } else {
+
+      fail("test2");
+
+      throw new Error(
+        "loadGoogleMaps is not defined.\n\n" +
+        "google-maps.js exists, but the function " +
+        "is not available to food1.html.\n\n" +
+        "Add this to the END of google-maps.js:\n\n" +
+        "window.loadGoogleMaps = loadGoogleMaps;"
+      );
+
+    }
+
+
+    // -----------------------------------------------
+    // TEST 3
+    // Load Google Maps
+    // -----------------------------------------------
+
+    await window.loadGoogleMaps();
+
+
+    if (
+      window.google &&
+      window.google.maps
+    ) {
+
+      success("test3");
+
+    } else {
+
+      fail("test3");
+
+      throw new Error(
+        "Google Maps did not initialize."
+      );
+
+    }
+
+
+    // -----------------------------------------------
+    // TEST 4
+    // Check importLibrary
+    // -----------------------------------------------
+
+    if (
+      typeof google.maps.importLibrary === "function"
+    ) {
+
+      success("test4");
+
+    } else {
+
+      fail("test4");
+
+      throw new Error(
+        "google.maps.importLibrary is unavailable."
+      );
+
+    }
+
+
+    // -----------------------------------------------
+    // TEST 5
+    // Load Places
+    // -----------------------------------------------
+
+    const placesLibrary =
       await google.maps.importLibrary("places");
 
-    // Create autocomplete
+
+    if (placesLibrary) {
+
+      success("test5");
+
+    } else {
+
+      fail("test5");
+
+      throw new Error(
+        "Places library failed to load."
+      );
+
+    }
+
+
+    // -----------------------------------------------
+    // TEST 6
+    // Check autocomplete
+    // -----------------------------------------------
+
+    const {
+      PlaceAutocompleteElement
+    } = placesLibrary;
+
+
+    if (
+      typeof PlaceAutocompleteElement === "function"
+    ) {
+
+      success("test6");
+
+    } else {
+
+      fail("test6");
+
+      throw new Error(
+        "PlaceAutocompleteElement is unavailable."
+      );
+
+    }
+
+
+    // =================================================
+    // CREATE SEARCH BOX
+    // =================================================
+
+    const searchSection =
+      document.getElementById("searchSection");
+
+    searchSection.style.display = "block";
+
+
     const autocomplete =
       new PlaceAutocompleteElement();
 
     autocomplete.placeholder =
       "Search restaurant in Japan...";
 
-    container.appendChild(autocomplete);
 
-    status.textContent =
-      "✓ Google Places loaded successfully!";
-
-    status.className = "success";
+    document
+      .getElementById("autocomplete")
+      .appendChild(autocomplete);
 
 
-    // When user selects a place
+    // =================================================
+    // PLACE SELECTED
+    // =================================================
+
     autocomplete.addEventListener(
       "gmp-select",
       async (event) => {
 
-        const prediction =
-          event.placePrediction;
+        try {
 
-        const place =
-          prediction.toPlace();
+          const prediction =
+            event.placePrediction;
 
-        await place.fetchFields({
-          fields: [
-            "displayName",
-            "formattedAddress",
-            "googleMapsURI",
-            "websiteURI",
-            "location"
-          ]
-        });
+          if (!prediction) {
+
+            throw new Error(
+              "No placePrediction returned."
+            );
+
+          }
 
 
-        result.innerHTML = `
-          <h3>Selected Place</h3>
+          const place =
+            prediction.toPlace();
 
-          <strong>Name:</strong><br>
-          ${place.displayName || "-"}
-          <br><br>
 
-          <strong>Address:</strong><br>
-          ${place.formattedAddress || "-"}
-          <br><br>
+          await place.fetchFields({
+            fields: [
+              "displayName",
+              "formattedAddress",
+              "googleMapsURI",
+              "websiteURI",
+              "location"
+            ]
+          });
 
-          <strong>Google Maps:</strong><br>
-          ${place.googleMapsURI || "-"}
-          <br><br>
 
-          <strong>Website:</strong><br>
-          ${place.websiteURI || "-"}
-        `;
+          const result =
+            document.getElementById("result");
+
+
+          result.style.display = "block";
+
+
+          result.innerHTML = `
+
+            <h2>✅ Place Selected</h2>
+
+            <div class="label">
+              Name
+            </div>
+
+            <div class="value">
+              ${place.displayName || "-"}
+            </div>
+
+
+            <div class="label">
+              Address
+            </div>
+
+            <div class="value">
+              ${place.formattedAddress || "-"}
+            </div>
+
+
+            <div class="label">
+              Latitude
+            </div>
+
+            <div class="value">
+              ${place.location?.lat?.() ?? "-"}
+            </div>
+
+
+            <div class="label">
+              Longitude
+            </div>
+
+            <div class="value">
+              ${place.location?.lng?.() ?? "-"}
+            </div>
+
+
+            <div class="label">
+              Google Maps
+            </div>
+
+            <div class="value">
+              ${
+                place.googleMapsURI
+                  ? `<a href="${place.googleMapsURI}"
+                       target="_blank"
+                       style="color:#8ab4f8;">
+                       Open Google Maps
+                     </a>`
+                  : "-"
+              }
+            </div>
+
+
+            <div class="label">
+              Website
+            </div>
+
+            <div class="value">
+              ${
+                place.websiteURI
+                  ? `<a href="${place.websiteURI}"
+                       target="_blank"
+                       style="color:#8ab4f8;">
+                       ${place.websiteURI}
+                     </a>`
+                  : "-"
+              }
+            </div>
+
+          `;
+
+
+        } catch (error) {
+
+          console.error(error);
+          showError(error);
+
+        }
 
       }
     );
@@ -147,17 +545,18 @@ async function startPlaces() {
 
     console.error(error);
 
-    status.textContent =
-      "❌ ERROR:\n" +
-      (error.message || error);
-
-    status.className = "error";
+    showError(error);
 
   }
 
 }
 
-startPlaces();
+
+// =====================================================
+// RUN
+// =====================================================
+
+runTest();
 
 </script>
 
