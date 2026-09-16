@@ -137,3 +137,6 @@ function loadGoogleMaps() {
 
   return googleMapsPromise;
 }
+
+// Make Google Maps loader available to other pages
+window.loadGoogleMaps = loadGoogleMaps;
