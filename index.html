@@ -24,9 +24,7 @@
 
 *{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -46,9 +44,10 @@ main{
   padding:20px 14px 94px;
 }
 
-/* ===============================
+
+/* =========================================================
    HEADER
-================================ */
+========================================================= */
 
 .eyebrow{
   color:var(--red);
@@ -71,9 +70,10 @@ h1{
   color:var(--muted);
 }
 
-/* ===============================
+
+/* =========================================================
    DAY CARD
-================================ */
+========================================================= */
 
 .day-card{
   margin-top:18px;
@@ -119,9 +119,10 @@ h1{
   font-size:9px;
 }
 
-/* ===============================
+
+/* =========================================================
    DATE SCROLLER
-================================ */
+========================================================= */
 
 .date-scroll{
   display:flex;
@@ -171,9 +172,10 @@ h1{
   color:#fff;
 }
 
-/* ===============================
-   BOOKING REMINDER
-================================ */
+
+/* =========================================================
+   BOOKING STRIP
+========================================================= */
 
 .booking-strip{
   display:flex;
@@ -211,9 +213,10 @@ h1{
   font-size:11px;
 }
 
-/* ===============================
-   BLOCKS
-================================ */
+
+/* =========================================================
+   DAY BLOCKS
+========================================================= */
 
 .plan-title{
   margin:14px 2px 6px;
@@ -225,7 +228,6 @@ h1{
 
 .block{
   margin-bottom:6px;
-  padding:10px;
   border:1px solid var(--line);
   border-radius:12px;
   background:
@@ -234,21 +236,28 @@ h1{
       #141c22,
       #0d1318
     );
+  overflow:hidden;
 }
 
 .block-head{
+  width:100%;
+  min-height:52px;
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   gap:8px;
+  padding:9px 10px;
+}
+
+.block.expandable .block-head{
+  cursor:pointer;
 }
 
 .block-time{
-  flex:0 0 72px;
-  padding-top:1px;
+  flex:0 0 76px;
   color:#a6b7c2;
   font-size:7px;
   font-weight:900;
-  line-height:1.35;
+  line-height:1.4;
 }
 
 .block-main{
@@ -270,21 +279,55 @@ h1{
   line-height:1.4;
 }
 
-/* ===============================
-   SMALL POIS
-================================ */
+.block-chevron{
+  flex:0 0 25px;
+  color:#8d9aa2;
+  text-align:center;
+  font-size:12px;
+  transition:transform .2s ease;
+}
+
+.block.open .block-chevron{
+  transform:rotate(180deg);
+}
+
+.block-map{
+  flex:0 0 31px;
+  width:31px;
+  height:31px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(92,157,255,.18);
+  border-radius:8px;
+  background:rgba(92,157,255,.05);
+  text-decoration:none;
+  font-size:12px;
+}
+
+
+/* =========================================================
+   COLLAPSIBLE CONTENT
+========================================================= */
+
+.block-content{
+  display:none;
+  padding:0 10px 10px 94px;
+}
+
+.block.open .block-content{
+  display:block;
+}
 
 .poi-list{
-  margin-top:7px;
-  margin-left:80px;
   border-top:1px solid rgba(255,255,255,.055);
 }
 
 .poi{
+  min-height:34px;
   display:flex;
   align-items:center;
   gap:7px;
-  min-height:29px;
   border-bottom:1px solid rgba(255,255,255,.045);
 }
 
@@ -293,7 +336,7 @@ h1{
 }
 
 .poi-route{
-  flex:0 0 9px;
+  flex:0 0 10px;
   color:#596771;
   font-size:7px;
   text-align:center;
@@ -320,9 +363,9 @@ h1{
 }
 
 .poi-map{
-  flex:0 0 29px;
-  width:29px;
-  height:27px;
+  flex:0 0 30px;
+  width:30px;
+  height:28px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -333,27 +376,60 @@ h1{
   font-size:11px;
 }
 
-/* ===============================
-   SIMPLE BLOCK
-================================ */
 
-.block-map{
-  flex:0 0 30px;
-  width:30px;
-  height:30px;
+/* =========================================================
+   FOOD NEAR ME
+========================================================= */
+
+.food-nearby{
+  width:100%;
+  min-height:36px;
+  margin-top:8px;
+  padding:0 10px;
   display:flex;
   align-items:center;
-  justify-content:center;
-  border:1px solid rgba(92,157,255,.20);
-  border-radius:8px;
-  background:rgba(92,157,255,.06);
+  justify-content:space-between;
+  gap:8px;
+
+  border:1px solid rgba(103,197,135,.22);
+  border-radius:9px;
+
+  background:rgba(103,197,135,.06);
+  color:#c5ead0;
+
   text-decoration:none;
-  font-size:12px;
 }
 
-/* ===============================
+.food-nearby-left{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.food-nearby-icon{
+  font-size:13px;
+}
+
+.food-nearby-title{
+  font-size:7.5px;
+  font-weight:900;
+}
+
+.food-nearby-sub{
+  margin-top:1px;
+  color:#799d85;
+  font-size:5.5px;
+}
+
+.food-nearby-arrow{
+  font-size:11px;
+  color:var(--green);
+}
+
+
+/* =========================================================
    FULL PLAN
-================================ */
+========================================================= */
 
 .full-plan{
   display:flex;
@@ -370,20 +446,10 @@ h1{
   font-weight:900;
 }
 
-/* ===============================
-   PRETRIP
-================================ */
 
-.pretrip-note{
-  margin-top:8px;
-  color:#75828b;
-  font-size:7px;
-  line-height:1.4;
-}
-
-/* ===============================
+/* =========================================================
    QUICK ACCESS
-================================ */
+========================================================= */
 
 .section{
   margin-top:18px;
@@ -408,12 +474,7 @@ h1{
   padding:12px;
   border:1px solid var(--line);
   border-radius:15px;
-  background:
-    linear-gradient(
-      145deg,
-      #151d23,
-      #0e1419
-    );
+  background:linear-gradient(145deg,#151d23,#0e1419);
   color:var(--text);
   text-decoration:none;
   position:relative;
@@ -451,9 +512,10 @@ h1{
   font-weight:900;
 }
 
-/* ===============================
+
+/* =========================================================
    TRIPLINE
-================================ */
+========================================================= */
 
 .tripline{
   margin-top:14px;
@@ -471,9 +533,119 @@ h1{
   color:#dce0e2;
 }
 
-/* ===============================
+
+/* =========================================================
+   MORE SHEET
+========================================================= */
+
+.more-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:150;
+  display:none;
+  align-items:flex-end;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(4px);
+}
+
+.more-backdrop.open{
+  display:flex;
+}
+
+.more-sheet{
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  padding:
+    8px 13px
+    calc(18px + env(safe-area-inset-bottom));
+
+  border:1px solid var(--line);
+  border-radius:20px 20px 0 0;
+  background:#0d1318;
+}
+
+.sheet-handle{
+  width:38px;
+  height:4px;
+  margin:2px auto 13px;
+  border-radius:999px;
+  background:#39454d;
+}
+
+.more-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.more-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
+}
+
+.more-close{
+  width:32px;
+  height:32px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#151c22;
+  color:#fff;
+  cursor:pointer;
+}
+
+.more-link{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 10px;
+  margin-bottom:6px;
+
+  border:1px solid var(--line);
+  border-radius:11px;
+
+  background:#11181e;
+  color:#fff;
+  text-decoration:none;
+}
+
+.more-link.disabled{
+  opacity:.45;
+  cursor:default;
+}
+
+.more-link-icon{
+  flex:0 0 31px;
+  font-size:18px;
+  text-align:center;
+}
+
+.more-link-main{
+  flex:1;
+}
+
+.more-link-title{
+  font-size:9px;
+  font-weight:900;
+}
+
+.more-link-sub{
+  margin-top:2px;
+  color:#7f8b93;
+  font-size:6.5px;
+}
+
+.more-link-arrow{
+  color:#8d9aa2;
+  font-size:12px;
+}
+
+
+/* =========================================================
    BOTTOM NAV
-================================ */
+========================================================= */
 
 .bottom-nav{
   position:fixed;
@@ -490,13 +662,12 @@ h1{
     calc(7px + env(safe-area-inset-bottom));
 
   border-top:1px solid var(--line);
-
   background:rgba(7,12,16,.97);
-
   backdrop-filter:blur(18px);
 }
 
-.bottom-nav a{
+.bottom-nav a,
+.bottom-nav button{
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -505,36 +676,48 @@ h1{
 
   min-height:47px;
 
+  border:0;
   border-radius:11px;
 
+  background:transparent;
   color:var(--muted);
   text-decoration:none;
 
   font-size:8px;
   font-weight:800;
+
+  cursor:pointer;
 }
 
 .nav-icon{
   font-size:16px;
 }
 
-.bottom-nav a.active{
+.bottom-nav .active{
   color:#fff;
   border:1px solid rgba(201,111,104,.25);
   background:rgba(201,111,104,.10);
 }
 
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
 @media(max-width:360px){
+
   .block-time{
-    flex-basis:64px;
+    flex-basis:68px;
   }
 
-  .poi-list{
-    margin-left:72px;
+  .block-content{
+    padding-left:86px;
   }
+
 }
 
 @media(min-width:700px){
+
   .bottom-nav{
     left:50%;
     right:auto;
@@ -544,6 +727,7 @@ h1{
     border-right:1px solid var(--line);
     border-radius:16px 16px 0 0;
   }
+
 }
 </style>
 </head>
@@ -556,21 +740,15 @@ h1{
     Japan · Autumn 2026
   </div>
 
-  <h1>
-    Japan Trip
-  </h1>
+  <h1>Japan Trip</h1>
 
   <div class="sub">
     18–30 October 2026 · Kyoto → Mountains → Osaka
   </div>
 
 
-  <!-- DAY PREVIEW -->
-
   <section id="dayPreview"></section>
 
-
-  <!-- QUICK ACCESS -->
 
   <section class="section">
 
@@ -583,16 +761,10 @@ h1{
       <a
         id="scheduleCard"
         class="menu-card wide"
-        href="schedule.html"
       >
         <div class="menu-icon">📅</div>
-
         <h3>Plan</h3>
-
-        <p>
-          Full itinerary · exact timings · transport · notes
-        </p>
-
+        <p>Full itinerary · exact timings · transport · notes</p>
         <span class="menu-go">→</span>
       </a>
 
@@ -600,16 +772,10 @@ h1{
       <a
         id="bookingCard"
         class="menu-card wide"
-        href="bookings.html"
       >
         <div class="menu-icon">⭐</div>
-
         <h3>Bookings</h3>
-
-        <p>
-          What is booked · what still needs arranging
-        </p>
-
+        <p>What is booked · what still needs arranging</p>
         <span class="menu-go">→</span>
       </a>
 
@@ -617,34 +783,25 @@ h1{
       <a
         id="foodCard"
         class="menu-card"
-        href="food.html"
       >
         <div class="menu-icon">🍽️</div>
-
         <h3>Food</h3>
-
-        <p>
-          Your restaurant finder
-        </p>
-
+        <p>Your restaurant finder</p>
         <span class="menu-go">→</span>
       </a>
 
 
-      <a
+      <button
+        id="moreCard"
         class="menu-card"
-        href="#"
+        type="button"
+        style="text-align:left"
       >
         <div class="menu-icon">⋯</div>
-
         <h3>More</h3>
-
-        <p>
-          Places · map · trip tools
-        </p>
-
+        <p>Profile · trips · places</p>
         <span class="menu-go">→</span>
-      </a>
+      </button>
 
     </div>
 
@@ -653,26 +810,116 @@ h1{
 
   <div class="tripline">
     <strong>KYOTO</strong> · 18–22 Oct
-   　→　
+    　→　
     <strong>ROAD TRIP</strong> · 23–26 Oct
-   　→　
+    　→　
     <strong>OSAKA</strong> · 26–30 Oct
   </div>
 
 </main>
 
 
-<!-- BOTTOM NAV -->
+<!-- =======================================================
+     MORE
+======================================================= -->
 
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
+<div
+  id="moreBackdrop"
+  class="more-backdrop"
 >
+
+  <div class="more-sheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="more-head">
+
+      <div class="more-title">
+        More
+      </div>
+
+      <button
+        id="closeMore"
+        class="more-close"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <a
+      id="profileLink"
+      class="more-link"
+    >
+      <div class="more-link-icon">👤</div>
+
+      <div class="more-link-main">
+        <div class="more-link-title">
+          Profile & Sharing
+        </div>
+
+        <div class="more-link-sub">
+          Your profile · manage trip members
+        </div>
+      </div>
+
+      <div class="more-link-arrow">→</div>
+    </a>
+
+
+    <div class="more-link disabled">
+
+      <div class="more-link-icon">🧳</div>
+
+      <div class="more-link-main">
+        <div class="more-link-title">
+          My Trips
+        </div>
+
+        <div class="more-link-sub">
+          Create and switch trips · coming next
+        </div>
+      </div>
+
+      <div class="more-link-arrow">→</div>
+
+    </div>
+
+
+    <div class="more-link disabled">
+
+      <div class="more-link-icon">📍</div>
+
+      <div class="more-link-main">
+        <div class="more-link-title">
+          Places
+        </div>
+
+        <div class="more-link-sub">
+          Saved attractions · coming later
+        </div>
+      </div>
+
+      <div class="more-link-arrow">→</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     BOTTOM NAV
+======================================================= -->
+
+<nav class="bottom-nav">
 
   <a
     id="navHome"
     class="active"
-    aria-current="page"
   >
     <span class="nav-icon">🏠</span>
     <span>HOME</span>
@@ -693,10 +940,13 @@ h1{
     <span>HUB</span>
   </a>
 
-  <a href="#">
+  <button
+    id="navMore"
+    type="button"
+  >
     <span class="nav-icon">⋯</span>
     <span>MORE</span>
-  </a>
+  </button>
 
 </nav>
 
@@ -704,7 +954,7 @@ h1{
 <script>
 
 /* =========================================================
-   TRIP
+   CONFIG
 ========================================================= */
 
 const params =
@@ -715,8 +965,13 @@ const TRIP_ID =
 
 
 /* =========================================================
-   HOME PREVIEW DATA
-   This is intentionally grouped more broadly than schedule.
+   DAY DATA
+
+   expandable:true
+   = block can open/close
+
+   foodNearby:true
+   = show Food Near Me inside it
 ========================================================= */
 
 const days = {
@@ -725,6 +980,7 @@ const days = {
   area:"KYOTO",
   title:"Arrival + Higashiyama",
   booking:"🏨 Hotel Century Kyoto · 18–21 Oct",
+
   blocks:[
 
     {
@@ -743,6 +999,9 @@ const days = {
     {
       time:"4:30 – 6:15 PM",
       name:"⛩️ Higashiyama",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kiyomizu-dera","Kiyomizu-dera Kyoto"],
         ["Sannenzaka","Sannenzaka Kyoto"],
@@ -754,6 +1013,9 @@ const days = {
     {
       time:"6:15 – 7:15 PM",
       name:"🏮 Gion",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Yasaka Shrine","Yasaka Shrine Kyoto"],
         ["Hanamikoji","Hanamikoji Street Kyoto"],
@@ -770,6 +1032,9 @@ const days = {
     {
       time:"9:15 – 10:00 PM",
       name:"✨ Kyoto Station",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Grand Staircase","Kyoto Station Grand Staircase"],
         ["Skyway","Kyoto Station Skyway"]
@@ -784,11 +1049,15 @@ const days = {
   area:"KYOTO",
   title:"Fushimi + Arashiyama",
   booking:"🍣 Takara Sushi · lunch target",
+
   blocks:[
 
     {
       time:"7:15 – 9:30 AM",
       name:"⛩️ Fushimi Inari",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Senbon Torii","Senbon Torii Kyoto"],
         ["Walk partway up","Fushimi Inari Taisha Kyoto"]
@@ -804,6 +1073,9 @@ const days = {
     {
       time:"12:20 – 5:00 PM",
       name:"🎋 Arashiyama",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Togetsukyo Bridge","Togetsukyo Bridge Kyoto"],
         ["Bamboo Grove","Arashiyama Bamboo Grove Kyoto"],
@@ -828,6 +1100,7 @@ const days = {
   area:"KYOTO",
   title:"Kifune Lanterns + Setsu",
   booking:"🔒 Setsu · 7:45 PM · Kifune taxi to arrange",
+
   blocks:[
 
     {
@@ -846,6 +1119,9 @@ const days = {
     {
       time:"4:00 – 6:20 PM",
       name:"🏮 Kibune + Kifune",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kibune Village","Kibune Kyoto"],
         ["Kifune Shrine","Kifune Shrine Kyoto"],
@@ -875,6 +1151,7 @@ const days = {
   area:"KYOTO",
   title:"Ine Day Trip",
   booking:"🏨 Hotel Granvia Kyoto · 21–23 Oct",
+
   blocks:[
 
     {
@@ -887,6 +1164,9 @@ const days = {
     {
       time:"~10:30 AM – 4:00 PM",
       name:"🌊 Ine",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Ine Funaya","Ine no Funaya Kyoto"],
         ["Waterfront","Ine Kyoto"],
@@ -908,11 +1188,15 @@ const days = {
   area:"KYOTO",
   title:"Nanzen-ji + teamLab",
   booking:"⏳ teamLab ticket to check",
+
   blocks:[
 
     {
       time:"8:15 – 10:30 AM",
       name:"⛩️ Nanzen-ji Area",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Suirokaku Aqueduct","Suirokaku Aqueduct Kyoto"],
         ["Nanzen-ji","Nanzenji Kyoto"],
@@ -924,6 +1208,9 @@ const days = {
     {
       time:"11:00 AM – 12:30 PM",
       name:"🏯 Kodaiji Area",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kodaiji","Kodaiji Kyoto"],
         ["Nene-no-Michi","Nene no Michi Kyoto"]
@@ -949,6 +1236,7 @@ const days = {
   area:"ROAD TRIP",
   title:"Soni → Dorogawa",
   booking:"♨️ Kadojin · 23–24 Oct · rental car to check",
+
   blocks:[
 
     {
@@ -965,6 +1253,9 @@ const days = {
     {
       time:"~5:15 PM",
       name:"♨️ Dorogawa Onsen",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kadojin","Kadojin Dorogawa Onsen"],
         ["Dorogawa Onsen Village","Dorogawa Onsen Nara"]
@@ -979,6 +1270,7 @@ const days = {
   area:"ROAD TRIP",
   title:"Skyline → Gomadanzan → Ryujin",
   booking:"♨️ Kamigoten · 24–25 Oct",
+
   blocks:[
 
     {
@@ -990,6 +1282,8 @@ const days = {
     {
       time:"1:00 – 3:30 PM",
       name:"🏔️ Koya-Ryujin Skyline",
+      expandable:true,
+
       pois:[
         ["Scenic Ridge Drive","Koya Ryujin Skyline"],
         ["Mt. Gomadanzan","Mount Gomadanzan Wakayama"],
@@ -1000,6 +1294,9 @@ const days = {
     {
       time:"~4:30 PM",
       name:"♨️ Ryujin Onsen",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kamigoten","Kamigoten Ryujin Onsen"],
         ["Ryujin Onsen","Ryujin Onsen Wakayama"]
@@ -1014,11 +1311,15 @@ const days = {
   area:"ROAD TRIP",
   title:"Kumano → Nachikatsuura",
   booking:"🏨 Kamenoi Hotel Nachi Katsuura · 25–26 Oct",
+
   blocks:[
 
     {
       time:"~12:30 – 2:20 PM",
       name:"⛩️ Kumano Hongu",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kumano Hongu Taisha","Kumano Hongu Taisha"],
         ["Oyunohara Giant Torii","Oyunohara Wakayama"]
@@ -1028,6 +1329,9 @@ const days = {
     {
       time:"~4:00 PM",
       name:"🌊 Nachikatsuura",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kamenoi Hotel Nachi Katsuura","Kamenoi Hotel Nachi Katsuura"],
         ["Nachikatsuura","Nachikatsuura Wakayama"]
@@ -1042,11 +1346,15 @@ const days = {
   area:"ROAD TRIP → OSAKA",
   title:"Nachi → Osaka",
   booking:"🏨 Hotel Hankyu International · 26–30 Oct",
+
   blocks:[
 
     {
       time:"8:00 – 10:45 AM",
       name:"🌊 Nachi",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Nachi Falls","Nachi Falls Wakayama"],
         ["Kumano Nachi Taisha","Kumano Nachi Taisha"],
@@ -1065,6 +1373,9 @@ const days = {
     {
       time:"~7:00 PM",
       name:"🏨 Osaka",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Hotel Hankyu International","Hotel Hankyu International Osaka"]
       ]
@@ -1078,6 +1389,7 @@ const days = {
   area:"OSAKA",
   title:"Namba + MIRACLE WORLD",
   booking:"🎮 ROUND1 / MIRACLE WORLD · check if booking needed",
+
   blocks:[
 
     {
@@ -1089,6 +1401,9 @@ const days = {
     {
       time:"12:15 – 2:15 PM",
       name:"🐟 Namba",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Kuromon Market","Kuromon Market Osaka"],
         ["Namba Yasaka Shrine","Namba Yasaka Shrine Osaka"]
@@ -1110,6 +1425,9 @@ const days = {
     {
       time:"5:15 PM onward",
       name:"🏮 Hozenji + Dotonbori",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Hozenji Yokocho","Hozenji Yokocho Osaka"],
         ["Hozenji","Hozenji Osaka"],
@@ -1125,6 +1443,7 @@ const days = {
   area:"AICHI DAY TRIP",
   title:"Mentai + Pokémon Observatory",
   booking:"⏳ Pokémon + Shinkansen tickets to book/check",
+
   blocks:[
 
     {
@@ -1136,6 +1455,9 @@ const days = {
     {
       time:"2:15 – 4:00 PM",
       name:"🔭 Pokémon Observatory",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Toyohashi Museum of Natural History","Toyohashi Museum of Natural History"],
         ["Pokémon Observatory","Toyohashi Museum of Natural History"]
@@ -1156,11 +1478,15 @@ const days = {
   area:"NARA",
   title:"Nara + Wakakusa Sunset",
   booking:"🌄 Keep afternoon flexible for sunset",
+
   blocks:[
 
     {
       time:"10:30 AM – 3:00 PM",
       name:"🦌 Nara",
+      expandable:true,
+      foodNearby:true,
+
       pois:[
         ["Nara Park","Nara Park"],
         ["Todaiji","Todaiji Nara"],
@@ -1184,12 +1510,18 @@ const days = {
   area:"OSAKA",
   title:"Fly Home",
   booking:"✈️ Flight · 6:00 PM",
+
   blocks:[
 
     {
       time:"9:00 – 11:30 AM",
       name:"🛍️ Final Osaka Morning",
-      note:"Stay near hotel"
+      note:"Stay near hotel",
+      foodNearby:true,
+      expandable:true,
+      pois:[
+        ["Hotel area","Hotel Hankyu International Osaka"]
+      ]
     },
 
     {
@@ -1225,7 +1557,7 @@ function mapURL(query){
 
 
 /* =========================================================
-   DATES
+   TRIP DATE
 ========================================================= */
 
 const tripStart =
@@ -1266,7 +1598,14 @@ let selectedDay =
 
 
 /* =========================================================
-   RENDER DATE SCROLLER
+   OPEN BLOCK MEMORY
+========================================================= */
+
+const openBlocks = {};
+
+
+/* =========================================================
+   DATES
 ========================================================= */
 
 function renderDates(){
@@ -1297,14 +1636,11 @@ function renderDates(){
             return `
 
               <button
-                class="
-                  date-btn
-                  ${
-                    Number(day) === selectedDay
-                    ? "active"
-                    : ""
-                  }
-                "
+                class="date-btn ${
+                  Number(day) === selectedDay
+                  ? "active"
+                  : ""
+                }"
                 data-day="${day}"
                 type="button"
               >
@@ -1333,21 +1669,261 @@ function renderDates(){
 
 
 /* =========================================================
-   RENDER BLOCK
+   POIS
 ========================================================= */
 
-function renderBlock(block){
+function renderPois(block){
 
-  const hasPois =
-    Array.isArray(block.pois) &&
-    block.pois.length;
+  if(
+    !Array.isArray(block.pois) ||
+    !block.pois.length
+  ){
+    return "";
+  }
 
 
   return `
 
-    <div class="block">
+    <div class="poi-list">
 
-      <div class="block-head">
+      ${
+        block.pois
+          .map((poi,index) => {
+
+            const name =
+              poi[0];
+
+            const map =
+              poi[1];
+
+            const optional =
+              poi[2] === true;
+
+
+            return `
+
+              <div
+                class="poi ${
+                  optional
+                  ? "optional"
+                  : ""
+                }"
+              >
+
+                <div class="poi-route">
+                  ${index === 0 ? "•" : "↓"}
+                </div>
+
+
+                <div class="poi-name">
+
+                  ${name}
+
+                  ${
+                    optional
+
+                    ?
+
+                    `
+                      <span class="optional-label">
+                        OPTIONAL
+                      </span>
+                    `
+
+                    :
+
+                    ""
+                  }
+
+                </div>
+
+
+                ${
+                  map
+
+                  ?
+
+                  `
+                    <a
+                      class="poi-map"
+                      href="${mapURL(map)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onclick="event.stopPropagation()"
+                      aria-label="Open map for ${name}"
+                    >
+                      📍
+                    </a>
+                  `
+
+                  :
+
+                  ""
+                }
+
+              </div>
+
+            `;
+
+          })
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   FOOD NEAR ME
+========================================================= */
+
+function renderFoodNearby(block){
+
+  if(!block.foodNearby){
+    return "";
+  }
+
+
+  return `
+
+    <a
+      class="food-nearby"
+      href="food.html?trip=${TRIP_ID}&nearby=1"
+    >
+
+      <div class="food-nearby-left">
+
+        <div class="food-nearby-icon">
+          🍽️
+        </div>
+
+        <div>
+
+          <div class="food-nearby-title">
+            FOOD NEAR ME
+          </div>
+
+          <div class="food-nearby-sub">
+            Find food around your current location
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="food-nearby-arrow">
+        →
+      </div>
+
+    </a>
+
+  `;
+
+}
+
+
+/* =========================================================
+   BLOCK
+========================================================= */
+
+function renderBlock(block,index){
+
+  const expandable =
+    block.expandable === true;
+
+  const key =
+    `${selectedDay}-${index}`;
+
+  const isOpen =
+    openBlocks[key] === true;
+
+
+  if(!expandable){
+
+    return `
+
+      <div class="block">
+
+        <div class="block-head">
+
+          <div class="block-time">
+            ${block.time || ""}
+          </div>
+
+
+          <div class="block-main">
+
+            <div class="block-name">
+              ${block.name}
+            </div>
+
+            ${
+              block.note
+
+              ?
+
+              `
+                <div class="block-note">
+                  ${block.note}
+                </div>
+              `
+
+              :
+
+              ""
+            }
+
+          </div>
+
+
+          ${
+            block.map
+
+            ?
+
+            `
+              <a
+                class="block-map"
+                href="${mapURL(block.map)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                📍
+              </a>
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div
+      class="block expandable ${
+        isOpen
+        ? "open"
+        : ""
+      }"
+      data-block="${index}"
+    >
+
+      <div
+        class="block-head"
+        data-toggle-block="${index}"
+      >
 
         <div class="block-time">
           ${block.time || ""}
@@ -1362,131 +1938,37 @@ function renderBlock(block){
 
           ${
             block.note
+
             ?
+
             `
               <div class="block-note">
                 ${block.note}
               </div>
             `
+
             :
+
             ""
           }
 
         </div>
 
 
-        ${
-          block.map && !hasPois
-
-          ?
-
-          `
-            <a
-              class="block-map"
-              href="${mapURL(block.map)}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open map"
-            >
-              📍
-            </a>
-          `
-
-          :
-
-          ""
-        }
+        <div class="block-chevron">
+          ⌄
+        </div>
 
       </div>
 
 
-      ${
-        hasPois
+      <div class="block-content">
 
-        ?
+        ${renderPois(block)}
 
-        `
-          <div class="poi-list">
+        ${renderFoodNearby(block)}
 
-            ${
-              block.pois
-                .map((poi,index) => {
-
-                  const name =
-                    poi[0];
-
-                  const map =
-                    poi[1];
-
-                  const optional =
-                    poi[2] === true;
-
-                  return `
-
-                    <div
-                      class="
-                        poi
-                        ${optional ? "optional" : ""}
-                      "
-                    >
-
-                      <div class="poi-route">
-                        ${index === 0 ? "•" : "↓"}
-                      </div>
-
-
-                      <div class="poi-name">
-
-                        ${name}
-
-                        ${
-                          optional
-                          ?
-                          `<span class="optional-label">OPTIONAL</span>`
-                          :
-                          ""
-                        }
-
-                      </div>
-
-
-                      ${
-                        map
-
-                        ?
-
-                        `
-                          <a
-                            class="poi-map"
-                            href="${mapURL(map)}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Map for ${name}"
-                          >
-                            📍
-                          </a>
-                        `
-
-                        :
-
-                        ""
-                      }
-
-                    </div>
-
-                  `;
-
-                })
-                .join("")
-            }
-
-          </div>
-        `
-
-        :
-
-        ""
-      }
+      </div>
 
     </div>
 
@@ -1529,13 +2011,7 @@ function renderDay(){
       <div class="day-top">
 
         <div class="day-label">
-          ${
-            selectedDay === initialDay()
-            ?
-            "TRIP PREVIEW"
-            :
-            "PREVIEW DAY"
-          }
+          TRIP PREVIEW
         </div>
 
         <div class="day-date">
@@ -1605,7 +2081,13 @@ function renderDay(){
 
       ${
         day.blocks
-          .map(renderBlock)
+          .map(
+            (block,index) =>
+              renderBlock(
+                block,
+                index
+              )
+          )
           .join("")
       }
 
@@ -1622,16 +2104,16 @@ function renderDay(){
   `;
 
 
-  bindDateButtons();
+  bindDayEvents();
 
 }
 
 
 /* =========================================================
-   DATE BUTTONS
+   DAY EVENTS
 ========================================================= */
 
-function bindDateButtons(){
+function bindDayEvents(){
 
   document
     .querySelectorAll(
@@ -1639,8 +2121,7 @@ function bindDateButtons(){
     )
     .forEach(button => {
 
-      button.addEventListener(
-        "click",
+      button.onclick =
         () => {
 
           selectedDay =
@@ -1650,8 +2131,43 @@ function bindDateButtons(){
 
           renderDay();
 
-        }
-      );
+        };
+
+    });
+
+
+  document
+    .querySelectorAll(
+      "[data-toggle-block]"
+    )
+    .forEach(button => {
+
+      button.onclick =
+        () => {
+
+          const index =
+            Number(
+              button.dataset.toggleBlock
+            );
+
+          const key =
+            `${selectedDay}-${index}`;
+
+
+          openBlocks[key] =
+            !openBlocks[key];
+
+
+          const block =
+            button.closest(".block");
+
+
+          block.classList.toggle(
+            "open",
+            openBlocks[key]
+          );
+
+        };
 
     });
 
@@ -1659,7 +2175,63 @@ function bindDateButtons(){
 
 
 /* =========================================================
-   NAV LINKS
+   MORE
+========================================================= */
+
+const moreBackdrop =
+  document.getElementById(
+    "moreBackdrop"
+  );
+
+
+function openMore(){
+
+  moreBackdrop
+    .classList
+    .add("open");
+
+}
+
+
+function closeMore(){
+
+  moreBackdrop
+    .classList
+    .remove("open");
+
+}
+
+
+document.getElementById(
+  "navMore"
+).onclick =
+  openMore;
+
+
+document.getElementById(
+  "moreCard"
+).onclick =
+  openMore;
+
+
+document.getElementById(
+  "closeMore"
+).onclick =
+  closeMore;
+
+
+moreBackdrop.onclick =
+  event => {
+
+    if(event.target === moreBackdrop){
+      closeMore();
+    }
+
+  };
+
+
+/* =========================================================
+   LINKS
 ========================================================= */
 
 document.getElementById(
@@ -1697,6 +2269,11 @@ document.getElementById(
   "foodCard"
 ).href =
   `food.html?trip=${TRIP_ID}`;
+
+document.getElementById(
+  "profileLink"
+).href =
+  `profile.html?trip=${TRIP_ID}`;
 
 
 /* =========================================================
