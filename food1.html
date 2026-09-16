@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Google Places Test</title>
+
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .box {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    #status {
+      margin-top: 20px;
+      padding: 15px;
+      background: #222;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+
+    .success {
+      color: #7CFF9B;
+    }
+
+    .error {
+      color: #FF7C7C;
+    }
+
+    #result {
+      margin-top: 20px;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <h2>🍜 Google Places Test</h2>
+
+  <p>
+    Search for a restaurant in Japan:
+  </p>
+
+  <div id="autocomplete"></div>
+
+  <div id="status">
+    Loading Google Places...
+  </div>
+
+  <div id="result"></div>
+
+</div>
+
+
+<!-- Your Google Maps loader -->
+<script src="google-maps.js"></script>
+
+<script>
+
+async function startPlaces() {
+
+  const status = document.getElementById("status");
+  const container = document.getElementById("autocomplete");
+  const result = document.getElementById("result");
+
+  try {
+
+    // Load Google Maps
+    await loadGoogleMaps();
+
+    // Load Places library
+    const { PlaceAutocompleteElement } =
+      await google.maps.importLibrary("places");
+
+    // Create autocomplete
+    const autocomplete =
+      new PlaceAutocompleteElement();
+
+    autocomplete.placeholder =
+      "Search restaurant in Japan...";
+
+    container.appendChild(autocomplete);
+
+    status.textContent =
+      "✓ Google Places loaded successfully!";
+
+    status.className = "success";
+
+
+    // When user selects a place
+    autocomplete.addEventListener(
+      "gmp-select",
+      async (event) => {
+
+        const prediction =
+          event.placePrediction;
+
+        const place =
+          prediction.toPlace();
+
+        await place.fetchFields({
+          fields: [
+            "displayName",
+            "formattedAddress",
+            "googleMapsURI",
+            "websiteURI",
+            "location"
+          ]
+        });
+
+
+        result.innerHTML = `
+          <h3>Selected Place</h3>
+
+          <strong>Name:</strong><br>
+          ${place.displayName || "-"}
+          <br><br>
+
+          <strong>Address:</strong><br>
+          ${place.formattedAddress || "-"}
+          <br><br>
+
+          <strong>Google Maps:</strong><br>
+          ${place.googleMapsURI || "-"}
+          <br><br>
+
+          <strong>Website:</strong><br>
+          ${place.websiteURI || "-"}
+        `;
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.textContent =
+      "❌ ERROR:\n" +
+      (error.message || error);
+
+    status.className = "error";
+
+  }
+
+}
+
+startPlaces();
+
+</script>
+
+</body>
+</html>
