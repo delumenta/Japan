@@ -24,17 +24,28 @@
   --gold:#e3b85c;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
   min-height:100vh;
+
   background:
-    radial-gradient(circle at 50% -10%,#17212a 0%,transparent 38%),
+    radial-gradient(
+      circle at 50% -10%,
+      #17212a 0%,
+      transparent 38%
+    ),
     var(--bg);
+
   color:var(--text);
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -45,19 +56,29 @@ body{
     sans-serif;
 }
 
-button,input,select{
+button,
+input,
+select{
   font:inherit;
 }
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 header{
   position:sticky;
   top:0;
   z-index:40;
+
   padding:
     calc(11px + env(safe-area-inset-top))
     14px
     10px;
+
   border-bottom:1px solid var(--line);
+
   background:rgba(7,12,16,.96);
   backdrop-filter:blur(18px);
 }
@@ -69,35 +90,60 @@ header{
 
 .eyebrow{
   color:var(--red);
+
   font-size:8px;
   font-weight:900;
+
   letter-spacing:.14em;
 }
 
 h1{
   margin:3px 0 0;
-  font-family:Georgia,"Times New Roman",serif;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:24px;
   line-height:1.1;
 }
 
 .header-sub{
   margin-top:3px;
+
   color:var(--muted);
+
   font-size:8px;
 }
 
+
+/* =========================================================
+   MAIN
+========================================================= */
+
 main{
   max-width:760px;
+
   margin:auto;
-  padding:13px 13px 100px;
+
+  padding:
+    13px
+    13px
+    100px;
 }
 
 .section-label{
-  margin:18px 2px 7px;
+  margin:
+    18px
+    2px
+    7px;
+
   color:#91a5b3;
+
   font-size:7px;
   font-weight:900;
+
   letter-spacing:.13em;
 }
 
@@ -105,32 +151,54 @@ main{
   margin-top:2px;
 }
 
-/* PROFILE */
+
+/* =========================================================
+   PROFILE
+========================================================= */
 
 .profile-card{
   display:flex;
   align-items:center;
+
   gap:11px;
+
   padding:12px;
+
   border:1px solid var(--line);
   border-radius:15px;
+
   background:
-    linear-gradient(145deg,#151d23,#0e1419);
+    linear-gradient(
+      145deg,
+      #151d23,
+      #0e1419
+    );
 }
 
 .avatar{
   flex:0 0 45px;
+
   width:45px;
   height:45px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   overflow:hidden;
+
   border:1px solid #35414a;
   border-radius:50%;
+
   background:#1a232a;
+
   color:#fff;
-  font-family:Georgia,"Times New Roman",serif;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:18px;
   font-weight:800;
 }
@@ -138,6 +206,7 @@ main{
 .avatar img{
   width:100%;
   height:100%;
+
   object-fit:cover;
 }
 
@@ -147,37 +216,69 @@ main{
 }
 
 .profile-name{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:16px;
   font-weight:800;
 }
 
-.profile-role{
+.profile-email{
   margin-top:2px;
+
   color:var(--muted);
+
   font-size:7px;
-  text-transform:uppercase;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.profile-role{
+  margin-top:3px;
+
+  color:#7f8c94;
+
+  font-size:6px;
+  font-weight:900;
+
   letter-spacing:.08em;
+
+  text-transform:uppercase;
 }
 
 .edit-profile{
   min-height:32px;
+
   padding:5px 9px;
+
   border:1px solid var(--line);
   border-radius:8px;
+
   background:#151d23;
+
   color:#cbd1d5;
+
   font-size:7px;
   font-weight:900;
+
   cursor:pointer;
 }
 
-/* TRIP */
+
+/* =========================================================
+   TRIP
+========================================================= */
 
 .trip-card{
   padding:12px;
+
   border:1px solid rgba(201,111,104,.30);
   border-radius:15px;
+
   background:
     linear-gradient(
       145deg,
@@ -188,50 +289,79 @@ main{
 
 .trip-top{
   display:flex;
+
   align-items:flex-start;
   justify-content:space-between;
+
   gap:8px;
 }
 
 .trip-name{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:17px;
 }
 
 .trip-dates{
   margin-top:3px;
+
   color:var(--muted);
+
   font-size:7px;
 }
 
 .owner-pill{
   flex:0 0 auto;
+
   padding:4px 7px;
-  border:1px solid rgba(227,184,92,.25);
+
+  border:
+    1px solid
+    rgba(227,184,92,.25);
+
   border-radius:999px;
-  background:rgba(227,184,92,.08);
+
+  background:
+    rgba(227,184,92,.08);
+
   color:#e7c97d;
+
   font-size:6px;
   font-weight:900;
 }
 
-/* MEMBER LIST */
+
+/* =========================================================
+   MEMBERS
+========================================================= */
 
 .member-list{
   margin-top:8px;
+
   overflow:hidden;
+
   border:1px solid var(--line);
   border-radius:14px;
+
   background:#10161c;
 }
 
 .member{
   display:flex;
   align-items:center;
+
   gap:9px;
+
   min-height:57px;
+
   padding:8px 10px;
-  border-bottom:1px solid rgba(255,255,255,.055);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
 }
 
 .member:last-child{
@@ -240,16 +370,26 @@ main{
 
 .member-avatar{
   flex:0 0 34px;
+
   width:34px;
   height:34px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   overflow:hidden;
+
   border:1px solid #34404a;
   border-radius:50%;
+
   background:#182129;
-  font-family:Georgia,"Times New Roman",serif;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:12px;
   font-weight:800;
 }
@@ -257,102 +397,174 @@ main{
 .member-avatar img{
   width:100%;
   height:100%;
+
   object-fit:cover;
 }
 
 .member-info{
   flex:1;
+
   min-width:0;
 }
 
 .member-name{
   color:#f1f2f1;
+
   font-size:9px;
   font-weight:900;
 }
 
 .member-access{
   margin-top:2px;
+
   color:#7e8a92;
+
   font-size:6.5px;
 }
 
 .role-badge{
   flex:0 0 auto;
+
   padding:4px 7px;
+
   border-radius:999px;
+
   font-size:6px;
   font-weight:900;
 }
 
 .role-badge.owner{
-  border:1px solid rgba(227,184,92,.22);
-  background:rgba(227,184,92,.07);
+  border:
+    1px solid
+    rgba(227,184,92,.22);
+
+  background:
+    rgba(227,184,92,.07);
+
   color:#e4c67c;
 }
 
 .role-badge.editor{
-  border:1px solid rgba(103,197,135,.22);
-  background:rgba(103,197,135,.07);
+  border:
+    1px solid
+    rgba(103,197,135,.22);
+
+  background:
+    rgba(103,197,135,.07);
+
   color:#aee5bf;
 }
 
 .role-badge.viewer{
-  border:1px solid rgba(92,157,255,.22);
-  background:rgba(92,157,255,.07);
+  border:
+    1px solid
+    rgba(92,157,255,.22);
+
+  background:
+    rgba(92,157,255,.07);
+
   color:#a8caff;
 }
 
 .member-menu{
   flex:0 0 30px;
+
   width:30px;
   height:30px;
+
   border:0;
   border-radius:7px;
+
   background:transparent;
+
   color:#87939b;
+
   cursor:pointer;
 }
 
-/* SHARE */
+
+/* =========================================================
+   ADD MEMBER
+========================================================= */
 
 .share-button{
   width:100%;
+
   min-height:43px;
+
   margin-top:8px;
-  border:1px solid rgba(201,111,104,.32);
+
+  border:
+    1px solid
+    rgba(201,111,104,.32);
+
   border-radius:11px;
-  background:rgba(201,111,104,.09);
+
+  background:
+    rgba(201,111,104,.09);
+
   color:#f0cfcc;
+
   font-size:8px;
   font-weight:900;
+
   cursor:pointer;
 }
 
 .permission-note{
   margin-top:8px;
+
   padding:9px 10px;
+
   border:1px solid var(--line);
   border-radius:10px;
-  background:rgba(255,255,255,.018);
+
+  background:
+    rgba(255,255,255,.018);
+
   color:#79868e;
+
   font-size:7px;
-  line-height:1.5;
+  line-height:1.55;
 }
 
 .permission-note strong{
   color:#b7c0c5;
 }
 
-/* SHEET */
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-members{
+  padding:14px 10px;
+
+  color:#78858d;
+
+  text-align:center;
+
+  font-size:7px;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   SHEETS
+========================================================= */
 
 .backdrop{
   position:fixed;
+
   inset:0;
+
   z-index:100;
+
   display:none;
   align-items:flex-end;
+
   background:rgba(0,0,0,.72);
+
   backdrop-filter:blur(4px);
 }
 
@@ -362,47 +574,79 @@ main{
 
 .sheet{
   width:100%;
+
   max-height:90vh;
+
   overflow:auto;
+
   padding:
     8px
     14px
     calc(18px + env(safe-area-inset-bottom));
+
   border:1px solid var(--line);
-  border-radius:20px 20px 0 0;
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
   background:#0d1318;
 }
 
 .handle{
   width:38px;
   height:4px;
-  margin:2px auto 13px;
+
+  margin:
+    2px
+    auto
+    13px;
+
   border-radius:999px;
+
   background:#39454d;
 }
 
 .sheet-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
+
   margin-bottom:13px;
 }
 
 .sheet-title{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:19px;
 }
 
 .close{
   width:34px;
   height:34px;
+
   border:1px solid var(--line);
   border-radius:9px;
+
   background:#151c22;
+
   color:#fff;
+
   cursor:pointer;
 }
+
+
+/* =========================================================
+   FORMS
+========================================================= */
 
 .field{
   margin-bottom:10px;
@@ -410,8 +654,11 @@ main{
 
 .field label{
   display:block;
+
   margin-bottom:4px;
+
   color:#aeb5bc;
+
   font-size:7px;
   font-weight:900;
 }
@@ -419,13 +666,20 @@ main{
 .field input,
 .field select{
   width:100%;
+
   min-height:43px;
+
   padding:8px 10px;
+
   border:1px solid var(--line);
   border-radius:9px;
+
   outline:none;
+
   background:#10171d;
+
   color:#fff;
+
   font-size:10px;
 }
 
@@ -436,21 +690,34 @@ main{
 
 .help{
   margin-top:5px;
+
   color:#74818a;
+
   font-size:7px;
   line-height:1.45;
 }
 
 .primary{
   width:100%;
+
   min-height:44px;
+
   margin-top:4px;
-  border:1px solid rgba(103,197,135,.3);
+
+  border:
+    1px solid
+    rgba(103,197,135,.3);
+
   border-radius:10px;
-  background:rgba(103,197,135,.10);
+
+  background:
+    rgba(103,197,135,.10);
+
   color:#b6e9c6;
+
   font-size:8px;
   font-weight:900;
+
   cursor:pointer;
 }
 
@@ -460,102 +727,170 @@ main{
 
 .danger{
   width:100%;
+
   min-height:40px;
+
   margin-top:7px;
-  border:1px solid rgba(201,111,104,.25);
+
+  border:
+    1px solid
+    rgba(201,111,104,.25);
+
   border-radius:10px;
-  background:rgba(201,111,104,.05);
+
+  background:
+    rgba(201,111,104,.05);
+
   color:#df938c;
+
   font-size:8px;
   font-weight:900;
+
   cursor:pointer;
 }
 
 .message{
   display:none;
+
   margin-top:9px;
+
   padding:8px;
+
   border-radius:8px;
+
   font-size:7px;
   line-height:1.4;
 }
 
 .message.error{
   display:block;
-  border:1px solid rgba(201,111,104,.25);
-  background:rgba(201,111,104,.07);
+
+  border:
+    1px solid
+    rgba(201,111,104,.25);
+
+  background:
+    rgba(201,111,104,.07);
+
   color:#ffc3bf;
 }
 
 .message.success{
   display:block;
-  border:1px solid rgba(103,197,135,.25);
-  background:rgba(103,197,135,.07);
+
+  border:
+    1px solid
+    rgba(103,197,135,.25);
+
+  background:
+    rgba(103,197,135,.07);
+
   color:#b9ebc8;
 }
 
-/* LOADING */
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
 
 .state{
   padding:24px 15px;
+
   border:1px dashed #35414a;
   border-radius:13px;
+
   color:var(--muted);
+
   text-align:center;
+
   font-size:8px;
   line-height:1.5;
 }
 
 .state strong{
   display:block;
+
   margin-bottom:4px;
+
   color:#fff;
+
   font-size:11px;
 }
 
-/* NAV */
+
+/* =========================================================
+   NAV
+========================================================= */
 
 .bottom-nav{
   position:fixed;
+
   left:0;
   right:0;
   bottom:0;
+
   z-index:80;
+
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+
+  grid-template-columns:
+    repeat(5,1fr);
+
   gap:3px;
+
   padding:
     6px
     7px
     calc(6px + env(safe-area-inset-bottom));
+
   border-top:1px solid var(--line);
-  background:rgba(7,12,16,.98);
+
+  background:
+    rgba(7,12,16,.98);
+
   backdrop-filter:blur(18px);
 }
 
 .bottom-nav a{
   min-height:46px;
+
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   gap:2px;
+
   border-radius:10px;
+
   color:var(--muted);
+
   text-decoration:none;
+
   font-size:8px;
   font-weight:800;
 }
 
-.nav-icon{font-size:16px}
+.nav-icon{
+  font-size:16px;
+}
 
 .bottom-nav a.active{
   color:#fff;
-  border:1px solid rgba(201,111,104,.22);
-  background:rgba(201,111,104,.08);
+
+  border:
+    1px solid
+    rgba(201,111,104,.22);
+
+  background:
+    rgba(201,111,104,.08);
 }
 
+
 @media(min-width:700px){
+
   .sheet{
     max-width:600px;
     margin:auto;
@@ -564,16 +899,27 @@ main{
   .bottom-nav{
     left:50%;
     right:auto;
+
     width:min(820px,100%);
-    transform:translateX(-50%);
+
+    transform:
+      translateX(-50%);
   }
+
 }
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
 <header>
+
   <div class="header-inner">
 
     <div class="eyebrow">
@@ -592,21 +938,31 @@ main{
     </div>
 
   </div>
+
 </header>
 
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
 
 <main id="main">
 
   <div class="state">
-    <strong>Loading profile…</strong>
-    Getting your trip and members from Supabase.
+
+    <strong>
+      Loading profile…
+    </strong>
+
+    Getting your trip and sharing details.
+
   </div>
 
 </main>
 
 
 <!-- =======================================================
-     PROFILE SHEET
+     EDIT PROFILE
 ======================================================= -->
 
 <div
@@ -617,6 +973,7 @@ main{
   <div class="sheet">
 
     <div class="handle"></div>
+
 
     <div class="sheet-head">
 
@@ -634,7 +991,9 @@ main{
 
     </div>
 
+
     <form id="profileForm">
+
 
       <div class="field">
 
@@ -651,6 +1010,7 @@ main{
 
       </div>
 
+
       <div class="field">
 
         <label>
@@ -664,10 +1024,11 @@ main{
         >
 
         <div class="help">
-          Optional. We can add proper avatar uploading later.
+          Optional. We can add proper photo uploading later.
         </div>
 
       </div>
+
 
       <button
         id="saveProfile"
@@ -677,10 +1038,12 @@ main{
         SAVE PROFILE
       </button>
 
+
       <div
         id="profileMessage"
         class="message"
       ></div>
+
 
     </form>
 
@@ -690,7 +1053,7 @@ main{
 
 
 <!-- =======================================================
-     ADD MEMBER SHEET
+     ADD PERSON
 ======================================================= -->
 
 <div
@@ -702,10 +1065,11 @@ main{
 
     <div class="handle"></div>
 
+
     <div class="sheet-head">
 
       <div class="sheet-title">
-        Share Trip
+        Add Person
       </div>
 
       <button
@@ -718,7 +1082,9 @@ main{
 
     </div>
 
+
     <form id="memberForm">
+
 
       <div class="field">
 
@@ -729,14 +1095,14 @@ main{
         <input
           id="memberUserId"
           required
-          placeholder="Supabase user UUID"
+          placeholder="Supabase User UUID"
           autocomplete="off"
         >
 
         <div class="help">
-          For this first version, the person must already have
-          an account. Enter their Supabase User ID here.
-          We can replace this with email invitations next.
+          Temporary method. The person must already have
+          an account. Later we will replace this with a
+          proper email invitation.
         </div>
 
       </div>
@@ -777,6 +1143,7 @@ main{
         class="message"
       ></div>
 
+
     </form>
 
   </div>
@@ -785,7 +1152,7 @@ main{
 
 
 <!-- =======================================================
-     EDIT MEMBER SHEET
+     EDIT MEMBER
 ======================================================= -->
 
 <div
@@ -796,6 +1163,7 @@ main{
   <div class="sheet">
 
     <div class="handle"></div>
+
 
     <div class="sheet-head">
 
@@ -878,7 +1246,7 @@ main{
 
 
 <!-- =======================================================
-     NAV
+     NAVIGATION
 ======================================================= -->
 
 <nav
@@ -887,36 +1255,79 @@ main{
 >
 
   <a id="navHome">
-    <span class="nav-icon">🏠</span>
-    <span>HOME</span>
+
+    <span class="nav-icon">
+      🏠
+    </span>
+
+    <span>
+      HOME
+    </span>
+
   </a>
+
 
   <a id="navPlan">
-    <span class="nav-icon">📅</span>
-    <span>PLAN</span>
+
+    <span class="nav-icon">
+      📅
+    </span>
+
+    <span>
+      PLAN
+    </span>
+
   </a>
+
 
   <a id="navFood">
-    <span class="nav-icon">🍽️</span>
-    <span>FOOD</span>
+
+    <span class="nav-icon">
+      🍽️
+    </span>
+
+    <span>
+      FOOD
+    </span>
+
   </a>
 
+
   <a id="navHub">
-    <span class="nav-icon">⭐</span>
-    <span>HUB</span>
+
+    <span class="nav-icon">
+      ⭐
+    </span>
+
+    <span>
+      HUB
+    </span>
+
   </a>
+
 
   <a
     id="navMore"
     class="active"
     aria-current="page"
   >
-    <span class="nav-icon">⋯</span>
-    <span>MORE</span>
+
+    <span class="nav-icon">
+      ⋯
+    </span>
+
+    <span>
+      MORE
+    </span>
+
   </a>
 
 </nav>
 
+
+<!-- =======================================================
+     SUPABASE
+======================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -929,10 +1340,14 @@ main{
 ========================================================= */
 
 const params =
-  new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
 
 const TRIP_ID =
-  Number(params.get("trip") || 1);
+  Number(
+    params.get("trip") || 1
+  );
 
 
 /* =========================================================
@@ -940,9 +1355,15 @@ const TRIP_ID =
 ========================================================= */
 
 let currentUser = null;
+
 let profile = null;
+
+let ownerProfile = null;
+
 let trip = null;
+
 let members = [];
+
 let editingMemberId = null;
 
 
@@ -950,19 +1371,33 @@ let editingMemberId = null;
    NAV
 ========================================================= */
 
-document.getElementById("navHome").href =
+document.getElementById(
+  "navHome"
+).href =
   `index.html?trip=${TRIP_ID}`;
 
-document.getElementById("navPlan").href =
+
+document.getElementById(
+  "navPlan"
+).href =
   `schedule.html?trip=${TRIP_ID}`;
 
-document.getElementById("navFood").href =
+
+document.getElementById(
+  "navFood"
+).href =
   `food.html?trip=${TRIP_ID}`;
 
-document.getElementById("navHub").href =
+
+document.getElementById(
+  "navHub"
+).href =
   `bookings.html?trip=${TRIP_ID}`;
 
-document.getElementById("navMore").href =
+
+document.getElementById(
+  "navMore"
+).href =
   `profile.html?trip=${TRIP_ID}`;
 
 
@@ -972,12 +1407,14 @@ document.getElementById("navMore").href =
 
 function esc(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    value ?? ""
+  )
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 
 }
 
@@ -990,15 +1427,20 @@ function initials(name){
       .split(/\s+/)
       .filter(Boolean);
 
+
   if(!words.length){
     return "?";
   }
 
+
   if(words.length === 1){
+
     return words[0]
       .slice(0,2)
       .toUpperCase();
+
   }
+
 
   return (
     words[0][0] +
@@ -1008,29 +1450,40 @@ function initials(name){
 }
 
 
-function avatarHTML(person,cssClass){
+function avatarHTML(
+  person,
+  cssClass
+){
 
   const name =
     person?.display_name ||
     "User";
 
+
   if(person?.avatar_url){
 
     return `
+
       <div class="${cssClass}">
+
         <img
           src="${esc(person.avatar_url)}"
           alt="${esc(name)}"
         >
+
       </div>
+
     `;
 
   }
 
+
   return `
+
     <div class="${cssClass}">
       ${esc(initials(name))}
     </div>
+
   `;
 
 }
@@ -1039,30 +1492,50 @@ function avatarHTML(person,cssClass){
 function roleDescription(role){
 
   if(role === "owner"){
+
     return "Owns and manages this trip";
+
   }
+
 
   if(role === "editor"){
+
     return "Can view and edit this trip";
+
   }
 
+
   return "Can view this trip";
+
 }
 
 
 function prettyTripDates(){
 
-  if(!trip?.start_date || !trip?.end_date){
+  if(
+    !trip?.start_date ||
+    !trip?.end_date
+  ){
     return "";
   }
 
+
   const start =
-    new Date(trip.start_date + "T12:00:00");
+    new Date(
+      trip.start_date +
+      "T12:00:00"
+    );
+
 
   const end =
-    new Date(trip.end_date + "T12:00:00");
+    new Date(
+      trip.end_date +
+      "T12:00:00"
+    );
+
 
   return (
+
     start.toLocaleDateString(
       "en-SG",
       {
@@ -1070,9 +1543,13 @@ function prettyTripDates(){
         month:"short"
       }
     )
+
     +
+
     " – "
+
     +
+
     end.toLocaleDateString(
       "en-SG",
       {
@@ -1081,6 +1558,7 @@ function prettyTripDates(){
         year:"numeric"
       }
     )
+
   );
 
 }
@@ -1088,32 +1566,63 @@ function prettyTripDates(){
 
 function isOwner(){
 
-  return (
+  return Boolean(
     currentUser &&
     trip &&
-    currentUser.id === trip.owner_id
+    currentUser.id ===
+    trip.owner_id
+  );
+
+}
+
+
+function myTripRole(){
+
+  if(isOwner()){
+    return "owner";
+  }
+
+
+  const membership =
+    members.find(
+      member =>
+        member.user_id ===
+        currentUser?.id
+    );
+
+
+  return (
+    membership?.role ||
+    "viewer"
   );
 
 }
 
 
 /* =========================================================
-   LOAD
+   LOAD PAGE
 ========================================================= */
 
 async function load(){
 
   try{
 
+    /*
+      Get logged-in user
+    */
+
     const userResult =
       await db.auth.getUser();
+
 
     if(userResult.error){
       throw userResult.error;
     }
 
+
     currentUser =
       userResult.data.user;
+
 
     if(!currentUser){
 
@@ -1121,8 +1630,14 @@ async function load(){
         "login.html";
 
       return;
+
     }
 
+
+    /*
+      Load current user's profile
+      and selected trip.
+    */
 
     const [
       profileResult,
@@ -1132,14 +1647,27 @@ async function load(){
 
         db
           .from("profiles")
-          .select("*")
-          .eq("id",currentUser.id)
+          .select(`
+            id,
+            display_name,
+            avatar_url,
+            role,
+            created_at,
+            updated_at
+          `)
+          .eq(
+            "id",
+            currentUser.id
+          )
           .maybeSingle(),
 
         db
           .from("trips")
           .select("*")
-          .eq("id",TRIP_ID)
+          .eq(
+            "id",
+            TRIP_ID
+          )
           .single()
 
       ]);
@@ -1149,6 +1677,7 @@ async function load(){
       throw profileResult.error;
     }
 
+
     if(tripResult.error){
       throw tripResult.error;
     }
@@ -1157,20 +1686,31 @@ async function load(){
     profile =
       profileResult.data;
 
+
     trip =
       tripResult.data;
 
 
     /*
-      If the account does not yet
-      have a profile row, create one.
+      If user doesn't have a profile yet,
+      create one automatically.
     */
 
     if(!profile){
 
       const fallbackName =
-        currentUser.user_metadata?.display_name ||
-        currentUser.email?.split("@")[0] ||
+        currentUser
+          .user_metadata
+          ?.display_name
+
+        ||
+
+        currentUser
+          .email
+          ?.split("@")[0]
+
+        ||
+
         "Traveller";
 
 
@@ -1196,7 +1736,43 @@ async function load(){
     }
 
 
+    /*
+      Load owner's profile separately.
+
+      IMPORTANT:
+      This does NOT require a foreign-key
+      relationship.
+    */
+
+    const ownerResult =
+      await db
+        .from("profiles")
+        .select(`
+          id,
+          display_name,
+          avatar_url
+        `)
+        .eq(
+          "id",
+          trip.owner_id
+        )
+        .maybeSingle();
+
+
+    if(!ownerResult.error){
+
+      ownerProfile =
+        ownerResult.data;
+
+    }
+
+
+    /*
+      Load trip members separately.
+    */
+
     await loadMembers();
+
 
     render();
 
@@ -1206,23 +1782,25 @@ async function load(){
 
     console.error(error);
 
-    document.getElementById("main")
-      .innerHTML = `
 
-        <div class="state">
+    document.getElementById(
+      "main"
+    ).innerHTML = `
 
-          <strong>
-            Couldn't load sharing
-          </strong>
+      <div class="state">
 
-          ${esc(
-            error.message ||
-            "Unknown database error."
-          )}
+        <strong>
+          Couldn't load profile
+        </strong>
 
-        </div>
+        ${esc(
+          error.message ||
+          "Unknown database error."
+        )}
 
-      `;
+      </div>
+
+    `;
 
   }
 
@@ -1231,11 +1809,19 @@ async function load(){
 
 /* =========================================================
    LOAD MEMBERS
+
+   IMPORTANT:
+   No nested Supabase relationship is used.
+
+   We:
+   1. Load trip_members
+   2. Load matching profiles
+   3. Join them ourselves in JavaScript
 ========================================================= */
 
 async function loadMembers(){
 
-  const result =
+  const memberResult =
     await db
       .from("trip_members")
       .select(`
@@ -1243,32 +1829,147 @@ async function loadMembers(){
         trip_id,
         user_id,
         role,
-        created_at,
-        profile:profiles(
-          id,
-          display_name,
-          avatar_url
-        )
+        created_at
       `)
-      .eq("trip_id",TRIP_ID)
-      .order("created_at",{
-        ascending:true
-      });
+      .eq(
+        "trip_id",
+        TRIP_ID
+      )
+      .order(
+        "created_at",
+        {
+          ascending:true
+        }
+      );
 
 
-  if(result.error){
-    throw result.error;
+  if(memberResult.error){
+    throw memberResult.error;
   }
 
 
+  const rawMembers =
+    memberResult.data || [];
+
+
+  /*
+    Empty trip_members is completely OK.
+
+    The owner does NOT need to exist
+    inside trip_members.
+  */
+
+  if(!rawMembers.length){
+
+    members = [];
+    return;
+
+  }
+
+
+  const userIds =
+    [
+      ...new Set(
+        rawMembers
+          .map(
+            member =>
+              member.user_id
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  if(!userIds.length){
+
+    members =
+      rawMembers.map(
+        member => ({
+          ...member,
+          profile:null
+        })
+      );
+
+    return;
+
+  }
+
+
+  const profileResult =
+    await db
+      .from("profiles")
+      .select(`
+        id,
+        display_name,
+        avatar_url
+      `)
+      .in(
+        "id",
+        userIds
+      );
+
+
+  if(profileResult.error){
+
+    /*
+      Don't destroy the whole page
+      just because member profile names
+      could not be read.
+
+      We can still show the member.
+    */
+
+    console.warn(
+      "Could not load member profiles:",
+      profileResult.error
+    );
+
+
+    members =
+      rawMembers.map(
+        member => ({
+          ...member,
+          profile:null
+        })
+      );
+
+
+    return;
+
+  }
+
+
+  const memberProfiles =
+    profileResult.data || [];
+
+
   members =
-    result.data || [];
+    rawMembers.map(
+      member => {
+
+        const matchedProfile =
+          memberProfiles.find(
+            person =>
+              person.id ===
+              member.user_id
+          )
+          ||
+          null;
+
+
+        return {
+          ...member,
+          profile:matchedProfile
+        };
+
+      }
+    );
 
 }
 
 
 /* =========================================================
-   RENDER
+   RENDER PAGE
 ========================================================= */
 
 function render(){
@@ -1279,95 +1980,108 @@ function render(){
     trip.name;
 
 
+  /*
+    Owner profile fallback.
+
+    If the owner is the current user,
+    we already definitely have their
+    profile.
+  */
+
   const owner =
-    currentUser.id === trip.owner_id
-      ? profile
-      : null;
+    ownerProfile
+
+    ||
+
+    (
+      currentUser.id ===
+      trip.owner_id
+
+      ?
+
+      profile
+
+      :
+
+      {
+        display_name:
+          "Trip Owner",
+
+        avatar_url:null
+      }
+    );
 
 
-  document.getElementById("main")
-    .innerHTML = `
+  const otherMembers =
+    members.filter(
+      member =>
+        member.user_id !==
+        trip.owner_id
+    );
 
 
-      <div class="section-label">
-        MY PROFILE
-      </div>
+  document.getElementById(
+    "main"
+  ).innerHTML = `
 
 
-      <div class="profile-card">
+    <!-- MY PROFILE -->
 
-        ${avatarHTML(
-          profile,
-          "avatar"
-        )}
+    <div class="section-label">
+      MY PROFILE
+    </div>
 
 
-        <div class="profile-info">
+    <div class="profile-card">
 
-          <div class="profile-name">
-            ${esc(
-              profile.display_name ||
-              "Traveller"
-            )}
-          </div>
+      ${avatarHTML(
+        profile,
+        "avatar"
+      )}
 
-          <div class="profile-role">
-            ${
-              isOwner()
-              ?
-              "TRIP OWNER"
-              :
-              "TRAVELLER"
-            }
-          </div>
+
+      <div class="profile-info">
+
+        <div class="profile-name">
+
+          ${esc(
+            profile.display_name ||
+            "Traveller"
+          )}
 
         </div>
 
 
-        <button
-          id="editProfileButton"
-          class="edit-profile"
-          type="button"
-        >
-          EDIT
-        </button>
+        <div class="profile-email">
 
-      </div>
+          ${esc(
+            currentUser.email ||
+            ""
+          )}
 
+        </div>
 
 
-      <div class="section-label">
-        CURRENT TRIP
-      </div>
-
-
-      <div class="trip-card">
-
-        <div class="trip-top">
-
-          <div>
-
-            <div class="trip-name">
-              ${esc(trip.name)}
-            </div>
-
-            <div class="trip-dates">
-              ${esc(prettyTripDates())}
-            </div>
-
-          </div>
-
+        <div class="profile-role">
 
           ${
             isOwner()
+
             ?
-            `
-              <span class="owner-pill">
-                👑 OWNER
-              </span>
-            `
+
+            "TRIP OWNER"
+
             :
-            ""
+
+            myTripRole() === "editor"
+
+            ?
+
+            "TRIP EDITOR"
+
+            :
+
+            "TRIP VIEWER"
           }
 
         </div>
@@ -1375,98 +2089,160 @@ function render(){
       </div>
 
 
+      <button
+        id="editProfileButton"
+        class="edit-profile"
+        type="button"
+      >
+        EDIT
+      </button>
 
-      <div class="section-label">
-        TRIP MEMBERS
-      </div>
+    </div>
 
 
-      <div class="member-list">
 
-        ${renderOwner(owner)}
+    <!-- CURRENT TRIP -->
+
+    <div class="section-label">
+      CURRENT TRIP
+    </div>
+
+
+    <div class="trip-card">
+
+      <div class="trip-top">
+
+        <div>
+
+          <div class="trip-name">
+            ${esc(trip.name)}
+          </div>
+
+          <div class="trip-dates">
+            ${esc(
+              prettyTripDates()
+            )}
+          </div>
+
+        </div>
+
 
         ${
-          members
-            .filter(
-              member =>
-                member.user_id !==
-                trip.owner_id
-            )
-            .map(renderMember)
-            .join("")
+          isOwner()
+
+          ?
+
+          `
+            <span class="owner-pill">
+              👑 OWNER
+            </span>
+          `
+
+          :
+
+          ""
         }
 
       </div>
 
+    </div>
+
+
+
+    <!-- MEMBERS -->
+
+    <div class="section-label">
+      TRIP MEMBERS
+    </div>
+
+
+    <div class="member-list">
+
+      ${renderOwner(owner)}
+
 
       ${
-        isOwner()
+        otherMembers.length
 
         ?
 
-        `
-          <button
-            id="shareButton"
-            class="share-button"
-            type="button"
-          >
-            ＋ ADD PERSON
-          </button>
-        `
+        otherMembers
+          .map(renderMember)
+          .join("")
 
         :
 
         ""
       }
 
-
-      <div class="permission-note">
-
-        <strong>👑 Owner</strong>
-        can manage the trip and members.
-
-        <br>
-
-        <strong>✏️ Editor</strong>
-        can view and edit the itinerary,
-        bookings and trip food.
-
-        <br>
-
-        <strong>👁️ Viewer</strong>
-        can view the shared trip without
-        changing it.
-
-      </div>
-
-    `;
+    </div>
 
 
-  bindPage();
+    ${
+      isOwner()
+
+      ?
+
+      `
+        <button
+          id="shareButton"
+          class="share-button"
+          type="button"
+        >
+          ＋ ADD PERSON
+        </button>
+      `
+
+      :
+
+      ""
+    }
+
+
+    <div class="permission-note">
+
+      <strong>
+        👑 Owner
+      </strong>
+
+      can manage the trip and its members.
+
+      <br>
+
+      <strong>
+        ✏️ Editor
+      </strong>
+
+      can view and edit the itinerary,
+      bookings and trip food.
+
+      <br>
+
+      <strong>
+        👁️ Viewer
+      </strong>
+
+      can view the shared trip without
+      changing it.
+
+    </div>
+
+  `;
+
+
+  bindPageEvents();
 
 }
 
 
 /* =========================================================
-   OWNER
+   OWNER ROW
 ========================================================= */
 
-function renderOwner(ownerProfile){
+function renderOwner(person){
 
-  /*
-    We only know the current user's
-    profile here when they are owner.
-
-    If viewing somebody else's shared
-    trip, RLS/profile policies will
-    determine whether owner profile
-    information is available.
-
-    For your current Trip 1, you are owner.
-  */
-
-  const person =
-    ownerProfile || {
+  const owner =
+    person || {
       display_name:"Trip Owner",
       avatar_url:null
     };
@@ -1477,7 +2253,7 @@ function renderOwner(ownerProfile){
     <div class="member">
 
       ${avatarHTML(
-        person,
+        owner,
         "member-avatar"
       )}
 
@@ -1485,11 +2261,27 @@ function renderOwner(ownerProfile){
       <div class="member-info">
 
         <div class="member-name">
+
           ${esc(
-            person.display_name ||
+            owner.display_name ||
             "Trip Owner"
           )}
+
+          ${
+            currentUser.id ===
+            trip.owner_id
+
+            ?
+
+            " · You"
+
+            :
+
+            ""
+          }
+
         </div>
+
 
         <div class="member-access">
           Owns and manages this trip
@@ -1510,16 +2302,24 @@ function renderOwner(ownerProfile){
 
 
 /* =========================================================
-   MEMBER
+   MEMBER ROW
 ========================================================= */
 
 function renderMember(member){
 
   const person =
     member.profile || {
-      display_name:"User",
+      display_name:"Trip Member",
       avatar_url:null
     };
+
+
+  const safeRole =
+    member.role === "editor"
+    ?
+    "editor"
+    :
+    "viewer";
 
 
   return `
@@ -1535,16 +2335,36 @@ function renderMember(member){
       <div class="member-info">
 
         <div class="member-name">
+
           ${esc(
             person.display_name ||
-            "User"
+            "Trip Member"
           )}
+
+          ${
+            member.user_id ===
+            currentUser.id
+
+            ?
+
+            " · You"
+
+            :
+
+            ""
+          }
+
         </div>
 
+
         <div class="member-access">
+
           ${esc(
-            roleDescription(member.role)
+            roleDescription(
+              safeRole
+            )
           )}
+
         </div>
 
       </div>
@@ -1553,12 +2373,12 @@ function renderMember(member){
       <span
         class="
           role-badge
-          ${esc(member.role)}
+          ${safeRole}
         "
       >
-        ${esc(
-          member.role.toUpperCase()
-        )}
+
+        ${safeRole.toUpperCase()}
+
       </span>
 
 
@@ -1594,12 +2414,20 @@ function renderMember(member){
    PAGE EVENTS
 ========================================================= */
 
-function bindPage(){
+function bindPageEvents(){
 
-  document.getElementById(
-    "editProfileButton"
-  ).onclick =
-    openProfileSheet;
+  const editProfileButton =
+    document.getElementById(
+      "editProfileButton"
+    );
+
+
+  if(editProfileButton){
+
+    editProfileButton.onclick =
+      openProfileSheet;
+
+  }
 
 
   const shareButton =
@@ -1620,52 +2448,67 @@ function bindPage(){
     .querySelectorAll(
       "[data-member]"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.onclick =
-        () => openEditMember(
-          Number(
-            button.dataset.member
-          )
-        );
+        button.onclick =
+          () => {
 
-    });
+            openEditMember(
+              Number(
+                button.dataset.member
+              )
+            );
+
+          };
+
+      }
+    );
 
 }
 
 
 /* =========================================================
-   CLOSE SHEETS
+   SHEETS
 ========================================================= */
 
 document
   .querySelectorAll(
     "[data-close]"
   )
-  .forEach(button => {
+  .forEach(
+    button => {
 
-    button.onclick =
-      closeSheets;
+      button.onclick =
+        closeSheets;
 
-  });
+    }
+  );
 
 
 document
   .querySelectorAll(
     ".backdrop"
   )
-  .forEach(backdrop => {
+  .forEach(
+    backdrop => {
 
-    backdrop.onclick =
-      event => {
+      backdrop.onclick =
+        event => {
 
-        if(event.target === backdrop){
-          closeSheets();
-        }
+          if(
+            event.target ===
+            backdrop
+          ){
 
-      };
+            closeSheets();
 
-  });
+          }
+
+        };
+
+    }
+  );
 
 
 function closeSheets(){
@@ -1674,15 +2517,21 @@ function closeSheets(){
     .querySelectorAll(
       ".backdrop"
     )
-    .forEach(sheet => {
-      sheet.classList.remove("open");
-    });
+    .forEach(
+      sheet => {
+
+        sheet
+          .classList
+          .remove("open");
+
+      }
+    );
 
 }
 
 
 /* =========================================================
-   PROFILE
+   EDIT PROFILE
 ========================================================= */
 
 function openProfileSheet(){
@@ -1707,14 +2556,17 @@ function openProfileSheet(){
 
   document.getElementById(
     "profileSheet"
-  ).classList.add("open");
+  )
+  .classList
+  .add("open");
 
 }
 
 
 document.getElementById(
   "profileForm"
-).addEventListener(
+)
+.addEventListener(
   "submit",
   async event => {
 
@@ -1734,9 +2586,13 @@ document.getElementById(
 
 
     button.disabled = true;
-    button.textContent = "SAVING…";
 
-    message.className = "message";
+    button.textContent =
+      "SAVING…";
+
+
+    message.className =
+      "message";
 
 
     try{
@@ -1744,20 +2600,26 @@ document.getElementById(
       const name =
         document.getElementById(
           "profileName"
-        ).value.trim();
+        )
+        .value
+        .trim();
 
 
       if(!name){
+
         throw new Error(
           "Please enter your name."
         );
+
       }
 
 
       const avatar =
         document.getElementById(
           "profileAvatar"
-        ).value.trim();
+        )
+        .value
+        .trim();
 
 
       const result =
@@ -1765,7 +2627,8 @@ document.getElementById(
           .from("profiles")
           .update({
             display_name:name,
-            avatar_url:avatar || null
+            avatar_url:
+              avatar || null
           })
           .eq(
             "id",
@@ -1784,6 +2647,27 @@ document.getElementById(
         result.data;
 
 
+      /*
+        If you are also the owner,
+        update owner display immediately.
+      */
+
+      if(
+        currentUser.id ===
+        trip.owner_id
+      ){
+
+        ownerProfile = {
+          id:profile.id,
+          display_name:
+            profile.display_name,
+          avatar_url:
+            profile.avatar_url
+        };
+
+      }
+
+
       closeSheets();
 
       render();
@@ -1795,6 +2679,7 @@ document.getElementById(
       message.textContent =
         error.message;
 
+
       message.className =
         "message error";
 
@@ -1803,6 +2688,7 @@ document.getElementById(
     finally{
 
       button.disabled = false;
+
       button.textContent =
         "SAVE PROFILE";
 
@@ -1825,7 +2711,8 @@ function openMemberSheet(){
 
   document.getElementById(
     "memberRole"
-  ).value = "viewer";
+  ).value =
+    "viewer";
 
 
   document.getElementById(
@@ -1836,14 +2723,17 @@ function openMemberSheet(){
 
   document.getElementById(
     "memberSheet"
-  ).classList.add("open");
+  )
+  .classList
+  .add("open");
 
 }
 
 
 document.getElementById(
   "memberForm"
-).addEventListener(
+)
+.addEventListener(
   "submit",
   async event => {
 
@@ -1863,33 +2753,54 @@ document.getElementById(
 
 
     button.disabled = true;
-    button.textContent = "ADDING…";
 
-    message.className = "message";
+    button.textContent =
+      "ADDING…";
+
+
+    message.className =
+      "message";
 
 
     try{
 
+      if(!isOwner()){
+
+        throw new Error(
+          "Only the trip owner can add people."
+        );
+
+      }
+
+
       const userId =
         document.getElementById(
           "memberUserId"
-        ).value.trim();
+        )
+        .value
+        .trim();
 
 
       const role =
         document.getElementById(
           "memberRole"
-        ).value;
+        )
+        .value;
 
 
       if(!userId){
+
         throw new Error(
           "Enter the person's User ID."
         );
+
       }
 
 
-      if(userId === trip.owner_id){
+      if(
+        userId ===
+        trip.owner_id
+      ){
 
         throw new Error(
           "This user already owns the trip."
@@ -1901,14 +2812,51 @@ document.getElementById(
       const duplicate =
         members.some(
           member =>
-            member.user_id === userId
+            member.user_id ===
+            userId
         );
 
 
       if(duplicate){
 
         throw new Error(
-          "This person is already a trip member."
+          "This person is already a member of this trip."
+        );
+
+      }
+
+
+      /*
+        Check whether profile exists.
+        This also catches typing mistakes
+        before adding the membership.
+      */
+
+      const profileCheck =
+        await db
+          .from("profiles")
+          .select(`
+            id,
+            display_name
+          `)
+          .eq(
+            "id",
+            userId
+          )
+          .maybeSingle();
+
+
+      if(profileCheck.error){
+
+        throw profileCheck.error;
+
+      }
+
+
+      if(!profileCheck.data){
+
+        throw new Error(
+          "No profile was found for that User ID. The person needs to create an account first."
         );
 
       }
@@ -1920,7 +2868,12 @@ document.getElementById(
           .insert({
             trip_id:TRIP_ID,
             user_id:userId,
-            role:role
+            role:
+              role === "editor"
+              ?
+              "editor"
+              :
+              "viewer"
           });
 
 
@@ -1930,6 +2883,7 @@ document.getElementById(
 
 
       await loadMembers();
+
 
       closeSheets();
 
@@ -1942,6 +2896,7 @@ document.getElementById(
       message.textContent =
         error.message;
 
+
       message.className =
         "message error";
 
@@ -1950,6 +2905,7 @@ document.getElementById(
     finally{
 
       button.disabled = false;
+
       button.textContent =
         "ADD TO TRIP";
 
@@ -1960,7 +2916,7 @@ document.getElementById(
 
 
 /* =========================================================
-   EDIT MEMBER
+   OPEN MEMBER EDITOR
 ========================================================= */
 
 function openEditMember(id){
@@ -1984,7 +2940,8 @@ function openEditMember(id){
 
   const person =
     member.profile || {
-      display_name:"User"
+      display_name:
+        "Trip Member"
     };
 
 
@@ -2013,7 +2970,9 @@ function openEditMember(id){
 
   document.getElementById(
     "editMemberSheet"
-  ).classList.add("open");
+  )
+  .classList
+  .add("open");
 
 }
 
@@ -2024,10 +2983,16 @@ function openEditMember(id){
 
 document.getElementById(
   "saveMemberRole"
-).onclick =
+)
+.onclick =
   async () => {
 
     if(!editingMemberId){
+      return;
+    }
+
+
+    if(!isOwner()){
       return;
     }
 
@@ -2046,7 +3011,12 @@ document.getElementById(
 
     button.disabled = true;
 
-    message.className = "message";
+    button.textContent =
+      "SAVING…";
+
+
+    message.className =
+      "message";
 
 
     try{
@@ -2054,14 +3024,20 @@ document.getElementById(
       const role =
         document.getElementById(
           "editMemberRole"
-        ).value;
+        )
+        .value;
 
 
       const result =
         await db
           .from("trip_members")
           .update({
-            role:role
+            role:
+              role === "editor"
+              ?
+              "editor"
+              :
+              "viewer"
           })
           .eq(
             "id",
@@ -2080,6 +3056,7 @@ document.getElementById(
 
       await loadMembers();
 
+
       closeSheets();
 
       render();
@@ -2091,6 +3068,7 @@ document.getElementById(
       message.textContent =
         error.message;
 
+
       message.className =
         "message error";
 
@@ -2099,6 +3077,9 @@ document.getElementById(
     finally{
 
       button.disabled = false;
+
+      button.textContent =
+        "SAVE ACCESS";
 
     }
 
@@ -2111,10 +3092,14 @@ document.getElementById(
 
 document.getElementById(
   "removeMember"
-).onclick =
+)
+.onclick =
   async () => {
 
-    if(!editingMemberId){
+    if(
+      !editingMemberId ||
+      !isOwner()
+    ){
       return;
     }
 
@@ -2133,59 +3118,79 @@ document.getElementById(
 
 
     const name =
-      member.profile?.display_name ||
+      member
+        .profile
+        ?.display_name
+
+      ||
+
       "this person";
 
 
-    if(
-      !confirm(
+    const confirmed =
+      confirm(
         `Remove ${name} from this trip?`
-      )
-    ){
+      );
+
+
+    if(!confirmed){
       return;
     }
 
 
-    const result =
-      await db
-        .from("trip_members")
-        .delete()
-        .eq(
-          "id",
-          editingMemberId
-        )
-        .eq(
-          "trip_id",
-          TRIP_ID
-        );
+    const message =
+      document.getElementById(
+        "editMemberMessage"
+      );
 
 
-    if(result.error){
+    message.className =
+      "message";
 
-      const message =
-        document.getElementById(
-          "editMemberMessage"
-        );
+
+    try{
+
+      const result =
+        await db
+          .from("trip_members")
+          .delete()
+          .eq(
+            "id",
+            editingMemberId
+          )
+          .eq(
+            "trip_id",
+            TRIP_ID
+          );
+
+
+      if(result.error){
+        throw result.error;
+      }
+
+
+      editingMemberId = null;
+
+
+      await loadMembers();
+
+
+      closeSheets();
+
+      render();
+
+    }
+
+    catch(error){
 
       message.textContent =
-        result.error.message;
+        error.message;
+
 
       message.className =
         "message error";
 
-      return;
-
     }
-
-
-    editingMemberId = null;
-
-
-    await loadMembers();
-
-    closeSheets();
-
-    render();
 
   };
 
