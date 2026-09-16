@@ -22,48 +22,26 @@
   --orange:#f4a34d;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
   margin:0;
   min-height:100vh;
-
   background:
     radial-gradient(circle at 50% -10%,#17212a 0%,transparent 35%),
     var(--bg);
-
   color:var(--text);
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    sans-serif;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 
-button,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
+button,input{font:inherit;}
+button{cursor:pointer;}
 
 main{
   width:min(760px,100%);
   margin:auto;
   padding:22px 14px 70px;
 }
-
-
-/* =========================================================
-   HEADER
-========================================================= */
 
 .eyebrow{
   color:var(--green);
@@ -85,10 +63,7 @@ h1{
   line-height:1.5;
 }
 
-
-/* =========================================================
-   SUMMARY
-========================================================= */
+/* SUMMARY */
 
 .summary{
   display:grid;
@@ -117,18 +92,10 @@ h1{
   font-weight:850;
 }
 
-.stat.ready .stat-number{
-  color:var(--green);
-}
+.stat.ready .stat-number{color:var(--green);}
+.stat.missing .stat-number{color:var(--orange);}
 
-.stat.missing .stat-number{
-  color:var(--orange);
-}
-
-
-/* =========================================================
-   PROGRESS
-========================================================= */
+/* PROGRESS */
 
 .progress-wrap{
   margin-top:10px;
@@ -162,10 +129,7 @@ h1{
   transition:width .25s ease;
 }
 
-
-/* =========================================================
-   CONTROLS
-========================================================= */
+/* CONTROLS */
 
 .controls{
   display:flex;
@@ -199,10 +163,7 @@ button:disabled{
   cursor:not-allowed;
 }
 
-
-/* =========================================================
-   STATUS
-========================================================= */
+/* STATUS */
 
 .status{
   display:none;
@@ -216,9 +177,7 @@ button:disabled{
   line-height:1.45;
 }
 
-.status.show{
-  display:block;
-}
+.status.show{display:block;}
 
 .status.error{
   border-color:rgba(201,111,104,.45);
@@ -230,10 +189,7 @@ button:disabled{
   color:#9de6b2;
 }
 
-
-/* =========================================================
-   RESTAURANT CARD
-========================================================= */
+/* RESTAURANT CARD */
 
 .restaurant-card{
   display:none;
@@ -241,22 +197,12 @@ button:disabled{
   border:1px solid var(--line);
   border-radius:15px;
   overflow:hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      #141c22,
-      #0d1318
-    );
+  background:linear-gradient(145deg,#141c22,#0d1318);
 }
 
-.restaurant-card.show{
-  display:block;
-}
+.restaurant-card.show{display:block;}
 
-.restaurant-head{
-  padding:13px;
-}
+.restaurant-head{padding:13px;}
 
 .restaurant-number{
   color:var(--orange);
@@ -285,10 +231,7 @@ button:disabled{
   line-height:1.5;
 }
 
-
-/* =========================================================
-   EDIT NAME
-========================================================= */
+/* EDIT */
 
 .edit-area{
   padding:12px 13px;
@@ -304,9 +247,7 @@ button:disabled{
   letter-spacing:.1em;
 }
 
-.field{
-  margin-bottom:8px;
-}
+.field{margin-bottom:8px;}
 
 .field-label{
   display:block;
@@ -320,14 +261,11 @@ button:disabled{
   width:100%;
   height:39px;
   padding:0 10px;
-
   border:1px solid var(--line);
   border-radius:9px;
   outline:none;
-
   background:#080d11;
   color:#fff;
-
   font-size:9px;
 }
 
@@ -338,21 +276,15 @@ button:disabled{
 .save-name-btn{
   width:100%;
   min-height:38px;
-
   border:1px solid rgba(103,197,135,.45);
   border-radius:9px;
-
   background:rgba(103,197,135,.10);
   color:#9de6b2;
-
   font-size:8px;
   font-weight:900;
 }
 
-
-/* =========================================================
-   GOOGLE SEARCH
-========================================================= */
+/* SEARCH */
 
 .search-area{
   padding:12px 13px;
@@ -367,6 +299,13 @@ button:disabled{
   font-weight:900;
 }
 
+.search-hint{
+  margin-bottom:7px;
+  color:#64717a;
+  font-size:6.5px;
+  line-height:1.4;
+}
+
 .search-row{
   display:flex;
   gap:6px;
@@ -377,11 +316,9 @@ button:disabled{
   min-width:0;
   height:38px;
   padding:0 10px;
-
   border:1px solid var(--line);
   border-radius:9px;
   outline:none;
-
   background:#080d11;
   color:#fff;
   font-size:9px;
@@ -395,22 +332,15 @@ button:disabled{
   flex:0 0 75px;
   border:1px solid rgba(92,157,255,.35);
   border-radius:9px;
-
   background:rgba(92,157,255,.09);
   color:#a9caff;
-
   font-size:8px;
   font-weight:900;
 }
 
+/* RESULTS */
 
-/* =========================================================
-   GOOGLE RESULTS
-========================================================= */
-
-.results{
-  padding:0 13px 13px;
-}
+.results{padding:0 13px 13px;}
 
 .results-title{
   margin:12px 0 6px;
@@ -423,7 +353,6 @@ button:disabled{
 .result{
   margin-bottom:7px;
   padding:10px;
-
   border:1px solid var(--line);
   border-radius:11px;
   background:#11181e;
@@ -431,23 +360,19 @@ button:disabled{
 
 .result.best{
   border-color:rgba(103,197,135,.42);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(103,197,135,.07),
-      #11181e
-    );
+  background:linear-gradient(
+    145deg,
+    rgba(103,197,135,.07),
+    #11181e
+  );
 }
 
 .result-badge{
   display:inline-block;
   margin-bottom:5px;
   padding:3px 6px;
-
   border-radius:999px;
   background:rgba(103,197,135,.10);
-
   color:#8edba5;
   font-size:6px;
   font-weight:900;
@@ -480,13 +405,10 @@ button:disabled{
 .use-btn{
   flex:1;
   min-height:36px;
-
   border:1px solid rgba(103,197,135,.45);
   border-radius:8px;
-
   background:rgba(103,197,135,.10);
   color:#9de6b2;
-
   font-size:7px;
   font-weight:900;
 }
@@ -494,27 +416,19 @@ button:disabled{
 .map-btn{
   flex:0 0 72px;
   min-height:36px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   border:1px solid rgba(92,157,255,.30);
   border-radius:8px;
-
   background:rgba(92,157,255,.07);
   color:#a9caff;
-
   text-decoration:none;
-
   font-size:7px;
   font-weight:900;
 }
 
-
-/* =========================================================
-   BOTTOM ACTIONS
-========================================================= */
+/* BOTTOM */
 
 .bottom-actions{
   display:none;
@@ -523,9 +437,7 @@ button:disabled{
   padding:0 13px 13px;
 }
 
-.bottom-actions.show{
-  display:grid;
-}
+.bottom-actions.show{display:grid;}
 
 .skip-btn,
 .next-btn{
@@ -547,10 +459,7 @@ button:disabled{
   color:#96dfa9;
 }
 
-
-/* =========================================================
-   RESTAURANT LIST
-========================================================= */
+/* LIST */
 
 .list-title{
   margin:19px 2px 7px;
@@ -576,9 +485,7 @@ button:disabled{
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.list-row:last-child{
-  border-bottom:0;
-}
+.list-row:last-child{border-bottom:0;}
 
 .list-status{
   flex:0 0 18px;
@@ -616,11 +523,6 @@ button:disabled{
   font-size:7px;
 }
 
-
-/* =========================================================
-   BACK
-========================================================= */
-
 .back-link{
   display:inline-block;
   margin-top:17px;
@@ -628,284 +530,271 @@ button:disabled{
   text-decoration:none;
   font-size:8px;
 }
-
 </style>
 </head>
-
 
 <body>
 
 <main>
 
-  <div class="eyebrow">
-    DATABASE TOOL
+<div class="eyebrow">DATABASE TOOL</div>
+
+<h1>Restaurant Locations</h1>
+
+<div class="subtitle">
+  Match your saved restaurants, bakeries and cafés with Google Places
+  and save their exact latitude and longitude.
+</div>
+
+
+<div class="summary">
+
+  <div class="stat">
+    <div id="totalCount" class="stat-number">—</div>
+    <div class="stat-label">TOTAL</div>
   </div>
 
-  <h1>
-    Restaurant Locations
-  </h1>
-
-  <div class="subtitle">
-    Match your saved restaurants with Google Places and save
-    their exact latitude and longitude.
+  <div class="stat ready">
+    <div id="readyCount" class="stat-number">—</div>
+    <div class="stat-label">READY</div>
   </div>
 
-
-  <div class="summary">
-
-    <div class="stat">
-      <div id="totalCount" class="stat-number">—</div>
-      <div class="stat-label">TOTAL</div>
-    </div>
-
-    <div class="stat ready">
-      <div id="readyCount" class="stat-number">—</div>
-      <div class="stat-label">READY</div>
-    </div>
-
-    <div class="stat missing">
-      <div id="missingCount" class="stat-number">—</div>
-      <div class="stat-label">MISSING</div>
-    </div>
-
+  <div class="stat missing">
+    <div id="missingCount" class="stat-number">—</div>
+    <div class="stat-label">MISSING</div>
   </div>
 
+</div>
 
-  <div class="progress-wrap">
 
-    <div class="progress-top">
-      <span>LOCATION PROGRESS</span>
-      <span id="progressText">—</span>
-    </div>
+<div class="progress-wrap">
 
-    <div class="progress">
-      <div id="progressBar" class="progress-bar"></div>
-    </div>
-
+  <div class="progress-top">
+    <span>LOCATION PROGRESS</span>
+    <span id="progressText">—</span>
   </div>
 
-
-  <div class="controls">
-
-    <button
-      id="findNextBtn"
-      class="primary-btn"
-      type="button"
-    >
-      FIND NEXT MISSING
-    </button>
-
-    <button
-      id="refreshBtn"
-      class="secondary-btn"
-      type="button"
-    >
-      REFRESH
-    </button>
-
+  <div class="progress">
+    <div id="progressBar" class="progress-bar"></div>
   </div>
 
+</div>
 
-  <div id="status" class="status"></div>
 
+<div class="controls">
 
-  <!-- =====================================================
-       RESTAURANT EDIT / GOOGLE CARD
-  ====================================================== -->
-
-  <section
-    id="restaurantCard"
-    class="restaurant-card"
+  <button
+    id="findNextBtn"
+    class="primary-btn"
+    type="button"
   >
+    FIND NEXT MISSING
+  </button>
 
-    <div class="restaurant-head">
+  <button
+    id="refreshBtn"
+    class="secondary-btn"
+    type="button"
+  >
+    REFRESH
+  </button>
 
-      <div
-        id="restaurantNumber"
-        class="restaurant-number"
-      ></div>
-
-      <div
-        id="restaurantName"
-        class="restaurant-name"
-      ></div>
-
-      <div
-        id="restaurantJapanese"
-        class="restaurant-japanese"
-      ></div>
-
-      <div
-        id="restaurantLocation"
-        class="restaurant-location"
-      ></div>
-
-    </div>
+</div>
 
 
-    <!-- EDIT NAME -->
-
-    <div class="edit-area">
-
-      <div class="edit-title">
-        EDIT RESTAURANT
-      </div>
+<div id="status" class="status"></div>
 
 
-      <div class="field">
+<section
+  id="restaurantCard"
+  class="restaurant-card"
+>
 
-        <label
-          class="field-label"
-          for="nameInput"
-        >
-          RESTAURANT NAME
-        </label>
-
-        <input
-          id="nameInput"
-          class="field-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Restaurant name"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label
-          class="field-label"
-          for="japaneseNameInput"
-        >
-          JAPANESE NAME
-        </label>
-
-        <input
-          id="japaneseNameInput"
-          class="field-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Japanese name (optional)"
-        >
-
-      </div>
-
-
-      <button
-        id="saveNameBtn"
-        class="save-name-btn"
-        type="button"
-      >
-        SAVE NAME
-      </button>
-
-    </div>
-
-
-    <!-- GOOGLE SEARCH -->
-
-    <div class="search-area">
-
-      <div class="search-label">
-        GOOGLE SEARCH
-      </div>
-
-      <div class="search-row">
-
-        <input
-          id="searchInput"
-          class="search-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Restaurant name + city"
-        >
-
-        <button
-          id="searchBtn"
-          class="search-btn"
-          type="button"
-        >
-          SEARCH
-        </button>
-
-      </div>
-
-    </div>
-
+  <div class="restaurant-head">
 
     <div
-      id="results"
-      class="results"
+      id="restaurantNumber"
+      class="restaurant-number"
     ></div>
 
+    <div
+      id="restaurantName"
+      class="restaurant-name"
+    ></div>
 
     <div
-      id="bottomActions"
-      class="bottom-actions"
+      id="restaurantJapanese"
+      class="restaurant-japanese"
+    ></div>
+
+    <div
+      id="restaurantLocation"
+      class="restaurant-location"
+    ></div>
+
+  </div>
+
+
+  <!-- EDIT RESTAURANT -->
+
+  <div class="edit-area">
+
+    <div class="edit-title">
+      EDIT RESTAURANT
+    </div>
+
+
+    <div class="field">
+
+      <label
+        class="field-label"
+        for="nameInput"
+      >
+        RESTAURANT NAME
+      </label>
+
+      <input
+        id="nameInput"
+        class="field-input"
+        type="text"
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label
+        class="field-label"
+        for="japaneseNameInput"
+      >
+        JAPANESE NAME
+      </label>
+
+      <input
+        id="japaneseNameInput"
+        class="field-input"
+        type="text"
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <button
+      id="saveNameBtn"
+      class="save-name-btn"
+      type="button"
     >
+      SAVE NAME
+    </button>
+
+  </div>
+
+
+  <!-- GOOGLE SEARCH -->
+
+  <div class="search-area">
+
+    <div class="search-label">
+      GOOGLE SEARCH
+    </div>
+
+    <div class="search-hint">
+      Searches all Google place types — including restaurants,
+      cafés, bakeries and dessert shops.
+    </div>
+
+
+    <div class="search-row">
+
+      <input
+        id="searchInput"
+        class="search-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Name + area + Kyoto"
+      >
 
       <button
-        id="skipBtn"
-        class="skip-btn"
+        id="searchBtn"
+        class="search-btn"
         type="button"
       >
-        SKIP
-      </button>
-
-      <button
-        id="nextBtn"
-        class="next-btn"
-        type="button"
-      >
-        NEXT MISSING →
+        SEARCH
       </button>
 
     </div>
 
-  </section>
-
-
-  <div class="list-title">
-    YOUR RESTAURANTS
   </div>
 
+
   <div
-    id="restaurantList"
-    class="restaurant-list"
+    id="results"
+    class="results"
   ></div>
 
 
-  <a
-    class="back-link"
-    href="index.html"
+  <div
+    id="bottomActions"
+    class="bottom-actions"
   >
-    ← Back to Home
-  </a>
+
+    <button
+      id="skipBtn"
+      class="skip-btn"
+      type="button"
+    >
+      SKIP
+    </button>
+
+    <button
+      id="nextBtn"
+      class="next-btn"
+      type="button"
+    >
+      NEXT MISSING →
+    </button>
+
+  </div>
+
+</section>
+
+
+<div class="list-title">
+  YOUR RESTAURANTS
+</div>
+
+<div
+  id="restaurantList"
+  class="restaurant-list"
+></div>
+
+
+<a
+  class="back-link"
+  href="index.html"
+>
+  ← Back to Home
+</a>
 
 </main>
 
 
-<!-- SUPABASE -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-
-
-<!-- GOOGLE -->
-
 <script src="google-maps.js"></script>
 
 
 <script>
 
 /* =========================================================
-   VARIABLES
+   STATE
 ========================================================= */
 
 let restaurants = [];
 let missingRestaurants = [];
-
 let currentRestaurant = null;
 let PlaceClass = null;
 
@@ -987,7 +876,7 @@ const nextBtn =
 
 
 /* =========================================================
-   ESCAPE HTML
+   HELPERS
 ========================================================= */
 
 function escapeHTML(value){
@@ -1001,10 +890,6 @@ function escapeHTML(value){
 
 }
 
-
-/* =========================================================
-   STATUS
-========================================================= */
 
 function setStatus(message,type=""){
 
@@ -1040,12 +925,13 @@ async function initGoogle(){
 
   }
 
+
   await loadGoogleMaps();
 
+
   const { Place } =
-    await google.maps.importLibrary(
-      "places"
-    );
+    await google.maps.importLibrary("places");
+
 
   PlaceClass = Place;
 
@@ -1053,7 +939,7 @@ async function initGoogle(){
 
 
 /* =========================================================
-   LOAD RESTAURANTS
+   LOAD DATABASE
 ========================================================= */
 
 async function loadRestaurants(){
@@ -1107,21 +993,10 @@ async function loadRestaurants(){
 
 
 /* =========================================================
-   COORDINATE CHECK
+   COORDINATES
 ========================================================= */
 
 function hasCoordinates(restaurant){
-
-  /*
-    IMPORTANT FIX:
-
-    Number(null) = 0 in JavaScript.
-
-    The old version therefore thought NULL
-    coordinates were valid coordinates.
-
-    We explicitly reject NULL/blank first.
-  */
 
   if(
     restaurant.latitude === null ||
@@ -1150,10 +1025,6 @@ function hasCoordinates(restaurant){
   }
 
 
-  /*
-    Also reject impossible coordinates.
-  */
-
   if(
     lat < -90 ||
     lat > 90 ||
@@ -1164,12 +1035,6 @@ function hasCoordinates(restaurant){
   }
 
 
-  /*
-    0,0 is technically valid coordinates,
-    but for your Japan restaurant database
-    it clearly means something is wrong.
-  */
-
   if(lat === 0 && lng === 0){
     return false;
   }
@@ -1179,10 +1044,6 @@ function hasCoordinates(restaurant){
 
 }
 
-
-/* =========================================================
-   MISSING
-========================================================= */
 
 function rebuildMissing(){
 
@@ -1213,21 +1074,14 @@ function renderSummary(){
     total - ready;
 
 
-  totalCount.textContent =
-    total;
-
-  readyCount.textContent =
-    ready;
-
-  missingCount.textContent =
-    missing;
+  totalCount.textContent = total;
+  readyCount.textContent = ready;
+  missingCount.textContent = missing;
 
 
   const percent =
     total
-      ? Math.round(
-          (ready / total) * 100
-        )
+      ? Math.round((ready / total) * 100)
       : 0;
 
 
@@ -1237,7 +1091,6 @@ function renderSummary(){
   progressBar.style.width =
     `${percent}%`;
 
-
   findNextBtn.disabled =
     missing === 0;
 
@@ -1245,7 +1098,7 @@ function renderSummary(){
   if(missing === 0){
 
     setStatus(
-      "All restaurants have coordinates. Food Near Me is ready to use your saved locations.",
+      "All restaurants have coordinates. Food Near Me is ready.",
       "success"
     );
 
@@ -1255,7 +1108,7 @@ function renderSummary(){
 
 
 /* =========================================================
-   RESTAURANT LIST
+   LIST
 ========================================================= */
 
 function renderRestaurantList(){
@@ -1285,26 +1138,22 @@ function renderRestaurantList(){
           hasCoordinates(restaurant);
 
 
-        let sub;
+        const sub =
+          ready
 
+            ?
 
-        if(ready){
+          `${restaurant.latitude}, ${restaurant.longitude}`
 
-          sub =
-            `${restaurant.latitude}, ${restaurant.longitude}`;
+            :
 
-        }
-        else{
-
-          sub =
-            [
-              restaurant.area,
-              restaurant.city
-            ]
+          [
+            restaurant.area,
+            restaurant.city,
+            restaurant.prefecture
+          ]
             .filter(Boolean)
             .join(" · ");
-
-        }
 
 
         return `
@@ -1315,21 +1164,23 @@ function renderRestaurantList(){
               ${ready ? "✅" : "⚠️"}
             </div>
 
-
             <div class="list-main">
 
               <div class="list-name">
-                ${escapeHTML(restaurant.name)}
+                ${escapeHTML(
+                  restaurant.name ||
+                  "Unnamed restaurant"
+                )}
               </div>
 
               <div class="list-sub">
                 ${escapeHTML(
-                  sub || "Missing coordinates"
+                  sub ||
+                  "Missing coordinates"
                 )}
               </div>
 
             </div>
-
 
             <button
               class="list-action"
@@ -1351,23 +1202,27 @@ function renderRestaurantList(){
     .querySelectorAll("[data-review-id]")
     .forEach(button => {
 
-      button.onclick =
-        () => {
+      button.onclick = () => {
 
-          openRestaurantById(
-            Number(
-              button.dataset.reviewId
-            ),
-            !hasCoordinates(
-              restaurants.find(
-                r =>
-                  Number(r.id) ===
-                  Number(button.dataset.reviewId)
-              )
-            )
+        const id =
+          Number(button.dataset.reviewId);
+
+
+        const restaurant =
+          restaurants.find(
+            item =>
+              Number(item.id) === id
           );
 
-        };
+
+        openRestaurantById(
+          id,
+          restaurant
+            ? !hasCoordinates(restaurant)
+            : false
+        );
+
+      };
 
     });
 
@@ -1375,10 +1230,22 @@ function renderRestaurantList(){
 
 
 /* =========================================================
-   SEARCH QUERY
+   BUILD GOOGLE QUERY
 ========================================================= */
 
 function buildSearchQuery(restaurant){
+
+  /*
+    Keep the query reasonably clean.
+
+    For example:
+
+    fiveran ファイブラン Kyoto Japan
+
+    or
+
+    Takara Sushi 嵐山 Kyoto Japan
+  */
 
   const parts = [];
 
@@ -1393,45 +1260,66 @@ function buildSearchQuery(restaurant){
   }
 
 
-  if(restaurant.location){
-    parts.push(restaurant.location);
-  }
-
+  /*
+    Prefer area/location because this is useful
+    for branches.
+  */
 
   if(restaurant.area){
     parts.push(restaurant.area);
+  }
+  else if(restaurant.location){
+    parts.push(restaurant.location);
   }
 
 
   if(restaurant.city){
     parts.push(restaurant.city);
   }
-
-
-  if(
-    restaurant.prefecture &&
-    String(restaurant.prefecture).toLowerCase()
-    !==
-    String(restaurant.city || "").toLowerCase()
-  ){
-    parts.push(
-      restaurant.prefecture
-    );
+  else if(restaurant.prefecture){
+    parts.push(restaurant.prefecture);
   }
 
 
   parts.push("Japan");
 
 
+  /*
+    Remove duplicate words such as:
+    Kyoto Kyoto Japan
+  */
+
+  const seen = new Set();
+
   return parts
     .filter(Boolean)
+    .filter(value => {
+
+      const key =
+        String(value)
+          .trim()
+          .toLowerCase();
+
+      if(!key){
+        return false;
+      }
+
+      if(seen.has(key)){
+        return false;
+      }
+
+      seen.add(key);
+
+      return true;
+
+    })
     .join(" ");
 
 }
 
 
 /* =========================================================
-   OPEN RESTAURANT
+   OPEN
 ========================================================= */
 
 function openRestaurantById(
@@ -1501,9 +1389,7 @@ function openRestaurantById(
 
 
   searchInput.value =
-    buildSearchQuery(
-      restaurant
-    );
+    buildSearchQuery(restaurant);
 
 
   resultsBox.innerHTML = "";
@@ -1568,7 +1454,6 @@ async function saveRestaurantName(){
       .from("restaurants")
       .update({
         name:newName,
-
         name_japanese:
           newJapaneseName || null
       })
@@ -1603,7 +1488,7 @@ async function saveRestaurantName(){
     saveNameBtn.textContent = "SAVE NAME";
 
     setStatus(
-      "Supabase returned 0 updated rows. Your RLS policy may be blocking this restaurant.",
+      "Supabase returned 0 updated rows. Your RLS policy may be blocking the update.",
       "error"
     );
 
@@ -1618,9 +1503,9 @@ async function saveRestaurantName(){
 
   const index =
     restaurants.findIndex(
-      restaurant =>
-        Number(restaurant.id) ===
-        Number(currentRestaurant.id)
+      item =>
+        Number(item.id) ===
+        Number(saved.id)
     );
 
 
@@ -1646,14 +1531,12 @@ async function saveRestaurantName(){
 
 
   /*
-    Refresh Google search text using the
-    corrected restaurant name.
+    IMPORTANT:
+    rebuild Google query after changing the name.
   */
 
   searchInput.value =
-    buildSearchQuery(
-      currentRestaurant
-    );
+    buildSearchQuery(currentRestaurant);
 
 
   renderRestaurantList();
@@ -1669,15 +1552,12 @@ async function saveRestaurantName(){
   );
 
 
-  setTimeout(
-    () => {
+  setTimeout(() => {
 
-      saveNameBtn.textContent =
-        "SAVE NAME";
+    saveNameBtn.textContent =
+      "SAVE NAME";
 
-    },
-    900
-  );
+  },900);
 
 }
 
@@ -1764,7 +1644,7 @@ async function searchGoogle(){
   if(!query){
 
     setStatus(
-      "Enter a restaurant name to search.",
+      "Enter a place name to search.",
       "error"
     );
 
@@ -1798,6 +1678,22 @@ async function searchGoogle(){
 
   try{
 
+    /*
+      IMPORTANT CHANGE:
+
+      NO includedType:"restaurant"
+
+      This allows Google to return:
+      - restaurants
+      - bakeries
+      - cafés
+      - dessert shops
+      - food stores
+      - other food-related places
+
+      This is what should help with fiveran.
+    */
+
     const { places } =
       await PlaceClass.searchByText({
 
@@ -1810,10 +1706,6 @@ async function searchGoogle(){
           "location",
           "googleMapsURI"
         ],
-
-        includedType:"restaurant",
-
-        useStrictTypeFiltering:false,
 
         maxResultCount:5,
 
@@ -1851,7 +1743,7 @@ async function searchGoogle(){
 
 
 /* =========================================================
-   GET LAT LNG
+   COORDS FROM GOOGLE
 ========================================================= */
 
 function getLatLng(place){
@@ -1900,10 +1792,7 @@ function getLatLng(place){
   }
 
 
-  return {
-    lat,
-    lng
-  };
+  return {lat,lng};
 
 }
 
@@ -1925,8 +1814,8 @@ function renderGoogleResults(places){
       <div class="result">
 
         <div class="result-address">
-          Try editing the restaurant name or changing
-          the Google search above.
+          Try the Japanese name, area or city.
+          For example: fiveran ファイブラン 京都
         </div>
 
       </div>
@@ -1969,25 +1858,19 @@ function renderGoogleResults(places){
 
             <div
               class="result ${
-                index === 0
-                  ? "best"
-                  : ""
+                index === 0 ? "best" : ""
               }"
             >
 
               ${
                 index === 0
-
                   ?
-
                 `
                   <div class="result-badge">
                     TOP GOOGLE MATCH
                   </div>
                 `
-
                   :
-
                 ""
               }
 
@@ -2027,9 +1910,7 @@ function renderGoogleResults(places){
 
                 ${
                   mapURL
-
                     ?
-
                   `
                     <a
                       class="map-btn"
@@ -2040,9 +1921,7 @@ function renderGoogleResults(places){
                       MAP ↗
                     </a>
                   `
-
                     :
-
                   ""
                 }
 
@@ -2065,21 +1944,20 @@ function renderGoogleResults(places){
     )
     .forEach(button => {
 
-      button.onclick =
-        () => {
+      button.onclick = () => {
 
-          const index =
-            Number(
-              button.dataset.placeIndex
-            );
-
-
-          saveGooglePlace(
-            window.currentGooglePlaces[index],
-            button
+        const index =
+          Number(
+            button.dataset.placeIndex
           );
 
-        };
+
+        saveGooglePlace(
+          window.currentGooglePlaces[index],
+          button
+        );
+
+      };
 
     });
 
@@ -2087,7 +1965,7 @@ function renderGoogleResults(places){
 
 
 /* =========================================================
-   SAVE GOOGLE LOCATION
+   SAVE GOOGLE MATCH
 ========================================================= */
 
 async function saveGooglePlace(
@@ -2129,14 +2007,10 @@ async function saveGooglePlace(
 
   const updateData = {
 
-    latitude:
-      coords.lat,
+    latitude:coords.lat,
+    longitude:coords.lng,
 
-    longitude:
-      coords.lng,
-
-    provider:
-      "google",
+    provider:"google",
 
     provider_place_id:
       place.id
@@ -2176,16 +2050,9 @@ async function saveGooglePlace(
     console.error(error);
 
     button.disabled = false;
-
     button.textContent =
       "✓ USE THIS LOCATION";
 
-
-    /*
-      Friendly duplicate message if your
-      provider/provider_place_id UNIQUE index
-      catches an existing Google restaurant.
-    */
 
     if(
       error.code === "23505" ||
@@ -2218,13 +2085,11 @@ async function saveGooglePlace(
   if(!data || data.length === 0){
 
     button.disabled = false;
-
     button.textContent =
       "✓ USE THIS LOCATION";
 
-
     setStatus(
-      "Supabase returned 0 updated rows. The restaurant was not saved. Your RLS policy may be blocking this restaurant.",
+      "Supabase returned 0 updated rows. Your RLS policy may be blocking this restaurant.",
       "error"
     );
 
@@ -2233,14 +2098,14 @@ async function saveGooglePlace(
   }
 
 
-  const savedRestaurant =
+  const saved =
     data[0];
 
 
   const index =
     restaurants.findIndex(
-      restaurant =>
-        Number(restaurant.id) ===
+      item =>
+        Number(item.id) ===
         Number(restaurantId)
     );
 
@@ -2249,7 +2114,7 @@ async function saveGooglePlace(
 
     restaurants[index] = {
       ...restaurants[index],
-      ...savedRestaurant
+      ...saved
     };
 
     currentRestaurant =
@@ -2264,7 +2129,7 @@ async function saveGooglePlace(
 
 
   setStatus(
-    `✓ Saved location for ${savedRestaurant.name}.`,
+    `✓ Saved location for ${saved.name}.`,
     "success"
   );
 
@@ -2273,15 +2138,12 @@ async function saveGooglePlace(
     "✓ SAVED";
 
 
-  setTimeout(
-    () => {
+  setTimeout(() => {
 
-      currentRestaurant = null;
-      openNextMissing();
+    currentRestaurant = null;
+    openNextMissing();
 
-    },
-    650
-  );
+  },650);
 
 }
 
@@ -2294,27 +2156,25 @@ saveNameBtn.onclick =
   saveRestaurantName;
 
 
-findNextBtn.onclick =
-  () => {
+findNextBtn.onclick = () => {
 
-    currentRestaurant = null;
-    openNextMissing();
+  currentRestaurant = null;
+  openNextMissing();
 
-  };
+};
 
 
-refreshBtn.onclick =
-  async () => {
+refreshBtn.onclick = async () => {
 
-    restaurantCard
-      .classList
-      .remove("show");
+  restaurantCard
+    .classList
+    .remove("show");
 
-    currentRestaurant = null;
+  currentRestaurant = null;
 
-    await loadRestaurants();
+  await loadRestaurants();
 
-  };
+};
 
 
 searchBtn.onclick =
@@ -2382,14 +2242,8 @@ async function start(){
 
   try{
 
-    /*
-      Confirm browser login.
-    */
-
     const {
-      data:{
-        user
-      }
+      data:{user}
     } =
       await db.auth.getUser();
 
@@ -2427,12 +2281,6 @@ async function start(){
 
     await loadRestaurants();
 
-
-    /*
-      Do not clear the status if all locations
-      are already complete, because renderSummary()
-      displays the completion message.
-    */
 
     if(missingRestaurants.length > 0){
       clearStatus();
