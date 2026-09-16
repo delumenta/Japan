@@ -4,484 +4,2331 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070c10">
+
 <title>Japan Autumn Trip</title>
+
 <style>
 :root{
-  --bg:#070c10;--panel:#10161c;--panel2:#151c23;--line:#29323b;
-  --text:#f5f5f3;--muted:#aeb5bc;--muted-blue:#91a5b3;
-  --red:#c96f68;--blue:#5c9dff;--green:#67c587;--orange:#f4a34d;
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel2:#151c23;
+  --line:#29323b;
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --muted-blue:#91a5b3;
+  --red:#c96f68;
+  --blue:#5c9dff;
+  --green:#67c587;
+  --orange:#f4a34d;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:radial-gradient(circle at 50% -15%,#17212a 0%,transparent 38%),var(--bg);
-}
-main{max-width:760px;margin:auto;padding:20px 14px 88px}
-.eyebrow{color:var(--red);font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
-h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;line-height:1.05;margin:7px 0 4px;letter-spacing:-.03em}
-.sub{font-size:12px;color:var(--muted)}
-.today{
-  margin-top:18px;border:1px solid rgba(201,111,104,.42);border-radius:20px;padding:15px;
-  background:linear-gradient(145deg,rgba(201,111,104,.10),#10161c 55%);
-  box-shadow:0 10px 35px rgba(0,0,0,.18);
-}
-.today-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.today-label{font-size:10px;color:var(--red);font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-.today-date{font-size:10px;color:var(--muted);font-weight:800}
-.today h2{font-family:Georgia,"Times New Roman",serif;font-size:22px;margin:7px 0 3px}
-.today-route{font-size:11px;color:#d6dadd;line-height:1.45}
-.progress{
-  height:5px;background:#1b252d;border-radius:999px;overflow:hidden;margin-top:12px;
-}
-.progress > div{height:100%;background:var(--red);width:0}
-.progress-label{margin-top:5px;color:var(--muted);font-size:9px;text-align:right;font-weight:800}
 
-.now-box{
-  margin-top:13px;border:1px solid var(--line);border-radius:16px;padding:13px;
-  background:linear-gradient(145deg,#151d23,#0d1318)
+*{
+  box-sizing:border-box;
 }
-.now-label{font-size:9px;color:var(--green);font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-.now-place{font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:800;margin-top:4px}
-.now-time{color:var(--muted-blue);font-size:10px;font-weight:850;margin-top:2px}
-.now-note{margin-top:5px;color:var(--muted);font-size:10px;line-height:1.45}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}
-.btn{
-  min-height:39px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;
-  justify-content:center;text-decoration:none;font-size:10px;font-weight:900;color:#fff;background:#151d23;
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -15%,#17212a 0%,transparent 38%),
+    var(--bg);
+}
+
+button{
+  font:inherit;
+}
+
+main{
+  max-width:760px;
+  margin:auto;
+  padding:20px 14px 94px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.eyebrow{
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+h1{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:31px;
+  line-height:1.05;
+  margin:7px 0 4px;
+  letter-spacing:-.03em;
+}
+
+.sub{
+  font-size:11px;
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   DAY CARD
+========================================================= */
+
+.day-card{
+  margin-top:18px;
+  border:1px solid rgba(201,111,104,.38);
+  border-radius:20px;
+  padding:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(201,111,104,.08),
+      #10161c 52%
+    );
+}
+
+.day-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.day-label{
+  color:var(--red);
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.13em;
+}
+
+.day-date{
+  color:var(--muted);
+  font-size:8px;
+  font-weight:850;
+}
+
+.day-card h2{
+  margin:6px 0 2px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+}
+
+.day-area{
+  color:#9ca9b1;
+  font-size:9px;
+}
+
+
+/* =========================================================
+   DATE SCROLLER
+========================================================= */
+
+.date-scroll{
+  display:flex;
+  gap:5px;
+  overflow-x:auto;
+  margin-top:12px;
+  padding-bottom:3px;
+  scrollbar-width:none;
+}
+
+.date-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.date-btn{
+  flex:0 0 auto;
+  width:42px;
+  min-height:43px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#11181e;
+  color:var(--muted);
   cursor:pointer;
 }
-.btn.primary{background:rgba(201,111,104,.12);border-color:rgba(201,111,104,.42);color:#f3d4d1}
-.btn.map{background:rgba(92,157,255,.08);border-color:rgba(92,157,255,.28);color:#b8d1ff}
-.controls{display:grid;grid-template-columns:1fr 1.4fr;gap:7px;margin-top:8px}
-.btn.back{color:var(--muted)}
-.btn.done{background:rgba(103,197,135,.10);border-color:rgba(103,197,135,.32);color:#b9e5c7}
-.btn:disabled{opacity:.38;cursor:default}
 
-.next-list{margin-top:12px}
-.next-title{color:var(--muted-blue);font-size:9px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px}
-.next-item{
-  display:grid;grid-template-columns:21px 1fr;gap:8px;padding:8px 0;border-top:1px solid rgba(255,255,255,.06);
-  color:#d8dcdf;font-size:10px;
-}
-.next-item.done{opacity:.45;text-decoration:line-through}
-.next-item.current{color:#fff;font-weight:850}
-.next-item .tick{color:var(--green)}
-.next-item .num{color:var(--muted)}
-.reset{
-  margin-top:9px;background:none;border:0;color:#76838c;font-size:9px;font-weight:800;padding:4px 0;cursor:pointer
+.date-btn .num{
+  display:block;
+  color:#e7e9ea;
+  font-size:11px;
+  font-weight:900;
 }
 
-.pretrip{
-  margin-top:18px;border:1px dashed #34414b;border-radius:18px;padding:15px;color:var(--muted);
-  font-size:11px;line-height:1.5
+.date-btn .dow{
+  display:block;
+  margin-top:1px;
+  font-size:6px;
+  font-weight:900;
 }
-.pretrip strong{color:#fff}
-.preview-days{display:flex;gap:6px;overflow-x:auto;margin-top:11px;padding-bottom:2px;scrollbar-width:none}
-.preview-days::-webkit-scrollbar{display:none}
-.preview-day{
-  flex:0 0 auto;border:1px solid var(--line);background:#12191f;color:#d8dcdf;border-radius:10px;
-  min-width:42px;height:36px;font-size:10px;font-weight:900;cursor:pointer
-}
-.preview-day.active{border-color:var(--red);background:rgba(201,111,104,.11);color:#fff}
 
-.section{margin-top:18px}
-.section-title{font-size:10px;color:var(--muted-blue);font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin:0 2px 8px}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.card{
-  min-height:119px;padding:14px;border-radius:18px;border:1px solid var(--line);text-decoration:none;color:var(--text);
-  background:linear-gradient(145deg,#151d23,#0e1419);position:relative;overflow:hidden
+.date-btn.active{
+  border-color:rgba(201,111,104,.55);
+  background:rgba(201,111,104,.12);
+  color:#f1cbc8;
 }
-.card .icon{font-size:23px}.card h3{margin:8px 0 3px;font-family:Georgia,"Times New Roman",serif;font-size:18px}
-.card p{margin:0;color:var(--muted);font-size:10px;line-height:1.4}
-.card .go{position:absolute;right:12px;bottom:9px;color:var(--red);font-size:14px;font-weight:900}
-.card.schedule{grid-column:1/-1;min-height:99px}
+
+.date-btn.active .num{
+  color:#fff;
+}
+
+
+/* =========================================================
+   BOOKING STRIP
+========================================================= */
+
+.booking-strip{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:10px;
+  padding:8px 9px;
+
+  border:1px solid rgba(244,163,77,.22);
+  border-radius:9px;
+
+  background:rgba(244,163,77,.05);
+  text-decoration:none;
+}
+
+.booking-icon{
+  flex:0 0 auto;
+  font-size:13px;
+}
+
+.booking-text{
+  flex:1;
+  min-width:0;
+  color:#d6dadc;
+  font-size:7px;
+  line-height:1.4;
+}
+
+.booking-text strong{
+  color:var(--orange);
+  font-size:6px;
+  letter-spacing:.08em;
+}
+
+.booking-arrow{
+  color:var(--orange);
+  font-size:11px;
+}
+
+
+/* =========================================================
+   DAY BLOCKS
+========================================================= */
+
+.plan-title{
+  margin:14px 2px 6px;
+  color:var(--muted-blue);
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.13em;
+}
+
+.block{
+  margin-bottom:6px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #141c22,
+      #0d1318
+    );
+
+  overflow:hidden;
+}
+
+.block-head{
+  width:100%;
+  min-height:52px;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:9px 10px;
+}
+
+.block.expandable .block-head{
+  cursor:pointer;
+}
+
+.block-time{
+  flex:0 0 76px;
+
+  color:#a6b7c2;
+  font-size:7px;
+  font-weight:900;
+  line-height:1.4;
+}
+
+.block-main{
+  flex:1;
+  min-width:0;
+}
+
+.block-name{
+  color:#f3f3f1;
+  font-size:9px;
+  font-weight:900;
+  line-height:1.3;
+}
+
+.block-note{
+  margin-top:2px;
+  color:#7f8b93;
+  font-size:7px;
+  line-height:1.4;
+}
+
+.block-chevron{
+  flex:0 0 25px;
+
+  color:#8d9aa2;
+  text-align:center;
+  font-size:12px;
+
+  transition:transform .2s ease;
+}
+
+.block.open .block-chevron{
+  transform:rotate(180deg);
+}
+
+.block-map{
+  flex:0 0 31px;
+  width:31px;
+  height:31px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(92,157,255,.18);
+  border-radius:8px;
+
+  background:rgba(92,157,255,.05);
+
+  text-decoration:none;
+  font-size:12px;
+}
+
+
+/* =========================================================
+   COLLAPSIBLE CONTENT
+========================================================= */
+
+.block-content{
+  display:none;
+  padding:0 10px 10px 94px;
+}
+
+.block.open .block-content{
+  display:block;
+}
+
+.poi-list{
+  border-top:1px solid rgba(255,255,255,.055);
+}
+
+.poi{
+  min-height:34px;
+
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  border-bottom:1px solid rgba(255,255,255,.045);
+}
+
+.poi:last-child{
+  border-bottom:0;
+}
+
+.poi-route{
+  flex:0 0 10px;
+
+  color:#596771;
+  font-size:7px;
+  text-align:center;
+}
+
+.poi-name{
+  flex:1;
+  min-width:0;
+
+  color:#b9c0c5;
+  font-size:7.5px;
+  font-weight:750;
+  line-height:1.3;
+}
+
+.poi.optional .poi-name{
+  color:#77848c;
+}
+
+.optional-label{
+  margin-left:4px;
+
+  color:#65727b;
+  font-size:5.5px;
+  font-weight:900;
+}
+
+.poi-map{
+  flex:0 0 30px;
+
+  width:30px;
+  height:28px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(92,157,255,.18);
+  border-radius:7px;
+
+  background:rgba(92,157,255,.05);
+
+  text-decoration:none;
+  font-size:11px;
+}
+
+
+/* =========================================================
+   FULL PLAN
+========================================================= */
+
+.full-plan{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:38px;
+  margin-top:10px;
+
+  border:1px solid rgba(201,111,104,.32);
+  border-radius:10px;
+
+  background:rgba(201,111,104,.08);
+
+  color:#f1cfcc;
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   FOOD NEAR ME
+========================================================= */
+
+.food-nearby{
+  width:100%;
+  min-height:64px;
+
+  margin-top:10px;
+  padding:11px 14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  border:1px solid rgba(103,197,135,.65);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(103,197,135,.12),
+      rgba(103,197,135,.035)
+    );
+
+  color:#d7f5df;
+  text-decoration:none;
+
+  box-shadow:
+    inset 0 0 18px rgba(103,197,135,.025);
+
+  transition:
+    border-color .15s ease,
+    background .15s ease,
+    transform .15s ease;
+}
+
+.food-nearby:hover{
+  border-color:rgba(103,197,135,.9);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(103,197,135,.16),
+      rgba(103,197,135,.05)
+    );
+}
+
+.food-nearby:active{
+  transform:scale(.995);
+}
+
+.food-nearby-left{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  min-width:0;
+}
+
+.food-nearby-icon{
+  flex:0 0 auto;
+
+  color:var(--green);
+  font-size:21px;
+}
+
+.food-nearby-title{
+  color:#9de6b2;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+
+.food-nearby-sub{
+  margin-top:3px;
+
+  color:#77aa86;
+
+  font-size:6.5px;
+  line-height:1.35;
+}
+
+.food-nearby-arrow{
+  flex:0 0 auto;
+
+  color:var(--green);
+  font-size:19px;
+}
+
+
+/* =========================================================
+   TRIPLINE
+========================================================= */
+
 .tripline{
-  margin-top:16px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;
-  background:rgba(255,255,255,.025);font-size:10px;color:var(--muted);line-height:1.55;text-align:center
-}
-.tripline strong{color:#e8eaeb}
-.bottom-nav{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 10px calc(7px + env(safe-area-inset-bottom));
-  background:rgba(7,12,16,.96);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:4px
-}
-.bottom-nav a{min-height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);font-size:9px;font-weight:850;border-radius:10px}
-.bottom-nav a.active{color:#fff;background:rgba(201,111,104,.10)}
+  margin-top:14px;
+  padding:9px;
 
-.booking-card{
-  grid-column:1/-1;min-height:76px;padding:12px 14px;border-radius:16px;
-  border:1px solid rgba(244,163,77,.28);text-decoration:none;color:var(--text);
-  background:linear-gradient(145deg,rgba(244,163,77,.07),#0e1419);
-  display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;
-  position:relative;overflow:hidden
-}
-.booking-card .icon{font-size:21px}
-.booking-card h3{margin:0 0 2px;font-family:Georgia,"Times New Roman",serif;font-size:16px}
-.booking-card p{margin:0;color:var(--muted);font-size:9px;line-height:1.4}
-.booking-card .go{color:var(--orange);font-size:14px;font-weight:900}
-.day-booking{
-  margin-top:9px;padding:9px 10px;border:1px solid rgba(244,163,77,.24);
-  border-radius:11px;background:rgba(244,163,77,.055)
-}
-.day-booking-label{font-size:8px;color:var(--orange);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-.day-booking-text{margin-top:3px;color:#e8eaeb;font-size:10px;font-weight:800;line-height:1.4}
-.day-booking a{color:#f2c38f;text-decoration:none}
+  border:1px solid var(--line);
+  border-radius:11px;
 
-@media(max-width:390px){
-  h1{font-size:28px}.today{padding:13px}.now-place{font-size:19px}.card{padding:12px}
+  color:#75828a;
+  background:rgba(255,255,255,.02);
+
+  text-align:center;
+
+  font-size:7px;
+  line-height:1.5;
 }
 
-/* =========================================
-   SHARED BOTTOM NAV
-========================================= */
+.tripline strong{
+  color:#dce0e2;
+}
+
+
+/* =========================================================
+   MORE SHEET
+========================================================= */
+
+.more-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:150;
+
+  display:none;
+  align-items:flex-end;
+
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(4px);
+}
+
+.more-backdrop.open{
+  display:flex;
+}
+
+.more-sheet{
+  width:100%;
+  max-width:760px;
+
+  margin:0 auto;
+
+  padding:
+    8px 13px
+    calc(18px + env(safe-area-inset-bottom));
+
+  border:1px solid var(--line);
+  border-radius:20px 20px 0 0;
+
+  background:#0d1318;
+}
+
+.sheet-handle{
+  width:38px;
+  height:4px;
+
+  margin:2px auto 13px;
+
+  border-radius:999px;
+
+  background:#39454d;
+}
+
+.more-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:9px;
+}
+
+.more-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
+}
+
+.more-close{
+  width:32px;
+  height:32px;
+
+  border:1px solid var(--line);
+  border-radius:8px;
+
+  background:#151c22;
+  color:#fff;
+
+  cursor:pointer;
+}
+
+.more-link{
+  min-height:58px;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:9px 10px;
+  margin-bottom:6px;
+
+  border:1px solid var(--line);
+  border-radius:11px;
+
+  background:#11181e;
+
+  color:#fff;
+  text-decoration:none;
+}
+
+.more-link.disabled{
+  opacity:.45;
+  cursor:default;
+}
+
+.more-link-icon{
+  flex:0 0 31px;
+
+  font-size:18px;
+  text-align:center;
+}
+
+.more-link-main{
+  flex:1;
+}
+
+.more-link-title{
+  font-size:9px;
+  font-weight:900;
+}
+
+.more-link-sub{
+  margin-top:2px;
+
+  color:#7f8b93;
+  font-size:6.5px;
+}
+
+.more-link-arrow{
+  color:#8d9aa2;
+  font-size:12px;
+}
+
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
 .bottom-nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
+
   z-index:80;
+
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
-  background:rgba(7,12,16,.97);
+
+  padding:
+    7px 8px
+    calc(7px + env(safe-area-inset-bottom));
+
   border-top:1px solid var(--line);
+
+  background:rgba(7,12,16,.97);
+
   backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
 }
 
-.bottom-nav a{
+.bottom-nav a,
+.bottom-nav button{
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:2px;
+
   min-height:47px;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.02em;
+
+  border:0;
   border-radius:11px;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:800;
+
+  cursor:pointer;
 }
 
-.bottom-nav .nav-icon{
-  font-size:17px;
-  line-height:1;
+.nav-icon{
+  font-size:16px;
 }
 
-.bottom-nav a.active{
+.bottom-nav .active{
   color:#fff;
-  background:rgba(201,111,104,.10);
+
   border:1px solid rgba(201,111,104,.25);
+
+  background:rgba(201,111,104,.10);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:360px){
+
+  .block-time{
+    flex-basis:68px;
+  }
+
+  .block-content{
+    padding-left:86px;
+  }
+
 }
 
 @media(min-width:700px){
+
   .bottom-nav{
     left:50%;
     right:auto;
+
     width:min(820px,100%);
+
     transform:translateX(-50%);
+
     border-left:1px solid var(--line);
     border-right:1px solid var(--line);
+
     border-radius:16px 16px 0 0;
   }
-}
 
+}
 </style>
 </head>
+
 <body>
+
 <main>
-  <div class="eyebrow">Japan · Autumn 2026</div>
-  <h1>Japan Trip</h1>
-  <div class="sub">18–30 October 2026 · Kyoto → Mountains → Osaka</div>
 
-  <section id="todayCard"></section>
+  <div class="eyebrow">
+    Japan · Autumn 2026
+  </div>
 
-  <section class="section">
-    <div class="section-title">Quick Access</div>
-    <div class="menu">
-      <a class="card schedule" href="schedule.html">
-        <div class="icon">📅</div><h3>Schedule</h3>
-        <p>Full day-by-day plan · routes · transport · Maps</p><span class="go">→</span>
-      </a>
-      <a class="booking-card" href="bookings.html">
-        <div class="icon">⭐</div>
-        <div><h3>Trip Hub</h3><p>Bookings · tickets · things to arrange · don't-miss highlights</p></div>
-        <span class="go">→</span>
-      </a>
-      <a class="card" href="kyotofood.html">
-        <div class="icon">⛩️</div><h3>Kyoto Food</h3>
-        <p>Rankings · filters · 🎲 Pick For Me</p><span class="go">→</span>
-      </a>
-      <a class="card" href="osakafood.html">
-        <div class="icon">🌃</div><h3>Osaka Food</h3>
-        <p>Your separate Osaka restaurant finder</p><span class="go">→</span>
-      </a>
-    </div>
-  </section>
+  <h1>
+    Japan Trip
+  </h1>
 
-  <div class="tripline"><strong>KYOTO</strong> · 18–22 Oct　→　<strong>ROAD TRIP</strong> · 23–26 Oct　→　<strong>OSAKA</strong> · 26–30 Oct</div>
+  <div class="sub">
+    18–30 October 2026 · Kyoto → Mountains → Osaka
+  </div>
+
+
+  <!-- CURRENT DAY -->
+
+  <section id="dayPreview"></section>
+
+
+  <!-- TRIP ROUTE -->
+
+  <div class="tripline">
+
+    <strong>KYOTO</strong>
+    · 18–22 Oct
+
+    　→　
+
+    <strong>ROAD TRIP</strong>
+    · 23–26 Oct
+
+    　→　
+
+    <strong>OSAKA</strong>
+    · 26–30 Oct
+
+  </div>
+
 </main>
 
-<nav class="bottom-nav" aria-label="Main navigation">
-  <a href="index.html" class="active" aria-current="page"><span class="nav-icon">🏠</span><span>HOME</span></a>
-  <a href="schedule.html"><span class="nav-icon">📅</span><span>SCHEDULE</span></a>
-  <a href="bookings.html"><span class="nav-icon">⭐</span><span>HUB</span></a>
-  <a href="kyotofood.html"><span class="nav-icon">⛩️</span><span>KYOTO FOOD</span></a>
-  <a href="osakafood.html"><span class="nav-icon">🌃</span><span>OSAKA FOOD</span></a>
+
+<!-- =======================================================
+     MORE SHEET
+======================================================= -->
+
+<div
+  id="moreBackdrop"
+  class="more-backdrop"
+>
+
+  <div class="more-sheet">
+
+    <div class="sheet-handle"></div>
+
+
+    <div class="more-head">
+
+      <div class="more-title">
+        More
+      </div>
+
+      <button
+        id="closeMore"
+        class="more-close"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <a
+      id="profileLink"
+      class="more-link"
+    >
+
+      <div class="more-link-icon">
+        👤
+      </div>
+
+      <div class="more-link-main">
+
+        <div class="more-link-title">
+          Profile & Sharing
+        </div>
+
+        <div class="more-link-sub">
+          Your profile · manage trip members
+        </div>
+
+      </div>
+
+      <div class="more-link-arrow">
+        →
+      </div>
+
+    </a>
+
+
+    <!-- MY TRIPS -->
+
+    <div class="more-link disabled">
+
+      <div class="more-link-icon">
+        🧳
+      </div>
+
+      <div class="more-link-main">
+
+        <div class="more-link-title">
+          My Trips
+        </div>
+
+        <div class="more-link-sub">
+          Create and switch trips · coming next
+        </div>
+
+      </div>
+
+      <div class="more-link-arrow">
+        →
+      </div>
+
+    </div>
+
+
+    <!-- PLACES -->
+
+    <div class="more-link disabled">
+
+      <div class="more-link-icon">
+        📍
+      </div>
+
+      <div class="more-link-main">
+
+        <div class="more-link-title">
+          Places
+        </div>
+
+        <div class="more-link-sub">
+          Saved attractions · coming later
+        </div>
+
+      </div>
+
+      <div class="more-link-arrow">
+        →
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     BOTTOM NAV
+======================================================= -->
+
+<nav class="bottom-nav">
+
+  <a
+    id="navHome"
+    class="active"
+  >
+    <span class="nav-icon">
+      🏠
+    </span>
+
+    <span>
+      HOME
+    </span>
+  </a>
+
+
+  <a id="navPlan">
+
+    <span class="nav-icon">
+      📅
+    </span>
+
+    <span>
+      PLAN
+    </span>
+
+  </a>
+
+
+  <a id="navFood">
+
+    <span class="nav-icon">
+      🍽️
+    </span>
+
+    <span>
+      FOOD
+    </span>
+
+  </a>
+
+
+  <a id="navHub">
+
+    <span class="nav-icon">
+      ⭐
+    </span>
+
+    <span>
+      HUB
+    </span>
+
+  </a>
+
+
+  <button
+    id="navMore"
+    type="button"
+  >
+
+    <span class="nav-icon">
+      ⋯
+    </span>
+
+    <span>
+      MORE
+    </span>
+
+  </button>
+
 </nav>
 
+
 <script>
-const itinerary = {
-18:{area:"KYOTO",title:"Arrival + Higashiyama",route:"Arrival → Kiyomizu → Gion → Pontocho → Kyoto Station",food:"kyotofood.html",booking:"🔒 Hotel Century Kyoto · 18–21 Oct",stops:[
- ["~1:00 PM","🚆 Arrive Kyoto","Head to hotel / leave luggage.","Kyoto Station"],
- ["~3:00 PM","🏨 Hotel Century Kyoto Check-in","Stay: 18–21 Oct.","Hotel Century Kyoto"],
- ["3:15–3:45 PM","🍜 Late Lunch / Snack","Keep it quick.",""],
- ["4:30–5:15 PM","⛩️ Kiyomizu-dera Area","Temple area and views.","Kiyomizu-dera Kyoto"],
- ["5:15–6:15 PM","🏘️ Sannenzaka → Ninenzaka → Yasaka Pagoda","Historic streets and photos.","Yasaka Pagoda Kyoto"],
- ["6:15–7:15 PM","🏮 Yasaka Shrine → Gion","Hanamikoji and Shirakawa.","Gion Kyoto"],
- ["7:15–8:45 PM","🍽️ Pontocho Dinner","Dinner + short Kamo River stroll.","Pontocho Kyoto"],
- ["9:15–10:00 PM","✨ Kyoto Station Night View","Grand Staircase + Skyway.","Kyoto Station"]
-]},
-19:{area:"KYOTO",title:"Fushimi + Arashiyama",route:"Fushimi Inari → Takara Sushi → Arashiyama → Evening Lighting",food:"kyotofood.html",booking:"🍣 Takara Sushi · target 11:30–11:45 AM · walk-in plan",stops:[
- ["~6:45 AM","🚆 Leave Hotel","Head to Fushimi Inari.",""],
- ["~7:15 AM","⛩️ Fushimi Inari","Senbon Torii · walk partway up.","Fushimi Inari Taisha"],
- ["9:30–10:15 AM","🍙 Descend + Snack","Quick break.",""],
- ["~10:15 AM","🚆 Fushimi → Arashiyama","",""],
- ["11:30 AM–12:15 PM","🍣 Takara Sushi","Primary lunch target.","Takara Sushi Arashiyama Kyoto"],
- ["12:20–12:45 PM","🌉 Togetsukyo Bridge","","Togetsukyo Bridge Kyoto"],
- ["12:50–1:20 PM","🎋 Bamboo Grove","","Arashiyama Bamboo Grove Kyoto"],
- ["1:20–1:45 PM","🌄 Kameyama Viewpoint","","Kameyama Park Observation Deck Arashiyama"],
- ["~2:15 PM","🏘️ Saga-Toriimoto","","Saga Toriimoto Preserved Street Kyoto"],
- ["2:30–3:00 PM","🪨 Adashino Nenbutsu-ji","","Adashino Nenbutsuji Kyoto"],
- ["3:15–4:00 PM","🗿 Otagi Nenbutsu-ji · Optional","","Otagi Nenbutsuji Kyoto"],
- ["5:00 PM onward","✨ Arashiyama Evening Lighting","Stay into the evening.","Arashiyama Kyoto"]
-]},
-20:{area:"KYOTO",title:"Kifune Lanterns + Setsu",route:"Disaster Center → Rurikō-in → Kibune → Kifune → Setsu",food:"kyotofood.html",booking:"🔒 Setsu · 7:45 PM · 2 pax　·　⏳ Kifune taxi to arrange",stops:[
- ["~9:15 AM","🚆 Leave Hotel","Head to Disaster Prevention Center.",""],
- ["10:00 AM–12:00 PM","🚒 Disaster Prevention Center","","Kyoto City Disaster Prevention Center"],
- ["12:00–1:00 PM","🍜 Lunch","",""],
- ["~2:00–3:00 PM","🍁 Rurikō-in · If Practical","Skip if timing threatens Kifune.","Rurikoin Kyoto"],
- ["~4:00 PM","🌲 Kibune Village","River and village walk.","Kibune Kyoto"],
- ["~4:45 PM","⛩️ Kifune Shrine","Reach before sunset.","Kifune Shrine Kyoto"],
- ["5:45–6:20 PM","🏮 Lantern Staircase · Dark","Main photo window.","Kifune Shrine Kyoto"],
- ["~6:30 PM","🚕 Taxi / Uber Pickup","Preferred transfer: Kokusaikaikan.",""],
- ["7:45 PM","🔒 Setsu · BOOKED","Dinner for 2 · wife no beef.","Odashi to Nihonshu Setsu Kyoto"]
-]},
-21:{area:"KYOTO",title:"Ine Day Trip",route:"Century Kyoto → Hotel Granvia Kyoto → Ine → Kyoto",food:"kyotofood.html",booking:"🔒 Hotel change today · Century Kyoto → Hotel Granvia Kyoto · stay 21–23 Oct",stops:[
- ["Morning","🧳 Hotel Change","Check out Hotel Century Kyoto and move luggage to Hotel Granvia Kyoto.","Hotel Granvia Kyoto"],
- ["~7:00 AM","🚆 Leave Kyoto","Long journey north.",""],
- ["~10:30–11:00 AM","🌊 Arrive Ine","","Ine Kyoto Japan"],
- ["11:00 AM–12:30 PM","🏘️ Ine Funaya","Boathouses and waterfront.","Ine no Funaya Kyoto"],
- ["~12:30 PM","🐟 Lunch in Ine","",""],
- ["1:30–3:30 PM","🌊 Continue Ine","Viewpoints / boat if wanted.","Ine Kyoto"],
- ["~3:30–4:00 PM","🚌 Begin Return","",""],
- ["~7:00 PM","🌃 Return Kyoto","Dinner near Kyoto Station.",""]
-]},
-22:{area:"KYOTO",title:"Nanzen-ji + teamLab",route:"Suirokaku → Nanzen-ji → Kodaiji → Mom → teamLab",food:"kyotofood.html",booking:"⏳ teamLab Biovortex · planned ~7:00 PM · ticket status to check",stops:[
- ["~8:00 AM","🚆 Leave Hotel","",""],
- ["8:15–8:45 AM","🧱 Suirokaku Aqueduct","","Suirokaku Aqueduct Kyoto"],
- ["8:45–9:30 AM","⛩️ Nanzen-ji","","Nanzenji Kyoto"],
- ["9:30–10:00 AM","🌿 Keage Incline","","Keage Incline Kyoto"],
- ["10:00–10:30 AM","🚶 Philosopher's Path · Optional","","Philosopher's Path Kyoto"],
- ["11:00 AM–12:00 PM","⛩️ Kodaiji","","Kodaiji Kyoto"],
- ["12:00–12:30 PM","🏘️ Nene-no-Michi","","Nene no Michi Kyoto"],
- ["~2:00 PM","👩 Meet Mom + Lunch","",""],
- ["2:00–5:30 PM","☕ Time with Mom","",""],
- ["~7:00 PM","✨ teamLab Biovortex","","teamLab Biovortex Kyoto"]
-]},
-23:{area:"ROAD TRIP",title:"Soni → Dorogawa",route:"Kyoto → Soni Highlands → Dorogawa Onsen",food:"kyotofood.html",booking:"🔒 Kadojin · Dorogawa Onsen · 23–24 Oct　·　⏳ Rental car details to check",stops:[
- ["~8:00 AM","🍳 Breakfast + Pack","",""],
- ["~9:00 AM","🏨 Check Out","",""],
- ["~9:30 AM","🚗 Pick Up Car + Leave Kyoto","",""],
- ["~12:00 PM","🍜 Lunch En Route","",""],
- ["~1:30 PM","🌾 Soni Highlands","Main scenic stop.","Soni Highlands Nara"],
- ["~4:00 PM","🚗 Leave Soni","",""],
- ["~5:15 PM","♨️ Kadojin · Dorogawa Onsen","Check in · dinner · onsen.","Kadojin Dorogawa Onsen"]
-]},
-24:{area:"ROAD TRIP",title:"Skyline → Gomadanzan → Ryujin",route:"Dorogawa → Koya-Ryujin Skyline → Mt. Gomadanzan → Ryujin",food:"kyotofood.html",booking:"🔒 Kamigoten · Ryujin Onsen · 24–25 Oct",stops:[
- ["~7:30 AM","🍳 Ryokan Breakfast","",""],
- ["8:30–9:30 AM","♨️ Dorogawa Morning","",""],
- ["~10:00 AM","🚗 Check Out + Leave","",""],
- ["10:00 AM–12:00 PM","🏔️ Mountain Drive","",""],
- ["~12:00 PM","🍜 Lunch","",""],
- ["~1:00 PM","🚗 Koya-Ryujin Skyline","Begin scenic ridge drive.","Koya Ryujin Skyline"],
- ["1:00–2:30 PM","🏔️ Skyline + Photo Stops","",""],
- ["~2:30 PM","⛰️ Mt. Gomadanzan / Gomasan Sky Tower","","Gomasan Sky Tower Wakayama"],
- ["~3:30 PM","🚗 Continue to Ryujin","",""],
- ["~4:30 PM","♨️ Kamigoten / Ryujin Onsen","Check in · dinner · onsen.","Kamigoten Ryujin Onsen"]
-]},
-25:{area:"ROAD TRIP",title:"Kumano → Nachikatsuura",route:"Ryujin → Kumano Hongu → Oyunohara → Nachikatsuura",food:"kyotofood.html",booking:"🔒 Kamenoi Hotel Nachi Katsuura · 25–26 Oct",stops:[
- ["~7:30 AM","🍳 Breakfast","",""],
- ["8:30–9:30 AM","♨️ Morning Soak","",""],
- ["~10:00 AM","🚗 Check Out","",""],
- ["10:00–11:30 AM","🌲 Scenic Drive Toward Kumano","",""],
- ["~11:30 AM","🍜 Lunch","",""],
- ["~12:30 PM","⛩️ Kumano Hongu Taisha","","Kumano Hongu Taisha"],
- ["1:40–2:20 PM","⛩️ Oyunohara Giant Torii","","Oyunohara"],
- ["~2:30 PM","🚗 Leave for Nachikatsuura","",""],
- ["~4:00 PM","🌊 Arrive Nachikatsuura","Hotel check-in.","Kamenoi Hotel Nachi Katsuura"]
-]},
-26:{area:"ROAD TRIP → OSAKA",title:"Nachi + Kamikura → Osaka",route:"Nachi Falls → Nachi Taisha → Pagoda → Kamikura if time → Osaka",food:"osakafood.html",booking:"🔒 Hotel Hankyu International · Osaka · 26–30 Oct",stops:[
- ["~6:30 AM","🌅 Wake + Breakfast","",""],
- ["~7:30 AM","🚗 Leave Hotel","",""],
- ["~8:00 AM","🌊 Nachi Falls","","Nachi Falls Wakayama"],
- ["~9:00 AM","⛩️ Kumano Nachi Taisha","","Kumano Nachi Taisha"],
- ["10:00–10:45 AM","🏯 Seiganto-ji + Pagoda","Classic Nachi view.","Seigantoji Pagoda Nachi"],
- ["11:30 AM–12:30 PM","🐟 Kii-Katsuura Lunch","",""],
- ["~1:30–2:15 PM","⛩️ Kamikura Jinja · IF TIME","Steep steps; optional.","Kamikura Shrine Shingu"],
- ["~2:15 PM","🚗 Begin Drive to Osaka","",""],
- ["~6:00–7:00 PM","🌃 Arrive Osaka / Return Car","",""],
- ["~7:00 PM","🏨 Osaka Check-in","","Hotel Hankyu International Osaka"]
-]},
-27:{area:"OSAKA",title:"Namba + MIRACLE WORLD",route:"ROUND1 → Kuromon → Namba Yasaka → OURLOG → MIRACLE WORLD → Hozenji",food:"osakafood.html",booking:"🎮 No fixed booking stored · ROUND1 / MIRACLE WORLD are activity targets",stops:[
- ["~9:00 AM","🚆 Head to Namba","",""],
- ["9:30 AM–12:00 PM","🎳 ROUND1 Sennichimae / Spo-Cha","","ROUND1 Stadium Sennichimae Osaka"],
- ["12:15–1:30 PM","🐟 Kuromon Market","Lunch + snacks.","Kuromon Market Osaka"],
- ["1:45–2:15 PM","🦁 Namba Yasaka Shrine","","Namba Yasaka Shrine Osaka"],
- ["2:30–3:15 PM","☕ OURLOG Coffee","Wife priority.","OURLOG Coffee Namba Osaka"],
- ["3:30–5:00 PM","✨ MIRACLE WORLD Osaka","","MIRACLE WORLD Osaka"],
- ["5:15–6:00 PM","🏮 Hozenji Yokocho + Hozenji","","Hozenji Yokocho Osaka"],
- ["6:00 PM onward","🌃 Dotonbori + Namba","","Dotonbori Osaka"]
-]},
-28:{area:"OSAKA BASE",title:"Mentai + Pokémon Observatory",route:"Osaka → Tokoname → Mentai Park → Toyohashi → Pokémon → Osaka",food:"osakafood.html",booking:"⏳ Pokémon Observatory ticket + Shinkansen tickets to check/book",stops:[
- ["~7:30 AM","🚆 Leave Hotel","",""],
- ["~8:30 AM","🚄 Shin-Osaka → Nagoya","",""],
- ["~9:40 AM","🚆 Nagoya → Tokoname","",""],
- ["10:30 AM–12:00 PM","🐟 Mentai Park + Lunch","","Mentai Park Tokoname"],
- ["~12:15 PM","🚆 Tokoname → Toyohashi","Via Jingū-mae.",""],
- ["~1:50 PM","🚆 Toyohashi → Futagawa","",""],
- ["2:15–4:00 PM","🔭 Pokémon Observatory","Toyohashi Museum of Natural History.","Toyohashi Museum of Natural History"],
- ["~5:00 PM","🚄 Toyohashi → Shin-Osaka","Hikari / Kodama.",""],
- ["~7:30 PM","🍽️ Dinner in Osaka","",""]
-]},
-29:{area:"OSAKA",title:"Nara + Wakakusa Sunset",route:"Osaka → Nara Park → Todaiji / Kasuga → Mt. Wakakusa → Osaka",food:"osakafood.html",booking:"🌄 No fixed booking · keep afternoon flexible for sunset",stops:[
- ["~9:30 AM","🚆 Leave Osaka","",""],
- ["~10:30 AM","🦌 Nara Park","","Nara Park"],
- ["11:30 AM–12:30 PM","⛩️ Todaiji","","Todaiji Nara"],
- ["12:30–1:30 PM","🍜 Lunch","",""],
- ["1:30–3:00 PM","⛩️ Kasuga Taisha / Naramachi · Flexible","",""],
- ["~3:15 PM","🚶 Head to Mt. Wakakusa","",""],
- ["3:45–5:15 PM","🌄 Mt. Wakakusa","Protect the sunset window.","Mount Wakakusa Nara"],
- ["~5:45 PM","🚶 Descend","",""],
- ["~7:30 PM","🌃 Osaka + Dinner","",""]
-]},
-30:{area:"OSAKA",title:"Fly Home · 6 PM",route:"Easy Morning → Final Lunch → Airport → Home",food:"osakafood.html",booking:"✈️ Flight home · 6:00 PM · FIXED",stops:[
- ["~8:00 AM","🍳 Breakfast","",""],
- ["9:00–11:30 AM","🛍️ Last-minute Shopping","Stay near hotel.",""],
- ["11:30 AM–12:30 PM","🍽️ Final Lunch","",""],
- ["~12:30 PM","🏨 Collect Luggage","",""],
- ["~1:30 PM","🚆 Leave for Airport","Keep generous buffer.","Kansai International Airport"],
- ["~2:30–3:00 PM","🛫 Arrive Airport","","Kansai International Airport"],
- ["6:00 PM","✈️ Fly Home","",""]
-]}
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const TRIP_ID =
+  Number(
+    params.get("trip") || 1
+  );
+
+
+/* =========================================================
+   DAY DATA
+========================================================= */
+
+const days = {
+
+18:{
+  area:"KYOTO",
+  title:"Arrival + Higashiyama",
+  booking:"🏨 Hotel Century Kyoto · 18–21 Oct",
+
+  blocks:[
+
+    {
+      time:"~1:00 PM",
+      name:"🚆 Arrive Kyoto",
+      map:"Kyoto Station"
+    },
+
+    {
+      time:"~3:00 PM",
+      name:"🏨 Hotel Century Kyoto",
+      note:"Check-in",
+      map:"Hotel Century Kyoto"
+    },
+
+    {
+      time:"4:30 – 6:15 PM",
+      name:"⛩️ Higashiyama",
+      expandable:true,
+
+      pois:[
+        ["Kiyomizu-dera","Kiyomizu-dera Kyoto"],
+        ["Sannenzaka","Sannenzaka Kyoto"],
+        ["Ninenzaka","Ninenzaka Kyoto"],
+        ["Yasaka Pagoda","Hokanji Yasaka Pagoda Kyoto"]
+      ]
+    },
+
+    {
+      time:"6:15 – 7:15 PM",
+      name:"🏮 Gion",
+      expandable:true,
+
+      pois:[
+        ["Yasaka Shrine","Yasaka Shrine Kyoto"],
+        ["Hanamikoji","Hanamikoji Street Kyoto"],
+        ["Shirakawa","Gion Shirakawa Kyoto"]
+      ]
+    },
+
+    {
+      time:"7:15 – 8:45 PM",
+      name:"🍽️ Pontocho",
+      map:"Pontocho Kyoto"
+    },
+
+    {
+      time:"9:15 – 10:00 PM",
+      name:"✨ Kyoto Station",
+      expandable:true,
+
+      pois:[
+        ["Grand Staircase","Kyoto Station Grand Staircase"],
+        ["Skyway","Kyoto Station Skyway"]
+      ]
+    }
+
+  ]
+},
+
+
+19:{
+  area:"KYOTO",
+  title:"Fushimi + Arashiyama",
+  booking:"🍣 Takara Sushi · lunch target",
+
+  blocks:[
+
+    {
+      time:"7:15 – 9:30 AM",
+      name:"⛩️ Fushimi Inari",
+      expandable:true,
+
+      pois:[
+        ["Senbon Torii","Senbon Torii Kyoto"],
+        ["Walk partway up","Fushimi Inari Taisha Kyoto"]
+      ]
+    },
+
+    {
+      time:"11:30 AM – 12:15 PM",
+      name:"🍣 Takara Sushi",
+      map:"Takara Sushi Arashiyama Kyoto"
+    },
+
+    {
+      time:"12:20 – 5:00 PM",
+      name:"🎋 Arashiyama",
+      expandable:true,
+
+      pois:[
+        ["Togetsukyo Bridge","Togetsukyo Bridge Kyoto"],
+        ["Bamboo Grove","Arashiyama Bamboo Grove Kyoto"],
+        ["Kameyama Viewpoint","Kameyama Park Observation Deck Kyoto"],
+        ["Saga-Toriimoto","Saga Toriimoto Preserved Street Kyoto"],
+        ["Adashino Nenbutsu-ji","Adashino Nenbutsuji Kyoto"],
+        ["Otagi Nenbutsu-ji","Otagi Nenbutsuji Kyoto",true]
+      ]
+    },
+
+    {
+      time:"5:00 PM onward",
+      name:"✨ Arashiyama Evening",
+      map:"Arashiyama Kyoto"
+    }
+
+  ]
+},
+
+
+20:{
+  area:"KYOTO",
+  title:"Kifune Lanterns + Setsu",
+  booking:"🔒 Setsu · 7:45 PM · Kifune taxi to arrange",
+
+  blocks:[
+
+    {
+      time:"10:00 AM – 12:00 PM",
+      name:"🚒 Disaster Prevention Center",
+      map:"Kyoto City Disaster Prevention Center"
+    },
+
+    {
+      time:"~2:00 – 3:00 PM",
+      name:"🍁 Rurikō-in",
+      note:"If practical",
+      map:"Rurikoin Kyoto"
+    },
+
+    {
+      time:"4:00 – 6:20 PM",
+      name:"🏮 Kibune + Kifune",
+      expandable:true,
+
+      pois:[
+        ["Kibune Village","Kibune Kyoto"],
+        ["Kifune Shrine","Kifune Shrine Kyoto"],
+        ["Lantern Staircase","Kifune Shrine Kyoto"]
+      ]
+    },
+
+    {
+      time:"~6:30 PM",
+      name:"🚕 Taxi Pickup",
+      note:"Transfer via Kokusaikaikan",
+      map:"Kifune Shrine Kyoto"
+    },
+
+    {
+      time:"7:45 PM",
+      name:"🔒 Setsu",
+      note:"Booked · 2 pax",
+      map:"Odashi to Nihonshu Setsu Kyoto"
+    }
+
+  ]
+},
+
+
+21:{
+  area:"KYOTO",
+  title:"Ine Day Trip",
+  booking:"🏨 Hotel Granvia Kyoto · 21–23 Oct",
+
+  blocks:[
+
+    {
+      time:"Morning",
+      name:"🏨 Hotel Granvia Kyoto",
+      note:"Hotel change / luggage",
+      map:"Hotel Granvia Kyoto"
+    },
+
+    {
+      time:"~10:30 AM – 4:00 PM",
+      name:"🌊 Ine",
+      expandable:true,
+
+      pois:[
+        ["Ine Funaya","Ine no Funaya Kyoto"],
+        ["Waterfront","Ine Kyoto"],
+        ["Viewpoints / Boat","Ine Kyoto"]
+      ]
+    },
+
+    {
+      time:"~7:00 PM",
+      name:"🌃 Back in Kyoto",
+      map:"Kyoto Station"
+    }
+
+  ]
+},
+
+
+22:{
+  area:"KYOTO",
+  title:"Nanzen-ji + teamLab",
+  booking:"⏳ teamLab ticket to check",
+
+  blocks:[
+
+    {
+      time:"8:15 – 10:30 AM",
+      name:"⛩️ Nanzen-ji Area",
+      expandable:true,
+
+      pois:[
+        ["Suirokaku Aqueduct","Suirokaku Aqueduct Kyoto"],
+        ["Nanzen-ji","Nanzenji Kyoto"],
+        ["Keage Incline","Keage Incline Kyoto"],
+        ["Philosopher's Path","Philosopher's Path Kyoto",true]
+      ]
+    },
+
+    {
+      time:"11:00 AM – 12:30 PM",
+      name:"🏯 Kodaiji Area",
+      expandable:true,
+
+      pois:[
+        ["Kodaiji","Kodaiji Kyoto"],
+        ["Nene-no-Michi","Nene no Michi Kyoto"]
+      ]
+    },
+
+    {
+      time:"2:00 – 5:30 PM",
+      name:"👩 Time with Mom"
+    },
+
+    {
+      time:"~7:00 PM",
+      name:"✨ teamLab Biovortex",
+      map:"teamLab Biovortex Kyoto"
+    }
+
+  ]
+},
+
+
+23:{
+  area:"ROAD TRIP",
+  title:"Soni → Dorogawa",
+  booking:"♨️ Kadojin · 23–24 Oct · rental car to check",
+
+  blocks:[
+
+    {
+      time:"~9:30 AM",
+      name:"🚗 Leave Kyoto"
+    },
+
+    {
+      time:"~1:30 – 4:00 PM",
+      name:"🌾 Soni Highlands",
+      map:"Soni Highlands Nara"
+    },
+
+    {
+      time:"~5:15 PM",
+      name:"♨️ Dorogawa Onsen",
+      expandable:true,
+
+      pois:[
+        ["Kadojin","Kadojin Dorogawa Onsen"],
+        ["Dorogawa Onsen Village","Dorogawa Onsen Nara"]
+      ]
+    }
+
+  ]
+},
+
+
+24:{
+  area:"ROAD TRIP",
+  title:"Skyline → Gomadanzan → Ryujin",
+  booking:"♨️ Kamigoten · 24–25 Oct",
+
+  blocks:[
+
+    {
+      time:"8:30 – 10:00 AM",
+      name:"♨️ Dorogawa Morning",
+      map:"Dorogawa Onsen Nara"
+    },
+
+    {
+      time:"1:00 – 3:30 PM",
+      name:"🏔️ Koya-Ryujin Skyline",
+      expandable:true,
+
+      pois:[
+        ["Scenic Ridge Drive","Koya Ryujin Skyline"],
+        ["Mt. Gomadanzan","Mount Gomadanzan Wakayama"],
+        ["Gomasan Sky Tower","Gomasan Sky Tower Wakayama"]
+      ]
+    },
+
+    {
+      time:"~4:30 PM",
+      name:"♨️ Ryujin Onsen",
+      expandable:true,
+
+      pois:[
+        ["Kamigoten","Kamigoten Ryujin Onsen"],
+        ["Ryujin Onsen","Ryujin Onsen Wakayama"]
+      ]
+    }
+
+  ]
+},
+
+
+25:{
+  area:"ROAD TRIP",
+  title:"Kumano → Nachikatsuura",
+  booking:"🏨 Kamenoi Hotel Nachi Katsuura · 25–26 Oct",
+
+  blocks:[
+
+    {
+      time:"~12:30 – 2:20 PM",
+      name:"⛩️ Kumano Hongu",
+      expandable:true,
+
+      pois:[
+        ["Kumano Hongu Taisha","Kumano Hongu Taisha"],
+        ["Oyunohara Giant Torii","Oyunohara Wakayama"]
+      ]
+    },
+
+    {
+      time:"~4:00 PM",
+      name:"🌊 Nachikatsuura",
+      expandable:true,
+
+      pois:[
+        ["Kamenoi Hotel Nachi Katsuura","Kamenoi Hotel Nachi Katsuura"],
+        ["Nachikatsuura","Nachikatsuura Wakayama"]
+      ]
+    }
+
+  ]
+},
+
+
+26:{
+  area:"ROAD TRIP → OSAKA",
+  title:"Nachi → Osaka",
+  booking:"🏨 Hotel Hankyu International · 26–30 Oct",
+
+  blocks:[
+
+    {
+      time:"8:00 – 10:45 AM",
+      name:"🌊 Nachi",
+      expandable:true,
+
+      pois:[
+        ["Nachi Falls","Nachi Falls Wakayama"],
+        ["Kumano Nachi Taisha","Kumano Nachi Taisha"],
+        ["Seiganto-ji","Seigantoji Wakayama"],
+        ["Pagoda View","Seigantoji Pagoda Nachi"]
+      ]
+    },
+
+    {
+      time:"~1:30 – 2:15 PM",
+      name:"⛩️ Kamikura Jinja",
+      note:"If time",
+      map:"Kamikura Shrine Shingu"
+    },
+
+    {
+      time:"~7:00 PM",
+      name:"🏨 Osaka",
+      expandable:true,
+
+      pois:[
+        ["Hotel Hankyu International","Hotel Hankyu International Osaka"]
+      ]
+    }
+
+  ]
+},
+
+
+27:{
+  area:"OSAKA",
+  title:"Namba + MIRACLE WORLD",
+  booking:"🎮 ROUND1 / MIRACLE WORLD · check if booking needed",
+
+  blocks:[
+
+    {
+      time:"9:30 AM – 12:00 PM",
+      name:"🎳 ROUND1",
+      map:"ROUND1 Stadium Sennichimae Osaka"
+    },
+
+    {
+      time:"12:15 – 2:15 PM",
+      name:"🐟 Namba",
+      expandable:true,
+
+      pois:[
+        ["Kuromon Market","Kuromon Market Osaka"],
+        ["Namba Yasaka Shrine","Namba Yasaka Shrine Osaka"]
+      ]
+    },
+
+    {
+      time:"2:30 – 3:15 PM",
+      name:"☕ OURLOG Coffee",
+      map:"OURLOG Coffee Namba Osaka"
+    },
+
+    {
+      time:"3:30 – 5:00 PM",
+      name:"✨ MIRACLE WORLD",
+      map:"MIRACLE WORLD Osaka"
+    },
+
+    {
+      time:"5:15 PM onward",
+      name:"🏮 Hozenji + Dotonbori",
+      expandable:true,
+
+      pois:[
+        ["Hozenji Yokocho","Hozenji Yokocho Osaka"],
+        ["Hozenji","Hozenji Osaka"],
+        ["Dotonbori","Dotonbori Osaka"]
+      ]
+    }
+
+  ]
+},
+
+
+28:{
+  area:"AICHI DAY TRIP",
+  title:"Mentai + Pokémon Observatory",
+  booking:"⏳ Pokémon + Shinkansen tickets to book/check",
+
+  blocks:[
+
+    {
+      time:"10:30 AM – 12:00 PM",
+      name:"🐟 Mentai Park",
+      map:"Mentai Park Tokoname"
+    },
+
+    {
+      time:"2:15 – 4:00 PM",
+      name:"🔭 Pokémon Observatory",
+      expandable:true,
+
+      pois:[
+        ["Toyohashi Museum of Natural History","Toyohashi Museum of Natural History"],
+        ["Pokémon Observatory","Toyohashi Museum of Natural History"]
+      ]
+    },
+
+    {
+      time:"~5:00 PM",
+      name:"🚄 Return to Osaka",
+      map:"Toyohashi Station"
+    }
+
+  ]
+},
+
+
+29:{
+  area:"NARA",
+  title:"Nara + Wakakusa Sunset",
+  booking:"🌄 Keep afternoon flexible for sunset",
+
+  blocks:[
+
+    {
+      time:"10:30 AM – 3:00 PM",
+      name:"🦌 Nara",
+      expandable:true,
+
+      pois:[
+        ["Nara Park","Nara Park"],
+        ["Todaiji","Todaiji Nara"],
+        ["Kasuga Taisha","Kasuga Taisha Nara"],
+        ["Naramachi","Naramachi Nara",true]
+      ]
+    },
+
+    {
+      time:"3:45 – 5:15 PM",
+      name:"🌄 Mt. Wakakusa",
+      note:"Sunset",
+      map:"Mount Wakakusa Nara"
+    }
+
+  ]
+},
+
+
+30:{
+  area:"OSAKA",
+  title:"Fly Home",
+  booking:"✈️ Flight · 6:00 PM",
+
+  blocks:[
+
+    {
+      time:"9:00 – 11:30 AM",
+      name:"🧳 Final Osaka Morning",
+      note:"Stay near hotel",
+      expandable:true,
+
+      pois:[
+        ["Hotel area","Hotel Hankyu International Osaka"]
+      ]
+    },
+
+    {
+      time:"~1:30 PM",
+      name:"🚆 Leave for Airport",
+      map:"Kansai International Airport"
+    },
+
+    {
+      time:"6:00 PM",
+      name:"✈️ Fly Home",
+      map:"Kansai International Airport"
+    }
+
+  ]
+}
+
 };
 
-const start = new Date(2026,9,18);
-const end = new Date(2026,9,30);
-const todayBox = document.getElementById("todayCard");
-let previewDay = null;
 
-function mapURL(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q)}
+/* =========================================================
+   MAP
+========================================================= */
 
-function storageKey(day){return "japan2026_progress_day_"+day}
-function getProgress(day){
-  const n = Number(localStorage.getItem(storageKey(day)) || 0);
-  return Math.max(0, Math.min(n, itinerary[day].stops.length));
-}
-function setProgress(day,n){
-  localStorage.setItem(storageKey(day), String(Math.max(0,Math.min(n,itinerary[day].stops.length))));
+function mapURL(query){
+
+  return (
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(query)
+  );
+
 }
 
-function activeTripDay(){
-  const now=new Date();
-  const local=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  if(local>=start && local<=end) return now.getDate();
-  return null;
-}
 
-function renderDayCard(day, isPreview=false){
-  const x=itinerary[day], p=getProgress(day), total=x.stops.length;
-  const finished=p>=total;
-  const cur=finished ? x.stops[total-1] : x.stops[p];
-  const pct=finished ? 100 : Math.round((p/total)*100);
-  const label=isPreview ? "PREVIEW DAY" : "● TODAY";
-  const weekday=new Date(2026,9,day).toLocaleDateString("en-SG",{weekday:"long"}).toUpperCase();
+/* =========================================================
+   TRIP DATE
+========================================================= */
 
-  todayBox.innerHTML=`<div class="today">
-    <div class="today-top">
-      <div class="today-label">${label}</div>
-      <div class="today-date">${weekday} · ${day} OCT</div>
-    </div>
-    <h2>${x.title}</h2>
-    <div class="today-route">${x.route}</div>
-    ${x.booking ? `<div class="day-booking"><div class="day-booking-label">Booking / Important Today</div><div class="day-booking-text">${x.booking} · <a href="bookings.html">Trip Hub →</a></div></div>` : ""}
+const tripStart =
+  new Date(2026,9,18);
 
-    <div class="progress"><div style="width:${pct}%"></div></div>
-    <div class="progress-label">${finished ? "DAY COMPLETE ✓" : `${p} / ${total} completed`}</div>
+const tripEnd =
+  new Date(2026,9,30);
 
-    <div class="now-box">
-      <div class="now-label">${finished ? "FINISHED" : "NOW"}</div>
-      <div class="now-place">${finished ? "✓ Day complete" : cur[1]}</div>
-      ${finished ? "" : `<div class="now-time">${cur[0]}</div>`}
-      ${finished ? `<div class="now-note">You've completed everything on today's list.</div>` : (cur[2]?`<div class="now-note">${cur[2]}</div>`:"")}
-      <div class="actions">
-        <a class="btn primary" href="schedule.html#day-${day}">📅 FULL DAY</a>
-        ${!finished && cur[3] ? `<a class="btn map" target="_blank" href="${mapURL(cur[3])}">📍 MAP</a>` : `<a class="btn map" href="${x.food}">🍽️ FOOD</a>`}
-      </div>
-      <div class="controls">
-        <button class="btn back" id="backBtn" ${p===0?"disabled":""}>← BACK</button>
-        <button class="btn done" id="doneBtn" ${finished?"disabled":""}>${finished?"✓ COMPLETE":"✓ DONE · NEXT"}</button>
-      </div>
-    </div>
 
-    <div class="next-list">
-      <div class="next-title">${finished ? "Today's Stops" : "Up Next"}</div>
-      ${x.stops.map((s,i)=>{
-        const cls=i<p?"done":i===p&&!finished?"current":"";
-        const mark=i<p?'<span class="tick">✓</span>':`<span class="num">${i+1}</span>`;
-        return `<div class="next-item ${cls}">${mark}<div>${s[1]} <span style="color:#73818a">· ${s[0]}</span></div></div>`
-      }).join("")}
-    </div>
-    <button class="reset" id="resetBtn">Reset this day</button>
-  </div>`;
+function initialDay(){
 
-  const back=document.getElementById("backBtn"), done=document.getElementById("doneBtn"), reset=document.getElementById("resetBtn");
-  if(back) back.onclick=()=>{setProgress(day,getProgress(day)-1);renderDayCard(day,isPreview)};
-  if(done) done.onclick=()=>{setProgress(day,getProgress(day)+1);renderDayCard(day,isPreview)};
-  if(reset) reset.onclick=()=>{setProgress(day,0);renderDayCard(day,isPreview)};
-}
+  const now =
+    new Date();
 
-function renderPreTrip(){
-  const now=new Date(), local=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  const days=Math.ceil((start-local)/86400000);
-  todayBox.innerHTML=`<div class="pretrip">
-    <div class="today-label">UPCOMING TRIP</div>
-    <strong>Japan starts in ${days} day${days===1?"":"s"}.</strong><br>
-    Preview any trip day below. Your test progress is saved on this phone.
-    <div class="preview-days">${Object.keys(itinerary).map(d=>`<button class="preview-day" data-day="${d}">${d}</button>`).join("")}</div>
-    <div class="actions">
-      <a class="btn primary" href="schedule.html">📅 VIEW TRIP SCHEDULE</a>
-      <a class="btn map" href="bookings.html">⭐ TRIP HUB</a>
-    </div>
-  </div>`;
-  document.querySelectorAll(".preview-day").forEach(b=>{
-    b.onclick=()=>{previewDay=Number(b.dataset.day);renderDayCard(previewDay,true)}
-  });
-}
+  const today =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
 
-function render(){
-  const active=activeTripDay();
-  const now=new Date(), local=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  if(active) renderDayCard(active,false);
-  else if(local<start) renderPreTrip();
-  else {
-    todayBox.innerHTML=`<div class="pretrip"><div class="today-label">JAPAN AUTUMN 2026</div>
-    <strong>Your trip schedule is still here.</strong><br>Open the schedule or either food finder whenever you want.
-    <div class="actions"><a class="btn primary" href="schedule.html">📅 VIEW SCHEDULE</a><a class="btn map" href="kyotofood.html">🍽️ FOOD</a></div></div>`;
+
+  if(today < tripStart){
+    return 18;
   }
+
+
+  if(today > tripEnd){
+    return 30;
+  }
+
+
+  return today.getDate();
+
 }
-render();
+
+
+let selectedDay =
+  initialDay();
+
+
+/* =========================================================
+   OPEN BLOCK MEMORY
+========================================================= */
+
+const openBlocks = {};
+
+
+/* =========================================================
+   DATES
+========================================================= */
+
+function renderDates(){
+
+  return `
+
+    <div class="date-scroll">
+
+      ${
+        Object.keys(days)
+          .map(day => {
+
+            const date =
+              new Date(
+                2026,
+                9,
+                Number(day)
+              );
+
+
+            const dow =
+              date
+                .toLocaleDateString(
+                  "en-SG",
+                  {weekday:"short"}
+                )
+                .toUpperCase();
+
+
+            return `
+
+              <button
+                class="date-btn ${
+                  Number(day) === selectedDay
+                    ? "active"
+                    : ""
+                }"
+                data-day="${day}"
+                type="button"
+              >
+
+                <span class="num">
+                  ${day}
+                </span>
+
+                <span class="dow">
+                  ${dow}
+                </span>
+
+              </button>
+
+            `;
+
+          })
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   POIS
+========================================================= */
+
+function renderPois(block){
+
+  if(
+    !Array.isArray(block.pois) ||
+    !block.pois.length
+  ){
+    return "";
+  }
+
+
+  return `
+
+    <div class="poi-list">
+
+      ${
+        block.pois
+          .map((poi,index) => {
+
+            const name =
+              poi[0];
+
+            const map =
+              poi[1];
+
+            const optional =
+              poi[2] === true;
+
+
+            return `
+
+              <div
+                class="poi ${
+                  optional
+                    ? "optional"
+                    : ""
+                }"
+              >
+
+                <div class="poi-route">
+                  ${index === 0 ? "•" : "↓"}
+                </div>
+
+
+                <div class="poi-name">
+
+                  ${name}
+
+                  ${
+                    optional
+
+                      ?
+
+                    `
+                      <span class="optional-label">
+                        OPTIONAL
+                      </span>
+                    `
+
+                      :
+
+                    ""
+                  }
+
+                </div>
+
+
+                ${
+                  map
+
+                    ?
+
+                  `
+                    <a
+                      class="poi-map"
+                      href="${mapURL(map)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onclick="event.stopPropagation()"
+                      aria-label="Open map for ${name}"
+                    >
+                      📍
+                    </a>
+                  `
+
+                    :
+
+                  ""
+                }
+
+              </div>
+
+            `;
+
+          })
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   FOOD NEAR ME
+========================================================= */
+
+function renderFoodNearby(){
+
+  return `
+
+    <a
+      class="food-nearby"
+      href="food.html?trip=${TRIP_ID}&nearby=1"
+    >
+
+      <div class="food-nearby-left">
+
+        <div class="food-nearby-icon">
+          🍴
+        </div>
+
+
+        <div>
+
+          <div class="food-nearby-title">
+            FOOD NEAR ME
+          </div>
+
+          <div class="food-nearby-sub">
+            Your picks + restaurants around your current location
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="food-nearby-arrow">
+        →
+      </div>
+
+    </a>
+
+  `;
+
+}
+
+
+/* =========================================================
+   BLOCK
+========================================================= */
+
+function renderBlock(block,index){
+
+  const expandable =
+    block.expandable === true;
+
+
+  const key =
+    `${selectedDay}-${index}`;
+
+
+  const isOpen =
+    openBlocks[key] === true;
+
+
+  if(!expandable){
+
+    return `
+
+      <div class="block">
+
+        <div class="block-head">
+
+          <div class="block-time">
+            ${block.time || ""}
+          </div>
+
+
+          <div class="block-main">
+
+            <div class="block-name">
+              ${block.name}
+            </div>
+
+
+            ${
+              block.note
+
+                ?
+
+              `
+                <div class="block-note">
+                  ${block.note}
+                </div>
+              `
+
+                :
+
+              ""
+            }
+
+          </div>
+
+
+          ${
+            block.map
+
+              ?
+
+            `
+              <a
+                class="block-map"
+                href="${mapURL(block.map)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open map"
+              >
+                📍
+              </a>
+            `
+
+              :
+
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div
+      class="block expandable ${
+        isOpen
+          ? "open"
+          : ""
+      }"
+      data-block="${index}"
+    >
+
+      <div
+        class="block-head"
+        data-toggle-block="${index}"
+      >
+
+        <div class="block-time">
+          ${block.time || ""}
+        </div>
+
+
+        <div class="block-main">
+
+          <div class="block-name">
+            ${block.name}
+          </div>
+
+
+          ${
+            block.note
+
+              ?
+
+            `
+              <div class="block-note">
+                ${block.note}
+              </div>
+            `
+
+              :
+
+            ""
+          }
+
+        </div>
+
+
+        <div class="block-chevron">
+          ⌄
+        </div>
+
+      </div>
+
+
+      <div class="block-content">
+
+        ${renderPois(block)}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER DAY
+========================================================= */
+
+function renderDay(){
+
+  const day =
+    days[selectedDay];
+
+
+  const date =
+    new Date(
+      2026,
+      9,
+      selectedDay
+    );
+
+
+  const weekday =
+    date
+      .toLocaleDateString(
+        "en-SG",
+        {weekday:"long"}
+      )
+      .toUpperCase();
+
+
+  document.getElementById(
+    "dayPreview"
+  ).innerHTML = `
+
+    <div class="day-card">
+
+      <div class="day-top">
+
+        <div class="day-label">
+          TRIP PREVIEW
+        </div>
+
+        <div class="day-date">
+          ${weekday} · ${selectedDay} OCT
+        </div>
+
+      </div>
+
+
+      <h2>
+        ${day.title}
+      </h2>
+
+
+      <div class="day-area">
+        ${day.area}
+      </div>
+
+
+      ${renderDates()}
+
+
+      ${
+        day.booking
+
+          ?
+
+        `
+          <a
+            class="booking-strip"
+            href="bookings.html?trip=${TRIP_ID}"
+          >
+
+            <span class="booking-icon">
+              ⭐
+            </span>
+
+
+            <span class="booking-text">
+
+              <strong>
+                BOOKING / REMINDER
+              </strong>
+
+              <br>
+
+              ${day.booking}
+
+            </span>
+
+
+            <span class="booking-arrow">
+              →
+            </span>
+
+          </a>
+        `
+
+          :
+
+        ""
+      }
+
+
+      <div class="plan-title">
+        DAY AT A GLANCE
+      </div>
+
+
+      ${
+        day.blocks
+          .map(
+            (block,index) =>
+              renderBlock(
+                block,
+                index
+              )
+          )
+          .join("")
+      }
+
+
+      <!-- FULL PLAN -->
+
+      <a
+        class="full-plan"
+        href="schedule.html?trip=${TRIP_ID}#2026-10-${String(selectedDay).padStart(2,"0")}"
+      >
+        FULL PLAN →
+      </a>
+
+
+      <!-- FOOD NEAR ME - SEPARATE GREEN BOX -->
+
+      ${renderFoodNearby()}
+
+
+    </div>
+
+  `;
+
+
+  bindDayEvents();
+
+}
+
+
+/* =========================================================
+   DAY EVENTS
+========================================================= */
+
+function bindDayEvents(){
+
+  document
+    .querySelectorAll(
+      ".date-btn"
+    )
+    .forEach(button => {
+
+      button.onclick =
+        () => {
+
+          selectedDay =
+            Number(
+              button.dataset.day
+            );
+
+          renderDay();
+
+        };
+
+    });
+
+
+  document
+    .querySelectorAll(
+      "[data-toggle-block]"
+    )
+    .forEach(button => {
+
+      button.onclick =
+        () => {
+
+          const index =
+            Number(
+              button.dataset.toggleBlock
+            );
+
+
+          const key =
+            `${selectedDay}-${index}`;
+
+
+          openBlocks[key] =
+            !openBlocks[key];
+
+
+          const block =
+            button.closest(".block");
+
+
+          block.classList.toggle(
+            "open",
+            openBlocks[key]
+          );
+
+        };
+
+    });
+
+}
+
+
+/* =========================================================
+   MORE
+========================================================= */
+
+const moreBackdrop =
+  document.getElementById(
+    "moreBackdrop"
+  );
+
+
+function openMore(){
+
+  moreBackdrop
+    .classList
+    .add("open");
+
+}
+
+
+function closeMore(){
+
+  moreBackdrop
+    .classList
+    .remove("open");
+
+}
+
+
+document.getElementById(
+  "navMore"
+).onclick =
+  openMore;
+
+
+document.getElementById(
+  "closeMore"
+).onclick =
+  closeMore;
+
+
+moreBackdrop.onclick =
+  event => {
+
+    if(event.target === moreBackdrop){
+
+      closeMore();
+
+    }
+
+  };
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+document.getElementById(
+  "navHome"
+).href =
+  `index.html?trip=${TRIP_ID}`;
+
+
+document.getElementById(
+  "navPlan"
+).href =
+  `schedule.html?trip=${TRIP_ID}`;
+
+
+document.getElementById(
+  "navFood"
+).href =
+  `food.html?trip=${TRIP_ID}`;
+
+
+document.getElementById(
+  "navHub"
+).href =
+  `bookings.html?trip=${TRIP_ID}`;
+
+
+document.getElementById(
+  "profileLink"
+).href =
+  `profile.html?trip=${TRIP_ID}`;
+
+
+/* =========================================================
+   START
+========================================================= */
+
+renderDay();
+
 </script>
+
 </body>
 </html>
