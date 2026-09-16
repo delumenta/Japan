@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070c10">
 
-<title>Japan Autumn Trip</title>
+<title>My Trip</title>
 
 <style>
 :root{
@@ -20,15 +20,12 @@
   --blue:#5c9dff;
   --green:#67c587;
   --orange:#f4a34d;
+  --gold:#e3b85c;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -40,16 +37,13 @@ body{
     var(--bg);
 }
 
-button{
-  font:inherit;
-}
+button{font:inherit}
 
 main{
   max-width:760px;
   margin:auto;
   padding:20px 14px 94px;
 }
-
 
 /* =========================================================
    HEADER
@@ -76,7 +70,6 @@ h1{
   color:var(--muted);
 }
 
-
 /* =========================================================
    DAY CARD
 ========================================================= */
@@ -86,7 +79,6 @@ h1{
   border:1px solid rgba(201,111,104,.38);
   border-radius:20px;
   padding:14px;
-
   background:
     linear-gradient(
       145deg,
@@ -126,7 +118,6 @@ h1{
   font-size:9px;
 }
 
-
 /* =========================================================
    DATE SCROLLER
 ========================================================= */
@@ -140,9 +131,7 @@ h1{
   scrollbar-width:none;
 }
 
-.date-scroll::-webkit-scrollbar{
-  display:none;
-}
+.date-scroll::-webkit-scrollbar{display:none}
 
 .date-btn{
   flex:0 0 auto;
@@ -175,56 +164,10 @@ h1{
   color:#f1cbc8;
 }
 
-.date-btn.active .num{
-  color:#fff;
-}
-
+.date-btn.active .num{color:#fff}
 
 /* =========================================================
-   BOOKING STRIP
-========================================================= */
-
-.booking-strip{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  margin-top:10px;
-  padding:8px 9px;
-
-  border:1px solid rgba(244,163,77,.22);
-  border-radius:9px;
-
-  background:rgba(244,163,77,.05);
-  text-decoration:none;
-}
-
-.booking-icon{
-  flex:0 0 auto;
-  font-size:13px;
-}
-
-.booking-text{
-  flex:1;
-  min-width:0;
-  color:#d6dadc;
-  font-size:7px;
-  line-height:1.4;
-}
-
-.booking-text strong{
-  color:var(--orange);
-  font-size:6px;
-  letter-spacing:.08em;
-}
-
-.booking-arrow{
-  color:var(--orange);
-  font-size:11px;
-}
-
-
-/* =========================================================
-   DAY BLOCKS
+   BLOCKS
 ========================================================= */
 
 .plan-title{
@@ -237,38 +180,23 @@ h1{
 
 .block{
   margin-bottom:6px;
-
   border:1px solid var(--line);
   border-radius:12px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #141c22,
-      #0d1318
-    );
-
+  background:linear-gradient(145deg,#141c22,#0d1318);
   overflow:hidden;
 }
 
 .block-head{
   width:100%;
   min-height:52px;
-
   display:flex;
   align-items:center;
   gap:8px;
-
   padding:9px 10px;
-}
-
-.block.expandable .block-head{
-  cursor:pointer;
 }
 
 .block-time{
   flex:0 0 76px;
-
   color:#a6b7c2;
   font-size:7px;
   font-weight:900;
@@ -294,119 +222,19 @@ h1{
   line-height:1.4;
 }
 
-.block-chevron{
-  flex:0 0 25px;
-
-  color:#8d9aa2;
-  text-align:center;
-  font-size:12px;
-
-  transition:transform .2s ease;
-}
-
-.block.open .block-chevron{
-  transform:rotate(180deg);
-}
-
 .block-map{
   flex:0 0 31px;
   width:31px;
   height:31px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   border:1px solid rgba(92,157,255,.18);
   border-radius:8px;
-
   background:rgba(92,157,255,.05);
-
   text-decoration:none;
   font-size:12px;
 }
-
-
-/* =========================================================
-   COLLAPSIBLE CONTENT
-========================================================= */
-
-.block-content{
-  display:none;
-  padding:0 10px 10px 94px;
-}
-
-.block.open .block-content{
-  display:block;
-}
-
-.poi-list{
-  border-top:1px solid rgba(255,255,255,.055);
-}
-
-.poi{
-  min-height:34px;
-
-  display:flex;
-  align-items:center;
-  gap:7px;
-
-  border-bottom:1px solid rgba(255,255,255,.045);
-}
-
-.poi:last-child{
-  border-bottom:0;
-}
-
-.poi-route{
-  flex:0 0 10px;
-
-  color:#596771;
-  font-size:7px;
-  text-align:center;
-}
-
-.poi-name{
-  flex:1;
-  min-width:0;
-
-  color:#b9c0c5;
-  font-size:7.5px;
-  font-weight:750;
-  line-height:1.3;
-}
-
-.poi.optional .poi-name{
-  color:#77848c;
-}
-
-.optional-label{
-  margin-left:4px;
-
-  color:#65727b;
-  font-size:5.5px;
-  font-weight:900;
-}
-
-.poi-map{
-  flex:0 0 30px;
-
-  width:30px;
-  height:28px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border:1px solid rgba(92,157,255,.18);
-  border-radius:7px;
-
-  background:rgba(92,157,255,.05);
-
-  text-decoration:none;
-  font-size:11px;
-}
-
 
 /* =========================================================
    FULL PLAN
@@ -416,22 +244,16 @@ h1{
   display:flex;
   align-items:center;
   justify-content:center;
-
   min-height:38px;
   margin-top:10px;
-
   border:1px solid rgba(201,111,104,.32);
   border-radius:10px;
-
   background:rgba(201,111,104,.08);
-
   color:#f1cfcc;
   text-decoration:none;
-
   font-size:8px;
   font-weight:900;
 }
-
 
 /* =========================================================
    FOOD NEAR ME
@@ -440,96 +262,55 @@ h1{
 .food-nearby{
   width:100%;
   min-height:64px;
-
   margin-top:10px;
   padding:11px 14px;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
-
   border:1px solid rgba(103,197,135,.65);
   border-radius:12px;
-
   background:
     linear-gradient(
       135deg,
       rgba(103,197,135,.12),
       rgba(103,197,135,.035)
     );
-
   color:#d7f5df;
-  text-decoration:none;
-
-  box-shadow:
-    inset 0 0 18px rgba(103,197,135,.025);
-
-  transition:
-    border-color .15s ease,
-    background .15s ease,
-    transform .15s ease;
-}
-
-.food-nearby:hover{
-  border-color:rgba(103,197,135,.9);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(103,197,135,.16),
-      rgba(103,197,135,.05)
-    );
-}
-
-.food-nearby:active{
-  transform:scale(.995);
+  cursor:pointer;
 }
 
 .food-nearby-left{
   display:flex;
   align-items:center;
   gap:11px;
-
   min-width:0;
+  text-align:left;
 }
 
 .food-nearby-icon{
   flex:0 0 auto;
-
   color:var(--green);
   font-size:21px;
 }
 
 .food-nearby-title{
   color:#9de6b2;
-
   font-size:9px;
   font-weight:900;
-  letter-spacing:.02em;
 }
 
 .food-nearby-sub{
   margin-top:3px;
-
   color:#77aa86;
-
   font-size:6.5px;
   line-height:1.35;
 }
 
 .food-nearby-arrow{
-  flex:0 0 auto;
-
   color:var(--green);
   font-size:19px;
 }
-
-
-
-/* =========================================================
-   FOOD NEAR ME — EXPANDED RESULTS
-========================================================= */
 
 .nearby-panel{
   display:none;
@@ -540,9 +321,7 @@ h1{
   background:rgba(103,197,135,.035);
 }
 
-.nearby-panel.show{
-  display:block;
-}
+.nearby-panel.show{display:block}
 
 .nearby-status{
   color:#88aa93;
@@ -550,13 +329,9 @@ h1{
   line-height:1.45;
 }
 
-.nearby-status.error{
-  color:#ffc5c1;
-}
+.nearby-status.error{color:#ffc5c1}
 
-.nearby-section{
-  margin-top:10px;
-}
+.nearby-section{margin-top:10px}
 
 .nearby-section-title{
   margin-bottom:5px;
@@ -600,7 +375,7 @@ h1{
   padding:1px 4px;
   border:1px solid rgba(227,184,92,.25);
   border-radius:999px;
-  color:#e3b85c;
+  color:var(--gold);
   font-size:5.5px;
 }
 
@@ -634,7 +409,6 @@ h1{
   font-weight:900;
 }
 
-
 /* =========================================================
    TRIPLINE
 ========================================================= */
@@ -642,131 +416,99 @@ h1{
 .tripline{
   margin-top:14px;
   padding:9px;
-
   border:1px solid var(--line);
   border-radius:11px;
-
   color:#75828a;
   background:rgba(255,255,255,.02);
-
   text-align:center;
-
   font-size:7px;
   line-height:1.5;
 }
 
-.tripline strong{
-  color:#dce0e2;
-}
-
+.tripline strong{color:#dce0e2}
 
 /* =========================================================
-   MORE SHEET
+   SHEETS
 ========================================================= */
 
-.more-backdrop{
+.sheet-backdrop{
   position:fixed;
   inset:0;
   z-index:150;
-
   display:none;
   align-items:flex-end;
-
   background:rgba(0,0,0,.68);
   backdrop-filter:blur(4px);
 }
 
-.more-backdrop.open{
-  display:flex;
-}
+.sheet-backdrop.open{display:flex}
 
-.more-sheet{
+.sheet{
   width:100%;
   max-width:760px;
-
+  max-height:82vh;
+  overflow-y:auto;
   margin:0 auto;
-
-  padding:
-    8px 13px
-    calc(18px + env(safe-area-inset-bottom));
-
+  padding:8px 13px calc(18px + env(safe-area-inset-bottom));
   border:1px solid var(--line);
   border-radius:20px 20px 0 0;
-
   background:#0d1318;
 }
 
 .sheet-handle{
   width:38px;
   height:4px;
-
   margin:2px auto 13px;
-
   border-radius:999px;
-
   background:#39454d;
 }
 
-.more-head{
+.sheet-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   margin-bottom:9px;
 }
 
-.more-title{
+.sheet-title{
   font-family:Georgia,"Times New Roman",serif;
   font-size:19px;
 }
 
-.more-close{
+.sheet-close{
   width:32px;
   height:32px;
-
   border:1px solid var(--line);
   border-radius:8px;
-
   background:#151c22;
   color:#fff;
-
   cursor:pointer;
 }
 
 .more-link{
+  width:100%;
   min-height:58px;
-
   display:flex;
   align-items:center;
   gap:10px;
-
   padding:9px 10px;
   margin-bottom:6px;
-
   border:1px solid var(--line);
   border-radius:11px;
-
   background:#11181e;
-
   color:#fff;
   text-decoration:none;
-}
-
-.more-link.disabled{
-  opacity:.45;
-  cursor:default;
+  text-align:left;
+  cursor:pointer;
 }
 
 .more-link-icon{
   flex:0 0 31px;
-
   font-size:18px;
   text-align:center;
 }
 
-.more-link-main{
-  flex:1;
-}
+.more-link-main{flex:1}
 
 .more-link-title{
   font-size:9px;
@@ -775,7 +517,6 @@ h1{
 
 .more-link-sub{
   margin-top:2px;
-
   color:#7f8b93;
   font-size:6.5px;
 }
@@ -785,9 +526,94 @@ h1{
   font-size:12px;
 }
 
+/* =========================================================
+   TRIP SWITCHER
+========================================================= */
+
+.trip-list{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.trip-card{
+  width:100%;
+  min-height:70px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#11181e;
+  color:#fff;
+  text-decoration:none;
+}
+
+.trip-card.current{
+  border-color:rgba(201,111,104,.55);
+  background:rgba(201,111,104,.09);
+}
+
+.trip-icon{
+  flex:0 0 36px;
+  font-size:21px;
+  text-align:center;
+}
+
+.trip-main{
+  flex:1;
+  min-width:0;
+}
+
+.trip-name{
+  font-size:9px;
+  font-weight:900;
+  line-height:1.3;
+}
+
+.trip-meta{
+  margin-top:3px;
+  color:#87949c;
+  font-size:6.5px;
+  line-height:1.4;
+}
+
+.trip-role{
+  display:inline-block;
+  margin-top:4px;
+  padding:2px 5px;
+  border:1px solid rgba(92,157,255,.22);
+  border-radius:999px;
+  color:#8ab9ff;
+  font-size:5.5px;
+  font-weight:900;
+}
+
+.trip-card.current .trip-role{
+  border-color:rgba(201,111,104,.28);
+  color:#e7aaa5;
+}
+
+.trip-arrow{
+  color:#7f8b93;
+  font-size:13px;
+}
+
+.trip-message{
+  padding:18px 10px;
+  color:#7f8b93;
+  font-size:8px;
+  text-align:center;
+  line-height:1.5;
+}
+
+.trip-message.error{
+  color:#ffc5c1;
+}
 
 /* =========================================================
-   BOTTOM NAV
+   BOTTOM NAV — SAME 5 BUTTON FOOTER
 ========================================================= */
 
 .bottom-nav{
@@ -795,20 +621,12 @@ h1{
   left:0;
   right:0;
   bottom:0;
-
   z-index:80;
-
   display:grid;
   grid-template-columns:repeat(5,1fr);
-
-  padding:
-    7px 8px
-    calc(7px + env(safe-area-inset-bottom));
-
+  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
   border-top:1px solid var(--line);
-
   background:rgba(7,12,16,.97);
-
   backdrop-filter:blur(18px);
 }
 
@@ -819,69 +637,39 @@ h1{
   align-items:center;
   justify-content:center;
   gap:2px;
-
   min-height:47px;
-
   border:0;
   border-radius:11px;
-
   background:transparent;
-
   color:var(--muted);
-
   text-decoration:none;
-
   font-size:8px;
   font-weight:800;
-
   cursor:pointer;
 }
 
-.nav-icon{
-  font-size:16px;
-}
+.nav-icon{font-size:16px}
 
 .bottom-nav .active{
   color:#fff;
-
   border:1px solid rgba(201,111,104,.25);
-
   background:rgba(201,111,104,.10);
 }
 
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
 @media(max-width:360px){
-
-  .block-time{
-    flex-basis:68px;
-  }
-
-  .block-content{
-    padding-left:86px;
-  }
-
+  .block-time{flex-basis:68px}
 }
 
 @media(min-width:700px){
-
   .bottom-nav{
     left:50%;
     right:auto;
-
     width:min(820px,100%);
-
     transform:translateX(-50%);
-
     border-left:1px solid var(--line);
     border-right:1px solid var(--line);
-
     border-radius:16px 16px 0 0;
   }
-
 }
 </style>
 </head>
@@ -894,18 +682,10 @@ h1{
   <h1>My Trip</h1>
   <div class="sub">Loading trip details…</div>
 
-
-  <!-- CURRENT DAY -->
-
   <section id="dayPreview"></section>
 
-
-  <!-- TRIP ROUTE -->
-
   <div class="tripline">
-
-    <strong>Loading route…</strong>
-
+    <strong>Loading trip…</strong>
   </div>
 
 </main>
@@ -915,25 +695,21 @@ h1{
      MORE SHEET
 ======================================================= -->
 
-<div
-  id="moreBackdrop"
-  class="more-backdrop"
->
+<div id="moreBackdrop" class="sheet-backdrop">
 
-  <div class="more-sheet">
+  <div class="sheet">
 
     <div class="sheet-handle"></div>
 
+    <div class="sheet-head">
 
-    <div class="more-head">
-
-      <div class="more-title">
+      <div class="sheet-title">
         More
       </div>
 
       <button
         id="closeMore"
-        class="more-close"
+        class="sheet-close"
         type="button"
       >
         ✕
@@ -972,9 +748,13 @@ h1{
     </a>
 
 
-    <!-- MY TRIPS -->
+    <!-- SWITCH TRIP -->
 
-    <div class="more-link disabled">
+    <button
+      id="switchTripButton"
+      class="more-link"
+      type="button"
+    >
 
       <div class="more-link-icon">
         🧳
@@ -983,11 +763,11 @@ h1{
       <div class="more-link-main">
 
         <div class="more-link-title">
-          My Trips
+          Switch Trip
         </div>
 
         <div class="more-link-sub">
-          Create and switch trips · coming next
+          Your trips + trips shared with you
         </div>
 
       </div>
@@ -996,12 +776,15 @@ h1{
         →
       </div>
 
-    </div>
+    </button>
 
 
     <!-- PLACES -->
 
-    <div class="more-link disabled">
+    <a
+      id="placesLink"
+      class="more-link"
+    >
 
       <div class="more-link-icon">
         📍
@@ -1014,7 +797,7 @@ h1{
         </div>
 
         <div class="more-link-sub">
-          Saved attractions · coming later
+          Saved places for this trip
         </div>
 
       </div>
@@ -1023,6 +806,46 @@ h1{
         →
       </div>
 
+    </a>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     TRIP SWITCHER SHEET
+======================================================= -->
+
+<div id="tripBackdrop" class="sheet-backdrop">
+
+  <div class="sheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="sheet-head">
+
+      <div class="sheet-title">
+        Switch Trip
+      </div>
+
+      <button
+        id="closeTrips"
+        class="sheet-close"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div
+      id="tripList"
+      class="trip-list"
+    >
+      <div class="trip-message">
+        Loading your trips…
+      </div>
     </div>
 
   </div>
@@ -1040,68 +863,31 @@ h1{
     id="navHome"
     class="active"
   >
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    <span>
-      HOME
-    </span>
+    <span class="nav-icon">🏠</span>
+    <span>HOME</span>
   </a>
-
 
   <a id="navPlan">
-
-    <span class="nav-icon">
-      📅
-    </span>
-
-    <span>
-      PLAN
-    </span>
-
+    <span class="nav-icon">📅</span>
+    <span>PLAN</span>
   </a>
-
 
   <a id="navFood">
-
-    <span class="nav-icon">
-      🍽️
-    </span>
-
-    <span>
-      FOOD
-    </span>
-
+    <span class="nav-icon">🍽️</span>
+    <span>FOOD</span>
   </a>
-
 
   <a id="navHub">
-
-    <span class="nav-icon">
-      ⭐
-    </span>
-
-    <span>
-      HUB
-    </span>
-
+    <span class="nav-icon">⭐</span>
+    <span>HUB</span>
   </a>
-
 
   <button
     id="navMore"
     type="button"
   >
-
-    <span class="nav-icon">
-      ⋯
-    </span>
-
-    <span>
-      MORE
-    </span>
-
+    <span class="nav-icon">⋯</span>
+    <span>MORE</span>
   </button>
 
 </nav>
@@ -1118,571 +904,17 @@ h1{
 ========================================================= */
 
 const params =
-  new URLSearchParams(
-    window.location.search
-  );
+  new URLSearchParams(window.location.search);
 
-const TRIP_ID =
-  Number(
-    params.get("trip") || 1
-  );
+const REQUESTED_TRIP_ID =
+  Number(params.get("trip")) || null;
+
+let TRIP_ID =
+  REQUESTED_TRIP_ID;
 
 
 /* =========================================================
-   DAY DATA
-========================================================= */
-
-const days = {
-
-18:{
-  area:"KYOTO",
-  title:"Arrival + Higashiyama",
-  booking:"🏨 Hotel Century Kyoto · 18–21 Oct",
-
-  blocks:[
-
-    {
-      time:"~1:00 PM",
-      name:"🚆 Arrive Kyoto",
-      map:"Kyoto Station"
-    },
-
-    {
-      time:"~3:00 PM",
-      name:"🏨 Hotel Century Kyoto",
-      note:"Check-in",
-      map:"Hotel Century Kyoto"
-    },
-
-    {
-      time:"4:30 – 6:15 PM",
-      name:"⛩️ Higashiyama",
-      expandable:true,
-
-      pois:[
-        ["Kiyomizu-dera","Kiyomizu-dera Kyoto"],
-        ["Sannenzaka","Sannenzaka Kyoto"],
-        ["Ninenzaka","Ninenzaka Kyoto"],
-        ["Yasaka Pagoda","Hokanji Yasaka Pagoda Kyoto"]
-      ]
-    },
-
-    {
-      time:"6:15 – 7:15 PM",
-      name:"🏮 Gion",
-      expandable:true,
-
-      pois:[
-        ["Yasaka Shrine","Yasaka Shrine Kyoto"],
-        ["Hanamikoji","Hanamikoji Street Kyoto"],
-        ["Shirakawa","Gion Shirakawa Kyoto"]
-      ]
-    },
-
-    {
-      time:"7:15 – 8:45 PM",
-      name:"🍽️ Pontocho",
-      map:"Pontocho Kyoto"
-    },
-
-    {
-      time:"9:15 – 10:00 PM",
-      name:"✨ Kyoto Station",
-      expandable:true,
-
-      pois:[
-        ["Grand Staircase","Kyoto Station Grand Staircase"],
-        ["Skyway","Kyoto Station Skyway"]
-      ]
-    }
-
-  ]
-},
-
-
-19:{
-  area:"KYOTO",
-  title:"Fushimi + Arashiyama",
-  booking:"🍣 Takara Sushi · lunch target",
-
-  blocks:[
-
-    {
-      time:"7:15 – 9:30 AM",
-      name:"⛩️ Fushimi Inari",
-      expandable:true,
-
-      pois:[
-        ["Senbon Torii","Senbon Torii Kyoto"],
-        ["Walk partway up","Fushimi Inari Taisha Kyoto"]
-      ]
-    },
-
-    {
-      time:"11:30 AM – 12:15 PM",
-      name:"🍣 Takara Sushi",
-      map:"Takara Sushi Arashiyama Kyoto"
-    },
-
-    {
-      time:"12:20 – 5:00 PM",
-      name:"🎋 Arashiyama",
-      expandable:true,
-
-      pois:[
-        ["Togetsukyo Bridge","Togetsukyo Bridge Kyoto"],
-        ["Bamboo Grove","Arashiyama Bamboo Grove Kyoto"],
-        ["Kameyama Viewpoint","Kameyama Park Observation Deck Kyoto"],
-        ["Saga-Toriimoto","Saga Toriimoto Preserved Street Kyoto"],
-        ["Adashino Nenbutsu-ji","Adashino Nenbutsuji Kyoto"],
-        ["Otagi Nenbutsu-ji","Otagi Nenbutsuji Kyoto",true]
-      ]
-    },
-
-    {
-      time:"5:00 PM onward",
-      name:"✨ Arashiyama Evening",
-      map:"Arashiyama Kyoto"
-    }
-
-  ]
-},
-
-
-20:{
-  area:"KYOTO",
-  title:"Kifune Lanterns + Setsu",
-  booking:"🔒 Setsu · 7:45 PM · Kifune taxi to arrange",
-
-  blocks:[
-
-    {
-      time:"10:00 AM – 12:00 PM",
-      name:"🚒 Disaster Prevention Center",
-      map:"Kyoto City Disaster Prevention Center"
-    },
-
-    {
-      time:"~2:00 – 3:00 PM",
-      name:"🍁 Rurikō-in",
-      note:"If practical",
-      map:"Rurikoin Kyoto"
-    },
-
-    {
-      time:"4:00 – 6:20 PM",
-      name:"🏮 Kibune + Kifune",
-      expandable:true,
-
-      pois:[
-        ["Kibune Village","Kibune Kyoto"],
-        ["Kifune Shrine","Kifune Shrine Kyoto"],
-        ["Lantern Staircase","Kifune Shrine Kyoto"]
-      ]
-    },
-
-    {
-      time:"~6:30 PM",
-      name:"🚕 Taxi Pickup",
-      note:"Transfer via Kokusaikaikan",
-      map:"Kifune Shrine Kyoto"
-    },
-
-    {
-      time:"7:45 PM",
-      name:"🔒 Setsu",
-      note:"Booked · 2 pax",
-      map:"Odashi to Nihonshu Setsu Kyoto"
-    }
-
-  ]
-},
-
-
-21:{
-  area:"KYOTO",
-  title:"Ine Day Trip",
-  booking:"🏨 Hotel Granvia Kyoto · 21–23 Oct",
-
-  blocks:[
-
-    {
-      time:"Morning",
-      name:"🏨 Hotel Granvia Kyoto",
-      note:"Hotel change / luggage",
-      map:"Hotel Granvia Kyoto"
-    },
-
-    {
-      time:"~10:30 AM – 4:00 PM",
-      name:"🌊 Ine",
-      expandable:true,
-
-      pois:[
-        ["Ine Funaya","Ine no Funaya Kyoto"],
-        ["Waterfront","Ine Kyoto"],
-        ["Viewpoints / Boat","Ine Kyoto"]
-      ]
-    },
-
-    {
-      time:"~7:00 PM",
-      name:"🌃 Back in Kyoto",
-      map:"Kyoto Station"
-    }
-
-  ]
-},
-
-
-22:{
-  area:"KYOTO",
-  title:"Nanzen-ji + teamLab",
-  booking:"⏳ teamLab ticket to check",
-
-  blocks:[
-
-    {
-      time:"8:15 – 10:30 AM",
-      name:"⛩️ Nanzen-ji Area",
-      expandable:true,
-
-      pois:[
-        ["Suirokaku Aqueduct","Suirokaku Aqueduct Kyoto"],
-        ["Nanzen-ji","Nanzenji Kyoto"],
-        ["Keage Incline","Keage Incline Kyoto"],
-        ["Philosopher's Path","Philosopher's Path Kyoto",true]
-      ]
-    },
-
-    {
-      time:"11:00 AM – 12:30 PM",
-      name:"🏯 Kodaiji Area",
-      expandable:true,
-
-      pois:[
-        ["Kodaiji","Kodaiji Kyoto"],
-        ["Nene-no-Michi","Nene no Michi Kyoto"]
-      ]
-    },
-
-    {
-      time:"2:00 – 5:30 PM",
-      name:"👩 Time with Mom"
-    },
-
-    {
-      time:"~7:00 PM",
-      name:"✨ teamLab Biovortex",
-      map:"teamLab Biovortex Kyoto"
-    }
-
-  ]
-},
-
-
-23:{
-  area:"ROAD TRIP",
-  title:"Soni → Dorogawa",
-  booking:"♨️ Kadojin · 23–24 Oct · rental car to check",
-
-  blocks:[
-
-    {
-      time:"~9:30 AM",
-      name:"🚗 Leave Kyoto"
-    },
-
-    {
-      time:"~1:30 – 4:00 PM",
-      name:"🌾 Soni Highlands",
-      map:"Soni Highlands Nara"
-    },
-
-    {
-      time:"~5:15 PM",
-      name:"♨️ Dorogawa Onsen",
-      expandable:true,
-
-      pois:[
-        ["Kadojin","Kadojin Dorogawa Onsen"],
-        ["Dorogawa Onsen Village","Dorogawa Onsen Nara"]
-      ]
-    }
-
-  ]
-},
-
-
-24:{
-  area:"ROAD TRIP",
-  title:"Skyline → Gomadanzan → Ryujin",
-  booking:"♨️ Kamigoten · 24–25 Oct",
-
-  blocks:[
-
-    {
-      time:"8:30 – 10:00 AM",
-      name:"♨️ Dorogawa Morning",
-      map:"Dorogawa Onsen Nara"
-    },
-
-    {
-      time:"1:00 – 3:30 PM",
-      name:"🏔️ Koya-Ryujin Skyline",
-      expandable:true,
-
-      pois:[
-        ["Scenic Ridge Drive","Koya Ryujin Skyline"],
-        ["Mt. Gomadanzan","Mount Gomadanzan Wakayama"],
-        ["Gomasan Sky Tower","Gomasan Sky Tower Wakayama"]
-      ]
-    },
-
-    {
-      time:"~4:30 PM",
-      name:"♨️ Ryujin Onsen",
-      expandable:true,
-
-      pois:[
-        ["Kamigoten","Kamigoten Ryujin Onsen"],
-        ["Ryujin Onsen","Ryujin Onsen Wakayama"]
-      ]
-    }
-
-  ]
-},
-
-
-25:{
-  area:"ROAD TRIP",
-  title:"Kumano → Nachikatsuura",
-  booking:"🏨 Kamenoi Hotel Nachi Katsuura · 25–26 Oct",
-
-  blocks:[
-
-    {
-      time:"~12:30 – 2:20 PM",
-      name:"⛩️ Kumano Hongu",
-      expandable:true,
-
-      pois:[
-        ["Kumano Hongu Taisha","Kumano Hongu Taisha"],
-        ["Oyunohara Giant Torii","Oyunohara Wakayama"]
-      ]
-    },
-
-    {
-      time:"~4:00 PM",
-      name:"🌊 Nachikatsuura",
-      expandable:true,
-
-      pois:[
-        ["Kamenoi Hotel Nachi Katsuura","Kamenoi Hotel Nachi Katsuura"],
-        ["Nachikatsuura","Nachikatsuura Wakayama"]
-      ]
-    }
-
-  ]
-},
-
-
-26:{
-  area:"ROAD TRIP → OSAKA",
-  title:"Nachi → Osaka",
-  booking:"🏨 Hotel Hankyu International · 26–30 Oct",
-
-  blocks:[
-
-    {
-      time:"8:00 – 10:45 AM",
-      name:"🌊 Nachi",
-      expandable:true,
-
-      pois:[
-        ["Nachi Falls","Nachi Falls Wakayama"],
-        ["Kumano Nachi Taisha","Kumano Nachi Taisha"],
-        ["Seiganto-ji","Seigantoji Wakayama"],
-        ["Pagoda View","Seigantoji Pagoda Nachi"]
-      ]
-    },
-
-    {
-      time:"~1:30 – 2:15 PM",
-      name:"⛩️ Kamikura Jinja",
-      note:"If time",
-      map:"Kamikura Shrine Shingu"
-    },
-
-    {
-      time:"~7:00 PM",
-      name:"🏨 Osaka",
-      expandable:true,
-
-      pois:[
-        ["Hotel Hankyu International","Hotel Hankyu International Osaka"]
-      ]
-    }
-
-  ]
-},
-
-
-27:{
-  area:"OSAKA",
-  title:"Namba + MIRACLE WORLD",
-  booking:"🎮 ROUND1 / MIRACLE WORLD · check if booking needed",
-
-  blocks:[
-
-    {
-      time:"9:30 AM – 12:00 PM",
-      name:"🎳 ROUND1",
-      map:"ROUND1 Stadium Sennichimae Osaka"
-    },
-
-    {
-      time:"12:15 – 2:15 PM",
-      name:"🐟 Namba",
-      expandable:true,
-
-      pois:[
-        ["Kuromon Market","Kuromon Market Osaka"],
-        ["Namba Yasaka Shrine","Namba Yasaka Shrine Osaka"]
-      ]
-    },
-
-    {
-      time:"2:30 – 3:15 PM",
-      name:"☕ OURLOG Coffee",
-      map:"OURLOG Coffee Namba Osaka"
-    },
-
-    {
-      time:"3:30 – 5:00 PM",
-      name:"✨ MIRACLE WORLD",
-      map:"MIRACLE WORLD Osaka"
-    },
-
-    {
-      time:"5:15 PM onward",
-      name:"🏮 Hozenji + Dotonbori",
-      expandable:true,
-
-      pois:[
-        ["Hozenji Yokocho","Hozenji Yokocho Osaka"],
-        ["Hozenji","Hozenji Osaka"],
-        ["Dotonbori","Dotonbori Osaka"]
-      ]
-    }
-
-  ]
-},
-
-
-28:{
-  area:"AICHI DAY TRIP",
-  title:"Mentai + Pokémon Observatory",
-  booking:"⏳ Pokémon + Shinkansen tickets to book/check",
-
-  blocks:[
-
-    {
-      time:"10:30 AM – 12:00 PM",
-      name:"🐟 Mentai Park",
-      map:"Mentai Park Tokoname"
-    },
-
-    {
-      time:"2:15 – 4:00 PM",
-      name:"🔭 Pokémon Observatory",
-      expandable:true,
-
-      pois:[
-        ["Toyohashi Museum of Natural History","Toyohashi Museum of Natural History"],
-        ["Pokémon Observatory","Toyohashi Museum of Natural History"]
-      ]
-    },
-
-    {
-      time:"~5:00 PM",
-      name:"🚄 Return to Osaka",
-      map:"Toyohashi Station"
-    }
-
-  ]
-},
-
-
-29:{
-  area:"NARA",
-  title:"Nara + Wakakusa Sunset",
-  booking:"🌄 Keep afternoon flexible for sunset",
-
-  blocks:[
-
-    {
-      time:"10:30 AM – 3:00 PM",
-      name:"🦌 Nara",
-      expandable:true,
-
-      pois:[
-        ["Nara Park","Nara Park"],
-        ["Todaiji","Todaiji Nara"],
-        ["Kasuga Taisha","Kasuga Taisha Nara"],
-        ["Naramachi","Naramachi Nara",true]
-      ]
-    },
-
-    {
-      time:"3:45 – 5:15 PM",
-      name:"🌄 Mt. Wakakusa",
-      note:"Sunset",
-      map:"Mount Wakakusa Nara"
-    }
-
-  ]
-},
-
-
-30:{
-  area:"OSAKA",
-  title:"Fly Home",
-  booking:"✈️ Flight · 6:00 PM",
-
-  blocks:[
-
-    {
-      time:"9:00 – 11:30 AM",
-      name:"🧳 Final Osaka Morning",
-      note:"Stay near hotel",
-      expandable:true,
-
-      pois:[
-        ["Hotel area","Hotel Hankyu International Osaka"]
-      ]
-    },
-
-    {
-      time:"~1:30 PM",
-      name:"🚆 Leave for Airport",
-      map:"Kansai International Airport"
-    },
-
-    {
-      time:"6:00 PM",
-      name:"✈️ Fly Home",
-      map:"Kansai International Airport"
-    }
-
-  ]
-}
-
-};
-
-
-/* =========================================================
-   MAP
+   HELPERS
 ========================================================= */
 
 function mapURL(query){
@@ -1695,232 +927,442 @@ function mapURL(query){
 }
 
 
-/* =========================================================
-   TRIP DATE
-========================================================= */
+function escapeHTML(value){
 
-const tripStart =
-  new Date(2026,9,18);
-
-const tripEnd =
-  new Date(2026,9,30);
-
-
-function initialDay(){
-
-  const now =
-    new Date();
-
-  const today =
-    new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    );
-
-
-  if(today < tripStart){
-    return 18;
-  }
-
-
-  if(today > tripEnd){
-    return 30;
-  }
-
-
-  return today.getDate();
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-let selectedDay =
-  initialDay();
+function formatTripDate(value){
 
-
-/* =========================================================
-   OPEN BLOCK MEMORY
-========================================================= */
-
-const openBlocks = {};
-
-
-/* =========================================================
-   DATES
-========================================================= */
-
-function renderDates(){
-
-  return `
-
-    <div class="date-scroll">
-
-      ${
-        Object.keys(days)
-          .map(day => {
-
-            const date =
-              new Date(
-                2026,
-                9,
-                Number(day)
-              );
-
-
-            const dow =
-              date
-                .toLocaleDateString(
-                  "en-SG",
-                  {weekday:"short"}
-                )
-                .toUpperCase();
-
-
-            return `
-
-              <button
-                class="date-btn ${
-                  Number(day) === selectedDay
-                    ? "active"
-                    : ""
-                }"
-                data-day="${day}"
-                type="button"
-              >
-
-                <span class="num">
-                  ${day}
-                </span>
-
-                <span class="dow">
-                  ${dow}
-                </span>
-
-              </button>
-
-            `;
-
-          })
-          .join("")
-      }
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   POIS
-========================================================= */
-
-function renderPois(block){
-
-  if(
-    !Array.isArray(block.pois) ||
-    !block.pois.length
-  ){
+  if(!value){
     return "";
   }
 
+  const date =
+    new Date(value + "T00:00:00");
 
-  return `
+  return date.toLocaleDateString(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
 
-    <div class="poi-list">
-
-      ${
-        block.pois
-          .map((poi,index) => {
-
-            const name =
-              poi[0];
-
-            const map =
-              poi[1];
-
-            const optional =
-              poi[2] === true;
+}
 
 
-            return `
+function tripIcon(country){
 
-              <div
-                class="poi ${
-                  optional
-                    ? "optional"
-                    : ""
-                }"
-              >
+  const value =
+    String(country || "").toLowerCase();
 
-                <div class="poi-route">
-                  ${index === 0 ? "•" : "↓"}
-                </div>
+  if(value.includes("japan")) return "🇯🇵";
+  if(value.includes("taiwan")) return "🇹🇼";
+  if(value.includes("singapore")) return "🇸🇬";
+  if(value.includes("korea")) return "🇰🇷";
+  if(value.includes("china")) return "🇨🇳";
+  if(value.includes("thailand")) return "🇹🇭";
+  if(value.includes("malaysia")) return "🇲🇾";
+  if(value.includes("indonesia")) return "🇮🇩";
 
-
-                <div class="poi-name">
-
-                  ${name}
-
-                  ${
-                    optional
-
-                      ?
-
-                    `
-                      <span class="optional-label">
-                        OPTIONAL
-                      </span>
-                    `
-
-                      :
-
-                    ""
-                  }
-
-                </div>
-
-
-                ${
-                  map
-
-                    ?
-
-                  `
-                    <a
-                      class="poi-map"
-                      href="${mapURL(map)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onclick="event.stopPropagation()"
-                      aria-label="Open map for ${name}"
-                    >
-                      📍
-                    </a>
-                  `
-
-                    :
-
-                  ""
-                }
-
-              </div>
-
-            `;
-
-          })
-          .join("")
-      }
-
-    </div>
-
-  `;
+  return "✈️";
 
 }
 
 
 /* =========================================================
-   FOOD NEAR ME
+   NAV LINKS
+========================================================= */
+
+function updateLinks(){
+
+  const suffix =
+    TRIP_ID
+      ? `?trip=${TRIP_ID}`
+      : "";
+
+  document.getElementById("navHome").href =
+    `index.html${suffix}`;
+
+  document.getElementById("navPlan").href =
+    `schedule.html${suffix}`;
+
+  document.getElementById("navFood").href =
+    `food.html${suffix}`;
+
+  document.getElementById("navHub").href =
+    `bookings.html${suffix}`;
+
+  document.getElementById("profileLink").href =
+    `profile.html${suffix}`;
+
+  document.getElementById("placesLink").href =
+    `places.html${suffix}`;
+
+}
+
+
+/* =========================================================
+   MORE SHEET
+========================================================= */
+
+const moreBackdrop =
+  document.getElementById("moreBackdrop");
+
+const tripBackdrop =
+  document.getElementById("tripBackdrop");
+
+
+function openMore(){
+
+  moreBackdrop.classList.add("open");
+
+}
+
+
+function closeMore(){
+
+  moreBackdrop.classList.remove("open");
+
+}
+
+
+function openTrips(){
+
+  closeMore();
+
+  tripBackdrop.classList.add("open");
+
+  loadMyTrips();
+
+}
+
+
+function closeTrips(){
+
+  tripBackdrop.classList.remove("open");
+
+}
+
+
+document.getElementById("navMore").onclick =
+  openMore;
+
+document.getElementById("closeMore").onclick =
+  closeMore;
+
+document.getElementById("switchTripButton").onclick =
+  openTrips;
+
+document.getElementById("closeTrips").onclick =
+  closeTrips;
+
+
+moreBackdrop.onclick =
+  event => {
+
+    if(event.target === moreBackdrop){
+      closeMore();
+    }
+
+  };
+
+
+tripBackdrop.onclick =
+  event => {
+
+    if(event.target === tripBackdrop){
+      closeTrips();
+    }
+
+  };
+
+
+/* =========================================================
+   GET LOGGED-IN USER
+========================================================= */
+
+async function getCurrentUser(){
+
+  const {
+    data,
+    error
+  } =
+    await db.auth.getUser();
+
+  if(error){
+    throw error;
+  }
+
+  return data?.user || null;
+
+}
+
+
+/* =========================================================
+   GET ACCESSIBLE TRIPS
+========================================================= */
+
+async function getAccessibleTrips(){
+
+  const user =
+    await getCurrentUser();
+
+  if(!user){
+    throw new Error("You are not signed in.");
+  }
+
+
+  /* Trips owned by this user */
+
+  const ownedResult =
+    await db
+      .from("trips")
+      .select("*")
+      .eq("owner_id",user.id);
+
+  if(ownedResult.error){
+    throw ownedResult.error;
+  }
+
+
+  /* Membership rows for this user */
+
+  const memberResult =
+    await db
+      .from("trip_members")
+      .select("trip_id")
+      .eq("user_id",user.id);
+
+  if(memberResult.error){
+    throw memberResult.error;
+  }
+
+
+  const sharedIds =
+    [
+      ...new Set(
+        (memberResult.data || [])
+          .map(row => Number(row.trip_id))
+          .filter(Number.isFinite)
+      )
+    ];
+
+
+  let sharedTrips = [];
+
+
+  if(sharedIds.length){
+
+    const sharedResult =
+      await db
+        .from("trips")
+        .select("*")
+        .in("id",sharedIds);
+
+    if(sharedResult.error){
+      throw sharedResult.error;
+    }
+
+    sharedTrips =
+      sharedResult.data || [];
+
+  }
+
+
+  /* Combine without duplicates */
+
+  const map =
+    new Map();
+
+
+  (ownedResult.data || [])
+    .forEach(trip => {
+
+      map.set(
+        Number(trip.id),
+        {
+          ...trip,
+          __role:"owner"
+        }
+      );
+
+    });
+
+
+  sharedTrips.forEach(trip => {
+
+    const id =
+      Number(trip.id);
+
+    if(!map.has(id)){
+
+      map.set(
+        id,
+        {
+          ...trip,
+          __role:"member"
+        }
+      );
+
+    }
+
+  });
+
+
+  return [...map.values()]
+    .sort((a,b) => {
+
+      return String(a.start_date || "")
+        .localeCompare(
+          String(b.start_date || "")
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   SWITCH TRIP
+========================================================= */
+
+async function loadMyTrips(){
+
+  const container =
+    document.getElementById("tripList");
+
+  container.innerHTML = `
+    <div class="trip-message">
+      Loading your trips…
+    </div>
+  `;
+
+
+  try{
+
+    const trips =
+      await getAccessibleTrips();
+
+
+    if(!trips.length){
+
+      container.innerHTML = `
+        <div class="trip-message">
+          No trips available yet.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML =
+      trips.map(trip => {
+
+        const id =
+          Number(trip.id);
+
+        const current =
+          id === Number(TRIP_ID);
+
+        const role =
+          trip.__role === "owner"
+            ? "YOUR TRIP"
+            : "SHARED WITH YOU";
+
+        const dates =
+          trip.start_date && trip.end_date
+            ? `${formatTripDate(trip.start_date)} – ${formatTripDate(trip.end_date)}`
+            : "";
+
+        const meta =
+          [
+            trip.country,
+            dates
+          ]
+          .filter(Boolean)
+          .join(" · ");
+
+
+        return `
+
+          <a
+            class="trip-card ${current ? "current" : ""}"
+            href="index.html?trip=${id}"
+          >
+
+            <div class="trip-icon">
+              ${tripIcon(trip.country)}
+            </div>
+
+            <div class="trip-main">
+
+              <div class="trip-name">
+                ${escapeHTML(trip.name || "Unnamed Trip")}
+              </div>
+
+              <div class="trip-meta">
+                ${escapeHTML(meta)}
+              </div>
+
+              <span class="trip-role">
+                ${current ? "CURRENT · " : ""}
+                ${role}
+              </span>
+
+            </div>
+
+            <div class="trip-arrow">
+              →
+            </div>
+
+          </a>
+
+        `;
+
+      }).join("");
+
+
+  }
+  catch(error){
+
+    console.error(
+      "Switch Trip error:",
+      error
+    );
+
+    container.innerHTML = `
+
+      <div class="trip-message error">
+
+        Could not load your trips.
+
+        <br><br>
+
+        ${escapeHTML(error.message || "Supabase error")}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   FOOD NEAR ME HTML
 ========================================================= */
 
 function renderFoodNearby(){
@@ -1965,6 +1407,7 @@ function renderFoodNearby(){
 
     </button>
 
+
     <div
       id="foodNearbyPanel"
       class="nearby-panel"
@@ -1987,386 +1430,26 @@ function renderFoodNearby(){
 
 
 /* =========================================================
-   BLOCK
-========================================================= */
-
-function renderBlock(block,index){
-
-  const expandable =
-    block.expandable === true;
-
-
-  const key =
-    `${selectedDay}-${index}`;
-
-
-  const isOpen =
-    openBlocks[key] === true;
-
-
-  if(!expandable){
-
-    return `
-
-      <div class="block">
-
-        <div class="block-head">
-
-          <div class="block-time">
-            ${block.time || ""}
-          </div>
-
-
-          <div class="block-main">
-
-            <div class="block-name">
-              ${block.name}
-            </div>
-
-
-            ${
-              block.note
-
-                ?
-
-              `
-                <div class="block-note">
-                  ${block.note}
-                </div>
-              `
-
-                :
-
-              ""
-            }
-
-          </div>
-
-
-          ${
-            block.map
-
-              ?
-
-            `
-              <a
-                class="block-map"
-                href="${mapURL(block.map)}"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open map"
-              >
-                📍
-              </a>
-            `
-
-              :
-
-            ""
-          }
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  return `
-
-    <div
-      class="block expandable ${
-        isOpen
-          ? "open"
-          : ""
-      }"
-      data-block="${index}"
-    >
-
-      <div
-        class="block-head"
-        data-toggle-block="${index}"
-      >
-
-        <div class="block-time">
-          ${block.time || ""}
-        </div>
-
-
-        <div class="block-main">
-
-          <div class="block-name">
-            ${block.name}
-          </div>
-
-
-          ${
-            block.note
-
-              ?
-
-            `
-              <div class="block-note">
-                ${block.note}
-              </div>
-            `
-
-              :
-
-            ""
-          }
-
-        </div>
-
-
-        <div class="block-chevron">
-          ⌄
-        </div>
-
-      </div>
-
-
-      <div class="block-content">
-
-        ${renderPois(block)}
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER DAY
-========================================================= */
-
-function renderDay(){
-
-  const day =
-    days[selectedDay];
-
-
-  const date =
-    new Date(
-      2026,
-      9,
-      selectedDay
-    );
-
-
-  const weekday =
-    date
-      .toLocaleDateString(
-        "en-SG",
-        {weekday:"long"}
-      )
-      .toUpperCase();
-
-
-  document.getElementById(
-    "dayPreview"
-  ).innerHTML = `
-
-    <div class="day-card">
-
-      <div class="day-top">
-
-        <div class="day-label">
-          TRIP PREVIEW
-        </div>
-
-        <div class="day-date">
-          ${weekday} · ${selectedDay} OCT
-        </div>
-
-      </div>
-
-
-      <h2>
-        ${day.title}
-      </h2>
-
-
-      <div class="day-area">
-        ${day.area}
-      </div>
-
-
-      ${renderDates()}
-
-
-      ${
-        day.booking
-
-          ?
-
-        `
-          <a
-            class="booking-strip"
-            href="bookings.html?trip=${TRIP_ID}"
-          >
-
-            <span class="booking-icon">
-              ⭐
-            </span>
-
-
-            <span class="booking-text">
-
-              <strong>
-                BOOKING / REMINDER
-              </strong>
-
-              <br>
-
-              ${day.booking}
-
-            </span>
-
-
-            <span class="booking-arrow">
-              →
-            </span>
-
-          </a>
-        `
-
-          :
-
-        ""
-      }
-
-
-      <div class="plan-title">
-        DAY AT A GLANCE
-      </div>
-
-
-      ${
-        day.blocks
-          .map(
-            (block,index) =>
-              renderBlock(
-                block,
-                index
-              )
-          )
-          .join("")
-      }
-
-
-      <!-- FULL PLAN -->
-
-      <a
-        class="full-plan"
-        href="schedule.html?trip=${TRIP_ID}#2026-10-${String(selectedDay).padStart(2,"0")}"
-      >
-        FULL PLAN →
-      </a>
-
-
-      <!-- FOOD NEAR ME - SEPARATE GREEN BOX -->
-
-      ${renderFoodNearby()}
-
-
-    </div>
-
-  `;
-
-
-  bindDayEvents();
-
-}
-
-
-/* =========================================================
-   DAY EVENTS
-========================================================= */
-
-function bindDayEvents(){
-
-  bindFoodNearby();
-
-  document
-    .querySelectorAll(
-      ".date-btn"
-    )
-    .forEach(button => {
-
-      button.onclick =
-        () => {
-
-          selectedDay =
-            Number(
-              button.dataset.day
-            );
-
-          renderDay();
-
-        };
-
-    });
-
-
-  document
-    .querySelectorAll(
-      "[data-toggle-block]"
-    )
-    .forEach(button => {
-
-      button.onclick =
-        () => {
-
-          const index =
-            Number(
-              button.dataset.toggleBlock
-            );
-
-
-          const key =
-            `${selectedDay}-${index}`;
-
-
-          openBlocks[key] =
-            !openBlocks[key];
-
-
-          const block =
-            button.closest(".block");
-
-
-          block.classList.toggle(
-            "open",
-            openBlocks[key]
-          );
-
-        };
-
-    });
-
-}
-
-
-
-/* =========================================================
    FOOD NEAR ME LOGIC
 ========================================================= */
 
 let nearbyLoaded = false;
 let nearbyLoading = false;
 
-function nearbyDistanceMetres(lat1,lng1,lat2,lng2){
+
+function nearbyDistanceMetres(
+  lat1,
+  lng1,
+  lat2,
+  lng2
+){
 
   const toRad =
-    value => value * Math.PI / 180;
+    value =>
+      value * Math.PI / 180;
 
-  const earth = 6371000;
+  const earth =
+    6371000;
 
   const dLat =
     toRad(lat2-lat1);
@@ -2399,52 +1482,17 @@ function nearbyDistanceLabel(metres){
   }
 
   if(metres < 1000){
-    return `${Math.max(10,Math.round(metres/10)*10)} m`;
+
+    return `${
+      Math.max(
+        10,
+        Math.round(metres/10)*10
+      )
+    } m`;
+
   }
 
   return `${(metres/1000).toFixed(1)} km`;
-
-}
-
-
-function bindFoodNearby(){
-
-  const button =
-    document.getElementById("foodNearbyButton");
-
-  if(!button){
-    return;
-  }
-
-  button.onclick =
-    async () => {
-
-      const panel =
-        document.getElementById("foodNearbyPanel");
-
-      const arrow =
-        document.getElementById("foodNearbyArrow");
-
-      const opening =
-        !panel.classList.contains("show");
-
-      panel.classList.toggle(
-        "show",
-        opening
-      );
-
-      arrow.textContent =
-        opening ? "↑" : "↓";
-
-      if(
-        opening &&
-        !nearbyLoaded &&
-        !nearbyLoading
-      ){
-        await loadNearbyFood();
-      }
-
-    };
 
 }
 
@@ -2464,6 +1512,7 @@ function getCurrentPositionForFood(){
 
         return;
       }
+
 
       navigator.geolocation.getCurrentPosition(
         resolve,
@@ -2529,13 +1578,22 @@ function savedRestaurantHTML(row){
 
   const rating =
     row.rating
-      ? ` · Tabelog ${row.rating}`
+      ? `Tabelog ${row.rating}`
       : "";
 
   const area =
     [
       row.area,
       row.city
+    ]
+    .filter(Boolean)
+    .join(" · ");
+
+  const meta =
+    [
+      distance,
+      area,
+      rating
     ]
     .filter(Boolean)
     .join(" · ");
@@ -2553,6 +1611,7 @@ function savedRestaurantHTML(row){
       .join(" ")
     );
 
+
   return `
 
     <div class="nearby-item">
@@ -2560,19 +1619,17 @@ function savedRestaurantHTML(row){
       <div class="nearby-item-main">
 
         <div class="nearby-item-name">
-          ${row.name}
+
+          ${escapeHTML(row.name)}
+
           <span class="nearby-item-badge">
             ⭐ PICK
           </span>
+
         </div>
 
         <div class="nearby-item-meta">
-          ${
-            [distance,area]
-              .filter(Boolean)
-              .join(" · ")
-          }
-          ${rating}
+          ${escapeHTML(meta)}
         </div>
 
       </div>
@@ -2582,7 +1639,6 @@ function savedRestaurantHTML(row){
         href="${map}"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open ${row.name} in Google Maps"
       >
         📍
       </a>
@@ -2594,7 +1650,11 @@ function savedRestaurantHTML(row){
 }
 
 
-function googleRestaurantHTML(place,userLat,userLng){
+function googleRestaurantHTML(
+  place,
+  userLat,
+  userLng
+){
 
   const data =
     window.normalizeGooglePlace(place);
@@ -2625,6 +1685,14 @@ function googleRestaurantHTML(place,userLat,userLng){
     .filter(Boolean)
     .join(" · ");
 
+  const meta =
+    [
+      distance,
+      area
+    ]
+    .filter(Boolean)
+    .join(" · ");
+
   const map =
     data.maps_url ||
     mapURL(
@@ -2636,6 +1704,7 @@ function googleRestaurantHTML(place,userLat,userLng){
       .join(" ")
     );
 
+
   return `
 
     <div class="nearby-item">
@@ -2643,15 +1712,11 @@ function googleRestaurantHTML(place,userLat,userLng){
       <div class="nearby-item-main">
 
         <div class="nearby-item-name">
-          ${data.name || "Restaurant"}
+          ${escapeHTML(data.name || "Restaurant")}
         </div>
 
         <div class="nearby-item-meta">
-          ${
-            [distance,area]
-              .filter(Boolean)
-              .join(" · ")
-          }
+          ${escapeHTML(meta)}
         </div>
 
       </div>
@@ -2661,7 +1726,6 @@ function googleRestaurantHTML(place,userLat,userLng){
         href="${map}"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open restaurant in Google Maps"
       >
         📍
       </a>
@@ -2678,25 +1742,17 @@ async function getSavedPicksNearby(
   userLng
 ){
 
-  /*
-    We deliberately use select("*") here so this
-    works with your current restaurant table while
-    also picking up latitude/longitude if you add
-    those columns.
-
-    Saved restaurants without coordinates cannot
-    be distance-sorted yet, so they are skipped in
-    this Home "near me" preview.
-  */
-
   const result =
     await db
       .from("restaurants")
-      .select("*");
+      .select("*")
+      .eq("trip_id",TRIP_ID);
+
 
   if(result.error){
     throw result.error;
   }
+
 
   return (
     result.data || []
@@ -2713,6 +1769,7 @@ async function getSavedPicksNearby(
 
     return {
       ...row,
+
       __distance:
         nearbyDistanceMetres(
           userLat,
@@ -2747,10 +1804,13 @@ async function getGoogleRestaurantsNearby(
     typeof window.getGooglePlaces !== "function" ||
     typeof window.normalizeGooglePlace !== "function"
   ){
+
     throw new Error(
       "google-maps.js is not available."
     );
+
   }
+
 
   const placesLibrary =
     await window.getGooglePlaces();
@@ -2759,17 +1819,22 @@ async function getGoogleRestaurantsNearby(
     placesLibrary.Place ||
     google.maps.places?.Place;
 
+
   if(
     !Place ||
     typeof Place.searchNearby !== "function"
   ){
+
     throw new Error(
       "Google Nearby Search is unavailable."
     );
+
   }
+
 
   const response =
     await Place.searchNearby({
+
       fields:[
         "id",
         "displayName",
@@ -2779,6 +1844,7 @@ async function getGoogleRestaurantsNearby(
         "location",
         "types"
       ],
+
       locationRestriction:{
         center:{
           lat:userLat,
@@ -2786,17 +1852,75 @@ async function getGoogleRestaurantsNearby(
         },
         radius:1500
       },
+
       includedPrimaryTypes:[
         "restaurant"
       ],
+
       maxResultCount:8,
+
       rankPreference:
-        google.maps.places.SearchNearbyRankPreference.DISTANCE
+        google.maps.places
+          .SearchNearbyRankPreference
+          .DISTANCE
+
     });
 
-  return (
-    response.places || []
-  );
+
+  return response.places || [];
+
+}
+
+
+function bindFoodNearby(){
+
+  const button =
+    document.getElementById(
+      "foodNearbyButton"
+    );
+
+  if(!button){
+    return;
+  }
+
+
+  button.onclick =
+    async () => {
+
+      const panel =
+        document.getElementById(
+          "foodNearbyPanel"
+        );
+
+      const arrow =
+        document.getElementById(
+          "foodNearbyArrow"
+        );
+
+      const opening =
+        !panel.classList.contains("show");
+
+
+      panel.classList.toggle(
+        "show",
+        opening
+      );
+
+      arrow.textContent =
+        opening ? "↑" : "↓";
+
+
+      if(
+        opening &&
+        !nearbyLoaded &&
+        !nearbyLoading
+      ){
+
+        await loadNearbyFood();
+
+      }
+
+    };
 
 }
 
@@ -2804,13 +1928,20 @@ async function getGoogleRestaurantsNearby(
 async function loadNearbyFood(){
 
   const status =
-    document.getElementById("foodNearbyStatus");
+    document.getElementById(
+      "foodNearbyStatus"
+    );
 
   const results =
-    document.getElementById("foodNearbyResults");
+    document.getElementById(
+      "foodNearbyResults"
+    );
 
   const subtitle =
-    document.getElementById("foodNearbySubtitle");
+    document.getElementById(
+      "foodNearbySubtitle"
+    );
+
 
   nearbyLoading = true;
 
@@ -2820,8 +1951,8 @@ async function loadNearbyFood(){
   status.textContent =
     "Getting your location…";
 
-  results.innerHTML =
-    "";
+  results.innerHTML = "";
+
 
   try{
 
@@ -2834,30 +1965,38 @@ async function loadNearbyFood(){
     const userLng =
       position.coords.longitude;
 
+
     status.textContent =
       "Finding your picks and restaurants nearby…";
 
+
     const settled =
       await Promise.allSettled([
+
         getSavedPicksNearby(
           userLat,
           userLng
         ),
+
         getGoogleRestaurantsNearby(
           userLat,
           userLng
         )
+
       ]);
+
 
     const picks =
       settled[0].status === "fulfilled"
         ? settled[0].value
         : [];
 
+
     const googlePlaces =
       settled[1].status === "fulfilled"
         ? settled[1].value
         : [];
+
 
     const pickNames =
       new Set(
@@ -2868,6 +2007,7 @@ async function loadNearbyFood(){
               .toLowerCase()
         )
       );
+
 
     const more =
       googlePlaces
@@ -2885,7 +2025,9 @@ async function loadNearbyFood(){
         })
         .slice(0,4);
 
+
     let html = "";
+
 
     if(picks.length){
 
@@ -2909,6 +2051,7 @@ async function loadNearbyFood(){
 
     }
 
+
     html += `
 
       <div class="nearby-section">
@@ -2919,26 +2062,31 @@ async function loadNearbyFood(){
 
         ${
           more.length
+
             ?
-            more
-              .map(
-                place =>
-                  googleRestaurantHTML(
-                    place,
-                    userLat,
-                    userLng
-                  )
-              )
-              .join("")
+
+          more
+            .map(
+              place =>
+                googleRestaurantHTML(
+                  place,
+                  userLat,
+                  userLng
+                )
+            )
+            .join("")
+
             :
-            `
-              <div class="nearby-status">
-                No additional Google restaurants were returned nearby.
-              </div>
-            `
+
+          `
+            <div class="nearby-status">
+              No additional restaurants were returned nearby.
+            </div>
+          `
         }
 
       </div>
+
 
       <a
         class="nearby-more"
@@ -2949,23 +2097,28 @@ async function loadNearbyFood(){
 
     `;
 
+
     results.innerHTML =
       html;
 
-    if(
-      !picks.length &&
-      settled[0].status === "fulfilled"
-    ){
+
+    if(!picks.length){
+
       status.textContent =
-        "No saved Picks with coordinates were found close by yet. Showing other nearby restaurants.";
+        "No saved Picks with coordinates were found close by yet. Showing nearby restaurants.";
+
     }
     else{
+
       status.textContent =
         "Using your current location.";
+
     }
+
 
     subtitle.textContent =
       "Your picks first + more restaurants around you";
+
 
     nearbyLoaded = true;
 
@@ -2977,16 +2130,19 @@ async function loadNearbyFood(){
       error
     );
 
+
     let message =
       error.message ||
       "Couldn't find nearby food.";
 
-    if(
-      error.code === 1
-    ){
+
+    if(error.code === 1){
+
       message =
-        "Location permission was not allowed. Tap again after allowing location access for this site.";
+        "Location permission was not allowed. Allow location access and try again.";
+
     }
+
 
     status.textContent =
       message;
@@ -3005,288 +2161,752 @@ async function loadNearbyFood(){
 
 
 /* =========================================================
-   MORE
+   LOAD TRIP
 ========================================================= */
 
-const moreBackdrop =
-  document.getElementById(
-    "moreBackdrop"
-  );
+async function loadTripFromDatabase(){
+
+  const preview =
+    document.getElementById(
+      "dayPreview"
+    );
 
 
-function openMore(){
+  try{
 
-  moreBackdrop
-    .classList
-    .add("open");
+    /* -----------------------------------------------
+       Resolve trip if ?trip= is missing
+    ----------------------------------------------- */
 
-}
+    if(!TRIP_ID){
 
-
-function closeMore(){
-
-  moreBackdrop
-    .classList
-    .remove("open");
-
-}
+      const accessible =
+        await getAccessibleTrips();
 
 
-document.getElementById(
-  "navMore"
-).onclick =
-  openMore;
+      if(!accessible.length){
+
+        throw new Error(
+          "No trips are available for this account."
+        );
+
+      }
 
 
-document.getElementById(
-  "closeMore"
-).onclick =
-  closeMore;
+      TRIP_ID =
+        Number(accessible[0].id);
 
 
-moreBackdrop.onclick =
-  event => {
-
-    if(event.target === moreBackdrop){
-
-      closeMore();
+      history.replaceState(
+        {},
+        "",
+        `index.html?trip=${TRIP_ID}`
+      );
 
     }
 
-  };
+
+    updateLinks();
 
 
-/* =========================================================
-   LINKS
-========================================================= */
+    /* -----------------------------------------------
+       Load trip + schedule
+    ----------------------------------------------- */
 
-document.getElementById(
-  "navHome"
-).href =
-  `index.html?trip=${TRIP_ID}`;
+    const [
+      tripResult,
+      scheduleResult
+    ] =
+      await Promise.all([
+
+        db
+          .from("trips")
+          .select("*")
+          .eq("id",TRIP_ID)
+          .single(),
+
+        db
+          .from("schedule")
+          .select("*")
+          .eq("trip_id",TRIP_ID)
+          .order(
+            "schedule_date",
+            {ascending:true}
+          )
+          .order(
+            "sort_order",
+            {ascending:true}
+          )
+
+      ]);
 
 
-document.getElementById(
-  "navPlan"
-).href =
-  `schedule.html?trip=${TRIP_ID}`;
+    if(tripResult.error){
+      throw tripResult.error;
+    }
+
+    if(scheduleResult.error){
+      throw scheduleResult.error;
+    }
 
 
-document.getElementById(
-  "navFood"
-).href =
-  `food.html?trip=${TRIP_ID}`;
+    const trip =
+      tripResult.data;
+
+    const rows =
+      scheduleResult.data || [];
 
 
-document.getElementById(
-  "navHub"
-).href =
-  `bookings.html?trip=${TRIP_ID}`;
+    /* -----------------------------------------------
+       Header
+    ----------------------------------------------- */
+
+    const start =
+      trip.start_date
+        ? new Date(
+            trip.start_date +
+            "T00:00:00"
+          )
+        : null;
 
 
-document.getElementById(
-  "profileLink"
-).href =
-  `profile.html?trip=${TRIP_ID}`;
+    const end =
+      trip.end_date
+        ? new Date(
+            trip.end_date +
+            "T00:00:00"
+          )
+        : null;
+
+
+    const monthYear =
+      start
+        ? start
+            .toLocaleDateString(
+              "en-SG",
+              {
+                month:"long",
+                year:"numeric"
+              }
+            )
+            .toUpperCase()
+        : "";
+
+
+    document
+      .querySelector(".eyebrow")
+      .textContent =
+        [
+          trip.country,
+          monthYear
+        ]
+        .filter(Boolean)
+        .join(" · ");
+
+
+    document
+      .querySelector("h1")
+      .textContent =
+        trip.name || "My Trip";
+
+
+    document.title =
+      trip.name || "My Trip";
+
+
+    const fmt =
+      date =>
+        date
+          ? date.toLocaleDateString(
+              "en-SG",
+              {
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+              }
+            )
+          : "";
+
+
+    document
+      .querySelector(".sub")
+      .textContent =
+        start && end
+          ? `${fmt(start)} – ${fmt(end)}`
+          : (trip.description || "");
+
+
+    /* -----------------------------------------------
+       Group schedule
+    ----------------------------------------------- */
+
+    const byDate = {};
+
+
+    rows.forEach(row => {
+
+      if(!row.schedule_date){
+        return;
+      }
+
+      (
+        byDate[row.schedule_date] ||= []
+      ).push(row);
+
+    });
+
+
+    const dates =
+      Object.keys(byDate).sort();
+
+
+    const tripline =
+      document.querySelector(
+        ".tripline"
+      );
+
+
+    if(tripline){
+
+      if(trip.description){
+
+        tripline.innerHTML =
+          `<strong>${escapeHTML(trip.description)}</strong>`;
+
+      }
+      else{
+
+        tripline.innerHTML =
+          `<strong>${escapeHTML(trip.country || "TRIP")}</strong> · ${dates.length} planned day${dates.length === 1 ? "" : "s"}`;
+
+      }
+
+    }
+
+
+    /* -----------------------------------------------
+       No schedule
+    ----------------------------------------------- */
+
+    if(!dates.length){
+
+      preview.innerHTML = `
+
+        <div class="day-card">
+
+          <div class="day-label">
+            TRIP PREVIEW
+          </div>
+
+          <h2>
+            No plans added yet
+          </h2>
+
+          <div class="day-area">
+            ${escapeHTML(trip.country || "")}
+          </div>
+
+          <a
+            class="full-plan"
+            href="schedule.html?trip=${TRIP_ID}"
+          >
+            OPEN PLAN →
+          </a>
+
+          ${renderFoodNearby()}
+
+        </div>
+
+      `;
+
+
+      bindFoodNearby();
+
+      return;
+
+    }
+
+
+    /* -----------------------------------------------
+       Pick initial date
+    ----------------------------------------------- */
+
+    const now =
+      new Date();
+
+    const todayISO =
+      [
+        now.getFullYear(),
+        String(now.getMonth()+1).padStart(2,"0"),
+        String(now.getDate()).padStart(2,"0")
+      ].join("-");
+
+
+    let selectedDate;
+
+
+    if(dates.includes(todayISO)){
+
+      selectedDate =
+        todayISO;
+
+    }
+    else if(todayISO < dates[0]){
+
+      selectedDate =
+        dates[0];
+
+    }
+    else if(
+      todayISO >
+      dates[dates.length-1]
+    ){
+
+      selectedDate =
+        dates[dates.length-1];
+
+    }
+    else{
+
+      selectedDate =
+        dates.find(
+          date =>
+            date > todayISO
+        ) || dates[0];
+
+    }
+
+
+    /* -----------------------------------------------
+       Time formatter
+    ----------------------------------------------- */
+
+    function timeText(row){
+
+      if(row.time_label){
+        return row.time_label;
+      }
+
+
+      const pretty =
+        value => {
+
+          if(!value){
+            return "";
+          }
+
+          const [
+            hh,
+            mm
+          ] =
+            value
+              .split(":")
+              .map(Number);
+
+
+          const date =
+            new Date(
+              2000,
+              0,
+              1,
+              hh,
+              mm
+            );
+
+
+          return date
+            .toLocaleTimeString(
+              "en-SG",
+              {
+                hour:"numeric",
+                minute:"2-digit"
+              }
+            );
+
+        };
+
+
+      if(
+        row.start_time &&
+        row.end_time
+      ){
+
+        return (
+          pretty(row.start_time) +
+          " – " +
+          pretty(row.end_time)
+        );
+
+      }
+
+
+      if(row.start_time){
+
+        return pretty(
+          row.start_time
+        );
+
+      }
+
+
+      return "";
+
+    }
+
+
+    function mapFor(row){
+
+      if(row.maps_url){
+        return row.maps_url;
+      }
+
+
+      const query =
+        row.location_name ||
+        row.address ||
+        row.title;
+
+
+      return query
+        ? mapURL(query)
+        : "";
+
+    }
+
+
+    function dayTitle(dayRows){
+
+      const meaningful =
+        dayRows.filter(row => {
+
+          const type =
+            String(
+              row.item_type || ""
+            ).toLowerCase();
+
+          return ![
+            "transport",
+            "hotel"
+          ].includes(type);
+
+        });
+
+
+      const source =
+        meaningful.length
+          ? meaningful
+          : dayRows;
+
+
+      const names =
+        source
+          .slice(0,2)
+          .map(row =>
+            String(row.title || "")
+              .replace(
+                /^[^\p{L}\p{N}]+/u,
+                ""
+              )
+              .trim()
+          )
+          .filter(Boolean);
+
+
+      return (
+        names.join(" + ") ||
+        "Trip Day"
+      );
+
+    }
+
+
+    function dayArea(dayRows){
+
+      const locationRow =
+        dayRows.find(
+          row =>
+            row.location_name
+        );
+
+
+      if(locationRow?.location_name){
+
+        return String(
+          locationRow.location_name
+        ).toUpperCase();
+
+      }
+
+
+      return String(
+        trip.country || "TRIP"
+      ).toUpperCase();
+
+    }
+
+
+    /* -----------------------------------------------
+       Render selected day
+    ----------------------------------------------- */
+
+    function renderDynamic(){
+
+      const dayRows =
+        byDate[selectedDate] || [];
+
+
+      const date =
+        new Date(
+          selectedDate +
+          "T00:00:00"
+        );
+
+
+      const weekday =
+        date
+          .toLocaleDateString(
+            "en-SG",
+            {weekday:"long"}
+          )
+          .toUpperCase();
+
+
+      const dayNum =
+        date.getDate();
+
+
+      const month =
+        date
+          .toLocaleDateString(
+            "en-SG",
+            {month:"short"}
+          )
+          .toUpperCase();
+
+
+      const dateButtons =
+        dates.map(value => {
+
+          const d =
+            new Date(
+              value +
+              "T00:00:00"
+            );
+
+
+          return `
+
+            <button
+              class="date-btn ${
+                value === selectedDate
+                  ? "active"
+                  : ""
+              }"
+              data-date="${value}"
+              type="button"
+            >
+
+              <span class="num">
+                ${d.getDate()}
+              </span>
+
+              <span class="dow">
+                ${
+                  d
+                    .toLocaleDateString(
+                      "en-SG",
+                      {weekday:"short"}
+                    )
+                    .toUpperCase()
+                }
+              </span>
+
+            </button>
+
+          `;
+
+        }).join("");
+
+
+      const blocks =
+        dayRows.map(row => {
+
+          const map =
+            mapFor(row);
+
+
+          return `
+
+            <div class="block">
+
+              <div class="block-head">
+
+                <div class="block-time">
+                  ${escapeHTML(timeText(row))}
+                </div>
+
+                <div class="block-main">
+
+                  <div class="block-name">
+                    ${escapeHTML(row.title || "")}
+                  </div>
+
+                  ${
+                    row.notes
+                      ?
+                    `
+                      <div class="block-note">
+                        ${escapeHTML(row.notes)}
+                      </div>
+                    `
+                      :
+                    ""
+                  }
+
+                </div>
+
+                ${
+                  map
+                    ?
+                  `
+                    <a
+                      class="block-map"
+                      href="${map}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📍
+                    </a>
+                  `
+                    :
+                  ""
+                }
+
+              </div>
+
+            </div>
+
+          `;
+
+        }).join("");
+
+
+      preview.innerHTML = `
+
+        <div class="day-card">
+
+          <div class="day-top">
+
+            <div class="day-label">
+              TRIP PREVIEW
+            </div>
+
+            <div class="day-date">
+              ${weekday} · ${dayNum} ${month}
+            </div>
+
+          </div>
+
+          <h2>
+            ${escapeHTML(dayTitle(dayRows))}
+          </h2>
+
+          <div class="day-area">
+            ${escapeHTML(dayArea(dayRows))}
+          </div>
+
+          <div class="date-scroll">
+            ${dateButtons}
+          </div>
+
+          <div class="plan-title">
+            DAY AT A GLANCE
+          </div>
+
+          ${blocks}
+
+          <a
+            class="full-plan"
+            href="schedule.html?trip=${TRIP_ID}#${selectedDate}"
+          >
+            FULL PLAN →
+          </a>
+
+          ${renderFoodNearby()}
+
+        </div>
+
+      `;
+
+
+      document
+        .querySelectorAll(
+          "[data-date]"
+        )
+        .forEach(button => {
+
+          button.onclick =
+            () => {
+
+              selectedDate =
+                button.dataset.date;
+
+              nearbyLoaded =
+                false;
+
+              renderDynamic();
+
+            };
+
+        });
+
+
+      bindFoodNearby();
+
+    }
+
+
+    renderDynamic();
+
+  }
+  catch(error){
+
+    console.error(
+      "Index load error:",
+      error
+    );
+
+
+    preview.innerHTML = `
+
+      <div class="day-card">
+
+        <div class="day-label">
+          TRIP PREVIEW
+        </div>
+
+        <h2>
+          Could not load this trip
+        </h2>
+
+        <div class="day-area">
+          ${escapeHTML(error.message || "Supabase error")}
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+}
 
 
 /* =========================================================
    START
 ========================================================= */
 
-/* Dynamic Supabase startup replaces the old hard-coded startup. */
-
-async function loadTripFromDatabase(){
-
-  const preview = document.getElementById("dayPreview");
-
-  try{
-    const [tripResult, scheduleResult] = await Promise.all([
-      db.from("trips").select("*").eq("id", TRIP_ID).single(),
-      db.from("schedule").select("*")
-        .eq("trip_id", TRIP_ID)
-        .order("schedule_date", {ascending:true})
-        .order("sort_order", {ascending:true})
-    ]);
-
-    if(tripResult.error) throw tripResult.error;
-    if(scheduleResult.error) throw scheduleResult.error;
-
-    const trip = tripResult.data;
-    const rows = scheduleResult.data || [];
-
-    // ----- Dynamic page header -----
-    const start = trip.start_date ? new Date(trip.start_date + "T00:00:00") : null;
-    const end   = trip.end_date ? new Date(trip.end_date + "T00:00:00") : null;
-
-    const monthYear = start
-      ? start.toLocaleDateString("en-SG",{month:"long",year:"numeric"}).toUpperCase()
-      : "";
-
-    document.querySelector(".eyebrow").textContent =
-      [trip.country, monthYear].filter(Boolean).join(" · ");
-
-    document.querySelector("h1").textContent = trip.name || "My Trip";
-    document.title = trip.name || "My Trip";
-
-    const fmt = d => d
-      ? d.toLocaleDateString("en-SG",{day:"numeric",month:"long",year:"numeric"})
-      : "";
-
-    document.querySelector(".sub").textContent =
-      start && end ? `${fmt(start)} – ${fmt(end)}` : (trip.description || "");
-
-    // ----- Group schedule by date -----
-    const byDate = {};
-    rows.forEach(row => {
-      (byDate[row.schedule_date] ||= []).push(row);
-    });
-
-    const dates = Object.keys(byDate).sort();
-
-    // Dynamic route summary from actual schedule locations/titles.
-    const routeParts = [];
-    dates.forEach(date => {
-      const dayRows = byDate[date];
-      const candidate = dayRows.find(r => r.location_name)?.location_name
-        || dayRows.find(r => r.title)?.title;
-      if(candidate && !routeParts.includes(candidate)) routeParts.push(candidate);
-    });
-
-    const tripline = document.querySelector(".tripline");
-    if(tripline){
-      tripline.innerHTML = trip.description
-        ? `<strong>${trip.description}</strong>`
-        : `<strong>${trip.country || "TRIP"}</strong> · ${dates.length} planned day${dates.length===1?"":"s"}`;
-    }
-
-    if(!dates.length){
-      preview.innerHTML = `
-        <div class="day-card">
-          <div class="day-label">TRIP PREVIEW</div>
-          <h2>No plans added yet</h2>
-          <div class="day-area">${trip.country || ""}</div>
-          <a class="full-plan" href="schedule.html?trip=${TRIP_ID}">OPEN PLAN →</a>
-          ${renderFoodNearby()}
-        </div>`;
-      bindFoodNearby();
-      return;
-    }
-
-    const todayISO = new Date().toLocaleDateString("en-CA");
-    let selectedDate =
-      dates.includes(todayISO) ? todayISO :
-      (todayISO < dates[0] ? dates[0] : dates[dates.length-1]);
-
-    function timeText(row){
-      if(row.time_label) return row.time_label;
-      const pretty = t => {
-        if(!t) return "";
-        const [hh,mm] = t.split(":").map(Number);
-        const d = new Date(2000,0,1,hh,mm);
-        return d.toLocaleTimeString("en-SG",{hour:"numeric",minute:mm ? "2-digit" : undefined});
-      };
-      if(row.start_time && row.end_time) return `${pretty(row.start_time)} – ${pretty(row.end_time)}`;
-      if(row.start_time) return pretty(row.start_time);
-      return "";
-    }
-
-    function mapFor(row){
-      if(row.maps_url) return row.maps_url;
-      const q = row.location_name || row.address || row.title;
-      return q ? mapURL(q) : "";
-    }
-
-    function dayTitle(dayRows){
-      // Use the actual day's schedule rather than a hard-coded title.
-      // Prefer attraction/custom items and combine the first two meaningful stops.
-      const meaningful = dayRows.filter(r =>
-        !["transport","hotel"].includes(String(r.item_type || "").toLowerCase())
-      );
-      const source = meaningful.length ? meaningful : dayRows;
-      const names = source.slice(0,2).map(r =>
-        String(r.title || "").replace(/^[^\p{L}\p{N}]+/u,"").trim()
-      ).filter(Boolean);
-      return names.join(" + ") || "Trip Day";
-    }
-
-    function dayArea(dayRows){
-      const loc = dayRows.find(r => r.location_name)?.location_name;
-      if(loc) return loc.toUpperCase();
-
-      // fall back to country; avoids Japan/Kyoto being hard-coded for Taiwan etc.
-      return (trip.country || "TRIP").toUpperCase();
-    }
-
-    function renderDynamic(){
-      const dayRows = byDate[selectedDate] || [];
-      const date = new Date(selectedDate + "T00:00:00");
-      const weekday = date.toLocaleDateString("en-SG",{weekday:"long"}).toUpperCase();
-      const dayNum = date.getDate();
-      const mon = date.toLocaleDateString("en-SG",{month:"short"}).toUpperCase();
-
-      const dateButtons = dates.map(ds => {
-        const d = new Date(ds + "T00:00:00");
-        return `
-          <button class="date-btn ${ds===selectedDate?"active":""}" data-date="${ds}" type="button">
-            <span class="num">${d.getDate()}</span>
-            <span class="dow">${d.toLocaleDateString("en-SG",{weekday:"short"}).toUpperCase()}</span>
-          </button>`;
-      }).join("");
-
-      const blocks = dayRows.map(row => {
-        const map = mapFor(row);
-        return `
-          <div class="block">
-            <div class="block-head">
-              <div class="block-time">${timeText(row)}</div>
-              <div class="block-main">
-                <div class="block-name">${row.title || ""}</div>
-                ${row.notes ? `<div class="block-note">${row.notes}</div>` : ""}
-              </div>
-              ${map ? `<a class="block-map" href="${map}" target="_blank" rel="noopener noreferrer">📍</a>` : ""}
-            </div>
-          </div>`;
-      }).join("");
-
-      preview.innerHTML = `
-        <div class="day-card">
-          <div class="day-top">
-            <div class="day-label">TRIP PREVIEW</div>
-            <div class="day-date">${weekday} · ${dayNum} ${mon}</div>
-          </div>
-          <h2>${dayTitle(dayRows)}</h2>
-          <div class="day-area">${dayArea(dayRows)}</div>
-          <div class="date-scroll">${dateButtons}</div>
-          <div class="plan-title">DAY AT A GLANCE</div>
-          ${blocks}
-          <a class="full-plan" href="schedule.html?trip=${TRIP_ID}#${selectedDate}">FULL PLAN →</a>
-          ${renderFoodNearby()}
-        </div>`;
-
-      document.querySelectorAll("[data-date]").forEach(btn => {
-        btn.onclick = () => {
-          selectedDate = btn.dataset.date;
-          nearbyLoaded = false;
-          renderDynamic();
-        };
-      });
-      bindFoodNearby();
-    }
-
-    renderDynamic();
-
-  } catch(error){
-    console.error("Index load error:", error);
-    preview.innerHTML = `
-      <div class="day-card">
-        <div class="day-label">TRIP PREVIEW</div>
-        <h2>Could not load this trip</h2>
-        <div class="day-area">${error.message || "Supabase error"}</div>
-      </div>`;
-  }
-}
-
+updateLinks();
 loadTripFromDatabase();
 
 </script>
