@@ -1,749 +1,1043 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 
-  <title>Japan Trip · Login</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
 
-  <style>
-    :root {
-      --bg: #070c10;
-      --panel: #10161c;
-      --panel-light: #151c23;
-      --line: #29323b;
-      --text: #f5f5f3;
-      --muted: #aeb5bc;
-      --red: #c96f68;
-      --green: #67c587;
-    }
+<meta name="theme-color" content="#070c10">
 
-    * {
-      box-sizing: border-box;
-    }
+<title>Login · Japan Trip</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
+<style>
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+:root{
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel2:#151c23;
+  --line:#29323b;
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --red:#c96f68;
+  --green:#67c587;
+}
 
-      padding: 24px;
-    }
+*{
+  box-sizing:border-box;
+}
 
-    .login-wrap {
-      width: 100%;
-      max-width: 420px;
-    }
+html,
+body{
+  min-height:100%;
+}
 
-    .brand {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+body{
+  margin:0;
 
-    .brand-icon {
-      font-size: 46px;
-      margin-bottom: 12px;
-    }
+  min-height:100vh;
 
-    .brand h1 {
-      margin: 0;
-      font-family: Georgia, serif;
-      font-size: 34px;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    .brand p {
-      color: var(--muted);
-      margin: 9px 0 0;
-      font-size: 14px;
-    }
+  padding:
+    calc(24px + env(safe-area-inset-top))
+    16px
+    calc(24px + env(safe-area-inset-bottom));
 
-    .login-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 24px;
-    }
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      #17212a 0%,
+      transparent 42%
+    ),
+    var(--bg);
 
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
+  color:var(--text);
 
-      background: var(--bg);
-      border-radius: 12px;
-      padding: 4px;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
 
-      margin-bottom: 24px;
-    }
 
-    .tab {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
+/* =========================================
+   WRAPPER
+========================================= */
 
-      padding: 11px;
-      border-radius: 9px;
+.wrap{
+  width:100%;
+  max-width:420px;
+}
 
-      font-size: 14px;
-      font-weight: 700;
 
-      cursor: pointer;
-    }
+/* =========================================
+   BRAND
+========================================= */
 
-    .tab.active {
-      background: var(--panel-light);
-      color: var(--text);
-    }
+.brand{
+  margin-bottom:20px;
+}
 
-    .field {
-      margin-bottom: 17px;
-    }
+.eyebrow{
+  color:var(--red);
 
-    label {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 7px;
-    }
+  font-size:10px;
+  font-weight:900;
 
-    input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--line);
-      border-radius: 11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
 
-      padding: 13px 14px;
+h1{
+  margin:7px 0 5px;
 
-      color: var(--text);
-      font-size: 16px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-      outline: none;
-    }
+  font-size:33px;
+  line-height:1.05;
 
-    input:focus {
-      border-color: var(--red);
-    }
+  letter-spacing:-.03em;
+}
 
-    input::placeholder {
-      color: #68717a;
-    }
+.subtitle{
+  color:var(--muted);
 
-    .password-wrap {
-      position: relative;
-    }
+  font-size:12px;
+  line-height:1.5;
+}
 
-    .password-wrap input {
-      padding-right: 65px;
-    }
 
-    .show-password {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
+/* =========================================
+   CARD
+========================================= */
 
-      border: 0;
-      background: transparent;
-      color: var(--muted);
+.card{
+  padding:18px;
 
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
+  border:1px solid var(--line);
+  border-radius:20px;
 
-      padding: 8px;
-    }
+  background:
+    linear-gradient(
+      145deg,
+      #151d23,
+      #0e1419
+    );
 
-    .main-button {
-      width: 100%;
+  box-shadow:
+    0 15px 50px
+    rgba(0,0,0,.18);
+}
 
-      border: 0;
-      border-radius: 11px;
 
-      padding: 14px;
+/* =========================================
+   FORM
+========================================= */
 
-      background: var(--red);
-      color: #fff;
+.field + .field{
+  margin-top:14px;
+}
 
-      font-size: 14px;
-      font-weight: 800;
+label{
+  display:block;
 
-      cursor: pointer;
+  margin-bottom:7px;
 
-      margin-top: 4px;
-    }
+  color:#dce0e3;
 
-    .main-button:disabled {
-      opacity: 0.55;
-      cursor: default;
-    }
+  font-size:10px;
+  font-weight:900;
 
-    .message {
-      display: none;
+  letter-spacing:.04em;
+}
 
-      margin-top: 16px;
-      padding: 12px 13px;
+input{
+  width:100%;
+  min-height:49px;
 
-      border-radius: 10px;
+  padding:
+    0
+    13px;
 
-      font-size: 13px;
-      line-height: 1.5;
-    }
+  border:1px solid var(--line);
+  border-radius:12px;
 
-    .message.error {
-      display: block;
+  outline:none;
 
-      background: rgba(201, 111, 104, 0.12);
-      border: 1px solid rgba(201, 111, 104, 0.35);
+  background:#0b1116;
+  color:#fff;
 
-      color: #efaaa5;
-    }
+  font-size:14px;
 
-    .message.success {
-      display: block;
+  transition:
+    border-color .15s ease,
+    background .15s ease;
+}
 
-      background: rgba(103, 197, 135, 0.1);
-      border: 1px solid rgba(103, 197, 135, 0.3);
+input:focus{
+  border-color:var(--red);
 
-      color: #8edba7;
-    }
+  background:#0d1419;
+}
 
-    .footer-note {
-      text-align: center;
+input::placeholder{
+  color:#65727b;
+}
 
-      margin-top: 18px;
 
-      color: #727b83;
-      font-size: 12px;
-      line-height: 1.5;
-    }
+/* =========================================
+   PASSWORD
+========================================= */
 
-    .hidden {
-      display: none;
-    }
+.password-wrap{
+  position:relative;
+}
 
-    @media (max-width: 480px) {
-      body {
-        padding: 18px;
-      }
+.password-wrap input{
+  padding-right:50px;
+}
 
-      .login-card {
-        padding: 20px;
-      }
+.eye{
+  position:absolute;
 
-      .brand h1 {
-        font-size: 30px;
-      }
-    }
-  </style>
+  top:50%;
+  right:6px;
+
+  width:38px;
+  height:38px;
+
+  transform:
+    translateY(-50%);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:0;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  font-size:15px;
+
+  cursor:pointer;
+}
+
+
+/* =========================================
+   FORGOT
+========================================= */
+
+.forgot-row{
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-top:9px;
+}
+
+.forgot-row a{
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:10px;
+  font-weight:800;
+}
+
+.forgot-row a:active{
+  color:#fff;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.login-button{
+  width:100%;
+  min-height:49px;
+
+  margin-top:17px;
+
+  border:
+    1px solid
+    rgba(201,111,104,.45);
+
+  border-radius:12px;
+
+  background:
+    rgba(201,111,104,.13);
+
+  color:#f6dcda;
+
+  font-size:12px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.login-button:active{
+  background:
+    rgba(201,111,104,.20);
+}
+
+.login-button:disabled{
+  opacity:.5;
+  cursor:default;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message{
+  display:none;
+
+  margin-top:12px;
+
+  padding:11px 12px;
+
+  border-radius:11px;
+
+  font-size:11px;
+  line-height:1.45;
+}
+
+.message.error{
+  display:block;
+
+  color:#ffc7c3;
+
+  border:
+    1px solid
+    rgba(201,111,104,.35);
+
+  background:
+    rgba(201,111,104,.08);
+}
+
+.message.success{
+  display:block;
+
+  color:#c4ebd0;
+
+  border:
+    1px solid
+    rgba(103,197,135,.30);
+
+  background:
+    rgba(103,197,135,.08);
+}
+
+
+/* =========================================
+   SIGN UP
+========================================= */
+
+.signup{
+  margin-top:17px;
+
+  padding-top:16px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.07);
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+.signup button{
+  margin-left:3px;
+
+  padding:0;
+
+  border:0;
+
+  background:none;
+
+  color:#fff;
+
+  font-size:11px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+  margin-top:16px;
+
+  color:#65727b;
+
+  text-align:center;
+
+  font-size:9px;
+  line-height:1.5;
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media(max-width:360px){
+
+  body{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+}
+
+</style>
 </head>
 
 
 <body>
 
-  <main class="login-wrap">
+<div class="wrap">
 
-    <!-- =========================
-         BRAND
-    ========================== -->
 
-    <div class="brand">
+  <!-- =====================================
+       BRAND
+  ====================================== -->
 
-      <div class="brand-icon">
-        🇯🇵
-      </div>
+  <div class="brand">
 
-      <h1>Japan Trip</h1>
-
-      <p>
-        Plan · Eat · Explore
-      </p>
-
+    <div class="eyebrow">
+      JAPAN TRIP
     </div>
 
+    <h1>
+      Welcome back.
+    </h1>
 
-    <!-- =========================
-         LOGIN CARD
-    ========================== -->
+    <div class="subtitle">
+      Sign in to open your trips, schedule,
+      restaurants and bookings.
+    </div>
 
-    <section class="login-card">
+  </div>
 
-      <div class="tabs">
 
-        <button
-          id="signInTab"
-          class="tab active"
-          type="button"
+  <!-- =====================================
+       LOGIN CARD
+  ====================================== -->
+
+  <div class="card">
+
+    <form id="loginForm">
+
+
+      <!-- EMAIL -->
+
+      <div class="field">
+
+        <label for="email">
+          EMAIL ADDRESS
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
         >
-          SIGN IN
-        </button>
-
-        <button
-          id="signUpTab"
-          class="tab"
-          type="button"
-        >
-          CREATE ACCOUNT
-        </button>
 
       </div>
 
 
-      <!-- =========================
-           FORM
-      ========================== -->
+      <!-- PASSWORD -->
 
-      <form id="authForm">
+      <div class="field">
 
-        <div class="field">
+        <label for="password">
+          PASSWORD
+        </label>
 
-          <label for="email">
-            Email
-          </label>
+
+        <div class="password-wrap">
 
           <input
-            id="email"
-            type="email"
-            autocomplete="email"
-            placeholder="you@example.com"
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Your password"
             required
           >
 
-        </div>
-
-
-        <div class="field">
-
-          <label for="password">
-            Password
-          </label>
-
-          <div class="password-wrap">
-
-            <input
-              id="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Enter your password"
-              minlength="8"
-              required
-            >
-
-            <button
-              id="showPassword"
-              class="show-password"
-              type="button"
-            >
-              SHOW
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- Confirm password only appears during signup -->
-
-        <div
-          id="confirmPasswordField"
-          class="field hidden"
-        >
-
-          <label for="confirmPassword">
-            Confirm Password
-          </label>
-
-          <input
-            id="confirmPassword"
-            type="password"
-            autocomplete="new-password"
-            placeholder="Enter password again"
-            minlength="8"
+          <button
+            id="eyeButton"
+            class="eye"
+            type="button"
+            aria-label="Show password"
           >
+            👁
+          </button>
 
         </div>
 
 
-        <button
-          id="submitButton"
-          class="main-button"
-          type="submit"
-        >
-          SIGN IN
-        </button>
+        <div class="forgot-row">
+
+          <a href="forgot-password.html">
+            Forgot password?
+          </a>
+
+        </div>
+
+      </div>
 
 
-        <div
-          id="message"
-          class="message"
-        ></div>
+      <!-- LOGIN -->
 
-      </form>
+      <button
+        id="loginButton"
+        class="login-button"
+        type="submit"
+      >
+        SIGN IN
+      </button>
 
-    </section>
+
+      <!-- MESSAGE -->
+
+      <div
+        id="message"
+        class="message"
+      ></div>
 
 
-    <div class="footer-note">
-      Your trips and schedules are private to your account.
+    </form>
+
+
+    <!-- SIGN UP -->
+
+    <div class="signup">
+
+      Don't have an account?
+
+      <button
+        id="signupButton"
+        type="button"
+      >
+        Create one
+      </button>
+
     </div>
 
-  </main>
+  </div>
 
 
-  <!-- =====================================================
-       SUPABASE
-  ====================================================== -->
+  <div class="footer">
+    Your trips are linked to your account.
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script src="supabase.js"></script>
+</div>
 
 
-  <!-- =====================================================
-       LOGIN LOGIC
-  ====================================================== -->
+<!-- =========================================
+     SUPABASE
+========================================= -->
 
-  <script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
-    const signInTab =
-      document.getElementById("signInTab");
+<script src="supabase.js"></script>
 
-    const signUpTab =
-      document.getElementById("signUpTab");
 
-    const authForm =
-      document.getElementById("authForm");
+<script>
 
-    const emailInput =
-      document.getElementById("email");
+/* =========================================
+   ELEMENTS
+========================================= */
 
-    const passwordInput =
-      document.getElementById("password");
+const loginForm =
+  document.getElementById(
+    "loginForm"
+  );
 
-    const confirmPasswordInput =
-      document.getElementById("confirmPassword");
+const emailInput =
+  document.getElementById(
+    "email"
+  );
 
-    const confirmPasswordField =
-      document.getElementById("confirmPasswordField");
+const passwordInput =
+  document.getElementById(
+    "password"
+  );
 
-    const submitButton =
-      document.getElementById("submitButton");
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
 
-    const message =
-      document.getElementById("message");
+const signupButton =
+  document.getElementById(
+    "signupButton"
+  );
 
-    const showPassword =
-      document.getElementById("showPassword");
+const eyeButton =
+  document.getElementById(
+    "eyeButton"
+  );
 
+const message =
+  document.getElementById(
+    "message"
+  );
 
-    let authMode = "signin";
 
+/* =========================================
+   MESSAGE
+========================================= */
 
-    // =====================================================
-    // SHOW MESSAGE
-    // =====================================================
+function showMessage(
+  text,
+  type
+){
 
-    function showMessage(text, type) {
+  message.textContent =
+    text;
 
-      message.textContent = text;
+  message.className =
+    "message " + type;
 
-      message.className =
-        "message " + type;
+}
 
-    }
 
+function clearMessage(){
 
-    function clearMessage() {
+  message.textContent = "";
 
-      message.textContent = "";
+  message.className =
+    "message";
 
-      message.className = "message";
+}
 
-    }
 
+/* =========================================
+   SHOW / HIDE PASSWORD
+========================================= */
 
-    // =====================================================
-    // SIGN IN TAB
-    // =====================================================
+eyeButton.addEventListener(
+  "click",
+  () => {
 
-    signInTab.addEventListener("click", () => {
+    const showing =
+      passwordInput.type === "text";
 
-      authMode = "signin";
 
-      signInTab.classList.add("active");
-      signUpTab.classList.remove("active");
+    passwordInput.type =
+      showing
+        ? "password"
+        : "text";
 
-      confirmPasswordField.classList.add("hidden");
 
-      confirmPasswordInput.required = false;
+    eyeButton.textContent =
+      showing
+        ? "👁"
+        : "🙈";
 
-      passwordInput.autocomplete =
-        "current-password";
 
-      submitButton.textContent =
-        "SIGN IN";
-
-      clearMessage();
-
-    });
-
-
-    // =====================================================
-    // CREATE ACCOUNT TAB
-    // =====================================================
-
-    signUpTab.addEventListener("click", () => {
-
-      authMode = "signup";
-
-      signUpTab.classList.add("active");
-      signInTab.classList.remove("active");
-
-      confirmPasswordField.classList.remove("hidden");
-
-      confirmPasswordInput.required = true;
-
-      passwordInput.autocomplete =
-        "new-password";
-
-      submitButton.textContent =
-        "CREATE ACCOUNT";
-
-      clearMessage();
-
-    });
-
-
-    // =====================================================
-    // SHOW / HIDE PASSWORD
-    // =====================================================
-
-    showPassword.addEventListener("click", () => {
-
-      const showing =
-        passwordInput.type === "text";
-
-      passwordInput.type =
-        showing ? "password" : "text";
-
-      confirmPasswordInput.type =
-        showing ? "password" : "text";
-
-      showPassword.textContent =
-        showing ? "SHOW" : "HIDE";
-
-    });
-
-
-    // =====================================================
-    // AUTH FORM
-    // =====================================================
-
-    authForm.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-        clearMessage();
-
-
-        const email =
-          emailInput.value.trim();
-
-        const password =
-          passwordInput.value;
-
-
-        if (!email || !password) {
-
-          showMessage(
-            "Please enter your email and password.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-          authMode === "signin"
-            ? "SIGNING IN..."
-            : "CREATING ACCOUNT...";
-
-
-        // =================================================
-        // SIGN IN
-        // =================================================
-
-        if (authMode === "signin") {
-
-          const { data, error } =
-            await db.auth.signInWithPassword({
-
-              email: email,
-
-              password: password
-
-            });
-
-
-          if (error) {
-
-            showMessage(
-              error.message,
-              "error"
-            );
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-              "SIGN IN";
-
-            return;
-
-          }
-
-
-          // Successful login
-
-          window.location.href =
-            "index.html";
-
-        }
-
-
-        // =================================================
-        // CREATE ACCOUNT
-        // =================================================
-
-        else {
-
-          const confirmPassword =
-            confirmPasswordInput.value;
-
-
-          if (password !== confirmPassword) {
-
-            showMessage(
-              "Your passwords do not match.",
-              "error"
-            );
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-              "CREATE ACCOUNT";
-
-            return;
-
-          }
-
-
-          const { data, error } =
-            await db.auth.signUp({
-
-              email: email,
-
-              password: password
-
-            });
-
-
-          if (error) {
-
-            showMessage(
-              error.message,
-              "error"
-            );
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-              "CREATE ACCOUNT";
-
-            return;
-
-          }
-
-
-          // If email confirmation is enabled,
-          // Supabase creates the account but does
-          // not immediately create a logged-in session.
-
-          if (!data.session) {
-
-            showMessage(
-              "Account created! Check your email and confirm your account. Then come back here and sign in.",
-              "success"
-            );
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-              "CREATE ACCOUNT";
-
-            return;
-
-          }
-
-
-          // If email confirmation is disabled,
-          // the user is already logged in.
-
-          window.location.href =
-            "index.html";
-
-        }
-
-      }
+    eyeButton.setAttribute(
+      "aria-label",
+      showing
+        ? "Show password"
+        : "Hide password"
     );
 
-
-    // =====================================================
-    // ALREADY LOGGED IN?
-    //
-    // If Supabase already has a valid session,
-    // don't show the login page again.
-    // =====================================================
-
-    async function checkExistingSession() {
-
-      const { data } =
-        await db.auth.getSession();
+  }
+);
 
 
-      if (data.session) {
+/* =========================================
+   ALREADY LOGGED IN?
+========================================= */
 
-        window.location.href =
-          "index.html";
+async function checkSession(){
+
+  const {
+    data,
+    error
+  } =
+    await db.auth.getSession();
+
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+
+  if(data?.session){
+
+    /*
+      Already signed in.
+      Go straight to Home.
+    */
+
+    window.location.replace(
+      "index.html"
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   SIGN IN
+========================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    clearMessage();
+
+
+    const email =
+      emailInput.value
+        .trim();
+
+    const password =
+      passwordInput.value;
+
+
+    if(
+      !email ||
+      !password
+    ){
+
+      showMessage(
+        "Enter your email and password.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    loginButton.disabled =
+      true;
+
+    signupButton.disabled =
+      true;
+
+    loginButton.textContent =
+      "SIGNING IN…";
+
+
+    try{
+
+      const {
+        data,
+        error
+      } =
+        await db.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+
+      if(error){
+        throw error;
+      }
+
+
+      if(!data?.session){
+
+        throw new Error(
+          "Unable to start your session."
+        );
+
+      }
+
+
+      showMessage(
+        "Signed in. Opening your trip…",
+        "success"
+      );
+
+
+      window.location.replace(
+        "index.html"
+      );
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      /*
+        Keep the message simple.
+        We don't need to reveal whether
+        the email or password was wrong.
+      */
+
+      showMessage(
+        "Email or password is incorrect.",
+        "error"
+      );
+
+
+      loginButton.disabled =
+        false;
+
+      signupButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "SIGN IN";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   SIGN UP
+========================================= */
+
+signupButton.addEventListener(
+  "click",
+  async () => {
+
+    clearMessage();
+
+
+    const email =
+      emailInput.value
+        .trim();
+
+    const password =
+      passwordInput.value;
+
+
+    if(!email){
+
+      showMessage(
+        "Enter the email you want to use first.",
+        "error"
+      );
+
+      emailInput.focus();
+
+      return;
+
+    }
+
+
+    if(
+      !password ||
+      password.length < 8
+    ){
+
+      showMessage(
+        "Choose a password with at least 8 characters.",
+        "error"
+      );
+
+      passwordInput.focus();
+
+      return;
+
+    }
+
+
+    loginButton.disabled =
+      true;
+
+    signupButton.disabled =
+      true;
+
+    signupButton.textContent =
+      "CREATING…";
+
+
+    try{
+
+      const redirectTo =
+        new URL(
+          "login.html",
+          window.location.href
+        ).href;
+
+
+      const {
+        data,
+        error
+      } =
+        await db.auth
+          .signUp({
+            email,
+            password,
+
+            options:{
+              emailRedirectTo:
+                redirectTo
+            }
+          });
+
+
+      if(error){
+        throw error;
+      }
+
+
+      /*
+        If email confirmation is enabled,
+        Supabase normally returns the user
+        without an active session.
+      */
+
+      if(
+        data?.user &&
+        !data?.session
+      ){
+
+        showMessage(
+          "Account created. Check your email to confirm your account, then come back and sign in.",
+          "success"
+        );
+
+      }
+
+      else if(data?.session){
+
+        showMessage(
+          "Account created. Opening your trips…",
+          "success"
+        );
+
+
+        setTimeout(() => {
+
+          window.location.replace(
+            "index.html"
+          );
+
+        },700);
+
+      }
+
+      else{
+
+        showMessage(
+          "Account created. You can now sign in.",
+          "success"
+        );
 
       }
 
     }
 
+    catch(error){
 
-    checkExistingSession();
+      console.error(error);
 
-  </script>
+
+      showMessage(
+        error.message ||
+        "Unable to create your account.",
+        "error"
+      );
+
+    }
+
+    finally{
+
+      loginButton.disabled =
+        false;
+
+      signupButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "SIGN IN";
+
+      signupButton.textContent =
+        "Create one";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   RESET SUCCESS
+========================================= */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+if(
+  params.get("reset") ===
+  "success"
+){
+
+  showMessage(
+    "Password changed successfully. Sign in with your new password.",
+    "success"
+  );
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+checkSession();
+
+</script>
 
 </body>
 </html>
