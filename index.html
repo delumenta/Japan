@@ -22,9 +22,13 @@
   --orange:#f4a34d;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
@@ -36,7 +40,9 @@ body{
     var(--bg);
 }
 
-button{font:inherit}
+button{
+  font:inherit;
+}
 
 main{
   max-width:760px;
@@ -80,6 +86,7 @@ h1{
   border:1px solid rgba(201,111,104,.38);
   border-radius:20px;
   padding:14px;
+
   background:
     linear-gradient(
       145deg,
@@ -183,8 +190,10 @@ h1{
   gap:7px;
   margin-top:10px;
   padding:8px 9px;
+
   border:1px solid rgba(244,163,77,.22);
   border-radius:9px;
+
   background:rgba(244,163,77,.05);
   text-decoration:none;
 }
@@ -228,23 +237,28 @@ h1{
 
 .block{
   margin-bottom:6px;
+
   border:1px solid var(--line);
   border-radius:12px;
+
   background:
     linear-gradient(
       145deg,
       #141c22,
       #0d1318
     );
+
   overflow:hidden;
 }
 
 .block-head{
   width:100%;
   min-height:52px;
+
   display:flex;
   align-items:center;
   gap:8px;
+
   padding:9px 10px;
 }
 
@@ -254,6 +268,7 @@ h1{
 
 .block-time{
   flex:0 0 76px;
+
   color:#a6b7c2;
   font-size:7px;
   font-weight:900;
@@ -281,9 +296,11 @@ h1{
 
 .block-chevron{
   flex:0 0 25px;
+
   color:#8d9aa2;
   text-align:center;
   font-size:12px;
+
   transition:transform .2s ease;
 }
 
@@ -295,12 +312,16 @@ h1{
   flex:0 0 31px;
   width:31px;
   height:31px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   border:1px solid rgba(92,157,255,.18);
   border-radius:8px;
+
   background:rgba(92,157,255,.05);
+
   text-decoration:none;
   font-size:12px;
 }
@@ -325,9 +346,11 @@ h1{
 
 .poi{
   min-height:34px;
+
   display:flex;
   align-items:center;
   gap:7px;
+
   border-bottom:1px solid rgba(255,255,255,.045);
 }
 
@@ -337,6 +360,7 @@ h1{
 
 .poi-route{
   flex:0 0 10px;
+
   color:#596771;
   font-size:7px;
   text-align:center;
@@ -345,6 +369,7 @@ h1{
 .poi-name{
   flex:1;
   min-width:0;
+
   color:#b9c0c5;
   font-size:7.5px;
   font-weight:750;
@@ -357,6 +382,7 @@ h1{
 
 .optional-label{
   margin-left:4px;
+
   color:#65727b;
   font-size:5.5px;
   font-weight:900;
@@ -364,63 +390,21 @@ h1{
 
 .poi-map{
   flex:0 0 30px;
+
   width:30px;
   height:28px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   border:1px solid rgba(92,157,255,.18);
   border-radius:7px;
+
   background:rgba(92,157,255,.05);
+
   text-decoration:none;
   font-size:11px;
-}
-
-
-/* =========================================================
-   FOOD NEAR ME
-========================================================= */
-
-.food-nearby{
-  width:100%;
-  min-height:36px;
-  margin-top:8px;
-  padding:0 10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  border:1px solid rgba(103,197,135,.22);
-  border-radius:9px;
-  background:rgba(103,197,135,.06);
-  color:#c5ead0;
-  text-decoration:none;
-}
-
-.food-nearby-left{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.food-nearby-icon{
-  font-size:13px;
-}
-
-.food-nearby-title{
-  font-size:7.5px;
-  font-weight:900;
-}
-
-.food-nearby-sub{
-  margin-top:1px;
-  color:#799d85;
-  font-size:5.5px;
-}
-
-.food-nearby-arrow{
-  font-size:11px;
-  color:var(--green);
 }
 
 
@@ -432,14 +416,221 @@ h1{
   display:flex;
   align-items:center;
   justify-content:center;
+
   min-height:38px;
   margin-top:10px;
+
   border:1px solid rgba(201,111,104,.32);
   border-radius:10px;
+
   background:rgba(201,111,104,.08);
+
   color:#f1cfcc;
   text-decoration:none;
+
   font-size:8px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   FOOD NEAR ME
+========================================================= */
+
+.food-nearby{
+  width:100%;
+  min-height:64px;
+
+  margin-top:10px;
+  padding:11px 14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  border:1px solid rgba(103,197,135,.65);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(103,197,135,.12),
+      rgba(103,197,135,.035)
+    );
+
+  color:#d7f5df;
+  text-decoration:none;
+
+  box-shadow:
+    inset 0 0 18px rgba(103,197,135,.025);
+
+  transition:
+    border-color .15s ease,
+    background .15s ease,
+    transform .15s ease;
+}
+
+.food-nearby:hover{
+  border-color:rgba(103,197,135,.9);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(103,197,135,.16),
+      rgba(103,197,135,.05)
+    );
+}
+
+.food-nearby:active{
+  transform:scale(.995);
+}
+
+.food-nearby-left{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  min-width:0;
+}
+
+.food-nearby-icon{
+  flex:0 0 auto;
+
+  color:var(--green);
+  font-size:21px;
+}
+
+.food-nearby-title{
+  color:#9de6b2;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+
+.food-nearby-sub{
+  margin-top:3px;
+
+  color:#77aa86;
+
+  font-size:6.5px;
+  line-height:1.35;
+}
+
+.food-nearby-arrow{
+  flex:0 0 auto;
+
+  color:var(--green);
+  font-size:19px;
+}
+
+
+
+/* =========================================================
+   FOOD NEAR ME — EXPANDED RESULTS
+========================================================= */
+
+.nearby-panel{
+  display:none;
+  margin-top:8px;
+  padding:10px;
+  border:1px solid rgba(103,197,135,.28);
+  border-radius:12px;
+  background:rgba(103,197,135,.035);
+}
+
+.nearby-panel.show{
+  display:block;
+}
+
+.nearby-status{
+  color:#88aa93;
+  font-size:7px;
+  line-height:1.45;
+}
+
+.nearby-status.error{
+  color:#ffc5c1;
+}
+
+.nearby-section{
+  margin-top:10px;
+}
+
+.nearby-section-title{
+  margin-bottom:5px;
+  color:#9de6b2;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.nearby-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:45px;
+  padding:7px 4px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+
+.nearby-item-main{
+  flex:1;
+  min-width:0;
+}
+
+.nearby-item-name{
+  color:#eef2ef;
+  font-size:8px;
+  font-weight:900;
+  line-height:1.3;
+}
+
+.nearby-item-meta{
+  margin-top:2px;
+  color:#7f9487;
+  font-size:6.5px;
+  line-height:1.35;
+}
+
+.nearby-item-badge{
+  display:inline-block;
+  margin-left:4px;
+  padding:1px 4px;
+  border:1px solid rgba(227,184,92,.25);
+  border-radius:999px;
+  color:#e3b85c;
+  font-size:5.5px;
+}
+
+.nearby-item-map{
+  flex:0 0 30px;
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(92,157,255,.18);
+  border-radius:8px;
+  background:rgba(92,157,255,.05);
+  color:#fff;
+  text-decoration:none;
+  font-size:11px;
+}
+
+.nearby-more{
+  min-height:35px;
+  margin-top:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(103,197,135,.22);
+  border-radius:9px;
+  background:rgba(103,197,135,.06);
+  color:#a9e8bb;
+  text-decoration:none;
+  font-size:7px;
   font-weight:900;
 }
 
@@ -451,11 +642,15 @@ h1{
 .tripline{
   margin-top:14px;
   padding:9px;
+
   border:1px solid var(--line);
   border-radius:11px;
+
   color:#75828a;
   background:rgba(255,255,255,.02);
+
   text-align:center;
+
   font-size:7px;
   line-height:1.5;
 }
@@ -473,8 +668,10 @@ h1{
   position:fixed;
   inset:0;
   z-index:150;
+
   display:none;
   align-items:flex-end;
+
   background:rgba(0,0,0,.68);
   backdrop-filter:blur(4px);
 }
@@ -486,20 +683,27 @@ h1{
 .more-sheet{
   width:100%;
   max-width:760px;
+
   margin:0 auto;
+
   padding:
     8px 13px
     calc(18px + env(safe-area-inset-bottom));
+
   border:1px solid var(--line);
   border-radius:20px 20px 0 0;
+
   background:#0d1318;
 }
 
 .sheet-handle{
   width:38px;
   height:4px;
+
   margin:2px auto 13px;
+
   border-radius:999px;
+
   background:#39454d;
 }
 
@@ -507,6 +711,7 @@ h1{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   margin-bottom:9px;
 }
 
@@ -518,23 +723,31 @@ h1{
 .more-close{
   width:32px;
   height:32px;
+
   border:1px solid var(--line);
   border-radius:8px;
+
   background:#151c22;
   color:#fff;
+
   cursor:pointer;
 }
 
 .more-link{
   min-height:58px;
+
   display:flex;
   align-items:center;
   gap:10px;
+
   padding:9px 10px;
   margin-bottom:6px;
+
   border:1px solid var(--line);
   border-radius:11px;
+
   background:#11181e;
+
   color:#fff;
   text-decoration:none;
 }
@@ -546,6 +759,7 @@ h1{
 
 .more-link-icon{
   flex:0 0 31px;
+
   font-size:18px;
   text-align:center;
 }
@@ -561,6 +775,7 @@ h1{
 
 .more-link-sub{
   margin-top:2px;
+
   color:#7f8b93;
   font-size:6.5px;
 }
@@ -580,14 +795,20 @@ h1{
   left:0;
   right:0;
   bottom:0;
+
   z-index:80;
+
   display:grid;
   grid-template-columns:repeat(5,1fr);
+
   padding:
     7px 8px
     calc(7px + env(safe-area-inset-bottom));
+
   border-top:1px solid var(--line);
+
   background:rgba(7,12,16,.97);
+
   backdrop-filter:blur(18px);
 }
 
@@ -598,14 +819,21 @@ h1{
   align-items:center;
   justify-content:center;
   gap:2px;
+
   min-height:47px;
+
   border:0;
   border-radius:11px;
+
   background:transparent;
+
   color:var(--muted);
+
   text-decoration:none;
+
   font-size:8px;
   font-weight:800;
+
   cursor:pointer;
 }
 
@@ -615,7 +843,9 @@ h1{
 
 .bottom-nav .active{
   color:#fff;
+
   border:1px solid rgba(201,111,104,.25);
+
   background:rgba(201,111,104,.10);
 }
 
@@ -641,10 +871,14 @@ h1{
   .bottom-nav{
     left:50%;
     right:auto;
+
     width:min(820px,100%);
+
     transform:translateX(-50%);
+
     border-left:1px solid var(--line);
     border-right:1px solid var(--line);
+
     border-radius:16px 16px 0 0;
   }
 
@@ -660,27 +894,44 @@ h1{
     Japan · Autumn 2026
   </div>
 
-  <h1>Japan Trip</h1>
+  <h1>
+    Japan Trip
+  </h1>
 
   <div class="sub">
     18–30 October 2026 · Kyoto → Mountains → Osaka
   </div>
 
+
+  <!-- CURRENT DAY -->
+
   <section id="dayPreview"></section>
 
+
+  <!-- TRIP ROUTE -->
+
   <div class="tripline">
-    <strong>KYOTO</strong> · 18–22 Oct
+
+    <strong>KYOTO</strong>
+    · 18–22 Oct
+
     　→　
-    <strong>ROAD TRIP</strong> · 23–26 Oct
+
+    <strong>ROAD TRIP</strong>
+    · 23–26 Oct
+
     　→　
-    <strong>OSAKA</strong> · 26–30 Oct
+
+    <strong>OSAKA</strong>
+    · 26–30 Oct
+
   </div>
 
 </main>
 
 
 <!-- =======================================================
-     MORE
+     MORE SHEET
 ======================================================= -->
 
 <div
@@ -691,6 +942,7 @@ h1{
   <div class="more-sheet">
 
     <div class="sheet-handle"></div>
+
 
     <div class="more-head">
 
@@ -709,11 +961,16 @@ h1{
     </div>
 
 
+    <!-- PROFILE -->
+
     <a
       id="profileLink"
       class="more-link"
     >
-      <div class="more-link-icon">👤</div>
+
+      <div class="more-link-icon">
+        👤
+      </div>
 
       <div class="more-link-main">
 
@@ -730,8 +987,11 @@ h1{
       <div class="more-link-arrow">
         →
       </div>
+
     </a>
 
+
+    <!-- MY TRIPS -->
 
     <div class="more-link disabled">
 
@@ -757,6 +1017,8 @@ h1{
 
     </div>
 
+
+    <!-- PLACES -->
 
     <div class="more-link disabled">
 
@@ -797,35 +1059,76 @@ h1{
     id="navHome"
     class="active"
   >
-    <span class="nav-icon">🏠</span>
-    <span>HOME</span>
+    <span class="nav-icon">
+      🏠
+    </span>
+
+    <span>
+      HOME
+    </span>
   </a>
+
 
   <a id="navPlan">
-    <span class="nav-icon">📅</span>
-    <span>PLAN</span>
+
+    <span class="nav-icon">
+      📅
+    </span>
+
+    <span>
+      PLAN
+    </span>
+
   </a>
+
 
   <a id="navFood">
-    <span class="nav-icon">🍽️</span>
-    <span>FOOD</span>
+
+    <span class="nav-icon">
+      🍽️
+    </span>
+
+    <span>
+      FOOD
+    </span>
+
   </a>
 
+
   <a id="navHub">
-    <span class="nav-icon">⭐</span>
-    <span>HUB</span>
+
+    <span class="nav-icon">
+      ⭐
+    </span>
+
+    <span>
+      HUB
+    </span>
+
   </a>
+
 
   <button
     id="navMore"
     type="button"
   >
-    <span class="nav-icon">⋯</span>
-    <span>MORE</span>
+
+    <span class="nav-icon">
+      ⋯
+    </span>
+
+    <span>
+      MORE
+    </span>
+
   </button>
 
 </nav>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="google-maps.js"></script>
 
 <script>
 
@@ -874,7 +1177,6 @@ const days = {
       time:"4:30 – 6:15 PM",
       name:"⛩️ Higashiyama",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kiyomizu-dera","Kiyomizu-dera Kyoto"],
@@ -888,7 +1190,6 @@ const days = {
       time:"6:15 – 7:15 PM",
       name:"🏮 Gion",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Yasaka Shrine","Yasaka Shrine Kyoto"],
@@ -907,7 +1208,6 @@ const days = {
       time:"9:15 – 10:00 PM",
       name:"✨ Kyoto Station",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Grand Staircase","Kyoto Station Grand Staircase"],
@@ -930,7 +1230,6 @@ const days = {
       time:"7:15 – 9:30 AM",
       name:"⛩️ Fushimi Inari",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Senbon Torii","Senbon Torii Kyoto"],
@@ -948,7 +1247,6 @@ const days = {
       time:"12:20 – 5:00 PM",
       name:"🎋 Arashiyama",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Togetsukyo Bridge","Togetsukyo Bridge Kyoto"],
@@ -994,7 +1292,6 @@ const days = {
       time:"4:00 – 6:20 PM",
       name:"🏮 Kibune + Kifune",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kibune Village","Kibune Kyoto"],
@@ -1039,7 +1336,6 @@ const days = {
       time:"~10:30 AM – 4:00 PM",
       name:"🌊 Ine",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Ine Funaya","Ine no Funaya Kyoto"],
@@ -1069,7 +1365,6 @@ const days = {
       time:"8:15 – 10:30 AM",
       name:"⛩️ Nanzen-ji Area",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Suirokaku Aqueduct","Suirokaku Aqueduct Kyoto"],
@@ -1083,7 +1378,6 @@ const days = {
       time:"11:00 AM – 12:30 PM",
       name:"🏯 Kodaiji Area",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kodaiji","Kodaiji Kyoto"],
@@ -1128,7 +1422,6 @@ const days = {
       time:"~5:15 PM",
       name:"♨️ Dorogawa Onsen",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kadojin","Kadojin Dorogawa Onsen"],
@@ -1169,7 +1462,6 @@ const days = {
       time:"~4:30 PM",
       name:"♨️ Ryujin Onsen",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kamigoten","Kamigoten Ryujin Onsen"],
@@ -1192,7 +1484,6 @@ const days = {
       time:"~12:30 – 2:20 PM",
       name:"⛩️ Kumano Hongu",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kumano Hongu Taisha","Kumano Hongu Taisha"],
@@ -1204,7 +1495,6 @@ const days = {
       time:"~4:00 PM",
       name:"🌊 Nachikatsuura",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kamenoi Hotel Nachi Katsuura","Kamenoi Hotel Nachi Katsuura"],
@@ -1227,7 +1517,6 @@ const days = {
       time:"8:00 – 10:45 AM",
       name:"🌊 Nachi",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Nachi Falls","Nachi Falls Wakayama"],
@@ -1248,7 +1537,6 @@ const days = {
       time:"~7:00 PM",
       name:"🏨 Osaka",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Hotel Hankyu International","Hotel Hankyu International Osaka"]
@@ -1276,7 +1564,6 @@ const days = {
       time:"12:15 – 2:15 PM",
       name:"🐟 Namba",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Kuromon Market","Kuromon Market Osaka"],
@@ -1300,7 +1587,6 @@ const days = {
       time:"5:15 PM onward",
       name:"🏮 Hozenji + Dotonbori",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Hozenji Yokocho","Hozenji Yokocho Osaka"],
@@ -1330,7 +1616,6 @@ const days = {
       time:"2:15 – 4:00 PM",
       name:"🔭 Pokémon Observatory",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Toyohashi Museum of Natural History","Toyohashi Museum of Natural History"],
@@ -1359,7 +1644,6 @@ const days = {
       time:"10:30 AM – 3:00 PM",
       name:"🦌 Nara",
       expandable:true,
-      foodNearby:true,
 
       pois:[
         ["Nara Park","Nara Park"],
@@ -1389,9 +1673,8 @@ const days = {
 
     {
       time:"9:00 – 11:30 AM",
-      name:"🛍️ Final Osaka Morning",
+      name:"🧳 Final Osaka Morning",
       note:"Stay near hotel",
-      foodNearby:true,
       expandable:true,
 
       pois:[
@@ -1459,9 +1742,11 @@ function initialDay(){
     return 18;
   }
 
+
   if(today > tripEnd){
     return 30;
   }
+
 
   return today.getDate();
 
@@ -1500,6 +1785,7 @@ function renderDates(){
                 Number(day)
               );
 
+
             const dow =
               date
                 .toLocaleDateString(
@@ -1508,13 +1794,14 @@ function renderDates(){
                 )
                 .toUpperCase();
 
+
             return `
 
               <button
                 class="date-btn ${
                   Number(day) === selectedDay
-                  ? "active"
-                  : ""
+                    ? "active"
+                    : ""
                 }"
                 data-day="${day}"
                 type="button"
@@ -1580,8 +1867,8 @@ function renderPois(block){
               <div
                 class="poi ${
                   optional
-                  ? "optional"
-                  : ""
+                    ? "optional"
+                    : ""
                 }"
               >
 
@@ -1597,7 +1884,7 @@ function renderPois(block){
                   ${
                     optional
 
-                    ?
+                      ?
 
                     `
                       <span class="optional-label">
@@ -1605,7 +1892,7 @@ function renderPois(block){
                       </span>
                     `
 
-                    :
+                      :
 
                     ""
                   }
@@ -1616,7 +1903,7 @@ function renderPois(block){
                 ${
                   map
 
-                  ?
+                    ?
 
                   `
                     <a
@@ -1631,7 +1918,7 @@ function renderPois(block){
                     </a>
                   `
 
-                  :
+                    :
 
                   ""
                 }
@@ -1655,24 +1942,20 @@ function renderPois(block){
    FOOD NEAR ME
 ========================================================= */
 
-function renderFoodNearby(block){
-
-  if(!block.foodNearby){
-    return "";
-  }
-
+function renderFoodNearby(){
 
   return `
 
-    <a
+    <button
+      id="foodNearbyButton"
       class="food-nearby"
-      href="food.html?trip=${TRIP_ID}&nearby=1"
+      type="button"
     >
 
       <div class="food-nearby-left">
 
         <div class="food-nearby-icon">
-          🍽️
+          🍴
         </div>
 
         <div>
@@ -1681,19 +1964,41 @@ function renderFoodNearby(block){
             FOOD NEAR ME
           </div>
 
-          <div class="food-nearby-sub">
-            Find food around your current location
+          <div
+            id="foodNearbySubtitle"
+            class="food-nearby-sub"
+          >
+            Tap to show your picks + restaurants around you
           </div>
 
         </div>
 
       </div>
 
-      <div class="food-nearby-arrow">
-        →
+      <div
+        id="foodNearbyArrow"
+        class="food-nearby-arrow"
+      >
+        ↓
       </div>
 
-    </a>
+    </button>
+
+    <div
+      id="foodNearbyPanel"
+      class="nearby-panel"
+    >
+
+      <div
+        id="foodNearbyStatus"
+        class="nearby-status"
+      >
+        Ready to find food around you.
+      </div>
+
+      <div id="foodNearbyResults"></div>
+
+    </div>
 
   `;
 
@@ -1709,8 +2014,10 @@ function renderBlock(block,index){
   const expandable =
     block.expandable === true;
 
+
   const key =
     `${selectedDay}-${index}`;
+
 
   const isOpen =
     openBlocks[key] === true;
@@ -1735,10 +2042,11 @@ function renderBlock(block,index){
               ${block.name}
             </div>
 
+
             ${
               block.note
 
-              ?
+                ?
 
               `
                 <div class="block-note">
@@ -1746,7 +2054,7 @@ function renderBlock(block,index){
                 </div>
               `
 
-              :
+                :
 
               ""
             }
@@ -1757,7 +2065,7 @@ function renderBlock(block,index){
           ${
             block.map
 
-            ?
+              ?
 
             `
               <a
@@ -1771,7 +2079,7 @@ function renderBlock(block,index){
               </a>
             `
 
-            :
+              :
 
             ""
           }
@@ -1790,8 +2098,8 @@ function renderBlock(block,index){
     <div
       class="block expandable ${
         isOpen
-        ? "open"
-        : ""
+          ? "open"
+          : ""
       }"
       data-block="${index}"
     >
@@ -1812,10 +2120,11 @@ function renderBlock(block,index){
             ${block.name}
           </div>
 
+
           ${
             block.note
 
-            ?
+              ?
 
             `
               <div class="block-note">
@@ -1823,7 +2132,7 @@ function renderBlock(block,index){
               </div>
             `
 
-            :
+              :
 
             ""
           }
@@ -1841,8 +2150,6 @@ function renderBlock(block,index){
       <div class="block-content">
 
         ${renderPois(block)}
-
-        ${renderFoodNearby(block)}
 
       </div>
 
@@ -1862,12 +2169,14 @@ function renderDay(){
   const day =
     days[selectedDay];
 
+
   const date =
     new Date(
       2026,
       9,
       selectedDay
     );
+
 
   const weekday =
     date
@@ -1913,7 +2222,7 @@ function renderDay(){
       ${
         day.booking
 
-        ?
+          ?
 
         `
           <a
@@ -1924,6 +2233,7 @@ function renderDay(){
             <span class="booking-icon">
               ⭐
             </span>
+
 
             <span class="booking-text">
 
@@ -1937,6 +2247,7 @@ function renderDay(){
 
             </span>
 
+
             <span class="booking-arrow">
               →
             </span>
@@ -1944,7 +2255,7 @@ function renderDay(){
           </a>
         `
 
-        :
+          :
 
         ""
       }
@@ -1968,12 +2279,20 @@ function renderDay(){
       }
 
 
+      <!-- FULL PLAN -->
+
       <a
         class="full-plan"
         href="schedule.html?trip=${TRIP_ID}#2026-10-${String(selectedDay).padStart(2,"0")}"
       >
         FULL PLAN →
       </a>
+
+
+      <!-- FOOD NEAR ME - SEPARATE GREEN BOX -->
+
+      ${renderFoodNearby()}
+
 
     </div>
 
@@ -1990,6 +2309,8 @@ function renderDay(){
 ========================================================= */
 
 function bindDayEvents(){
+
+  bindFoodNearby();
 
   document
     .querySelectorAll(
@@ -2026,6 +2347,7 @@ function bindDayEvents(){
               button.dataset.toggleBlock
             );
 
+
           const key =
             `${selectedDay}-${index}`;
 
@@ -2046,6 +2368,657 @@ function bindDayEvents(){
         };
 
     });
+
+}
+
+
+
+/* =========================================================
+   FOOD NEAR ME LOGIC
+========================================================= */
+
+let nearbyLoaded = false;
+let nearbyLoading = false;
+
+function nearbyDistanceMetres(lat1,lng1,lat2,lng2){
+
+  const toRad =
+    value => value * Math.PI / 180;
+
+  const earth = 6371000;
+
+  const dLat =
+    toRad(lat2-lat1);
+
+  const dLng =
+    toRad(lng2-lng1);
+
+  const a =
+    Math.sin(dLat/2) ** 2 +
+    Math.cos(toRad(lat1)) *
+    Math.cos(toRad(lat2)) *
+    Math.sin(dLng/2) ** 2;
+
+  return (
+    earth *
+    2 *
+    Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1-a)
+    )
+  );
+
+}
+
+
+function nearbyDistanceLabel(metres){
+
+  if(!Number.isFinite(metres)){
+    return "";
+  }
+
+  if(metres < 1000){
+    return `${Math.max(10,Math.round(metres/10)*10)} m`;
+  }
+
+  return `${(metres/1000).toFixed(1)} km`;
+
+}
+
+
+function bindFoodNearby(){
+
+  const button =
+    document.getElementById("foodNearbyButton");
+
+  if(!button){
+    return;
+  }
+
+  button.onclick =
+    async () => {
+
+      const panel =
+        document.getElementById("foodNearbyPanel");
+
+      const arrow =
+        document.getElementById("foodNearbyArrow");
+
+      const opening =
+        !panel.classList.contains("show");
+
+      panel.classList.toggle(
+        "show",
+        opening
+      );
+
+      arrow.textContent =
+        opening ? "↑" : "↓";
+
+      if(
+        opening &&
+        !nearbyLoaded &&
+        !nearbyLoading
+      ){
+        await loadNearbyFood();
+      }
+
+    };
+
+}
+
+
+function getCurrentPositionForFood(){
+
+  return new Promise(
+    (resolve,reject) => {
+
+      if(!navigator.geolocation){
+
+        reject(
+          new Error(
+            "Location is not supported by this browser."
+          )
+        );
+
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        resolve,
+        reject,
+        {
+          enableHighAccuracy:true,
+          timeout:12000,
+          maximumAge:120000
+        }
+      );
+
+    }
+  );
+
+}
+
+
+function restaurantIsPick(row){
+
+  return (
+    row.is_pick === true ||
+    row.pick === true ||
+    row.status === "pick" ||
+    row.status === "locked" ||
+    row.status === "preferred"
+  );
+
+}
+
+
+function restaurantCoordinates(row){
+
+  const lat =
+    Number(
+      row.latitude ??
+      row.lat
+    );
+
+  const lng =
+    Number(
+      row.longitude ??
+      row.lng
+    );
+
+  if(
+    Number.isFinite(lat) &&
+    Number.isFinite(lng)
+  ){
+    return {lat,lng};
+  }
+
+  return null;
+
+}
+
+
+function savedRestaurantHTML(row){
+
+  const distance =
+    nearbyDistanceLabel(
+      row.__distance
+    );
+
+  const rating =
+    row.rating
+      ? ` · Tabelog ${row.rating}`
+      : "";
+
+  const area =
+    [
+      row.area,
+      row.city
+    ]
+    .filter(Boolean)
+    .join(" · ");
+
+  const map =
+    row.maps_url ||
+    mapURL(
+      [
+        row.name,
+        row.area,
+        row.city,
+        "Japan"
+      ]
+      .filter(Boolean)
+      .join(" ")
+    );
+
+  return `
+
+    <div class="nearby-item">
+
+      <div class="nearby-item-main">
+
+        <div class="nearby-item-name">
+          ${row.name}
+          <span class="nearby-item-badge">
+            ⭐ PICK
+          </span>
+        </div>
+
+        <div class="nearby-item-meta">
+          ${
+            [distance,area]
+              .filter(Boolean)
+              .join(" · ")
+          }
+          ${rating}
+        </div>
+
+      </div>
+
+      <a
+        class="nearby-item-map"
+        href="${map}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open ${row.name} in Google Maps"
+      >
+        📍
+      </a>
+
+    </div>
+
+  `;
+
+}
+
+
+function googleRestaurantHTML(place,userLat,userLng){
+
+  const data =
+    window.normalizeGooglePlace(place);
+
+  const metres =
+    (
+      Number.isFinite(data.latitude) &&
+      Number.isFinite(data.longitude)
+    )
+      ?
+      nearbyDistanceMetres(
+        userLat,
+        userLng,
+        data.latitude,
+        data.longitude
+      )
+      :
+      NaN;
+
+  const distance =
+    nearbyDistanceLabel(metres);
+
+  const area =
+    [
+      data.area,
+      data.city
+    ]
+    .filter(Boolean)
+    .join(" · ");
+
+  const map =
+    data.maps_url ||
+    mapURL(
+      [
+        data.name,
+        data.address
+      ]
+      .filter(Boolean)
+      .join(" ")
+    );
+
+  return `
+
+    <div class="nearby-item">
+
+      <div class="nearby-item-main">
+
+        <div class="nearby-item-name">
+          ${data.name || "Restaurant"}
+        </div>
+
+        <div class="nearby-item-meta">
+          ${
+            [distance,area]
+              .filter(Boolean)
+              .join(" · ")
+          }
+        </div>
+
+      </div>
+
+      <a
+        class="nearby-item-map"
+        href="${map}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open restaurant in Google Maps"
+      >
+        📍
+      </a>
+
+    </div>
+
+  `;
+
+}
+
+
+async function getSavedPicksNearby(
+  userLat,
+  userLng
+){
+
+  /*
+    We deliberately use select("*") here so this
+    works with your current restaurant table while
+    also picking up latitude/longitude if you add
+    those columns.
+
+    Saved restaurants without coordinates cannot
+    be distance-sorted yet, so they are skipped in
+    this Home "near me" preview.
+  */
+
+  const result =
+    await db
+      .from("restaurants")
+      .select("*");
+
+  if(result.error){
+    throw result.error;
+  }
+
+  return (
+    result.data || []
+  )
+  .filter(restaurantIsPick)
+  .map(row => {
+
+    const coords =
+      restaurantCoordinates(row);
+
+    if(!coords){
+      return null;
+    }
+
+    return {
+      ...row,
+      __distance:
+        nearbyDistanceMetres(
+          userLat,
+          userLng,
+          coords.lat,
+          coords.lng
+        )
+    };
+
+  })
+  .filter(Boolean)
+  .filter(
+    row =>
+      row.__distance <= 3000
+  )
+  .sort(
+    (a,b) =>
+      a.__distance -
+      b.__distance
+  )
+  .slice(0,3);
+
+}
+
+
+async function getGoogleRestaurantsNearby(
+  userLat,
+  userLng
+){
+
+  if(
+    typeof window.getGooglePlaces !== "function" ||
+    typeof window.normalizeGooglePlace !== "function"
+  ){
+    throw new Error(
+      "google-maps.js is not available."
+    );
+  }
+
+  const placesLibrary =
+    await window.getGooglePlaces();
+
+  const Place =
+    placesLibrary.Place ||
+    google.maps.places?.Place;
+
+  if(
+    !Place ||
+    typeof Place.searchNearby !== "function"
+  ){
+    throw new Error(
+      "Google Nearby Search is unavailable."
+    );
+  }
+
+  const response =
+    await Place.searchNearby({
+      fields:[
+        "id",
+        "displayName",
+        "formattedAddress",
+        "addressComponents",
+        "googleMapsURI",
+        "location",
+        "types"
+      ],
+      locationRestriction:{
+        center:{
+          lat:userLat,
+          lng:userLng
+        },
+        radius:1500
+      },
+      includedPrimaryTypes:[
+        "restaurant"
+      ],
+      maxResultCount:8,
+      rankPreference:
+        google.maps.places.SearchNearbyRankPreference.DISTANCE
+    });
+
+  return (
+    response.places || []
+  );
+
+}
+
+
+async function loadNearbyFood(){
+
+  const status =
+    document.getElementById("foodNearbyStatus");
+
+  const results =
+    document.getElementById("foodNearbyResults");
+
+  const subtitle =
+    document.getElementById("foodNearbySubtitle");
+
+  nearbyLoading = true;
+
+  status.className =
+    "nearby-status";
+
+  status.textContent =
+    "Getting your location…";
+
+  results.innerHTML =
+    "";
+
+  try{
+
+    const position =
+      await getCurrentPositionForFood();
+
+    const userLat =
+      position.coords.latitude;
+
+    const userLng =
+      position.coords.longitude;
+
+    status.textContent =
+      "Finding your picks and restaurants nearby…";
+
+    const settled =
+      await Promise.allSettled([
+        getSavedPicksNearby(
+          userLat,
+          userLng
+        ),
+        getGoogleRestaurantsNearby(
+          userLat,
+          userLng
+        )
+      ]);
+
+    const picks =
+      settled[0].status === "fulfilled"
+        ? settled[0].value
+        : [];
+
+    const googlePlaces =
+      settled[1].status === "fulfilled"
+        ? settled[1].value
+        : [];
+
+    const pickNames =
+      new Set(
+        picks.map(
+          row =>
+            String(row.name || "")
+              .trim()
+              .toLowerCase()
+        )
+      );
+
+    const more =
+      googlePlaces
+        .filter(place => {
+
+          const data =
+            window.normalizeGooglePlace(place);
+
+          return !pickNames.has(
+            String(data.name || "")
+              .trim()
+              .toLowerCase()
+          );
+
+        })
+        .slice(0,4);
+
+    let html = "";
+
+    if(picks.length){
+
+      html += `
+
+        <div class="nearby-section">
+
+          <div class="nearby-section-title">
+            ⭐ YOUR PICKS NEARBY
+          </div>
+
+          ${
+            picks
+              .map(savedRestaurantHTML)
+              .join("")
+          }
+
+        </div>
+
+      `;
+
+    }
+
+    html += `
+
+      <div class="nearby-section">
+
+        <div class="nearby-section-title">
+          🍽 MORE FOOD AROUND YOU
+        </div>
+
+        ${
+          more.length
+            ?
+            more
+              .map(
+                place =>
+                  googleRestaurantHTML(
+                    place,
+                    userLat,
+                    userLng
+                  )
+              )
+              .join("")
+            :
+            `
+              <div class="nearby-status">
+                No additional Google restaurants were returned nearby.
+              </div>
+            `
+        }
+
+      </div>
+
+      <a
+        class="nearby-more"
+        href="food.html?trip=${TRIP_ID}&nearby=1"
+      >
+        SEE MORE FOOD →
+      </a>
+
+    `;
+
+    results.innerHTML =
+      html;
+
+    if(
+      !picks.length &&
+      settled[0].status === "fulfilled"
+    ){
+      status.textContent =
+        "No saved Picks with coordinates were found close by yet. Showing other nearby restaurants.";
+    }
+    else{
+      status.textContent =
+        "Using your current location.";
+    }
+
+    subtitle.textContent =
+      "Your picks first + more restaurants around you";
+
+    nearbyLoaded = true;
+
+  }
+  catch(error){
+
+    console.error(
+      "Food Near Me error:",
+      error
+    );
+
+    let message =
+      error.message ||
+      "Couldn't find nearby food.";
+
+    if(
+      error.code === 1
+    ){
+      message =
+        "Location permission was not allowed. Tap again after allowing location access for this site.";
+    }
+
+    status.textContent =
+      message;
+
+    status.className =
+      "nearby-status error";
+
+  }
+  finally{
+
+    nearbyLoading = false;
+
+  }
 
 }
 
@@ -2094,7 +3067,9 @@ moreBackdrop.onclick =
   event => {
 
     if(event.target === moreBackdrop){
+
       closeMore();
+
     }
 
   };
