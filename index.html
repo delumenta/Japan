@@ -390,13 +390,10 @@ h1{
   align-items:center;
   justify-content:space-between;
   gap:8px;
-
   border:1px solid rgba(103,197,135,.22);
   border-radius:9px;
-
   background:rgba(103,197,135,.06);
   color:#c5ead0;
-
   text-decoration:none;
 }
 
@@ -448,72 +445,6 @@ h1{
 
 
 /* =========================================================
-   QUICK ACCESS
-========================================================= */
-
-.section{
-  margin-top:18px;
-}
-
-.section-title{
-  margin:0 2px 8px;
-  color:var(--muted-blue);
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:.13em;
-}
-
-.menu{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.menu-card{
-  min-height:91px;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:linear-gradient(145deg,#151d23,#0e1419);
-  color:var(--text);
-  text-decoration:none;
-  position:relative;
-}
-
-.menu-card.wide{
-  grid-column:1/-1;
-  min-height:73px;
-}
-
-.menu-icon{
-  font-size:18px;
-}
-
-.menu-card h3{
-  margin:5px 0 2px;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:15px;
-}
-
-.menu-card p{
-  margin:0;
-  padding-right:15px;
-  color:var(--muted);
-  font-size:7px;
-  line-height:1.4;
-}
-
-.menu-go{
-  position:absolute;
-  right:10px;
-  bottom:8px;
-  color:var(--red);
-  font-size:12px;
-  font-weight:900;
-}
-
-
-/* =========================================================
    TRIPLINE
 ========================================================= */
 
@@ -559,7 +490,6 @@ h1{
   padding:
     8px 13px
     calc(18px + env(safe-area-inset-bottom));
-
   border:1px solid var(--line);
   border-radius:20px 20px 0 0;
   background:#0d1318;
@@ -602,10 +532,8 @@ h1{
   gap:10px;
   padding:9px 10px;
   margin-bottom:6px;
-
   border:1px solid var(--line);
   border-radius:11px;
-
   background:#11181e;
   color:#fff;
   text-decoration:none;
@@ -653,14 +581,11 @@ h1{
   right:0;
   bottom:0;
   z-index:80;
-
   display:grid;
   grid-template-columns:repeat(5,1fr);
-
   padding:
     7px 8px
     calc(7px + env(safe-area-inset-bottom));
-
   border-top:1px solid var(--line);
   background:rgba(7,12,16,.97);
   backdrop-filter:blur(18px);
@@ -673,19 +598,14 @@ h1{
   align-items:center;
   justify-content:center;
   gap:2px;
-
   min-height:47px;
-
   border:0;
   border-radius:11px;
-
   background:transparent;
   color:var(--muted);
   text-decoration:none;
-
   font-size:8px;
   font-weight:800;
-
   cursor:pointer;
 }
 
@@ -746,67 +666,7 @@ h1{
     18–30 October 2026 · Kyoto → Mountains → Osaka
   </div>
 
-
   <section id="dayPreview"></section>
-
-
-  <section class="section">
-
-    <div class="section-title">
-      QUICK ACCESS
-    </div>
-
-    <div class="menu">
-
-      <a
-        id="scheduleCard"
-        class="menu-card wide"
-      >
-        <div class="menu-icon">📅</div>
-        <h3>Plan</h3>
-        <p>Full itinerary · exact timings · transport · notes</p>
-        <span class="menu-go">→</span>
-      </a>
-
-
-      <a
-        id="bookingCard"
-        class="menu-card wide"
-      >
-        <div class="menu-icon">⭐</div>
-        <h3>Bookings</h3>
-        <p>What is booked · what still needs arranging</p>
-        <span class="menu-go">→</span>
-      </a>
-
-
-      <a
-        id="foodCard"
-        class="menu-card"
-      >
-        <div class="menu-icon">🍽️</div>
-        <h3>Food</h3>
-        <p>Your restaurant finder</p>
-        <span class="menu-go">→</span>
-      </a>
-
-
-      <button
-        id="moreCard"
-        class="menu-card"
-        type="button"
-        style="text-align:left"
-      >
-        <div class="menu-icon">⋯</div>
-        <h3>More</h3>
-        <p>Profile · trips · places</p>
-        <span class="menu-go">→</span>
-      </button>
-
-    </div>
-
-  </section>
-
 
   <div class="tripline">
     <strong>KYOTO</strong> · 18–22 Oct
@@ -856,6 +716,7 @@ h1{
       <div class="more-link-icon">👤</div>
 
       <div class="more-link-main">
+
         <div class="more-link-title">
           Profile & Sharing
         </div>
@@ -863,17 +724,23 @@ h1{
         <div class="more-link-sub">
           Your profile · manage trip members
         </div>
+
       </div>
 
-      <div class="more-link-arrow">→</div>
+      <div class="more-link-arrow">
+        →
+      </div>
     </a>
 
 
     <div class="more-link disabled">
 
-      <div class="more-link-icon">🧳</div>
+      <div class="more-link-icon">
+        🧳
+      </div>
 
       <div class="more-link-main">
+
         <div class="more-link-title">
           My Trips
         </div>
@@ -881,18 +748,24 @@ h1{
         <div class="more-link-sub">
           Create and switch trips · coming next
         </div>
+
       </div>
 
-      <div class="more-link-arrow">→</div>
+      <div class="more-link-arrow">
+        →
+      </div>
 
     </div>
 
 
     <div class="more-link disabled">
 
-      <div class="more-link-icon">📍</div>
+      <div class="more-link-icon">
+        📍
+      </div>
 
       <div class="more-link-main">
+
         <div class="more-link-title">
           Places
         </div>
@@ -900,9 +773,12 @@ h1{
         <div class="more-link-sub">
           Saved attractions · coming later
         </div>
+
       </div>
 
-      <div class="more-link-arrow">→</div>
+      <div class="more-link-arrow">
+        →
+      </div>
 
     </div>
 
@@ -958,20 +834,18 @@ h1{
 ========================================================= */
 
 const params =
-  new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
 
 const TRIP_ID =
-  Number(params.get("trip") || 1);
+  Number(
+    params.get("trip") || 1
+  );
 
 
 /* =========================================================
    DAY DATA
-
-   expandable:true
-   = block can open/close
-
-   foodNearby:true
-   = show Food Near Me inside it
 ========================================================= */
 
 const days = {
@@ -1519,6 +1393,7 @@ const days = {
       note:"Stay near hotel",
       foodNearby:true,
       expandable:true,
+
       pois:[
         ["Hotel area","Hotel Hankyu International Osaka"]
       ]
@@ -1890,6 +1765,7 @@ function renderBlock(block,index){
                 href="${mapURL(block.map)}"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Open map"
               >
                 📍
               </a>
@@ -2209,12 +2085,6 @@ document.getElementById(
 
 
 document.getElementById(
-  "moreCard"
-).onclick =
-  openMore;
-
-
-document.getElementById(
   "closeMore"
 ).onclick =
   closeMore;
@@ -2239,36 +2109,24 @@ document.getElementById(
 ).href =
   `index.html?trip=${TRIP_ID}`;
 
+
 document.getElementById(
   "navPlan"
 ).href =
   `schedule.html?trip=${TRIP_ID}`;
+
 
 document.getElementById(
   "navFood"
 ).href =
   `food.html?trip=${TRIP_ID}`;
 
+
 document.getElementById(
   "navHub"
 ).href =
   `bookings.html?trip=${TRIP_ID}`;
 
-
-document.getElementById(
-  "scheduleCard"
-).href =
-  `schedule.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "bookingCard"
-).href =
-  `bookings.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "foodCard"
-).href =
-  `food.html?trip=${TRIP_ID}`;
 
 document.getElementById(
   "profileLink"
