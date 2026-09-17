@@ -1261,6 +1261,28 @@ main{
 
 }
 
+
+/* PLAN HEADER ICON */
+.plan-page-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.plan-page-title-icon{
+  width:54px;
+  height:54px;
+  flex:0 0 54px;
+  display:block;
+  object-fit:contain;
+}
+@media(max-width:480px){
+  .plan-page-title-icon{
+    width:50px;
+    height:50px;
+    flex-basis:50px;
+  }
+}
+
 </style>
 
 <style>
@@ -1324,8 +1346,9 @@ main{
         TRIP PLAN
       </div>
 
-      <h1>
-        📅 Plan
+      <h1 class="plan-page-title">
+        <img class="plan-page-title-icon" src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Plan.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvUGxhbi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI4MDk1LCJleHAiOjIxMDQ5ODgwOTV9.y5ce4vah9CX-CnpAFWVUXw7pHtNakfgezG6RlS8EJ3BzGYBm7SgdUOgum92WHo-jpLPb1kbuYdvneZJytrLobw" alt="" aria-hidden="true">
+        <span>Plan</span>
       </h1>
 
       <div
