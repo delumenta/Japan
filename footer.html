@@ -1,16 +1,6 @@
 <!-- =========================================================
      SHARED FOOTER
-     Loaded by footer.js
-
-     TRANSPARENT ICON ARTWORK
-     CSS creates:
-       - circular frame
-       - active red border
-       - active glow
-       - active label colour
-
-     Individual artwork sizes are adjusted so the icons
-     appear visually balanced.
+     DARK CIRCLE ICONS — NO CIRCLE BORDER
 ========================================================= -->
 
 <style>
@@ -56,7 +46,7 @@ body{
     8px
     calc(6px + env(safe-area-inset-bottom));
 
-  border-top:1px solid var(--footer-line);
+  border:0;
 
   background:rgba(7,12,16,.98);
 
@@ -66,7 +56,7 @@ body{
 
 
 /* =========================================================
-   NAV ITEM
+   NAV ITEMS
 ========================================================= */
 
 .bottom-nav a,
@@ -79,12 +69,11 @@ body{
   align-items:center;
   justify-content:center;
 
-  gap:4px;
+  gap:3px;
 
   padding:0;
 
   border:0;
-
   background:transparent;
 
   color:var(--footer-muted);
@@ -101,15 +90,22 @@ body{
 
 /* =========================================================
    ICON CIRCLE
+
+   KEEP:
+   - circle
+   - dark background
+
+   REMOVE:
+   - thin outline/border
 ========================================================= */
 
 .bottom-nav .nav-icon{
   position:relative;
 
-  width:38px;
-  height:38px;
+  width:42px;
+  height:42px;
 
-  flex:0 0 38px;
+  flex:0 0 42px;
 
   display:flex;
   align-items:center;
@@ -117,18 +113,23 @@ body{
 
   overflow:hidden;
 
-  border:1px solid #39444c;
+  /* KEEP CIRCLE */
   border-radius:50%;
 
-  background:#0a1015;
+  /* REMOVE BORDER */
+  border:0;
+
+  /* KEEP DARK CIRCLE */
+  background:#10171d;
+
+  box-shadow:none;
 
   box-sizing:border-box;
 
   transition:
-    border-color .22s ease,
-    background .22s ease,
-    box-shadow .22s ease,
-    transform .18s ease;
+    transform .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
 }
 
 
@@ -145,18 +146,9 @@ body{
 
   transition:
     transform .22s ease,
-    filter .22s ease;
+    filter .22s ease,
+    opacity .22s ease;
 }
-
-
-/* =========================================================
-   INDIVIDUAL ARTWORK SIZES
-
-   Booking already fills its circle nicely.
-
-   The other PNGs contain more transparent padding,
-   therefore they are rendered larger.
-========================================================= */
 
 
 /* HOME */
@@ -238,33 +230,25 @@ body{
 .bottom-nav a.active{
   color:var(--footer-red);
 
-  background:transparent;
-
   border:0;
+  background:transparent;
 }
 
 
-/* ACTIVE CIRCLE */
+/* Active circle stays — still NO border */
 
 .bottom-nav a.active .nav-icon{
-  border-color:var(--footer-red);
+  border:0;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,98,95,.13) 0%,
-      rgba(255,98,95,.055) 58%,
-      rgba(255,98,95,.015) 100%
-    );
+  background:rgba(255,98,95,.10);
 
   box-shadow:
-    0 0 0 1px rgba(255,98,95,.08),
-    0 0 9px rgba(255,98,95,.20),
-    0 0 18px rgba(255,98,95,.08);
+    0 0 15px
+    rgba(255,98,95,.13);
 }
 
 
-/* ACTIVE ARTWORK */
+/* Active artwork */
 
 .bottom-nav a.active .nav-icon img{
   transform:scale(1.04);
@@ -275,34 +259,57 @@ body{
 }
 
 
-/* ACTIVE LABEL */
+/* Active label */
 
 .bottom-nav a.active .nav-label{
   color:var(--footer-red);
 
   text-shadow:
-    0 0 8px rgba(255,98,95,.18);
+    0 0 8px
+    rgba(255,98,95,.18);
 }
 
 
 /* =========================================================
-   DESKTOP HOVER
+   MORE BUTTON
+========================================================= */
+
+#sharedNavMore{
+  color:var(--footer-muted);
+}
+
+
+#sharedNavMore .nav-icon{
+  border:0;
+
+  border-radius:50%;
+
+  background:#10171d;
+}
+
+
+/* =========================================================
+   HOVER
 ========================================================= */
 
 @media(hover:hover){
 
-  .bottom-nav a:hover .nav-icon,
-  .bottom-nav button:hover .nav-icon{
-    border-color:#59656e;
-  }
-
   .bottom-nav a:hover .nav-icon img,
   .bottom-nav button:hover .nav-icon img{
-    transform:translateY(-1px);
+    transform:
+      translateY(-2px)
+      scale(1.04);
   }
 
-  .bottom-nav a.active:hover .nav-icon{
-    border-color:var(--footer-red);
+
+  .bottom-nav a:hover .nav-label,
+  .bottom-nav button:hover .nav-label{
+    color:#e3e5e6;
+  }
+
+
+  .bottom-nav a.active:hover .nav-label{
+    color:var(--footer-red);
   }
 
 }
@@ -314,16 +321,7 @@ body{
 
 .bottom-nav a:active .nav-icon,
 .bottom-nav button:active .nav-icon{
-  transform:scale(.92);
-}
-
-
-/* =========================================================
-   MORE BUTTON
-========================================================= */
-
-#sharedNavMore{
-  color:var(--footer-muted);
+  transform:scale(.90);
 }
 
 
@@ -346,6 +344,7 @@ body{
   -webkit-backdrop-filter:blur(4px);
 }
 
+
 .footer-sheet-backdrop.open{
   display:flex;
 }
@@ -359,7 +358,11 @@ body{
   width:100%;
   max-width:760px;
 
-  max-height:calc(92vh - env(safe-area-inset-top));
+  max-height:
+    calc(
+      92vh -
+      env(safe-area-inset-top)
+    );
 
   overflow-y:auto;
 
@@ -368,11 +371,18 @@ body{
   padding:
     8px
     14px
-    calc(18px + env(safe-area-inset-bottom));
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
 
   border:1px solid var(--footer-line);
 
-  border-radius:20px 20px 0 0;
+  border-radius:
+    20px
+    20px
+    0
+    0;
 
   background:#0d1318;
 
@@ -388,7 +398,10 @@ body{
   width:38px;
   height:4px;
 
-  margin:2px auto 12px;
+  margin:
+    2px
+    auto
+    12px;
 
   border-radius:999px;
 
@@ -410,11 +423,16 @@ body{
   margin-bottom:12px;
 }
 
+
 .footer-sheet-title{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:19px;
 }
+
 
 .footer-sheet-close{
   width:34px;
@@ -468,6 +486,7 @@ body{
   cursor:pointer;
 }
 
+
 .footer-more-icon{
   flex:0 0 31px;
 
@@ -476,17 +495,20 @@ body{
   text-align:center;
 }
 
+
 .footer-more-main{
   flex:1;
 
   min-width:0;
 }
 
+
 .footer-more-title{
   font-size:9px;
 
   font-weight:900;
 }
+
 
 .footer-more-sub{
   margin-top:2px;
@@ -498,11 +520,13 @@ body{
   line-height:1.4;
 }
 
+
 .footer-more-arrow{
   color:#8d9aa2;
 
   font-size:12px;
 }
+
 
 .footer-more-separator{
   height:1px;
@@ -518,14 +542,29 @@ body{
 ========================================================= */
 
 .footer-more-link.logout{
-  border-color:rgba(201,111,104,.28);
+  border-color:
+    rgba(
+      201,
+      111,
+      104,
+      .28
+    );
 
-  background:rgba(201,111,104,.055);
+  background:
+    rgba(
+      201,
+      111,
+      104,
+      .055
+    );
 }
 
-.footer-more-link.logout .footer-more-title{
+
+.footer-more-link.logout
+.footer-more-title{
   color:#efa39d;
 }
+
 
 .footer-more-link.logout:disabled{
   opacity:.55;
@@ -544,6 +583,7 @@ body{
 
   gap:7px;
 }
+
 
 .footer-trip-card{
   width:100%;
@@ -567,11 +607,25 @@ body{
   text-decoration:none;
 }
 
-.footer-trip-card.current{
-  border-color:rgba(201,111,104,.55);
 
-  background:rgba(201,111,104,.09);
+.footer-trip-card.current{
+  border-color:
+    rgba(
+      201,
+      111,
+      104,
+      .55
+    );
+
+  background:
+    rgba(
+      201,
+      111,
+      104,
+      .09
+    );
 }
+
 
 .footer-trip-icon{
   flex:0 0 36px;
@@ -581,11 +635,13 @@ body{
   text-align:center;
 }
 
+
 .footer-trip-main{
   flex:1;
 
   min-width:0;
 }
+
 
 .footer-trip-name{
   font-size:9px;
@@ -594,6 +650,7 @@ body{
 
   line-height:1.3;
 }
+
 
 .footer-trip-meta{
   margin-top:3px;
@@ -605,6 +662,7 @@ body{
   line-height:1.4;
 }
 
+
 .footer-trip-role{
   display:inline-block;
 
@@ -612,7 +670,14 @@ body{
 
   padding:2px 5px;
 
-  border:1px solid rgba(92,157,255,.22);
+  border:
+    1px solid
+    rgba(
+      92,
+      157,
+      255,
+      .22
+    );
 
   border-radius:999px;
 
@@ -623,17 +688,27 @@ body{
   font-weight:900;
 }
 
-.footer-trip-card.current .footer-trip-role{
-  border-color:rgba(201,111,104,.28);
+
+.footer-trip-card.current
+.footer-trip-role{
+  border-color:
+    rgba(
+      201,
+      111,
+      104,
+      .28
+    );
 
   color:#e7aaa5;
 }
+
 
 .footer-trip-arrow{
   color:#7f8b93;
 
   font-size:13px;
 }
+
 
 .footer-trip-message{
   padding:18px 10px;
@@ -646,6 +721,7 @@ body{
 
   line-height:1.5;
 }
+
 
 .footer-trip-message.error{
   color:#ffc5c1;
@@ -662,6 +738,7 @@ body{
     max-width:620px;
   }
 
+
   .bottom-nav{
     left:50%;
     right:auto;
@@ -670,10 +747,8 @@ body{
 
     transform:translateX(-50%);
 
-    border-left:1px solid var(--footer-line);
-    border-right:1px solid var(--footer-line);
-
-    border-radius:16px 16px 0 0;
+    border:0;
+    border-radius:0;
   }
 
 }
@@ -928,9 +1003,7 @@ body{
 >
 
 
-  <!-- =====================================================
-       HOME
-  ====================================================== -->
+  <!-- HOME -->
 
   <a id="sharedNavHome">
 
@@ -950,9 +1023,7 @@ body{
   </a>
 
 
-  <!-- =====================================================
-       PLAN
-  ====================================================== -->
+  <!-- PLAN -->
 
   <a id="sharedNavPlan">
 
@@ -972,9 +1043,7 @@ body{
   </a>
 
 
-  <!-- =====================================================
-       FOOD
-  ====================================================== -->
+  <!-- FOOD -->
 
   <a id="sharedNavFood">
 
@@ -994,9 +1063,7 @@ body{
   </a>
 
 
-  <!-- =====================================================
-       BOOKING
-  ====================================================== -->
+  <!-- BOOKING -->
 
   <a id="sharedNavHub">
 
@@ -1016,10 +1083,7 @@ body{
   </a>
 
 
-
-  <!-- =====================================================
-       EXPENSES
-  ====================================================== -->
+  <!-- EXPENSES -->
 
   <a id="sharedNavExpenses">
 
@@ -1039,9 +1103,7 @@ body{
   </a>
 
 
-  <!-- =====================================================
-       MORE
-  ====================================================== -->
+  <!-- MORE -->
 
   <button
     id="sharedNavMore"
