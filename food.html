@@ -1196,91 +1196,76 @@ gmp-place-autocomplete{
 }
 
 /* =========================================================
-   STICKY IN-PAGE FOOD FILTER
-   The filter follows vertically but stays attached to the
-   site's content instead of the browser edge.
+   FINAL FOOD FILTER POSITION
+   Always visible while scrolling, aligned to the site's
+   right edge rather than the browser's far-right edge.
 ========================================================= */
 
 .food-side-filter{
-  position:sticky !important;
-  top:14px !important;
-  right:auto !important;
+  position:fixed !important;
+  top:50% !important;
+  right:max(8px, calc((100vw - 760px)/2 - 76px)) !important;
 
   width:68px !important;
-  max-height:calc(100vh - 90px);
+  max-height:76vh;
 
-  flex:0 0 68px;
-
-  transform:none !important;
-
-  align-self:flex-start;
+  transform:translateY(-50%) !important;
 
   overflow-y:auto;
   scrollbar-width:none;
 
-  padding:4px !important;
-
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;
-
-  background:rgba(9,14,18,.93);
-  box-shadow:0 8px 28px rgba(0,0,0,.22);
-
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  z-index:90;
 }
 
 .food-side-filter::-webkit-scrollbar{
   display:none;
 }
 
-.food-results-layout{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-
-  width:100%;
-}
-
-.food-results-main{
-  min-width:0;
-  flex:1 1 auto;
-}
-
-/* Undo the old mobile space that was reserved for a fixed overlay. */
+/* The filter floats outside the main 760px content on wide screens,
+   so it must not reserve/squeeze card width. */
 main{
   padding-right:inherit !important;
 }
 
-/* On narrow phones keep the rail compact, but still inside the page. */
-@media(max-width:640px){
-  .food-results-layout{
-    gap:6px;
-  }
+/* Discover gets one compact second filter row only. */
+.discover-status-row{
+  margin-top:8px;
+}
 
+@media(max-width:900px){
   .food-side-filter{
-    width:55px !important;
-    flex-basis:55px;
+    right:4px !important;
+    width:62px !important;
   }
 
-  .food-side-title{
-    font-size:5px;
+  main{
+    padding-right:70px !important;
   }
+}
 
-  .food-side-btn{
-    min-height:31px !important;
-    padding:3px 1px !important;
-  }
 
-  .food-side-btn .side-food-icon{
-    width:14px !important;
-    flex-basis:14px !important;
-    font-size:11px !important;
-  }
+#discoverControls,
+.discover-controls,
+#browseChips{
+  display:none !important;
+}
 
-  .food-side-btn .side-food-label{
-    font-size:4.8px !important;
-  }
+.side-area-section{
+  margin-top:5px;
+  padding-top:5px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.side-area-title{
+  padding-top:0;
+}
+
+.food-side-btn.area-btn .side-food-icon{
+  font-size:10px !important;
+}
+
+.food-side-btn.area-btn .side-food-label{
+  font-size:5px !important;
 }
 
 </style>
@@ -1368,6 +1353,25 @@ main{
     id="cityChips"
     class="chips"
   ></div>
+
+<div
+  id="discoverStatusRow"
+  class="chips discover-status-row"
+  style="display:none"
+>
+  <button class="chip active" data-discover-status="all" type="button">
+    ALL
+  </button>
+
+  <button class="chip" data-discover-status="tabelog" type="button">
+    🏆 TABELOG
+  </button>
+
+  <button class="chip" data-discover-status="eaten" type="button">
+    ✓ EATEN
+  </button>
+</div>
+
 
 
   <div
@@ -1459,9 +1463,7 @@ main{
   </div>
 
 
-  <div class="food-results-layout">
-  <div class="food-results-main">
-<div id="results">
+  <div id="results">
 
     <div class="state">
 
@@ -1474,20 +1476,6 @@ main{
     </div>
 
   </div>
-  </div>
-
-  <aside
-  id="foodSideFilter"
-  class="food-side-filter"
-  aria-label="Food type filter"
->
-  <div class="food-side-title">
-    FOOD
-  </div>
-
-  <div id="foodSideFilterButtons"></div>
-</aside>
-</div>
 
 </main>
 
@@ -1497,7 +1485,28 @@ main{
      PERMANENT RIGHT-SIDE FOOD FILTER
 ========================================================= -->
 
+<aside
+  id="foodSideFilter"
+  class="food-side-filter"
+  aria-label="Food type filter"
+>
+  <div class="food-side-title">
+    FOOD
+  </div>
 
+  <div id="foodSideFilterButtons"></div>
+
+  <div
+    id="sideAreaSection"
+    class="side-area-section"
+  >
+    <div class="food-side-title side-area-title">
+      AREA
+    </div>
+
+    <div id="sideAreaFilterButtons"></div>
+  </div>
+</aside>
 
 
 <!-- =========================================================
@@ -1860,6 +1869,8 @@ let discoverFilter = "";
 let searchTerm = "";
 
 let foodGroupFilter = "";
+let discoverStatusFilter = "all";
+let sideAreaFilter = "";
 
 
 /* =========================================================
@@ -3309,6 +3320,43 @@ function filteredRestaurants(){
   }
 
 
+  if(activeTab === "discover"){
+
+    if(discoverStatusFilter === "tabelog"){
+
+      list =
+        list.filter(
+          hasTabelog
+        );
+
+    }
+
+
+    if(discoverStatusFilter === "eaten"){
+
+      list =
+        list.filter(
+          isEaten
+        );
+
+    }
+
+  }
+
+
+  if(sideAreaFilter){
+
+    list =
+      list.filter(
+        restaurant =>
+          norm(rArea(restaurant))
+          ===
+          norm(sideAreaFilter)
+      );
+
+  }
+
+
   if(foodGroupFilter){
 
     list =
@@ -4097,6 +4145,12 @@ function renderDiscover(list){
 ========================================================= */
 
 function render(){
+
+  renderSideAreaFilter();
+
+
+  renderDiscoverStatus();
+
 
   renderFoodSideFilter();
 
@@ -5559,6 +5613,32 @@ function foodFilterBaseSource(){
   }
 
 
+  if(activeTab === "discover"){
+
+    if(discoverStatusFilter === "tabelog"){
+      source = source.filter(hasTabelog);
+    }
+
+    if(discoverStatusFilter === "eaten"){
+      source = source.filter(isEaten);
+    }
+
+  }
+
+
+  if(sideAreaFilter){
+
+    source =
+      source.filter(
+        restaurant =>
+          norm(rArea(restaurant))
+          ===
+          norm(sideAreaFilter)
+      );
+
+  }
+
+
   return source;
 
 }
@@ -5670,6 +5750,336 @@ function renderFoodSideFilter(){
               "";
 
             renderFoodSideFilter();
+
+            render();
+
+          };
+
+      }
+    );
+
+}
+
+
+
+
+/* =========================================================
+   DISCOVER STATUS FILTER
+========================================================= */
+
+function hasTabelog(restaurant){
+
+  return Boolean(
+    text(restaurant.tabelog_url).trim()
+    ||
+    restaurant.is_tabelog
+    ||
+    restaurant.tabelog
+    ||
+    restaurant.is_top100
+    ||
+    restaurant.tabelog_top100
+  );
+
+}
+
+
+function renderDiscoverStatus(){
+
+  if(activeTab !== "discover"){
+
+    discoverStatusRow.style.display = "none";
+    return;
+
+  }
+
+
+  discoverStatusRow.style.display = "flex";
+
+
+  discoverStatusRow
+    .querySelectorAll(
+      "[data-discover-status]"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.discoverStatus
+          ===
+          discoverStatusFilter
+        );
+
+      }
+    );
+
+}
+
+
+discoverStatusRow
+  .querySelectorAll(
+    "[data-discover-status]"
+  )
+  .forEach(
+    button => {
+
+      button.onclick =
+        () => {
+
+          discoverStatusFilter =
+            button.dataset.discoverStatus
+            ||
+            "all";
+
+
+          render();
+
+        };
+
+    }
+  );
+
+
+
+
+/* =========================================================
+   RIGHT-SIDE AREA FILTER
+   Areas are generated dynamically from the selected city.
+========================================================= */
+
+function sideAreaSource(){
+
+  let source =
+    activeTab === "mine"
+    ?
+    restaurants.filter(inMyFood)
+    :
+    restaurants.slice();
+
+
+  if(selectedCity){
+
+    source =
+      source.filter(
+        restaurant =>
+          norm(rCity(restaurant))
+          ===
+          norm(selectedCity)
+      );
+
+  }
+
+
+  if(activeTab === "mine"){
+
+    if(myFilter === "eaten"){
+      source = source.filter(isEaten);
+    }
+
+    else{
+
+      source =
+        source.filter(
+          restaurant =>
+            !isEaten(restaurant)
+        );
+
+      if(myFilter === "pick"){
+        source = source.filter(isPick);
+      }
+
+      if(myFilter === "flexible"){
+        source = source.filter(isFlexible);
+      }
+
+      if(myFilter === "scheduled"){
+        source = source.filter(isScheduled);
+      }
+
+    }
+
+  }
+
+
+  if(activeTab === "discover"){
+
+    if(discoverStatusFilter === "tabelog"){
+      source = source.filter(hasTabelog);
+    }
+
+    if(discoverStatusFilter === "eaten"){
+      source = source.filter(isEaten);
+    }
+
+  }
+
+
+  if(foodGroupFilter){
+
+    source =
+      source.filter(
+        restaurant =>
+          foodGroup(restaurant)
+          ===
+          foodGroupFilter
+      );
+
+  }
+
+
+  return source;
+
+}
+
+
+function renderSideAreaFilter(){
+
+  const source =
+    sideAreaSource();
+
+
+  const map =
+    new Map();
+
+
+  source.forEach(
+    restaurant => {
+
+      const area =
+        text(
+          rArea(restaurant)
+        ).trim();
+
+
+      if(!area){
+        return;
+      }
+
+
+      const key =
+        norm(area);
+
+
+      if(!map.has(key)){
+
+        map.set(
+          key,
+          {
+            label:area,
+            count:0
+          }
+        );
+
+      }
+
+
+      map.get(key).count += 1;
+
+    }
+  );
+
+
+  const areas =
+    [...map.values()]
+      .sort(
+        (a,b) =>
+          a.label.localeCompare(
+            b.label
+          )
+      );
+
+
+  if(
+    sideAreaFilter &&
+    !areas.some(
+      area =>
+        norm(area.label)
+        ===
+        norm(sideAreaFilter)
+    )
+  ){
+    sideAreaFilter = "";
+  }
+
+
+  /*
+    If there are no usable areas, hide this section.
+    Otherwise the city selection controls which area list appears:
+    Kyoto -> Gion / Downtown / Fushimi...
+    Osaka -> Namba / Umeda / etc.
+  */
+  sideAreaSection.style.display =
+    areas.length
+    ?
+    "block"
+    :
+    "none";
+
+
+  sideAreaFilterButtons.innerHTML = `
+
+    <button
+      class="food-side-btn area-btn ${
+        !sideAreaFilter
+        ?
+        "active"
+        :
+        ""
+      }"
+      data-side-area=""
+      type="button"
+      title="All Areas"
+    >
+      <span class="side-food-icon">📍</span>
+      <span class="side-food-label">ALL</span>
+    </button>
+
+    ${
+      areas.map(
+        area => `
+
+          <button
+            class="food-side-btn area-btn ${
+              norm(sideAreaFilter)
+              ===
+              norm(area.label)
+              ?
+              "active"
+              :
+              ""
+            }"
+            data-side-area="${esc(area.label)}"
+            type="button"
+            title="${esc(area.label)} · ${area.count}"
+          >
+            <span class="side-food-icon">📍</span>
+            <span class="side-food-label">${esc(area.label)}</span>
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+
+  sideAreaFilterButtons
+    .querySelectorAll(
+      "[data-side-area]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            sideAreaFilter =
+              button.dataset.sideArea
+              ||
+              "";
+
 
             render();
 
