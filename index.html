@@ -201,11 +201,24 @@ function displayTime(t){
 }
 function itemIcon(type){
   type=txt(type).toLowerCase();
-  if(type.includes("food")||type.includes("restaurant"))return"🍽️";
-  if(type.includes("hotel"))return"🏨";
-  if(type.includes("transport"))return"🚕";
   if(type.includes("shrine")||type.includes("temple"))return"⛩️";
-  return"•";
+  if(type.includes("museum"))return"🏛️";
+  if(type.includes("nature")||type.includes("park")||type.includes("garden"))return"🌿";
+  if(type.includes("view")||type.includes("observation"))return"✨";
+  return"📍";
+}
+
+/* Home only shows real destinations linked to master Places. */
+function isIndexDestination(row){
+  if(!row.place_id) return false;
+
+  const type=txt(row.item_type).toLowerCase();
+  const hiddenTypes=[
+    "transport","hotel","restaurant","food",
+    "meal","flight","reminder"
+  ];
+
+  return !hiddenTypes.some(word=>type.includes(word));
 }
 
 async function resolveTrip(){
@@ -283,12 +296,21 @@ function renderDates(){
     </button>`).join("")}</div>`;
 }
 function groupRows(rows){
-  const groups=[];let last=null;
+  const groups=[];
+  const byArea=new Map();
+
   rows.forEach(row=>{
     const area=rowArea(row);
-    if(!last||last.name!==area){last={name:area,rows:[]};groups.push(last)}
-    last.rows.push(row);
+
+    if(!byArea.has(area)){
+      const group={name:area,rows:[]};
+      byArea.set(area,group);
+      groups.push(group);
+    }
+
+    byArea.get(area).rows.push(row);
   });
+
   return groups;
 }
 function areaTime(rows){
@@ -316,7 +338,7 @@ function renderArea(group,index){
     <button class="area-head" type="button" data-toggle-area="${index}">
       <div class="area-main">
         <div class="area-name">${esc(group.name)}</div>
-        <div class="area-meta">${esc(areaTime(group.rows))}${areaTime(group.rows)?" · ":""}${group.rows.length} ${group.rows.length===1?"stop":"stops"}</div>
+        <div class="area-meta">${esc(areaTime(group.rows))}${areaTime(group.rows)?" · ":""}${group.rows.length} ${group.rows.length===1?"place":"places"}</div>
       </div>
       <div class="area-chevron">⌄</div>
     </button>
@@ -328,21 +350,22 @@ function dayTitle(rows){
   return areas.slice(0,2).join(" + ") || rows[0]?.title || "Today";
 }
 function renderDay(){
-  const rows=scheduleRows.filter(r=>r.schedule_date===selectedDate);
+  const allDayRows=scheduleRows.filter(r=>r.schedule_date===selectedDate);
+  const rows=allDayRows.filter(isIndexDestination);
   const groups=groupRows(rows);
   const date=selectedDate?parseDate(selectedDate):new Date();
   const country=currentTrip?.country||"";
   document.getElementById("dayPreview").innerHTML=`
     <div class="day-card">
       <div class="day-top">
-        <div class="day-label">TODAY</div>
+        <div class="day-label">${selectedDate===isoDate(new Date())?"TODAY":"TRIP DAY"}</div>
         <div class="day-date">${selectedDate?`${weekday(selectedDate,true)} · ${date.getDate()} ${date.toLocaleDateString("en-SG",{month:"long"}).toUpperCase()}`:""}</div>
       </div>
       <h2>${esc(dayTitle(rows))}</h2>
       <div class="day-area">${esc(country)}</div>
       ${renderDates()}
-      <div class="plan-title">DAY AT A GLANCE</div>
-      ${groups.length?groups.map(renderArea).join(""):`<div class="empty">No schedule items for this day.</div>`}
+      <div class="plan-title">PLACES TODAY</div>
+      ${groups.length?groups.map(renderArea).join(""):`<div class="empty">No verified places added for this day.<br>Open Full Plan to see the complete schedule.</div>`}
       <a class="full-plan" href="schedule.html?trip=${TRIP_ID}${selectedDate?`#${selectedDate}`:""}">FULL PLAN →</a>
       ${renderFoodNearby()}
     </div>`;
