@@ -828,6 +828,28 @@ main{
 
 }
 
+
+/* BOOKING HEADER ICON */
+.booking-page-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.booking-page-title-icon{
+  width:54px;
+  height:54px;
+  flex:0 0 54px;
+  display:block;
+  object-fit:contain;
+}
+@media(max-width:480px){
+  .booking-page-title-icon{
+    width:50px;
+    height:50px;
+    flex-basis:50px;
+  }
+}
+
 </style>
 </head>
 
@@ -851,8 +873,9 @@ main{
           LOADING TRIP…
         </div>
 
-        <h1>
-          ⭐ Bookings
+        <h1 class="booking-page-title">
+          <img class="booking-page-title-icon" src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Booking.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQm9va2luZy5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3ODU2LCJleHAiOjIxMDQ5ODc4NTZ9.So320gSGj5TK_okESeEqmZGSK03R15D1KjrIvXnie1CCuG3av6uoiXvs54kSmfUYqcjTmkzyYQ6RkIrPeAW_-w" alt="" aria-hidden="true">
+          <span>Bookings</span>
         </h1>
 
         <div
