@@ -90,13 +90,6 @@ body{
 
 /* =========================================================
    ICON CIRCLE
-
-   KEEP:
-   - circle
-   - dark background
-
-   REMOVE:
-   - thin outline/border
 ========================================================= */
 
 .bottom-nav .nav-icon{
@@ -113,13 +106,9 @@ body{
 
   overflow:hidden;
 
-  /* KEEP CIRCLE */
+  border:0;
   border-radius:50%;
 
-  /* REMOVE BORDER */
-  border:0;
-
-  /* KEEP DARK CIRCLE */
   background:#10171d;
 
   box-shadow:none;
@@ -227,7 +216,8 @@ body{
    ACTIVE PAGE
 ========================================================= */
 
-.bottom-nav a.active{
+.bottom-nav a.active,
+.bottom-nav button.active{
   color:var(--footer-red);
 
   border:0;
@@ -235,9 +225,8 @@ body{
 }
 
 
-/* Active circle stays — still NO border */
-
-.bottom-nav a.active .nav-icon{
+.bottom-nav a.active .nav-icon,
+.bottom-nav button.active .nav-icon{
   border:0;
 
   background:rgba(255,98,95,.10);
@@ -248,9 +237,8 @@ body{
 }
 
 
-/* Active artwork */
-
-.bottom-nav a.active .nav-icon img{
+.bottom-nav a.active .nav-icon img,
+.bottom-nav button.active .nav-icon img{
   transform:scale(1.04);
 
   filter:
@@ -259,9 +247,8 @@ body{
 }
 
 
-/* Active label */
-
-.bottom-nav a.active .nav-label{
+.bottom-nav a.active .nav-label,
+.bottom-nav button.active .nav-label{
   color:var(--footer-red);
 
   text-shadow:
@@ -281,10 +268,18 @@ body{
 
 #sharedNavMore .nav-icon{
   border:0;
-
   border-radius:50%;
 
   background:#10171d;
+}
+
+
+#sharedNavMore.active .nav-icon{
+  background:rgba(255,98,95,.10);
+
+  box-shadow:
+    0 0 15px
+    rgba(255,98,95,.13);
 }
 
 
@@ -308,7 +303,8 @@ body{
   }
 
 
-  .bottom-nav a.active:hover .nav-label{
+  .bottom-nav a.active:hover .nav-label,
+  .bottom-nav button.active:hover .nav-label{
     color:var(--footer-red);
   }
 
@@ -484,6 +480,25 @@ body{
   font:inherit;
 
   cursor:pointer;
+
+  transition:
+    border-color .18s ease,
+    background .18s ease;
+}
+
+
+.footer-more-link:hover{
+  border-color:#39454d;
+  background:#141c22;
+}
+
+
+.footer-more-link.current{
+  border-color:
+    rgba(255,98,95,.30);
+
+  background:
+    rgba(255,98,95,.065);
 }
 
 
@@ -756,6 +771,7 @@ body{
 </style>
 
 
+
 <!-- =========================================================
      MORE SHEET
 ========================================================= -->
@@ -787,7 +803,10 @@ body{
     </div>
 
 
-    <!-- PROFILE -->
+
+    <!-- =====================================================
+         PROFILE
+    ====================================================== -->
 
     <a
       id="sharedProfileLink"
@@ -817,7 +836,10 @@ body{
     </a>
 
 
-    <!-- SWITCH TRIP -->
+
+    <!-- =====================================================
+         SWITCH TRIP
+    ====================================================== -->
 
     <button
       id="sharedSwitchTrip"
@@ -848,7 +870,10 @@ body{
     </button>
 
 
-    <!-- MY TRIPS -->
+
+    <!-- =====================================================
+         MY TRIPS
+    ====================================================== -->
 
     <a
       id="sharedTripsLink"
@@ -878,7 +903,10 @@ body{
     </a>
 
 
-    <!-- PLACES -->
+
+    <!-- =====================================================
+         PLACES
+    ====================================================== -->
 
     <a
       id="sharedPlacesLink"
@@ -896,7 +924,7 @@ body{
         </div>
 
         <div class="footer-more-sub">
-          Saved places for this trip
+          Saved places and shared itineraries
         </div>
 
       </div>
@@ -908,10 +936,47 @@ body{
     </a>
 
 
+
+    <!-- =====================================================
+         TRIP MAP
+    ====================================================== -->
+
+    <a
+      id="sharedMapLink"
+      class="footer-more-link"
+    >
+
+      <div class="footer-more-icon">
+        🗺️
+      </div>
+
+      <div class="footer-more-main">
+
+        <div class="footer-more-title">
+          Trip Map
+        </div>
+
+        <div class="footer-more-sub">
+          View your itinerary day by day
+        </div>
+
+      </div>
+
+      <div class="footer-more-arrow">
+        →
+      </div>
+
+    </a>
+
+
+
     <div class="footer-more-separator"></div>
 
 
-    <!-- LOGOUT -->
+
+    <!-- =====================================================
+         LOGOUT
+    ====================================================== -->
 
     <button
       id="sharedLogout"
@@ -944,6 +1009,7 @@ body{
   </div>
 
 </div>
+
 
 
 <!-- =========================================================
@@ -993,6 +1059,7 @@ body{
 </div>
 
 
+
 <!-- =========================================================
      BOTTOM NAVIGATION
 ========================================================= -->
@@ -1023,6 +1090,7 @@ body{
   </a>
 
 
+
   <!-- PLAN -->
 
   <a id="sharedNavPlan">
@@ -1041,6 +1109,7 @@ body{
     </span>
 
   </a>
+
 
 
   <!-- FOOD -->
@@ -1063,6 +1132,7 @@ body{
   </a>
 
 
+
   <!-- BOOKING -->
 
   <a id="sharedNavHub">
@@ -1083,6 +1153,7 @@ body{
   </a>
 
 
+
   <!-- EXPENSES -->
 
   <a id="sharedNavExpenses">
@@ -1101,6 +1172,7 @@ body{
     </span>
 
   </a>
+
 
 
   <!-- MORE -->
