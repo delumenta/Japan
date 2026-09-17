@@ -3786,18 +3786,10 @@ async function searchGoogleForNewPlace(){
 
   try{
 
-    if(
-      typeof window.getGooglePlaces !==
-      "function"
-    ){
-
-      throw new Error(
-        "google-maps.js is not ready."
-      );
-
-    }
-
-
+    /*
+      Same Google search flow used by the older
+      Places Setup page.
+    */
     const library =
       await window.getGooglePlaces();
 
@@ -3808,8 +3800,7 @@ async function searchGoogleForNewPlace(){
 
     if(
       !PlaceClass ||
-      typeof PlaceClass.searchByText !==
-      "function"
+      typeof PlaceClass.searchByText !== "function"
     ){
 
       throw new Error(
@@ -3825,49 +3816,30 @@ async function searchGoogleForNewPlace(){
 
     const query =
       country &&
-      !norm(raw).includes(
-        norm(country)
-      )
-      ?
-      `${raw} ${country}`
-      :
-      raw;
-
-
-    const request = {
-
-      textQuery:
-        query,
-
-      fields:[
-        "id",
-        "displayName",
-        "formattedAddress",
-        "location",
-        "googleMapsURI"
-      ],
-
-      maxResultCount:
-        5
-
-    };
-
-
-    const region =
-      googleRegionCode(
-        country
-      );
-
-
-    if(region){
-      request.region = region;
-    }
+      !norm(raw).includes(norm(country))
+        ? `${raw} ${country}`
+        : raw;
 
 
     const response =
-      await PlaceClass.searchByText(
-        request
-      );
+      await PlaceClass.searchByText({
+
+        textQuery:query,
+
+        fields:[
+          "id",
+          "displayName",
+          "formattedAddress",
+          "location",
+          "googleMapsURI"
+        ],
+
+        maxResultCount:5,
+
+        region:
+          googleRegionCode(country) || "jp"
+
+      });
 
 
     googleAddMatches =
@@ -5412,3 +5384,30 @@ loadData();
 
 </body>
 </html>
+<style>
+/* Schedule form controls — dark, compact, consistent with the page */
+.form-sheet input,
+.form-sheet textarea,
+.form-sheet select,
+#googleAddSearch{
+  background:#080d11 !important;
+  color:#f5f5f3 !important;
+  border:1px solid #29323b !important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  font-size:11px !important;
+  line-height:1.35 !important;
+}
+.form-sheet input::placeholder,
+.form-sheet textarea::placeholder,
+#googleAddSearch::placeholder{
+  color:#65737e !important;
+  opacity:1;
+}
+.form-sheet input:focus,
+.form-sheet textarea:focus,
+.form-sheet select:focus,
+#googleAddSearch:focus{
+  border-color:#5c9dff !important;
+  outline:none !important;
+}
+</style>
