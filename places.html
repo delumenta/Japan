@@ -44,9 +44,6 @@ body{
 
   min-height:100vh;
 
-  padding-bottom:
-    calc(92px + env(safe-area-inset-bottom));
-
   background:
     radial-gradient(
       circle at 50% -10%,
@@ -1019,235 +1016,6 @@ main{
 }
 
 
-/* =========================================================
-   MORE
-========================================================= */
-
-.more-backdrop{
-  position:fixed;
-
-  inset:0;
-
-  z-index:180;
-
-  display:none;
-
-  align-items:flex-end;
-
-  background:
-    rgba(0,0,0,.72);
-
-  backdrop-filter:
-    blur(4px);
-
-  -webkit-backdrop-filter:
-    blur(4px);
-}
-
-.more-backdrop.open{
-  display:flex;
-}
-
-.more-sheet{
-  width:100%;
-
-  max-width:760px;
-
-  margin:auto;
-
-  padding:
-    8px
-    14px
-    calc(18px + env(safe-area-inset-bottom));
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
-  background:#0d1318;
-}
-
-.more-title{
-  margin-bottom:12px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-}
-
-.more-link{
-  min-height:57px;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:6px;
-
-  padding:
-    9px
-    10px;
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:11px;
-
-  background:#11181e;
-
-  color:#fff;
-
-  text-decoration:none;
-}
-
-.more-link.active{
-  border-color:
-    rgba(201,111,104,.30);
-
-  background:
-    rgba(201,111,104,.07);
-}
-
-.more-icon{
-  width:31px;
-
-  font-size:18px;
-
-  text-align:center;
-}
-
-.more-main{
-  flex:1;
-}
-
-.more-name{
-  font-size:9px;
-  font-weight:900;
-}
-
-.more-sub{
-  margin-top:2px;
-
-  color:#7d8991;
-
-  font-size:6.5px;
-}
-
-
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-.bottom-nav{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:80;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
-  gap:3px;
-
-  padding:
-    6px
-    7px
-    calc(6px + env(safe-area-inset-bottom));
-
-  border-top:
-    1px solid
-    var(--line);
-
-  background:
-    rgba(7,12,16,.98);
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-}
-
-.bottom-nav a,
-.bottom-nav button{
-  min-height:46px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:2px;
-
-  border:0;
-  border-radius:10px;
-
-  background:transparent;
-
-  color:var(--muted);
-
-  text-decoration:none;
-
-  font-size:8px;
-  font-weight:800;
-}
-
-.nav-icon{
-  font-size:16px;
-}
-
-.bottom-nav .active{
-  color:#fff;
-
-  border:
-    1px solid
-    rgba(201,111,104,.22);
-
-  background:
-    rgba(201,111,104,.08);
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media(min-width:700px){
-
-  .bottom-nav{
-    left:50%;
-    right:auto;
-
-    width:min(
-      820px,
-      100%
-    );
-
-    transform:
-      translateX(-50%);
-  }
-
-}
-
 </style>
 
 </head>
@@ -1375,186 +1143,10 @@ main{
 
 
 <!-- =========================================================
-     MORE
+     SHARED FOOTER
 ========================================================= -->
 
-<div
-  id="moreBackdrop"
-  class="more-backdrop"
->
-
-  <div class="more-sheet">
-
-    <div class="handle"></div>
-
-
-    <div class="more-title">
-      More
-    </div>
-
-
-    <a
-      id="moreProfile"
-      class="more-link"
-    >
-
-      <div class="more-icon">
-        👤
-      </div>
-
-
-      <div class="more-main">
-
-        <div class="more-name">
-          Profile & Sharing
-        </div>
-
-        <div class="more-sub">
-          Account · trip members
-        </div>
-
-      </div>
-
-      →
-
-    </a>
-
-
-    <a
-      href="trips.html"
-      class="more-link"
-    >
-
-      <div class="more-icon">
-        🧳
-      </div>
-
-
-      <div class="more-main">
-
-        <div class="more-name">
-          My Trips
-        </div>
-
-        <div class="more-sub">
-          Create · open · share
-        </div>
-
-      </div>
-
-      →
-
-    </a>
-
-
-    <a
-      href="places.html"
-      class="more-link active"
-    >
-
-      <div class="more-icon">
-        🌐
-      </div>
-
-
-      <div class="more-main">
-
-        <div class="more-name">
-          Places
-        </div>
-
-        <div class="more-sub">
-          Shared itineraries
-        </div>
-
-      </div>
-
-      ✓
-
-    </a>
-
-  </div>
-
-</div>
-
-
-
-<!-- =========================================================
-     NAV
-========================================================= -->
-
-<nav class="bottom-nav">
-
-  <a id="navHome">
-
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    <span>
-      HOME
-    </span>
-
-  </a>
-
-
-  <a id="navPlan">
-
-    <span class="nav-icon">
-      📅
-    </span>
-
-    <span>
-      PLAN
-    </span>
-
-  </a>
-
-
-  <a id="navFood">
-
-    <span class="nav-icon">
-      🍽️
-    </span>
-
-    <span>
-      FOOD
-    </span>
-
-  </a>
-
-
-  <a id="navHub">
-
-    <span class="nav-icon">
-      ⭐
-    </span>
-
-    <span>
-      HUB
-    </span>
-
-  </a>
-
-
-  <button
-    id="navMore"
-    class="active"
-    type="button"
-  >
-
-    <span class="nav-icon">
-      ⋯
-    </span>
-
-    <span>
-      MORE
-    </span>
-
-  </button>
-
-</nav>
-
+<div id="footer"></div>
 
 
 <!-- =========================================================
@@ -1584,7 +1176,16 @@ let selectedPublication = null;
 
 let selectedItems = [];
 
+const pageParams =
+  new URLSearchParams(
+    window.location.search
+  );
+
 let currentTripId =
+  Number(
+    pageParams.get("trip")
+  )
+  ||
   Number(
     localStorage.getItem(
       "current_trip_id"
@@ -1997,8 +1598,6 @@ async function start(){
 
     }
 
-
-    setupNavigation();
 
 
     await loadFeed();
@@ -3138,6 +2737,10 @@ function closeItinerary(){
   history.replaceState(
     null,
     "",
+    currentTripId
+    ?
+    `places.html?trip=${currentTripId}`
+    :
     "places.html"
   );
 
@@ -3713,137 +3316,15 @@ async function copyItinerary(){
 
 
 /* =========================================================
-   NAVIGATION
-========================================================= */
-
-function setupNavigation(){
-
-  const suffix =
-    currentTripId
-
-    ?
-
-    `?trip=${currentTripId}`
-
-    :
-
-    "";
-
-
-  document.getElementById(
-    "navHome"
-  ).href =
-    `index.html${suffix}`;
-
-
-  document.getElementById(
-    "navPlan"
-  ).href =
-    currentTripId
-
-    ?
-
-    `schedule.html?trip=${currentTripId}`
-
-    :
-
-    "trips.html";
-
-
-  document.getElementById(
-    "navFood"
-  ).href =
-    currentTripId
-
-    ?
-
-    `food.html?trip=${currentTripId}`
-
-    :
-
-    "trips.html";
-
-
-  document.getElementById(
-    "navHub"
-  ).href =
-    currentTripId
-
-    ?
-
-    `bookings.html?trip=${currentTripId}`
-
-    :
-
-    "trips.html";
-
-
-  document.getElementById(
-    "moreProfile"
-  ).href =
-    currentTripId
-
-    ?
-
-    `profile.html?trip=${currentTripId}`
-
-    :
-
-    "profile.html";
-
-}
-
-
-/* =========================================================
-   MORE MENU
-========================================================= */
-
-const moreBackdrop =
-  document.getElementById(
-    "moreBackdrop"
-  );
-
-
-document.getElementById(
-  "navMore"
-).onclick =
-  () => {
-
-    moreBackdrop
-      .classList
-      .add(
-        "open"
-      );
-
-  };
-
-
-moreBackdrop.onclick =
-  event => {
-
-    if(
-      event.target ===
-      moreBackdrop
-    ){
-
-      moreBackdrop
-        .classList
-        .remove(
-          "open"
-        );
-
-    }
-
-  };
-
-
-/* =========================================================
    GO
 ========================================================= */
 
 start();
 
 </script>
+
+<!-- Shared footer logic -->
+<script src="footer.js"></script>
 
 </body>
 </html>
