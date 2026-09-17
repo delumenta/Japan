@@ -1,5 +1,6 @@
 /* =========================================================
    SHARED FOOTER
+
    Requires:
    - supabase-js
    - supabase.js
@@ -8,14 +9,35 @@
 
 (function(){
 
-  const FOOTER_FILE = "footer.html";
+  const FOOTER_FILE =
+    "footer.html";
+
 
   let footerTripId =
-    Number(
-      new URLSearchParams(window.location.search).get("trip")
-    ) || null;
 
-  let footerUser = null;
+    Number(
+      new URLSearchParams(
+        window.location.search
+      )
+      .get("trip")
+    )
+
+    ||
+
+    Number(
+      localStorage.getItem(
+        "current_trip_id"
+      )
+    )
+
+    ||
+
+    null;
+
+
+  let footerUser =
+    null;
+
 
 
   /* =======================================================
@@ -23,18 +45,42 @@
   ======================================================= */
 
   function footerText(value){
-    return String(value ?? "");
+
+    return String(
+      value ?? ""
+    );
+
   }
 
 
   function footerEsc(value){
 
     return footerText(value)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
+
+      .replaceAll(
+        "&",
+        "&amp;"
+      )
+
+      .replaceAll(
+        "<",
+        "&lt;"
+      )
+
+      .replaceAll(
+        ">",
+        "&gt;"
+      )
+
+      .replaceAll(
+        '"',
+        "&quot;"
+      )
+
+      .replaceAll(
+        "'",
+        "&#039;"
+      );
 
   }
 
@@ -54,17 +100,23 @@
       return "";
     }
 
-    const date =
-      new Date(value + "T12:00:00");
 
-    return date.toLocaleDateString(
-      "en-SG",
-      {
-        day:"numeric",
-        month:"short",
-        year:"numeric"
-      }
-    );
+    const date =
+      new Date(
+        value +
+        "T12:00:00"
+      );
+
+
+    return date
+      .toLocaleDateString(
+        "en-SG",
+        {
+          day:"numeric",
+          month:"short",
+          year:"numeric"
+        }
+      );
 
   }
 
@@ -74,14 +126,62 @@
     const value =
       footerNorm(country);
 
-    if(value.includes("japan")) return "🇯🇵";
-    if(value.includes("taiwan")) return "🇹🇼";
-    if(value.includes("singapore")) return "🇸🇬";
-    if(value.includes("korea")) return "🇰🇷";
-    if(value.includes("china")) return "🇨🇳";
-    if(value.includes("thailand")) return "🇹🇭";
-    if(value.includes("malaysia")) return "🇲🇾";
-    if(value.includes("indonesia")) return "🇮🇩";
+
+    if(
+      value.includes("japan")
+    ){
+      return "🇯🇵";
+    }
+
+
+    if(
+      value.includes("taiwan")
+    ){
+      return "🇹🇼";
+    }
+
+
+    if(
+      value.includes("singapore")
+    ){
+      return "🇸🇬";
+    }
+
+
+    if(
+      value.includes("korea")
+    ){
+      return "🇰🇷";
+    }
+
+
+    if(
+      value.includes("china")
+    ){
+      return "🇨🇳";
+    }
+
+
+    if(
+      value.includes("thailand")
+    ){
+      return "🇹🇭";
+    }
+
+
+    if(
+      value.includes("malaysia")
+    ){
+      return "🇲🇾";
+    }
+
+
+    if(
+      value.includes("indonesia")
+    ){
+      return "🇮🇩";
+    }
+
 
     return "✈️";
 
@@ -96,24 +196,58 @@
         .pop()
         .toLowerCase();
 
-    return page || "index.html";
+
+    return (
+      page ||
+      "index.html"
+    );
 
   }
 
 
   function footerWithTrip(page){
 
+    /*
+      trips.html can work with a trip
+      parameter too, so we keep the
+      currently selected trip everywhere.
+    */
+
     if(!footerTripId){
+
       return page;
+
     }
+
 
     return (
       page +
       "?trip=" +
-      encodeURIComponent(footerTripId)
+      encodeURIComponent(
+        footerTripId
+      )
     );
 
   }
+
+
+  function normalizeSharedRole(role){
+
+    /*
+      Older "member" role is treated
+      as viewer/read-only.
+    */
+
+    return (
+      role === "editor"
+      ?
+      "editor"
+      :
+      "viewer"
+    );
+
+  }
+
 
 
   /* =======================================================
@@ -123,13 +257,17 @@
   async function loadFooterHTML(){
 
     const host =
-      document.getElementById("footer");
+      document.getElementById(
+        "footer"
+      );
+
 
     if(!host){
 
       console.warn(
         'Shared footer: <div id="footer"></div> was not found.'
       );
+
 
       return false;
 
@@ -157,18 +295,22 @@
     host.innerHTML =
       await response.text();
 
+
     return true;
 
   }
 
 
+
   /* =======================================================
-     LINKS + ACTIVE PAGE
+     LINKS
   ======================================================= */
 
   function setupFooterLinks(){
 
     const links = {
+
+      /* MAIN FOOTER */
 
       sharedNavHome:
         "index.html",
@@ -182,10 +324,11 @@
       sharedNavHub:
         "bookings.html",
 
-      /* EXPENSES — MAIN FOOTER ICON */
-
       sharedNavExpenses:
         "expenses.html",
+
+
+      /* MORE */
 
       sharedProfileLink:
         "profile.html",
@@ -194,32 +337,77 @@
         "trips.html",
 
       sharedPlacesLink:
-        "places.html"
+        "places.html",
+
+      sharedMapLink:
+        "maps.html"
 
     };
 
 
-    Object.entries(links)
-      .forEach(([id,page]) => {
+    Object
+      .entries(
+        links
+      )
+      .forEach(
+        ([id,page]) => {
 
-        const element =
-          document.getElementById(id);
+          const element =
+            document.getElementById(
+              id
+            );
 
-        if(element){
 
-          element.href =
-            footerWithTrip(page);
+          if(element){
+
+            element.href =
+              footerWithTrip(
+                page
+              );
+
+          }
 
         }
+      );
 
-      });
 
+    setupActivePage();
+
+  }
+
+
+
+  /* =======================================================
+     ACTIVE PAGE
+  ======================================================= */
+
+  function setupActivePage(){
 
     const page =
       footerCurrentPage();
 
 
-    const activeMap = {
+    /*
+      Remove anything already active.
+    */
+
+    document
+      .querySelectorAll(
+        ".bottom-nav .active"
+      )
+      .forEach(
+        element =>
+          element.classList.remove(
+            "active"
+          )
+      );
+
+
+    /*
+      MAIN FOOTER PAGES
+    */
+
+    const mainPages = {
 
       "index.html":
         "sharedNavHome",
@@ -239,18 +427,24 @@
     };
 
 
-    const activeId =
-      activeMap[page];
+    const mainActiveId =
+      mainPages[page];
 
 
-    if(activeId){
+    if(mainActiveId){
 
       const active =
-        document.getElementById(activeId);
+        document.getElementById(
+          mainActiveId
+        );
+
 
       if(active){
 
-        active.classList.add("active");
+        active.classList.add(
+          "active"
+        );
+
 
         active.setAttribute(
           "aria-current",
@@ -259,9 +453,98 @@
 
       }
 
+
+      return;
+
+    }
+
+
+    /*
+      PAGES UNDER MORE
+
+      Trip Map now belongs here too.
+    */
+
+    const morePages = [
+
+      "profile.html",
+      "trips.html",
+      "places.html",
+      "maps.html"
+
+    ];
+
+
+    if(
+      morePages.includes(
+        page
+      )
+    ){
+
+      const more =
+        document.getElementById(
+          "sharedNavMore"
+        );
+
+
+      if(more){
+
+        more.classList.add(
+          "active"
+        );
+
+
+        more.setAttribute(
+          "aria-current",
+          "page"
+        );
+
+      }
+
+    }
+
+
+    /*
+      Highlight the matching row inside
+      the More sheet as well.
+    */
+
+    const moreLinkMap = {
+
+      "profile.html":
+        "sharedProfileLink",
+
+      "trips.html":
+        "sharedTripsLink",
+
+      "places.html":
+        "sharedPlacesLink",
+
+      "maps.html":
+        "sharedMapLink"
+
+    };
+
+
+    const moreLinkId =
+      moreLinkMap[page];
+
+
+    if(moreLinkId){
+
+      document
+        .getElementById(
+          moreLinkId
+        )
+        ?.classList
+        .add(
+          "current"
+        );
+
     }
 
   }
+
 
 
   /* =======================================================
@@ -275,30 +558,36 @@
         "sharedMoreBackdrop"
       );
 
+
     const trips =
       document.getElementById(
         "sharedTripBackdrop"
       );
+
 
     const moreButton =
       document.getElementById(
         "sharedNavMore"
       );
 
+
     const closeMore =
       document.getElementById(
         "sharedCloseMore"
       );
+
 
     const switchTrip =
       document.getElementById(
         "sharedSwitchTrip"
       );
 
+
     const closeTrips =
       document.getElementById(
         "sharedCloseTrips"
       );
+
 
     const logoutButton =
       document.getElementById(
@@ -306,193 +595,278 @@
       );
 
 
-    /* LOG OUT */
+
+    /* =====================================================
+       LOG OUT
+    ===================================================== */
 
     if(logoutButton){
 
-      logoutButton.onclick = async () => {
-
-        logoutButton.disabled = true;
-
-        const title =
-          logoutButton.querySelector(
-            ".footer-more-title"
-          );
-
-        if(title){
-          title.textContent = "Logging Out…";
-        }
-
-        try{
-
-          if(typeof db === "undefined"){
-
-            throw new Error(
-              "Supabase is not ready."
-            );
-
-          }
+      logoutButton.onclick =
+        async () => {
 
 
-          const { error } =
-            await db.auth.signOut();
+          logoutButton.disabled =
+            true;
 
 
-          if(error){
-            throw error;
-          }
-
-
-          localStorage.removeItem(
-            "current_trip_id"
-          );
-
-
-          location.replace(
-            "login.html"
-          );
-
-        }
-
-        catch(error){
-
-          console.error(
-            "Shared footer logout:",
-            error
-          );
-
-
-          logoutButton.disabled = false;
+          const title =
+            logoutButton
+              .querySelector(
+                ".footer-more-title"
+              );
 
 
           if(title){
 
             title.textContent =
-              "Log Out";
+              "Logging Out…";
 
           }
 
 
-          alert(
-            error.message ||
-            "Could not log out. Please try again."
-          );
+          try{
 
-        }
 
-      };
+            if(
+              typeof db ===
+              "undefined"
+            ){
+
+              throw new Error(
+                "Supabase is not ready."
+              );
+
+            }
+
+
+            const {
+              error
+            } =
+              await db.auth
+                .signOut();
+
+
+            if(error){
+
+              throw error;
+
+            }
+
+
+            localStorage.removeItem(
+              "current_trip_id"
+            );
+
+
+            location.replace(
+              "login.html"
+            );
+
+          }
+
+
+          catch(error){
+
+            console.error(
+              "Shared footer logout:",
+              error
+            );
+
+
+            logoutButton.disabled =
+              false;
+
+
+            if(title){
+
+              title.textContent =
+                "Log Out";
+
+            }
+
+
+            alert(
+              error.message ||
+              "Could not log out. Please try again."
+            );
+
+          }
+
+        };
 
     }
 
 
-    /* OPEN MORE */
+
+    /* =====================================================
+       OPEN MORE
+    ===================================================== */
 
     if(moreButton){
 
-      moreButton.onclick = () => {
+      moreButton.onclick =
+        () => {
 
-        more?.classList.add("open");
+          more?.classList.add(
+            "open"
+          );
 
-      };
+        };
 
     }
 
 
-    /* CLOSE MORE */
+
+    /* =====================================================
+       CLOSE MORE
+    ===================================================== */
 
     if(closeMore){
 
-      closeMore.onclick = () => {
+      closeMore.onclick =
+        () => {
 
-        more?.classList.remove("open");
+          more?.classList.remove(
+            "open"
+          );
 
-      };
+        };
 
     }
 
 
-    /* OPEN SWITCH TRIP */
+
+    /* =====================================================
+       SWITCH TRIP
+    ===================================================== */
 
     if(switchTrip){
 
-      switchTrip.onclick = async () => {
+      switchTrip.onclick =
+        async () => {
 
-        more?.classList.remove("open");
+          more?.classList.remove(
+            "open"
+          );
 
-        trips?.classList.add("open");
 
-        await loadFooterTrips();
+          trips?.classList.add(
+            "open"
+          );
 
-      };
+
+          await loadFooterTrips();
+
+        };
 
     }
 
 
-    /* CLOSE SWITCH TRIP */
+
+    /* =====================================================
+       CLOSE TRIPS
+    ===================================================== */
 
     if(closeTrips){
 
-      closeTrips.onclick = () => {
+      closeTrips.onclick =
+        () => {
 
-        trips?.classList.remove("open");
+          trips?.classList.remove(
+            "open"
+          );
 
-      };
+        };
 
     }
 
 
-    /* CLICK OUTSIDE MORE */
+
+    /* =====================================================
+       CLICK OUTSIDE MORE
+    ===================================================== */
 
     if(more){
 
-      more.onclick = event => {
+      more.onclick =
+        event => {
 
-        if(event.target === more){
+          if(
+            event.target ===
+            more
+          ){
 
-          more.classList.remove("open");
+            more.classList.remove(
+              "open"
+            );
 
-        }
+          }
 
-      };
+        };
 
     }
 
 
-    /* CLICK OUTSIDE TRIPS */
+
+    /* =====================================================
+       CLICK OUTSIDE TRIP SWITCHER
+    ===================================================== */
 
     if(trips){
 
-      trips.onclick = event => {
+      trips.onclick =
+        event => {
 
-        if(event.target === trips){
+          if(
+            event.target ===
+            trips
+          ){
 
-          trips.classList.remove("open");
+            trips.classList.remove(
+              "open"
+            );
 
-        }
+          }
 
-      };
+        };
 
     }
 
 
-    /* ESC KEY */
+
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
 
     document.addEventListener(
       "keydown",
       event => {
 
-        if(event.key !== "Escape"){
+        if(
+          event.key !==
+          "Escape"
+        ){
+
           return;
+
         }
 
-        more?.classList.remove("open");
 
-        trips?.classList.remove("open");
+        more?.classList.remove(
+          "open"
+        );
+
+
+        trips?.classList.remove(
+          "open"
+        );
 
       }
     );
 
   }
+
 
 
   /* =======================================================
@@ -501,7 +875,10 @@
 
   async function footerGetUser(){
 
-    if(typeof db === "undefined"){
+    if(
+      typeof db ===
+      "undefined"
+    ){
 
       throw new Error(
         "Supabase is not ready. Make sure supabase.js loads before footer.js."
@@ -514,21 +891,26 @@
       data,
       error
     } =
-      await db.auth.getUser();
+      await db.auth
+        .getUser();
 
 
     if(error){
+
       throw error;
+
     }
 
 
     footerUser =
-      data?.user || null;
+      data?.user ||
+      null;
 
 
     return footerUser;
 
   }
+
 
 
   /* =======================================================
@@ -538,7 +920,11 @@
   async function footerAccessibleTrips(){
 
     const user =
-      footerUser ||
+
+      footerUser
+
+      ||
+
       await footerGetUser();
 
 
@@ -551,9 +937,10 @@
     }
 
 
-    /* -----------------------------------------------
-       TRIPS OWNED BY USER
-    ----------------------------------------------- */
+
+    /* =====================================================
+       OWNED TRIPS
+    ===================================================== */
 
     const ownedResult =
       await db
@@ -566,18 +953,25 @@
 
 
     if(ownedResult.error){
+
       throw ownedResult.error;
+
     }
 
 
-    /* -----------------------------------------------
-       TRIPS SHARED WITH USER
-    ----------------------------------------------- */
+
+    /* =====================================================
+       MEMBERSHIPS
+       Include role now.
+    ===================================================== */
 
     const memberResult =
       await db
         .from("trip_members")
-        .select("trip_id")
+        .select(`
+          trip_id,
+          role
+        `)
         .eq(
           "user_id",
           user.id
@@ -585,26 +979,40 @@
 
 
     if(memberResult.error){
+
       throw memberResult.error;
+
     }
+
+
+    const memberships =
+      memberResult.data ||
+      [];
 
 
     const sharedIds =
       [
         ...new Set(
-          (memberResult.data || [])
+
+          memberships
+
             .map(
               row =>
-                Number(row.trip_id)
+                Number(
+                  row.trip_id
+                )
             )
+
             .filter(
               Number.isFinite
             )
+
         )
       ];
 
 
-    let sharedTrips = [];
+    let sharedTrips =
+      [];
 
 
     if(sharedIds.length){
@@ -620,74 +1028,116 @@
 
 
       if(sharedResult.error){
+
         throw sharedResult.error;
+
       }
 
 
       sharedTrips =
-        sharedResult.data || [];
+        sharedResult.data ||
+        [];
 
     }
 
 
-    /* -----------------------------------------------
+
+    /* =====================================================
        COMBINE WITHOUT DUPLICATES
-    ----------------------------------------------- */
+    ===================================================== */
 
     const tripMap =
       new Map();
 
 
-    (ownedResult.data || [])
-      .forEach(trip => {
+    (
+      ownedResult.data ||
+      []
+    )
+    .forEach(
+      trip => {
 
         tripMap.set(
-          Number(trip.id),
+          Number(
+            trip.id
+          ),
           {
             ...trip,
-            __role:"owner"
+
+            __role:
+              "owner"
           }
         );
 
-      });
+      }
+    );
 
 
     sharedTrips
-      .forEach(trip => {
+      .forEach(
+        trip => {
 
-        const id =
-          Number(trip.id);
+          const id =
+            Number(
+              trip.id
+            );
 
 
-        if(!tripMap.has(id)){
+          if(
+            tripMap.has(id)
+          ){
+
+            return;
+
+          }
+
+
+          const membership =
+            memberships.find(
+              row =>
+                Number(
+                  row.trip_id
+                ) ===
+                id
+            );
+
 
           tripMap.set(
             id,
             {
               ...trip,
-              __role:"member"
+
+              __role:
+                normalizeSharedRole(
+                  membership?.role
+                )
             }
           );
 
         }
+      );
 
-      });
 
-
-    return [...tripMap.values()]
-      .sort((a,b) => {
+    return [
+      ...tripMap.values()
+    ]
+    .sort(
+      (a,b) => {
 
         return footerText(
           a.start_date
-        ).localeCompare(
+        )
+        .localeCompare(
           footerText(
             b.start_date
           )
         );
 
-      });
+      }
+    );
 
   }
+
 
 
   /* =======================================================
@@ -703,7 +1153,9 @@
 
 
     if(!container){
+
       return;
+
     }
 
 
@@ -717,6 +1169,7 @@
 
 
     try{
+
 
       const trips =
         await footerAccessibleTrips();
@@ -732,6 +1185,7 @@
 
         `;
 
+
         return;
 
       }
@@ -741,134 +1195,200 @@
         footerCurrentPage();
 
 
-      /* =================================================
+
+      /* ===================================================
          KEEP SAME PAGE WHEN SWITCHING TRIP
-         INCLUDING EXPENSES.HTML
-      ================================================= */
+
+         maps.html is included now.
+      =================================================== */
+
+      const supportedPages = [
+
+        "index.html",
+        "schedule.html",
+        "food.html",
+        "bookings.html",
+        "expenses.html",
+        "profile.html",
+        "places.html",
+        "maps.html"
+
+      ];
+
 
       const switchPage =
-        [
-          "index.html",
-          "schedule.html",
-          "food.html",
-          "bookings.html",
-          "expenses.html",
-          "profile.html",
-          "places.html"
-        ]
-        .includes(currentPage)
 
-          ? currentPage
-          : "index.html";
+        supportedPages.includes(
+          currentPage
+        )
+
+        ?
+
+        currentPage
+
+        :
+
+        "index.html";
+
 
 
       container.innerHTML =
-        trips.map(trip => {
 
-          const id =
-            Number(trip.id);
+        trips
 
-
-          const current =
-            id === Number(footerTripId);
+          .map(
+            trip => {
 
 
-          const role =
-            trip.__role === "owner"
-              ? "YOUR TRIP"
-              : "SHARED WITH YOU";
+              const id =
+                Number(
+                  trip.id
+                );
 
 
-          const dates =
-            trip.start_date &&
-            trip.end_date
-
-              ?
-
-            `${footerFormatDate(
-              trip.start_date
-            )} – ${footerFormatDate(
-              trip.end_date
-            )}`
-
-              :
-
-            "";
+              const current =
+                id ===
+                Number(
+                  footerTripId
+                );
 
 
-          const meta =
-            [
-              trip.country,
-              dates
-            ]
-            .filter(Boolean)
-            .join(" · ");
+              let roleLabel =
+                "SHARED · VIEWER";
 
 
-          return `
+              if(
+                trip.__role ===
+                "owner"
+              ){
 
-            <a
-              class="
-                footer-trip-card
-                ${current ? "current" : ""}
-              "
-              href="${switchPage}?trip=${id}"
-            >
+                roleLabel =
+                  "YOUR TRIP";
 
-              <div class="footer-trip-icon">
-
-                ${footerTripIcon(
-                  trip.country
-                )}
-
-              </div>
+              }
 
 
-              <div class="footer-trip-main">
+              else if(
+                trip.__role ===
+                "editor"
+              ){
 
-                <div class="footer-trip-name">
+                roleLabel =
+                  "SHARED · EDITOR";
 
-                  ${footerEsc(
-                    trip.name ||
-                    "Unnamed Trip"
-                  )}
-
-                </div>
-
-
-                <div class="footer-trip-meta">
-
-                  ${footerEsc(meta)}
-
-                </div>
+              }
 
 
-                <span class="footer-trip-role">
+              const dates =
 
-                  ${
-                    current
-                      ? "CURRENT · "
-                      : ""
-                  }
+                trip.start_date &&
+                trip.end_date
 
-                  ${role}
+                ?
 
-                </span>
+                `${footerFormatDate(
+                  trip.start_date
+                )} – ${footerFormatDate(
+                  trip.end_date
+                )}`
 
-              </div>
+                :
+
+                "";
 
 
-              <div class="footer-trip-arrow">
-                →
-              </div>
+              const meta =
 
-            </a>
+                [
+                  trip.country,
+                  dates
+                ]
 
-          `;
+                .filter(Boolean)
 
-        }).join("");
+                .join(
+                  " · "
+                );
+
+
+              return `
+
+                <a
+                  class="
+                    footer-trip-card
+                    ${
+                      current
+                      ?
+                      "current"
+                      :
+                      ""
+                    }
+                  "
+                  href="${switchPage}?trip=${id}"
+                >
+
+                  <div class="footer-trip-icon">
+
+                    ${footerTripIcon(
+                      trip.country
+                    )}
+
+                  </div>
+
+
+                  <div class="footer-trip-main">
+
+                    <div class="footer-trip-name">
+
+                      ${footerEsc(
+                        trip.name ||
+                        "Unnamed Trip"
+                      )}
+
+                    </div>
+
+
+                    <div class="footer-trip-meta">
+
+                      ${footerEsc(
+                        meta
+                      )}
+
+                    </div>
+
+
+                    <span class="footer-trip-role">
+
+                      ${
+                        current
+                        ?
+                        "CURRENT · "
+                        :
+                        ""
+                      }
+
+                      ${roleLabel}
+
+                    </span>
+
+                  </div>
+
+
+                  <div class="footer-trip-arrow">
+                    →
+                  </div>
+
+                </a>
+
+              `;
+
+            }
+          )
+
+          .join("");
 
     }
+
 
     catch(error){
 
@@ -900,25 +1420,44 @@
   }
 
 
+
   /* =======================================================
      RESOLVE TRIP IF URL HAS NO ?trip=
   ======================================================= */
 
   async function resolveFooterTrip(){
 
+    /*
+      If URL/localStorage already gave us
+      a trip, keep it.
+    */
+
     if(footerTripId){
+
+      localStorage.setItem(
+        "current_trip_id",
+        String(
+          footerTripId
+        )
+      );
+
+
       return;
+
     }
 
 
     try{
+
 
       const trips =
         await footerAccessibleTrips();
 
 
       if(!trips.length){
+
         return;
+
       }
 
 
@@ -927,7 +1466,16 @@
           trips[0].id
         );
 
+
+      localStorage.setItem(
+        "current_trip_id",
+        String(
+          footerTripId
+        )
+      );
+
     }
+
 
     catch(error){
 
@@ -941,6 +1489,7 @@
   }
 
 
+
   /* =======================================================
      START
   ======================================================= */
@@ -949,12 +1498,15 @@
 
     try{
 
+
       const loaded =
         await loadFooterHTML();
 
 
       if(!loaded){
+
         return;
+
       }
 
 
@@ -963,9 +1515,11 @@
 
       setupFooterLinks();
 
+
       setupFooterSheets();
 
     }
+
 
     catch(error){
 
@@ -1013,12 +1567,14 @@
   }
 
 
+
   /* =======================================================
-     WAIT UNTIL PAGE IS READY
+     WAIT FOR PAGE
   ======================================================= */
 
   if(
-    document.readyState === "loading"
+    document.readyState ===
+    "loading"
   ){
 
     document.addEventListener(
@@ -1027,6 +1583,7 @@
     );
 
   }
+
 
   else{
 
