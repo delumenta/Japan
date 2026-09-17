@@ -816,70 +816,6 @@ main{
 
 
 /* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-.bottom-nav{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:80;
-
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-
-  gap:3px;
-
-  padding:
-    6px
-    7px
-    calc(6px + env(safe-area-inset-bottom));
-
-  border-top:1px solid var(--line);
-
-  background:rgba(7,12,16,.98);
-
-  backdrop-filter:blur(18px);
-}
-
-.bottom-nav a{
-  min-height:46px;
-
-  display:flex;
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:2px;
-
-  border-radius:10px;
-
-  color:var(--muted);
-
-  text-decoration:none;
-
-  font-size:8px;
-  font-weight:800;
-}
-
-.nav-icon{
-  font-size:16px;
-}
-
-.bottom-nav a.active{
-  color:#fff;
-
-  border:1px solid rgba(201,111,104,.22);
-
-  background:rgba(201,111,104,.08);
-}
-
-
-/* =========================================================
    DESKTOP
 ========================================================= */
 
@@ -888,15 +824,6 @@ main{
   .sheet{
     max-width:620px;
     margin:auto;
-  }
-
-  .bottom-nav{
-    left:50%;
-    right:auto;
-
-    width:min(820px,100%);
-
-    transform:translateX(-50%);
   }
 
 }
@@ -920,8 +847,8 @@ main{
 
       <div>
 
-        <div class="eyebrow">
-          JAPAN TRIP
+        <div id="tripEyebrow" class="eyebrow">
+          LOADING TRIP…
         </div>
 
         <h1>
@@ -1317,84 +1244,10 @@ main{
 
 
 <!-- =========================================================
-     BOTTOM NAV
+     SHARED FOOTER
 ========================================================= -->
 
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
->
-
-  <a id="navHome">
-
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    <span>
-      HOME
-    </span>
-
-  </a>
-
-
-  <a id="navPlan">
-
-    <span class="nav-icon">
-      📅
-    </span>
-
-    <span>
-      PLAN
-    </span>
-
-  </a>
-
-
-  <a id="navFood">
-
-    <span class="nav-icon">
-      🍽️
-    </span>
-
-    <span>
-      FOOD
-    </span>
-
-  </a>
-
-
-  <a
-    id="navHub"
-    class="active"
-    aria-current="page"
-  >
-
-    <span class="nav-icon">
-      ⭐
-    </span>
-
-    <span>
-      HUB
-    </span>
-
-  </a>
-
-
-  <a href="#">
-
-    <span class="nav-icon">
-      ⋯
-    </span>
-
-    <span>
-      MORE
-    </span>
-
-  </a>
-
-</nav>
-
+<div id="footer"></div>
 
 
 <!-- =========================================================
@@ -1452,6 +1305,11 @@ const content =
 const tripName =
   document.getElementById(
     "tripName"
+  );
+
+const tripEyebrow =
+  document.getElementById(
+    "tripEyebrow"
   );
 
 const bookingSheet =
@@ -1543,31 +1401,6 @@ const formMessage =
   document.getElementById(
     "formMessage"
   );
-
-
-/* =========================================================
-   NAV
-========================================================= */
-
-document.getElementById(
-  "navHome"
-).href =
-  `index.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "navPlan"
-).href =
-  `schedule.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "navFood"
-).href =
-  `food.html?trip=${TRIP_ID}`;
-
-document.getElementById(
-  "navHub"
-).href =
-  `bookings.html?trip=${TRIP_ID}`;
 
 
 /* =========================================================
@@ -1798,6 +1631,7 @@ async function loadData(){
           .select(`
             id,
             name,
+            country,
             start_date,
             end_date
           `)
@@ -1872,7 +1706,19 @@ async function loadData(){
 
 
     tripName.textContent =
-      trip.name;
+      trip.name || "My Trip";
+
+
+    tripEyebrow.textContent =
+      trip.country
+      ?
+      `${trip.country.toUpperCase()} · TRIP BOOKINGS`
+      :
+      "TRIP BOOKINGS";
+
+
+    document.title =
+      `Bookings · ${trip.name || "My Trip"}`;
 
 
     render();
@@ -3400,6 +3246,9 @@ async function reloadBookings(){
 loadData();
 
 </script>
+
+<!-- Shared footer logic -->
+<script src="footer.js"></script>
 
 </body>
 </html>
