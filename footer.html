@@ -2,9 +2,16 @@
      SHARED FOOTER
      Loaded by footer.js
 
-     INACTIVE = small circular icon + label
-     ACTIVE   = compact wide Japanese artwork
-     MORE     = always small circular icon
+     NEW JAPANESE MINIMAL FOOTER
+     --------------------------------
+     PNG = transparent artwork only
+     CSS = circle / active state / glow
+
+     INACTIVE:
+       Grey circle + normal artwork + grey label
+
+     ACTIVE:
+       Red circle + subtle red glow + red label
 ========================================================= -->
 
 <style>
@@ -14,8 +21,8 @@
   --footer-panel:#10161c;
   --footer-line:#29323b;
   --footer-text:#f5f5f3;
-  --footer-muted:#aeb5bc;
-  --footer-red:#c96f68;
+  --footer-muted:#9ca6ae;
+  --footer-red:#ff625f;
   --footer-blue:#5c9dff;
 }
 
@@ -25,12 +32,12 @@
 ========================================================= */
 
 body{
-  padding-bottom:calc(72px + env(safe-area-inset-bottom));
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
 }
 
 
 /* =========================================================
-   BOTTOM NAVIGATION
+   BOTTOM NAV
 ========================================================= */
 
 .bottom-nav{
@@ -38,11 +45,13 @@ body{
   left:0;
   right:0;
   bottom:0;
+
   z-index:80;
 
-  display:flex;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+
   align-items:center;
-  gap:5px;
 
   padding:
     6px
@@ -59,26 +68,24 @@ body{
 
 
 /* =========================================================
-   NORMAL NAV ITEM
+   NAV ITEMS
 ========================================================= */
 
 .bottom-nav a,
 .bottom-nav button{
-  flex:1 1 0;
   min-width:0;
-  height:48px;
+  height:58px;
 
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
 
-  gap:2px;
+  gap:4px;
 
   padding:0;
 
   border:0;
-  border-radius:9px;
 
   background:transparent;
 
@@ -87,75 +94,85 @@ body{
   text-decoration:none;
 
   font:inherit;
-  font-size:8px;
-  font-weight:800;
 
   cursor:pointer;
 
-  overflow:hidden;
-
-  transition:
-    flex .25s ease,
-    transform .18s ease;
+  -webkit-tap-highlight-color:transparent;
 }
 
 
 /* =========================================================
-   SMALL CIRCLE ICON
+   CIRCLE
+   Circle is made entirely by CSS
 ========================================================= */
 
-.nav-icon{
-  width:30px;
-  height:30px;
+.bottom-nav .nav-icon{
+  position:relative;
+
+  width:38px;
+  height:38px;
+
+  flex:0 0 38px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  flex:0 0 30px;
+  border:1px solid #39444c;
+  border-radius:50%;
+
+  background:#0a1015;
+
+  box-sizing:border-box;
+
+  transition:
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease,
+    transform .22s ease;
 }
 
-.nav-small{
+
+/* =========================================================
+   TRANSPARENT JAPANESE ARTWORK
+========================================================= */
+
+.bottom-nav .nav-icon img{
   display:block;
 
-  width:29px;
-  height:29px;
+  width:27px;
+  height:27px;
 
   object-fit:contain;
+
+  transition:
+    transform .22s ease,
+    filter .22s ease,
+    opacity .22s ease;
 }
 
 
 /* =========================================================
-   WIDE ACTIVE ARTWORK
+   LABEL
 ========================================================= */
 
-.nav-wide{
-  display:none;
-
-  width:100%;
-  height:36px;
-
-  object-fit:cover;
-  object-position:center;
-
-  border-radius:8px;
-}
-
-
-/* =========================================================
-   NORMAL LABEL
-========================================================= */
-
-.nav-label{
+.bottom-nav .nav-label{
   display:block;
 
   color:var(--footer-muted);
 
   font-size:7.5px;
   font-weight:800;
+
   line-height:1;
 
+  letter-spacing:.6px;
+
   white-space:nowrap;
+
+  transition:
+    color .22s ease,
+    text-shadow .22s ease;
 }
 
 
@@ -164,46 +181,75 @@ body{
 ========================================================= */
 
 .bottom-nav a.active{
-  flex:1.38 1 0;
-
-  height:48px;
-
-  padding:0;
-
-  border:0;
+  color:var(--footer-red);
 
   background:transparent;
+
+  border:0;
 }
 
 
-/* Active artwork container */
+/* ACTIVE CIRCLE */
 
 .bottom-nav a.active .nav-icon{
-  width:100%;
-  height:36px;
+  border-color:var(--footer-red);
 
-  flex:0 0 36px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,98,95,.13) 0%,
+      rgba(255,98,95,.055) 58%,
+      rgba(255,98,95,.015) 100%
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(255,98,95,.08),
+    0 0 9px rgba(255,98,95,.20),
+    0 0 18px rgba(255,98,95,.08);
 }
 
 
-/* Hide small circular image */
+/* ACTIVE ARTWORK */
 
-.bottom-nav a.active .nav-small{
-  display:none;
+.bottom-nav a.active .nav-icon img{
+  transform:scale(1.04);
+
+  filter:
+    brightness(1.08)
+    saturate(1.12);
 }
 
 
-/* Show wide image */
-
-.bottom-nav a.active .nav-wide{
-  display:block;
-}
-
-
-/* Hide normal label */
+/* ACTIVE LABEL */
 
 .bottom-nav a.active .nav-label{
-  display:none;
+  color:var(--footer-red);
+
+  text-shadow:
+    0 0 8px rgba(255,98,95,.18);
+}
+
+
+/* =========================================================
+   HOVER - DESKTOP
+========================================================= */
+
+@media(hover:hover){
+
+  .bottom-nav a:hover .nav-icon,
+  .bottom-nav button:hover .nav-icon{
+    border-color:#59656e;
+  }
+
+  .bottom-nav a:hover .nav-icon img,
+  .bottom-nav button:hover .nav-icon img{
+    transform:translateY(-1px);
+  }
+
+  .bottom-nav a.active:hover .nav-icon{
+    border-color:var(--footer-red);
+  }
+
 }
 
 
@@ -211,27 +257,18 @@ body{
    TAP EFFECT
 ========================================================= */
 
-.bottom-nav a:active,
-.bottom-nav button:active{
-  transform:scale(.97);
+.bottom-nav a:active .nav-icon,
+.bottom-nav button:active .nav-icon{
+  transform:scale(.92);
 }
 
 
 /* =========================================================
-   MORE BUTTON
-   Always stays small
+   MORE
 ========================================================= */
 
 #sharedNavMore{
-  flex:1 1 0;
-  height:48px;
-}
-
-#sharedNavMore .nav-icon{
-  width:30px;
-  height:30px;
-
-  flex:0 0 30px;
+  color:var(--footer-muted);
 }
 
 
@@ -342,7 +379,7 @@ body{
 
 
 /* =========================================================
-   MORE LINKS
+   MORE MENU LINKS
 ========================================================= */
 
 .footer-more-link{
@@ -448,6 +485,7 @@ body{
 .footer-trip-list{
   display:flex;
   flex-direction:column;
+
   gap:7px;
 }
 
@@ -591,7 +629,10 @@ body{
      MORE SHEET
 ========================================================= -->
 
-<div id="sharedMoreBackdrop" class="footer-sheet-backdrop">
+<div
+  id="sharedMoreBackdrop"
+  class="footer-sheet-backdrop"
+>
 
   <div class="footer-sheet">
 
@@ -614,7 +655,12 @@ body{
     </div>
 
 
-    <a id="sharedProfileLink" class="footer-more-link">
+    <!-- PROFILE -->
+
+    <a
+      id="sharedProfileLink"
+      class="footer-more-link"
+    >
 
       <div class="footer-more-icon">
         👤
@@ -638,6 +684,8 @@ body{
 
     </a>
 
+
+    <!-- SWITCH TRIP -->
 
     <button
       id="sharedSwitchTrip"
@@ -668,7 +716,12 @@ body{
     </button>
 
 
-    <a id="sharedTripsLink" class="footer-more-link">
+    <!-- MY TRIPS -->
+
+    <a
+      id="sharedTripsLink"
+      class="footer-more-link"
+    >
 
       <div class="footer-more-icon">
         ✈️
@@ -693,7 +746,12 @@ body{
     </a>
 
 
-    <a id="sharedPlacesLink" class="footer-more-link">
+    <!-- PLACES -->
+
+    <a
+      id="sharedPlacesLink"
+      class="footer-more-link"
+    >
 
       <div class="footer-more-icon">
         📍
@@ -720,6 +778,8 @@ body{
 
     <div class="footer-more-separator"></div>
 
+
+    <!-- LOGOUT -->
 
     <button
       id="sharedLogout"
@@ -758,7 +818,10 @@ body{
      SWITCH TRIP SHEET
 ========================================================= -->
 
-<div id="sharedTripBackdrop" class="footer-sheet-backdrop">
+<div
+  id="sharedTripBackdrop"
+  class="footer-sheet-backdrop"
+>
 
   <div class="footer-sheet">
 
@@ -780,8 +843,10 @@ body{
 
     </div>
 
-
-    <div id="sharedTripList" class="footer-trip-list">
+    <div
+      id="sharedTripList"
+      class="footer-trip-list"
+    >
 
       <div class="footer-trip-message">
         Loading your trips…
@@ -798,7 +863,10 @@ body{
      BOTTOM NAVIGATION
 ========================================================= -->
 
-<nav class="bottom-nav" aria-label="Main navigation">
+<nav
+  class="bottom-nav"
+  aria-label="Main navigation"
+>
 
 
   <!-- =====================================================
@@ -810,15 +878,8 @@ body{
     <span class="nav-icon">
 
       <img
-        class="nav-small"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Home.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTM5LCJleHAiOjIxMDQ5ODc5Mzl9.hOh9j22ov7HVKAyzHEEftav0cCyXEdSmkpRxtOaiyvNJhJrB4L0FQq-T-hrezgHGYZ5hranOP8RI70LWHFLz1g"
+        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Homefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTI3LCJleHAiOjMzMzI1NjMyMTI3fQ.9BTopbR22KJCzKMMoLItwlXMPKMgkWFTB85CvDXmkxDrTGCwWtxIQfPpde2qSjrpCFojB5ijYTArNqJf0G5hPQ"
         alt="Home"
-      >
-
-      <img
-        class="nav-wide"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Home%20Button.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZSBCdXR0b24ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTYyODk4NSwiZXhwIjoyMTA0OTg4OTg1fQ.lF_X3rXMINhF_bawRJkfB6h_MbX1G7CX_-yISU4YqyQgwx04u4cnRnxgKHORDrWfXSulks74PT1Nnf50KLcMrg"
-        alt=""
       >
 
     </span>
@@ -839,15 +900,8 @@ body{
     <span class="nav-icon">
 
       <img
-        class="nav-small"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Plan.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvUGxhbi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI4MDk1LCJleHAiOjIxMDQ5ODgwOTV9.y5ce4vah9CX-CnpAFWVUXw7pHtNakfgezG6RlS8EJ3BzGYBm7SgdUOgum92WHo-jpLPb1kbuYdvneZJytrLobw"
+        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/planfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvcGxhbmZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMjAzLCJleHAiOjMzMzI1NjMyMjAzfQ.AzUGiKb-G7XtS_cERRiRhEqdIKs7MhJKW4vU-uWwMMS-CiArHmZnalWRfAxxFMj_DkEdD98fE01CTBNa6Cporg"
         alt="Plan"
-      >
-
-      <img
-        class="nav-wide"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Plan%20button.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvUGxhbiBidXR0b24ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTYyOTAyNSwiZXhwIjo0OTQzMjI5MDI1fQ.LjH_MU8sGhwytXZp4_-yh5eOi9mip_3Qp9JZj5ynbYwkZCMFfHgiDBv5VJb8et-4qY5J-ZtcZ67d1DtrnErxYA"
-        alt=""
       >
 
     </span>
@@ -868,15 +922,8 @@ body{
     <span class="nav-icon">
 
       <img
-        class="nav-small"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Food.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvRm9vZC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTEwLCJleHAiOjIxMDQ5ODc5MTB9.S3ziYBOlZ-A98ltUXENugtbieKjgxRWXX_TiqLJO_n9sZoPjCR017CviZvILW5wsRZ_ydjsGgSpWutnXE33OIg"
+        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/foodfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZGZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTA1LCJleHAiOjMzMzI1NjMyMTA1fQ.BGrE11IoO2jl4Cf6xjkaaM5VbOTDtKfUW1xUoDnWlHa_3xJoOnOCmhuZXfLsMZ9gJFY8xSgg67C94PKYmYR1RA"
         alt="Food"
-      >
-
-      <img
-        class="nav-wide"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/food%20button.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZCBidXR0b24ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTYyODk1NywiZXhwIjoyMTA0OTg4OTU3fQ.yM7PCwQkciE_cVtFnGDX_aO9-am9GvmBpruX1YpPg5Iunga_Nb6PbDDp4qdPE9SjwvEDR9M-s3VYuUcy5O635w"
-        alt=""
       >
 
     </span>
@@ -897,15 +944,8 @@ body{
     <span class="nav-icon">
 
       <img
-        class="nav-small"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Booking.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQm9va2luZy5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3ODU2LCJleHAiOjIxMDQ5ODc4NTZ9.So320gSGj5TK_okESeEqmZGSK03R15D1KjrIvXnie1CCuG3av6uoiXvs54kSmfUYqcjTmkzyYQ6RkIrPeAW_-w"
+        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/bookingfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvYm9va2luZ2Zvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMDc4LCJleHAiOjQ5NDMyMzIwNzh9.AnZhB83lYYXO-5q5ADhzDQ_SzLNjtJHlwyOyPac-XdZ7zG4INt4wTp_S9VhoVoxz6KbtIrCZaUY1MxRm6G3BVA"
         alt="Booking"
-      >
-
-      <img
-        class="nav-wide"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/booking%20button.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvYm9va2luZyBidXR0b24ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTYyODkwOCwiZXhwIjoyMTA0OTg4OTA4fQ.0omue67KJVITZIiIDkWRzKUExVNl06YP0nE3olhICMJ3yp0_eT78sRbo7rHpJpOx89JWM1NSQDPx0o_3lHRMSg"
-        alt=""
       >
 
     </span>
@@ -919,7 +959,6 @@ body{
 
   <!-- =====================================================
        MORE
-       Always stays circular
   ====================================================== -->
 
   <button
@@ -930,8 +969,7 @@ body{
     <span class="nav-icon">
 
       <img
-        class="nav-small"
-        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/more.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvbW9yZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTYxLCJleHAiOjIxMDQ5ODc5NjF9.izyjBYJ1Q8KVyfVjbNZsnvdYZdgetBzblOQ_duXf0rnY9Hyz1_NCGahKF8y2997HuwHFzzynHmQ9A827e8u1mA"
+        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/morefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvbW9yZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTc1LCJleHAiOjQ5NDMyMzIxNzV9.O6Lx5IOJjw8nXT5tGcTXIhHlWLfWDMzx8bKePRYd-uPgHlsiaeOWPw6QR6VgkghuSHMMrDiJxEZjEnUpNNsarQ"
         alt="More"
       >
 
@@ -942,5 +980,6 @@ body{
     </span>
 
   </button>
+
 
 </nav>
