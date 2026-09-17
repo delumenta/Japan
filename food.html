@@ -1322,6 +1322,191 @@ main{
   }
 }
 
+
+/* =========================================================
+   COMPACT STICKY FILTER BAR
+========================================================= */
+
+/* Retire previous side-rail / area-chip experiments. */
+.food-side-filter,
+#foodSideFilter,
+.discover-area-row,
+#discoverAreaRow{
+  display:none !important;
+}
+
+main{
+  padding-right:0 !important;
+}
+
+.sticky-filter-bar{
+  position:sticky;
+  top:0;
+  z-index:75;
+
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  width:100%;
+  padding:7px 0;
+
+  background:rgba(8,13,17,.96);
+  border-bottom:1px solid var(--line);
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.filter-select-wrap{
+  position:relative;
+  min-width:0;
+  flex:0 1 190px;
+}
+
+.filter-select-btn{
+  width:100%;
+  min-height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+
+  padding:7px 10px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#11181e;
+  color:#d9dde0;
+
+  font-size:8px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.filter-select-btn.active{
+  border-color:rgba(201,111,104,.45);
+  background:rgba(201,111,104,.10);
+  color:#fff;
+}
+
+.filter-chevron{
+  color:#707b84;
+  font-size:10px;
+}
+
+.filter-menu{
+  position:absolute;
+  top:calc(100% + 5px);
+  left:0;
+  z-index:120;
+
+  width:max(100%, 190px);
+  max-height:280px;
+
+  overflow-y:auto;
+
+  padding:5px;
+
+  border:1px solid var(--line);
+  border-radius:10px;
+
+  background:#0d1318;
+  box-shadow:0 14px 34px rgba(0,0,0,.38);
+}
+
+.filter-menu[hidden]{
+  display:none;
+}
+
+.filter-menu-item{
+  width:100%;
+  min-height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+
+  padding:6px 8px;
+
+  border:0;
+  border-radius:7px;
+
+  background:transparent;
+  color:#aeb6bc;
+
+  font-size:8px;
+  font-weight:850;
+  text-align:left;
+
+  cursor:pointer;
+}
+
+.filter-menu-item:hover,
+.filter-menu-item.active{
+  background:rgba(201,111,104,.11);
+  color:#fff;
+}
+
+.filter-menu-count{
+  color:#68747d;
+  font-size:6px;
+}
+
+.clear-compact-filter{
+  min-height:36px;
+  padding:7px 10px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#11181e;
+  color:#7e8991;
+
+  font-size:7px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.clear-compact-filter.active{
+  color:#e7b0aa;
+  border-color:rgba(201,111,104,.35);
+}
+
+@media(max-width:560px){
+  .sticky-filter-bar{
+    gap:5px;
+  }
+
+  .filter-select-wrap{
+    flex:1 1 0;
+  }
+
+  .filter-select-btn{
+    padding:6px 7px;
+    font-size:7px;
+  }
+
+  .clear-compact-filter{
+    padding:6px 7px;
+    font-size:0;
+  }
+
+  .clear-compact-filter::after{
+    content:"✕";
+    font-size:9px;
+  }
+
+  .filter-menu{
+    width:max(100%, 155px);
+  }
+}
+
 </style>
 </head>
 
@@ -1492,6 +1677,7 @@ main{
 <div
   id="discoverAreaRow"
   class="chips discover-area-row"
+  aria-hidden="true"
   style="display:none"
   aria-label="Area filter"
 ></div>
@@ -1525,7 +1711,69 @@ main{
   </div>
 
 
-  <div id="results">
+  
+<!-- =========================================================
+     STICKY AREA + FOOD FILTER BAR
+========================================================= -->
+
+<div
+  id="stickyFilterBar"
+  class="sticky-filter-bar"
+>
+  <div class="filter-select-wrap">
+
+    <button
+      id="areaFilterButton"
+      class="filter-select-btn"
+      type="button"
+      aria-expanded="false"
+    >
+      <span id="areaFilterButtonText">📍 All Areas</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+
+    <div
+      id="areaFilterMenu"
+      class="filter-menu"
+      hidden
+    ></div>
+
+  </div>
+
+
+  <div class="filter-select-wrap">
+
+    <button
+      id="foodFilterButton"
+      class="filter-select-btn"
+      type="button"
+      aria-expanded="false"
+    >
+      <span id="foodFilterButtonText">🍽️ All Food</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+
+    <div
+      id="foodFilterMenu"
+      class="filter-menu"
+      hidden
+    ></div>
+
+  </div>
+
+
+  <button
+    id="clearCompactFilters"
+    class="clear-compact-filter"
+    type="button"
+    title="Clear area and food filters"
+  >
+    ✕ CLEAR
+  </button>
+</div>
+
+
+<div id="results">
 
     <div class="state">
 
@@ -1547,19 +1795,7 @@ main{
      PERMANENT RIGHT-SIDE FOOD FILTER
 ========================================================= -->
 
-<aside
-  id="foodSideFilter"
-  class="food-side-filter"
-  aria-label="Food type filter"
->
-  <div class="food-side-title">
-    FOOD
-  </div>
 
-  <div id="foodSideFilterButtons"></div>
-
-  
-</aside>
 
 
 <!-- =========================================================
@@ -1979,12 +2215,6 @@ const browseChips =
   document.getElementById(
     "browseChips"
   );
-
-const foodSideFilterButtons =
-  document.getElementById(
-    "foodSideFilterButtons"
-  );
-
 
 /* =========================================================
    BASIC HELPERS
@@ -4199,6 +4429,9 @@ function renderDiscover(list){
 
 function render(){
 
+  renderCompactFilters();
+
+
   renderDiscoverArea();
 
 
@@ -4207,7 +4440,6 @@ function render(){
   renderDiscoverStatus();
 
 
-  renderFoodSideFilter();
 
 
   const list =
@@ -5699,121 +5931,7 @@ function foodFilterBaseSource(){
 }
 
 
-function renderFoodSideFilter(){
 
-  const source =
-    foodFilterBaseSource();
-
-
-  const counts = {};
-
-  FOOD_GROUPS.forEach(
-    group => counts[group.key] = 0
-  );
-
-
-  source.forEach(
-    restaurant => {
-
-      const key =
-        foodGroup(restaurant);
-
-
-      if(key && key in counts){
-        counts[key] += 1;
-      }
-
-    }
-  );
-
-
-  const available =
-    FOOD_GROUPS.filter(
-      group =>
-        counts[group.key] > 0
-    );
-
-
-  /*
-    If switching city/tab/status makes the current group
-    unavailable, reset to ALL.
-  */
-  if(
-    foodGroupFilter &&
-    !available.some(
-      group =>
-        group.key === foodGroupFilter
-    )
-  ){
-    foodGroupFilter = "";
-  }
-
-
-  foodSideFilterButtons.innerHTML = `
-
-    <button
-      class="food-side-btn ${!foodGroupFilter ? "active" : ""}"
-      data-food-group=""
-      type="button"
-      title="All Food · ${source.length}"
-    >
-      <span class="side-food-icon">🍽️</span>
-      <span class="side-food-label">ALL</span>
-    </button>
-
-    ${
-      available.map(
-        group => `
-
-          <button
-            class="food-side-btn ${
-              foodGroupFilter === group.key
-              ?
-              "active"
-              :
-              ""
-            }"
-            data-food-group="${group.key}"
-            type="button"
-            title="${group.label} · ${counts[group.key]}"
-          >
-            <span class="side-food-icon">${group.icon}</span>
-            <span class="side-food-label">${group.label}</span>
-          </button>
-
-        `
-      )
-      .join("")
-    }
-
-  `;
-
-
-  foodSideFilterButtons
-    .querySelectorAll(
-      "[data-food-group]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            foodGroupFilter =
-              button.dataset.foodGroup
-              ||
-              "";
-
-            renderFoodSideFilter();
-
-            render();
-
-          };
-
-      }
-    );
-
-}
 
 
 
@@ -6010,12 +6128,7 @@ function renderDiscoverArea(){
   }
 
 
-  discoverAreaRow.style.display =
-    areas.length
-    ?
-    "flex"
-    :
-    "none";
+  discoverAreaRow.style.display = "none";
 
 
   discoverAreaRow.innerHTML = `
@@ -6081,6 +6194,488 @@ function renderDiscoverArea(){
     );
 
 }
+
+
+
+/* =========================================================
+   COMPACT STICKY FILTER MENUS
+========================================================= */
+
+function compactAreaSource(){
+
+  let source =
+    activeTab === "mine"
+    ?
+    restaurants.filter(inMyFood)
+    :
+    restaurants.slice();
+
+
+  if(selectedCity){
+
+    source =
+      source.filter(
+        restaurant =>
+          norm(rCity(restaurant))
+          ===
+          norm(selectedCity)
+      );
+
+  }
+
+
+  if(activeTab === "mine"){
+
+    if(myFilter === "eaten"){
+      source = source.filter(isEaten);
+    }
+
+    else{
+
+      source = source.filter(
+        restaurant => !isEaten(restaurant)
+      );
+
+      if(myFilter === "pick"){
+        source = source.filter(isPick);
+      }
+
+      if(myFilter === "flexible"){
+        source = source.filter(isFlexible);
+      }
+
+      if(myFilter === "scheduled"){
+        source = source.filter(isScheduled);
+      }
+
+    }
+
+  }
+
+
+  if(activeTab === "discover"){
+
+    if(discoverStatusFilter === "tabelog"){
+      source = source.filter(hasTabelog);
+    }
+
+    if(discoverStatusFilter === "eaten"){
+      source = source.filter(isEaten);
+    }
+
+  }
+
+
+  return source;
+
+}
+
+
+function compactFoodSource(){
+
+  let source =
+    compactAreaSource();
+
+
+  if(sideAreaFilter){
+
+    source =
+      source.filter(
+        restaurant =>
+          norm(rArea(restaurant))
+          ===
+          norm(sideAreaFilter)
+      );
+
+  }
+
+
+  return source;
+
+}
+
+
+function renderCompactFilters(){
+
+  const areaSource =
+    compactAreaSource();
+
+
+  const areaMap =
+    new Map();
+
+
+  areaSource.forEach(
+    restaurant => {
+
+      const area =
+        text(rArea(restaurant)).trim();
+
+      if(!area){
+        return;
+      }
+
+      const key = norm(area);
+
+      if(!areaMap.has(key)){
+        areaMap.set(
+          key,
+          {label:area,count:0}
+        );
+      }
+
+      areaMap.get(key).count += 1;
+
+    }
+  );
+
+
+  const areas =
+    [...areaMap.values()]
+      .sort(
+        (a,b) =>
+          a.label.localeCompare(b.label)
+      );
+
+
+  if(
+    sideAreaFilter &&
+    !areas.some(
+      area =>
+        norm(area.label)
+        ===
+        norm(sideAreaFilter)
+    )
+  ){
+    sideAreaFilter = "";
+  }
+
+
+  areaFilterButtonText.textContent =
+    sideAreaFilter
+    ?
+    `📍 ${sideAreaFilter}`
+    :
+    "📍 All Areas";
+
+
+  areaFilterButton.classList.toggle(
+    "active",
+    Boolean(sideAreaFilter)
+  );
+
+
+  areaFilterMenu.innerHTML = `
+
+    <button
+      class="filter-menu-item ${!sideAreaFilter ? "active" : ""}"
+      data-compact-area=""
+      type="button"
+    >
+      <span>✓ All Areas</span>
+      <span class="filter-menu-count">${areaSource.length}</span>
+    </button>
+
+    ${
+      areas.map(
+        area => `
+
+          <button
+            class="filter-menu-item ${
+              norm(sideAreaFilter)
+              ===
+              norm(area.label)
+              ?
+              "active"
+              :
+              ""
+            }"
+            data-compact-area="${esc(area.label)}"
+            type="button"
+          >
+            <span>${esc(area.label)}</span>
+            <span class="filter-menu-count">${area.count}</span>
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+
+  areaFilterMenu
+    .querySelectorAll(
+      "[data-compact-area]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            sideAreaFilter =
+              button.dataset.compactArea
+              ||
+              "";
+
+            areaFilterMenu.hidden = true;
+            areaFilterButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            render();
+
+          };
+
+      }
+    );
+
+
+  const foodSource =
+    compactFoodSource();
+
+
+  const counts = {};
+
+  FOOD_GROUPS.forEach(
+    group =>
+      counts[group.key] = 0
+  );
+
+
+  foodSource.forEach(
+    restaurant => {
+
+      const key =
+        foodGroup(restaurant);
+
+      if(key && key in counts){
+        counts[key] += 1;
+      }
+
+    }
+  );
+
+
+  const available =
+    FOOD_GROUPS.filter(
+      group =>
+        counts[group.key] > 0
+    );
+
+
+  if(
+    foodGroupFilter &&
+    !available.some(
+      group =>
+        group.key === foodGroupFilter
+    )
+  ){
+    foodGroupFilter = "";
+  }
+
+
+  const selectedFood =
+    FOOD_GROUPS.find(
+      group =>
+        group.key === foodGroupFilter
+    );
+
+
+  foodFilterButtonText.textContent =
+    selectedFood
+    ?
+    `${selectedFood.icon} ${selectedFood.label}`
+    :
+    "🍽️ All Food";
+
+
+  foodFilterButton.classList.toggle(
+    "active",
+    Boolean(foodGroupFilter)
+  );
+
+
+  foodFilterMenu.innerHTML = `
+
+    <button
+      class="filter-menu-item ${!foodGroupFilter ? "active" : ""}"
+      data-compact-food=""
+      type="button"
+    >
+      <span>✓ All Food</span>
+      <span class="filter-menu-count">${foodSource.length}</span>
+    </button>
+
+    ${
+      available.map(
+        group => `
+
+          <button
+            class="filter-menu-item ${
+              foodGroupFilter === group.key
+              ?
+              "active"
+              :
+              ""
+            }"
+            data-compact-food="${group.key}"
+            type="button"
+          >
+            <span>${group.icon} ${group.label}</span>
+            <span class="filter-menu-count">${counts[group.key]}</span>
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+
+  foodFilterMenu
+    .querySelectorAll(
+      "[data-compact-food]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            foodGroupFilter =
+              button.dataset.compactFood
+              ||
+              "";
+
+            foodFilterMenu.hidden = true;
+            foodFilterButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            render();
+
+          };
+
+      }
+    );
+
+
+  clearCompactFilters.classList.toggle(
+    "active",
+    Boolean(
+      sideAreaFilter ||
+      foodGroupFilter
+    )
+  );
+
+}
+
+
+function closeCompactMenus(){
+
+  areaFilterMenu.hidden = true;
+  foodFilterMenu.hidden = true;
+
+  areaFilterButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  foodFilterButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+areaFilterButton.onclick =
+  event => {
+
+    event.stopPropagation();
+
+    const opening =
+      areaFilterMenu.hidden;
+
+    closeCompactMenus();
+
+    areaFilterMenu.hidden =
+      !opening;
+
+    areaFilterButton.setAttribute(
+      "aria-expanded",
+      String(opening)
+    );
+
+  };
+
+
+foodFilterButton.onclick =
+  event => {
+
+    event.stopPropagation();
+
+    const opening =
+      foodFilterMenu.hidden;
+
+    closeCompactMenus();
+
+    foodFilterMenu.hidden =
+      !opening;
+
+    foodFilterButton.setAttribute(
+      "aria-expanded",
+      String(opening)
+    );
+
+  };
+
+
+clearCompactFilters.onclick =
+  () => {
+
+    sideAreaFilter = "";
+    foodGroupFilter = "";
+
+    closeCompactMenus();
+    render();
+
+  };
+
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if(
+      !stickyFilterBar.contains(
+        event.target
+      )
+    ){
+      closeCompactMenus();
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Escape"){
+      closeCompactMenus();
+    }
+
+  }
+);
+
 
 
 /* =========================================================
