@@ -182,15 +182,16 @@
       sharedNavHub:
         "bookings.html",
 
+      /* EXPENSES — MAIN FOOTER ICON */
+
+      sharedNavExpenses:
+        "expenses.html",
+
       sharedProfileLink:
         "profile.html",
 
       sharedTripsLink:
         "trips.html",
-
-      /* NEW — EXPENSES */
-      sharedExpensesLink:
-        "expenses.html",
 
       sharedPlacesLink:
         "places.html"
@@ -230,7 +231,10 @@
         "sharedNavFood",
 
       "bookings.html":
-        "sharedNavHub"
+        "sharedNavHub",
+
+      "expenses.html":
+        "sharedNavExpenses"
 
     };
 
@@ -737,13 +741,10 @@
         footerCurrentPage();
 
 
-      /*
-        EXPENSE.HTML IS INCLUDED HERE.
-
-        This means if you're currently looking at Expenses
-        and choose another trip from Switch Trip, you remain
-        on expense.html and only the trip changes.
-      */
+      /* =================================================
+         KEEP SAME PAGE WHEN SWITCHING TRIP
+         INCLUDING EXPENSES.HTML
+      ================================================= */
 
       const switchPage =
         [
@@ -751,8 +752,8 @@
           "schedule.html",
           "food.html",
           "bookings.html",
-          "profile.html",
           "expenses.html",
+          "profile.html",
           "places.html"
         ]
         .includes(currentPage)
