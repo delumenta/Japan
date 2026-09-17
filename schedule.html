@@ -1739,6 +1739,7 @@ main{
 ></script>
 
 <script src="supabase.js"></script>
+<script src="google-maps.js"></script>
 
 
 <script>
@@ -1872,15 +1873,6 @@ const masterHelpButton =
 
 const googleAddBox =
   document.getElementById("googleAddBox");
-
-const googleAddSearch =
-  document.getElementById("googleAddSearch");
-
-const googleAddSearchButton =
-  document.getElementById("googleAddSearchButton");
-
-const googleAddResults =
-  document.getElementById("googleAddResults");
 
 const fieldDate =
   document.getElementById("fieldDate");
@@ -3570,9 +3562,6 @@ function setFormType(type){
     "show"
   );
 
-  googleAddResults.innerHTML = "";
-
-
   if(type === "custom"){
 
     selectedPlaceId = null;
@@ -3750,9 +3739,18 @@ async function initGooglePlaceAutocomplete(){
   const host =
     document.getElementById("googlePlaceSearch");
 
-  if(!host || googlePlaceAutocomplete){
+  if(!host){
     return;
   }
+
+  if(
+    googlePlaceAutocomplete &&
+    host.contains(googlePlaceAutocomplete)
+  ){
+    return;
+  }
+
+  googlePlaceAutocomplete = null;
 
 
   try{
@@ -4168,10 +4166,6 @@ function openNewItem(){
   fieldOptional.checked = false;
 
   entitySearch.value = "";
-
-  googleAddSearch.value = "";
-
-  googleAddResults.innerHTML = "";
 
   googleAddBox.classList.remove("show");
 
