@@ -530,6 +530,38 @@ button:disabled{
   text-decoration:none;
   font-size:8px;
 }
+
+/* ADMIN NAV */
+
+.admin-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+  margin-bottom:4px;
+}
+
+.admin-nav a{
+  min-height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--panel2);
+  color:var(--text);
+  text-decoration:none;
+  font-size:8px;
+  font-weight:900;
+}
+
+.admin-nav a.active{
+  border-color:rgba(103,197,135,.42);
+  background:rgba(103,197,135,.09);
+  color:#9de6b2;
+}
+
 </style>
 </head>
 
@@ -544,6 +576,13 @@ button:disabled{
 <div class="subtitle">
   Match your saved restaurants, bakeries and cafés with Google Places
   and save their exact latitude and longitude.
+</div>
+
+
+<div class="admin-nav">
+  <a href="AdminPanel.html">← ADMIN PANEL</a>
+  <a href="p-setup.html">📍 PLACES</a>
+  <a class="active" href="r-setup.html">🍽️ RESTAURANTS</a>
 </div>
 
 
@@ -774,9 +813,9 @@ button:disabled{
 
 <a
   class="back-link"
-  href="index.html"
+  href="AdminPanel.html"
 >
-  ← Back to Home
+  ← Back to Admin Panel
 </a>
 
 </main>
