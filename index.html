@@ -4,2361 +4,460 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070c10">
-
 <title>My Trip</title>
-
-<style>
-:root{
-  --bg:#070c10;
-  --panel:#10161c;
-  --panel2:#151c23;
-  --line:#29323b;
-  --text:#f5f5f3;
-  --muted:#aeb5bc;
-  --muted-blue:#91a5b3;
-  --red:#c96f68;
-  --blue:#5c9dff;
-  --green:#67c587;
-  --orange:#f4a34d;
-  --gold:#e3b85c;
-}
-
-*{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  min-height:100vh;
-  color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:
-    radial-gradient(circle at 50% -15%,#17212a 0%,transparent 38%),
-    var(--bg);
-}
-
-button{font:inherit}
-
-main{
-  max-width:760px;
-  margin:auto;
-  padding:20px 14px 94px;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.eyebrow{
-  color:var(--red);
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-}
-
-h1{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:31px;
-  line-height:1.05;
-  margin:7px 0 4px;
-  letter-spacing:-.03em;
-}
-
-.sub{
-  font-size:11px;
-  color:var(--muted);
-}
-
-/* =========================================================
-   DAY CARD
-========================================================= */
-
-.day-card{
-  margin-top:18px;
-  border:1px solid rgba(201,111,104,.38);
-  border-radius:20px;
-  padding:14px;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(201,111,104,.08),
-      #10161c 52%
-    );
-}
-
-.day-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.day-label{
-  color:var(--red);
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.13em;
-}
-
-.day-date{
-  color:var(--muted);
-  font-size:8px;
-  font-weight:850;
-}
-
-.day-card h2{
-  margin:6px 0 2px;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
-}
-
-.day-area{
-  color:#9ca9b1;
-  font-size:9px;
-}
-
-/* =========================================================
-   DATE SCROLLER
-========================================================= */
-
-.date-scroll{
-  display:flex;
-  gap:5px;
-  overflow-x:auto;
-  margin-top:12px;
-  padding-bottom:3px;
-  scrollbar-width:none;
-}
-
-.date-scroll::-webkit-scrollbar{display:none}
-
-.date-btn{
-  flex:0 0 auto;
-  width:42px;
-  min-height:43px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#11181e;
-  color:var(--muted);
-  cursor:pointer;
-}
-
-.date-btn .num{
-  display:block;
-  color:#e7e9ea;
-  font-size:11px;
-  font-weight:900;
-}
-
-.date-btn .dow{
-  display:block;
-  margin-top:1px;
-  font-size:6px;
-  font-weight:900;
-}
-
-.date-btn.active{
-  border-color:rgba(201,111,104,.55);
-  background:rgba(201,111,104,.12);
-  color:#f1cbc8;
-}
-
-.date-btn.active .num{color:#fff}
-
-/* =========================================================
-   BLOCKS
-========================================================= */
-
-.plan-title{
-  margin:14px 2px 6px;
-  color:var(--muted-blue);
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:.13em;
-}
-
-.block{
-  margin-bottom:6px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:linear-gradient(145deg,#141c22,#0d1318);
-  overflow:hidden;
-}
-
-.block-head{
-  width:100%;
-  min-height:52px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:9px 10px;
-}
-
-.block-time{
-  flex:0 0 76px;
-  color:#a6b7c2;
-  font-size:7px;
-  font-weight:900;
-  line-height:1.4;
-}
-
-.block-main{
-  flex:1;
-  min-width:0;
-}
-
-.block-name{
-  color:#f3f3f1;
-  font-size:9px;
-  font-weight:900;
-  line-height:1.3;
-}
-
-.block-note{
-  margin-top:2px;
-  color:#7f8b93;
-  font-size:7px;
-  line-height:1.4;
-}
-
-.block-map{
-  flex:0 0 31px;
-  width:31px;
-  height:31px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(92,157,255,.18);
-  border-radius:8px;
-  background:rgba(92,157,255,.05);
-  text-decoration:none;
-  font-size:12px;
-}
-
-.block.eaten{
-  opacity:.58;
-}
-
-.block.eaten .block-name{
-  text-decoration:line-through;
-  text-decoration-thickness:1px;
-}
-
-.block-eaten{
-  flex:0 0 auto;
-  min-height:29px;
-  padding:0 8px;
-  border:1px solid rgba(103,197,135,.26);
-  border-radius:8px;
-  background:rgba(103,197,135,.08);
-  color:#a9e8bb;
-  font-size:6px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.block-eaten.done{
-  color:#88aa93;
-  background:rgba(103,197,135,.04);
-}
-
-/* =========================================================
-   FULL PLAN
-========================================================= */
-
-.full-plan{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:38px;
-  margin-top:10px;
-  border:1px solid rgba(201,111,104,.32);
-  border-radius:10px;
-  background:rgba(201,111,104,.08);
-  color:#f1cfcc;
-  text-decoration:none;
-  font-size:8px;
-  font-weight:900;
-}
-
-/* =========================================================
-   FOOD NEAR ME
-========================================================= */
-
-.food-nearby{
-  width:100%;
-  min-height:64px;
-  margin-top:10px;
-  padding:11px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  border:1px solid rgba(103,197,135,.65);
-  border-radius:12px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(103,197,135,.12),
-      rgba(103,197,135,.035)
-    );
-  color:#d7f5df;
-  cursor:pointer;
-}
-
-.food-nearby-left{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  min-width:0;
-  text-align:left;
-}
-
-.food-nearby-icon{
-  flex:0 0 auto;
-  color:var(--green);
-  font-size:21px;
-}
-
-.food-nearby-title{
-  color:#9de6b2;
-  font-size:9px;
-  font-weight:900;
-}
-
-.food-nearby-sub{
-  margin-top:3px;
-  color:#77aa86;
-  font-size:6.5px;
-  line-height:1.35;
-}
-
-.food-nearby-arrow{
-  color:var(--green);
-  font-size:19px;
-}
-
-.nearby-panel{
-  display:none;
-  margin-top:8px;
-  padding:10px;
-  border:1px solid rgba(103,197,135,.28);
-  border-radius:12px;
-  background:rgba(103,197,135,.035);
-}
-
-.nearby-panel.show{display:block}
-
-.nearby-status{
-  color:#88aa93;
-  font-size:7px;
-  line-height:1.45;
-}
-
-.nearby-status.error{color:#ffc5c1}
-
-.nearby-section{margin-top:10px}
-
-.nearby-section-title{
-  margin-bottom:5px;
-  color:#9de6b2;
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:.08em;
-}
-
-.nearby-item{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  min-height:45px;
-  padding:7px 4px;
-  border-top:1px solid rgba(255,255,255,.055);
-}
-
-.nearby-item-main{
-  flex:1;
-  min-width:0;
-}
-
-.nearby-item-name{
-  color:#eef2ef;
-  font-size:8px;
-  font-weight:900;
-  line-height:1.3;
-}
-
-.nearby-item-meta{
-  margin-top:2px;
-  color:#7f9487;
-  font-size:6.5px;
-  line-height:1.35;
-}
-
-.nearby-item-badge{
-  display:inline-block;
-  margin-left:4px;
-  padding:1px 4px;
-  border:1px solid rgba(227,184,92,.25);
-  border-radius:999px;
-  color:var(--gold);
-  font-size:5.5px;
-}
-
-.nearby-item-map{
-  flex:0 0 30px;
-  width:30px;
-  height:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(92,157,255,.18);
-  border-radius:8px;
-  background:rgba(92,157,255,.05);
-  color:#fff;
-  text-decoration:none;
-  font-size:11px;
-}
-
-.nearby-more{
-  min-height:35px;
-  margin-top:9px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(103,197,135,.22);
-  border-radius:9px;
-  background:rgba(103,197,135,.06);
-  color:#a9e8bb;
-  text-decoration:none;
-  font-size:7px;
-  font-weight:900;
-}
-
-/* =========================================================
-   TRIPLINE
-========================================================= */
-
-.tripline{
-  margin-top:14px;
-  padding:9px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  color:#75828a;
-  background:rgba(255,255,255,.02);
-  text-align:center;
-  font-size:7px;
-  line-height:1.5;
-}
-
-.tripline strong{color:#dce0e2}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:360px){
-  .block-time{flex-basis:68px}
-}
-
-</style>
-</head>
-
-<body>
-
-<main>
-
-  <div class="eyebrow">LOADING TRIP…</div>
-  <h1>My Trip</h1>
-  <div class="sub">Loading trip details…</div>
-
-  <section id="dayPreview"></section>
-
-  <div class="tripline">
-    <strong>Loading trip…</strong>
-  </div>
-
-</main>
-
-
-<!-- SHARED FOOTER -->
-<div id="footer"></div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="google-maps.js"></script>
 
-<script>
+<style>
+:root{
+  --bg:#070c10;--panel:#10161c;--panel2:#151c23;--line:#29323b;
+  --text:#f5f5f3;--muted:#aeb5bc;--muted2:#7f8b93;--red:#c96f68;
+  --blue:#5c9dff;--green:#67c587;--orange:#f4a34d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:radial-gradient(circle at 50% -15%,#17212a 0%,transparent 38%),var(--bg);
+}
+button{font:inherit}
+main{max-width:760px;margin:auto;padding:16px 12px 92px}
 
-/* =========================================================
-   CONFIG
-========================================================= */
+/* HERO */
+.hero{padding:2px 2px 12px}
+.eyebrow{color:var(--red);font-size:8px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+.hero h1{margin:5px 0 2px;font:700 26px/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.hero-route{color:var(--muted);font-size:8px}
+.hero-meta{display:flex;align-items:center;gap:8px;margin-top:8px}
+.countdown{
+  display:inline-flex;align-items:center;min-height:27px;padding:0 9px;border:1px solid rgba(201,111,104,.35);
+  border-radius:8px;background:rgba(201,111,104,.07);color:#f0c2be;font-size:7px;font-weight:900
+}
+.trip-dates{color:#71808a;font-size:7px}
 
-const params =
-  new URLSearchParams(window.location.search);
+/* MAIN DAY CARD */
+.day-card{
+  border:1px solid rgba(201,111,104,.38);border-radius:17px;padding:11px;
+  background:linear-gradient(145deg,rgba(201,111,104,.07),#10161c 48%);
+}
+.day-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.day-label{color:var(--red);font-size:7px;font-weight:900;letter-spacing:.12em}
+.day-date{color:var(--muted);font-size:7px;font-weight:850}
+.day-card h2{margin:5px 0 1px;font:700 19px/1.08 Georgia,"Times New Roman",serif}
+.day-area{color:#93a1aa;font-size:7.5px}
 
-const REQUESTED_TRIP_ID =
-  Number(params.get("trip")) || null;
+/* DATE SCROLLER */
+.date-scroll{display:flex;gap:5px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scrollbar-width:none}
+.date-scroll::-webkit-scrollbar{display:none}
+.date-btn{
+  flex:0 0 39px;height:40px;border:1px solid var(--line);border-radius:9px;background:#11181e;color:var(--muted);cursor:pointer
+}
+.date-btn .num{display:block;color:#eef0f1;font-size:10px;font-weight:900}
+.date-btn .dow{display:block;margin-top:1px;font-size:5.5px;font-weight:900}
+.date-btn.active{border-color:rgba(201,111,104,.55);background:rgba(201,111,104,.13);color:#f1cbc8}
 
-let TRIP_ID =
-  REQUESTED_TRIP_ID;
+/* AREA GROUPS */
+.plan-title{margin:12px 1px 5px;color:#91a5b3;font-size:6.5px;font-weight:900;letter-spacing:.13em}
+.area-group{margin-bottom:6px;border:1px solid var(--line);border-radius:11px;background:linear-gradient(145deg,#141c22,#0d1318);overflow:hidden}
+.area-head{
+  width:100%;min-height:44px;display:flex;align-items:center;gap:8px;padding:7px 9px;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer
+}
+.area-main{flex:1;min-width:0}
+.area-name{font-size:8.5px;font-weight:900;color:#f2f3f1}
+.area-meta{margin-top:2px;color:#71808a;font-size:6px}
+.area-chevron{flex:0 0 22px;color:#87949c;font-size:11px;text-align:center;transition:.18s}
+.area-group.open .area-chevron{transform:rotate(180deg)}
+.area-items{display:none;padding:0 7px 7px}
+.area-group.open .area-items{display:block}
 
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function mapURL(query){
-
-  return (
-    "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent(query)
-  );
-
+/* ACTIVITY CARD */
+.activity{
+  min-height:44px;display:flex;align-items:center;gap:7px;padding:7px 7px;
+  margin-top:5px;border:1px solid rgba(41,50,59,.88);border-radius:9px;background:#10171d
+}
+.activity-time{flex:0 0 69px;color:#a7bac6;font-size:6.5px;font-weight:900;line-height:1.3}
+.activity-main{flex:1;min-width:0}
+.activity-name{color:#f3f3f1;font-size:8px;font-weight:900;line-height:1.25}
+.activity-note{margin-top:2px;color:#71808a;font-size:6px;line-height:1.35}
+.map-btn{
+  flex:0 0 29px;width:29px;height:29px;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(92,157,255,.2);border-radius:7px;background:rgba(92,157,255,.055);text-decoration:none;font-size:10px
+}
+.full-plan{
+  display:flex;align-items:center;justify-content:center;min-height:34px;margin-top:8px;border:1px solid rgba(201,111,104,.32);
+  border-radius:9px;background:rgba(201,111,104,.07);color:#f1cfcc;text-decoration:none;font-size:7px;font-weight:900
 }
 
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
+/* FOOD FINDER */
+.food-nearby{
+  width:100%;min-height:47px;margin-top:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border:1px solid rgba(103,197,135,.48);border-radius:10px;background:linear-gradient(135deg,rgba(103,197,135,.10),rgba(103,197,135,.025));
+  color:#d7f5df;cursor:pointer
 }
+.food-left{display:flex;align-items:center;gap:8px;text-align:left}
+.food-icon{font-size:15px}
+.food-title{color:#9de6b2;font-size:7.5px;font-weight:900}
+.food-sub{margin-top:1px;color:#77aa86;font-size:5.5px}
+.food-arrow{color:var(--green);font-size:13px;transition:.18s}
+.food-nearby.open .food-arrow{transform:rotate(180deg)}
+.nearby-panel{display:none;margin-top:6px;padding:8px;border:1px solid rgba(103,197,135,.24);border-radius:10px;background:rgba(103,197,135,.025)}
+.nearby-panel.show{display:block}
+.nearby-status{color:#88aa93;font-size:6.5px;line-height:1.45}
+.nearby-status.error{color:#ffc5c1}
+.nearby-section{margin-top:8px}
+.nearby-section:first-child{margin-top:0}
+.nearby-section-title{padding-bottom:4px;color:#9de6b2;font-size:6.5px;font-weight:900;letter-spacing:.08em}
+.nearby-item{display:flex;align-items:center;gap:7px;min-height:39px;padding:5px 2px;border-top:1px solid rgba(255,255,255,.05)}
+.nearby-item-main{flex:1;min-width:0}
+.nearby-item-name{font-size:7.5px;font-weight:900;color:#eef2ef}
+.nearby-item-meta{margin-top:2px;color:#718c79;font-size:5.8px}
+.nearby-map{flex:0 0 28px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(92,157,255,.18);border-radius:7px;background:rgba(92,157,255,.05);text-decoration:none;font-size:10px}
+.nearby-more{display:flex;align-items:center;justify-content:center;min-height:31px;margin-top:7px;border:1px solid rgba(103,197,135,.2);border-radius:8px;color:#a9e8bb;text-decoration:none;font-size:6.5px;font-weight:900}
+.empty{padding:14px 8px;color:#75828a;text-align:center;font-size:7px}
+.error-card{border:1px solid rgba(201,111,104,.35);border-radius:10px;padding:12px;color:#ffc5c1;font-size:8px}
 
-
-function formatTripDate(value){
-
-  if(!value){
-    return "";
-  }
-
-  const date =
-    new Date(value + "T00:00:00");
-
-  return date.toLocaleDateString(
-    "en-SG",
-    {
-      day:"numeric",
-      month:"short",
-      year:"numeric"
-    }
-  );
-
+@media(max-width:360px){
+  .activity-time{flex-basis:60px}
+  .hero h1{font-size:23px}
 }
+</style>
+</head>
 
-
-/* =========================================================
-   FOOD NEAR ME HTML
-========================================================= */
-
-function renderFoodNearby(){
-
-  return `
-
-    <button
-      id="foodNearbyButton"
-      class="food-nearby"
-      type="button"
-    >
-
-      <div class="food-nearby-left">
-
-        <div class="food-nearby-icon">
-          🍴
-        </div>
-
-        <div>
-
-          <div class="food-nearby-title">
-            FOOD NEAR ME
-          </div>
-
-          <div
-            id="foodNearbySubtitle"
-            class="food-nearby-sub"
-          >
-            Tap to show your picks + restaurants around you
-          </div>
-
-        </div>
-
-      </div>
-
-      <div
-        id="foodNearbyArrow"
-        class="food-nearby-arrow"
-      >
-        ↓
-      </div>
-
-    </button>
-
-
-    <div
-      id="foodNearbyPanel"
-      class="nearby-panel"
-    >
-
-      <div
-        id="foodNearbyStatus"
-        class="nearby-status"
-      >
-        Ready to find food around you.
-      </div>
-
-      <div id="foodNearbyResults"></div>
-
+<body>
+<main>
+  <header class="hero">
+    <div id="tripEyebrow" class="eyebrow">LOADING TRIP…</div>
+    <h1 id="tripName">My Trip</h1>
+    <div id="tripRoute" class="hero-route">Loading trip details…</div>
+    <div class="hero-meta">
+      <div id="tripCountdown" class="countdown">LOADING…</div>
+      <div id="tripDates" class="trip-dates"></div>
     </div>
+  </header>
 
-  `;
+  <section id="dayPreview">
+    <div class="day-card"><div class="empty">Loading today’s plan…</div></div>
+  </section>
+</main>
 
-}
+<div id="footer"></div>
+<script src="footer.js"></script>
 
-
-/* =========================================================
-   FOOD NEAR ME LOGIC
-========================================================= */
-
+<script>
+let TRIP_ID = Number(new URLSearchParams(location.search).get("trip")) || null;
+let currentTrip = null;
+let scheduleRows = [];
+let placeMap = new Map();
+let dayDates = [];
+let selectedDate = null;
+let openAreas = {};
 let nearbyLoaded = false;
 let nearbyLoading = false;
 
-
-function nearbyDistanceMetres(
-  lat1,
-  lng1,
-  lat2,
-  lng2
-){
-
-  const toRad =
-    value =>
-      value * Math.PI / 180;
-
-  const earth =
-    6371000;
-
-  const dLat =
-    toRad(lat2-lat1);
-
-  const dLng =
-    toRad(lng2-lng1);
-
-  const a =
-    Math.sin(dLat/2) ** 2 +
-    Math.cos(toRad(lat1)) *
-    Math.cos(toRad(lat2)) *
-    Math.sin(dLng/2) ** 2;
-
-  return (
-    earth *
-    2 *
-    Math.atan2(
-      Math.sqrt(a),
-      Math.sqrt(1-a)
-    )
-  );
-
+function txt(v){return String(v ?? "")}
+function esc(v){return txt(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function isoDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function parseDate(s){return new Date(s+"T12:00:00")}
+function shortDate(s){return parseDate(s).toLocaleDateString("en-SG",{day:"numeric",month:"short",year:"numeric"})}
+function weekday(s,long=false){return parseDate(s).toLocaleDateString("en-SG",{weekday:long?"long":"short"}).toUpperCase()}
+function countryIcon(c){
+  c=txt(c).toLowerCase();
+  if(c.includes("japan"))return"🇯🇵";if(c.includes("singapore"))return"🇸🇬";if(c.includes("taiwan"))return"🇹🇼";
+  if(c.includes("korea"))return"🇰🇷";if(c.includes("china"))return"🇨🇳";if(c.includes("thailand"))return"🇹🇭";
+  if(c.includes("malaysia"))return"🇲🇾";if(c.includes("indonesia"))return"🇮🇩";return"✈️";
+}
+function mapsHref(row){
+  if(row.maps_url)return row.maps_url;
+  const p=row.place_id?placeMap.get(Number(row.place_id)):null;
+  if(p?.maps_url)return p.maps_url;
+  const lat=Number(row.latitude ?? p?.latitude), lng=Number(row.longitude ?? p?.longitude);
+  if(Number.isFinite(lat)&&Number.isFinite(lng)&&!(lat===0&&lng===0))
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lat+","+lng)}`;
+  if(row.address)return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(row.address)}`;
+  return "";
+}
+function rowArea(row){
+  const p=row.place_id?placeMap.get(Number(row.place_id)):null;
+  return txt(p?.area || p?.city || row.location_name || "Other").trim() || "Other";
+}
+function timeText(row){
+  if(row.time_label)return row.time_label;
+  const f=t=>t?String(t).slice(0,5):"";
+  if(row.start_time&&row.end_time)return `${f(row.start_time)}–${f(row.end_time)}`;
+  return f(row.start_time)||"";
+}
+function displayTime(t){
+  if(!t)return"";
+  if(/[AP]M/i.test(t)||t.includes("~"))return t;
+  const parts=t.split("–").map(x=>x.trim());
+  return parts.map(x=>{
+    if(!/^\d\d:\d\d$/.test(x))return x;
+    let [h,m]=x.split(":").map(Number), ap=h>=12?"PM":"AM"; h=h%12||12;
+    return `${h}:${String(m).padStart(2,"0")} ${ap}`;
+  }).join("–");
+}
+function itemIcon(type){
+  type=txt(type).toLowerCase();
+  if(type.includes("food")||type.includes("restaurant"))return"🍽️";
+  if(type.includes("hotel"))return"🏨";
+  if(type.includes("transport"))return"🚕";
+  if(type.includes("shrine")||type.includes("temple"))return"⛩️";
+  return"•";
 }
 
-
-function nearbyDistanceLabel(metres){
-
-  if(!Number.isFinite(metres)){
-    return "";
-  }
-
-  if(metres < 1000){
-
-    return `${
-      Math.max(
-        10,
-        Math.round(metres/10)*10
-      )
-    } m`;
-
-  }
-
-  return `${(metres/1000).toFixed(1)} km`;
-
+async function resolveTrip(){
+  const {data:{user}}=await db.auth.getUser();
+  if(!user) throw new Error("Please log in first.");
+  if(TRIP_ID)return;
+  const owned=await db.from("trips").select("id,start_date").eq("owner_id",user.id);
+  const member=await db.from("trip_members").select("trip_id").eq("user_id",user.id);
+  if(owned.error)throw owned.error;if(member.error)throw member.error;
+  let ids=(member.data||[]).map(x=>Number(x.trip_id)).filter(Number.isFinite);
+  let shared=[];
+  if(ids.length){const r=await db.from("trips").select("id,start_date").in("id",[...new Set(ids)]);if(r.error)throw r.error;shared=r.data||[]}
+  const all=[...(owned.data||[]),...shared].sort((a,b)=>txt(a.start_date).localeCompare(txt(b.start_date)));
+  if(!all.length)throw new Error("No trips available.");
+  TRIP_ID=Number(all[0].id);
+  history.replaceState(null,"",`index.html?trip=${TRIP_ID}`);
 }
 
+async function loadData(){
+  await resolveTrip();
+  const tripRes=await db.from("trips").select("*").eq("id",TRIP_ID).single();
+  if(tripRes.error)throw tripRes.error;
+  currentTrip=tripRes.data;
 
-function getCurrentPositionForFood(){
+  const schedRes=await db.from("schedule").select("*").eq("trip_id",TRIP_ID)
+    .order("schedule_date",{ascending:true}).order("sort_order",{ascending:true});
+  if(schedRes.error)throw schedRes.error;
+  scheduleRows=schedRes.data||[];
 
-  return new Promise(
-    (resolve,reject) => {
+  const placeIds=[...new Set(scheduleRows.map(r=>Number(r.place_id)).filter(Number.isFinite))];
+  if(placeIds.length){
+    const p=await db.from("places").select("id,name,area,city,prefecture,address,latitude,longitude,maps_url").in("id",placeIds);
+    if(!p.error)(p.data||[]).forEach(x=>placeMap.set(Number(x.id),x));
+  }
 
-      if(!navigator.geolocation){
-
-        reject(
-          new Error(
-            "Location is not supported by this browser."
-          )
-        );
-
-        return;
-      }
-
-
-      navigator.geolocation.getCurrentPosition(
-        resolve,
-        reject,
-        {
-          enableHighAccuracy:true,
-          timeout:12000,
-          maximumAge:120000
-        }
-      );
-
-    }
-  );
-
+  dayDates=[...new Set(scheduleRows.map(r=>r.schedule_date).filter(Boolean))];
+  chooseInitialDate();
+  renderHero();
+  renderDay();
 }
-
-
-function restaurantIsPick(row){
-
-  return (
-    row.is_pick === true ||
-    row.pick === true ||
-    row.status === "pick" ||
-    row.status === "locked" ||
-    row.status === "preferred"
-  );
-
+function chooseInitialDate(){
+  if(!dayDates.length){selectedDate=currentTrip.start_date||null;return}
+  const today=isoDate(new Date());
+  if(dayDates.includes(today))selectedDate=today;
+  else if(today<dayDates[0])selectedDate=dayDates[0];
+  else if(today>dayDates.at(-1))selectedDate=dayDates.at(-1);
+  else selectedDate=dayDates.find(d=>d>=today)||dayDates[0];
 }
+function renderHero(){
+  const country=currentTrip.country||"Trip";
+  document.getElementById("tripEyebrow").textContent=`${countryIcon(country)} ${country}`;
+  document.getElementById("tripName").textContent=currentTrip.name||"My Trip";
+  document.getElementById("tripRoute").textContent=currentTrip.description||country;
+  document.getElementById("tripDates").textContent=
+    currentTrip.start_date&&currentTrip.end_date?`${shortDate(currentTrip.start_date)} – ${shortDate(currentTrip.end_date)}`:"";
 
-
-function restaurantCoordinates(row){
-
-  const lat =
-    Number(
-      row.latitude ??
-      row.lat
-    );
-
-  const lng =
-    Number(
-      row.longitude ??
-      row.lng
-    );
-
-  if(
-    Number.isFinite(lat) &&
-    Number.isFinite(lng)
-  ){
-    return {lat,lng};
+  let label="TRIP";
+  if(currentTrip.start_date&&currentTrip.end_date){
+    const today=isoDate(new Date()), start=currentTrip.start_date,end=currentTrip.end_date;
+    if(today<start){
+      const days=Math.ceil((parseDate(start)-parseDate(today))/86400000);
+      label=`${days} DAY${days===1?"":"S"} TO GO`;
+    }else if(today<=end){
+      const day=Math.floor((parseDate(today)-parseDate(start))/86400000)+1;
+      const total=Math.floor((parseDate(end)-parseDate(start))/86400000)+1;
+      label=`DAY ${day} OF ${total}`;
+    }else label="TRIP COMPLETE";
   }
-
-  return null;
-
+  document.getElementById("tripCountdown").textContent=label;
 }
-
-
-function savedRestaurantHTML(row){
-
-  const distance =
-    nearbyDistanceLabel(
-      row.__distance
-    );
-
-  const rating =
-    row.rating
-      ? `Tabelog ${row.rating}`
-      : "";
-
-  const area =
-    [
-      row.area,
-      row.city
-    ]
-    .filter(Boolean)
-    .join(" · ");
-
-  const meta =
-    [
-      distance,
-      area,
-      rating
-    ]
-    .filter(Boolean)
-    .join(" · ");
-
-  const map =
-    row.maps_url ||
-    mapURL(
-      [
-        row.name,
-        row.area,
-        row.city
-      ]
-      .filter(Boolean)
-      .join(" ")
-    );
-
-
-  return `
-
-    <div class="nearby-item">
-
-      <div class="nearby-item-main">
-
-        <div class="nearby-item-name">
-
-          ${escapeHTML(row.name)}
-
-          <span class="nearby-item-badge">
-            ⭐ PICK
-          </span>
-
-        </div>
-
-        <div class="nearby-item-meta">
-          ${escapeHTML(meta)}
-        </div>
-
-      </div>
-
-      <a
-        class="nearby-item-map"
-        href="${map}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        📍
-      </a>
-
-    </div>
-
-  `;
-
+function renderDates(){
+  return `<div class="date-scroll">${dayDates.map(d=>`
+    <button class="date-btn ${d===selectedDate?"active":""}" data-date="${esc(d)}" type="button">
+      <span class="num">${parseDate(d).getDate()}</span><span class="dow">${weekday(d)}</span>
+    </button>`).join("")}</div>`;
 }
-
-
-function googleRestaurantHTML(
-  place,
-  userLat,
-  userLng
-){
-
-  const data =
-    window.normalizeGooglePlace(place);
-
-  const metres =
-    (
-      Number.isFinite(data.latitude) &&
-      Number.isFinite(data.longitude)
-    )
-      ?
-      nearbyDistanceMetres(
-        userLat,
-        userLng,
-        data.latitude,
-        data.longitude
-      )
-      :
-      NaN;
-
-  const distance =
-    nearbyDistanceLabel(metres);
-
-  const area =
-    [
-      data.area,
-      data.city
-    ]
-    .filter(Boolean)
-    .join(" · ");
-
-  const meta =
-    [
-      distance,
-      area
-    ]
-    .filter(Boolean)
-    .join(" · ");
-
-  const map =
-    data.maps_url ||
-    mapURL(
-      [
-        data.name,
-        data.address
-      ]
-      .filter(Boolean)
-      .join(" ")
-    );
-
-
-  return `
-
-    <div class="nearby-item">
-
-      <div class="nearby-item-main">
-
-        <div class="nearby-item-name">
-          ${escapeHTML(data.name || "Restaurant")}
-        </div>
-
-        <div class="nearby-item-meta">
-          ${escapeHTML(meta)}
-        </div>
-
-      </div>
-
-      <a
-        class="nearby-item-map"
-        href="${map}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        📍
-      </a>
-
-    </div>
-
-  `;
-
-}
-
-
-async function getSavedPicksNearby(
-  userLat,
-  userLng
-){
-
-  /*
-    Picks and Eaten are trip-specific states stored in trip_restaurants.
-    Restaurant details stay in restaurants.
-  */
-
-  const relationResult =
-    await db
-      .from("trip_restaurants")
-      .select("*")
-      .eq("trip_id",TRIP_ID)
-      .eq("is_pick",true)
-      .eq("is_eaten",false);
-
-
-  if(relationResult.error){
-    throw relationResult.error;
-  }
-
-
-  const relations =
-    relationResult.data || [];
-
-
-  const ids =
-    [
-      ...new Set(
-        relations
-          .map(row => Number(row.restaurant_id))
-          .filter(Number.isFinite)
-      )
-    ];
-
-
-  if(!ids.length){
-    return [];
-  }
-
-
-  const restaurantResult =
-    await db
-      .from("restaurants")
-      .select("*")
-      .in("id",ids);
-
-
-  if(restaurantResult.error){
-    throw restaurantResult.error;
-  }
-
-
-  return (
-    restaurantResult.data || []
-  )
-  .map(row => {
-
-    const coords =
-      restaurantCoordinates(row);
-
-    if(!coords){
-      return null;
-    }
-
-    return {
-      ...row,
-
-      __distance:
-        nearbyDistanceMetres(
-          userLat,
-          userLng,
-          coords.lat,
-          coords.lng
-        )
-    };
-
-  })
-  .filter(Boolean)
-  .filter(
-    row =>
-      row.__distance <= 3000
-  )
-  .sort(
-    (a,b) =>
-      a.__distance -
-      b.__distance
-  )
-  .slice(0,3);
-
-}
-
-async function getGoogleRestaurantsNearby(
-  userLat,
-  userLng
-){
-
-  if(
-    typeof window.getGooglePlaces !== "function" ||
-    typeof window.normalizeGooglePlace !== "function"
-  ){
-
-    throw new Error(
-      "google-maps.js is not available."
-    );
-
-  }
-
-
-  const placesLibrary =
-    await window.getGooglePlaces();
-
-  const Place =
-    placesLibrary.Place ||
-    google.maps.places?.Place;
-
-
-  if(
-    !Place ||
-    typeof Place.searchNearby !== "function"
-  ){
-
-    throw new Error(
-      "Google Nearby Search is unavailable."
-    );
-
-  }
-
-
-  const response =
-    await Place.searchNearby({
-
-      fields:[
-        "id",
-        "displayName",
-        "formattedAddress",
-        "addressComponents",
-        "googleMapsURI",
-        "location",
-        "types"
-      ],
-
-      locationRestriction:{
-        center:{
-          lat:userLat,
-          lng:userLng
-        },
-        radius:1500
-      },
-
-      includedPrimaryTypes:[
-        "restaurant"
-      ],
-
-      maxResultCount:8,
-
-      rankPreference:
-        google.maps.places
-          .SearchNearbyRankPreference
-          .DISTANCE
-
-    });
-
-
-  return response.places || [];
-
-}
-
-
-function bindFoodNearby(){
-
-  const button =
-    document.getElementById(
-      "foodNearbyButton"
-    );
-
-  if(!button){
-    return;
-  }
-
-
-  button.onclick =
-    async () => {
-
-      const panel =
-        document.getElementById(
-          "foodNearbyPanel"
-        );
-
-      const arrow =
-        document.getElementById(
-          "foodNearbyArrow"
-        );
-
-      const opening =
-        !panel.classList.contains("show");
-
-
-      panel.classList.toggle(
-        "show",
-        opening
-      );
-
-      arrow.textContent =
-        opening ? "↑" : "↓";
-
-
-      if(
-        opening &&
-        !nearbyLoaded &&
-        !nearbyLoading
-      ){
-
-        await loadNearbyFood();
-
-      }
-
-    };
-
-}
-
-
-async function loadNearbyFood(){
-
-  const status =
-    document.getElementById(
-      "foodNearbyStatus"
-    );
-
-  const results =
-    document.getElementById(
-      "foodNearbyResults"
-    );
-
-  const subtitle =
-    document.getElementById(
-      "foodNearbySubtitle"
-    );
-
-
-  nearbyLoading = true;
-
-  status.className =
-    "nearby-status";
-
-  status.textContent =
-    "Getting your location…";
-
-  results.innerHTML = "";
-
-
-  try{
-
-    const position =
-      await getCurrentPositionForFood();
-
-    const userLat =
-      position.coords.latitude;
-
-    const userLng =
-      position.coords.longitude;
-
-
-    status.textContent =
-      "Finding your picks and restaurants nearby…";
-
-
-    const settled =
-      await Promise.allSettled([
-
-        getSavedPicksNearby(
-          userLat,
-          userLng
-        ),
-
-        getGoogleRestaurantsNearby(
-          userLat,
-          userLng
-        )
-
-      ]);
-
-
-    const picks =
-      settled[0].status === "fulfilled"
-        ? settled[0].value
-        : [];
-
-
-    const googlePlaces =
-      settled[1].status === "fulfilled"
-        ? settled[1].value
-        : [];
-
-
-    const pickNames =
-      new Set(
-        picks.map(
-          row =>
-            String(row.name || "")
-              .trim()
-              .toLowerCase()
-        )
-      );
-
-
-    const more =
-      googlePlaces
-        .filter(place => {
-
-          const data =
-            window.normalizeGooglePlace(place);
-
-          return !pickNames.has(
-            String(data.name || "")
-              .trim()
-              .toLowerCase()
-          );
-
-        })
-        .slice(0,4);
-
-
-    let html = "";
-
-
-    if(picks.length){
-
-      html += `
-
-        <div class="nearby-section">
-
-          <div class="nearby-section-title">
-            ⭐ YOUR PICKS NEARBY
-          </div>
-
-          ${
-            picks
-              .map(savedRestaurantHTML)
-              .join("")
-          }
-
-        </div>
-
-      `;
-
-    }
-
-
-    html += `
-
-      <div class="nearby-section">
-
-        <div class="nearby-section-title">
-          🍽 MORE FOOD AROUND YOU
-        </div>
-
-        ${
-          more.length
-
-            ?
-
-          more
-            .map(
-              place =>
-                googleRestaurantHTML(
-                  place,
-                  userLat,
-                  userLng
-                )
-            )
-            .join("")
-
-            :
-
-          `
-            <div class="nearby-status">
-              No additional restaurants were returned nearby.
-            </div>
-          `
-        }
-
-      </div>
-
-
-      <a
-        class="nearby-more"
-        href="food.html?trip=${TRIP_ID}&nearby=1"
-      >
-        SEE MORE FOOD →
-      </a>
-
-    `;
-
-
-    results.innerHTML =
-      html;
-
-
-    if(!picks.length){
-
-      status.textContent =
-        "No saved Picks with coordinates were found close by yet. Showing nearby restaurants.";
-
-    }
-    else{
-
-      status.textContent =
-        "Using your current location.";
-
-    }
-
-
-    subtitle.textContent =
-      "Your picks first + more restaurants around you";
-
-
-    nearbyLoaded = true;
-
-  }
-  catch(error){
-
-    console.error(
-      "Food Near Me error:",
-      error
-    );
-
-
-    let message =
-      error.message ||
-      "Couldn't find nearby food.";
-
-
-    if(error.code === 1){
-
-      message =
-        "Location permission was not allowed. Allow location access and try again.";
-
-    }
-
-
-    status.textContent =
-      message;
-
-    status.className =
-      "nearby-status error";
-
-  }
-  finally{
-
-    nearbyLoading = false;
-
-  }
-
-}
-
-
-/* =========================================================
-   TRIP ACCESS FALLBACK
-   Only used if index.html is opened without ?trip=
-========================================================= */
-
-async function getAccessibleTrips(){
-
-  const { data, error } = await db.auth.getUser();
-
-  if(error) throw error;
-
-  const user = data?.user;
-
-  if(!user){
-    throw new Error("You are not signed in.");
-  }
-
-  const [ownedResult, memberResult] = await Promise.all([
-    db.from("trips").select("*").eq("owner_id", user.id),
-    db.from("trip_members").select("trip_id").eq("user_id", user.id)
-  ]);
-
-  if(ownedResult.error) throw ownedResult.error;
-  if(memberResult.error) throw memberResult.error;
-
-  const tripMap = new Map();
-
-  (ownedResult.data || []).forEach(trip => {
-    tripMap.set(Number(trip.id), trip);
+function groupRows(rows){
+  const groups=[];let last=null;
+  rows.forEach(row=>{
+    const area=rowArea(row);
+    if(!last||last.name!==area){last={name:area,rows:[]};groups.push(last)}
+    last.rows.push(row);
   });
-
-  const sharedIds = [
-    ...new Set(
-      (memberResult.data || [])
-        .map(row => Number(row.trip_id))
-        .filter(Number.isFinite)
-    )
-  ];
-
-  if(sharedIds.length){
-
-    const sharedResult = await db
-      .from("trips")
-      .select("*")
-      .in("id", sharedIds);
-
-    if(sharedResult.error) throw sharedResult.error;
-
-    (sharedResult.data || []).forEach(trip => {
-      tripMap.set(Number(trip.id), trip);
-    });
-
-  }
-
-  return [...tripMap.values()].sort((a,b) =>
-    String(a.start_date || "").localeCompare(String(b.start_date || ""))
-  );
+  return groups;
 }
-
-
-/* =========================================================
-   LOAD TRIP
-========================================================= */
-
-async function loadTripFromDatabase(){
-
-  const preview =
-    document.getElementById(
-      "dayPreview"
-    );
-
-
-  try{
-
-    /* -----------------------------------------------
-       Resolve trip if ?trip= is missing
-    ----------------------------------------------- */
-
-    if(!TRIP_ID){
-
-      const accessible =
-        await getAccessibleTrips();
-
-
-      if(!accessible.length){
-
-        throw new Error(
-          "No trips are available for this account."
-        );
-
-      }
-
-
-      TRIP_ID =
-        Number(accessible[0].id);
-
-
-      history.replaceState(
-        {},
-        "",
-        `index.html?trip=${TRIP_ID}`
-      );
-
-    }
-
-
-
-
-    /* -----------------------------------------------
-       Load trip + schedule
-    ----------------------------------------------- */
-
-    const [
-      tripResult,
-      scheduleResult,
-      restaurantStateResult
-    ] =
-      await Promise.all([
-
-        db
-          .from("trips")
-          .select("*")
-          .eq("id",TRIP_ID)
-          .single(),
-
-        db
-          .from("schedule")
-          .select("*")
-          .eq("trip_id",TRIP_ID)
-          .order(
-            "schedule_date",
-            {ascending:true}
-          )
-          .order(
-            "sort_order",
-            {ascending:true}
-          ),
-
-        db
-          .from("trip_restaurants")
-          .select("restaurant_id,is_eaten,eaten_at")
-          .eq("trip_id",TRIP_ID)
-
-      ]);
-
-
-    if(tripResult.error){
-      throw tripResult.error;
-    }
-
-    if(scheduleResult.error){
-      throw scheduleResult.error;
-    }
-
-    if(restaurantStateResult.error){
-      throw restaurantStateResult.error;
-    }
-
-
-    const trip =
-      tripResult.data;
-
-    const rows =
-      scheduleResult.data || [];
-
-
-    const restaurantState =
-      new Map(
-        (restaurantStateResult.data || [])
-          .map(row => [
-            Number(row.restaurant_id),
-            row
-          ])
-      );
-
-
-    function restaurantEaten(row){
-
-      if(!row.restaurant_id){
-        return false;
-      }
-
-      return Boolean(
-        restaurantState
-          .get(Number(row.restaurant_id))
-          ?.is_eaten
-      );
-
-    }
-
-
-    async function toggleRestaurantEaten(row){
-
-      if(!row.restaurant_id){
-        return;
-      }
-
-      const id =
-        Number(row.restaurant_id);
-
-      const current =
-        restaurantState.get(id);
-
-      const value =
-        !Boolean(current?.is_eaten);
-
-
-      const result =
-        await db
-          .from("trip_restaurants")
-          .update({
-            is_eaten:value,
-            eaten_at:
-              value
-                ? new Date().toISOString()
-                : null
-          })
-          .eq("trip_id",TRIP_ID)
-          .eq("restaurant_id",id)
-          .select("restaurant_id,is_eaten,eaten_at")
-          .single();
-
-
-      if(result.error){
-        throw result.error;
-      }
-
-
-      restaurantState.set(
-        id,
-        result.data
-      );
-
-    }
-
-
-    /* -----------------------------------------------
-       Header
-    ----------------------------------------------- */
-
-    const start =
-      trip.start_date
-        ? new Date(
-            trip.start_date +
-            "T00:00:00"
-          )
-        : null;
-
-
-    const end =
-      trip.end_date
-        ? new Date(
-            trip.end_date +
-            "T00:00:00"
-          )
-        : null;
-
-
-    const monthYear =
-      start
-        ? start
-            .toLocaleDateString(
-              "en-SG",
-              {
-                month:"long",
-                year:"numeric"
-              }
-            )
-            .toUpperCase()
-        : "";
-
-
-    document
-      .querySelector(".eyebrow")
-      .textContent =
-        [
-          trip.country,
-          monthYear
-        ]
-        .filter(Boolean)
-        .join(" · ");
-
-
-    document
-      .querySelector("h1")
-      .textContent =
-        trip.name || "My Trip";
-
-
-    document.title =
-      trip.name || "My Trip";
-
-
-    const fmt =
-      date =>
-        date
-          ? date.toLocaleDateString(
-              "en-SG",
-              {
-                day:"numeric",
-                month:"long",
-                year:"numeric"
-              }
-            )
-          : "";
-
-
-    document
-      .querySelector(".sub")
-      .textContent =
-        start && end
-          ? `${fmt(start)} – ${fmt(end)}`
-          : (trip.description || "");
-
-
-    /* -----------------------------------------------
-       Group schedule
-    ----------------------------------------------- */
-
-    const byDate = {};
-
-
-    rows.forEach(row => {
-
-      if(!row.schedule_date){
-        return;
-      }
-
-      (
-        byDate[row.schedule_date] ||= []
-      ).push(row);
-
-    });
-
-
-    const dates =
-      Object.keys(byDate).sort();
-
-
-    const tripline =
-      document.querySelector(
-        ".tripline"
-      );
-
-
-    if(tripline){
-
-      if(trip.description){
-
-        tripline.innerHTML =
-          `<strong>${escapeHTML(trip.description)}</strong>`;
-
-      }
-      else{
-
-        tripline.innerHTML =
-          `<strong>${escapeHTML(trip.country || "TRIP")}</strong> · ${dates.length} planned day${dates.length === 1 ? "" : "s"}`;
-
-      }
-
-    }
-
-
-    /* -----------------------------------------------
-       No schedule
-    ----------------------------------------------- */
-
-    if(!dates.length){
-
-      preview.innerHTML = `
-
-        <div class="day-card">
-
-          <div class="day-label">
-            TRIP PREVIEW
-          </div>
-
-          <h2>
-            No plans added yet
-          </h2>
-
-          <div class="day-area">
-            ${escapeHTML(trip.country || "")}
-          </div>
-
-          <a
-            class="full-plan"
-            href="schedule.html?trip=${TRIP_ID}"
-          >
-            OPEN PLAN →
-          </a>
-
-          ${renderFoodNearby()}
-
-        </div>
-
-      `;
-
-
-      bindFoodNearby();
-
-      return;
-
-    }
-
-
-    /* -----------------------------------------------
-       Pick initial date
-    ----------------------------------------------- */
-
-    const now =
-      new Date();
-
-    const todayISO =
-      [
-        now.getFullYear(),
-        String(now.getMonth()+1).padStart(2,"0"),
-        String(now.getDate()).padStart(2,"0")
-      ].join("-");
-
-
-    let selectedDate;
-
-
-    if(dates.includes(todayISO)){
-
-      selectedDate =
-        todayISO;
-
-    }
-    else if(todayISO < dates[0]){
-
-      selectedDate =
-        dates[0];
-
-    }
-    else if(
-      todayISO >
-      dates[dates.length-1]
-    ){
-
-      selectedDate =
-        dates[dates.length-1];
-
-    }
-    else{
-
-      selectedDate =
-        dates.find(
-          date =>
-            date > todayISO
-        ) || dates[0];
-
-    }
-
-
-    /* -----------------------------------------------
-       Time formatter
-    ----------------------------------------------- */
-
-    function timeText(row){
-
-      if(row.time_label){
-        return row.time_label;
-      }
-
-
-      const pretty =
-        value => {
-
-          if(!value){
-            return "";
-          }
-
-          const [
-            hh,
-            mm
-          ] =
-            value
-              .split(":")
-              .map(Number);
-
-
-          const date =
-            new Date(
-              2000,
-              0,
-              1,
-              hh,
-              mm
-            );
-
-
-          return date
-            .toLocaleTimeString(
-              "en-SG",
-              {
-                hour:"numeric",
-                minute:"2-digit"
-              }
-            );
-
-        };
-
-
-      if(
-        row.start_time &&
-        row.end_time
-      ){
-
-        return (
-          pretty(row.start_time) +
-          " – " +
-          pretty(row.end_time)
-        );
-
-      }
-
-
-      if(row.start_time){
-
-        return pretty(
-          row.start_time
-        );
-
-      }
-
-
-      return "";
-
-    }
-
-
-    function mapFor(row){
-
-      if(row.maps_url){
-        return row.maps_url;
-      }
-
-
-      const query =
-        row.location_name ||
-        row.address ||
-        row.title;
-
-
-      return query
-        ? mapURL(query)
-        : "";
-
-    }
-
-
-    function dayTitle(dayRows){
-
-      const meaningful =
-        dayRows.filter(row => {
-
-          const type =
-            String(
-              row.item_type || ""
-            ).toLowerCase();
-
-          return ![
-            "transport",
-            "hotel"
-          ].includes(type);
-
-        });
-
-
-      const source =
-        meaningful.length
-          ? meaningful
-          : dayRows;
-
-
-      const names =
-        source
-          .slice(0,2)
-          .map(row =>
-            String(row.title || "")
-              .replace(
-                /^[^\p{L}\p{N}]+/u,
-                ""
-              )
-              .trim()
-          )
-          .filter(Boolean);
-
-
-      return (
-        names.join(" + ") ||
-        "Trip Day"
-      );
-
-    }
-
-
-    function dayArea(dayRows){
-
-      const locationRow =
-        dayRows.find(
-          row =>
-            row.location_name
-        );
-
-
-      if(locationRow?.location_name){
-
-        return String(
-          locationRow.location_name
-        ).toUpperCase();
-
-      }
-
-
-      return String(
-        trip.country || "TRIP"
-      ).toUpperCase();
-
-    }
-
-
-    /* -----------------------------------------------
-       Render selected day
-    ----------------------------------------------- */
-
-    function renderDynamic(){
-
-      const dayRows =
-        byDate[selectedDate] || [];
-
-
-      const date =
-        new Date(
-          selectedDate +
-          "T00:00:00"
-        );
-
-
-      const weekday =
-        date
-          .toLocaleDateString(
-            "en-SG",
-            {weekday:"long"}
-          )
-          .toUpperCase();
-
-
-      const dayNum =
-        date.getDate();
-
-
-      const month =
-        date
-          .toLocaleDateString(
-            "en-SG",
-            {month:"short"}
-          )
-          .toUpperCase();
-
-
-      const dateButtons =
-        dates.map(value => {
-
-          const d =
-            new Date(
-              value +
-              "T00:00:00"
-            );
-
-
-          return `
-
-            <button
-              class="date-btn ${
-                value === selectedDate
-                  ? "active"
-                  : ""
-              }"
-              data-date="${value}"
-              type="button"
-            >
-
-              <span class="num">
-                ${d.getDate()}
-              </span>
-
-              <span class="dow">
-                ${
-                  d
-                    .toLocaleDateString(
-                      "en-SG",
-                      {weekday:"short"}
-                    )
-                    .toUpperCase()
-                }
-              </span>
-
-            </button>
-
-          `;
-
-        }).join("");
-
-
-      const blocks =
-        dayRows.map(row => {
-
-          const map =
-            mapFor(row);
-
-          const eaten =
-            restaurantEaten(row);
-
-          const canMarkEaten =
-            Boolean(row.restaurant_id);
-
-
-          return `
-
-            <div class="block ${eaten ? "eaten" : ""}">
-
-              <div class="block-head">
-
-                <div class="block-time">
-                  ${escapeHTML(timeText(row))}
-                </div>
-
-                <div class="block-main">
-
-                  <div class="block-name">
-                    ${escapeHTML(row.title || "")}
-                  </div>
-
-                  ${
-                    row.notes
-                      ?
-                    `
-                      <div class="block-note">
-                        ${escapeHTML(row.notes)}
-                      </div>
-                    `
-                      :
-                    ""
-                  }
-
-                </div>
-
-                ${
-                  canMarkEaten
-                    ?
-                  `
-                    <button
-                      class="block-eaten ${eaten ? "done" : ""}"
-                      type="button"
-                      data-eaten-restaurant="${Number(row.restaurant_id)}"
-                    >
-                      ${eaten ? "✓ EATEN" : "EATEN"}
-                    </button>
-                  `
-                    :
-                  ""
-                }
-
-                ${
-                  map
-                    ?
-                  `
-                    <a
-                      class="block-map"
-                      href="${map}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      📍
-                    </a>
-                  `
-                    :
-                  ""
-                }
-
-              </div>
-
-            </div>
-
-          `;
-
-        }).join("");
-
-
-      preview.innerHTML = `
-
-        <div class="day-card">
-
-          <div class="day-top">
-
-            <div class="day-label">
-              TRIP PREVIEW
-            </div>
-
-            <div class="day-date">
-              ${weekday} · ${dayNum} ${month}
-            </div>
-
-          </div>
-
-          <h2>
-            ${escapeHTML(dayTitle(dayRows))}
-          </h2>
-
-          <div class="day-area">
-            ${escapeHTML(dayArea(dayRows))}
-          </div>
-
-          <div class="date-scroll">
-            ${dateButtons}
-          </div>
-
-          <div class="plan-title">
-            DAY AT A GLANCE
-          </div>
-
-          ${blocks}
-
-          <a
-            class="full-plan"
-            href="schedule.html?trip=${TRIP_ID}#${selectedDate}"
-          >
-            FULL PLAN →
-          </a>
-
-          ${renderFoodNearby()}
-
-        </div>
-
-      `;
-
-
-      document
-        .querySelectorAll(
-          "[data-date]"
-        )
-        .forEach(button => {
-
-          button.onclick =
-            () => {
-
-              selectedDate =
-                button.dataset.date;
-
-              nearbyLoaded =
-                false;
-
-              renderDynamic();
-
-            };
-
-        });
-
-
-      document
-        .querySelectorAll(
-          "[data-eaten-restaurant]"
-        )
-        .forEach(button => {
-
-          button.onclick =
-            async () => {
-
-              const restaurantId =
-                Number(
-                  button.dataset.eatenRestaurant
-                );
-
-              const row =
-                dayRows.find(
-                  item =>
-                    Number(item.restaurant_id) === restaurantId
-                );
-
-
-              if(!row){
-                return;
-              }
-
-
-              button.disabled = true;
-
-
-              try{
-
-                await toggleRestaurantEaten(row);
-
-                nearbyLoaded = false;
-
-                renderDynamic();
-
-              }
-              catch(error){
-
-                console.error(
-                  "Eaten update error:",
-                  error
-                );
-
-                alert(
-                  error.message ||
-                  "Couldn't update Eaten."
-                );
-
-                button.disabled = false;
-
-              }
-
-            };
-
-        });
-
-
-      bindFoodNearby();
-
-    }
-
-
-    renderDynamic();
-
-  }
-  catch(error){
-
-    console.error(
-      "Index load error:",
-      error
-    );
-
-
-    preview.innerHTML = `
-
-      <div class="day-card">
-
-        <div class="day-label">
-          TRIP PREVIEW
-        </div>
-
-        <h2>
-          Could not load this trip
-        </h2>
-
-        <div class="day-area">
-          ${escapeHTML(error.message || "Supabase error")}
-        </div>
-
+function areaTime(rows){
+  const first=rows[0],last=rows.at(-1);
+  const a=displayTime(timeText(first)).split("–")[0];
+  const b=displayTime(timeText(last)).split("–").at(-1);
+  return a&&b&&a!==b?`${a} – ${b}`:(a||b);
+}
+function renderActivity(row){
+  const map=mapsHref(row);
+  const note=row.description||row.notes||row.location_name||"";
+  return `<div class="activity">
+    <div class="activity-time">${esc(displayTime(timeText(row)))}</div>
+    <div class="activity-main">
+      <div class="activity-name">${esc(itemIcon(row.item_type))} ${esc(row.title)}</div>
+      ${note?`<div class="activity-note">${esc(note)}</div>`:""}
+    </div>
+    ${map?`<a class="map-btn" href="${esc(map)}" target="_blank" rel="noopener" aria-label="Open map">📍</a>`:""}
+  </div>`;
+}
+function renderArea(group,index){
+  const key=`${selectedDate}-${index}`;
+  const isOpen=openAreas[key] ?? (index===0);
+  return `<div class="area-group ${isOpen?"open":""}" data-area="${index}">
+    <button class="area-head" type="button" data-toggle-area="${index}">
+      <div class="area-main">
+        <div class="area-name">${esc(group.name)}</div>
+        <div class="area-meta">${esc(areaTime(group.rows))}${areaTime(group.rows)?" · ":""}${group.rows.length} ${group.rows.length===1?"stop":"stops"}</div>
       </div>
-
-    `;
-
-  }
-
+      <div class="area-chevron">⌄</div>
+    </button>
+    <div class="area-items">${group.rows.map(renderActivity).join("")}</div>
+  </div>`;
+}
+function dayTitle(rows){
+  const areas=[...new Set(rows.map(rowArea).filter(x=>x!=="Other"))];
+  return areas.slice(0,2).join(" + ") || rows[0]?.title || "Today";
+}
+function renderDay(){
+  const rows=scheduleRows.filter(r=>r.schedule_date===selectedDate);
+  const groups=groupRows(rows);
+  const date=selectedDate?parseDate(selectedDate):new Date();
+  const country=currentTrip?.country||"";
+  document.getElementById("dayPreview").innerHTML=`
+    <div class="day-card">
+      <div class="day-top">
+        <div class="day-label">TODAY</div>
+        <div class="day-date">${selectedDate?`${weekday(selectedDate,true)} · ${date.getDate()} ${date.toLocaleDateString("en-SG",{month:"long"}).toUpperCase()}`:""}</div>
+      </div>
+      <h2>${esc(dayTitle(rows))}</h2>
+      <div class="day-area">${esc(country)}</div>
+      ${renderDates()}
+      <div class="plan-title">DAY AT A GLANCE</div>
+      ${groups.length?groups.map(renderArea).join(""):`<div class="empty">No schedule items for this day.</div>`}
+      <a class="full-plan" href="schedule.html?trip=${TRIP_ID}${selectedDate?`#${selectedDate}`:""}">FULL PLAN →</a>
+      ${renderFoodNearby()}
+    </div>`;
+  bindDay();
+}
+function bindDay(){
+  document.querySelectorAll(".date-btn").forEach(b=>b.onclick=()=>{
+    selectedDate=b.dataset.date;nearbyLoaded=false;nearbyLoading=false;renderDay();
+  });
+  document.querySelectorAll("[data-toggle-area]").forEach(b=>b.onclick=()=>{
+    const i=Number(b.dataset.toggleArea),key=`${selectedDate}-${i}`;
+    openAreas[key]=!b.closest(".area-group").classList.contains("open");
+    b.closest(".area-group").classList.toggle("open",openAreas[key]);
+  });
+  bindFoodNearby();
 }
 
+/* FOOD FINDER */
+function renderFoodNearby(){
+  return `
+  <button id="foodNearbyButton" class="food-nearby" type="button">
+    <div class="food-left"><div class="food-icon">🍴</div><div>
+      <div class="food-title">FOOD FINDER</div>
+      <div class="food-sub">Tap to find your picks + food around you</div>
+    </div></div>
+    <div class="food-arrow">⌄</div>
+  </button>
+  <div id="foodNearbyPanel" class="nearby-panel">
+    <div id="foodNearbyStatus" class="nearby-status">Ready to find food around you.</div>
+    <div id="foodNearbyResults"></div>
+  </div>`;
+}
+function distanceM(a,b,c,d){
+  const rad=x=>x*Math.PI/180,R=6371000,da=rad(c-a),db=rad(d-b);
+  const q=Math.sin(da/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(db/2)**2;
+  return R*2*Math.atan2(Math.sqrt(q),Math.sqrt(1-q));
+}
+function distLabel(m){return m<1000?`${Math.max(10,Math.round(m/10)*10)} m`:`${(m/1000).toFixed(1)} km`}
+function mapFor(lat,lng,url){return url||`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lat+","+lng)}`}
+function foodItem(x){
+  return `<div class="nearby-item"><div class="nearby-item-main">
+    <div class="nearby-item-name">${esc(x.name||"Restaurant")}</div>
+    <div class="nearby-item-meta">${esc([x.distance?distLabel(x.distance):"",x.area||x.city||""].filter(Boolean).join(" · "))}</div>
+  </div>${x.map?`<a class="nearby-map" href="${esc(x.map)}" target="_blank" rel="noopener">📍</a>`:""}</div>`;
+}
+function bindFoodNearby(){
+  const btn=document.getElementById("foodNearbyButton"),panel=document.getElementById("foodNearbyPanel");
+  if(!btn||!panel)return;
+  btn.onclick=async()=>{
+    const opening=!panel.classList.contains("show");
+    panel.classList.toggle("show",opening);btn.classList.toggle("open",opening);
+    if(opening&&!nearbyLoaded&&!nearbyLoading)await loadNearbyFood();
+  };
+}
+async function loadNearbyFood(){
+  const status=document.getElementById("foodNearbyStatus"),out=document.getElementById("foodNearbyResults");
+  nearbyLoading=true;status.className="nearby-status";status.textContent="Finding food around you…";out.innerHTML="";
+  try{
+    const pos=await new Promise((resolve,reject)=>{
+      if(!navigator.geolocation)return reject(new Error("Location is not available on this device."));
+      navigator.geolocation.getCurrentPosition(resolve,reject,{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+    });
+    const lat=pos.coords.latitude,lng=pos.coords.longitude;
 
-/* =========================================================
-   START
-========================================================= */
+    /* YOUR PICKS: trip_restaurants + restaurants */
+    let picks=[];
+    const tr=await db.from("trip_restaurants").select("*").eq("trip_id",TRIP_ID);
+    if(!tr.error){
+      const ids=[...new Set((tr.data||[]).map(x=>Number(x.restaurant_id)).filter(Number.isFinite))];
+      if(ids.length){
+        const rr=await db.from("restaurants").select("*").in("id",ids);
+        if(!rr.error)picks=(rr.data||[]).filter(r=>Number.isFinite(Number(r.latitude))&&Number.isFinite(Number(r.longitude))).map(r=>({
+          ...r,distance:distanceM(lat,lng,Number(r.latitude),Number(r.longitude)),
+          map:mapFor(r.latitude,r.longitude,r.maps_url)
+        })).sort((a,b)=>a.distance-b.distance).slice(0,5);
+      }
+    }
 
-loadTripFromDatabase();
+    /* GOOGLE NEARBY */
+    let nearby=[];
+    try{
+      const lib=await window.getGooglePlaces();
+      const Place=lib.Place;
+      if(Place&&typeof Place.searchNearby==="function"){
+        const response=await Place.searchNearby({
+          fields:["id","displayName","formattedAddress","location","googleMapsURI"],
+          locationRestriction:{center:{lat,lng},radius:1800},
+          includedPrimaryTypes:["restaurant","cafe"],
+          maxResultCount:8,
+          rankPreference:"DISTANCE"
+        });
+        nearby=(response.places||[]).map(p=>{
+          const plat=typeof p.location?.lat==="function"?p.location.lat():p.location?.lat;
+          const plng=typeof p.location?.lng==="function"?p.location.lng():p.location?.lng;
+          return {name:p.displayName||"Restaurant",area:p.formattedAddress||"",distance:Number.isFinite(plat)&&Number.isFinite(plng)?distanceM(lat,lng,plat,plng):null,map:p.googleMapsURI||mapFor(plat,plng)};
+        });
+      }
+    }catch(e){console.warn("Nearby Google food:",e)}
 
+    status.style.display="none";
+    let html="";
+    if(picks.length)html+=`<div class="nearby-section"><div class="nearby-section-title">YOUR PICKS</div>${picks.map(foodItem).join("")}</div>`;
+    else html+=`<div class="nearby-section"><div class="nearby-section-title">YOUR PICKS</div><div class="nearby-status">No saved picks with coordinates found close by.</div></div>`;
+    html+=`<div class="nearby-section"><div class="nearby-section-title">FOOD NEAR YOU</div>${nearby.length?nearby.map(foodItem).join(""):`<div class="nearby-status">No nearby Google results found.</div>`}</div>`;
+    html+=`<a class="nearby-more" href="food.html?trip=${TRIP_ID}&nearby=1">SEE MORE FOOD →</a>`;
+    out.innerHTML=html;nearbyLoaded=true;
+  }catch(e){
+    status.className="nearby-status error";status.textContent=e.message||"Could not get your location.";
+  }finally{nearbyLoading=false}
+}
+
+loadData().catch(error=>{
+  console.error(error);
+  document.getElementById("dayPreview").innerHTML=`<div class="error-card">${esc(error.message||"Could not load trip.")}</div>`;
+});
 </script>
-
-<!-- Shared footer logic -->
-<script src="footer.js"></script>
-
 </body>
 </html>
