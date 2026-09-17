@@ -1009,6 +1009,42 @@ gmp-place-autocomplete{
 }
 
 
+
+/* FOOD CATEGORY SIDE FILTER */
+.food-filter-fab{
+  position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:90;
+  min-height:36px;max-width:150px;padding:7px 10px;border:1px solid rgba(201,111,104,.35);
+  border-radius:999px;background:rgba(16,23,29,.97);color:#f4d4d1;
+  box-shadow:0 8px 24px rgba(0,0,0,.32);font-size:8px;font-weight:900;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer
+}
+.food-filter-fab.active{border-color:rgba(227,184,92,.45);color:#f0cb6b;background:rgba(227,184,92,.10)}
+.food-filter-backdrop{
+  position:fixed;inset:0;z-index:170;display:none;background:rgba(0,0,0,.58);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)
+}
+.food-filter-backdrop.open{display:block}
+.food-filter-drawer{
+  position:absolute;top:0;right:0;width:min(82vw,320px);height:100%;display:flex;flex-direction:column;
+  border-left:1px solid var(--line);background:#0d1318;box-shadow:-18px 0 40px rgba(0,0,0,.35)
+}
+.food-filter-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:calc(14px + env(safe-area-inset-top)) 14px 10px;border-bottom:1px solid var(--line)
+}
+.food-filter-title{font-family:Georgia,"Times New Roman",serif;font-size:18px;font-weight:800}
+.food-filter-sub{margin-top:2px;color:var(--muted);font-size:7px}
+.food-filter-list{flex:1;overflow-y:auto;padding:9px 10px 16px}
+.food-filter-option{
+  width:100%;min-height:40px;display:flex;align-items:center;gap:9px;margin-bottom:5px;padding:7px 9px;
+  border:1px solid var(--line);border-radius:9px;background:#11181e;color:#d2d7db;text-align:left;
+  font-size:9px;font-weight:850;cursor:pointer
+}
+.food-filter-option.active{color:#fff;border-color:rgba(201,111,104,.45);background:rgba(201,111,104,.10)}
+.filter-icon{width:20px;text-align:center;font-size:14px}.filter-label{flex:1}.filter-count{color:#77838c;font-size:7px}
+.food-filter-foot{padding:9px 10px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.clear-food-filter{width:100%;min-height:38px;border:1px solid var(--line);border-radius:9px;background:#11181e;color:#aeb5bc;font-size:8px;font-weight:900;cursor:pointer}
+
 /* =========================================================
    DESKTOP
 ========================================================= */
@@ -1233,6 +1269,19 @@ gmp-place-autocomplete{
 
 </main>
 
+
+
+<button id="foodFilterButton" class="food-filter-fab" type="button">🍽️ FOOD FILTER</button>
+<div id="foodFilterBackdrop" class="food-filter-backdrop" aria-hidden="true">
+  <aside class="food-filter-drawer">
+    <div class="food-filter-head">
+      <div><div class="food-filter-title">Food Category</div><div id="foodFilterSub" class="food-filter-sub">Filter restaurants by cuisine</div></div>
+      <button id="closeFoodFilter" class="close-btn" type="button">✕</button>
+    </div>
+    <div id="foodFilterList" class="food-filter-list"></div>
+    <div class="food-filter-foot"><button id="clearFoodFilter" class="clear-food-filter" type="button">CLEAR FOOD FILTER</button></div>
+  </aside>
+</div>
 
 <!-- =========================================================
      ADD RESTAURANT
@@ -1592,6 +1641,8 @@ let discoverMode = "area";
 let discoverFilter = "";
 
 let searchTerm = "";
+
+let foodCategoryFilter = "";
 
 
 /* =========================================================
@@ -3169,6 +3220,14 @@ function filteredRestaurants(){
 
     }
 
+  }
+
+
+  if(foodCategoryFilter){
+    list = list.filter(
+      restaurant =>
+        norm(rCuisine(restaurant)) === norm(foodCategoryFilter)
+    );
   }
 
 
@@ -5226,6 +5285,116 @@ addForm.addEventListener(
 
   }
 );
+
+
+
+/* =========================================================
+   UNIVERSAL FOOD CATEGORY FILTER
+========================================================= */
+
+const foodFilterButton = document.getElementById("foodFilterButton");
+const foodFilterBackdrop = document.getElementById("foodFilterBackdrop");
+const foodFilterList = document.getElementById("foodFilterList");
+const foodFilterSub = document.getElementById("foodFilterSub");
+
+function foodFilterSource(){
+  let source = activeTab === "mine"
+    ? restaurants.filter(inMyFood)
+    : restaurants.slice();
+
+  if(selectedCity){
+    source = source.filter(r => norm(rCity(r)) === norm(selectedCity));
+  }
+
+  if(activeTab === "mine"){
+    if(myFilter === "eaten"){
+      source = source.filter(isEaten);
+    }else{
+      source = source.filter(r => !isEaten(r));
+      if(myFilter === "pick") source = source.filter(isPick);
+      if(myFilter === "flexible") source = source.filter(isFlexible);
+      if(myFilter === "scheduled") source = source.filter(isScheduled);
+    }
+  }
+
+  return source;
+}
+
+function renderFoodFilter(){
+  const source = foodFilterSource();
+  const counts = new Map();
+
+  source.forEach(r => {
+    const label = text(rCuisine(r)).trim() || "Restaurant";
+    const key = norm(label);
+    if(!counts.has(key)) counts.set(key,{label,count:0});
+    counts.get(key).count++;
+  });
+
+  const categories = [...counts.values()].sort((a,b)=>a.label.localeCompare(b.label));
+
+  if(foodCategoryFilter && !categories.some(x => norm(x.label) === norm(foodCategoryFilter))){
+    foodCategoryFilter = "";
+  }
+
+  foodFilterList.innerHTML = `
+    <button class="food-filter-option ${!foodCategoryFilter ? "active" : ""}" data-foodcat="" type="button">
+      <span class="filter-icon">🍽️</span><span class="filter-label">All Food</span><span class="filter-count">${source.length}</span>
+    </button>
+    ${categories.map(x=>`
+      <button class="food-filter-option ${norm(foodCategoryFilter)===norm(x.label)?"active":""}" data-foodcat="${esc(x.label)}" type="button">
+        <span class="filter-icon">${foodIcon(x.label)}</span><span class="filter-label">${esc(x.label)}</span><span class="filter-count">${x.count}</span>
+      </button>
+    `).join("")}
+  `;
+
+  foodFilterList.querySelectorAll("[data-foodcat]").forEach(btn=>{
+    btn.onclick=()=>{
+      foodCategoryFilter=btn.dataset.foodcat || "";
+      updateFoodFilterButton();
+      closeFoodFilter();
+      render();
+    };
+  });
+
+  foodFilterSub.textContent = activeTab === "mine"
+    ? "Categories in My Food"
+    : "Categories in Discover";
+
+  updateFoodFilterButton();
+}
+
+function updateFoodFilterButton(){
+  if(foodCategoryFilter){
+    foodFilterButton.textContent = `${foodIcon(foodCategoryFilter)} ${foodCategoryFilter.toUpperCase()} ×`;
+    foodFilterButton.classList.add("active");
+  }else{
+    foodFilterButton.textContent = "🍽️ FOOD FILTER";
+    foodFilterButton.classList.remove("active");
+  }
+}
+
+function openFoodFilter(){
+  renderFoodFilter();
+  foodFilterBackdrop.classList.add("open");
+  foodFilterBackdrop.setAttribute("aria-hidden","false");
+}
+
+function closeFoodFilter(){
+  foodFilterBackdrop.classList.remove("open");
+  foodFilterBackdrop.setAttribute("aria-hidden","true");
+}
+
+foodFilterButton.onclick=openFoodFilter;
+document.getElementById("closeFoodFilter").onclick=closeFoodFilter;
+document.getElementById("clearFoodFilter").onclick=()=>{
+  foodCategoryFilter="";
+  updateFoodFilterButton();
+  closeFoodFilter();
+  render();
+};
+foodFilterBackdrop.onclick=e=>{if(e.target===foodFilterBackdrop)closeFoodFilter()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeFoodFilter()});
 
 
 /* =========================================================
