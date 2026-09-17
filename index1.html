@@ -7,7 +7,7 @@
 
 <meta
   name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 
 <meta name="theme-color" content="#070c10">
@@ -23,25 +23,21 @@
 <style>
 
 :root{
-
   --bg:#070c10;
-
   --panel:#10161c;
   --panel2:#151c23;
-
   --line:#29323b;
 
   --text:#f5f5f3;
-
   --muted:#aeb5bc;
   --muted2:#7f8b93;
 
   --red:#c96f68;
   --red-soft:rgba(201,111,104,.10);
+  --red-line:rgba(201,111,104,.38);
 
   --blue:#5c9dff;
   --green:#67c587;
-
 }
 
 
@@ -58,16 +54,14 @@ html{
 }
 
 body{
-
   margin:0;
-
   min-height:100vh;
 
   background:
     radial-gradient(
       circle at 50% -10%,
-      rgba(35,48,59,.34),
-      transparent 32%
+      rgba(35,48,59,.32),
+      transparent 30%
     ),
     var(--bg);
 
@@ -83,7 +77,6 @@ body{
     sans-serif;
 
   -webkit-font-smoothing:antialiased;
-
 }
 
 button{
@@ -94,21 +87,14 @@ a{
   color:inherit;
 }
 
-
-/* =========================================================
-   PAGE
-========================================================= */
-
 main{
-
   width:100%;
   max-width:760px;
 
   margin:auto;
 
   padding-bottom:
-    calc(96px + env(safe-area-inset-bottom));
-
+    calc(100px + env(safe-area-inset-bottom));
 }
 
 
@@ -117,37 +103,26 @@ main{
 ========================================================= */
 
 .hero{
-
   position:relative;
 
-  width:100%;
-
-  min-height:570px;
+  min-height:470px;
 
   overflow:hidden;
 
-  background:
-    #0d1318;
-
+  background:#0d1318;
 }
 
 .hero-image{
-
   position:absolute;
   inset:0;
 
   background-position:center;
   background-size:cover;
 
-  transform:scale(1.015);
-
+  transform:scale(1.012);
 }
 
-
-/* dark overlay */
-
 .hero-image::after{
-
   content:"";
 
   position:absolute;
@@ -157,34 +132,26 @@ main{
 
     linear-gradient(
       to bottom,
-      rgba(4,8,11,.18) 0%,
-      rgba(4,8,11,.18) 18%,
-      rgba(4,8,11,.42) 46%,
-      rgba(4,8,11,.82) 78%,
+      rgba(4,8,11,.10) 0%,
+      rgba(4,8,11,.15) 24%,
+      rgba(4,8,11,.38) 55%,
+      rgba(4,8,11,.83) 84%,
       #070c10 100%
     ),
 
     linear-gradient(
       to right,
-      rgba(5,9,12,.32),
-      transparent 55%,
-      rgba(5,9,12,.13)
+      rgba(5,9,12,.30),
+      transparent 62%,
+      rgba(5,9,12,.12)
     );
-
 }
 
-
-/* =========================================================
-   HERO CONTENT
-========================================================= */
-
-.hero-content{
-
+.hero-inner{
   position:relative;
-
   z-index:2;
 
-  min-height:570px;
+  min-height:470px;
 
   display:flex;
   flex-direction:column;
@@ -192,59 +159,42 @@ main{
   padding:
     calc(18px + env(safe-area-inset-top))
     16px
-    14px;
-
+    23px;
 }
 
-
-/* =========================================================
-   HERO TOP
-========================================================= */
-
 .hero-top{
-
   display:flex;
-
   align-items:flex-start;
   justify-content:space-between;
 
-  gap:15px;
-
+  gap:18px;
 }
 
 .hero-copy{
-
   min-width:0;
-
 }
 
 .hero-eyebrow{
-
-  color:#e6a09a;
+  color:#e7a29c;
 
   font-size:7px;
   font-weight:900;
 
-  letter-spacing:.16em;
+  letter-spacing:.17em;
 
   text-transform:uppercase;
 
   text-shadow:
-    0 2px 10px
-    rgba(0,0,0,.65);
-
+    0 2px 12px
+    rgba(0,0,0,.75);
 }
 
 .hero-title{
-
-  margin:
-    7px
-    0
-    0;
+  margin:7px 0 0;
 
   font:
     700
-    35px/1
+    36px/1
     Georgia,
     "Times New Roman",
     serif;
@@ -252,58 +202,60 @@ main{
   letter-spacing:-.035em;
 
   text-shadow:
-    0 3px 18px
-    rgba(0,0,0,.75);
-
+    0 4px 20px
+    rgba(0,0,0,.78);
 }
 
 .hero-route{
+  max-width:420px;
 
-  max-width:390px;
+  margin-top:7px;
 
-  margin-top:6px;
-
-  color:rgba(244,244,242,.78);
+  color:rgba(245,245,243,.78);
 
   font-size:8px;
   line-height:1.45;
 
   text-shadow:
     0 2px 10px
-    rgba(0,0,0,.85);
-
+    rgba(0,0,0,.80);
 }
 
 .hero-dates{
+  margin-top:5px;
 
-  margin-top:4px;
-
-  color:rgba(221,226,228,.67);
+  color:rgba(226,231,233,.65);
 
   font-size:7px;
 
   text-shadow:
     0 2px 10px
-    rgba(0,0,0,.85);
-
+    rgba(0,0,0,.8);
 }
 
 
 /* =========================================================
-   JAPANESE SIDE TEXT
+   JAPANESE DECORATION
 ========================================================= */
 
 .hero-japanese{
+  flex:0 0 auto;
 
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
 
-  margin-top:5px;
+  margin-top:3px;
 
-  color:rgba(255,255,255,.73);
+  color:rgba(255,255,255,.66);
+
+  text-shadow:
+    0 3px 15px
+    rgba(0,0,0,.75);
+}
+
+.hero-japanese-main{
+  writing-mode:vertical-rl;
 
   font-family:
     "Yu Mincho",
@@ -311,33 +263,20 @@ main{
     Georgia,
     serif;
 
-  text-shadow:
-    0 2px 12px
-    rgba(0,0,0,.8);
-
-}
-
-.hero-japanese-main{
-
-  writing-mode:vertical-rl;
-
-  font-size:23px;
+  font-size:25px;
 
   letter-spacing:.12em;
-
 }
 
 .hero-japanese-sub{
+  margin-top:8px;
 
-  margin-top:7px;
-
-  color:rgba(255,255,255,.45);
+  color:rgba(255,255,255,.40);
 
   font-size:5px;
   font-weight:900;
 
-  letter-spacing:.2em;
-
+  letter-spacing:.20em;
 }
 
 
@@ -345,19 +284,13 @@ main{
    COUNTDOWN
 ========================================================= */
 
-.countdown-row{
-
-  margin-top:13px;
-
-}
-
 .countdown{
-
   display:inline-flex;
-
   align-items:center;
 
-  min-height:28px;
+  min-height:29px;
+
+  margin-top:13px;
 
   padding:0 10px;
 
@@ -368,9 +301,9 @@ main{
   border-radius:999px;
 
   background:
-    rgba(5,9,12,.52);
+    rgba(5,9,12,.48);
 
-  color:#f1d0cd;
+  color:#f0cbc8;
 
   font-size:7px;
   font-weight:900;
@@ -379,17 +312,7 @@ main{
 
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
-
-  box-shadow:
-    0 6px 20px
-    rgba(0,0,0,.18);
-
 }
-
-
-/* =========================================================
-   HERO SPACER
-========================================================= */
 
 .hero-spacer{
   flex:1;
@@ -397,394 +320,146 @@ main{
 
 
 /* =========================================================
-   TODAY CARD
+   HERO BOTTOM
 ========================================================= */
 
-.today-card{
-
-  overflow:hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,.13);
-
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(12,20,26,.88),
-      rgba(7,12,16,.90)
-    );
-
-  box-shadow:
-    0 16px 42px
-    rgba(0,0,0,.42);
-
-  backdrop-filter:blur(17px);
-  -webkit-backdrop-filter:blur(17px);
-
-}
-
-.today-head{
-
+.hero-bottom{
   display:flex;
-
-  align-items:flex-start;
+  align-items:flex-end;
   justify-content:space-between;
 
-  gap:10px;
-
-  padding:
-    11px
-    12px
-    8px;
-
+  gap:12px;
 }
 
-.today-label{
-
-  color:#e28f89;
-
-  font-size:6.5px;
-  font-weight:900;
-
-  letter-spacing:.13em;
-
-}
-
-.today-title{
-
-  margin-top:4px;
-
-  font:
-    700
-    17px/1.08
-    Georgia,
-    "Times New Roman",
-    serif;
-
-}
-
-.today-country{
-
-  margin-top:3px;
-
-  color:#8f9ca4;
-
-  font-size:6.5px;
-
-}
-
-.today-date{
-
-  flex:0 0 auto;
-
-  color:#839099;
+.hero-bottom-copy{
+  color:rgba(230,233,234,.58);
 
   font-size:6px;
   font-weight:800;
 
-  text-align:right;
-
+  letter-spacing:.08em;
 }
 
+.hero-bottom-line{
+  width:54px;
+  height:1px;
 
-/* =========================================================
-   MINI ITINERARY
-========================================================= */
-
-.today-items{
-
-  padding:
-    0
-    10px
-    7px;
-
-}
-
-.today-item{
-
-  display:grid;
-
-  grid-template-columns:
-    8px
-    55px
-    minmax(0,1fr);
-
-  gap:7px;
-
-  align-items:center;
-
-  min-height:31px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.055);
-
-}
-
-.today-dot{
-
-  width:5px;
-  height:5px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.75);
-
-  border-radius:50%;
+  margin-bottom:4px;
 
   background:
-    rgba(201,111,104,.12);
-
-}
-
-.today-time{
-
-  color:#a3afb7;
-
-  font-size:6.3px;
-  font-weight:900;
-
-  white-space:nowrap;
-
-}
-
-.today-name{
-
-  min-width:0;
-
-  overflow:hidden;
-
-  color:#eceeed;
-
-  font-size:7.5px;
-  font-weight:800;
-
-  text-overflow:ellipsis;
-  white-space:nowrap;
-
+    rgba(255,255,255,.28);
 }
 
 
 /* =========================================================
-   OPEN PLAN
-========================================================= */
-
-.today-open{
-
-  min-height:34px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.07);
-
-  color:#efc4c1;
-
-  font-size:6.5px;
-  font-weight:900;
-
-  text-decoration:none;
-
-  letter-spacing:.04em;
-
-}
-
-
-/* =========================================================
-   CONTENT BELOW HERO
+   CONTENT
 ========================================================= */
 
 .content{
-
-  padding:
-    11px
-    12px
-    20px;
-
-}
-
-
-/* =========================================================
-   DATE SCROLLER
-========================================================= */
-
-.date-scroll{
-
-  display:flex;
-
-  gap:6px;
-
-  overflow-x:auto;
-
   padding:
     1px
-    0
-    3px;
-
-  scrollbar-width:none;
-
-  scroll-snap-type:x proximity;
-
-}
-
-.date-scroll::-webkit-scrollbar{
-  display:none;
-}
-
-.date-btn{
-
-  flex:0 0 47px;
-
-  height:46px;
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:11px;
-
-  background:#0f161c;
-
-  color:#77848d;
-
-  cursor:pointer;
-
-  scroll-snap-align:start;
-
-}
-
-.date-btn .num{
-
-  display:block;
-
-  color:#e9ecec;
-
-  font:
-    700
-    13px/1
-    Georgia,
-    "Times New Roman",
-    serif;
-
-}
-
-.date-btn .dow{
-
-  display:block;
-
-  margin-top:4px;
-
-  font-size:5.5px;
-  font-weight:900;
-
-}
-
-.date-btn.active{
-
-  border-color:
-    rgba(201,111,104,.52);
-
-  background:
-    rgba(201,111,104,.11);
-
-  color:#f0b9b4;
-
-}
-
-.date-btn.active .num{
-
-  color:#f3cbc8;
-
+    12px
+    22px;
 }
 
 
 /* =========================================================
-   SECTION TITLE
+   SECTION HEADER
 ========================================================= */
 
 .section-head{
-
   display:flex;
-
-  align-items:center;
+  align-items:flex-end;
   justify-content:space-between;
 
   gap:10px;
 
   margin:
-    16px
+    10px
     2px
     7px;
+}
 
+.section-left{
+  min-width:0;
 }
 
 .section-label{
-
   color:#91a5b3;
 
   font-size:6.5px;
   font-weight:900;
 
   letter-spacing:.14em;
+}
 
+.section-title{
+  margin-top:3px;
+
+  font:
+    700
+    18px/1.05
+    Georgia,
+    "Times New Roman",
+    serif;
 }
 
 .section-date{
+  flex:0 0 auto;
 
-  color:#65737d;
+  color:#66737c;
 
   font-size:6px;
 
+  text-align:right;
 }
 
 
 /* =========================================================
-   AREA GROUP
+   PLACES CARD
 ========================================================= */
 
-.area-group{
-
-  margin-bottom:7px;
+.place-group{
+  margin-bottom:8px;
 
   overflow:hidden;
 
   border:
     1px solid
-    var(--line);
+    rgba(255,255,255,.11);
 
-  border-radius:13px;
+  border-radius:16px;
 
   background:
     linear-gradient(
       145deg,
-      #141c22,
-      #0d1318
+      rgba(17,24,30,.96),
+      rgba(10,16,21,.98)
     );
 
+  box-shadow:
+    0 10px 26px
+    rgba(0,0,0,.14);
 }
 
-.area-head{
 
+/* =========================================================
+   AREA HEADER
+========================================================= */
+
+.place-group-head{
   width:100%;
 
-  min-height:47px;
+  min-height:54px;
 
   display:flex;
-
   align-items:center;
 
   gap:9px;
 
   padding:
-    8px
-    10px;
+    9px
+    11px;
 
   border:0;
 
@@ -795,240 +470,315 @@ main{
   text-align:left;
 
   cursor:pointer;
-
 }
 
-.area-icon{
+.place-group-icon{
+  flex:0 0 24px;
 
-  flex:0 0 28px;
-
-  width:28px;
-  height:28px;
+  width:24px;
+  height:24px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
-  border:
-    1px solid
-    rgba(201,111,104,.18);
-
-  border-radius:8px;
-
-  background:
-    rgba(201,111,104,.055);
-
-  font-size:12px;
-
-}
-
-.area-main{
-
-  flex:1;
-
-  min-width:0;
-
-}
-
-.area-name{
-
-  color:#f2f3f1;
-
-  font-size:8.5px;
-  font-weight:900;
-
-}
-
-.area-meta{
-
-  margin-top:2px;
-
-  color:#71808a;
-
-  font-size:6px;
-
-}
-
-.area-chevron{
-
-  flex:0 0 22px;
-
-  color:#87949c;
+  color:#df938d;
 
   font-size:11px;
+}
+
+.place-group-main{
+  flex:1;
+  min-width:0;
+}
+
+.place-group-name{
+  color:#f3f3f1;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:14px;
+  font-weight:700;
+}
+
+.place-group-meta{
+  margin-top:3px;
+
+  color:#74818a;
+
+  font-size:6px;
+}
+
+.place-group-chevron{
+  flex:0 0 20px;
+
+  color:#7b8890;
+
+  font-size:10px;
 
   text-align:center;
 
   transition:.18s;
-
 }
 
-.area-group.open .area-chevron{
-
-  transform:
-    rotate(180deg);
-
-}
-
-.area-items{
-
-  display:none;
-
-  padding:
-    0
-    7px
-    7px;
-
-}
-
-.area-group.open .area-items{
-
-  display:block;
-
+.place-group.open
+.place-group-chevron{
+  transform:rotate(180deg);
 }
 
 
 /* =========================================================
-   ACTIVITY
+   PLACE ROWS
 ========================================================= */
 
-.activity{
+.place-list{
+  display:none;
 
-  min-height:45px;
+  padding:
+    0
+    11px
+    7px;
+}
 
-  display:flex;
+.place-group.open
+.place-list{
+  display:block;
+}
+
+.place-row{
+  display:grid;
+
+  grid-template-columns:
+    8px
+    69px
+    minmax(0,1fr)
+    20px;
+
+  gap:7px;
 
   align-items:center;
 
-  gap:8px;
+  min-height:50px;
 
-  margin-top:5px;
+  border-top:
+    1px solid
+    rgba(255,255,255,.055);
+}
 
-  padding:
-    7px
-    8px;
+.place-dot{
+  width:6px;
+  height:6px;
 
   border:
     1px solid
-    rgba(41,50,59,.88);
+    rgba(201,111,104,.74);
 
-  border-radius:10px;
+  border-radius:50%;
 
-  background:#10171d;
-
+  background:
+    rgba(201,111,104,.11);
 }
 
-.activity-time{
+.place-time{
+  color:#9aa8b1;
 
-  flex:0 0 68px;
-
-  color:#a7bac6;
-
-  font-size:6.3px;
+  font-size:6px;
   font-weight:900;
 
   line-height:1.3;
-
 }
 
-.activity-main{
-
-  flex:1;
-
+.place-main{
   min-width:0;
-
 }
 
-.activity-name{
+.place-name{
+  color:#f0f2f1;
 
-  color:#f3f3f1;
-
-  font-size:8px;
+  font-size:7.8px;
   font-weight:900;
 
-  line-height:1.25;
-
+  line-height:1.3;
 }
 
-.activity-note{
-
-  margin-top:2px;
+.place-note{
+  margin-top:3px;
 
   overflow:hidden;
 
-  color:#71808a;
+  color:#687680;
 
-  font-size:6px;
-
+  font-size:5.9px;
   line-height:1.35;
 
   display:-webkit-box;
 
   -webkit-line-clamp:2;
   -webkit-box-orient:vertical;
-
-}
-
-.map-btn{
-
-  flex:0 0 29px;
-
-  width:29px;
-  height:29px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border:
-    1px solid
-    rgba(92,157,255,.20);
-
-  border-radius:8px;
-
-  background:
-    rgba(92,157,255,.055);
-
-  text-decoration:none;
-
-  font-size:10px;
-
 }
 
 
 /* =========================================================
-   FULL PLAN BUTTON
+   SMALL MAP BUTTON
 ========================================================= */
 
-.full-plan{
-
-  min-height:38px;
+.map-link{
+  width:20px;
+  height:20px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
-  margin-top:8px;
+  border:0;
+
+  background:transparent;
+
+  color:#84ace3;
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  opacity:.72;
+}
+
+.map-link:active{
+  opacity:1;
+}
+
+
+/* =========================================================
+   FULL PLAN
+========================================================= */
+
+.full-plan{
+  min-height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-top:7px;
 
   border:
     1px solid
-    rgba(201,111,104,.28);
+    rgba(201,111,104,.26);
 
   border-radius:10px;
 
   background:
-    rgba(201,111,104,.06);
+    rgba(201,111,104,.055);
 
-  color:#efc9c6;
+  color:#ecc0bd;
 
   text-decoration:none;
 
-  font-size:7px;
+  font-size:6.5px;
   font-weight:900;
 
+  letter-spacing:.04em;
+}
+
+
+/* =========================================================
+   DATE SECTION
+========================================================= */
+
+.date-section{
+  margin-top:14px;
+}
+
+.date-section-label{
+  margin:
+    0
+    2px
+    7px;
+
+  color:#91a5b3;
+
+  font-size:6.5px;
+  font-weight:900;
+
+  letter-spacing:.14em;
+}
+
+.date-scroll{
+  display:flex;
+
+  gap:6px;
+
+  overflow-x:auto;
+
+  padding-bottom:3px;
+
+  scrollbar-width:none;
+
+  scroll-snap-type:x proximity;
+}
+
+.date-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.date-btn{
+  flex:0 0 54px;
+
+  height:55px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:13px;
+
+  background:
+    #0f161c;
+
+  color:#76838c;
+
+  cursor:pointer;
+
+  scroll-snap-align:start;
+}
+
+.date-btn .num{
+  display:block;
+
+  color:#ebeded;
+
+  font:
+    700
+    16px/1
+    Georgia,
+    "Times New Roman",
+    serif;
+}
+
+.date-btn .dow{
+  display:block;
+
+  margin-top:5px;
+
+  font-size:5.5px;
+  font-weight:900;
+}
+
+.date-btn.active{
+  border-color:
+    rgba(201,111,104,.52);
+
+  background:
+    rgba(201,111,104,.11);
+
+  color:#f0b9b4;
+}
+
+.date-btn.active .num{
+  color:#f3cbc8;
 }
 
 
@@ -1036,30 +786,30 @@ main{
    FOOD FINDER
 ========================================================= */
 
-.food-nearby{
+.food-section{
+  margin-top:15px;
+}
 
+.food-nearby{
   width:100%;
 
-  min-height:50px;
-
-  margin-top:8px;
-
-  padding:
-    8px
-    10px;
+  min-height:52px;
 
   display:flex;
-
   align-items:center;
   justify-content:space-between;
 
-  gap:8px;
+  gap:9px;
+
+  padding:
+    9px
+    10px;
 
   border:
     1px solid
-    rgba(103,197,135,.38);
+    rgba(103,197,135,.36);
 
-  border-radius:11px;
+  border-radius:12px;
 
   background:
     linear-gradient(
@@ -1071,78 +821,65 @@ main{
   color:#d7f5df;
 
   cursor:pointer;
-
 }
 
 .food-left{
-
   display:flex;
-
   align-items:center;
 
   gap:9px;
 
   text-align:left;
-
 }
 
 .food-icon{
-
-  width:30px;
-  height:30px;
+  width:28px;
+  height:28px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   border:
     1px solid
-    rgba(103,197,135,.20);
+    rgba(103,197,135,.16);
 
   border-radius:8px;
 
   background:
-    rgba(103,197,135,.06);
+    rgba(103,197,135,.05);
 
-  font-size:14px;
-
+  font-size:13px;
 }
 
 .food-title{
-
   color:#9de6b2;
 
   font-size:7.5px;
   font-weight:900;
 
+  letter-spacing:.03em;
 }
 
 .food-sub{
-
   margin-top:2px;
 
   color:#77aa86;
 
   font-size:5.8px;
-
 }
 
 .food-arrow{
-
   color:var(--green);
 
-  font-size:13px;
+  font-size:12px;
 
   transition:.18s;
-
 }
 
-.food-nearby.open .food-arrow{
-
-  transform:
-    rotate(180deg);
-
+.food-nearby.open
+.food-arrow{
+  transform:rotate(180deg);
 }
 
 
@@ -1151,7 +888,6 @@ main{
 ========================================================= */
 
 .nearby-panel{
-
   display:none;
 
   margin-top:6px;
@@ -1160,50 +896,38 @@ main{
 
   border:
     1px solid
-    rgba(103,197,135,.20);
+    rgba(103,197,135,.19);
 
-  border-radius:10px;
+  border-radius:11px;
 
   background:
     rgba(103,197,135,.02);
-
 }
 
 .nearby-panel.show{
-
   display:block;
-
 }
 
 .nearby-status{
-
   color:#88aa93;
 
   font-size:6.5px;
-  line-height:1.45;
-
+  line-height:1.5;
 }
 
 .nearby-status.error{
-
   color:#ffc5c1;
-
 }
 
 .nearby-section{
-
   margin-top:8px;
-
 }
 
 .nearby-section:first-child{
-
   margin-top:0;
-
 }
 
 .nearby-section-title{
-
   padding-bottom:4px;
 
   color:#9de6b2;
@@ -1212,15 +936,12 @@ main{
   font-weight:900;
 
   letter-spacing:.08em;
-
 }
 
 .nearby-item{
-
   min-height:40px;
 
   display:flex;
-
   align-items:center;
 
   gap:7px;
@@ -1232,69 +953,53 @@ main{
   border-top:
     1px solid
     rgba(255,255,255,.05);
-
 }
 
 .nearby-item-main{
-
   flex:1;
-
   min-width:0;
-
 }
 
 .nearby-item-name{
-
   color:#eef2ef;
 
   font-size:7.5px;
   font-weight:900;
-
 }
 
 .nearby-item-meta{
-
   margin-top:2px;
 
   color:#718c79;
 
   font-size:5.8px;
-
 }
 
 .nearby-map{
+  flex:0 0 21px;
 
-  flex:0 0 28px;
-
-  width:28px;
-  height:28px;
+  width:21px;
+  height:21px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
-  border:
-    1px solid
-    rgba(92,157,255,.18);
+  border:0;
 
-  border-radius:7px;
-
-  background:
-    rgba(92,157,255,.05);
+  background:transparent;
 
   text-decoration:none;
 
-  font-size:10px;
+  font-size:9px;
 
+  opacity:.72;
 }
 
 .nearby-more{
-
   min-height:32px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -1312,7 +1017,6 @@ main{
 
   font-size:6.5px;
   font-weight:900;
-
 }
 
 
@@ -1321,36 +1025,30 @@ main{
 ========================================================= */
 
 .empty{
-
   padding:
-    14px
-    8px;
+    18px
+    10px;
 
   color:#75828a;
 
   text-align:center;
 
   font-size:7px;
-  line-height:1.5;
-
+  line-height:1.55;
 }
 
 .error-card{
-
-  margin:16px 12px;
-
   padding:12px;
 
   border:
     1px solid
-    rgba(201,111,104,.35);
+    rgba(201,111,104,.34);
 
-  border-radius:10px;
+  border-radius:11px;
 
   color:#ffc5c1;
 
   font-size:8px;
-
 }
 
 
@@ -1361,26 +1059,18 @@ main{
 @media(max-width:480px){
 
   .hero{
-
-    min-height:
-      min(74vh,620px);
-
+    min-height:450px;
   }
 
-  .hero-content{
-
-    min-height:
-      min(74vh,620px);
+  .hero-inner{
+    min-height:450px;
 
     padding-left:13px;
     padding-right:13px;
-
   }
 
   .hero-title{
-
-    font-size:32px;
-
+    font-size:33px;
   }
 
 }
@@ -1389,24 +1079,15 @@ main{
 @media(max-width:360px){
 
   .hero-title{
-
     font-size:29px;
-
   }
 
-  .activity-time{
-
-    flex-basis:60px;
-
-  }
-
-  .today-item{
-
+  .place-row{
     grid-template-columns:
       8px
-      49px
-      minmax(0,1fr);
-
+      61px
+      minmax(0,1fr)
+      19px;
   }
 
 }
@@ -1427,10 +1108,7 @@ main{
        HERO
   ====================================================== -->
 
-  <section
-    id="hero"
-    class="hero"
-  >
+  <section class="hero">
 
     <div
       id="heroImage"
@@ -1438,14 +1116,13 @@ main{
     ></div>
 
 
-    <div class="hero-content">
+    <div class="hero-inner">
 
 
       <div class="hero-top">
 
 
         <div class="hero-copy">
-
 
           <div
             id="tripEyebrow"
@@ -1477,20 +1154,14 @@ main{
           ></div>
 
 
-          <div class="countdown-row">
-
-            <div
-              id="tripCountdown"
-              class="countdown"
-            >
-              LOADING…
-            </div>
-
+          <div
+            id="tripCountdown"
+            class="countdown"
+          >
+            LOADING…
           </div>
 
-
         </div>
-
 
 
         <div class="hero-japanese">
@@ -1515,21 +1186,16 @@ main{
       </div>
 
 
-
       <div class="hero-spacer"></div>
 
 
+      <div class="hero-bottom">
 
-      <!-- TODAY CARD -->
-
-      <div
-        id="todayCard"
-        class="today-card"
-      >
-
-        <div class="empty">
-          Loading today's itinerary…
+        <div class="hero-bottom-copy">
+          YOUR JOURNEY
         </div>
+
+        <div class="hero-bottom-line"></div>
 
       </div>
 
@@ -1547,30 +1213,42 @@ main{
   <section class="content">
 
 
-    <div
-      id="dateScroll"
-      class="date-scroll"
-    ></div>
-
+    <!-- ===================================================
+         PLACES
+    ==================================================== -->
 
     <div class="section-head">
 
-      <div class="section-label">
-        PLACES
+
+      <div class="section-left">
+
+        <div class="section-label">
+          PLACES
+        </div>
+
+        <div
+          id="placesTitle"
+          class="section-title"
+        >
+          Today's Places
+        </div>
+
       </div>
 
+
       <div
-        id="sectionDate"
+        id="placesDate"
         class="section-date"
       ></div>
+
 
     </div>
 
 
-    <div id="dayAreas">
+    <div id="placeGroups">
 
       <div class="empty">
-        Loading itinerary…
+        Loading places…
       </div>
 
     </div>
@@ -1581,11 +1259,38 @@ main{
       class="full-plan"
       href="schedule.html"
     >
-      FULL PLAN →
+      OPEN FULL PLAN →
     </a>
 
 
-    <div id="foodFinder"></div>
+
+    <!-- ===================================================
+         DATE SELECTOR
+    ==================================================== -->
+
+    <div class="date-section">
+
+      <div class="date-section-label">
+        TRIP DAYS
+      </div>
+
+      <div
+        id="dateScroll"
+        class="date-scroll"
+      ></div>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         FOOD FINDER
+    ==================================================== -->
+
+    <div
+      id="foodFinder"
+      class="food-section"
+    ></div>
 
 
   </section>
@@ -1596,7 +1301,7 @@ main{
 
 
 <!-- =========================================================
-     EXISTING FOOTER
+     KEEP YOUR EXISTING FOOTER
 ========================================================= -->
 
 <div id="footer"></div>
@@ -1608,21 +1313,10 @@ main{
 <script>
 
 /* =========================================================
-   DEFAULT COVER
+   FALLBACK COVER
 ========================================================= */
 
-/*
-  If your trips table later has:
-
-  cover_image_url
-
-  this page will automatically use it.
-
-  Otherwise this Kyoto image is used.
-*/
-
 const DEFAULT_HERO =
-
   "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1600&q=88";
 
 
@@ -1636,8 +1330,7 @@ let TRIP_ID =
   Number(
     new URLSearchParams(
       location.search
-    )
-    .get("trip")
+    ).get("trip")
   )
 
   ||
@@ -1662,13 +1355,11 @@ let scheduleRows = [];
 let placeMap =
   new Map();
 
-
 let dayDates = [];
 
 let selectedDate = null;
 
 let openAreas = {};
-
 
 let nearbyLoaded = false;
 
@@ -1677,7 +1368,7 @@ let nearbyLoading = false;
 
 
 /* =========================================================
-   BASIC HELPERS
+   HELPERS
 ========================================================= */
 
 function txt(value){
@@ -1794,58 +1485,35 @@ function countryIcon(country){
       .toLowerCase();
 
 
-  if(
-    value.includes("japan")
-  ){
+  if(value.includes("japan")){
     return "🇯🇵";
   }
 
-
-  if(
-    value.includes("singapore")
-  ){
+  if(value.includes("singapore")){
     return "🇸🇬";
   }
 
-
-  if(
-    value.includes("taiwan")
-  ){
+  if(value.includes("taiwan")){
     return "🇹🇼";
   }
 
-
-  if(
-    value.includes("korea")
-  ){
+  if(value.includes("korea")){
     return "🇰🇷";
   }
 
-
-  if(
-    value.includes("china")
-  ){
+  if(value.includes("china")){
     return "🇨🇳";
   }
 
-
-  if(
-    value.includes("thailand")
-  ){
+  if(value.includes("thailand")){
     return "🇹🇭";
   }
 
-
-  if(
-    value.includes("malaysia")
-  ){
+  if(value.includes("malaysia")){
     return "🇲🇾";
   }
 
-
-  if(
-    value.includes("indonesia")
-  ){
+  if(value.includes("indonesia")){
     return "🇮🇩";
   }
 
@@ -1857,7 +1525,7 @@ function countryIcon(country){
 
 
 /* =========================================================
-   HERO JAPANESE
+   JAPANESE HERO
 ========================================================= */
 
 function japaneseTitle(country){
@@ -1867,25 +1535,11 @@ function japaneseTitle(country){
       .toLowerCase();
 
 
-  if(
-    value.includes("japan")
-  ){
+  if(value.includes("japan")){
 
     return {
       main:"日本",
       sub:"JAPAN"
-    };
-
-  }
-
-
-  if(
-    value.includes("singapore")
-  ){
-
-    return {
-      main:"旅",
-      sub:"SINGAPORE"
     };
 
   }
@@ -1901,7 +1555,7 @@ function japaneseTitle(country){
 
 
 /* =========================================================
-   TIME
+   TIME SORTING
 ========================================================= */
 
 function timeValue(row){
@@ -1962,63 +1616,63 @@ function compareRows(
   b
 ){
 
-  const aTime =
+  const timeA =
     timeValue(a);
 
 
-  const bTime =
+  const timeB =
     timeValue(b);
 
 
   if(
-    aTime !== null &&
-    bTime === null
+    timeA !== null &&
+    timeB === null
   ){
     return -1;
   }
 
 
   if(
-    aTime === null &&
-    bTime !== null
+    timeA === null &&
+    timeB !== null
   ){
     return 1;
   }
 
 
   if(
-    aTime !== null &&
-    bTime !== null &&
-    aTime !== bTime
+    timeA !== null &&
+    timeB !== null &&
+    timeA !== timeB
   ){
 
     return (
-      aTime -
-      bTime
+      timeA -
+      timeB
     );
 
   }
 
 
-  const aOrder =
+  const orderA =
     Number(
       a.sort_order || 0
     );
 
 
-  const bOrder =
+  const orderB =
     Number(
       b.sort_order || 0
     );
 
 
   if(
-    aOrder !== bOrder
+    orderA !== orderB
   ){
 
     return (
-      aOrder -
-      bOrder
+      orderA -
+      orderB
     );
 
   }
@@ -2037,6 +1691,59 @@ function compareRows(
    DISPLAY TIME
 ========================================================= */
 
+function formatClock(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  const parts =
+    String(value)
+      .split(":");
+
+
+  let hour =
+    Number(
+      parts[0]
+    );
+
+
+  const minute =
+    parts[1] || "00";
+
+
+  if(!Number.isFinite(hour)){
+    return value;
+  }
+
+
+  const suffix =
+    hour >= 12
+    ?
+    "PM"
+    :
+    "AM";
+
+
+  hour =
+    hour % 12 ||
+    12;
+
+
+  return (
+
+    `${hour}:` +
+
+    `${minute} ` +
+
+    suffix
+
+  );
+
+}
+
+
 function timeText(row){
 
   if(row.time_label){
@@ -2046,59 +1753,21 @@ function timeText(row){
   }
 
 
-  const format =
-    time => {
-
-      if(!time){
-        return "";
-      }
-
-
-      const parts =
-        String(time)
-          .split(":");
-
-
-      let hour =
-        Number(
-          parts[0]
-        );
-
-
-      const minute =
-        parts[1] || "00";
-
-
-      const suffix =
-        hour >= 12
-        ?
-        "PM"
-        :
-        "AM";
-
-
-      hour =
-        hour % 12 ||
-        12;
-
-
-      return (
-        `${hour}:` +
-        `${minute} ` +
-        suffix
-      );
-
-    };
-
-
   if(
     row.start_time &&
     row.end_time
   ){
 
     return (
-      `${format(row.start_time)} – ` +
-      `${format(row.end_time)}`
+
+      `${formatClock(
+        row.start_time
+      )} – ` +
+
+      `${formatClock(
+        row.end_time
+      )}`
+
     );
 
   }
@@ -2106,7 +1775,7 @@ function timeText(row){
 
   if(row.start_time){
 
-    return format(
+    return formatClock(
       row.start_time
     );
 
@@ -2126,11 +1795,14 @@ function timeText(row){
 function rowPlace(row){
 
   if(!row.place_id){
+
     return null;
+
   }
 
 
   return (
+
     placeMap.get(
       Number(
         row.place_id
@@ -2140,6 +1812,7 @@ function rowPlace(row){
     ||
 
     null
+
   );
 
 }
@@ -2151,34 +1824,39 @@ function rowArea(row){
     rowPlace(row);
 
 
-  return txt(
+  return (
 
-    place?.area
+    txt(
 
-    ||
+      place?.area
 
-    place?.city
+      ||
 
-    ||
+      place?.city
 
-    row.location_name
+      ||
+
+      row.location_name
+
+      ||
+
+      "Other"
+
+    )
+    .trim()
 
     ||
 
     "Other"
 
-  ).trim()
-
-  ||
-
-  "Other";
+  );
 
 }
 
 
 
 /* =========================================================
-   MAP
+   MAP LINK
 ========================================================= */
 
 function mapsHref(row){
@@ -2242,6 +1920,7 @@ function mapsHref(row){
 
 
   const address =
+
     row.address
 
     ||
@@ -2273,10 +1952,15 @@ function mapsHref(row){
 
 
 /* =========================================================
-   DESTINATION FILTER
+   HOME PLACE FILTER
 ========================================================= */
 
-function isIndexDestination(row){
+function isHomePlace(row){
+
+  /*
+    Home Places only shows rows linked
+    to your master Places database.
+  */
 
   if(!row.place_id){
 
@@ -2292,7 +1976,7 @@ function isIndexDestination(row){
     .toLowerCase();
 
 
-  const hiddenTypes = [
+  const excluded = [
 
     "transport",
     "hotel",
@@ -2305,59 +1989,10 @@ function isIndexDestination(row){
   ];
 
 
-  return !hiddenTypes.some(
+  return !excluded.some(
     word =>
       type.includes(word)
   );
-
-}
-
-
-
-/* =========================================================
-   ICON
-========================================================= */
-
-function itemIcon(type){
-
-  const value =
-    txt(type)
-      .toLowerCase();
-
-
-  if(
-    value.includes("shrine") ||
-    value.includes("temple")
-  ){
-    return "⛩️";
-  }
-
-
-  if(
-    value.includes("museum")
-  ){
-    return "🏛️";
-  }
-
-
-  if(
-    value.includes("nature") ||
-    value.includes("park") ||
-    value.includes("garden")
-  ){
-    return "🌿";
-  }
-
-
-  if(
-    value.includes("view") ||
-    value.includes("observation")
-  ){
-    return "✨";
-  }
-
-
-  return "📍";
 
 }
 
@@ -2408,7 +2043,7 @@ async function getAccessibleTrips(){
   }
 
 
-  const map =
+  const tripsMap =
     new Map();
 
 
@@ -2417,11 +2052,11 @@ async function getAccessibleTrips(){
     []
   )
   .forEach(
-    trip => {
+    item => {
 
-      map.set(
-        Number(trip.id),
-        trip
+      tripsMap.set(
+        Number(item.id),
+        item
       );
 
     }
@@ -2476,11 +2111,11 @@ async function getAccessibleTrips(){
       []
     )
     .forEach(
-      trip => {
+      item => {
 
-        map.set(
-          Number(trip.id),
-          trip
+        tripsMap.set(
+          Number(item.id),
+          item
         );
 
       }
@@ -2490,10 +2125,13 @@ async function getAccessibleTrips(){
 
 
   return [
-    ...map.values()
+
+    ...tripsMap.values()
+
   ]
   .sort(
     (a,b) =>
+
       txt(
         a.start_date
       )
@@ -2535,6 +2173,7 @@ async function resolveTrip(){
     location.href =
       "login.html";
 
+
     throw new Error(
       "Please sign in."
     );
@@ -2555,18 +2194,18 @@ async function resolveTrip(){
   }
 
 
-  let found =
+  let resolved =
 
     trips.find(
-      trip =>
-        Number(trip.id) ===
+      item =>
+        Number(item.id) ===
         Number(TRIP_ID)
     );
 
 
-  if(!found){
+  if(!resolved){
 
-    found =
+    resolved =
       trips[0];
 
   }
@@ -2574,7 +2213,7 @@ async function resolveTrip(){
 
   TRIP_ID =
     Number(
-      found.id
+      resolved.id
     );
 
 
@@ -2595,7 +2234,7 @@ async function resolveTrip(){
 
 
 /* =========================================================
-   LOAD
+   LOAD DATA
 ========================================================= */
 
 async function loadData(){
@@ -2626,6 +2265,10 @@ async function loadData(){
     tripResult.data;
 
 
+
+  /* =======================================================
+     SCHEDULE
+  ======================================================= */
 
   const scheduleResult =
 
@@ -2662,9 +2305,10 @@ async function loadData(){
     [];
 
 
-  /*
-    PLACES
-  */
+
+  /* =======================================================
+     MASTER PLACES
+  ======================================================= */
 
   const placeIds =
 
@@ -2733,6 +2377,11 @@ async function loadData(){
   }
 
 
+
+  /* =======================================================
+     DATES
+  ======================================================= */
+
   dayDates =
 
     [
@@ -2764,7 +2413,7 @@ async function loadData(){
 
 
 /* =========================================================
-   INITIAL DATE
+   CHOOSE DATE
 ========================================================= */
 
 function chooseInitialDate(){
@@ -2795,10 +2444,12 @@ function chooseInitialDate(){
     selectedDate =
       today;
 
+    return;
+
   }
 
 
-  else if(
+  if(
     today <
     dayDates[0]
   ){
@@ -2806,10 +2457,12 @@ function chooseInitialDate(){
     selectedDate =
       dayDates[0];
 
+    return;
+
   }
 
 
-  else if(
+  if(
     today >
     dayDates[
       dayDates.length - 1
@@ -2821,23 +2474,21 @@ function chooseInitialDate(){
         dayDates.length - 1
       ];
 
-  }
-
-
-  else{
-
-    selectedDate =
-
-      dayDates.find(
-        date =>
-          date >= today
-      )
-
-      ||
-
-      dayDates[0];
+    return;
 
   }
+
+
+  selectedDate =
+
+    dayDates.find(
+      date =>
+        date >= today
+    )
+
+    ||
+
+    dayDates[0];
 
 }
 
@@ -2859,6 +2510,7 @@ function renderHero(){
   ).textContent =
 
     `${countryIcon(country)} ` +
+
     country.toUpperCase();
 
 
@@ -2892,8 +2544,11 @@ function renderHero(){
 
     ?
 
-    `${shortDate(currentTrip.start_date)} – ` +
-    `${shortDate(currentTrip.end_date)}`
+    `${shortDate(
+      currentTrip.start_date
+    )} – ${shortDate(
+      currentTrip.end_date
+    )}`
 
     :
 
@@ -2901,10 +2556,11 @@ function renderHero(){
 
 
   /*
-    HERO IMAGE
+    If you later add either:
+    cover_image_url
+    image_url
 
-    If you later add cover_image_url
-    to trips, it automatically works.
+    to trips, this automatically uses it.
   */
 
   const cover =
@@ -2927,11 +2583,7 @@ function renderHero(){
     `url("${cover}")`;
 
 
-  /*
-    JAPANESE DECORATION
-  */
-
-  const jp =
+  const japanese =
     japaneseTitle(
       country
     );
@@ -2940,20 +2592,23 @@ function renderHero(){
   document.getElementById(
     "heroJapanese"
   ).textContent =
-    jp.main;
+
+    japanese.main;
 
 
   document.getElementById(
     "heroJapaneseSub"
   ).textContent =
-    jp.sub;
+
+    japanese.sub;
 
 
-  /*
-    COUNTDOWN
-  */
 
-  let label =
+  /* =======================================================
+     COUNTDOWN
+  ======================================================= */
+
+  let countdown =
     "TRIP";
 
 
@@ -2997,7 +2652,7 @@ function renderHero(){
         );
 
 
-      label =
+      countdown =
 
         `${days} DAY` +
 
@@ -3017,8 +2672,7 @@ function renderHero(){
 
 
     else if(
-      today <=
-      end
+      today <= end
     ){
 
       const day =
@@ -3061,7 +2715,7 @@ function renderHero(){
         1;
 
 
-      label =
+      countdown =
         `DAY ${day} OF ${total}`;
 
     }
@@ -3069,7 +2723,7 @@ function renderHero(){
 
     else{
 
-      label =
+      countdown =
         "TRIP COMPLETE";
 
     }
@@ -3080,22 +2734,25 @@ function renderHero(){
   document.getElementById(
     "tripCountdown"
   ).textContent =
-    label;
+    countdown;
 
 
   document.title =
 
-    `${currentTrip.name || "My Trip"} · Travel`;
+    `${
+      currentTrip.name ||
+      "My Trip"
+    } · Travel`;
 
 }
 
 
 
 /* =========================================================
-   SELECTED DAY ROWS
+   SELECTED DAY
 ========================================================= */
 
-function rowsForSelectedDate(){
+function selectedRows(){
 
   return scheduleRows
 
@@ -3114,50 +2771,23 @@ function rowsForSelectedDate(){
 
 
 /* =========================================================
-   ROUTE TITLE
+   GROUP BY AREA
 ========================================================= */
 
-function dayRoute(rows){
+function groupPlaces(rows){
 
-  const labels = [];
+  const groups = [];
 
-
-  const add =
-    value => {
-
-      const clean =
-        txt(value)
-          .trim();
-
-
-      if(!clean){
-        return;
-      }
-
-
-      if(
-        !labels.some(
-          existing =>
-            existing
-              .toLowerCase()
-            ===
-            clean
-              .toLowerCase()
-        )
-      ){
-
-        labels.push(
-          clean
-        );
-
-      }
-
-    };
+  let currentGroup =
+    null;
 
 
   rows
     .filter(
-      isIndexDestination
+      isHomePlace
+    )
+    .sort(
+      compareRows
     )
     .forEach(
       row => {
@@ -3166,176 +2796,222 @@ function dayRoute(rows){
           rowArea(row);
 
 
+        /*
+          Consecutive same areas stay
+          inside the same visual block.
+
+          If itinerary later returns to
+          the area, a new block appears.
+        */
+
         if(
-          area !== "Other"
+          !currentGroup ||
+          currentGroup.name !== area
         ){
 
-          add(area);
+          currentGroup = {
+
+            name:area,
+
+            rows:[]
+
+          };
+
+
+          groups.push(
+            currentGroup
+          );
 
         }
+
+
+        currentGroup.rows.push(
+          row
+        );
 
       }
     );
 
 
-  return labels
-    .slice(0,4)
-    .join(" → ")
-
-    ||
-
-    "Today's Journey";
+  return groups;
 
 }
 
 
 
 /* =========================================================
-   TODAY CARD
+   AREA TIME
 ========================================================= */
 
-function renderTodayCard(){
+function areaTime(rows){
 
-  const rows =
-    rowsForSelectedDate();
+  const timedRows =
 
-
-  const preview =
-    rows
-      .slice(0,4);
-
-
-  const date =
-    selectedDate
-    ?
-    parseDate(
-      selectedDate
-    )
-    :
-    new Date();
-
-
-  const isToday =
-
-    selectedDate ===
-    isoDate(
-      new Date()
+    rows.filter(
+      row =>
+        row.start_time
     );
 
 
-  let itemsHTML = "";
+  if(!timedRows.length){
+
+    return "Flexible";
+
+  }
 
 
-  if(preview.length){
+  const first =
+    timedRows[0];
 
-    itemsHTML =
 
-      preview
-        .map(
-          row => `
+  const last =
+    timedRows[
+      timedRows.length - 1
+    ];
 
-            <div class="today-item">
 
-              <div class="today-dot"></div>
+  const start =
+    formatClock(
+      first.start_time
+    );
 
-              <div class="today-time">
-                ${esc(timeText(row))}
-              </div>
 
-              <div class="today-name">
-                ${esc(
-                  row.title ||
-                  row.location_name ||
-                  "Schedule item"
-                )}
-              </div>
+  let end = "";
 
-            </div>
 
-          `
-        )
-        .join("");
+  if(last.end_time){
+
+    end =
+      formatClock(
+        last.end_time
+      );
 
   }
 
 
   else{
 
-    itemsHTML = `
-
-      <div class="empty">
-        No itinerary items for this day.
-      </div>
-
-    `;
+    end =
+      formatClock(
+        last.start_time
+      );
 
   }
 
 
-  document.getElementById(
-    "todayCard"
-  ).innerHTML = `
+  if(
+    start &&
+    end &&
+    start !== end
+  ){
+
+    return (
+      `${start} – ${end}`
+    );
+
+  }
 
 
-    <div class="today-head">
+  return start;
+
+}
 
 
-      <div>
 
-        <div class="today-label">
+/* =========================================================
+   PLACE ROW
+========================================================= */
 
-          ${
-            isToday
-            ?
-            "TODAY"
-            :
-            "TRIP DAY"
-          }
+function renderPlaceRow(row){
 
-        </div>
+  const mapUrl =
+    mapsHref(row);
 
 
-        <div class="today-title">
-
-          ${esc(
-            dayRoute(rows)
-          )}
-
-        </div>
+  const place =
+    rowPlace(row);
 
 
-        <div class="today-country">
+  const title =
 
-          ${esc(
-            currentTrip.country ||
-            ""
-          )}
+    row.title
 
-        </div>
+    ||
+
+    place?.name
+
+    ||
+
+    row.location_name
+
+    ||
+
+    "Place";
+
+
+  const note =
+
+    row.description
+
+    ||
+
+    row.notes
+
+    ||
+
+    (
+      place?.name !== title
+      ?
+      place?.name
+      :
+      ""
+    )
+
+    ||
+
+    "";
+
+
+  return `
+
+    <div class="place-row">
+
+
+      <div class="place-dot"></div>
+
+
+      <div class="place-time">
+
+        ${esc(
+          timeText(row)
+        )}
 
       </div>
 
 
-      <div class="today-date">
+      <div class="place-main">
+
+
+        <div class="place-name">
+
+          ${esc(title)}
+
+        </div>
+
 
         ${
-          selectedDate
+          note
 
           ?
 
           `
-            ${weekday(
-              selectedDate,
-              true
-            )}
-            <br>
-            ${date.getDate()}
-            ${date.toLocaleDateString(
-              "en-SG",
-              {
-                month:"short"
-              }
-            ).toUpperCase()}
+
+            <div class="place-note">
+
+              ${esc(note)}
+
+            </div>
+
           `
 
           :
@@ -3343,25 +3019,38 @@ function renderTodayCard(){
           ""
         }
 
+
       </div>
 
 
+      ${
+        mapUrl
+
+        ?
+
+        `
+
+          <a
+            class="map-link"
+            href="${esc(mapUrl)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open in Google Maps"
+          >
+            📍
+          </a>
+
+        `
+
+        :
+
+        `
+          <span></span>
+        `
+      }
+
+
     </div>
-
-
-    <div class="today-items">
-
-      ${itemsHTML}
-
-    </div>
-
-
-    <a
-      class="today-open"
-      href="schedule.html?trip=${TRIP_ID}"
-    >
-      OPEN FULL PLAN →
-    </a>
 
   `;
 
@@ -3370,10 +3059,286 @@ function renderTodayCard(){
 
 
 /* =========================================================
-   DATE SCROLLER
+   AREA GROUP
 ========================================================= */
 
-function renderDateScroller(){
+function renderPlaceGroup(
+  group,
+  index
+){
+
+  const key =
+    `${selectedDate}-${index}`;
+
+
+  const open =
+
+    openAreas[key]
+
+    ??
+
+    (
+      index === 0
+    );
+
+
+  return `
+
+    <div
+      class="
+        place-group
+        ${open ? "open" : ""}
+      "
+    >
+
+
+      <button
+        class="place-group-head"
+        type="button"
+        data-area="${index}"
+      >
+
+
+        <div class="place-group-icon">
+          📍
+        </div>
+
+
+        <div class="place-group-main">
+
+          <div class="place-group-name">
+
+            ${esc(
+              group.name
+            )}
+
+          </div>
+
+
+          <div class="place-group-meta">
+
+            ${esc(
+              areaTime(
+                group.rows
+              )
+            )}
+
+            ·
+
+            ${group.rows.length}
+
+            ${
+              group.rows.length === 1
+              ?
+              "place"
+              :
+              "places"
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="place-group-chevron">
+          ⌄
+        </div>
+
+
+      </button>
+
+
+      <div class="place-list">
+
+        ${
+          group.rows
+            .map(
+              renderPlaceRow
+            )
+            .join("")
+        }
+
+      </div>
+
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   RENDER PLACES
+========================================================= */
+
+function renderPlaces(){
+
+  const rows =
+    selectedRows();
+
+
+  const groups =
+    groupPlaces(
+      rows
+    );
+
+
+  const title =
+    document.getElementById(
+      "placesTitle"
+    );
+
+
+  const date =
+    document.getElementById(
+      "placesDate"
+    );
+
+
+  const holder =
+    document.getElementById(
+      "placeGroups"
+    );
+
+
+  if(selectedDate){
+
+    const parsed =
+      parseDate(
+        selectedDate
+      );
+
+
+    title.textContent =
+
+      selectedDate ===
+      isoDate(
+        new Date()
+      )
+
+      ?
+
+      "Today's Places"
+
+      :
+
+      `${weekday(
+        selectedDate,
+        true
+      )}`;
+
+
+    date.innerHTML =
+
+      `${parsed.getDate()} ` +
+
+      `${parsed.toLocaleDateString(
+        "en-SG",
+        {
+          month:"short"
+        }
+      ).toUpperCase()}` +
+
+      `<br>` +
+
+      `${parsed.getFullYear()}`;
+
+  }
+
+
+  if(!groups.length){
+
+    holder.innerHTML = `
+
+      <div class="empty">
+
+        No linked Places for this day.
+
+        <br>
+
+        Open Full Plan to see
+        the complete itinerary.
+
+      </div>
+
+    `;
+
+
+    return;
+
+  }
+
+
+  holder.innerHTML =
+
+    groups
+      .map(
+        renderPlaceGroup
+      )
+      .join("");
+
+
+  holder
+    .querySelectorAll(
+      "[data-area]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            const index =
+              Number(
+                button.dataset.area
+              );
+
+
+            const group =
+              button.closest(
+                ".place-group"
+              );
+
+
+            const key =
+              `${selectedDate}-${index}`;
+
+
+            const next =
+              !group
+                .classList
+                .contains(
+                  "open"
+                );
+
+
+            openAreas[key] =
+              next;
+
+
+            group
+              .classList
+              .toggle(
+                "open",
+                next
+              );
+
+          };
+
+      }
+    );
+
+}
+
+
+
+/* =========================================================
+   DATE SELECTOR
+========================================================= */
+
+function renderDates(){
 
   const holder =
     document.getElementById(
@@ -3452,499 +3417,14 @@ function renderDateScroller(){
                   ?.scrollIntoView({
 
                     behavior:"smooth",
-
-                    inline:"center",
-
-                    block:"nearest"
+                    block:"nearest",
+                    inline:"center"
 
                   });
 
               },
               40
             );
-
-          };
-
-      }
-    );
-
-}
-
-
-
-/* =========================================================
-   GROUP PLACES
-========================================================= */
-
-function groupRows(rows){
-
-  const ordered =
-
-    [...rows]
-      .sort(
-        compareRows
-      );
-
-
-  const groups = [];
-
-  let current = null;
-
-
-  ordered
-    .forEach(
-      row => {
-
-        const area =
-          rowArea(row);
-
-
-        /*
-          If itinerary later returns
-          to the same area, create a
-          new group rather than merging
-          non-consecutive stops.
-        */
-
-        if(
-          !current ||
-          current.name !== area
-        ){
-
-          current = {
-
-            name:area,
-
-            rows:[]
-
-          };
-
-
-          groups.push(
-            current
-          );
-
-        }
-
-
-        current.rows.push(
-          row
-        );
-
-      }
-    );
-
-
-  return groups;
-
-}
-
-
-
-/* =========================================================
-   AREA TIME
-========================================================= */
-
-function areaTime(rows){
-
-  const timed =
-    rows.filter(
-      row =>
-        row.start_time
-    );
-
-
-  if(!timed.length){
-
-    return "Flexible";
-
-  }
-
-
-  const first =
-    timed[0];
-
-
-  const last =
-    timed[
-      timed.length - 1
-    ];
-
-
-  const start =
-    timeText(first);
-
-
-  const end =
-    last.end_time
-    ?
-    timeText({
-      start_time:last.end_time
-    })
-    :
-    timeText(last);
-
-
-  if(
-    start &&
-    end &&
-    start !== end
-  ){
-
-    return (
-      `${start} – ${end}`
-    );
-
-  }
-
-
-  return start;
-
-}
-
-
-
-/* =========================================================
-   ACTIVITY
-========================================================= */
-
-function renderActivity(row){
-
-  const map =
-    mapsHref(row);
-
-
-  const note =
-
-    row.description
-
-    ||
-
-    row.notes
-
-    ||
-
-    row.location_name
-
-    ||
-
-    "";
-
-
-  return `
-
-    <div class="activity">
-
-
-      <div class="activity-time">
-
-        ${esc(
-          timeText(row)
-        )}
-
-      </div>
-
-
-      <div class="activity-main">
-
-        <div class="activity-name">
-
-          ${itemIcon(row.item_type)}
-
-          ${esc(
-            row.title ||
-            "Schedule item"
-          )}
-
-        </div>
-
-
-        ${
-          note
-
-          ?
-
-          `
-
-            <div class="activity-note">
-
-              ${esc(note)}
-
-            </div>
-
-          `
-
-          :
-
-          ""
-        }
-
-      </div>
-
-
-      ${
-        map
-
-        ?
-
-        `
-
-          <a
-            class="map-btn"
-            href="${esc(map)}"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open map"
-          >
-            📍
-          </a>
-
-        `
-
-        :
-
-        ""
-      }
-
-
-    </div>
-
-  `;
-
-}
-
-
-
-/* =========================================================
-   AREA
-========================================================= */
-
-function renderArea(
-  group,
-  index
-){
-
-  const key =
-    `${selectedDate}-${index}`;
-
-
-  const isOpen =
-
-    openAreas[key]
-
-    ??
-
-    (
-      index === 0
-    );
-
-
-  return `
-
-    <div
-      class="
-        area-group
-        ${isOpen ? "open" : ""}
-      "
-    >
-
-      <button
-        class="area-head"
-        type="button"
-        data-toggle-area="${index}"
-      >
-
-        <div class="area-icon">
-          📍
-        </div>
-
-
-        <div class="area-main">
-
-          <div class="area-name">
-
-            ${esc(
-              group.name
-            )}
-
-          </div>
-
-
-          <div class="area-meta">
-
-            ${esc(
-              areaTime(
-                group.rows
-              )
-            )}
-
-            ·
-
-            ${group.rows.length}
-
-            ${
-              group.rows.length === 1
-              ?
-              "place"
-              :
-              "places"
-            }
-
-          </div>
-
-        </div>
-
-
-        <div class="area-chevron">
-          ⌄
-        </div>
-
-      </button>
-
-
-      <div class="area-items">
-
-        ${
-          group.rows
-            .map(
-              renderActivity
-            )
-            .join("")
-        }
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-
-/* =========================================================
-   DAY CONTENT
-========================================================= */
-
-function renderDayAreas(){
-
-  const allRows =
-    rowsForSelectedDate();
-
-
-  const rows =
-    allRows.filter(
-      isIndexDestination
-    );
-
-
-  const groups =
-    groupRows(
-      rows
-    );
-
-
-  const holder =
-    document.getElementById(
-      "dayAreas"
-    );
-
-
-  document.getElementById(
-    "sectionDate"
-  ).textContent =
-
-    selectedDate
-
-    ?
-
-    `${weekday(
-      selectedDate,
-      true
-    )} · ${shortDate(selectedDate)}`
-
-    :
-
-    "";
-
-
-  if(!groups.length){
-
-    holder.innerHTML = `
-
-      <div class="empty">
-
-        No linked places added for this day.
-
-        <br>
-
-        Open Full Plan to see the complete schedule.
-
-      </div>
-
-    `;
-
-  }
-
-
-  else{
-
-    holder.innerHTML =
-
-      groups
-        .map(
-          renderArea
-        )
-        .join("");
-
-  }
-
-
-  holder
-    .querySelectorAll(
-      "[data-toggle-area]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            const index =
-              Number(
-                button.dataset
-                  .toggleArea
-              );
-
-
-            const group =
-              button.closest(
-                ".area-group"
-              );
-
-
-            const key =
-              `${selectedDate}-${index}`;
-
-
-            const next =
-              !group
-                .classList
-                .contains(
-                  "open"
-                );
-
-
-            openAreas[key] =
-              next;
-
-
-            group
-              .classList
-              .toggle(
-                "open",
-                next
-              );
 
           };
 
@@ -3972,7 +3452,7 @@ function renderFullPlan(){
 
 
 /* =========================================================
-   FOOD FINDER
+   FOOD FINDER HTML
 ========================================================= */
 
 function renderFoodFinder(){
@@ -3988,7 +3468,9 @@ function renderFoodFinder(){
       type="button"
     >
 
+
       <div class="food-left">
+
 
         <div class="food-icon">
           🍴
@@ -4007,12 +3489,14 @@ function renderFoodFinder(){
 
         </div>
 
+
       </div>
 
 
       <div class="food-arrow">
         ⌄
       </div>
+
 
     </button>
 
@@ -4029,7 +3513,6 @@ function renderFoodFinder(){
         Ready to find food around you.
       </div>
 
-
       <div id="foodNearbyResults"></div>
 
     </div>
@@ -4037,14 +3520,85 @@ function renderFoodFinder(){
   `;
 
 
-  bindFoodNearby();
+  bindFoodFinder();
 
 }
 
 
 
 /* =========================================================
-   FOOD DISTANCE
+   FOOD FINDER OPEN
+========================================================= */
+
+function bindFoodFinder(){
+
+  const button =
+    document.getElementById(
+      "foodNearbyButton"
+    );
+
+
+  const panel =
+    document.getElementById(
+      "foodNearbyPanel"
+    );
+
+
+  if(
+    !button ||
+    !panel
+  ){
+
+    return;
+
+  }
+
+
+  button.onclick =
+    async () => {
+
+      const opening =
+        !panel
+          .classList
+          .contains(
+            "show"
+          );
+
+
+      panel
+        .classList
+        .toggle(
+          "show",
+          opening
+        );
+
+
+      button
+        .classList
+        .toggle(
+          "open",
+          opening
+        );
+
+
+      if(
+        opening &&
+        !nearbyLoaded &&
+        !nearbyLoading
+      ){
+
+        await loadNearbyFood();
+
+      }
+
+    };
+
+}
+
+
+
+/* =========================================================
+   DISTANCE
 ========================================================= */
 
 function distanceM(
@@ -4061,7 +3615,7 @@ function distanceM(
       180;
 
 
-  const R =
+  const earth =
     6371000;
 
 
@@ -4106,11 +3660,18 @@ function distanceM(
 
   return (
 
-    R *
+    earth *
+
     2 *
+
     Math.atan2(
+
       Math.sqrt(a),
-      Math.sqrt(1-a)
+
+      Math.sqrt(
+        1-a
+      )
+
     )
 
   );
@@ -4118,11 +3679,10 @@ function distanceM(
 }
 
 
-function distLabel(distance){
+function distanceLabel(distance){
 
   if(
-    distance <
-    1000
+    distance < 1000
   ){
 
     return (
@@ -4150,7 +3710,7 @@ function distLabel(distance){
 }
 
 
-function mapFor(
+function googleMapLink(
   lat,
   lng,
   url
@@ -4182,13 +3742,15 @@ function mapFor(
    FOOD RESULT
 ========================================================= */
 
-function foodItem(item){
+function renderFoodItem(item){
 
   return `
 
     <div class="nearby-item">
 
+
       <div class="nearby-item-main">
+
 
         <div class="nearby-item-name">
 
@@ -4208,7 +3770,7 @@ function foodItem(item){
 
               item.distance
               ?
-              distLabel(
+              distanceLabel(
                 item.distance
               )
               :
@@ -4228,6 +3790,7 @@ function foodItem(item){
 
         </div>
 
+
       </div>
 
 
@@ -4243,6 +3806,7 @@ function foodItem(item){
             href="${esc(item.map)}"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Open map"
           >
             📍
           </a>
@@ -4254,6 +3818,7 @@ function foodItem(item){
         ""
       }
 
+
     </div>
 
   `;
@@ -4263,79 +3828,7 @@ function foodItem(item){
 
 
 /* =========================================================
-   BIND FOOD
-========================================================= */
-
-function bindFoodNearby(){
-
-  const button =
-    document.getElementById(
-      "foodNearbyButton"
-    );
-
-
-  const panel =
-    document.getElementById(
-      "foodNearbyPanel"
-    );
-
-
-  if(
-    !button ||
-    !panel
-  ){
-
-    return;
-
-  }
-
-
-  button.onclick =
-    async () => {
-
-      const opening =
-
-        !panel
-          .classList
-          .contains(
-            "show"
-          );
-
-
-      panel
-        .classList
-        .toggle(
-          "show",
-          opening
-        );
-
-
-      button
-        .classList
-        .toggle(
-          "open",
-          opening
-        );
-
-
-      if(
-        opening &&
-        !nearbyLoaded &&
-        !nearbyLoading
-      ){
-
-        await loadNearbyFood();
-
-      }
-
-    };
-
-}
-
-
-
-/* =========================================================
-   LOAD NEARBY FOOD
+   LOAD FOOD NEARBY
 ========================================================= */
 
 async function loadNearbyFood(){
@@ -4374,6 +3867,7 @@ async function loadNearbyFood(){
 
   try{
 
+
     const position =
 
       await new Promise(
@@ -4405,13 +3899,9 @@ async function loadNearbyFood(){
               reject,
 
               {
-
                 enableHighAccuracy:true,
-
                 timeout:12000,
-
                 maximumAge:60000
-
               }
 
             );
@@ -4430,7 +3920,7 @@ async function loadNearbyFood(){
 
 
     /* =====================================================
-       YOUR PICKS
+       SAVED PICKS
     ====================================================== */
 
     let picks = [];
@@ -4549,7 +4039,7 @@ async function loadNearbyFood(){
                     ),
 
                   map:
-                    mapFor(
+                    googleMapLink(
 
                       restaurantLat,
                       restaurantLng,
@@ -4584,7 +4074,7 @@ async function loadNearbyFood(){
 
 
     /* =====================================================
-       GOOGLE FOOD NEARBY
+       GOOGLE NEARBY
     ====================================================== */
 
     let nearby = [];
@@ -4613,13 +4103,11 @@ async function loadNearbyFood(){
             .searchNearby({
 
               fields:[
-
                 "id",
                 "displayName",
                 "formattedAddress",
                 "location",
                 "googleMapsURI"
-
               ],
 
               locationRestriction:{
@@ -4634,10 +4122,8 @@ async function loadNearbyFood(){
               },
 
               includedPrimaryTypes:[
-
                 "restaurant",
                 "cafe"
-
               ],
 
               maxResultCount:8,
@@ -4734,7 +4220,7 @@ async function loadNearbyFood(){
 
                   ||
 
-                  mapFor(
+                  googleMapLink(
                     placeLat,
                     placeLng
                   )
@@ -4752,7 +4238,7 @@ async function loadNearbyFood(){
     catch(error){
 
       console.warn(
-        "Nearby Google food:",
+        "Google nearby food:",
         error
       );
 
@@ -4761,7 +4247,7 @@ async function loadNearbyFood(){
 
 
     /* =====================================================
-       OUTPUT
+       RENDER
     ====================================================== */
 
     status.style.display =
@@ -4771,50 +4257,39 @@ async function loadNearbyFood(){
     let html = "";
 
 
-    if(picks.length){
+    html += `
 
-      html += `
+      <div class="nearby-section">
 
-        <div class="nearby-section">
-
-          <div class="nearby-section-title">
-            YOUR PICKS
-          </div>
-
-          ${
-            picks
-              .map(
-                foodItem
-              )
-              .join("")
-          }
-
+        <div class="nearby-section-title">
+          YOUR PICKS
         </div>
 
-      `;
+        ${
+          picks.length
 
-    }
+          ?
 
+          picks
+            .map(
+              renderFoodItem
+            )
+            .join("")
 
-    else{
+          :
 
-      html += `
+          `
 
-        <div class="nearby-section">
+            <div class="nearby-status">
+              No saved picks within 250 m of you.
+            </div>
 
-          <div class="nearby-section-title">
-            YOUR PICKS
-          </div>
+          `
+        }
 
-          <div class="nearby-status">
-            No saved picks within 250 m of you.
-          </div>
+      </div>
 
-        </div>
-
-      `;
-
-    }
+    `;
 
 
     html += `
@@ -4832,7 +4307,7 @@ async function loadNearbyFood(){
 
           nearby
             .map(
-              foodItem
+              renderFoodItem
             )
             .join("")
 
@@ -4849,6 +4324,10 @@ async function loadNearbyFood(){
 
       </div>
 
+    `;
+
+
+    html += `
 
       <a
         class="nearby-more"
@@ -4904,11 +4383,9 @@ async function loadNearbyFood(){
 
 function renderPage(){
 
-  renderTodayCard();
+  renderPlaces();
 
-  renderDateScroller();
-
-  renderDayAreas();
+  renderDates();
 
   renderFullPlan();
 
@@ -4934,23 +4411,7 @@ loadData()
 
 
       document.getElementById(
-        "todayCard"
-      ).innerHTML = `
-
-        <div class="empty">
-
-          ${esc(
-            error.message ||
-            "Could not load trip."
-          )}
-
-        </div>
-
-      `;
-
-
-      document.getElementById(
-        "dayAreas"
+        "placeGroups"
       ).innerHTML = `
 
         <div class="error-card">
