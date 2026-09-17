@@ -1,835 +1,1394 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <title>My Trips</title>
-
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-
-  <style>
-    :root{
-      --bg:#070c10;
-      --panel:#10161c;
-      --panel-light:#151c23;
-      --line:#29323b;
-      --text:#f5f5f3;
-      --muted:#aeb5bc;
-
-      --red:#c96f68;
-      --blue:#5c9dff;
-      --green:#67c587;
-      --orange:#f4a34d;
-      --gold:#e3b85c;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    html,
-    body{
-      margin:0;
-      min-height:100%;
-      background:var(--bg);
-      color:var(--text);
-
-      font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    }
-
-    button,
-    input,
-    textarea,
-    select{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    .app{
-      width:min(100%,820px);
-      margin:0 auto;
-    }
-
-    /* ==================================================
-       HEADER
-    ================================================== */
-
-    .header{
-      padding:
-        calc(22px + env(safe-area-inset-top))
-        18px
-        18px;
-    }
-
-    .eyebrow{
-      color:var(--red);
-      font-size:10px;
-      font-weight:900;
-      letter-spacing:1.6px;
-      text-transform:uppercase;
-    }
-
-    h1{
-      margin:5px 0 0;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size:32px;
-      line-height:1.05;
-    }
-
-    .subtitle{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.55;
-      margin-top:8px;
-      max-width:520px;
-    }
-
-    /* ==================================================
-       CONTENT
-    ================================================== */
-
-    .content{
-      padding:0 14px 35px;
-    }
-
-    .section{
-      margin-bottom:25px;
-    }
-
-    .section-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-
-      padding:0 4px 10px;
-    }
-
-    .section-label{
-      color:#89949e;
-
-      font-size:9px;
-      font-weight:900;
-      letter-spacing:1.4px;
-      text-transform:uppercase;
-    }
-
-    .trip-count{
-      color:var(--muted);
-      font-size:10px;
-    }
-
-    /* ==================================================
-       CREATE BUTTON
-    ================================================== */
-
-    .create-trip{
-      width:100%;
-      min-height:57px;
-
-      border:1px solid rgba(103,197,135,.45);
-      border-radius:17px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(103,197,135,.15),
-          rgba(103,197,135,.05)
-        );
-
-      color:#9df0b8;
-
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.7px;
-
-      margin-bottom:25px;
-    }
-
-    .create-trip:active{
-      transform:scale(.99);
-    }
-
-    /* ==================================================
-       TRIP CARDS
-    ================================================== */
-
-    .trip-list{
-      display:flex;
-      flex-direction:column;
-      gap:11px;
-    }
-
-    .trip-card{
-      position:relative;
-      overflow:hidden;
-
-      border:1px solid var(--line);
-      border-radius:21px;
-
-      background:var(--panel);
-
-      box-shadow:
-        0 10px 28px rgba(0,0,0,.15);
-    }
-
-    .trip-card.current{
-      border-color:rgba(201,111,104,.65);
-
-      box-shadow:
-        inset 0 0 0 1px rgba(201,111,104,.08),
-        0 10px 28px rgba(0,0,0,.18);
-    }
-
-    .trip-cover{
-      height:7px;
-      background:
-        linear-gradient(
-          90deg,
-          var(--red),
-          #8d4f4a
-        );
-    }
-
-    .trip-card.shared .trip-cover{
-      background:
-        linear-gradient(
-          90deg,
-          var(--blue),
-          #436fae
-        );
-    }
-
-    .trip-body{
-      padding:17px;
-    }
-
-    .trip-top{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-    }
-
-    .country-icon{
-      width:50px;
-      height:50px;
-
-      flex:0 0 50px;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      border:1px solid var(--line);
-      border-radius:15px;
-
-      background:var(--panel-light);
-
-      font-size:27px;
-    }
-
-    .trip-main{
-      min-width:0;
-      flex:1;
-    }
-
-    .trip-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:5px;
-
-      margin-bottom:6px;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-
-      min-height:20px;
-
-      padding:3px 7px;
-
-      border-radius:999px;
-
-      font-size:7px;
-      font-weight:950;
-      letter-spacing:.7px;
-      text-transform:uppercase;
-    }
-
-    .badge.current{
-      background:rgba(201,111,104,.13);
-      color:#e8a39d;
-    }
-
-    .badge.owner{
-      background:rgba(227,184,92,.12);
-      color:var(--gold);
-    }
-
-    .badge.editor{
-      background:rgba(92,157,255,.12);
-      color:#a9caff;
-    }
-
-    .badge.viewer{
-      background:rgba(174,181,188,.10);
-      color:#c2c8cd;
-    }
-
-    .trip-name{
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size:21px;
-      line-height:1.15;
-
-      overflow-wrap:anywhere;
-    }
-
-    .trip-country{
-      color:var(--muted);
-      font-size:10px;
-      margin-top:4px;
-    }
-
-    .trip-dates{
-      color:#c4cbd1;
-      font-size:11px;
-      margin-top:10px;
-    }
-
-    .trip-description{
-      color:#818c95;
-      font-size:10px;
-      line-height:1.5;
-      margin-top:7px;
-    }
-
-    /* ==================================================
-       ACTIONS
-    ================================================== */
 
-    .trip-actions{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:8px;
-
-      margin-top:15px;
-    }
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#070c10">
+
+<title>My Trips · Travel</title>
+
+<style>
+
+:root{
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel2:#151c23;
+  --line:#29323b;
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --muted2:#75828b;
+  --red:#c96f68;
+  --green:#67c587;
+  --blue:#5c9dff;
+  --gold:#e3b85c;
+}
 
-    .open-trip{
-      min-height:43px;
+*{
+  box-sizing:border-box;
+}
 
-      border:1px solid rgba(201,111,104,.45);
-      border-radius:12px;
+html{
+  scroll-behavior:smooth;
+}
 
-      background:rgba(201,111,104,.10);
+body{
+  margin:0;
 
-      color:#f0aaa4;
+  min-height:100vh;
 
-      font-size:10px;
-      font-weight:900;
-      letter-spacing:.5px;
-    }
+  padding-bottom:
+    calc(90px + env(safe-area-inset-bottom));
 
-    .edit-trip{
-      min-width:80px;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      #17212a 0%,
+      transparent 38%
+    ),
+    var(--bg);
 
-      border:1px solid var(--line);
-      border-radius:12px;
+  color:var(--text);
 
-      background:var(--panel-light);
-      color:var(--text);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
 
-      font-size:10px;
-      font-weight:850;
-    }
+button,
+input,
+textarea{
+  font:inherit;
+}
 
-    .trip-card.shared .open-trip{
-      border-color:rgba(92,157,255,.45);
-      background:rgba(92,157,255,.09);
-      color:#afd0ff;
-    }
+button{
+  cursor:pointer;
+}
 
-    /* ==================================================
-       EMPTY / LOADING
-    ================================================== */
 
-    .empty{
-      border:1px dashed var(--line);
-      border-radius:17px;
+/* =========================================================
+   HEADER
+========================================================= */
 
-      padding:26px 18px;
+header{
+  position:sticky;
+  top:0;
+  z-index:40;
 
-      color:var(--muted);
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    14px
+    11px;
 
-      text-align:center;
+  border-bottom:1px solid var(--line);
 
-      font-size:11px;
-      line-height:1.6;
-    }
+  background:
+    rgba(7,12,16,.96);
 
-    .loading{
-      padding:35px 15px;
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-    }
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
 
-    .error{
-      display:none;
+.header-inner{
+  max-width:760px;
+  margin:auto;
+}
 
-      margin:0 14px 18px;
+.eyebrow{
+  color:var(--red);
 
-      border:1px solid rgba(201,111,104,.4);
-      border-radius:14px;
+  font-size:8px;
+  font-weight:900;
 
-      padding:12px 14px;
+  letter-spacing:.14em;
+}
 
-      background:rgba(201,111,104,.08);
-      color:#e9aaa4;
+h1{
+  margin:3px 0 0;
 
-      font-size:11px;
-      line-height:1.5;
-    }
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-    .error.show{
-      display:block;
-    }
+  font-size:25px;
+}
 
-    /* ==================================================
-       SHEET
-    ================================================== */
+.header-sub{
+  margin-top:3px;
 
-    .sheet-backdrop{
-      position:fixed;
-      z-index:1000;
-      inset:0;
+  color:var(--muted);
 
-      display:none;
+  font-size:8px;
+}
 
-      background:rgba(0,0,0,.66);
-      backdrop-filter:blur(5px);
-    }
 
-    .sheet-backdrop.show{
-      display:block;
-    }
+/* =========================================================
+   MAIN
+========================================================= */
 
-    .sheet{
-      position:absolute;
+main{
+  max-width:760px;
 
-      left:50%;
-      bottom:0;
+  margin:auto;
 
-      width:min(100%,620px);
+  padding:
+    13px
+    13px
+    30px;
+}
 
-      transform:translateX(-50%);
+.create-trip{
+  width:100%;
 
-      border:1px solid var(--line);
-      border-bottom:0;
+  min-height:45px;
 
-      border-radius:25px 25px 0 0;
+  margin-bottom:18px;
 
-      background:#0d1318;
+  border:
+    1px solid
+    rgba(201,111,104,.34);
 
-      padding:
-        10px
-        17px
-        calc(22px + env(safe-area-inset-bottom));
+  border-radius:12px;
 
-      max-height:90vh;
-      overflow:auto;
-    }
+  background:
+    rgba(201,111,104,.09);
 
-    .handle{
-      width:45px;
-      height:4px;
+  color:#efaaa5;
 
-      margin:0 auto 16px;
+  font-size:8px;
+  font-weight:900;
+}
 
-      border-radius:999px;
+.create-trip:hover{
+  background:
+    rgba(201,111,104,.14);
+}
 
-      background:#384149;
-    }
 
-    .sheet-title{
-      font-family:Georgia,serif;
-      font-size:24px;
-    }
+/* =========================================================
+   SECTIONS
+========================================================= */
 
-    .sheet-subtitle{
-      color:var(--muted);
-      font-size:10px;
-      margin-top:5px;
-      line-height:1.5;
-    }
+.section{
+  margin-bottom:22px;
+}
 
-    .form{
-      margin-top:18px;
-    }
+.section-head{
+  display:flex;
 
-    label{
-      display:block;
+  align-items:center;
+  justify-content:space-between;
 
-      color:#83909a;
+  margin:
+    0
+    2px
+    8px;
+}
 
-      font-size:8px;
-      font-weight:950;
-      letter-spacing:1px;
+.section-label{
+  color:#91a5b3;
 
-      margin:13px 0 6px;
-    }
+  font-size:7px;
+  font-weight:900;
 
-    input,
-    textarea,
-    select{
-      width:100%;
+  letter-spacing:.13em;
+}
 
-      border:1px solid var(--line);
-      border-radius:13px;
+.section-count{
+  color:#687680;
 
-      background:#080d11;
-      color:var(--text);
+  font-size:7px;
+}
 
-      padding:14px;
 
-      outline:none;
-    }
+/* =========================================================
+   TRIP LIST
+========================================================= */
 
-    textarea{
-      resize:vertical;
-      min-height:80px;
-    }
+.trip-list{
+  display:grid;
 
-    input:focus,
-    textarea:focus,
-    select:focus{
-      border-color:var(--red);
-    }
+  gap:9px;
+}
 
-    .date-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:9px;
-    }
+.trip-card{
+  overflow:hidden;
 
-    .sheet-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:9px;
+  border:
+    1px solid
+    var(--line);
 
-      margin-top:20px;
-    }
+  border-radius:16px;
 
-    .cancel{
-      min-height:48px;
+  background:
+    linear-gradient(
+      145deg,
+      #141c22,
+      #0e1419
+    );
+}
 
-      border:1px solid var(--line);
-      border-radius:13px;
+.trip-card.current{
+  border-color:
+    rgba(201,111,104,.50);
+}
 
-      background:var(--panel-light);
-      color:var(--text);
+.trip-card.shared-trip{
+  border-color:
+    rgba(92,157,255,.18);
+}
 
-      font-size:10px;
-      font-weight:900;
-    }
+.trip-strip{
+  height:4px;
 
-    .save{
-      min-height:48px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--red),
+      #754541
+    );
+}
 
-      border:1px solid rgba(103,197,135,.5);
-      border-radius:13px;
+.trip-body{
+  padding:11px;
+}
 
-      background:rgba(103,197,135,.12);
-      color:#98f0b5;
+.trip-top{
+  display:flex;
 
-      font-size:10px;
-      font-weight:900;
-    }
+  align-items:flex-start;
 
-    .save:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
+  gap:10px;
+}
 
-    .sheet-message{
-      display:none;
+.country-icon{
+  flex:0 0 42px;
 
-      margin-top:12px;
+  width:42px;
+  height:42px;
 
-      border-radius:11px;
-      padding:10px 12px;
+  display:flex;
 
-      font-size:10px;
-      line-height:1.5;
-    }
+  align-items:center;
+  justify-content:center;
 
-    .sheet-message.show{
-      display:block;
-    }
+  border:
+    1px solid
+    var(--line);
 
-    .sheet-message.bad{
-      background:rgba(201,111,104,.10);
-      color:#e9aaa4;
-      border:1px solid rgba(201,111,104,.35);
-    }
+  border-radius:12px;
 
-    .sheet-message.good{
-      background:rgba(103,197,135,.10);
-      color:#9aefb6;
-      border:1px solid rgba(103,197,135,.35);
-    }
+  background:#182129;
 
-    @media(max-width:520px){
+  font-size:23px;
+}
 
-      .header{
-        padding-left:15px;
-        padding-right:15px;
-      }
+.trip-main{
+  flex:1;
 
-      .content{
-        padding-left:10px;
-        padding-right:10px;
-      }
+  min-width:0;
+}
 
-      h1{
-        font-size:29px;
-      }
 
-      .trip-name{
-        font-size:19px;
-      }
-    }
+/* =========================================================
+   BADGES
+========================================================= */
 
-  </style>
+.badges{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:4px;
+
+  margin-bottom:4px;
+}
+
+.badge{
+  padding:
+    3px
+    6px;
+
+  border-radius:999px;
+
+  font-size:5.5px;
+  font-weight:900;
+
+  letter-spacing:.06em;
+}
+
+.badge.current{
+  background:
+    rgba(201,111,104,.10);
+
+  color:#e79b95;
+}
+
+.badge.owner{
+  background:
+    rgba(227,184,92,.10);
+
+  color:#e4c67c;
+}
+
+.badge.editor{
+  background:
+    rgba(103,197,135,.10);
+
+  color:#ade2bd;
+}
+
+.badge.viewer{
+  background:
+    rgba(92,157,255,.10);
+
+  color:#a8caff;
+}
+
+.badge.public{
+  border:
+    1px solid
+    rgba(103,197,135,.15);
+
+  background:
+    rgba(103,197,135,.08);
+
+  color:#aee5bf;
+}
+
+
+/* =========================================================
+   TRIP TEXT
+========================================================= */
+
+.trip-name{
+  overflow:hidden;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:17px;
+
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.trip-country{
+  margin-top:2px;
+
+  color:#89969f;
+
+  font-size:7px;
+}
+
+.trip-dates{
+  margin-top:5px;
+
+  color:#c0c7cc;
+
+  font-size:7px;
+}
+
+.trip-description{
+  margin-top:6px;
+
+  color:#7c8991;
+
+  font-size:7px;
+  line-height:1.45;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    auto
+    auto;
+
+  gap:6px;
+
+  margin-top:10px;
+}
+
+.open-btn,
+.edit-btn,
+.share-btn{
+  min-height:36px;
+
+  padding:
+    5px
+    10px;
+
+  border-radius:9px;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.open-btn{
+  border:
+    1px solid
+    rgba(201,111,104,.34);
+
+  background:
+    rgba(201,111,104,.08);
+
+  color:#edaaa4;
+}
+
+.edit-btn{
+  border:
+    1px solid
+    var(--line);
+
+  background:#151d23;
+
+  color:#cbd1d5;
+}
+
+.share-btn{
+  border:
+    1px solid
+    rgba(201,111,104,.30);
+
+  background:
+    rgba(201,111,104,.06);
+
+  color:#e5a09a;
+}
+
+.share-btn.shared-now{
+  border-color:
+    rgba(103,197,135,.30);
+
+  background:
+    rgba(103,197,135,.07);
+
+  color:#afe5bf;
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+.state{
+  padding:
+    22px
+    14px;
+
+  border:
+    1px dashed
+    #35414a;
+
+  border-radius:14px;
+
+  color:var(--muted);
+
+  text-align:center;
+
+  font-size:8px;
+  line-height:1.55;
+}
+
+.state strong{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#fff;
+
+  font-size:10px;
+}
+
+.page-error{
+  display:none;
+
+  max-width:734px;
+
+  margin:
+    10px
+    auto
+    0;
+
+  padding:
+    9px
+    13px;
+
+  border:
+    1px solid
+    rgba(201,111,104,.30);
+
+  border-radius:10px;
+
+  background:
+    rgba(201,111,104,.07);
+
+  color:#ffc1bc;
+
+  font-size:8px;
+}
+
+.page-error.show{
+  display:block;
+}
+
+
+/* =========================================================
+   SHEETS
+========================================================= */
+
+.backdrop,
+.more-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  display:none;
+
+  align-items:flex-end;
+
+  background:
+    rgba(0,0,0,.72);
+
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+
+.backdrop{
+  z-index:120;
+}
+
+.more-backdrop{
+  z-index:170;
+}
+
+.backdrop.open,
+.more-backdrop.open{
+  display:flex;
+}
+
+.sheet,
+.more-sheet{
+  width:100%;
+
+  max-height:90vh;
+
+  overflow:auto;
+
+  padding:
+    8px
+    14px
+    calc(18px + env(safe-area-inset-bottom));
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
+  background:#0d1318;
+}
+
+.sheet{
+  max-width:600px;
+
+  margin:auto;
+}
+
+.more-sheet{
+  max-width:760px;
+
+  margin:auto;
+}
+
+.handle{
+  width:38px;
+  height:4px;
+
+  margin:
+    2px
+    auto
+    13px;
+
+  border-radius:999px;
+
+  background:#39454d;
+}
+
+.sheet-head{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:12px;
+}
+
+.sheet-title,
+.more-title{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:9px;
+
+  background:#151c22;
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field{
+  margin-bottom:10px;
+}
+
+.field label{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#9da8af;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+
+  min-height:43px;
+
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:9px;
+
+  outline:none;
+
+  background:#10171d;
+
+  color:#fff;
+
+  font-size:10px;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--red);
+}
+
+.field textarea{
+  min-height:76px;
+
+  resize:vertical;
+}
+
+.date-row{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:8px;
+}
+
+.sheet-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:7px;
+
+  margin-top:12px;
+}
+
+.cancel,
+.save{
+  min-height:42px;
+
+  border-radius:10px;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.cancel{
+  border:
+    1px solid
+    var(--line);
+
+  background:#151c22;
+
+  color:#cbd1d5;
+}
+
+.save{
+  border:
+    1px solid
+    rgba(103,197,135,.30);
+
+  background:
+    rgba(103,197,135,.09);
+
+  color:#afe5bf;
+}
+
+
+/* =========================================================
+   PUBLICATION SETTINGS
+========================================================= */
+
+.public-box{
+  display:none;
+
+  margin-top:13px;
+
+  padding:
+    10px;
+
+  border:
+    1px solid
+    rgba(103,197,135,.18);
+
+  border-radius:11px;
+
+  background:
+    rgba(103,197,135,.035);
+}
+
+.public-box.show{
+  display:block;
+}
+
+.public-title{
+  color:#b2dfc0;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.public-text{
+  margin-top:4px;
+
+  color:#7f8d85;
+
+  font-size:6.5px;
+  line-height:1.5;
+}
+
+.public-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:6px;
+
+  margin-top:9px;
+}
+
+.view-public,
+.unshare{
+  min-height:38px;
+
+  border-radius:9px;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.view-public{
+  border:
+    1px solid
+    rgba(103,197,135,.25);
+
+  background:
+    rgba(103,197,135,.07);
+
+  color:#afe5bf;
+}
+
+.unshare{
+  border:
+    1px solid
+    rgba(201,111,104,.25);
+
+  background:
+    rgba(201,111,104,.05);
+
+  color:#df938c;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message{
+  display:none;
+
+  margin-top:9px;
+
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:7px;
+}
+
+.message.error{
+  display:block;
+
+  border:
+    1px solid
+    rgba(201,111,104,.25);
+
+  background:
+    rgba(201,111,104,.07);
+
+  color:#ffc3bf;
+}
+
+.message.success{
+  display:block;
+
+  border:
+    1px solid
+    rgba(103,197,135,.25);
+
+  background:
+    rgba(103,197,135,.07);
+
+  color:#b9ebc8;
+}
+
+
+/* =========================================================
+   MORE
+========================================================= */
+
+.more-title{
+  margin-bottom:12px;
+}
+
+.more-link{
+  min-height:57px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:6px;
+
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:11px;
+
+  background:#11181e;
+
+  color:#fff;
+
+  text-decoration:none;
+}
+
+.more-link.active{
+  border-color:
+    rgba(201,111,104,.30);
+
+  background:
+    rgba(201,111,104,.07);
+}
+
+.more-icon{
+  width:31px;
+
+  font-size:18px;
+
+  text-align:center;
+}
+
+.more-main{
+  flex:1;
+}
+
+.more-name{
+  font-size:9px;
+  font-weight:900;
+}
+
+.more-sub{
+  margin-top:2px;
+
+  color:#7d8991;
+
+  font-size:6.5px;
+}
+
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom-nav{
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:80;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:3px;
+
+  padding:
+    6px
+    7px
+    calc(6px + env(safe-area-inset-bottom));
+
+  border-top:
+    1px solid
+    var(--line);
+
+  background:
+    rgba(7,12,16,.98);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.bottom-nav a,
+.bottom-nav button{
+  min-height:46px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:2px;
+
+  border:0;
+  border-radius:10px;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:800;
+}
+
+.nav-icon{
+  font-size:16px;
+}
+
+.bottom-nav .active{
+  color:#fff;
+
+  border:
+    1px solid
+    rgba(201,111,104,.22);
+
+  background:
+    rgba(201,111,104,.08);
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media(min-width:700px){
+
+  .bottom-nav{
+    left:50%;
+    right:auto;
+
+    width:min(
+      820px,
+      100%
+    );
+
+    transform:
+      translateX(-50%);
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<div class="app">
 
-  <!-- HEADER -->
-  <header class="header">
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+  <div class="header-inner">
 
     <div class="eyebrow">
-      Travel Planner
+      TRAVEL PLANNER
     </div>
 
-    <h1>My Trips</h1>
+    <h1>
+      🧳 My Trips
+    </h1>
 
-    <div class="subtitle">
-      Choose a trip to open it, or create a new adventure.
+    <div class="header-sub">
+      Create, open and share your trips.
     </div>
 
-  </header>
+  </div>
+
+</header>
 
 
-  <div id="pageError" class="error"></div>
-
-
-  <main class="content">
-
-    <button
-      class="create-trip"
-      type="button"
-      onclick="openCreateTrip()">
-      ＋ CREATE NEW TRIP
-    </button>
-
-
-    <!-- OWNED -->
-
-    <section class="section">
-
-      <div class="section-header">
-
-        <div class="section-label">
-          My Trips
-        </div>
-
-        <div
-          class="trip-count"
-          id="ownedCount">
-        </div>
-
-      </div>
-
-      <div
-        class="trip-list"
-        id="ownedTrips">
-
-        <div class="loading">
-          Loading your trips...
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SHARED -->
-
-    <section class="section">
-
-      <div class="section-header">
-
-        <div class="section-label">
-          Shared With Me
-        </div>
-
-        <div
-          class="trip-count"
-          id="sharedCount">
-        </div>
-
-      </div>
-
-      <div
-        class="trip-list"
-        id="sharedTrips">
-
-        <div class="loading">
-          Loading shared trips...
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-
-<!-- ==================================================
-     CREATE / EDIT SHEET
-================================================== -->
 
 <div
-  class="sheet-backdrop"
+  id="pageError"
+  class="page-error"
+></div>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+  <button
+    id="createTripButton"
+    class="create-trip"
+    type="button"
+  >
+    ＋ CREATE NEW TRIP
+  </button>
+
+
+  <!-- =====================================================
+       OWNED
+  ====================================================== -->
+
+  <section class="section">
+
+    <div class="section-head">
+
+      <div class="section-label">
+        MY TRIPS
+      </div>
+
+      <div
+        id="ownedCount"
+        class="section-count"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div
+      id="ownedTrips"
+      class="trip-list"
+    >
+
+      <div class="state">
+        Loading your trips…
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SHARED
+  ====================================================== -->
+
+  <section class="section">
+
+    <div class="section-head">
+
+      <div class="section-label">
+        SHARED WITH ME
+      </div>
+
+      <div
+        id="sharedCount"
+        class="section-count"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div
+      id="sharedTrips"
+      class="trip-list"
+    >
+
+      <div class="state">
+        Loading shared trips…
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     CREATE / EDIT TRIP
+========================================================= -->
+
+<div
   id="tripSheet"
-  onclick="backdropClose(event)">
+  class="backdrop"
+>
 
   <div class="sheet">
 
     <div class="handle"></div>
 
-    <div
-      class="sheet-title"
-      id="sheetTitle">
-      Create Trip
+
+    <div class="sheet-head">
+
+      <div
+        id="sheetTitle"
+        class="sheet-title"
+      >
+        Create Trip
+      </div>
+
+
+      <button
+        id="closeTripSheet"
+        class="close"
+        type="button"
+      >
+        ✕
+      </button>
+
     </div>
 
-    <div
-      class="sheet-subtitle"
-      id="sheetSubtitle">
-      Start a new trip. You can add your schedule,
-      restaurants and bookings afterwards.
-    </div>
 
+    <div class="field">
 
-    <div class="form">
-
-      <label>TRIP NAME</label>
+      <label>
+        TRIP NAME
+      </label>
 
       <input
         id="tripName"
-        type="text"
-        placeholder="e.g. Taiwan 2027"
+        placeholder="e.g. Japan Autumn 2026"
       >
 
+    </div>
 
-      <label>COUNTRY</label>
+
+    <div class="field">
+
+      <label>
+        COUNTRY
+      </label>
 
       <input
         id="tripCountry"
-        type="text"
-        placeholder="e.g. Taiwan"
+        placeholder="e.g. Japan"
       >
 
+    </div>
 
-      <div class="date-grid">
 
-        <div>
+    <div class="date-row">
 
-          <label>START DATE</label>
+      <div class="field">
 
-          <input
-            id="tripStart"
-            type="date"
-          >
+        <label>
+          START DATE
+        </label>
 
-        </div>
-
-        <div>
-
-          <label>END DATE</label>
-
-          <input
-            id="tripEnd"
-            type="date"
-          >
-
-        </div>
+        <input
+          id="tripStart"
+          type="date"
+        >
 
       </div>
 
 
-      <label>DESCRIPTION</label>
+      <div class="field">
+
+        <label>
+          END DATE
+        </label>
+
+        <input
+          id="tripEnd"
+          type="date"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        DESCRIPTION
+      </label>
 
       <textarea
         id="tripDescription"
         placeholder="Optional trip description..."
       ></textarea>
 
+    </div>
 
-      <div
-        id="sheetMessage"
-        class="sheet-message">
+
+    <div
+      id="sheetMessage"
+      class="message"
+    ></div>
+
+
+    <div class="sheet-actions">
+
+      <button
+        id="cancelTrip"
+        class="cancel"
+        type="button"
+      >
+        CANCEL
+      </button>
+
+
+      <button
+        id="saveTrip"
+        class="save"
+        type="button"
+      >
+        CREATE TRIP
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         PUBLIC STATUS
+    ==================================================== -->
+
+    <div
+      id="publicBox"
+      class="public-box"
+    >
+
+      <div class="public-title">
+        🌐 PUBLISHED TO PLACES
+      </div>
+
+      <div class="public-text">
+        Other users can view this itinerary,
+        like it and copy it into their own trips.
       </div>
 
 
-      <div class="sheet-actions">
+      <div class="public-actions">
 
         <button
-          class="cancel"
+          id="viewPublic"
+          class="view-public"
           type="button"
-          onclick="closeTripSheet()">
-          CANCEL
+        >
+          VIEW IN PLACES
         </button>
 
+
         <button
-          class="save"
-          id="saveTripButton"
+          id="unshareTrip"
+          class="unshare"
           type="button"
-          onclick="saveTrip()">
-          CREATE TRIP
+        >
+          STOP SHARING
         </button>
 
       </div>
@@ -841,70 +1400,285 @@
 </div>
 
 
-<!-- ==================================================
-     SHARED FOOTER
-================================================== -->
 
-<div id="footer"></div>
+<!-- =========================================================
+     MORE
+========================================================= -->
+
+<div
+  id="moreBackdrop"
+  class="more-backdrop"
+>
+
+  <div class="more-sheet">
+
+    <div class="handle"></div>
+
+
+    <div class="more-title">
+      More
+    </div>
+
+
+    <a
+      id="moreProfile"
+      class="more-link"
+    >
+
+      <div class="more-icon">
+        👤
+      </div>
+
+
+      <div class="more-main">
+
+        <div class="more-name">
+          Profile & Sharing
+        </div>
+
+        <div class="more-sub">
+          Account · trip members
+        </div>
+
+      </div>
+
+      →
+
+    </a>
+
+
+    <a
+      href="trips.html"
+      class="more-link active"
+    >
+
+      <div class="more-icon">
+        🧳
+      </div>
+
+
+      <div class="more-main">
+
+        <div class="more-name">
+          My Trips
+        </div>
+
+        <div class="more-sub">
+          Create · open · share
+        </div>
+
+      </div>
+
+      ✓
+
+    </a>
+
+
+    <a
+      href="places.html"
+      class="more-link"
+    >
+
+      <div class="more-icon">
+        🌐
+      </div>
+
+
+      <div class="more-main">
+
+        <div class="more-name">
+          Places
+        </div>
+
+        <div class="more-sub">
+          Shared itineraries
+        </div>
+
+      </div>
+
+      →
+
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     BOTTOM NAV
+========================================================= -->
+
+<nav class="bottom-nav">
+
+  <a id="navHome">
+
+    <span class="nav-icon">
+      🏠
+    </span>
+
+    <span>
+      HOME
+    </span>
+
+  </a>
+
+
+  <a id="navPlan">
+
+    <span class="nav-icon">
+      📅
+    </span>
+
+    <span>
+      PLAN
+    </span>
+
+  </a>
+
+
+  <a id="navFood">
+
+    <span class="nav-icon">
+      🍽️
+    </span>
+
+    <span>
+      FOOD
+    </span>
+
+  </a>
+
+
+  <a id="navHub">
+
+    <span class="nav-icon">
+      ⭐
+    </span>
+
+    <span>
+      HUB
+    </span>
+
+  </a>
+
+
+  <button
+    id="navMore"
+    class="active"
+    type="button"
+  >
+
+    <span class="nav-icon">
+      ⋯
+    </span>
+
+    <span>
+      MORE
+    </span>
+
+  </button>
+
+</nav>
+
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
 
 <script>
 
-/* ============================================================
+/* =========================================================
    STATE
-============================================================ */
+========================================================= */
 
 let currentUser = null;
 
 let ownedTrips = [];
+
 let sharedTrips = [];
+
+let publications = [];
 
 let editingTripId = null;
 
 
-/* ============================================================
+/* =========================================================
    HELPERS
-============================================================ */
+========================================================= */
 
-function escapeHtml(value){
+function esc(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    value ?? ""
+  )
+
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
+
 }
 
 
 function countryEmoji(country){
 
   const value =
-    String(country || "")
-      .toLowerCase()
-      .trim();
+    String(
+      country || ""
+    )
+    .trim()
+    .toLowerCase();
+
 
   const map = {
 
     japan:"🇯🇵",
 
-    taiwan:"🇹🇼",
-
     singapore:"🇸🇬",
-
-    thailand:"🇹🇭",
-
-    korea:"🇰🇷",
-    "south korea":"🇰🇷",
-
-    china:"🇨🇳",
 
     malaysia:"🇲🇾",
 
     indonesia:"🇮🇩",
 
+    thailand:"🇹🇭",
+
     vietnam:"🇻🇳",
 
-    philippines:"🇵🇭",
+    taiwan:"🇹🇼",
+
+    china:"🇨🇳",
+
+    korea:"🇰🇷",
+
+    "south korea":"🇰🇷",
 
     france:"🇫🇷",
 
@@ -912,37 +1686,51 @@ function countryEmoji(country){
 
     spain:"🇪🇸",
 
-    "united kingdom":"🇬🇧",
     uk:"🇬🇧",
 
-    "united states":"🇺🇸",
-    usa:"🇺🇸"
+    "united kingdom":"🇬🇧",
+
+    usa:"🇺🇸",
+
+    "united states":"🇺🇸"
 
   };
 
-  return map[value] || "✈️";
+
+  return (
+    map[value]
+    ||
+    "✈️"
+  );
+
 }
 
 
-function prettyDate(dateString){
+function prettyDate(value){
 
-  if(!dateString){
+  if(!value){
+
     return "";
+
   }
+
 
   const date =
     new Date(
-      dateString + "T12:00:00"
+      value +
+      "T12:00:00"
     );
 
-  return new Intl.DateTimeFormat(
-    "en-GB",
+
+  return date.toLocaleDateString(
+    "en-SG",
     {
       day:"numeric",
       month:"short",
       year:"numeric"
     }
-  ).format(date);
+  );
+
 }
 
 
@@ -954,105 +1742,171 @@ function tripDates(trip){
   ){
 
     return (
-      prettyDate(trip.start_date) +
-      " — " +
-      prettyDate(trip.end_date)
+      prettyDate(
+        trip.start_date
+      )
+      +
+      " – "
+      +
+      prettyDate(
+        trip.end_date
+      )
     );
 
   }
+
 
   if(trip.start_date){
 
     return (
-      "From " +
-      prettyDate(trip.start_date)
+      "From "
+      +
+      prettyDate(
+        trip.start_date
+      )
     );
 
   }
 
+
   return "Dates not set";
+
 }
 
 
-function currentTripId(){
+function getCurrentTripId(){
 
-  return Number(
-    localStorage.getItem(
-      "current_trip_id"
+  return (
+    Number(
+      localStorage.getItem(
+        "current_trip_id"
+      )
     )
-  ) || null;
+    ||
+    null
+  );
+
 }
 
 
-function showPageError(message){
+function normalizeMemberRole(role){
+
+  return (
+    role === "editor"
+    ?
+    "editor"
+    :
+    "viewer"
+  );
+
+}
+
+
+function publicationForTrip(
+  tripId
+){
+
+  return (
+    publications.find(
+      item =>
+        Number(
+          item.trip_id
+        )
+        ===
+        Number(
+          tripId
+        )
+    )
+    ||
+    null
+  );
+
+}
+
+
+function showError(message){
 
   const box =
     document.getElementById(
       "pageError"
     );
 
+
   box.textContent =
     message;
 
-  box.classList.add("show");
+
+  box.classList.add(
+    "show"
+  );
+
 }
 
 
-function hidePageError(){
+function clearError(){
 
   document.getElementById(
     "pageError"
-  ).classList.remove("show");
+  )
+  .classList
+  .remove(
+    "show"
+  );
+
 }
 
 
-/* ============================================================
+/* =========================================================
    START
-============================================================ */
+========================================================= */
 
 async function start(){
 
-  hidePageError();
-
   try{
 
-    const {
-      data:{
-        user
-      },
-      error
-    } =
+    clearError();
+
+
+    const auth =
       await db.auth.getUser();
 
 
-    if(error){
-      throw error;
+    if(auth.error){
+
+      throw auth.error;
+
     }
 
 
-    if(!user){
+    currentUser =
+      auth.data.user;
+
+
+    if(!currentUser){
 
       location.href =
         "login.html";
 
       return;
+
     }
-
-
-    currentUser =
-      user;
 
 
     await loadTrips();
 
+  }
 
-  }catch(error){
 
-    console.error(error);
+  catch(error){
 
-    showPageError(
+    console.error(
+      error
+    );
+
+
+    showError(
       error.message ||
-      "Could not load your account."
+      "Could not load your trips."
     );
 
   }
@@ -1060,284 +1914,346 @@ async function start(){
 }
 
 
-/* ============================================================
+/* =========================================================
    LOAD TRIPS
-============================================================ */
+========================================================= */
 
 async function loadTrips(){
 
-  try{
+  /*
+    MY OWN TRIPS
+  */
 
-    /*
-      1. Trips owned by the logged-in user.
-    */
+  const ownedResult =
+    await db
+      .from("trips")
+      .select("*")
+      .eq(
+        "owner_id",
+        currentUser.id
+      )
+      .order(
+        "start_date",
+        {
+          ascending:false,
+          nullsFirst:false
+        }
+      );
 
-    const ownedResult =
+
+  if(ownedResult.error){
+
+    throw ownedResult.error;
+
+  }
+
+
+  ownedTrips =
+    (ownedResult.data || [])
+      .filter(
+        trip =>
+          trip.status !==
+          "deleted"
+      );
+
+
+  /*
+    MEMBERSHIPS
+  */
+
+  const membershipResult =
+    await db
+      .from("trip_members")
+      .select(`
+        id,
+        trip_id,
+        user_id,
+        role,
+        created_at
+      `)
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+  if(membershipResult.error){
+
+    throw membershipResult.error;
+
+  }
+
+
+  const memberships =
+    membershipResult.data || [];
+
+
+  const sharedIds =
+    [
+      ...new Set(
+        memberships
+          .map(
+            item =>
+              Number(
+                item.trip_id
+              )
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  sharedTrips = [];
+
+
+  /*
+    SHARED TRIPS
+  */
+
+  if(sharedIds.length){
+
+    const sharedResult =
       await db
         .from("trips")
-        .select(`
-          id,
-          owner_id,
-          name,
-          country,
-          start_date,
-          end_date,
-          description,
-          cover_image_url,
-          status,
-          created_at,
-          updated_at
-        `)
-        .eq(
-          "owner_id",
-          currentUser.id
+        .select("*")
+        .in(
+          "id",
+          sharedIds
+        );
+
+
+    if(sharedResult.error){
+
+      throw sharedResult.error;
+
+    }
+
+
+    sharedTrips =
+      (sharedResult.data || [])
+        .filter(
+          trip =>
+            trip.status !==
+            "deleted"
         )
-        .neq(
-          "status",
-          "deleted"
-        )
-        .order(
-          "start_date",
-          {
-            ascending:false,
-            nullsFirst:false
+        .map(
+          trip => {
+
+            const membership =
+              memberships.find(
+                item =>
+                  Number(
+                    item.trip_id
+                  )
+                  ===
+                  Number(
+                    trip.id
+                  )
+              );
+
+
+            return {
+
+              ...trip,
+
+              membership_role:
+                normalizeMemberRole(
+                  membership?.role
+                )
+
+            };
+
           }
         );
 
-
-    if(ownedResult.error){
-      throw ownedResult.error;
-    }
-
-
-    ownedTrips =
-      ownedResult.data || [];
-
-
-    /*
-      2. Find memberships belonging
-         to the logged-in user.
-
-      We deliberately DON'T use a nested
-      PostgREST relationship here.
-
-      That avoids the same relationship /
-      schema-cache problem we previously
-      encountered with profiles.
-    */
-
-    const memberResult =
-      await db
-        .from("trip_members")
-        .select(`
-          id,
-          trip_id,
-          user_id,
-          role,
-          created_at
-        `)
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-
-    if(memberResult.error){
-      throw memberResult.error;
-    }
-
-
-    const memberships =
-      memberResult.data || [];
-
-
-    sharedTrips = [];
-
-
-    if(memberships.length){
-
-      const tripIds =
-        [
-          ...new Set(
-            memberships
-              .map(item =>
-                Number(item.trip_id)
-              )
-              .filter(Boolean)
-          )
-        ];
-
-
-      if(tripIds.length){
-
-        const sharedResult =
-          await db
-            .from("trips")
-            .select(`
-              id,
-              owner_id,
-              name,
-              country,
-              start_date,
-              end_date,
-              description,
-              cover_image_url,
-              status,
-              created_at,
-              updated_at
-            `)
-            .in(
-              "id",
-              tripIds
-            )
-            .neq(
-              "status",
-              "deleted"
-            )
-            .order(
-              "start_date",
-              {
-                ascending:false,
-                nullsFirst:false
-              }
-            );
-
-
-        if(sharedResult.error){
-          throw sharedResult.error;
-        }
-
-
-        sharedTrips =
-          (sharedResult.data || [])
-            .map(trip => {
-
-              const membership =
-                memberships.find(
-                  member =>
-                    Number(member.trip_id) ===
-                    Number(trip.id)
-                );
-
-
-              return {
-                ...trip,
-
-                membership_role:
-                  membership?.role ||
-                  "viewer"
-              };
-
-            });
-
-      }
-
-    }
-
-
-    renderTrips();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showPageError(
-      error.message ||
-      "Could not load trips."
-    );
-
-
-    document.getElementById(
-      "ownedTrips"
-    ).innerHTML =
-      `<div class="empty">
-        Could not load your trips.
-       </div>`;
-
-
-    document.getElementById(
-      "sharedTrips"
-    ).innerHTML =
-      `<div class="empty">
-        Could not load shared trips.
-       </div>`;
-
   }
+
+
+  /*
+    PUBLICATION STATUS
+  */
+
+  await loadPublications();
+
+
+  /*
+    RENDER
+  */
+
+  renderTrips();
+
+
+  setupNavigation();
 
 }
 
 
-/* ============================================================
+/* =========================================================
+   PUBLICATION STATUS
+========================================================= */
+
+async function loadPublications(){
+
+  publications = [];
+
+
+  const ids =
+    ownedTrips
+      .map(
+        trip =>
+          Number(
+            trip.id
+          )
+      )
+      .filter(Boolean);
+
+
+  if(!ids.length){
+
+    return;
+
+  }
+
+
+  const result =
+    await db
+      .from(
+        "trip_publications"
+      )
+      .select(`
+        id,
+        trip_id,
+        is_public,
+        allow_copy,
+        created_at,
+        updated_at
+      `)
+      .in(
+        "trip_id",
+        ids
+      );
+
+
+  if(result.error){
+
+    throw result.error;
+
+  }
+
+
+  publications =
+    result.data || [];
+
+}
+
+
+/* =========================================================
    RENDER
-============================================================ */
+========================================================= */
 
 function renderTrips(){
 
   document.getElementById(
     "ownedCount"
   ).textContent =
-    `${ownedTrips.length}`;
+    String(
+      ownedTrips.length
+    );
 
 
   document.getElementById(
     "sharedCount"
   ).textContent =
-    `${sharedTrips.length}`;
+    String(
+      sharedTrips.length
+    );
 
 
-  const ownedContainer =
+  const owned =
     document.getElementById(
       "ownedTrips"
     );
 
 
-  const sharedContainer =
+  const shared =
     document.getElementById(
       "sharedTrips"
     );
 
 
+  /*
+    OWNED
+  */
+
   if(!ownedTrips.length){
 
-    ownedContainer.innerHTML =
-      `<div class="empty">
-        You haven't created any trips yet.<br>
-        Tap <strong>CREATE NEW TRIP</strong>
-        to start one.
-       </div>`;
+    owned.innerHTML = `
 
-  }else{
+      <div class="state">
 
-    ownedContainer.innerHTML =
+        <strong>
+          No trips yet
+        </strong>
+
+        Create your first trip above.
+
+      </div>
+
+    `;
+
+  }
+
+
+  else{
+
+    owned.innerHTML =
       ownedTrips
-        .map(trip =>
-          tripCard(
-            trip,
-            "owner"
-          )
+        .map(
+          trip =>
+            tripCard(
+              trip,
+              "owner"
+            )
         )
         .join("");
 
   }
 
 
+  /*
+    SHARED
+  */
+
   if(!sharedTrips.length){
 
-    sharedContainer.innerHTML =
-      `<div class="empty">
-        No trips have been shared with you yet.
-       </div>`;
+    shared.innerHTML = `
 
-  }else{
+      <div class="state">
 
-    sharedContainer.innerHTML =
+        <strong>
+          Nothing shared with you
+        </strong>
+
+        Trips where you are a Viewer
+        or Editor will appear here.
+
+      </div>
+
+    `;
+
+  }
+
+
+  else{
+
+    shared.innerHTML =
       sharedTrips
-        .map(trip =>
-          tripCard(
-            trip,
-            trip.membership_role
-          )
+        .map(
+          trip =>
+            tripCard(
+              trip,
+              trip.membership_role
+            )
         )
         .join("");
 
@@ -1346,9 +2262,9 @@ function renderTrips(){
 }
 
 
-/* ============================================================
+/* =========================================================
    TRIP CARD
-============================================================ */
+========================================================= */
 
 function tripCard(
   trip,
@@ -1356,119 +2272,188 @@ function tripCard(
 ){
 
   const isCurrent =
-    Number(currentTripId()) ===
-    Number(trip.id);
+    Number(
+      getCurrentTripId()
+    )
+    ===
+    Number(
+      trip.id
+    );
 
 
-  const shared =
-    role !== "owner";
+  const isShared =
+    role !==
+    "owner";
 
 
-  let roleText =
-    "OWNER";
+  const publication =
+    role === "owner"
+    ?
+    publicationForTrip(
+      trip.id
+    )
+    :
+    null;
+
+
+  const isPublic =
+    Boolean(
+      publication?.is_public
+    );
 
 
   let roleClass =
     "owner";
 
 
-  if(role === "editor"){
+  let roleLabel =
+    "OWNER";
 
-    roleText =
-      "CAN EDIT";
+
+  if(role === "editor"){
 
     roleClass =
       "editor";
 
-  }else if(
-    role === "viewer" ||
-    role === "member"
-  ){
+    roleLabel =
+      "EDITOR";
 
-    roleText =
-      "VIEW ONLY";
+  }
+
+
+  else if(role !== "owner"){
 
     roleClass =
       "viewer";
+
+    roleLabel =
+      "VIEWER";
 
   }
 
 
   return `
+
     <article
       class="
         trip-card
         ${isCurrent ? "current" : ""}
-        ${shared ? "shared" : ""}
-      ">
+        ${isShared ? "shared-trip" : ""}
+      "
+    >
 
-      <div class="trip-cover"></div>
+      <div class="trip-strip"></div>
+
 
       <div class="trip-body">
 
         <div class="trip-top">
 
           <div class="country-icon">
-            ${countryEmoji(trip.country)}
+
+            ${countryEmoji(
+              trip.country
+            )}
+
           </div>
 
 
           <div class="trip-main">
 
-            <div class="trip-badges">
+            <div class="badges">
 
               ${
                 isCurrent
-                  ? `
-                    <span class="badge current">
-                      CURRENT TRIP
-                    </span>
-                  `
-                  : ""
+
+                ?
+
+                `
+                  <span class="badge current">
+                    CURRENT
+                  </span>
+                `
+
+                :
+
+                ""
               }
 
 
               <span
-                class="badge ${roleClass}">
-                ${roleText}
+                class="badge ${roleClass}"
+              >
+                ${roleLabel}
               </span>
+
+
+              ${
+                isPublic
+
+                ?
+
+                `
+                  <span class="badge public">
+                    🌐 SHARED
+                  </span>
+                `
+
+                :
+
+                ""
+              }
 
             </div>
 
 
             <div class="trip-name">
-              ${escapeHtml(
+
+              ${esc(
                 trip.name ||
                 "Unnamed Trip"
               )}
+
             </div>
 
 
             <div class="trip-country">
-              ${escapeHtml(
+
+              ${esc(
                 trip.country ||
                 "Country not set"
               )}
+
             </div>
 
 
             <div class="trip-dates">
-              ${escapeHtml(
-                tripDates(trip)
+
+              ${esc(
+                tripDates(
+                  trip
+                )
               )}
+
             </div>
 
 
             ${
               trip.description
-                ? `
-                  <div class="trip-description">
-                    ${escapeHtml(
-                      trip.description
-                    )}
-                  </div>
-                `
-                : ""
+
+              ?
+
+              `
+                <div class="trip-description">
+
+                  ${esc(
+                    trip.description
+                  )}
+
+                </div>
+              `
+
+              :
+
+              ""
             }
 
           </div>
@@ -1476,33 +2461,55 @@ function tripCard(
         </div>
 
 
-        <div class="trip-actions">
+        <div class="actions">
 
           <button
-            class="open-trip"
+            class="open-btn"
             type="button"
-            onclick="openTrip(${Number(trip.id)})">
-
-            ${
-              isCurrent
-                ? "OPEN CURRENT TRIP →"
-                : "OPEN TRIP →"
-            }
-
+            onclick="openTrip(${Number(trip.id)})"
+          >
+            OPEN →
           </button>
 
 
           ${
             role === "owner"
-              ? `
-                <button
-                  class="edit-trip"
-                  type="button"
-                  onclick="openEditTrip(${Number(trip.id)})">
-                  EDIT
-                </button>
-              `
-              : ""
+
+            ?
+
+            `
+              <button
+                class="edit-btn"
+                type="button"
+                onclick="openEditTrip(${Number(trip.id)})"
+              >
+                EDIT
+              </button>
+
+
+              <button
+                class="
+                  share-btn
+                  ${isPublic ? "shared-now" : ""}
+                "
+                type="button"
+                onclick="shareTrip(${Number(trip.id)})"
+              >
+
+                ${
+                  isPublic
+                  ?
+                  "✓ SHARED"
+                  :
+                  "🌐 SHARE"
+                }
+
+              </button>
+            `
+
+            :
+
+            ""
           }
 
         </div>
@@ -1510,48 +2517,160 @@ function tripCard(
       </div>
 
     </article>
+
   `;
 
 }
 
 
-/* ============================================================
+/* =========================================================
    OPEN TRIP
-============================================================ */
+========================================================= */
 
-function openTrip(tripId){
+function openTrip(id){
 
-  const id =
-    Number(tripId);
+  id =
+    Number(id);
 
 
   if(!id){
+
     return;
+
   }
 
 
-  /*
-    Remember the selected trip.
-
-    This allows other pages to use the
-    same trip even if ?trip= is missing.
-  */
-
   localStorage.setItem(
     "current_trip_id",
-    String(id)
+    String(
+      id
+    )
   );
 
 
   location.href =
-    `index.html?trip=${encodeURIComponent(id)}`;
+    `index.html?trip=${id}`;
 
 }
 
 
-/* ============================================================
-   CREATE
-============================================================ */
+/* =========================================================
+   SHARE TO PLACES
+========================================================= */
+
+async function shareTrip(
+  tripId
+){
+
+  const publication =
+    publicationForTrip(
+      tripId
+    );
+
+
+  /*
+    Already published.
+
+    Open it directly in Places.
+  */
+
+  if(
+    publication &&
+    publication.is_public
+  ){
+
+    location.href =
+      `places.html?open=${Number(
+        publication.id
+      )}`;
+
+
+    return;
+
+  }
+
+
+  try{
+
+    const result =
+      await db.rpc(
+        "publish_trip",
+        {
+
+          p_trip_id:
+            Number(
+              tripId
+            ),
+
+          p_allow_copy:
+            true
+
+        }
+      );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    const publicationId =
+      Number(
+        result.data
+      );
+
+
+    /*
+      After sharing:
+      immediately go to Places.
+    */
+
+    location.href =
+      publicationId
+
+      ?
+
+      `places.html?open=${publicationId}`
+
+      :
+
+      "places.html";
+
+  }
+
+
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Couldn't share this trip.\n\n"
+      +
+      (
+        error.message ||
+        "Unknown error."
+      )
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE TRIP
+========================================================= */
+
+const tripSheet =
+  document.getElementById(
+    "tripSheet"
+  );
+
 
 function openCreateTrip(){
 
@@ -1566,87 +2685,92 @@ function openCreateTrip(){
 
 
   document.getElementById(
-    "sheetSubtitle"
-  ).textContent =
-    "Create a new trip. Your schedule, food and bookings will stay separate from your other trips.";
-
-
-  document.getElementById(
-    "saveTripButton"
+    "saveTrip"
   ).textContent =
     "CREATE TRIP";
 
 
   document.getElementById(
     "tripName"
-  ).value =
-    "";
+  ).value = "";
 
 
   document.getElementById(
     "tripCountry"
-  ).value =
-    "";
+  ).value = "";
 
 
   document.getElementById(
     "tripStart"
-  ).value =
-    "";
+  ).value = "";
 
 
   document.getElementById(
     "tripEnd"
-  ).value =
-    "";
+  ).value = "";
 
 
   document.getElementById(
     "tripDescription"
-  ).value =
-    "";
-
-
-  hideSheetMessage();
+  ).value = "";
 
 
   document.getElementById(
-    "tripSheet"
-  ).classList.add("show");
+    "sheetMessage"
+  ).className =
+    "message";
 
 
-  setTimeout(() => {
+  document.getElementById(
+    "publicBox"
+  )
+  .classList
+  .remove(
+    "show"
+  );
 
-    document.getElementById(
-      "tripName"
-    ).focus();
 
-  },150);
+  tripSheet
+    .classList
+    .add(
+      "open"
+    );
 
 }
 
 
-/* ============================================================
-   EDIT
-============================================================ */
+/* =========================================================
+   EDIT TRIP
+========================================================= */
 
-function openEditTrip(tripId){
+function openEditTrip(
+  tripId
+){
 
   const trip =
     ownedTrips.find(
       item =>
-        Number(item.id) ===
-        Number(tripId)
+        Number(
+          item.id
+        )
+        ===
+        Number(
+          tripId
+        )
     );
 
 
   if(!trip){
+
     return;
+
   }
 
 
   editingTripId =
-    Number(trip.id);
+    Number(
+      trip.id
+    );
 
 
   document.getElementById(
@@ -1656,13 +2780,7 @@ function openEditTrip(tripId){
 
 
   document.getElementById(
-    "sheetSubtitle"
-  ).textContent =
-    "Update the basic details for this trip.";
-
-
-  document.getElementById(
-    "saveTripButton"
+    "saveTrip"
   ).textContent =
     "SAVE CHANGES";
 
@@ -1670,278 +2788,188 @@ function openEditTrip(tripId){
   document.getElementById(
     "tripName"
   ).value =
-    trip.name || "";
+    trip.name ||
+    "";
 
 
   document.getElementById(
     "tripCountry"
   ).value =
-    trip.country || "";
+    trip.country ||
+    "";
 
 
   document.getElementById(
     "tripStart"
   ).value =
-    trip.start_date || "";
+    trip.start_date ||
+    "";
 
 
   document.getElementById(
     "tripEnd"
   ).value =
-    trip.end_date || "";
+    trip.end_date ||
+    "";
 
 
   document.getElementById(
     "tripDescription"
   ).value =
-    trip.description || "";
+    trip.description ||
+    "";
 
-
-  hideSheetMessage();
-
-
-  document.getElementById(
-    "tripSheet"
-  ).classList.add("show");
-
-}
-
-
-/* ============================================================
-   CLOSE SHEET
-============================================================ */
-
-function closeTripSheet(){
-
-  document.getElementById(
-    "tripSheet"
-  ).classList.remove("show");
-
-
-  editingTripId =
-    null;
-
-}
-
-
-function backdropClose(event){
-
-  if(
-    event.target.id ===
-    "tripSheet"
-  ){
-
-    closeTripSheet();
-
-  }
-
-}
-
-
-/* ============================================================
-   SHEET MESSAGE
-============================================================ */
-
-function showSheetMessage(
-  text,
-  type="bad"
-){
-
-  const box =
-    document.getElementById(
-      "sheetMessage"
-    );
-
-
-  box.textContent =
-    text;
-
-
-  box.className =
-    `sheet-message show ${type}`;
-
-}
-
-
-function hideSheetMessage(){
 
   document.getElementById(
     "sheetMessage"
   ).className =
-    "sheet-message";
+    "message";
+
+
+  const publication =
+    publicationForTrip(
+      trip.id
+    );
+
+
+  document.getElementById(
+    "publicBox"
+  )
+  .classList
+  .toggle(
+    "show",
+    Boolean(
+      publication?.is_public
+    )
+  );
+
+
+  tripSheet
+    .classList
+    .add(
+      "open"
+    );
 
 }
 
 
-/* ============================================================
+/* =========================================================
+   CLOSE TRIP SHEET
+========================================================= */
+
+function closeTripSheet(){
+
+  tripSheet
+    .classList
+    .remove(
+      "open"
+    );
+
+}
+
+
+document.getElementById(
+  "createTripButton"
+).onclick =
+  openCreateTrip;
+
+
+document.getElementById(
+  "closeTripSheet"
+).onclick =
+  closeTripSheet;
+
+
+document.getElementById(
+  "cancelTrip"
+).onclick =
+  closeTripSheet;
+
+
+tripSheet.onclick =
+  event => {
+
+    if(
+      event.target ===
+      tripSheet
+    ){
+
+      closeTripSheet();
+
+    }
+
+  };
+
+
+/* =========================================================
    SAVE TRIP
-============================================================ */
+========================================================= */
 
-async function saveTrip(){
+document.getElementById(
+  "saveTrip"
+).onclick =
+  async () => {
 
-  hideSheetMessage();
-
-
-  const button =
-    document.getElementById(
-      "saveTripButton"
-    );
-
-
-  const name =
-    document.getElementById(
-      "tripName"
-    ).value.trim();
-
-
-  const country =
-    document.getElementById(
-      "tripCountry"
-    ).value.trim();
-
-
-  const startDate =
-    document.getElementById(
-      "tripStart"
-    ).value;
-
-
-  const endDate =
-    document.getElementById(
-      "tripEnd"
-    ).value;
-
-
-  const description =
-    document.getElementById(
-      "tripDescription"
-    ).value.trim();
-
-
-  if(!name){
-
-    showSheetMessage(
-      "Please enter a trip name."
-    );
-
-    return;
-
-  }
-
-
-  if(!country){
-
-    showSheetMessage(
-      "Please enter the country."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    startDate &&
-    endDate &&
-    endDate < startDate
-  ){
-
-    showSheetMessage(
-      "End date cannot be before the start date."
-    );
-
-    return;
-
-  }
-
-
-  button.disabled =
-    true;
-
-
-  const originalText =
-    button.textContent;
-
-
-  button.textContent =
-    editingTripId
-      ? "SAVING..."
-      : "CREATING...";
-
-
-  try{
-
-    const payload = {
-
-      name:name,
-
-      country:country,
-
-      start_date:
-        startDate || null,
-
-      end_date:
-        endDate || null,
-
-      description:
-        description || null,
-
-      updated_at:
-        new Date().toISOString()
-
-    };
-
-
-    /*
-      EDIT EXISTING TRIP
-    */
-
-    if(editingTripId){
-
-      const {
-        data,
-        error
-      } =
-        await db
-          .from("trips")
-          .update(payload)
-          .eq(
-            "id",
-            editingTripId
-          )
-          .eq(
-            "owner_id",
-            currentUser.id
-          )
-          .select();
-
-
-      if(error){
-        throw error;
-      }
-
-
-      if(!data || !data.length){
-
-        throw new Error(
-          "The trip was not updated. Check your trips UPDATE permission."
-        );
-
-      }
-
-
-      showSheetMessage(
-        "Trip updated.",
-        "good"
+    const button =
+      document.getElementById(
+        "saveTrip"
       );
 
 
-      await loadTrips();
+    const message =
+      document.getElementById(
+        "sheetMessage"
+      );
 
 
-      setTimeout(() => {
-        closeTripSheet();
-      },450);
+    message.className =
+      "message";
+
+
+    const name =
+      document.getElementById(
+        "tripName"
+      )
+      .value
+      .trim();
+
+
+    const country =
+      document.getElementById(
+        "tripCountry"
+      )
+      .value
+      .trim();
+
+
+    const startDate =
+      document.getElementById(
+        "tripStart"
+      ).value;
+
+
+    const endDate =
+      document.getElementById(
+        "tripEnd"
+      ).value;
+
+
+    const description =
+      document.getElementById(
+        "tripDescription"
+      )
+      .value
+      .trim();
+
+
+    if(!name){
+
+      message.textContent =
+        "Please enter a trip name.";
+
+
+      message.className =
+        "message error";
 
 
       return;
@@ -1949,146 +2977,477 @@ async function saveTrip(){
     }
 
 
-    /*
-      CREATE NEW TRIP
-    */
+    if(!country){
 
-    const {
-      data,
-      error
-    } =
-      await db
-        .from("trips")
-        .insert({
-
-          owner_id:
-            currentUser.id,
-
-          name:name,
-
-          country:country,
-
-          start_date:
-            startDate || null,
-
-          end_date:
-            endDate || null,
-
-          description:
-            description || null,
-
-          status:"active"
-
-        })
-        .select();
+      message.textContent =
+        "Please enter a country.";
 
 
-    if(error){
-      throw error;
+      message.className =
+        "message error";
+
+
+      return;
+
     }
 
 
-    if(!data || !data.length){
+    if(
+      startDate &&
+      endDate &&
+      endDate < startDate
+    ){
 
-      throw new Error(
-        "The trip was not created. Check your trips INSERT permission."
+      message.textContent =
+        "End date cannot be before start date.";
+
+
+      message.className =
+        "message error";
+
+
+      return;
+
+    }
+
+
+    button.disabled =
+      true;
+
+
+    button.textContent =
+      editingTripId
+      ?
+      "SAVING…"
+      :
+      "CREATING…";
+
+
+    try{
+
+      const payload = {
+
+        name:
+          name,
+
+        country:
+          country,
+
+        start_date:
+          startDate ||
+          null,
+
+        end_date:
+          endDate ||
+          null,
+
+        description:
+          description ||
+          null
+
+      };
+
+
+      /*
+        EDIT
+      */
+
+      if(editingTripId){
+
+        const result =
+          await db
+            .from("trips")
+            .update(
+              payload
+            )
+            .eq(
+              "id",
+              editingTripId
+            )
+            .eq(
+              "owner_id",
+              currentUser.id
+            )
+            .select();
+
+
+        if(result.error){
+
+          throw result.error;
+
+        }
+
+
+        if(
+          !result.data ||
+          !result.data.length
+        ){
+
+          throw new Error(
+            "Trip was not updated."
+          );
+
+        }
+
+      }
+
+
+      /*
+        CREATE
+      */
+
+      else{
+
+        const result =
+          await db
+            .from("trips")
+            .insert({
+
+              ...payload,
+
+              owner_id:
+                currentUser.id,
+
+              status:
+                "active"
+
+            })
+            .select()
+            .single();
+
+
+        if(result.error){
+
+          throw result.error;
+
+        }
+
+
+        localStorage.setItem(
+          "current_trip_id",
+          String(
+            result.data.id
+          )
+        );
+
+      }
+
+
+      message.textContent =
+        "Saved ✓";
+
+
+      message.className =
+        "message success";
+
+
+      await loadTrips();
+
+
+      setTimeout(
+        closeTripSheet,
+        300
       );
 
     }
 
 
-    const newTrip =
-      data[0];
+    catch(error){
+
+      console.error(
+        error
+      );
 
 
-    /*
-      Automatically make the newly-created
-      trip the current trip.
-    */
-
-    localStorage.setItem(
-      "current_trip_id",
-      String(newTrip.id)
-    );
+      message.textContent =
+        error.message ||
+        "Could not save trip.";
 
 
-    showSheetMessage(
-      "Trip created!",
-      "good"
-    );
+      message.className =
+        "message error";
+
+    }
 
 
-    await loadTrips();
+    finally{
+
+      button.disabled =
+        false;
 
 
-    setTimeout(() => {
+      button.textContent =
+        editingTripId
+        ?
+        "SAVE CHANGES"
+        :
+        "CREATE TRIP";
 
-      closeTripSheet();
+    }
 
-    },450);
-
-
-  }catch(error){
-
-    console.error(error);
-
-
-    showSheetMessage(
-      error.message ||
-      "Could not save trip."
-    );
+  };
 
 
-  }finally{
+/* =========================================================
+   VIEW PUBLIC
+========================================================= */
 
-    button.disabled =
-      false;
+document.getElementById(
+  "viewPublic"
+).onclick =
+  () => {
+
+    if(!editingTripId){
+
+      return;
+
+    }
 
 
-    button.textContent =
-      editingTripId
-        ? "SAVE CHANGES"
-        : originalText;
+    const publication =
+      publicationForTrip(
+        editingTripId
+      );
 
-  }
+
+    if(
+      !publication ||
+      !publication.is_public
+    ){
+
+      return;
+
+    }
+
+
+    location.href =
+      `places.html?open=${Number(
+        publication.id
+      )}`;
+
+  };
+
+
+/* =========================================================
+   STOP SHARING
+========================================================= */
+
+document.getElementById(
+  "unshareTrip"
+).onclick =
+  async () => {
+
+    if(!editingTripId){
+
+      return;
+
+    }
+
+
+    if(
+      !confirm(
+        "Stop sharing this itinerary in Places?"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    const message =
+      document.getElementById(
+        "sheetMessage"
+      );
+
+
+    try{
+
+      const result =
+        await db.rpc(
+          "unpublish_trip",
+          {
+            p_trip_id:
+              Number(
+                editingTripId
+              )
+          }
+        );
+
+
+      if(result.error){
+
+        throw result.error;
+
+      }
+
+
+      await loadTrips();
+
+
+      document.getElementById(
+        "publicBox"
+      )
+      .classList
+      .remove(
+        "show"
+      );
+
+
+      message.textContent =
+        "Sharing stopped ✓";
+
+
+      message.className =
+        "message success";
+
+    }
+
+
+    catch(error){
+
+      console.error(
+        error
+      );
+
+
+      message.textContent =
+        error.message ||
+        "Couldn't stop sharing.";
+
+
+      message.className =
+        "message error";
+
+    }
+
+  };
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function setupNavigation(){
+
+  const id =
+    getCurrentTripId();
+
+
+  const suffix =
+    id
+    ?
+    `?trip=${id}`
+    :
+    "";
+
+
+  document.getElementById(
+    "navHome"
+  ).href =
+    `index.html${suffix}`;
+
+
+  document.getElementById(
+    "navPlan"
+  ).href =
+    id
+    ?
+    `schedule.html?trip=${id}`
+    :
+    "trips.html";
+
+
+  document.getElementById(
+    "navFood"
+  ).href =
+    id
+    ?
+    `food.html?trip=${id}`
+    :
+    "trips.html";
+
+
+  document.getElementById(
+    "navHub"
+  ).href =
+    id
+    ?
+    `bookings.html?trip=${id}`
+    :
+    "trips.html";
+
+
+  document.getElementById(
+    "moreProfile"
+  ).href =
+    id
+    ?
+    `profile.html?trip=${id}`
+    :
+    "profile.html";
 
 }
 
 
-/* ============================================================
-   ENTER KEY
-============================================================ */
+/* =========================================================
+   MORE MENU
+========================================================= */
 
-document
-  .getElementById("tripName")
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if(event.key === "Enter"){
-
-        event.preventDefault();
-
-        document.getElementById(
-          "tripCountry"
-        ).focus();
-
-      }
-
-    }
+const moreBackdrop =
+  document.getElementById(
+    "moreBackdrop"
   );
 
 
-/* ============================================================
-   START
-============================================================ */
+document.getElementById(
+  "navMore"
+).onclick =
+  () => {
+
+    moreBackdrop
+      .classList
+      .add(
+        "open"
+      );
+
+  };
+
+
+moreBackdrop.onclick =
+  event => {
+
+    if(
+      event.target ===
+      moreBackdrop
+    ){
+
+      moreBackdrop
+        .classList
+        .remove(
+          "open"
+        );
+
+    }
+
+  };
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+setupNavigation();
+
+
+/* =========================================================
+   GO
+========================================================= */
 
 start();
 
 </script>
 
-<!-- Shared footer logic -->
-<script src="footer.js"></script>
-
 </body>
+
 </html>
