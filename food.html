@@ -1564,6 +1564,74 @@ main{
   }
 }
 
+
+/* =========================================================
+   QUICK STICKY TEXT FILTER
+========================================================= */
+
+.quick-filter-wrap{
+  min-width:120px;
+  flex:1 1 190px;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  min-height:36px;
+  padding:0 9px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#11181e;
+}
+
+.quick-filter-wrap:focus-within{
+  border-color:rgba(201,111,104,.45);
+  background:rgba(201,111,104,.06);
+}
+
+.quick-filter-icon{
+  flex:0 0 auto;
+  font-size:9px;
+  opacity:.85;
+}
+
+.quick-filter-input{
+  width:100%;
+  min-width:0;
+
+  padding:0;
+  border:0;
+  outline:0;
+
+  background:transparent;
+  color:#e3e7ea;
+
+  font:inherit;
+  font-size:8px;
+  font-weight:750;
+}
+
+.quick-filter-input::placeholder{
+  color:#68747d;
+}
+
+@media(max-width:650px){
+  .unified-filter-panel .sticky-filter-bar{
+    flex-wrap:wrap;
+  }
+
+  .quick-filter-wrap{
+    order:3;
+    flex:1 1 calc(100% - 48px);
+  }
+
+  .clear-compact-filter{
+    order:4;
+  }
+}
+
 </style>
 </head>
 
@@ -1636,13 +1704,7 @@ main{
   </div>
 
 
-  <input
-    id="searchInput"
-    class="search"
-    type="search"
-    placeholder="Search your restaurants..."
-    autocomplete="off"
-  >
+  
 
 
   
@@ -1763,6 +1825,19 @@ main{
       hidden
     ></div>
 
+  </div>
+
+
+  <div class="quick-filter-wrap">
+    <span class="quick-filter-icon">🔎</span>
+    <input
+      id="quickFilterInput"
+      class="quick-filter-input"
+      type="search"
+      autocomplete="off"
+      placeholder="Area / food / category..."
+      aria-label="Quick filter by restaurant, area, food or category"
+    />
   </div>
 
 
@@ -2229,6 +2304,7 @@ let searchTerm = "";
 
 let foodGroupFilter = "";
 let discoverStatusFilter = "all";
+let quickFilterTerm = "";
 let sideAreaFilter = "";
 
 
@@ -2261,10 +2337,7 @@ const resultCount =
     "resultCount"
   );
 
-const searchInput =
-  document.getElementById(
-    "searchInput"
-  );
+const searchInput = { value:"", addEventListener(){ } };
 
 const cityChips =
   document.getElementById(
@@ -3721,6 +3794,12 @@ function filteredRestaurants(){
       );
 
   }
+
+
+  list =
+    list.filter(
+      matchesQuickFilter
+    );
 
 
   list =
@@ -6267,6 +6346,58 @@ function renderDiscoverArea(){
 
 
 
+
+/* =========================================================
+   QUICK FILTER
+   Matches restaurant name, Japanese name, city, area,
+   cuisine/category and description.
+========================================================= */
+
+function matchesQuickFilter(restaurant){
+
+  const q =
+    norm(quickFilterTerm);
+
+  if(!q){
+    return true;
+  }
+
+
+  const haystack =
+    [
+      restaurant.name,
+      restaurant.name_japanese,
+      rCity(restaurant),
+      rArea(restaurant),
+      rCuisine(restaurant),
+      restaurant.category,
+      restaurant.description,
+      restaurant.location
+    ]
+    .map(text)
+    .join(" ");
+
+
+  return norm(haystack).includes(q);
+
+}
+
+
+quickFilterInput.addEventListener(
+  "input",
+  () => {
+
+    quickFilterTerm =
+      quickFilterInput.value
+        .trim();
+
+    render();
+
+  }
+);
+
+
+
 /* =========================================================
    COMPACT STICKY FILTER MENUS
 ========================================================= */
@@ -6333,6 +6464,11 @@ function compactAreaSource(){
       source = source.filter(isEaten);
     }
 
+  }
+
+
+  if(quickFilterTerm){
+    source = source.filter(matchesQuickFilter);
   }
 
 
@@ -6640,7 +6776,8 @@ function renderCompactFilters(){
     "active",
     Boolean(
       sideAreaFilter ||
-      foodGroupFilter
+      foodGroupFilter ||
+      quickFilterTerm
     )
   );
 
@@ -6712,6 +6849,8 @@ clearCompactFilters.onclick =
 
     sideAreaFilter = "";
     foodGroupFilter = "";
+    quickFilterTerm = "";
+    quickFilterInput.value = "";
 
     closeCompactMenus();
     render();
