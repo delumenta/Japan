@@ -644,7 +644,9 @@ main{
 
 
 
-  <!-- DAY BUTTONS -->
+  <!-- =====================================================
+       DAY BUTTONS
+  ====================================================== -->
 
   <div
     id="dateScroller"
@@ -653,7 +655,9 @@ main{
 
 
 
-  <!-- MAP -->
+  <!-- =====================================================
+       MAP
+  ====================================================== -->
 
   <div class="map-card">
 
@@ -671,14 +675,17 @@ main{
 
   <div class="map-note">
 
-    Numbered pins follow your itinerary order.
+    Numbered pins follow itinerary time order.
+    Stops without a set time appear after timed stops.
     Arrows show the direction from one stop to the next.
 
   </div>
 
 
 
-  <!-- LIST -->
+  <!-- =====================================================
+       LIST
+  ====================================================== -->
 
   <section>
 
@@ -1003,11 +1010,6 @@ let infoWindow = null;
 
 let markers = [];
 
-
-/*
-  This is our itinerary line.
-*/
-
 let routeLine = null;
 
 
@@ -1021,50 +1023,60 @@ const tripName =
     "tripName"
   );
 
+
 const tripEyebrow =
   document.getElementById(
     "tripEyebrow"
   );
+
 
 const dateScroller =
   document.getElementById(
     "dateScroller"
   );
 
+
 const stops =
   document.getElementById(
     "stops"
   );
+
 
 const listTitle =
   document.getElementById(
     "listTitle"
   );
 
+
 const pinCount =
   document.getElementById(
     "pinCount"
   );
+
 
 const dayLabel =
   document.getElementById(
     "dayLabel"
   );
 
+
 const dayTitle =
   document.getElementById(
     "dayTitle"
   );
+
 
 const dayArea =
   document.getElementById(
     "dayArea"
   );
 
+
 const dayCount =
   document.getElementById(
     "dayCount"
   );
+
 
 const mapDayBadge =
   document.getElementById(
@@ -1074,7 +1086,7 @@ const mapDayBadge =
 
 
 /* =========================================================
-   HELPERS
+   BASIC HELPERS
 ========================================================= */
 
 function text(value){
@@ -1151,10 +1163,16 @@ function fullDate(value){
 
 
 /* =========================================================
-   TIME
+   DISPLAY TIME
 ========================================================= */
 
 function itemTime(item){
+
+  /*
+    If you manually gave the row a label
+    such as "Lunch", "Sunset", etc.,
+    show that label.
+  */
 
   if(item.time_label){
 
@@ -1162,6 +1180,10 @@ function itemTime(item){
 
   }
 
+
+  /*
+    Otherwise format start_time.
+  */
 
   if(item.start_time){
 
@@ -1200,6 +1222,239 @@ function itemTime(item){
 
 
   return "Flexible";
+
+}
+
+
+
+/* =========================================================
+   TIME SORTING
+========================================================= */
+
+/*
+  Converts a database time such as:
+
+  09:30:00
+  14:00:00
+
+  into a number we can sort.
+
+  Rows with no start_time return null.
+*/
+
+function timeSortValue(
+  value
+){
+
+  if(!value){
+
+    return null;
+
+  }
+
+
+  const parts =
+    String(value)
+      .split(":");
+
+
+  const hours =
+    Number(
+      parts[0]
+    );
+
+
+  const minutes =
+    Number(
+      parts[1] || 0
+    );
+
+
+  const seconds =
+    Number(
+      parts[2] || 0
+    );
+
+
+  if(
+    !Number.isFinite(hours) ||
+    !Number.isFinite(minutes) ||
+    !Number.isFinite(seconds)
+  ){
+
+    return null;
+
+  }
+
+
+  return (
+    hours * 3600 +
+    minutes * 60 +
+    seconds
+  );
+
+}
+
+
+
+/*
+  This is the important new sorter.
+
+  ORDER:
+
+  1. schedule_date
+  2. timed items before flexible items
+  3. start_time
+  4. sort_order
+  5. id
+
+  This means:
+
+  09:00
+  11:00
+  14:00
+  Flexible
+  Flexible
+*/
+
+function compareScheduleItems(
+  a,
+  b
+){
+
+  /*
+    DATE FIRST
+  */
+
+  const dateA =
+    a.schedule_date ||
+    "";
+
+
+  const dateB =
+    b.schedule_date ||
+    "";
+
+
+  const dateCompare =
+    dateA.localeCompare(
+      dateB
+    );
+
+
+  if(dateCompare !== 0){
+
+    return dateCompare;
+
+  }
+
+
+  /*
+    TIME
+  */
+
+  const timeA =
+    timeSortValue(
+      a.start_time
+    );
+
+
+  const timeB =
+    timeSortValue(
+      b.start_time
+    );
+
+
+  const aHasTime =
+    timeA !== null;
+
+
+  const bHasTime =
+    timeB !== null;
+
+
+  /*
+    Timed items come first.
+  */
+
+  if(
+    aHasTime &&
+    !bHasTime
+  ){
+
+    return -1;
+
+  }
+
+
+  if(
+    !aHasTime &&
+    bHasTime
+  ){
+
+    return 1;
+
+  }
+
+
+  /*
+    Both have times:
+    sort chronologically.
+  */
+
+  if(
+    aHasTime &&
+    bHasTime &&
+    timeA !== timeB
+  ){
+
+    return timeA - timeB;
+
+  }
+
+
+  /*
+    Same time OR both are flexible:
+    use manual sort_order.
+  */
+
+  const orderA =
+    Number.isFinite(
+      Number(a.sort_order)
+    )
+    ?
+    Number(a.sort_order)
+    :
+    999999;
+
+
+  const orderB =
+    Number.isFinite(
+      Number(b.sort_order)
+    )
+    ?
+    Number(b.sort_order)
+    :
+    999999;
+
+
+  if(
+    orderA !== orderB
+  ){
+
+    return orderA - orderB;
+
+  }
+
+
+  /*
+    Final stable fallback.
+  */
+
+  return (
+    Number(a.id || 0) -
+    Number(b.id || 0)
+  );
 
 }
 
@@ -1585,6 +1840,7 @@ async function resolveTrip(){
     location.href =
       "login.html";
 
+
     throw new Error(
       "Please sign in."
     );
@@ -1651,6 +1907,14 @@ async function resolveTrip(){
 ========================================================= */
 
 function loadScheduleQuery(){
+
+  /*
+    We still ask Supabase for date and
+    sort_order in a predictable order.
+
+    After loading, JavaScript will apply
+    the final chronological time sorting.
+  */
 
   return db
 
@@ -1823,7 +2087,8 @@ function tripDates(){
 
     )
 
-  ].sort();
+  ]
+  .sort();
 
 }
 
@@ -1835,20 +2100,37 @@ function tripDates(){
 
 function rowsForDate(date){
 
+  /*
+    Schedule itself is already sorted,
+    but sorting again here makes sure
+    each filtered view remains correct.
+  */
+
   if(
     date === "all"
   ){
 
-    return schedule;
+    return [
+      ...schedule
+    ]
+    .sort(
+      compareScheduleItems
+    );
 
   }
 
 
-  return schedule.filter(
-    item =>
-      item.schedule_date ===
-      date
-  );
+  return schedule
+
+    .filter(
+      item =>
+        item.schedule_date ===
+        date
+    )
+
+    .sort(
+      compareScheduleItems
+    );
 
 }
 
@@ -2093,7 +2375,7 @@ function renderDates(){
 
 
 /* =========================================================
-   CLEAR MARKERS + ROUTE
+   CLEAR MAP
 ========================================================= */
 
 function clearMapObjects(){
@@ -2204,8 +2486,8 @@ function createMarker(
 function drawRouteArrows(rows){
 
   /*
-    Don't draw a giant line across
-    different days when ALL is selected.
+    WHOLE TRIP view intentionally does
+    not connect every day together.
   */
 
   if(
@@ -2536,6 +2818,11 @@ function renderMapAndList(){
   clearMapObjects();
 
 
+  /*
+    mapRowsForDate() now returns rows in
+    chronological itinerary order.
+  */
+
   const rows =
     mapRowsForDate(
       selectedDate
@@ -2553,10 +2840,7 @@ function renderMapAndList(){
 
 
   /*
-    ROUTE FIRST
-
-    This keeps the line visually behind
-    the numbered markers.
+    DRAW ROUTE FIRST
   */
 
   drawRouteArrows(
@@ -2934,9 +3218,28 @@ async function loadData(){
       tripResult.data;
 
 
+    /*
+      IMPORTANT:
+
+      Final map ordering happens here.
+
+      Date
+      ↓
+      start_time
+      ↓
+      sort_order
+      ↓
+      flexible items
+    */
+
     schedule =
-      scheduleResult.data ||
-      [];
+      (
+        scheduleResult.data ||
+        []
+      )
+      .sort(
+        compareScheduleItems
+      );
 
 
     /*
