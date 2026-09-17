@@ -1011,112 +1011,113 @@ gmp-place-autocomplete{
 
 
 /* =========================================================
-   FIXED FOOD CATEGORY RAIL
+   PERMANENT RIGHT-SIDE FOOD FILTER
 ========================================================= */
 
-.food-rail{
+.food-side-filter{
   position:fixed;
-  right:5px;
   top:50%;
-  z-index:85;
+  right:6px;
+  z-index:82;
 
-  width:39px;
-  max-height:66vh;
+  width:74px;
+  max-height:72vh;
+  padding:5px;
 
   transform:translateY(-50%);
 
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-
   overflow-y:auto;
-  padding:4px 3px;
+  scrollbar-width:none;
 
-  border:1px solid rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
   border-radius:12px;
 
-  background:rgba(9,14,18,.90);
-
-  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  background:rgba(9,14,18,.93);
+  box-shadow:0 8px 28px rgba(0,0,0,.28);
 
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-
-  scrollbar-width:none;
 }
 
-.food-rail::-webkit-scrollbar{
+.food-side-filter::-webkit-scrollbar{
   display:none;
 }
 
-.food-rail-btn{
-  flex:0 0 auto;
+.food-side-title{
+  padding:2px 2px 5px;
 
-  width:31px;
-  min-height:35px;
-  padding:3px 1px;
+  color:#707b84;
+
+  font-size:6px;
+  font-weight:950;
+  letter-spacing:.12em;
+  text-align:center;
+}
+
+.food-side-btn{
+  width:100%;
+  min-height:34px;
+  margin:0 0 3px;
+  padding:4px 3px;
 
   display:flex;
-  flex-direction:column;
   align-items:center;
-  justify-content:center;
-  gap:1px;
+  gap:4px;
 
   border:1px solid transparent;
   border-radius:8px;
 
   background:transparent;
-  color:#8f9aa2;
+  color:#a6afb6;
+
+  font-size:6px;
+  font-weight:900;
+  text-align:left;
 
   cursor:pointer;
 }
 
-.food-rail-btn .rail-icon{
-  font-size:14px;
-  line-height:1;
+.food-side-btn:last-child{
+  margin-bottom:0;
 }
 
-.food-rail-btn .rail-label{
-  width:100%;
+.food-side-btn .side-food-icon{
+  width:17px;
+  flex:0 0 17px;
 
+  font-size:13px;
+  line-height:1;
+  text-align:center;
+}
+
+.food-side-btn .side-food-label{
+  min-width:0;
   overflow:hidden;
 
-  font-size:5px;
-  font-weight:900;
-  line-height:1.1;
-
-  text-align:center;
   text-overflow:ellipsis;
   white-space:nowrap;
-
-  text-transform:uppercase;
 }
 
-.food-rail-btn.active{
-  color:#fff;
-
-  border-color:rgba(201,111,104,.38);
-
+.food-side-btn.active{
+  border-color:rgba(201,111,104,.40);
   background:rgba(201,111,104,.13);
+  color:#fff;
 }
 
-.food-rail-btn.active .rail-label{
+.food-side-btn.active .side-food-label{
   color:#f1cbc7;
 }
 
-/*
-  Leave a small breathing space beside cards on phone screens.
-  The rail overlaps only the outer edge instead of the content.
-*/
+/* Keep cards clear of the permanent filter on small screens. */
 @media(max-width:799px){
   main{
-    padding-right:49px;
+    padding-right:84px;
   }
 }
 
 @media(min-width:800px){
-  .food-rail{
-    right:max(8px, calc((100vw - 760px)/2 - 48px));
+  .food-side-filter{
+    right:max(8px, calc((100vw - 760px)/2 - 84px));
   }
 }
 
@@ -1348,14 +1349,20 @@ gmp-place-autocomplete{
 
 
 <!-- =========================================================
-     FIXED FOOD CATEGORY RAIL
+     PERMANENT RIGHT-SIDE FOOD FILTER
 ========================================================= -->
 
-<nav
-  id="foodCategoryRail"
-  class="food-rail"
-  aria-label="Food categories"
-></nav>
+<aside
+  id="foodSideFilter"
+  class="food-side-filter"
+  aria-label="Food type filter"
+>
+  <div class="food-side-title">
+    FOOD
+  </div>
+
+  <div id="foodSideFilterButtons"></div>
+</aside>
 
 
 <!-- =========================================================
@@ -1717,7 +1724,7 @@ let discoverFilter = "";
 
 let searchTerm = "";
 
-let foodCategoryFilter = "";
+let foodGroupFilter = "";
 
 
 /* =========================================================
@@ -1774,9 +1781,9 @@ const browseChips =
     "browseChips"
   );
 
-const foodCategoryRail =
+const foodSideFilterButtons =
   document.getElementById(
-    "foodCategoryRail"
+    "foodSideFilterButtons"
   );
 
 
@@ -2622,8 +2629,6 @@ async function loadData(){
 
     createDiscoverChips();
 
-    createFoodCategoryRail();
-
     render();
 
   }
@@ -2737,8 +2742,6 @@ document
 
           }
 
-
-          createFoodCategoryRail();
 
           render();
 
@@ -2892,8 +2895,6 @@ function createCityChips(){
 
             createDiscoverChips();
 
-            createFoodCategoryRail();
-
             render();
 
           };
@@ -2937,8 +2938,6 @@ myFilters
               }
             );
 
-
-          createFoodCategoryRail();
 
           render();
 
@@ -3311,16 +3310,14 @@ function filteredRestaurants(){
   }
 
 
-  if(foodCategoryFilter){
+  if(foodGroupFilter){
 
     list =
       list.filter(
         restaurant =>
-          norm(
-            rCuisine(restaurant)
-          )
+          foodGroup(restaurant)
           ===
-          norm(foodCategoryFilter)
+          foodGroupFilter
       );
 
   }
@@ -4101,6 +4098,9 @@ function renderDiscover(list){
 ========================================================= */
 
 function render(){
+
+  renderFoodSideFilter();
+
 
   const list =
     filteredRestaurants();
@@ -5344,8 +5344,6 @@ addForm.addEventListener(
 
       createDiscoverChips();
 
-      createFoodCategoryRail();
-
       render();
 
 
@@ -5386,17 +5384,133 @@ addForm.addEventListener(
 
 
 /* =========================================================
-   FIXED FOOD CATEGORY RAIL
+   NORMALIZED FOOD GROUPS
+   Keep the database cuisine specific; only the UI is grouped.
 ========================================================= */
 
-function foodRailSource(){
+const FOOD_GROUPS = [
+  { key:"sushi",    label:"SUSHI",    icon:"🍣" },
+  { key:"noodles",  label:"NOODLES",  icon:"🍜" },
+  { key:"yakitori", label:"YAKITORI", icon:"🍢" },
+  { key:"katsu",    label:"KATSU",    icon:"🐷" },
+  { key:"rice",     label:"RICE",     icon:"🍚" },
+  { key:"tempura",  label:"TEMPURA",  icon:"🍤" },
+  { key:"seafood",  label:"SEAFOOD",  icon:"🐟" },
+  { key:"curry",    label:"CURRY",    icon:"🍛" },
+  { key:"izakaya",  label:"IZAKAYA",  icon:"🍶" },
+  { key:"cafe",     label:"CAFE",     icon:"☕" }
+];
+
+
+function foodGroup(restaurant){
+
+  const value =
+    norm(
+      rCuisine(restaurant)
+    );
+
+
+  if(
+    value.includes("sushi") ||
+    value.includes("sashimi") ||
+    value.includes("omakase")
+  ){
+    return "sushi";
+  }
+
+
+  if(
+    value.includes("ramen") ||
+    value.includes("udon") ||
+    value.includes("soba") ||
+    value.includes("noodle")
+  ){
+    return "noodles";
+  }
+
+
+  if(
+    value.includes("yakitori") ||
+    value.includes("kushiyaki") ||
+    value.includes("chicken")
+  ){
+    return "yakitori";
+  }
+
+
+  if(
+    value.includes("tonkatsu") ||
+    value.includes("katsu")
+  ){
+    return "katsu";
+  }
+
+
+  if(
+    value.includes("oyakodon") ||
+    value.includes("donburi") ||
+    value.includes("rice bowl") ||
+    value.includes("rice")
+  ){
+    return "rice";
+  }
+
+
+  if(
+    value.includes("tempura")
+  ){
+    return "tempura";
+  }
+
+
+  if(
+    value.includes("unagi") ||
+    value.includes("eel") ||
+    value.includes("seafood") ||
+    value.includes("fish")
+  ){
+    return "seafood";
+  }
+
+
+  if(
+    value.includes("curry")
+  ){
+    return "curry";
+  }
+
+
+  if(
+    value.includes("izakaya") ||
+    value.includes("japanese pub")
+  ){
+    return "izakaya";
+  }
+
+
+  if(
+    value.includes("cafe") ||
+    value.includes("coffee") ||
+    value.includes("dessert") ||
+    value.includes("sweet") ||
+    value.includes("wagashi") ||
+    value.includes("bakery") ||
+    value.includes("pastry")
+  ){
+    return "cafe";
+  }
+
+
+  return "";
+}
+
+
+function foodFilterBaseSource(){
 
   let source =
     activeTab === "mine"
     ?
-    restaurants.filter(
-      inMyFood
-    )
+    restaurants.filter(inMyFood)
     :
     restaurants.slice();
 
@@ -5406,9 +5520,7 @@ function foodRailSource(){
     source =
       source.filter(
         restaurant =>
-          norm(
-            rCity(restaurant)
-          )
+          norm(rCity(restaurant))
           ===
           norm(selectedCity)
       );
@@ -5416,20 +5528,10 @@ function foodRailSource(){
   }
 
 
-  /*
-    On My Food, keep the side categories relevant to the
-    currently selected status filter.
-  */
-
   if(activeTab === "mine"){
 
     if(myFilter === "eaten"){
-
-      source =
-        source.filter(
-          isEaten
-        );
-
+      source = source.filter(isEaten);
     }
 
     else{
@@ -5445,11 +5547,9 @@ function foodRailSource(){
         source = source.filter(isPick);
       }
 
-
       if(myFilter === "flexible"){
         source = source.filter(isFlexible);
       }
-
 
       if(myFilter === "scheduled"){
         source = source.filter(isScheduled);
@@ -5465,171 +5565,86 @@ function foodRailSource(){
 }
 
 
-function railShortLabel(value){
-
-  const v =
-    text(value).trim();
-
-
-  if(v.length <= 7){
-    return v;
-  }
-
-
-  const common = {
-    "yakitori":"YAKI",
-    "oyakodon":"OYAKO",
-    "tonkatsu":"KATSU",
-    "japanese":"JPN",
-    "restaurant":"OTHER",
-    "seafood":"SEA",
-    "tempura":"TEMP"
-  };
-
-
-  return (
-    common[norm(v)]
-    ||
-    v.slice(0,6)
-  );
-
-}
-
-
-function createFoodCategoryRail(){
+function renderFoodSideFilter(){
 
   const source =
-    foodRailSource();
+    foodFilterBaseSource();
 
 
-  const map =
-    new Map();
+  const counts = {};
+
+  FOOD_GROUPS.forEach(
+    group => counts[group.key] = 0
+  );
 
 
   source.forEach(
     restaurant => {
 
-      const label =
-        text(
-          rCuisine(restaurant)
-        ).trim()
-        ||
-        "Restaurant";
-
-
       const key =
-        norm(label);
+        foodGroup(restaurant);
 
 
-      if(!map.has(key)){
-
-        map.set(
-          key,
-          {
-            label,
-            count:0
-          }
-        );
-
+      if(key && key in counts){
+        counts[key] += 1;
       }
-
-
-      map.get(key).count += 1;
 
     }
   );
 
 
-  const categories =
-    [...map.values()]
-      .sort(
-        (a,b) =>
-          a.label.localeCompare(
-            b.label
-          )
-      );
+  const available =
+    FOOD_GROUPS.filter(
+      group =>
+        counts[group.key] > 0
+    );
 
 
   /*
-    Clear a stale cuisine if switching city/tab/status means
-    that cuisine is no longer available.
+    If switching city/tab/status makes the current group
+    unavailable, reset to ALL.
   */
-
   if(
-    foodCategoryFilter &&
-    !categories.some(
-      item =>
-        norm(item.label)
-        ===
-        norm(foodCategoryFilter)
+    foodGroupFilter &&
+    !available.some(
+      group =>
+        group.key === foodGroupFilter
     )
   ){
-
-    foodCategoryFilter =
-      "";
-
+    foodGroupFilter = "";
   }
 
 
-  foodCategoryRail.innerHTML = `
+  foodSideFilterButtons.innerHTML = `
 
     <button
-      class="food-rail-btn ${
-        !foodCategoryFilter
-        ?
-        "active"
-        :
-        ""
-      }"
-      data-rail-food=""
+      class="food-side-btn ${!foodGroupFilter ? "active" : ""}"
+      data-food-group=""
       type="button"
       title="All Food · ${source.length}"
-      aria-label="All Food"
     >
-
-      <span class="rail-icon">
-        🍽️
-      </span>
-
-      <span class="rail-label">
-        ALL
-      </span>
-
+      <span class="side-food-icon">🍽️</span>
+      <span class="side-food-label">ALL</span>
     </button>
 
-
     ${
-      categories.map(
-        item => `
+      available.map(
+        group => `
 
           <button
-            class="food-rail-btn ${
-              norm(foodCategoryFilter)
-              ===
-              norm(item.label)
+            class="food-side-btn ${
+              foodGroupFilter === group.key
               ?
               "active"
               :
               ""
             }"
-            data-rail-food="${esc(item.label)}"
+            data-food-group="${group.key}"
             type="button"
-            title="${esc(item.label)} · ${item.count}"
-            aria-label="${esc(item.label)}"
+            title="${group.label} · ${counts[group.key]}"
           >
-
-            <span class="rail-icon">
-              ${foodIcon(item.label)}
-            </span>
-
-            <span class="rail-label">
-              ${esc(
-                railShortLabel(
-                  item.label
-                )
-              )}
-            </span>
-
+            <span class="side-food-icon">${group.icon}</span>
+            <span class="side-food-label">${group.label}</span>
           </button>
 
         `
@@ -5640,9 +5655,9 @@ function createFoodCategoryRail(){
   `;
 
 
-  foodCategoryRail
+  foodSideFilterButtons
     .querySelectorAll(
-      "[data-rail-food]"
+      "[data-food-group]"
     )
     .forEach(
       button => {
@@ -5650,14 +5665,12 @@ function createFoodCategoryRail(){
         button.onclick =
           () => {
 
-            foodCategoryFilter =
-              button.dataset
-                .railFood
+            foodGroupFilter =
+              button.dataset.foodGroup
               ||
               "";
 
-
-            createFoodCategoryRail();
+            renderFoodSideFilter();
 
             render();
 
