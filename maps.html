@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="utf-8">
 
 <meta
@@ -18,30 +17,20 @@
 <style>
 
 :root{
-
   --bg:#070c10;
-
   --surface:#0d1318;
-  --surface-2:#11181e;
-  --surface-3:#151d24;
-
+  --surface2:#11181e;
   --line:#263039;
-  --line-soft:rgba(255,255,255,.065);
 
   --text:#f5f3ef;
-
   --muted:#929ca4;
-  --muted-2:#68747d;
+  --muted2:#68747d;
 
   --red:#c96f68;
   --red-soft:rgba(201,111,104,.10);
-  --red-line:rgba(201,111,104,.35);
+  --red-line:rgba(201,111,104,.40);
 
   --blue:#78a9ef;
-
-  --green:#67c587;
-  --gold:#e3b85c;
-
 }
 
 
@@ -53,29 +42,23 @@
   box-sizing:border-box;
 }
 
-
 html{
   scroll-behavior:smooth;
 }
 
-
 body{
-
   margin:0;
-
   min-height:100vh;
 
-  color:var(--text);
-
   background:
-
     radial-gradient(
       circle at 50% -8%,
       rgba(42,56,68,.30),
       transparent 28%
     ),
-
     var(--bg);
+
+  color:var(--text);
 
   font-family:
     Inter,
@@ -86,17 +69,12 @@ body{
     "Segoe UI",
     sans-serif;
 
-  -webkit-font-smoothing:
-    antialiased;
-
+  -webkit-font-smoothing:antialiased;
 }
-
 
 button{
   font:inherit;
-
-  -webkit-tap-highlight-color:
-    transparent;
+  -webkit-tap-highlight-color:transparent;
 }
 
 
@@ -105,72 +83,43 @@ button{
 ========================================================= */
 
 header{
-
   position:sticky;
-
   top:0;
-
   z-index:40;
 
   border-bottom:
     1px solid
-    var(--line-soft);
+    rgba(255,255,255,.065);
 
   background:
     rgba(7,12,16,.965);
 
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 }
 
-
 .header-inner{
-
   width:100%;
-
   max-width:760px;
-
   margin:auto;
 
   padding:
-
-    calc(
-      14px +
-      env(safe-area-inset-top)
-    )
-
+    calc(14px + env(safe-area-inset-top))
     14px
-
     10px;
-
 }
 
-
 .eyebrow{
-
   color:var(--red);
 
   font-size:7px;
-
   font-weight:900;
 
   letter-spacing:.17em;
-
-  text-transform:uppercase;
-
 }
 
-
 h1{
-
-  margin:
-    3px
-    0
-    0;
+  margin:3px 0 0;
 
   font:
     700
@@ -178,20 +127,15 @@ h1{
     Georgia,
     "Times New Roman",
     serif;
-
 }
 
-
 .trip-name{
-
   margin-top:4px;
 
   color:var(--muted);
 
   font-size:8px;
-
   font-weight:600;
-
 }
 
 
@@ -200,65 +144,45 @@ h1{
 ========================================================= */
 
 main{
-
   width:100%;
-
   max-width:760px;
-
   margin:auto;
 
   padding:
-
     14px
-
     14px
-
     100px;
-
 }
 
 
 /* =========================================================
-   CURRENT DAY
+   DAY SUMMARY
 ========================================================= */
 
 .day-summary{
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
   gap:12px;
 
   margin-bottom:8px;
-
 }
-
 
 .day-summary-left{
-
   min-width:0;
-
 }
 
-
 .day-label{
-
   color:var(--red);
 
   font-size:7px;
-
   font-weight:900;
 
   letter-spacing:.12em;
-
 }
 
-
 .day-title{
-
   margin-top:2px;
 
   font-family:
@@ -267,46 +191,31 @@ main{
     serif;
 
   font-size:17px;
-
   font-weight:700;
-
 }
 
-
 .day-area{
-
   margin-top:2px;
 
   color:#7e8b94;
 
   font-size:7px;
-
 }
 
-
 .day-count{
-
   flex:0 0 auto;
 
-  padding:
-    5px
-    8px;
+  padding:5px 8px;
 
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:999px;
 
-  background:
-    #10171d;
+  background:#10171d;
 
   color:#aab3b9;
 
   font-size:6.5px;
-
   font-weight:900;
-
 }
 
 
@@ -315,49 +224,35 @@ main{
 ========================================================= */
 
 .date-scroller{
-
   display:flex;
 
   gap:6px;
 
   margin-bottom:10px;
-
   padding-bottom:2px;
 
   overflow-x:auto;
 
   scroll-snap-type:x proximity;
-
   scrollbar-width:none;
-
 }
-
 
 .date-scroller::-webkit-scrollbar{
   display:none;
 }
 
-
 .date-btn{
-
   flex:0 0 auto;
 
   min-width:61px;
-
   min-height:48px;
 
-  padding:
-    6px
-    8px;
+  padding:6px 8px;
 
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:11px;
 
-  background:
-    #0f161c;
+  background:#0f161c;
 
   color:#7d8991;
 
@@ -366,25 +261,18 @@ main{
   cursor:pointer;
 
   scroll-snap-align:start;
-
 }
 
-
 .date-btn-day{
-
   display:block;
 
   font-size:6px;
-
   font-weight:900;
 
   letter-spacing:.08em;
-
 }
 
-
 .date-btn-date{
-
   display:block;
 
   margin-top:2px;
@@ -397,64 +285,42 @@ main{
     serif;
 
   font-size:12px;
-
   font-weight:700;
-
 }
-
 
 .date-btn.active{
+  border-color:var(--red-line);
 
-  border-color:
-    var(--red-line);
-
-  background:
-    var(--red-soft);
+  background:var(--red-soft);
 
   color:#e6aaa5;
-
 }
 
-
-.date-btn.active
-.date-btn-date{
-
+.date-btn.active .date-btn-date{
   color:#f3c3bf;
-
 }
-
 
 .date-btn.all{
-
   min-width:54px;
-
 }
 
 
 /* =========================================================
-   MAP CARD
+   MAP
 ========================================================= */
 
 .map-card{
-
   position:relative;
 
   overflow:hidden;
 
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:16px;
 
-  background:
-    var(--surface-2);
-
+  background:var(--surface2);
 }
 
-
 #map{
-
   width:100%;
 
   height:min(
@@ -464,31 +330,18 @@ main{
 
   min-height:390px;
 
-  background:
-    #10171d;
-
+  background:#10171d;
 }
 
-
 .map-day-badge{
-
   position:absolute;
 
-  left:10px;
-
   top:10px;
+  left:10px;
 
   z-index:5;
 
-  max-width:
-    calc(
-      100% -
-      70px
-    );
-
-  padding:
-    6px
-    9px;
+  padding:6px 9px;
 
   border:
     1px solid
@@ -499,31 +352,22 @@ main{
   background:
     rgba(7,12,16,.88);
 
-  box-shadow:
-    0
-    4px
-    18px
-    rgba(0,0,0,.30);
-
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
-
   color:#d7dddf;
 
   font-size:7px;
-
   font-weight:900;
 
-  pointer-events:none;
+  box-shadow:
+    0 4px 18px
+    rgba(0,0,0,.30);
 
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  pointer-events:none;
 }
 
-
 .map-note{
-
   margin:
     7px
     2px
@@ -532,24 +376,18 @@ main{
   color:#71808a;
 
   font-size:6.5px;
-
   line-height:1.45;
-
 }
 
 
 /* =========================================================
-   SECTION
+   LIST HEADER
 ========================================================= */
 
 .section-head{
-
   display:flex;
-
   align-items:center;
-
-  justify-content:
-    space-between;
+  justify-content:space-between;
 
   gap:10px;
 
@@ -558,20 +396,17 @@ main{
   color:#aeb6bb;
 
   font-size:7px;
-
   font-weight:900;
 
   letter-spacing:.08em;
-
 }
 
 
 /* =========================================================
-   STOP CARDS
+   STOP CARD
 ========================================================= */
 
 .stop{
-
   display:grid;
 
   grid-template-columns:
@@ -585,107 +420,66 @@ main{
 
   margin-bottom:6px;
 
-  padding:
-    9px
-    10px;
+  padding:9px 10px;
 
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:11px;
 
-  background:
-    #0f161c;
-
+  background:#0f161c;
 }
-
-
-.stop:hover{
-
-  border-color:
-    rgba(201,111,104,.30);
-
-}
-
 
 .num{
-
   width:31px;
-
   height:31px;
 
   display:grid;
-
   place-items:center;
 
-  border:
-    1px solid
-    var(--red-line);
-
+  border:1px solid var(--red-line);
   border-radius:50%;
 
-  background:
-    var(--red-soft);
+  background:var(--red-soft);
 
   color:#f3b7b3;
 
   font-size:8px;
-
   font-weight:900;
-
 }
 
-
 .stop-title{
-
   font-size:8.5px;
-
   font-weight:900;
 
   line-height:1.35;
-
 }
 
-
 .stop-meta{
-
   margin-top:3px;
 
   color:#75818a;
 
   font-size:6.5px;
-
   line-height:1.4;
-
 }
 
-
 .stop-notes{
-
   margin-top:3px;
 
   color:#65727b;
 
   font-size:6.2px;
-
   line-height:1.4;
-
 }
 
-
 .maps-link{
-
   color:#9fc2f1;
 
   text-decoration:none;
 
   font-size:6.5px;
-
   font-weight:900;
 
   white-space:nowrap;
-
 }
 
 
@@ -695,15 +489,9 @@ main{
 
 .empty,
 .error{
+  padding:22px 12px;
 
-  padding:
-    22px
-    12px;
-
-  border:
-    1px dashed
-    #344049;
-
+  border:1px dashed #344049;
   border-radius:12px;
 
   color:#7d8991;
@@ -711,33 +499,21 @@ main{
   text-align:center;
 
   font-size:8px;
-
   line-height:1.55;
-
 }
 
-
 .error{
-
-  border-color:
-    var(--red-line);
+  border-color:var(--red-line);
 
   color:#ffc0bc;
-
 }
 
 
 /* =========================================================
-   GOOGLE MAP UI
+   GOOGLE INFO WINDOW
 ========================================================= */
 
-/*
-  Makes Google controls fit the site
-  slightly better.
-*/
-
 .gm-style .gm-style-iw-c{
-
   padding:0 !important;
 
   border-radius:12px !important;
@@ -747,30 +523,20 @@ main{
   box-shadow:
     0 8px 28px
     rgba(0,0,0,.55) !important;
-
 }
-
 
 .gm-style .gm-style-iw-d{
-
   overflow:auto !important;
-
 }
-
 
 .gm-style .gm-style-iw-tc::after{
-
   background:#11181e !important;
-
 }
 
-
 .gm-ui-hover-effect{
-
   filter:
     invert(1)
     grayscale(1);
-
 }
 
 
@@ -778,35 +544,17 @@ main{
    MOBILE
 ========================================================= */
 
-@media(
-  max-width:480px
-){
+@media(max-width:480px){
 
   .header-inner,
   main{
-
     padding-left:12px;
     padding-right:12px;
-
   }
-
 
   #map{
-
     height:51vh;
-
     min-height:360px;
-
-  }
-
-
-  .stop{
-
-    grid-template-columns:
-      30px
-      minmax(0,1fr)
-      auto;
-
   }
 
 }
@@ -814,6 +562,7 @@ main{
 </style>
 
 </head>
+
 
 
 <body>
@@ -834,11 +583,9 @@ main{
       TRIP MAP
     </div>
 
-
     <h1>
       Map
     </h1>
-
 
     <div
       id="tripName"
@@ -860,8 +607,6 @@ main{
 <main>
 
 
-  <!-- CURRENT DAY -->
-
   <div class="day-summary">
 
     <div class="day-summary-left">
@@ -873,14 +618,12 @@ main{
         LOADING
       </div>
 
-
       <div
         id="dayTitle"
         class="day-title"
       >
         Trip Map
       </div>
-
 
       <div
         id="dayArea"
@@ -901,7 +644,7 @@ main{
 
 
 
-  <!-- DATE BUTTONS -->
+  <!-- DAY BUTTONS -->
 
   <div
     id="dateScroller"
@@ -916,7 +659,6 @@ main{
 
     <div id="map"></div>
 
-
     <div
       id="mapDayBadge"
       class="map-day-badge"
@@ -929,14 +671,14 @@ main{
 
   <div class="map-note">
 
-    Map pins follow your itinerary order.
-    Only schedule items with coordinates are shown.
+    Numbered pins follow your itinerary order.
+    Arrows show the direction from one stop to the next.
 
   </div>
 
 
 
-  <!-- STOP LIST -->
+  <!-- LIST -->
 
   <section>
 
@@ -945,7 +687,6 @@ main{
       <span id="listTitle">
         SCHEDULED STOPS
       </span>
-
 
       <span id="pinCount"></span>
 
@@ -968,7 +709,7 @@ main{
 
 
 <!-- =========================================================
-     SHARED FOOTER
+     FOOTER
 ========================================================= -->
 
 <div id="footer"></div>
@@ -992,15 +733,8 @@ main{
 <script>
 
 /* =========================================================
-   DARK GOOGLE MAP STYLE
+   CLEAN DARK MAP STYLE
 ========================================================= */
-
-/*
-  This is still Google Maps.
-
-  We are simply styling Google's map
-  to match your dark website.
-*/
 
 const DARK_MAP_STYLE = [
 
@@ -1008,98 +742,57 @@ const DARK_MAP_STYLE = [
     elementType:"geometry",
     stylers:[
       {
-        color:"#111820"
+        color:"#10171d"
       }
     ]
   },
+
 
   {
     elementType:"labels.text.fill",
     stylers:[
       {
-        color:"#88939c"
+        color:"#808b93"
       }
     ]
   },
+
 
   {
     elementType:"labels.text.stroke",
     stylers:[
       {
-        color:"#111820"
+        color:"#10171d"
       }
     ]
   },
 
-  {
-    featureType:"administrative",
-    elementType:"geometry",
-    stylers:[
-      {
-        color:"#26323c"
-      }
-    ]
-  },
 
-  {
-    featureType:"administrative.country",
-    elementType:"labels.text.fill",
-    stylers:[
-      {
-        color:"#a8b0b6"
-      }
-    ]
-  },
-
-  {
-    featureType:"administrative.locality",
-    elementType:"labels.text.fill",
-    stylers:[
-      {
-        color:"#d2d5d7"
-      }
-    ]
-  },
+  /* HIDE SHOPS / RESTAURANTS / TEMPLES / ETC */
 
   {
     featureType:"poi",
-    elementType:"labels.text.fill",
     stylers:[
       {
-        color:"#7f8e96"
+        visibility:"off"
       }
     ]
   },
 
+
+  /* HIDE TRANSIT ICONS */
+
   {
-    featureType:"poi",
-    elementType:"geometry",
+    featureType:"transit",
     stylers:[
       {
-        color:"#151d24"
+        visibility:"off"
       }
     ]
   },
 
-  {
-    featureType:"poi.park",
-    elementType:"geometry",
-    stylers:[
-      {
-        color:"#132019"
-      }
-    ]
-  },
 
-  {
-    featureType:"poi.park",
-    elementType:"labels.text.fill",
-    stylers:[
-      {
-        color:"#64806b"
-      }
-    ]
-  },
+  /* ROADS */
 
   {
     featureType:"road",
@@ -1111,75 +804,56 @@ const DARK_MAP_STYLE = [
     ]
   },
 
+
   {
     featureType:"road",
     elementType:"geometry.stroke",
     stylers:[
       {
-        color:"#172028"
+        color:"#161e25"
       }
     ]
   },
 
+
+  /* HIDE MOST ROAD NAMES */
+
   {
     featureType:"road",
-    elementType:"labels.text.fill",
+    elementType:"labels",
     stylers:[
       {
-        color:"#949ea5"
+        visibility:"off"
       }
     ]
   },
+
+
+  /* HIGHWAYS */
 
   {
     featureType:"road.highway",
     elementType:"geometry",
     stylers:[
       {
-        color:"#38434b"
+        color:"#35404a"
       }
     ]
   },
+
 
   {
     featureType:"road.highway",
     elementType:"geometry.stroke",
     stylers:[
       {
-        color:"#202a31"
+        color:"#1d272e"
       }
     ]
   },
 
-  {
-    featureType:"road.highway",
-    elementType:"labels.text.fill",
-    stylers:[
-      {
-        color:"#b6bec3"
-      }
-    ]
-  },
 
-  {
-    featureType:"transit",
-    elementType:"geometry",
-    stylers:[
-      {
-        color:"#1b242c"
-      }
-    ]
-  },
-
-  {
-    featureType:"transit.station",
-    elementType:"labels.text.fill",
-    stylers:[
-      {
-        color:"#7d8a93"
-      }
-    ]
-  },
+  /* WATER */
 
   {
     featureType:"water",
@@ -1191,12 +865,88 @@ const DARK_MAP_STYLE = [
     ]
   },
 
+
   {
     featureType:"water",
+    elementType:"labels",
+    stylers:[
+      {
+        visibility:"off"
+      }
+    ]
+  },
+
+
+  /* PARKS */
+
+  {
+    featureType:"poi.park",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#132019"
+      }
+    ]
+  },
+
+
+  {
+    featureType:"poi.park",
+    elementType:"labels",
+    stylers:[
+      {
+        visibility:"off"
+      }
+    ]
+  },
+
+
+  /* ADMIN BORDERS */
+
+  {
+    featureType:"administrative",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#29343d"
+      }
+    ]
+  },
+
+
+  /* HIDE SMALL NEIGHBOURHOOD NAMES */
+
+  {
+    featureType:"administrative.neighborhood",
+    stylers:[
+      {
+        visibility:"off"
+      }
+    ]
+  },
+
+
+  /* KEEP CITY NAMES */
+
+  {
+    featureType:"administrative.locality",
     elementType:"labels.text.fill",
     stylers:[
       {
-        color:"#536a78"
+        color:"#b8c0c5"
+      }
+    ]
+  },
+
+
+  /* HIDE LANDSCAPE LABELS */
+
+  {
+    featureType:"landscape",
+    elementType:"labels",
+    stylers:[
+      {
+        visibility:"off"
       }
     ]
   }
@@ -1206,7 +956,7 @@ const DARK_MAP_STYLE = [
 
 
 /* =========================================================
-   TRIP
+   TRIP ID
 ========================================================= */
 
 const params =
@@ -1239,42 +989,26 @@ let TRIP_ID =
    STATE
 ========================================================= */
 
-let currentUser =
-  null;
+let currentUser = null;
 
+let trip = null;
 
-let trip =
-  null;
+let schedule = [];
 
+let selectedDate = null;
 
-let schedule =
-  [];
+let map = null;
+
+let infoWindow = null;
+
+let markers = [];
 
 
 /*
-  IMPORTANT:
-
-  We no longer begin with "all".
-
-  Once the schedule loads,
-  selectedDate becomes the first
-  schedule date automatically.
+  This is our itinerary line.
 */
 
-let selectedDate =
-  null;
-
-
-let map =
-  null;
-
-
-let infoWindow =
-  null;
-
-
-let markers =
-  [];
+let routeLine = null;
 
 
 
@@ -1287,60 +1021,50 @@ const tripName =
     "tripName"
   );
 
-
 const tripEyebrow =
   document.getElementById(
     "tripEyebrow"
   );
-
 
 const dateScroller =
   document.getElementById(
     "dateScroller"
   );
 
-
 const stops =
   document.getElementById(
     "stops"
   );
-
 
 const listTitle =
   document.getElementById(
     "listTitle"
   );
 
-
 const pinCount =
   document.getElementById(
     "pinCount"
   );
-
 
 const dayLabel =
   document.getElementById(
     "dayLabel"
   );
 
-
 const dayTitle =
   document.getElementById(
     "dayTitle"
   );
-
 
 const dayArea =
   document.getElementById(
     "dayArea"
   );
 
-
 const dayCount =
   document.getElementById(
     "dayCount"
   );
-
 
 const mapDayBadge =
   document.getElementById(
@@ -1350,7 +1074,7 @@ const mapDayBadge =
 
 
 /* =========================================================
-   BASIC HELPERS
+   HELPERS
 ========================================================= */
 
 function text(value){
@@ -1366,30 +1090,11 @@ function esc(value){
 
   return text(value)
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
@@ -1402,26 +1107,8 @@ function esc(value){
 function parseDate(value){
 
   return new Date(
-    value +
-    "T12:00:00"
+    value + "T12:00:00"
   );
-
-}
-
-
-function weekday(value){
-
-  return new Intl
-    .DateTimeFormat(
-      "en-SG",
-      {
-        weekday:"short"
-      }
-    )
-    .format(
-      parseDate(value)
-    )
-    .toUpperCase();
 
 }
 
@@ -1479,8 +1166,7 @@ function itemTime(item){
   if(item.start_time){
 
     const parts =
-      item.start_time
-        .split(":");
+      item.start_time.split(":");
 
 
     let hour =
@@ -1490,8 +1176,7 @@ function itemTime(item){
 
 
     const minute =
-      parts[1] ||
-      "00";
+      parts[1] || "00";
 
 
     const suffix =
@@ -1521,7 +1206,7 @@ function itemTime(item){
 
 
 /* =========================================================
-   ITEM ENTITY
+   RELATED PLACE / RESTAURANT
 ========================================================= */
 
 function itemEntity(item){
@@ -1537,15 +1222,10 @@ function itemEntity(item){
 
 
 /* =========================================================
-   SAFE COORDINATES
+   COORDINATES
 ========================================================= */
 
 function coordinateNumber(value){
-
-  /*
-    Prevent blank fields from turning
-    into 0 with Number("").
-  */
 
   if(
     value === null ||
@@ -1583,6 +1263,7 @@ function itemCoordinates(item){
 
 
   const latitude =
+
     coordinateNumber(
       entity?.latitude
     )
@@ -1595,6 +1276,7 @@ function itemCoordinates(item){
 
 
   const longitude =
+
     coordinateNumber(
       entity?.longitude
     )
@@ -1616,10 +1298,6 @@ function itemCoordinates(item){
   }
 
 
-  /*
-    Basic coordinate validation.
-  */
-
   if(
     latitude < -90 ||
     latitude > 90 ||
@@ -1634,11 +1312,8 @@ function itemCoordinates(item){
 
   return {
 
-    lat:
-      latitude,
-
-    lng:
-      longitude
+    lat:latitude,
+    lng:longitude
 
   };
 
@@ -1647,7 +1322,7 @@ function itemCoordinates(item){
 
 
 /* =========================================================
-   ITEM LOCATION
+   LOCATION
 ========================================================= */
 
 function itemLocation(item){
@@ -1675,7 +1350,7 @@ function itemLocation(item){
 
 
 /* =========================================================
-   ITEM AREA
+   AREA
 ========================================================= */
 
 function itemArea(item){
@@ -1764,21 +1439,13 @@ async function getAccessibleTrips(){
 
   await Promise.all([
 
-
     db
       .from("trips")
       .select("*")
       .eq(
         "owner_id",
         currentUser.id
-      )
-      .order(
-        "start_date",
-        {
-          ascending:true
-        }
       ),
-
 
     db
       .from("trip_members")
@@ -1825,27 +1492,24 @@ async function getAccessibleTrips(){
   );
 
 
-  const sharedIds = [
+  const sharedIds =
+    [
+      ...new Set(
 
-    ...new Set(
+        (
+          memberResult.data ||
+          []
+        )
 
-      (
-        memberResult.data ||
-        []
+        .map(
+          row =>
+            Number(row.trip_id)
+        )
+
+        .filter(Boolean)
+
       )
-
-      .map(
-        row =>
-          Number(
-            row.trip_id
-          )
-      )
-
-      .filter(Boolean)
-
-    )
-
-  ];
+    ];
 
 
   if(sharedIds.length){
@@ -1858,12 +1522,6 @@ async function getAccessibleTrips(){
         .in(
           "id",
           sharedIds
-        )
-        .order(
-          "start_date",
-          {
-            ascending:true
-          }
         );
 
 
@@ -1881,18 +1539,10 @@ async function getAccessibleTrips(){
     .forEach(
       row => {
 
-        if(
-          !resultMap.has(
-            Number(row.id)
-          )
-        ){
-
-          resultMap.set(
-            Number(row.id),
-            row
-          );
-
-        }
+        resultMap.set(
+          Number(row.id),
+          row
+        );
 
       }
     );
@@ -1902,27 +1552,14 @@ async function getAccessibleTrips(){
 
   return [
     ...resultMap.values()
-  ]
-  .sort(
-    (a,b) =>
-
-      text(
-        a.start_date
-      )
-      .localeCompare(
-        text(
-          b.start_date
-        )
-      )
-
-  );
+  ];
 
 }
 
 
 
 /* =========================================================
-   RESOLVE CURRENT TRIP
+   RESOLVE TRIP
 ========================================================= */
 
 async function resolveTrip(){
@@ -1948,7 +1585,6 @@ async function resolveTrip(){
     location.href =
       "login.html";
 
-
     throw new Error(
       "Please sign in."
     );
@@ -1965,7 +1601,7 @@ async function resolveTrip(){
   ){
 
     throw new Error(
-      "You do not have any accessible trips yet."
+      "No accessible trips found."
     );
 
   }
@@ -2011,7 +1647,7 @@ async function resolveTrip(){
 
 
 /* =========================================================
-   LOAD SCHEDULE
+   SCHEDULE QUERY
 ========================================================= */
 
 function loadScheduleQuery(){
@@ -2122,7 +1758,7 @@ function loadScheduleQuery(){
 
 
 /* =========================================================
-   GOOGLE MAP LOADER
+   GOOGLE MAP API
 ========================================================= */
 
 async function loadMapAPI(){
@@ -2142,10 +1778,7 @@ async function loadMapAPI(){
   ){
 
     throw new Error(
-
-      "Google Maps helper was not found. " +
-      "Check google-maps.js."
-
+      "google-maps.js could not be found."
     );
 
   }
@@ -2160,7 +1793,7 @@ async function loadMapAPI(){
   ){
 
     throw new Error(
-      "Google Maps API could not be loaded."
+      "Google Maps could not be loaded."
     );
 
   }
@@ -2170,7 +1803,7 @@ async function loadMapAPI(){
 
 
 /* =========================================================
-   UNIQUE DATES
+   TRIP DATES
 ========================================================= */
 
 function tripDates(){
@@ -2190,15 +1823,14 @@ function tripDates(){
 
     )
 
-  ]
-  .sort();
+  ].sort();
 
 }
 
 
 
 /* =========================================================
-   DAY ROWS
+   ROWS BY DATE
 ========================================================= */
 
 function rowsForDate(date){
@@ -2233,15 +1865,10 @@ function mapRowsForDate(date){
     .map(
       item => ({
 
-        item:
-
-          item,
+        item:item,
 
         coords:
-
-          itemCoordinates(
-            item
-          )
+          itemCoordinates(item)
 
       })
     )
@@ -2287,15 +1914,11 @@ function dayNumber(date){
 
 function areaForDate(date){
 
-  const rows =
-    rowsForDate(date);
-
-
   const values = [
 
     ...new Set(
 
-      rows
+      rowsForDate(date)
 
         .map(
           item =>
@@ -2324,25 +1947,16 @@ function areaForDate(date){
   }
 
 
-  /*
-    Keep the header compact.
-  */
-
   return values
-    .slice(
-      0,
-      3
-    )
-    .join(
-      " · "
-    );
+    .slice(0,3)
+    .join(" · ");
 
 }
 
 
 
 /* =========================================================
-   RENDER DATE BUTTONS
+   DATE BUTTONS
 ========================================================= */
 
 function renderDates(){
@@ -2351,99 +1965,82 @@ function renderDates(){
     tripDates();
 
 
-  dateScroller.innerHTML = `
+  dateScroller.innerHTML =
+
+    dates
+      .map(
+        date => {
+
+          const number =
+            dayNumber(date);
 
 
-    ${
+          return `
 
-      dates
+            <button
+              class="
+                date-btn
+                ${
+                  selectedDate === date
+                  ?
+                  "active"
+                  :
+                  ""
+                }
+              "
+              type="button"
+              data-date="${esc(date)}"
+            >
 
-        .map(
-          date => {
+              <span class="date-btn-day">
+                DAY ${number}
+              </span>
 
-            const number =
-              dayNumber(date);
+              <span class="date-btn-date">
+                ${esc(
+                  dayMonth(date)
+                )}
+              </span>
 
+            </button>
 
-            return `
+          `;
 
-              <button
-
-                class="
-                  date-btn
-                  ${
-                    selectedDate ===
-                    date
-                    ?
-                    "active"
-                    :
-                    ""
-                  }
-                "
-
-                type="button"
-
-                data-date="${esc(date)}"
-
-              >
-
-                <span class="date-btn-day">
-
-                  DAY ${number}
-
-                </span>
-
-
-                <span class="date-btn-date">
-
-                  ${esc(
-                    dayMonth(date)
-                  )}
-
-                </span>
-
-              </button>
-
-            `;
-
-          }
-        )
-        .join("")
-
-    }
-
-
-    <button
-
-      class="
-        date-btn
-        all
-        ${
-          selectedDate === "all"
-          ?
-          "active"
-          :
-          ""
         }
-      "
+      )
+      .join("")
 
-      type="button"
+    +
 
-      data-date="all"
+    `
 
-    >
+      <button
+        class="
+          date-btn
+          all
+          ${
+            selectedDate === "all"
+            ?
+            "active"
+            :
+            ""
+          }
+        "
+        type="button"
+        data-date="all"
+      >
 
-      <span class="date-btn-day">
-        WHOLE
-      </span>
+        <span class="date-btn-day">
+          WHOLE
+        </span>
 
-      <span class="date-btn-date">
-        ALL
-      </span>
+        <span class="date-btn-date">
+          ALL
+        </span>
 
-    </button>
+      </button>
 
-  `;
+    `;
 
 
   dateScroller
@@ -2455,10 +2052,8 @@ function renderDates(){
     .forEach(
       button => {
 
-
         button.onclick =
           () => {
-
 
             selectedDate =
               button.dataset.date;
@@ -2469,20 +2064,24 @@ function renderDates(){
             renderMapAndList();
 
 
-            /*
-              Scroll selected date
-              gently into view.
-            */
+            setTimeout(
+              () => {
 
-            button.scrollIntoView({
+                document
+                  .querySelector(
+                    ".date-btn.active"
+                  )
+                  ?.scrollIntoView({
 
-              behavior:"smooth",
+                    behavior:"smooth",
+                    block:"nearest",
+                    inline:"center"
 
-              block:"nearest",
+                  });
 
-              inline:"center"
-
-            });
+              },
+              40
+            );
 
           };
 
@@ -2494,17 +2093,15 @@ function renderDates(){
 
 
 /* =========================================================
-   CLEAR MARKERS
+   CLEAR MARKERS + ROUTE
 ========================================================= */
 
-function clearMarkers(){
+function clearMapObjects(){
 
   markers.forEach(
     marker => {
 
-      marker.setMap(
-        null
-      );
+      marker.setMap(null);
 
     }
   );
@@ -2512,12 +2109,28 @@ function clearMarkers(){
 
   markers = [];
 
+
+  if(routeLine){
+
+    routeLine.setMap(null);
+
+    routeLine = null;
+
+  }
+
+
+  if(infoWindow){
+
+    infoWindow.close();
+
+  }
+
 }
 
 
 
 /* =========================================================
-   DARK NUMBERED MARKER
+   NUMBERED MARKER
 ========================================================= */
 
 function createMarker(
@@ -2528,17 +2141,14 @@ function createMarker(
 
   return new google.maps.Marker({
 
-    map:
+    map:map,
 
-      map,
+    position:coords,
 
-    position:
+    title:title,
 
-      coords,
-
-    title:
-
-      title,
+    zIndex:
+      1000 + number,
 
     icon:{
 
@@ -2552,10 +2162,10 @@ function createMarker(
         1,
 
       strokeColor:
-        "#f1b7b2",
+        "#f2b7b2",
 
       strokeOpacity:
-        .9,
+        1,
 
       strokeWeight:
         1.5,
@@ -2588,6 +2198,113 @@ function createMarker(
 
 
 /* =========================================================
+   ROUTE ARROWS
+========================================================= */
+
+function drawRouteArrows(rows){
+
+  /*
+    Don't draw a giant line across
+    different days when ALL is selected.
+  */
+
+  if(
+    selectedDate === "all"
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !map ||
+    rows.length < 2
+  ){
+
+    return;
+
+  }
+
+
+  const path =
+    rows.map(
+      row =>
+        row.coords
+    );
+
+
+  const arrowSymbol = {
+
+    path:
+      google.maps.SymbolPath
+        .FORWARD_CLOSED_ARROW,
+
+    scale:
+      2.6,
+
+    strokeColor:
+      "#f5c0bc",
+
+    strokeOpacity:
+      1,
+
+    strokeWeight:
+      1,
+
+    fillColor:
+      "#f5c0bc",
+
+    fillOpacity:
+      1
+
+  };
+
+
+  routeLine =
+    new google.maps.Polyline({
+
+      map:map,
+
+      path:path,
+
+      geodesic:true,
+
+      clickable:false,
+
+      strokeColor:
+        "#c96f68",
+
+      strokeOpacity:
+        .70,
+
+      strokeWeight:
+        2.5,
+
+      icons:[
+
+        {
+
+          icon:
+            arrowSymbol,
+
+          offset:
+            "35px",
+
+          repeat:
+            "70px"
+
+        }
+
+      ]
+
+    });
+
+}
+
+
+
+/* =========================================================
    DAY HEADER
 ========================================================= */
 
@@ -2611,21 +2328,12 @@ function renderDayHeader(rows){
       "";
 
 
-    dayCount.textContent =
-
-      `${rows.length} ` +
-
-      (
-        rows.length === 1
-        ?
-        "PIN"
-        :
-        "PINS"
-      );
-
-
     mapDayBadge.textContent =
       "Whole trip";
+
+
+    dayCount.textContent =
+      `${rows.length} PINS`;
 
 
     return;
@@ -2655,6 +2363,10 @@ function renderDayHeader(rows){
     );
 
 
+  mapDayBadge.textContent =
+    `Day ${number} · ${dayMonth(selectedDate)}`;
+
+
   dayCount.textContent =
 
     `${rows.length} ` +
@@ -2667,21 +2379,12 @@ function renderDayHeader(rows){
       "PINS"
     );
 
-
-  mapDayBadge.textContent =
-
-    `Day ${number} · ` +
-
-    dayMonth(
-      selectedDate
-    );
-
 }
 
 
 
 /* =========================================================
-   INFO WINDOW
+   MARKER POPUP
 ========================================================= */
 
 function openMarkerInfo(
@@ -2690,15 +2393,11 @@ function openMarkerInfo(
 ){
 
   const mapsUrl =
-    itemMapsUrl(
-      item
-    );
+    itemMapsUrl(item);
 
 
   const location =
-    itemLocation(
-      item
-    );
+    itemLocation(item);
 
 
   infoWindow.setContent(`
@@ -2720,20 +2419,11 @@ function openMarkerInfo(
           color:#c96f68;
           font-size:9px;
           font-weight:900;
-          letter-spacing:.07em;
         "
       >
-
         ${esc(
-          selectedDate === "all"
-          ?
-          dayMonth(
-            item.schedule_date
-          )
-          :
           itemTime(item)
         )}
-
       </div>
 
 
@@ -2744,20 +2434,17 @@ function openMarkerInfo(
           font-weight:800;
         "
       >
-
         ${esc(
           item.title ||
           location ||
           "Schedule stop"
         )}
-
       </div>
 
 
       ${
         location &&
-        location !==
-        item.title
+        location !== item.title
 
         ?
 
@@ -2770,9 +2457,7 @@ function openMarkerInfo(
               font-size:10px;
             "
           >
-
             ${esc(location)}
-
           </div>
 
         `
@@ -2780,37 +2465,6 @@ function openMarkerInfo(
         :
 
         ""
-
-      }
-
-
-      ${
-        selectedDate === "all"
-
-        ?
-
-        `
-
-          <div
-            style="
-              margin-top:5px;
-              color:#74818a;
-              font-size:10px;
-            "
-          >
-
-            ${esc(
-              itemTime(item)
-            )}
-
-          </div>
-
-        `
-
-        :
-
-        ""
-
       }
 
 
@@ -2828,24 +2482,17 @@ function openMarkerInfo(
           >
 
             <a
-
               href="${esc(mapsUrl)}"
-
               target="_blank"
-
               rel="noopener noreferrer"
-
               style="
                 color:#9fc2f1;
                 font-size:10px;
                 font-weight:800;
                 text-decoration:none;
               "
-
             >
-
               Open in Google Maps ↗
-
             </a>
 
           </div>
@@ -2855,7 +2502,6 @@ function openMarkerInfo(
         :
 
         ""
-
       }
 
     </div>
@@ -2865,13 +2511,8 @@ function openMarkerInfo(
 
   infoWindow.open({
 
-    map:
-
-      map,
-
-    anchor:
-
-      marker
+    map:map,
+    anchor:marker
 
   });
 
@@ -2892,7 +2533,7 @@ function renderMapAndList(){
   }
 
 
-  clearMarkers();
+  clearMapObjects();
 
 
   const rows =
@@ -2911,25 +2552,36 @@ function renderMapAndList(){
       .LatLngBounds();
 
 
+  /*
+    ROUTE FIRST
+
+    This keeps the line visually behind
+    the numbered markers.
+  */
+
+  drawRouteArrows(
+    rows
+  );
+
+
+  /*
+    PINS
+  */
+
   rows.forEach(
     (
       row,
       index
     ) => {
 
-
       const item =
         row.item;
-
-
-      const coords =
-        row.coords;
 
 
       const marker =
         createMarker(
 
-          coords,
+          row.coords,
 
           index + 1,
 
@@ -2965,7 +2617,7 @@ function renderMapAndList(){
 
 
       bounds.extend(
-        coords
+        row.coords
       );
 
     }
@@ -3002,11 +2654,6 @@ function renderMapAndList(){
     );
 
 
-    /*
-      Prevent a group of very close
-      markers from zooming in too far.
-    */
-
     google.maps.event
       .addListenerOnce(
         map,
@@ -3014,8 +2661,7 @@ function renderMapAndList(){
         () => {
 
           if(
-            map.getZoom() >
-            16
+            map.getZoom() > 16
           ){
 
             map.setZoom(
@@ -3029,6 +2675,10 @@ function renderMapAndList(){
 
   }
 
+
+  /*
+    LIST HEADER
+  */
 
   pinCount.textContent =
 
@@ -3059,7 +2709,7 @@ function renderMapAndList(){
 
 
   /*
-    NO PINS
+    EMPTY
   */
 
   if(!rows.length){
@@ -3069,15 +2719,7 @@ function renderMapAndList(){
       <div class="empty">
 
         No scheduled places with
-        coordinates for
-
-        ${
-          selectedDate === "all"
-          ?
-          "this trip."
-          :
-          "this day."
-        }
+        coordinates for this day.
 
       </div>
 
@@ -3090,75 +2732,54 @@ function renderMapAndList(){
 
 
   /*
-    STOP LIST
+    CARDS
   */
 
   stops.innerHTML =
 
     rows
-
       .map(
         (
           row,
           index
         ) => {
 
-
           const item =
             row.item;
 
 
           const location =
-            itemLocation(
-              item
-            );
+            itemLocation(item);
 
 
           const mapsUrl =
-            itemMapsUrl(
-              item
-            );
+            itemMapsUrl(item);
 
 
           const meta = [
 
             selectedDate === "all"
-
             ?
-
             dayMonth(
               item.schedule_date
             )
-
             :
-
             null,
 
-
-            itemTime(
-              item
-            ),
-
+            itemTime(item),
 
             location &&
-            location !==
-            item.title
-
+            location !== item.title
             ?
-
             location
-
             :
-
             null
 
           ]
 
           .filter(Boolean)
 
-          .join(
-            " · "
-          );
+          .join(" · ");
 
 
           return `
@@ -3192,26 +2813,11 @@ function renderMapAndList(){
                 </div>
 
 
-                ${
-                  meta
+                <div class="stop-meta">
 
-                  ?
+                  ${esc(meta)}
 
-                  `
-
-                    <div class="stop-meta">
-
-                      ${esc(meta)}
-
-                    </div>
-
-                  `
-
-                  :
-
-                  ""
-
-                }
+                </div>
 
 
                 ${
@@ -3234,7 +2840,6 @@ function renderMapAndList(){
                   :
 
                   ""
-
                 }
 
               </div>
@@ -3248,21 +2853,12 @@ function renderMapAndList(){
                 `
 
                   <a
-
                     class="maps-link"
-
-                    href="${esc(
-                      mapsUrl
-                    )}"
-
+                    href="${esc(mapsUrl)}"
                     target="_blank"
-
                     rel="noopener noreferrer"
-
                   >
-
                     MAPS ↗
-
                   </a>
 
                 `
@@ -3270,7 +2866,6 @@ function renderMapAndList(){
                 :
 
                 ""
-
               }
 
 
@@ -3280,7 +2875,6 @@ function renderMapAndList(){
 
         }
       )
-
       .join("");
 
 }
@@ -3288,7 +2882,7 @@ function renderMapAndList(){
 
 
 /* =========================================================
-   LOAD EVERYTHING
+   LOAD
 ========================================================= */
 
 async function loadData(){
@@ -3296,23 +2890,12 @@ async function loadData(){
   try{
 
 
-    /*
-      RESOLVE TRIP
-    */
-
     await resolveTrip();
 
 
-    /*
-      LOAD TRIP + SCHEDULE
-    */
-
     const [
-
       tripResult,
-
       scheduleResult
-
     ] =
 
     await Promise.all([
@@ -3333,18 +2916,14 @@ async function loadData(){
     ]);
 
 
-    if(
-      tripResult.error
-    ){
+    if(tripResult.error){
 
       throw tripResult.error;
 
     }
 
 
-    if(
-      scheduleResult.error
-    ){
+    if(scheduleResult.error){
 
       throw scheduleResult.error;
 
@@ -3361,15 +2940,11 @@ async function loadData(){
 
 
     /*
-      PAGE TITLE
+      HEADER
     */
 
     tripName.textContent =
-
-      trip?.name
-
-      ||
-
+      trip?.name ||
       "My Trip";
 
 
@@ -3395,12 +2970,7 @@ async function loadData(){
 
 
     /*
-      DEFAULT TO FIRST DAY.
-
-      This is the important change.
-
-      It no longer starts with every
-      pin from the whole trip.
+      DEFAULT TO DAY 1
     */
 
     const dates =
@@ -3420,18 +2990,13 @@ async function loadData(){
 
 
     /*
-      LOAD GOOGLE MAPS
+      GOOGLE MAPS
     */
 
     await loadMapAPI();
 
 
-    /*
-      CREATE DARK GOOGLE MAP
-    */
-
     map =
-
       new google.maps.Map(
 
         document.getElementById(
@@ -3441,47 +3006,32 @@ async function loadData(){
         {
 
           center:{
-
-            lat:
-              35.0116,
-
-            lng:
-              135.7681
-
+            lat:35.0116,
+            lng:135.7681
           },
 
-
-          zoom:
-            11,
-
+          zoom:11,
 
           styles:
             DARK_MAP_STYLE,
 
-
           backgroundColor:
-            "#111820",
-
+            "#10171d",
 
           mapTypeControl:
             false,
 
-
           streetViewControl:
             false,
-
 
           fullscreenControl:
             true,
 
-
           zoomControl:
             true,
 
-
           clickableIcons:
             false,
-
 
           gestureHandling:
             "greedy"
@@ -3491,25 +3041,16 @@ async function loadData(){
       );
 
 
-    /*
-      INFO WINDOW
-    */
-
     infoWindow =
-
       new google.maps
         .InfoWindow();
 
-
-    /*
-      INITIAL DAY
-    */
 
     renderMapAndList();
 
 
     /*
-      Scroll Day 1 button into view.
+      CENTER DAY BUTTON
     */
 
     setTimeout(
@@ -3521,27 +3062,20 @@ async function loadData(){
           )
           ?.scrollIntoView({
 
-            behavior:
-              "smooth",
-
-            block:
-              "nearest",
-
-            inline:
-              "center"
+            behavior:"smooth",
+            block:"nearest",
+            inline:"center"
 
           });
 
       },
-      200
+      150
     );
-
 
   }
 
 
   catch(error){
-
 
     console.error(
       "Map page:",
@@ -3574,13 +3108,8 @@ async function loadData(){
       <div class="error">
 
         ${esc(
-
-          error.message
-
-          ||
-
+          error.message ||
           "Could not load your trip map."
-
         )}
 
       </div>
@@ -3604,7 +3133,5 @@ loadData();
 
 <script src="footer.js"></script>
 
-
 </body>
-
 </html>
