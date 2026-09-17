@@ -183,6 +183,47 @@ function rowArea(row){
   const p=row.place_id?placeMap.get(Number(row.place_id)):null;
   return txt(p?.area || p?.city || row.location_name || "Other").trim() || "Other";
 }
+
+function simpleDayRoute(allRows,destinationRows){
+  const labels=[];
+
+  const add=label=>{
+    if(label && !labels.some(x=>x.toLowerCase()===label.toLowerCase())) labels.push(label);
+  };
+
+  // Arrival is the only logistical label intentionally surfaced on Home.
+  if(allRows.some(r=>{
+    const hay=`${txt(r.title)} ${txt(r.item_type)}`.toLowerCase();
+    return hay.includes("arrival") || hay.includes("arrive");
+  })) add("Arrival");
+
+  const wanted=[
+    ["Higashiyama",["higashiyama"]],
+    ["Gion",["gion"]],
+    ["Pontocho",["pontocho","pontcho"]],
+    ["Kyoto Station",["kyoto station"]]
+  ];
+
+  wanted.forEach(([label,terms])=>{
+    if(destinationRows.some(r=>{
+      const p=r.place_id?placeMap.get(Number(r.place_id)):null;
+      const hay=[
+        rowArea(r),r.title,r.location_name,p?.name,p?.area,p?.city
+      ].map(txt).join(" ").toLowerCase();
+      return terms.some(term=>hay.includes(term));
+    })) add(label);
+  });
+
+  // On other days, fall back to broad destination areas only.
+  if(!labels.length){
+    destinationRows.forEach(r=>{
+      const area=rowArea(r);
+      if(area && area!=="Other") add(area);
+    });
+  }
+
+  return labels;
+}
 function timeText(row){
   if(row.time_label)return row.time_label;
   const f=t=>t?String(t).slice(0,5):"";
@@ -345,9 +386,9 @@ function renderArea(group,index){
     <div class="area-items">${group.rows.map(renderActivity).join("")}</div>
   </div>`;
 }
-function dayTitle(rows){
-  const areas=[...new Set(rows.map(rowArea).filter(x=>x!=="Other"))];
-  return areas.slice(0,2).join(" + ") || rows[0]?.title || "Today";
+function dayTitle(allRows,rows){
+  const route=simpleDayRoute(allRows,rows);
+  return route.join(" → ") || "Today";
 }
 function renderDay(){
   const allDayRows=scheduleRows.filter(r=>r.schedule_date===selectedDate);
@@ -361,7 +402,7 @@ function renderDay(){
         <div class="day-label">${selectedDate===isoDate(new Date())?"TODAY":"TRIP DAY"}</div>
         <div class="day-date">${selectedDate?`${weekday(selectedDate,true)} · ${date.getDate()} ${date.toLocaleDateString("en-SG",{month:"long"}).toUpperCase()}`:""}</div>
       </div>
-      <h2>${esc(dayTitle(rows))}</h2>
+      <h2>${esc(dayTitle(allDayRows,rows))}</h2>
       <div class="day-area">${esc(country)}</div>
       ${renderDates()}
       <div class="plan-title">PLACES TODAY</div>
@@ -437,10 +478,15 @@ async function loadNearbyFood(){
       const ids=[...new Set((tr.data||[]).map(x=>Number(x.restaurant_id)).filter(Number.isFinite))];
       if(ids.length){
         const rr=await db.from("restaurants").select("*").in("id",ids);
-        if(!rr.error)picks=(rr.data||[]).filter(r=>Number.isFinite(Number(r.latitude))&&Number.isFinite(Number(r.longitude))).map(r=>({
-          ...r,distance:distanceM(lat,lng,Number(r.latitude),Number(r.longitude)),
-          map:mapFor(r.latitude,r.longitude,r.maps_url)
-        })).sort((a,b)=>a.distance-b.distance).slice(0,5);
+        if(!rr.error)picks=(rr.data||[])
+          .filter(r=>Number.isFinite(Number(r.latitude))&&Number.isFinite(Number(r.longitude)))
+          .map(r=>({
+            ...r,
+            distance:distanceM(lat,lng,Number(r.latitude),Number(r.longitude)),
+            map:mapFor(r.latitude,r.longitude,r.maps_url)
+          }))
+          .filter(r=>r.distance<=250)
+          .sort((a,b)=>a.distance-b.distance);
       }
     }
 
@@ -468,7 +514,7 @@ async function loadNearbyFood(){
     status.style.display="none";
     let html="";
     if(picks.length)html+=`<div class="nearby-section"><div class="nearby-section-title">YOUR PICKS</div>${picks.map(foodItem).join("")}</div>`;
-    else html+=`<div class="nearby-section"><div class="nearby-section-title">YOUR PICKS</div><div class="nearby-status">No saved picks with coordinates found close by.</div></div>`;
+    else html+=`<div class="nearby-section"><div class="nearby-section-title">YOUR PICKS</div><div class="nearby-status">No saved picks within 250 m of you.</div></div>`;
     html+=`<div class="nearby-section"><div class="nearby-section-title">FOOD NEAR YOU</div>${nearby.length?nearby.map(foodItem).join(""):`<div class="nearby-status">No nearby Google results found.</div>`}</div>`;
     html+=`<a class="nearby-more" href="food.html?trip=${TRIP_ID}&nearby=1">SEE MORE FOOD →</a>`;
     out.innerHTML=html;nearbyLoaded=true;
