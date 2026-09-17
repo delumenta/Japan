@@ -2,14 +2,9 @@
      SHARED FOOTER
      Loaded by footer.js
 
-     ACTIVE PAGE:
-     - Shows wide Japanese artwork
-
-     INACTIVE PAGE:
-     - Shows circular icon + text
-
-     MORE:
-     - Always remains normal circular button
+     INACTIVE = small circular icon + label
+     ACTIVE   = compact wide Japanese artwork
+     MORE     = always small circular icon
 ========================================================= -->
 
 <style>
@@ -30,12 +25,12 @@
 ========================================================= */
 
 body{
-  padding-bottom:calc(80px + env(safe-area-inset-bottom));
+  padding-bottom:calc(72px + env(safe-area-inset-bottom));
 }
 
 
 /* =========================================================
-   BOTTOM NAV
+   BOTTOM NAVIGATION
 ========================================================= */
 
 .bottom-nav{
@@ -46,13 +41,13 @@ body{
   z-index:80;
 
   display:flex;
-  align-items:stretch;
+  align-items:center;
   gap:5px;
 
   padding:
-    7px
+    6px
     8px
-    calc(7px + env(safe-area-inset-bottom));
+    calc(6px + env(safe-area-inset-bottom));
 
   border-top:1px solid var(--footer-line);
 
@@ -64,14 +59,14 @@ body{
 
 
 /* =========================================================
-   NORMAL NAV ITEMS
+   NORMAL NAV ITEM
 ========================================================= */
 
 .bottom-nav a,
 .bottom-nav button{
   flex:1 1 0;
   min-width:0;
-  height:55px;
+  height:48px;
 
   display:flex;
   flex-direction:column;
@@ -83,7 +78,7 @@ body{
   padding:0;
 
   border:0;
-  border-radius:10px;
+  border-radius:9px;
 
   background:transparent;
 
@@ -99,28 +94,32 @@ body{
 
   overflow:hidden;
 
-  transition:flex .25s ease;
+  transition:
+    flex .25s ease,
+    transform .18s ease;
 }
 
 
 /* =========================================================
-   NORMAL CIRCLE ICON
+   SMALL CIRCLE ICON
 ========================================================= */
 
 .nav-icon{
-  width:32px;
-  height:32px;
+  width:30px;
+  height:30px;
 
   display:flex;
   align-items:center;
   justify-content:center;
+
+  flex:0 0 30px;
 }
 
 .nav-small{
   display:block;
 
-  width:31px;
-  height:31px;
+  width:29px;
+  height:29px;
 
   object-fit:contain;
 }
@@ -134,17 +133,17 @@ body{
   display:none;
 
   width:100%;
-  height:55px;
+  height:44px;
 
   object-fit:cover;
   object-position:center;
 
-  border-radius:10px;
+  border-radius:8px;
 }
 
 
 /* =========================================================
-   LABEL
+   NORMAL LABEL
 ========================================================= */
 
 .nav-label{
@@ -152,53 +151,56 @@ body{
 
   color:var(--footer-muted);
 
-  font-size:8px;
+  font-size:7.5px;
   font-weight:800;
   line-height:1;
+
+  white-space:nowrap;
 }
 
 
 /* =========================================================
    ACTIVE PAGE
-
-   footer.js already adds .active.
-   We only react to that class using CSS.
 ========================================================= */
 
 .bottom-nav a.active{
-  flex:2.35 1 0;
+  flex:1.55 1 0;
+
+  height:48px;
+
+  padding:0;
 
   border:0;
 
   background:transparent;
-
-  padding:0;
 }
 
 
-/* Active page icon container fills button */
+/* Active artwork container */
 
 .bottom-nav a.active .nav-icon{
   width:100%;
-  height:55px;
+  height:44px;
+
+  flex:0 0 44px;
 }
 
 
-/* Hide circle */
+/* Hide small circular image */
 
 .bottom-nav a.active .nav-small{
   display:none;
 }
 
 
-/* Show wide artwork */
+/* Show wide image */
 
 .bottom-nav a.active .nav-wide{
   display:block;
 }
 
 
-/* Hide text because artwork already says HOME / PLAN etc */
+/* Hide normal label */
 
 .bottom-nav a.active .nav-label{
   display:none;
@@ -217,17 +219,19 @@ body{
 
 /* =========================================================
    MORE BUTTON
-
-   Intentionally stays as normal circular icon.
+   Always stays small
 ========================================================= */
 
 #sharedNavMore{
   flex:1 1 0;
+  height:48px;
 }
 
 #sharedNavMore .nav-icon{
-  width:32px;
-  height:32px;
+  width:30px;
+  height:30px;
+
+  flex:0 0 30px;
 }
 
 
@@ -338,7 +342,7 @@ body{
 
 
 /* =========================================================
-   MORE MENU LINKS
+   MORE LINKS
 ========================================================= */
 
 .footer-more-link{
@@ -443,19 +447,15 @@ body{
 
 .footer-trip-list{
   display:flex;
-
   flex-direction:column;
-
   gap:7px;
 }
 
 .footer-trip-card{
   width:100%;
-
   min-height:70px;
 
   display:flex;
-
   align-items:center;
 
   gap:10px;
@@ -570,7 +570,6 @@ body{
 
   .bottom-nav{
     left:50%;
-
     right:auto;
 
     width:min(820px,100%);
@@ -578,7 +577,6 @@ body{
     transform:translateX(-50%);
 
     border-left:1px solid var(--footer-line);
-
     border-right:1px solid var(--footer-line);
 
     border-radius:16px 16px 0 0;
@@ -593,10 +591,7 @@ body{
      MORE SHEET
 ========================================================= -->
 
-<div
-  id="sharedMoreBackdrop"
-  class="footer-sheet-backdrop"
->
+<div id="sharedMoreBackdrop" class="footer-sheet-backdrop">
 
   <div class="footer-sheet">
 
@@ -619,12 +614,7 @@ body{
     </div>
 
 
-    <!-- PROFILE -->
-
-    <a
-      id="sharedProfileLink"
-      class="footer-more-link"
-    >
+    <a id="sharedProfileLink" class="footer-more-link">
 
       <div class="footer-more-icon">
         👤
@@ -648,8 +638,6 @@ body{
 
     </a>
 
-
-    <!-- SWITCH TRIP -->
 
     <button
       id="sharedSwitchTrip"
@@ -680,12 +668,7 @@ body{
     </button>
 
 
-    <!-- MY TRIPS -->
-
-    <a
-      id="sharedTripsLink"
-      class="footer-more-link"
-    >
+    <a id="sharedTripsLink" class="footer-more-link">
 
       <div class="footer-more-icon">
         ✈️
@@ -710,12 +693,7 @@ body{
     </a>
 
 
-    <!-- PLACES -->
-
-    <a
-      id="sharedPlacesLink"
-      class="footer-more-link"
-    >
+    <a id="sharedPlacesLink" class="footer-more-link">
 
       <div class="footer-more-icon">
         📍
@@ -742,8 +720,6 @@ body{
 
     <div class="footer-more-separator"></div>
 
-
-    <!-- LOGOUT -->
 
     <button
       id="sharedLogout"
@@ -782,10 +758,7 @@ body{
      SWITCH TRIP SHEET
 ========================================================= -->
 
-<div
-  id="sharedTripBackdrop"
-  class="footer-sheet-backdrop"
->
+<div id="sharedTripBackdrop" class="footer-sheet-backdrop">
 
   <div class="footer-sheet">
 
@@ -807,10 +780,8 @@ body{
 
     </div>
 
-    <div
-      id="sharedTripList"
-      class="footer-trip-list"
-    >
+
+    <div id="sharedTripList" class="footer-trip-list">
 
       <div class="footer-trip-message">
         Loading your trips…
@@ -827,10 +798,7 @@ body{
      BOTTOM NAVIGATION
 ========================================================= -->
 
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
->
+<nav class="bottom-nav" aria-label="Main navigation">
 
 
   <!-- =====================================================
@@ -841,16 +809,11 @@ body{
 
     <span class="nav-icon">
 
-      <!-- NORMAL CIRCLE -->
-
       <img
         class="nav-small"
         src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Home.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTM5LCJleHAiOjIxMDQ5ODc5Mzl9.hOh9j22ov7HVKAyzHEEftav0cCyXEdSmkpRxtOaiyvNJhJrB4L0FQq-T-hrezgHGYZ5hranOP8RI70LWHFLz1g"
         alt="Home"
       >
-
-
-      <!-- ACTIVE WIDE -->
 
       <img
         class="nav-wide"
@@ -956,7 +919,7 @@ body{
 
   <!-- =====================================================
        MORE
-       Remains normal circle
+       Always stays circular
   ====================================================== -->
 
   <button
