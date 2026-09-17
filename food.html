@@ -1134,6 +1134,49 @@ gmp-place-autocomplete{
 
 }
 
+
+/* Discover is now: City -> Area. Food type lives only in the fixed right filter. */
+#discoverModeRow,
+.discover-mode,
+.discover-modes,
+.mode-tabs{
+  display:none !important;
+}
+
+/* Keep the permanent right food filter slimmer and closer to the outer edge. */
+.food-side-filter{
+  width:66px !important;
+  right:3px !important;
+  padding:4px !important;
+}
+
+.food-side-btn{
+  min-height:32px !important;
+  padding:3px 2px !important;
+}
+
+.food-side-btn .side-food-icon{
+  width:15px !important;
+  flex-basis:15px !important;
+  font-size:12px !important;
+}
+
+.food-side-btn .side-food-label{
+  font-size:5.5px !important;
+}
+
+@media(max-width:799px){
+  main{
+    padding-right:73px !important;
+  }
+}
+
+@media(min-width:800px){
+  .food-side-filter{
+    right:max(3px, calc((100vw - 760px)/2 - 72px)) !important;
+  }
+}
+
 </style>
 </head>
 
@@ -1718,7 +1761,7 @@ let selectedCity = "";
 
 let myFilter = "all";
 
-let discoverMode = "area";
+let discoverMode = "area"; // retained for compatibility; Discover now uses area only
 
 let discoverFilter = "";
 
@@ -3020,116 +3063,73 @@ function discoverSource(){
 
 function createDiscoverChips(){
 
-  const source =
-    discoverSource();
+  if(activeTab !== "discover"){
+    browseChips.innerHTML = "";
+    browseChips.style.display = "none";
+    return;
+  }
 
+  browseChips.style.display = "flex";
 
-  const values =
-    discoverMode === "area"
+  let source = restaurants.slice();
 
-    ?
-
-    unique(
-      source.map(
-        rArea
-      )
-    )
-
-    :
-
-    unique(
-      source.map(
-        rCuisine
-      )
+  if(selectedCity){
+    source = source.filter(
+      restaurant =>
+        norm(rCity(restaurant)) === norm(selectedCity)
     );
+  }
 
+  const areas =
+    [...new Set(
+      source
+        .map(rArea)
+        .filter(Boolean)
+    )]
+    .sort((a,b)=>a.localeCompare(b));
+
+  if(
+    discoverFilter &&
+    !areas.some(area => norm(area) === norm(discoverFilter))
+  ){
+    discoverFilter = "";
+  }
 
   browseChips.innerHTML = `
-
     <button
-      class="chip active"
-      data-discover=""
+      class="chip ${!discoverFilter ? "active" : ""}"
+      data-discover-area=""
       type="button"
     >
-
-      ${
-        discoverMode === "area"
-        ?
-        "ALL AREAS"
-        :
-        "ALL FOOD"
-      }
-
+      📍 ALL AREAS
     </button>
 
-
-    ${
-      values.map(
-        value => `
-
-          <button
-            class="chip"
-            data-discover="${esc(value)}"
-            type="button"
-          >
-
-            ${
-              discoverMode === "food"
-              ?
-              foodIcon(value) + " "
-              :
-              ""
-            }
-
-            ${esc(value)}
-
-          </button>
-
-        `
-      )
-      .join("")
-    }
-
+    ${areas.map(area => `
+      <button
+        class="chip ${
+          norm(discoverFilter) === norm(area)
+          ? "active"
+          : ""
+        }"
+        data-discover-area="${esc(area)}"
+        type="button"
+      >
+        📍 ${esc(area)}
+      </button>
+    `).join("")}
   `;
 
-
   browseChips
-    .querySelectorAll(
-      "[data-discover]"
-    )
-    .forEach(
-      button => {
+    .querySelectorAll("[data-discover-area]")
+    .forEach(button => {
+      button.onclick = () => {
+        discoverFilter =
+          button.dataset.discoverArea || "";
 
-        button.onclick =
-          () => {
-
-            discoverFilter =
-              button.dataset.discover;
-
-
-            browseChips
-              .querySelectorAll(
-                "[data-discover]"
-              )
-              .forEach(
-                item => {
-
-                  item.classList.toggle(
-                    "active",
-                    item === button
-                  );
-
-                }
-              );
-
-
-            render();
-
-          };
-
-      }
-    );
-
+        createDiscoverChips();
+        render();
+      };
+    });
 }
 
 
@@ -3272,41 +3272,11 @@ function filteredRestaurants(){
   }
 
 
-  if(
-    activeTab === "discover" &&
-    discoverFilter
-  ){
-
-    if(
-      discoverMode === "area"
-    ){
-
-      list =
-        list.filter(
-          restaurant =>
-            norm(
-              rArea(restaurant)
-            )
-            ===
-            norm(discoverFilter)
-        );
-
-    }
-
-    else{
-
-      list =
-        list.filter(
-          restaurant =>
-            norm(
-              rCuisine(restaurant)
-            )
-            ===
-            norm(discoverFilter)
-        );
-
-    }
-
+  if(activeTab === "discover" && discoverFilter){
+    list = list.filter(
+      restaurant =>
+        norm(rArea(restaurant)) === norm(discoverFilter)
+    );
   }
 
 
