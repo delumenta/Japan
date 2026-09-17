@@ -14,6 +14,7 @@
 <title>Plan · Travel</title>
 
 <style>
+/* Shared visual system with food.html */
 :root{
   --bg:#070c10;
   --surface:#0d1318;
@@ -49,8 +50,8 @@ header{
   background:rgba(7,12,16,.965);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
 }
-.header-inner{max-width:760px;margin:auto;padding:calc(12px + env(safe-area-inset-top)) 14px 9px}
-.title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-inner{width:100%;max-width:760px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 14px 0}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .title-row>div:first-child{min-width:0}
 .eyebrow{margin-bottom:2px;color:var(--red);font-size:7px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
 .plan-page-title{display:flex;align-items:center;gap:9px;margin:0}
@@ -59,16 +60,14 @@ header{
 .trip-name{margin:3px 0 0 53px;overflow:hidden;color:var(--muted);font-size:8px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
 .header-actions{display:flex;align-items:center;gap:5px}
 .edit-btn{
-  min-height:34px;padding:6px 9px;border:1px solid var(--red-line);border-radius:9px;
-  background:var(--red-soft);color:#efb0ac;font-size:7px;font-weight:900;cursor:pointer;
+  flex:0 0 auto;min-height:36px;padding:7px 11px;border:1px solid var(--red-line);border-radius:10px;
+  background:var(--red-soft);color:#f3b7b3;font-size:8px;font-weight:900;letter-spacing:.04em;cursor:pointer;
 }
 .edit-btn.active{border-color:rgba(121,201,149,.30);background:rgba(121,201,149,.07);color:#a7dbb8}
 .add-top-btn{border-color:rgba(121,201,149,.28);background:rgba(121,201,149,.06);color:#a7dbb8}
 
 /* DATE STRIP */
-.date-scroller{
-  display:flex;gap:5px;margin-top:11px;padding-bottom:1px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-}
+.date-scroller{display:flex;gap:5px;margin-top:15px;padding:0 0 9px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .date-scroller::-webkit-scrollbar{display:none}
 .date-btn{
   flex:0 0 46px;min-height:47px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 2px;
@@ -81,7 +80,7 @@ header{
 .date-btn.active .date-weekday,.date-btn.active .date-month{color:#e0a4a0}
 
 /* MAIN / DAY */
-main{max-width:760px;margin:auto;padding:14px 14px 100px}
+main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 .day-head{margin:1px 1px 12px}
 .day-date{color:var(--red);font-size:7px;font-weight:900;letter-spacing:.12em}
 .day-title{margin-top:4px;font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:800}
@@ -258,7 +257,6 @@ main{max-width:760px;margin:auto;padding:14px 14px 100px}
   .plan-page-title-icon{width:40px;height:40px;flex-basis:40px}
   .plan-page-title span{font-size:25px}
   .trip-name{margin-left:49px}
-  .edit-btn{padding:6px 7px;font-size:6.5px}
   .timeline-row{grid-template-columns:57px 14px minmax(0,1fr) auto;gap:6px}
   .timeline-row:not(:last-child)::after{left:64px}
 }
