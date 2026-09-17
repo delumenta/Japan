@@ -1507,6 +1507,63 @@ main{
   }
 }
 
+
+/* =========================================================
+   UNIFIED STICKY FILTER PANEL
+========================================================= */
+
+/* One sticky unit: city + status + area/food controls. */
+.unified-filter-panel{
+  position:sticky;
+  top:0;
+  z-index:75;
+
+  padding:7px 0 8px;
+
+  background:rgba(8,13,17,.97);
+  border-bottom:1px solid var(--line);
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+/* Existing city/status rows live naturally inside the panel. */
+.unified-filter-panel #cityChips{
+  margin-top:0;
+}
+
+.unified-filter-panel #myFilters,
+.unified-filter-panel #discoverStatusRow{
+  margin-top:7px;
+}
+
+/* Area + Food is the final row of the same sticky panel. */
+.unified-filter-panel .sticky-filter-bar{
+  position:relative !important;
+  top:auto !important;
+  z-index:2 !important;
+
+  margin-top:7px;
+  padding:0 !important;
+
+  background:transparent !important;
+  border-bottom:0 !important;
+
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+/* Nothing else should reserve space for old floating filters. */
+main{
+  padding-right:0 !important;
+}
+
+@media(max-width:560px){
+  .unified-filter-panel{
+    padding-top:5px;
+  }
+}
+
 </style>
 </head>
 
@@ -1588,30 +1645,15 @@ main{
   >
 
 
+  
+<!-- =========================================================
+     UNIFIED STICKY FILTER PANEL
+========================================================= -->
+<div id="unifiedFilterPanel" class="unified-filter-panel">
   <div
     id="cityChips"
     class="chips"
   ></div>
-
-<div
-  id="discoverStatusRow"
-  class="chips discover-status-row"
-  style="display:none"
->
-  <button class="chip active" data-discover-status="all" type="button">
-    ALL
-  </button>
-
-  <button class="chip" data-discover-status="tabelog" type="button">
-    🏆 TABELOG
-  </button>
-
-  <button class="chip" data-discover-status="eaten" type="button">
-    ✓ EATEN
-  </button>
-</div>
-
-
 
   <div
     id="myFilters"
@@ -1659,6 +1701,88 @@ main{
     </button>
 
   </div>
+
+  <div
+  id="discoverStatusRow"
+  class="chips discover-status-row"
+  style="display:none"
+>
+  <button class="chip active" data-discover-status="all" type="button">
+    ALL
+  </button>
+
+  <button class="chip" data-discover-status="tabelog" type="button">
+    🏆 TABELOG
+  </button>
+
+  <button class="chip" data-discover-status="eaten" type="button">
+    ✓ EATEN
+  </button>
+</div>
+
+  <div
+  id="stickyFilterBar"
+  class="sticky-filter-bar"
+>
+  <div class="filter-select-wrap">
+
+    <button
+      id="areaFilterButton"
+      class="filter-select-btn"
+      type="button"
+      aria-expanded="false"
+    >
+      <span id="areaFilterButtonText">📍 All Areas</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+
+    <div
+      id="areaFilterMenu"
+      class="filter-menu"
+      hidden
+    ></div>
+
+  </div>
+
+
+  <div class="filter-select-wrap">
+
+    <button
+      id="foodFilterButton"
+      class="filter-select-btn"
+      type="button"
+      aria-expanded="false"
+    >
+      <span id="foodFilterButtonText">🍽️ All Food</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+
+    <div
+      id="foodFilterMenu"
+      class="filter-menu"
+      hidden
+    ></div>
+
+  </div>
+
+
+  <button
+    id="clearCompactFilters"
+    class="clear-compact-filter"
+    type="button"
+    title="Clear area and food filters"
+  >
+    ✕ CLEAR
+  </button>
+</div>
+</div>
+
+
+
+
+
+
+  
 
 
   <div
@@ -1716,61 +1840,7 @@ main{
      STICKY AREA + FOOD FILTER BAR
 ========================================================= -->
 
-<div
-  id="stickyFilterBar"
-  class="sticky-filter-bar"
->
-  <div class="filter-select-wrap">
 
-    <button
-      id="areaFilterButton"
-      class="filter-select-btn"
-      type="button"
-      aria-expanded="false"
-    >
-      <span id="areaFilterButtonText">📍 All Areas</span>
-      <span class="filter-chevron">⌄</span>
-    </button>
-
-    <div
-      id="areaFilterMenu"
-      class="filter-menu"
-      hidden
-    ></div>
-
-  </div>
-
-
-  <div class="filter-select-wrap">
-
-    <button
-      id="foodFilterButton"
-      class="filter-select-btn"
-      type="button"
-      aria-expanded="false"
-    >
-      <span id="foodFilterButtonText">🍽️ All Food</span>
-      <span class="filter-chevron">⌄</span>
-    </button>
-
-    <div
-      id="foodFilterMenu"
-      class="filter-menu"
-      hidden
-    ></div>
-
-  </div>
-
-
-  <button
-    id="clearCompactFilters"
-    class="clear-compact-filter"
-    type="button"
-    title="Clear area and food filters"
-  >
-    ✕ CLEAR
-  </button>
-</div>
 
 
 <div id="results">
