@@ -1189,6 +1189,11 @@ gmp-place-autocomplete{
   display:none !important;
 }
 
+
+#discoverControls,
+.discover-controls{
+  display:none !important;
+}
 </style>
 </head>
 
@@ -1327,34 +1332,14 @@ gmp-place-autocomplete{
   <div
     id="discoverControls"
     class="discover-controls"
+    style="display:none !important"
+    aria-hidden="true"
   >
-
-    <div class="mode-switch">
-
-      <button
-        class="mode-btn active"
-        data-mode="area"
-        type="button"
-      >
-        📍 BY AREA
-      </button>
-
-      <button
-        class="mode-btn"
-        data-mode="food"
-        type="button"
-      >
-        🍜 BY FOOD
-      </button>
-
-    </div>
-
-
     <div
       id="browseChips"
       class="chips"
+      style="display:none !important"
     ></div>
-
   </div>
 
 </div>
