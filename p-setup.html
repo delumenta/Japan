@@ -464,6 +464,37 @@
       font-size:12px;
     }
 
+
+    /* ADMIN NAV */
+
+    .admin-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:16px;
+    }
+
+    .admin-nav a{
+      min-height:38px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 12px;
+      border:1px solid var(--line);
+      border-radius:11px;
+      background:var(--panel2);
+      color:var(--text);
+      text-decoration:none;
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .admin-nav a.active{
+      border-color:rgba(92,157,255,.42);
+      background:rgba(92,157,255,.09);
+      color:#a9cbff;
+    }
+
     @media(max-width:600px){
       .app{
         padding:16px 10px 40px;
@@ -498,6 +529,13 @@
   <div class="sub">
     Match your attractions, shrines, museums, hotels and other
     trip places with Google so your map can use exact coordinates.
+  </div>
+
+
+  <div class="admin-nav">
+    <a href="AdminPanel.html">← ADMIN PANEL</a>
+    <a class="active" href="p-setup.html">📍 PLACES</a>
+    <a href="r-setup.html">🍽️ RESTAURANTS →</a>
   </div>
 
 
