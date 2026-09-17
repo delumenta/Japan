@@ -1,224 +1,135 @@
 <style>
 :root{
-  --radial-bg:#070c10;
-  --radial-surface:#11181e;
-  --radial-line:#2a3540;
-  --radial-text:#f5f3ef;
-  --radial-muted:#929ca4;
-  --radial-red:#ff625f;
-  --radial-red-soft:rgba(255,98,95,.12);
-  --radial-red-line:rgba(255,98,95,.42);
+  --nav-bg:#070c10;--nav-surface:#10171d;--nav-line:#29343d;
+  --nav-text:#f5f3ef;--nav-muted:#8d98a0;--nav-red:#ff625f;
+  --nav-red-soft:rgba(255,98,95,.11);--nav-red-line:rgba(255,98,95,.38);
 }
-
 #footer{position:relative;z-index:9000}
-
-.radial-dim{
-  position:fixed;inset:0;z-index:9000;
-  background:rgba(3,7,10,.62);
-  backdrop-filter:blur(2px);
-  opacity:0;visibility:hidden;
-  transition:opacity .22s ease,visibility .22s ease;
+.radial-backdrop{
+  position:fixed;inset:0;z-index:9000;background:rgba(3,7,10,.60);
+  backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.22s ease;
 }
-.radial-dim.open{opacity:1;visibility:visible}
-
-.radial-wrap{
-  position:fixed;
-  right:max(18px,env(safe-area-inset-right));
-  bottom:calc(18px + env(safe-area-inset-bottom));
-  z-index:9020;
-  width:290px;height:390px;
-  pointer-events:none;
+.radial-backdrop.open{opacity:1;visibility:visible}
+.radial-menu{
+  position:fixed;right:max(16px,env(safe-area-inset-right));
+  bottom:calc(16px + env(safe-area-inset-bottom));
+  z-index:9020;width:340px;height:470px;pointer-events:none;
 }
-
-.radial-main{
-  position:absolute;right:0;bottom:0;
-  width:58px;height:58px;border-radius:50%;
-  border:1px solid var(--radial-red-line);
-  background:linear-gradient(145deg,#17212a,#0b1116);
-  box-shadow:0 8px 26px rgba(0,0,0,.45),0 0 0 5px rgba(255,98,95,.035);
-  display:grid;place-items:center;
-  cursor:pointer;pointer-events:auto;
-  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+.radial-toggle{
+  position:absolute;right:0;bottom:0;width:60px;height:60px;border-radius:50%;
+  border:1px solid var(--nav-red-line);background:#10171d;cursor:pointer;
+  display:grid;place-items:center;pointer-events:auto;
+  box-shadow:0 8px 28px rgba(0,0,0,.48),0 0 18px rgba(255,98,95,.08);
 }
-.radial-main img{width:42px;height:42px;object-fit:contain;transition:opacity .18s ease,transform .28s ease}
-.radial-main .radial-x{position:absolute;color:var(--radial-red);font:300 32px/1 system-ui;opacity:0;transform:rotate(-70deg) scale(.7);transition:.25s ease}
-.radial-wrap.open .radial-main{
-  background:#151a20;
-  box-shadow:0 8px 30px rgba(0,0,0,.5),0 0 18px rgba(255,98,95,.28);
-  transform:scale(1.04);
-}
-.radial-wrap.open .radial-main img{opacity:0;transform:rotate(50deg) scale(.6)}
-.radial-wrap.open .radial-main .radial-x{opacity:1;transform:rotate(0) scale(1)}
+.radial-toggle img{width:44px;height:44px;object-fit:contain;transition:.25s ease}
+.radial-toggle .x{position:absolute;color:var(--nav-red);font:300 34px/1 system-ui;opacity:0;transform:rotate(-70deg) scale(.7);transition:.25s ease}
+.radial-menu.open .radial-toggle img{opacity:0;transform:rotate(55deg) scale(.6)}
+.radial-menu.open .radial-toggle .x{opacity:1;transform:none}
 
 .radial-item{
-  --x:0px;--y:0px;--delay:0ms;
-  position:absolute;right:5px;bottom:5px;
-  display:flex;align-items:center;gap:8px;
-  color:var(--radial-text);text-decoration:none;
-  pointer-events:none;
-  opacity:0;
-  transform:translate(0,0) scale(.55);
-  transform-origin:right center;
-  transition:
-    transform .34s cubic-bezier(.2,.8,.2,1) var(--delay),
-    opacity .18s ease var(--delay);
+  --x:0px;--y:0px;--d:0ms;
+  position:absolute;right:7px;bottom:7px;display:flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--nav-text);border:0;background:transparent;
+  padding:0;cursor:pointer;opacity:0;pointer-events:none;
+  transform:translate(0,0) scale(.35);transform-origin:right bottom;
+  transition:transform .38s cubic-bezier(.18,.88,.28,1.12) var(--d),opacity .18s ease var(--d);
 }
-.radial-wrap.open .radial-item{
-  opacity:1;
-  pointer-events:auto;
-  transform:translate(var(--x),var(--y)) scale(1);
-}
+.radial-menu.open .radial-item{opacity:1;pointer-events:auto;transform:translate(var(--x),var(--y)) scale(1)}
 .radial-label{
-  order:-1;
-  padding:5px 8px;
-  border:1px solid rgba(255,98,95,.25);
-  border-radius:999px;
-  background:rgba(7,12,16,.92);
-  box-shadow:0 5px 18px rgba(0,0,0,.28);
-  font-size:9px;font-weight:800;white-space:nowrap;
+  order:-1;min-width:72px;text-align:right;padding:5px 8px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);background:rgba(7,12,16,.94);
+  font:800 9px/1.2 Inter,system-ui,sans-serif;white-space:nowrap;
+  box-shadow:0 5px 16px rgba(0,0,0,.28)
 }
 .radial-icon{
-  width:46px;height:46px;border-radius:50%;
-  display:grid;place-items:center;
-  border:1px solid var(--radial-line);
-  background:rgba(15,22,28,.96);
-  box-shadow:0 6px 18px rgba(0,0,0,.35);
+  width:45px;height:45px;flex:0 0 45px;border-radius:50%;
+  border:1px solid var(--nav-line);background:rgba(16,23,29,.98);
+  display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.34);
+  font:18px/1 system-ui;
 }
-.radial-icon img{width:35px;height:35px;object-fit:contain}
-.radial-item.active .radial-icon{
-  border-color:var(--radial-red-line);
-  background:var(--radial-red-soft);
-  box-shadow:0 0 16px rgba(255,98,95,.16);
-}
-.radial-item.active .radial-label{color:#ffc2be;border-color:var(--radial-red-line)}
+.radial-icon img{width:34px;height:34px;object-fit:contain}
+.radial-item.active .radial-icon{border-color:var(--nav-red-line);background:var(--nav-red-soft);box-shadow:0 0 16px rgba(255,98,95,.17)}
+.radial-item.active .radial-label{color:#ffc0bc;border-color:var(--nav-red-line)}
 
-/* fan positions: bottom-right upward */
-.radial-map{--x:-6px;--y:-73px;--delay:25ms}
-.radial-booking{--x:-30px;--y:-128px;--delay:50ms}
-.radial-expenses{--x:-61px;--y:-180px;--delay:75ms}
-.radial-food{--x:-97px;--y:-226px;--delay:100ms}
-.radial-plan{--x:-136px;--y:-267px;--delay:125ms}
-.radial-home{--x:-176px;--y:-301px;--delay:150ms}
-.radial-more{--x:-205px;--y:-347px;--delay:175ms}
+/* Side-opening curved fan */
+.nav-home{--x:-84px;--y:-16px;--d:20ms}
+.nav-plan{--x:-146px;--y:-55px;--d:40ms}
+.nav-food{--x:-190px;--y:-108px;--d:60ms}
+.nav-booking{--x:-216px;--y:-168px;--d:80ms}
+.nav-expenses{--x:-221px;--y:-230px;--d:100ms}
+.nav-map{--x:-207px;--y:-290px;--d:120ms}
+.nav-profile{--x:-174px;--y:-344px;--d:140ms}
+.nav-trips{--x:-125px;--y:-390px;--d:160ms}
+.nav-places{--x:-68px;--y:-423px;--d:180ms}
 
-.radial-more .radial-icon{font-size:19px;color:#e9a3a0}
+/* Small utility actions sit nearer the centre of the arc */
+.radial-utility{
+  position:absolute;right:70px;bottom:78px;display:flex;gap:7px;
+  opacity:0;pointer-events:none;transform:translate(20px,20px) scale(.7);transition:.28s ease .12s
+}
+.radial-menu.open .radial-utility{opacity:1;pointer-events:auto;transform:none}
+.utility-btn{
+  min-height:31px;padding:6px 9px;border:1px solid var(--nav-line);border-radius:999px;
+  background:rgba(13,19,24,.96);color:#aeb7bd;font:800 7px Inter,system-ui;cursor:pointer
+}
+.utility-btn:hover{border-color:var(--nav-red-line);color:#ffc0bc}
 
-.radial-sheet-backdrop,.radial-trip-backdrop{
-  position:fixed;inset:0;z-index:9050;
-  display:flex;align-items:flex-end;justify-content:center;
-  background:rgba(3,7,10,.70);
-  opacity:0;visibility:hidden;
-  transition:.2s ease;
+.trip-backdrop{
+  position:fixed;inset:0;z-index:9060;background:rgba(3,7,10,.72);
+  display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:.2s ease
 }
-.radial-sheet-backdrop.open,.radial-trip-backdrop.open{opacity:1;visibility:visible}
-.radial-sheet{
-  width:min(100%,520px);max-height:82vh;overflow:auto;
-  padding:10px 14px calc(18px + env(safe-area-inset-bottom));
-  border:1px solid #28343d;border-bottom:0;
-  border-radius:20px 20px 0 0;
-  background:#0d1318;
-  transform:translateY(20px);transition:.22s ease;
+.trip-backdrop.open{opacity:1;visibility:visible}
+.trip-sheet{
+  width:min(100%,520px);max-height:78vh;overflow:auto;padding:10px 14px calc(18px + env(safe-area-inset-bottom));
+  border:1px solid #28343d;border-bottom:0;border-radius:20px 20px 0 0;background:#0d1318
 }
-.open>.radial-sheet{transform:translateY(0)}
-.radial-handle{width:38px;height:3px;margin:2px auto 12px;border-radius:999px;background:#34414b}
-.radial-sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.radial-sheet-title{font:700 21px Georgia,serif}
-.radial-close{border:0;background:transparent;color:#89959d;font-size:22px;cursor:pointer}
-.radial-more-link{
-  width:100%;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;
-  min-height:54px;padding:8px 4px;border:0;border-bottom:1px solid rgba(255,255,255,.06);
-  background:transparent;color:var(--radial-text);text-decoration:none;text-align:left;cursor:pointer;
+.trip-handle{width:38px;height:3px;margin:2px auto 12px;border-radius:99px;background:#34414b}
+.trip-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.trip-title{font:700 21px Georgia,serif;color:var(--nav-text)}
+.trip-close{border:0;background:transparent;color:#8d98a0;font-size:23px;cursor:pointer}
+.trip-list{display:grid;gap:7px}
+.trip-msg{padding:18px;text-align:center;color:#89959d;font:9px Inter,system-ui}
+.trip-card{
+  display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:10px;
+  border:1px solid #263039;border-radius:11px;background:#10171d;color:var(--nav-text);text-decoration:none
 }
-.radial-more-icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid #29343d;border-radius:10px;background:#11181e;font-size:15px}
-.radial-more-title{font-size:9px;font-weight:900}
-.radial-more-sub{margin-top:2px;color:#75818a;font-size:7px}
-.radial-more-arrow{color:#64717a}
-.radial-trip-list{display:grid;gap:6px}
-.footer-trip-message{padding:18px;color:#82909a;text-align:center;font-size:9px}
-.footer-trip-message.error{color:#ffaaa5}
-.footer-trip-card{
-  display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;
-  padding:10px;border:1px solid #263039;border-radius:11px;background:#10171d;
-  color:#f5f3ef;text-decoration:none;
-}
-.footer-trip-card.current{border-color:var(--radial-red-line);background:var(--radial-red-soft)}
-.footer-trip-icon{font-size:21px} .footer-trip-name{font-size:9px;font-weight:900}
-.footer-trip-meta{margin-top:2px;color:#7e8a93;font-size:7px}
-.footer-trip-role{display:inline-block;margin-top:4px;color:#b4bdc3;font-size:6px;font-weight:900}
-.footer-trip-arrow{color:#65727b}
+.trip-card.current{border-color:var(--nav-red-line);background:var(--nav-red-soft)}
+.trip-flag{font-size:21px}.trip-name{font:900 9px Inter,system-ui}.trip-meta{margin-top:2px;color:#7e8a93;font:7px Inter,system-ui}
+.trip-role{display:inline-block;margin-top:4px;color:#b4bdc3;font:900 6px Inter,system-ui}.trip-arrow{color:#65727b}
 
 @media(max-width:430px){
-  .radial-wrap{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));transform:scale(.94);transform-origin:right bottom}
+  .radial-menu{right:8px;bottom:calc(8px + env(safe-area-inset-bottom));transform:scale(.88);transform-origin:right bottom}
 }
 </style>
 
-<div id="radialDim" class="radial-dim"></div>
+<div id="radialBackdrop" class="radial-backdrop"></div>
 
-<nav id="radialMenu" class="radial-wrap" aria-label="Main navigation">
-  <a id="sharedNavHome" class="radial-item radial-home"><span class="radial-label">Home</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Homefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTI3LCJleHAiOjMzMzI1NjMyMTI3fQ.9BTopbR22KJCzKMMoLItwlXMPKMgkWFTB85CvDXmkxDrTGCwWtxIQfPpde2qSjrpCFojB5ijYTArNqJf0G5hPQ" alt=""></span></a>
-  <a id="sharedNavPlan" class="radial-item radial-plan"><span class="radial-label">Plan</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/planfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvcGxhbmZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMjAzLCJleHAiOjMzMzI1NjMyMjAzfQ.AzUGiKb-G7XtS_cERRiRhEqdIKs7MhJKW4vU-uWwMMS-CiArHmZnalWRfAxxFMj_DkEdD98fE01CTBNa6Cporg" alt=""></span></a>
-  <a id="sharedNavFood" class="radial-item radial-food"><span class="radial-label">Food</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/foodfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZGZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTA1LCJleHAiOjMzMzI1NjMyMTA1fQ.BGrE11IoO2jl4Cf6xjkaaM5VbOTDtKfUW1xUoDnWlHa_3xJoOnOCmhuZXfLsMZ9gJFY8xSgg67C94PKYmYR1RA" alt=""></span></a>
-  <a id="sharedNavExpenses" class="radial-item radial-expenses"><span class="radial-label">Expenses</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/expensesfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZXhwZW5zZXNmb290ZXIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTY0MjQwMCwiZXhwIjozMzMyNTY0MjQwMH0.2N_yNGsFpk3jtyT5yNEeMxf6T6iW38taHMwkcalrL6erpYf81ELyq_ah1kIcerGMKL6BQmIOVWuMRsCRuVDb4A" alt=""></span></a>
-  <a id="sharedNavHub" class="radial-item radial-booking"><span class="radial-label">Booking</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/bookingfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvYm9va2luZ2Zvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMDc4LCJleHAiOjQ5NDMyMzIwNzh9.AnZhB83lYYXO-5q5ADhzDQ_SzLNjtJHlwyOyPac-XdZ7zG4INt4wTp_S9VhoVoxz6KbtIrCZaUY1MxRm6G3BVA" alt=""></span></a>
-  <a id="sharedNavMap" class="radial-item radial-map"><span class="radial-label">Map</span><span class="radial-icon">🗺️</span></a>
+<nav id="radialMenu" class="radial-menu" aria-label="Main navigation">
+  <a id="sharedNavHome" class="radial-item nav-home"><span class="radial-label">Home</span><span class="radial-icon"><img data-icon="home" alt=""></span></a>
+  <a id="sharedNavPlan" class="radial-item nav-plan"><span class="radial-label">Plan</span><span class="radial-icon"><img data-icon="plan" alt=""></span></a>
+  <a id="sharedNavFood" class="radial-item nav-food"><span class="radial-label">Food</span><span class="radial-icon"><img data-icon="food" alt=""></span></a>
+  <a id="sharedNavBooking" class="radial-item nav-booking"><span class="radial-label">Booking</span><span class="radial-icon"><img data-icon="booking" alt=""></span></a>
+  <a id="sharedNavExpenses" class="radial-item nav-expenses"><span class="radial-label">Expenses</span><span class="radial-icon"><img data-icon="expenses" alt=""></span></a>
+  <a id="sharedNavMap" class="radial-item nav-map"><span class="radial-label">Map</span><span class="radial-icon">🗺️</span></a>
+  <a id="sharedNavProfile" class="radial-item nav-profile"><span class="radial-label">Profile</span><span class="radial-icon">👤</span></a>
+  <a id="sharedNavTrips" class="radial-item nav-trips"><span class="radial-label">My Trips</span><span class="radial-icon">🧳</span></a>
+  <a id="sharedNavPlaces" class="radial-item nav-places"><span class="radial-label">Places</span><span class="radial-icon">📍</span></a>
 
-  <button id="sharedSecondaryMore" class="radial-item radial-more" type="button">
-    <span class="radial-label">More</span><span class="radial-icon">•••</span>
-  </button>
+  <div class="radial-utility">
+    <button id="sharedSwitchTrip" class="utility-btn" type="button">⇄ SWITCH TRIP</button>
+    <button id="sharedLogout" class="utility-btn" type="button">LOG OUT</button>
+  </div>
 
-  <button id="sharedNavMore" class="radial-main" type="button" aria-label="Open navigation" aria-expanded="false">
-    <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/morefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvbW9yZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTc1LCJleHAiOjQ5NDMyMzIxNzV9.O6Lx5IOJjw8nXT5tGcTXIhHlWLfWDMzx8bKePRYd-uPgHlsiaeOWPw6QR6VgkghuSHMMrDiJxEZjEnUpNNsarQ" alt="">
-    <span class="radial-x">×</span>
+  <button id="radialToggle" class="radial-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+    <img data-icon="more" alt="">
+    <span class="x">×</span>
   </button>
 </nav>
 
-<div id="sharedMoreBackdrop" class="radial-sheet-backdrop">
-  <div class="radial-sheet">
-    <div class="radial-handle"></div>
-    <div class="radial-sheet-head">
-      <div class="radial-sheet-title">More</div>
-      <button id="sharedCloseMore" class="radial-close" type="button">×</button>
-    </div>
-
-    <a id="sharedProfileLink" class="radial-more-link">
-      <span class="radial-more-icon">👤</span>
-      <span><div class="radial-more-title">Profile & Sharing</div><div class="radial-more-sub">Account · people · permissions</div></span>
-      <span class="radial-more-arrow">→</span>
-    </a>
-
-    <button id="sharedSwitchTrip" class="radial-more-link" type="button">
-      <span class="radial-more-icon">⇄</span>
-      <span><div class="radial-more-title">Switch Trip</div><div class="radial-more-sub">Change your active trip</div></span>
-      <span class="radial-more-arrow">→</span>
-    </button>
-
-    <a id="sharedTripsLink" class="radial-more-link">
-      <span class="radial-more-icon">🧳</span>
-      <span><div class="radial-more-title">My Trips</div><div class="radial-more-sub">Create · edit · manage trips</div></span>
-      <span class="radial-more-arrow">→</span>
-    </a>
-
-    <a id="sharedPlacesLink" class="radial-more-link">
-      <span class="radial-more-icon">📍</span>
-      <span><div class="radial-more-title">Places</div><div class="radial-more-sub">Saved places · coordinates</div></span>
-      <span class="radial-more-arrow">→</span>
-    </a>
-
-    <button id="sharedLogout" class="radial-more-link" type="button">
-      <span class="radial-more-icon">↪</span>
-      <span><div class="radial-more-title">Log Out</div><div class="radial-more-sub">Sign out of this device</div></span>
-      <span class="radial-more-arrow">→</span>
-    </button>
-  </div>
-</div>
-
-<div id="sharedTripBackdrop" class="radial-trip-backdrop">
-  <div class="radial-sheet">
-    <div class="radial-handle"></div>
-    <div class="radial-sheet-head">
-      <div class="radial-sheet-title">Switch Trip</div>
-      <button id="sharedCloseTrips" class="radial-close" type="button">×</button>
-    </div>
-    <div id="sharedTripList" class="radial-trip-list"></div>
+<div id="tripBackdrop" class="trip-backdrop">
+  <div class="trip-sheet">
+    <div class="trip-handle"></div>
+    <div class="trip-head"><div class="trip-title">Switch Trip</div><button id="tripClose" class="trip-close" type="button">×</button></div>
+    <div id="tripList" class="trip-list"></div>
   </div>
 </div>
