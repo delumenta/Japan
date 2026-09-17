@@ -190,7 +190,7 @@
 
       /* NEW — EXPENSES */
       sharedExpensesLink:
-        "expense.html",
+        "expenses.html",
 
       sharedPlacesLink:
         "places.html"
@@ -752,7 +752,7 @@
           "food.html",
           "bookings.html",
           "profile.html",
-          "expense.html",
+          "expenses.html",
           "places.html"
         ]
         .includes(currentPage)
