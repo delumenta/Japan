@@ -1,1287 +1,226 @@
-/* =========================================================
-   SHARED RADIAL NAVIGATION
-   Requires:
-   - supabase-js
-   - supabase.js
-   - <div id="footer"></div>
-========================================================= */
-
-(function(){
-
-  const FOOTER_FILE = "footer.html";
-
-  let footerTripId =
-    Number(
-      new URLSearchParams(
-        location.search
-      ).get("trip")
-    )
-    ||
-    Number(
-      localStorage.getItem(
-        "current_trip_id"
-      )
-    )
-    ||
-    null;
-
-  let footerUser = null;
-
-
-  /* =======================================================
-     HELPERS
-  ======================================================= */
-
-  const txt = value =>
-    String(value ?? "");
-
-
-  const esc = value =>
-    txt(value)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-
-
-  const norm = value =>
-    txt(value)
-      .trim()
-      .toLowerCase();
-
-
-  function prettyDate(value){
-
-    if(!value){
-      return "";
-    }
-
-    return new Date(
-      value + "T12:00:00"
-    ).toLocaleDateString(
-      "en-SG",
-      {
-        day:"numeric",
-        month:"short",
-        year:"numeric"
-      }
-    );
-
-  }
-
-
-  function tripIcon(country){
-
-    const value =
-      norm(country);
-
-    if(value.includes("japan")){
-      return "🇯🇵";
-    }
-
-    if(value.includes("taiwan")){
-      return "🇹🇼";
-    }
-
-    if(value.includes("singapore")){
-      return "🇸🇬";
-    }
-
-    if(value.includes("korea")){
-      return "🇰🇷";
-    }
-
-    if(value.includes("china")){
-      return "🇨🇳";
-    }
-
-    if(value.includes("thailand")){
-      return "🇹🇭";
-    }
-
-    if(value.includes("malaysia")){
-      return "🇲🇾";
-    }
-
-    if(value.includes("indonesia")){
-      return "🇮🇩";
-    }
-
-    return "✈️";
-
-  }
-
-
-  function currentPage(){
-
-    return (
-      location.pathname
-        .split("/")
-        .pop()
-        .toLowerCase()
-      ||
-      "index.html"
-    );
-
-  }
-
-
-  function withTrip(page){
-
-    return footerTripId
-
-      ? `${page}?trip=${encodeURIComponent(
-          footerTripId
-        )}`
-
-      : page;
-
-  }
-
-
-  /* =======================================================
-     LOAD FOOTER.HTML
-  ======================================================= */
-
-  async function loadHTML(){
-
-    const host =
-      document.getElementById(
-        "footer"
-      );
-
-
-    if(!host){
-
-      console.warn(
-        'Shared navigation: <div id="footer"></div> not found.'
-      );
-
-      return false;
-
-    }
-
-
-    const response =
-      await fetch(
-        FOOTER_FILE,
-        {
-          cache:"no-cache"
-        }
-      );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        `Could not load ${FOOTER_FILE} (${response.status}).`
-      );
-
-    }
-
-
-    host.innerHTML =
-      await response.text();
-
-
-    return true;
-
-  }
-
-
-  /* =======================================================
-     SET LINKS
-  ======================================================= */
-
-  function setupLinks(){
-
-    const links = {
-
-      /* RADIAL MENU */
-
-      sharedNavHome:
-        "index.html",
-
-      sharedNavPlan:
-        "schedule.html",
-
-      sharedNavFood:
-        "food.html",
-
-      sharedNavExpenses:
-        "expenses.html",
-
-      sharedNavHub:
-        "bookings.html",
-
-      sharedNavMap:
-        "maps.html",
-
-
-      /* SECONDARY MORE MENU */
-
-      sharedProfileLink:
-        "profile.html",
-
-      sharedTripsLink:
-        "trips.html",
-
-      sharedPlacesLink:
-        "places.html"
-
-    };
-
-
-    Object.entries(
-      links
-    ).forEach(
-      ([id,page]) => {
-
-        const element =
-          document.getElementById(id);
-
-
-        if(element){
-
-          element.href =
-            withTrip(page);
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       ACTIVE PAGE
-    ===================================================== */
-
-    const activeMap = {
-
-      "index.html":
-        "sharedNavHome",
-
-      "schedule.html":
-        "sharedNavPlan",
-
-      "food.html":
-        "sharedNavFood",
-
-      "expenses.html":
-        "sharedNavExpenses",
-
-      "bookings.html":
-        "sharedNavHub",
-
-      "maps.html":
-        "sharedNavMap"
-
-    };
-
-
-    const active =
-      document.getElementById(
-        activeMap[
-          currentPage()
-        ]
-      );
-
-
-    if(active){
-
-      active.classList.add(
-        "active"
-      );
-
-      active.setAttribute(
-        "aria-current",
-        "page"
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     OPEN / CLOSE RADIAL MENU
-  ======================================================= */
-
-  function setRadial(open){
-
-    const menu =
-      document.getElementById(
-        "radialMenu"
-      );
-
-    const dim =
-      document.getElementById(
-        "radialDim"
-      );
-
-    const button =
-      document.getElementById(
-        "sharedNavMore"
-      );
-
-
-    menu?.classList.toggle(
-      "open",
-      open
-    );
-
-
-    dim?.classList.toggle(
-      "open",
-      open
-    );
-
-
-    button?.setAttribute(
-      "aria-expanded",
-      String(open)
-    );
-
-
-    button?.setAttribute(
-      "aria-label",
-
-      open
-        ? "Close navigation"
-        : "Open navigation"
-    );
-
-  }
-
-
-  /* =======================================================
-     SET UP RADIAL + SHEETS
-  ======================================================= */
-
-  function setupUI(){
-
-    const mainButton =
-      document.getElementById(
-        "sharedNavMore"
-      );
-
-    const dim =
-      document.getElementById(
-        "radialDim"
-      );
-
-    const secondaryMore =
-      document.getElementById(
-        "sharedSecondaryMore"
-      );
-
-
-    /* MORE SHEET */
-
-    const more =
-      document.getElementById(
-        "sharedMoreBackdrop"
-      );
-
-    const closeMore =
-      document.getElementById(
-        "sharedCloseMore"
-      );
-
-
-    /* SWITCH TRIP SHEET */
-
-    const trips =
-      document.getElementById(
-        "sharedTripBackdrop"
-      );
-
-    const switchTrip =
-      document.getElementById(
-        "sharedSwitchTrip"
-      );
-
-    const closeTrips =
-      document.getElementById(
-        "sharedCloseTrips"
-      );
-
-
-    /* LOGOUT */
-
-    const logout =
-      document.getElementById(
-        "sharedLogout"
-      );
-
-
-    /* =====================================================
-       MAIN FLOATING BUTTON
-    ===================================================== */
-
-    mainButton?.addEventListener(
-      "click",
-      () => {
-
-        const menu =
-          document.getElementById(
-            "radialMenu"
-          );
-
-
-        const isOpen =
-          menu?.classList.contains(
-            "open"
-          );
-
-
-        setRadial(
-          !isOpen
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       CLICK BACKGROUND TO CLOSE
-    ===================================================== */
-
-    dim?.addEventListener(
-      "click",
-      () => {
-
-        setRadial(false);
-
-      }
-    );
-
-
-    /* =====================================================
-       CLOSE WHEN NAVIGATION ITEM CLICKED
-    ===================================================== */
-
-    document
-      .querySelectorAll(
-        ".radial-item[href]"
-      )
-      .forEach(
-        item => {
-
-          item.addEventListener(
-            "click",
-            () => {
-
-              setRadial(false);
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =====================================================
-       SECONDARY "MORE"
-    ===================================================== */
-
-    secondaryMore?.addEventListener(
-      "click",
-      () => {
-
-        setRadial(false);
-
-        more?.classList.add(
-          "open"
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       CLOSE MORE SHEET
-    ===================================================== */
-
-    closeMore?.addEventListener(
-      "click",
-      () => {
-
-        more?.classList.remove(
-          "open"
-        );
-
-      }
-    );
-
-
-    more?.addEventListener(
-      "click",
-      event => {
-
-        if(
-          event.target === more
-        ){
-
-          more.classList.remove(
-            "open"
-          );
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       SWITCH TRIP
-    ===================================================== */
-
-    switchTrip?.addEventListener(
-      "click",
-      async () => {
-
-        more?.classList.remove(
-          "open"
-        );
-
-        trips?.classList.add(
-          "open"
-        );
-
-        await loadTrips();
-
-      }
-    );
-
-
-    closeTrips?.addEventListener(
-      "click",
-      () => {
-
-        trips?.classList.remove(
-          "open"
-        );
-
-      }
-    );
-
-
-    trips?.addEventListener(
-      "click",
-      event => {
-
-        if(
-          event.target === trips
-        ){
-
-          trips.classList.remove(
-            "open"
-          );
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       ESC KEY
-    ===================================================== */
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-        if(
-          event.key !== "Escape"
-        ){
-          return;
-        }
-
-
-        setRadial(false);
-
-
-        more?.classList.remove(
-          "open"
-        );
-
-
-        trips?.classList.remove(
-          "open"
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       LOG OUT
-    ===================================================== */
-
-    if(logout){
-
-      logout.addEventListener(
-        "click",
-        async () => {
-
-          logout.disabled =
-            true;
-
-
-          const title =
-            logout.querySelector(
-              ".radial-more-title"
-            );
-
-
-          if(title){
-
-            title.textContent =
-              "Logging Out…";
-
-          }
-
-
-          try{
-
-            const {
-              error
-            } =
-              await db.auth.signOut();
-
-
-            if(error){
-              throw error;
-            }
-
-
-            localStorage.removeItem(
-              "current_trip_id"
-            );
-
-
-            location.replace(
-              "login.html"
-            );
-
-          }
-
-          catch(error){
-
-            console.error(
-              "Logout:",
-              error
-            );
-
-
-            logout.disabled =
-              false;
-
-
-            if(title){
-
-              title.textContent =
-                "Log Out";
-
-            }
-
-
-            alert(
-              error.message ||
-              "Could not log out."
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     GET CURRENT USER
-  ======================================================= */
-
-  async function getUser(){
-
-    if(
-      typeof db === "undefined"
-    ){
-
-      throw new Error(
-        "Supabase is not ready. Load supabase.js before footer.js."
-      );
-
-    }
-
-
-    const {
-      data,
-      error
-    } =
-      await db.auth.getUser();
-
-
-    if(error){
-      throw error;
-    }
-
-
-    footerUser =
-      data?.user ||
-      null;
-
-
-    return footerUser;
-
-  }
-
-
-  /* =======================================================
-     ACCESSIBLE TRIPS
-  ======================================================= */
-
-  async function accessibleTrips(){
-
-    const user =
-      footerUser ||
-      await getUser();
-
-
-    if(!user){
-
-      throw new Error(
-        "You are not signed in."
-      );
-
-    }
-
-
-    const [
-      owned,
-      members
-    ] =
-      await Promise.all([
-
-        db
-          .from("trips")
-          .select("*")
-          .eq(
-            "owner_id",
-            user.id
-          ),
-
-        db
-          .from("trip_members")
-          .select("trip_id")
-          .eq(
-            "user_id",
-            user.id
-          )
-
-      ]);
-
-
-    if(owned.error){
-      throw owned.error;
-    }
-
-
-    if(members.error){
-      throw members.error;
-    }
-
-
-    const ids =
-      [
-        ...new Set(
-          (members.data || [])
-            .map(
-              row =>
-                Number(
-                  row.trip_id
-                )
-            )
-            .filter(
-              Number.isFinite
-            )
-        )
-      ];
-
-
-    let shared =
-      [];
-
-
-    if(ids.length){
-
-      const result =
-        await db
-          .from("trips")
-          .select("*")
-          .in(
-            "id",
-            ids
-          );
-
-
-      if(result.error){
-        throw result.error;
-      }
-
-
-      shared =
-        result.data ||
-        [];
-
-    }
-
-
-    const tripMap =
-      new Map();
-
-
-    (owned.data || [])
-      .forEach(
-        trip => {
-
-          tripMap.set(
-            Number(
-              trip.id
-            ),
-            {
-              ...trip,
-              __role:"owner"
-            }
-          );
-
-        }
-      );
-
-
-    shared.forEach(
-      trip => {
-
-        const id =
-          Number(
-            trip.id
-          );
-
-
-        if(
-          !tripMap.has(id)
-        ){
-
-          tripMap.set(
-            id,
-            {
-              ...trip,
-              __role:"member"
-            }
-          );
-
-        }
-
-      }
-    );
-
-
-    return [
-      ...tripMap.values()
-    ].sort(
-      (a,b) =>
-
-        txt(
-          a.start_date
-        ).localeCompare(
-          txt(
-            b.start_date
-          )
-        )
-    );
-
-  }
-
-
-  /* =======================================================
-     RESOLVE CURRENT TRIP
-  ======================================================= */
-
-  async function resolveTrip(){
-
-    if(footerTripId){
-      return;
-    }
-
-
-    try{
-
-      const trips =
-        await accessibleTrips();
-
-
-      if(
-        trips.length
-      ){
-
-        footerTripId =
-          Number(
-            trips[0].id
-          );
-
-      }
-
-    }
-
-    catch(error){
-
-      console.warn(
-        "Radial navigation could not resolve trip:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     LOAD SWITCH TRIP LIST
-  ======================================================= */
-
-  async function loadTrips(){
-
-    const box =
-      document.getElementById(
-        "sharedTripList"
-      );
-
-
-    if(!box){
-      return;
-    }
-
-
-    box.innerHTML = `
-      <div class="footer-trip-message">
-        Loading your trips…
-      </div>
-    `;
-
-
-    try{
-
-      const trips =
-        await accessibleTrips();
-
-
-      if(
-        !trips.length
-      ){
-
-        box.innerHTML = `
-          <div class="footer-trip-message">
-            No trips available yet.
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      const page =
-        currentPage();
-
-
-      /* Pages where switching trip
-         keeps you on the same page */
-
-      const allowed = [
-
-        "index.html",
-        "schedule.html",
-        "food.html",
-        "bookings.html",
-        "expenses.html",
-        "maps.html",
-        "profile.html",
-        "places.html"
-
-      ];
-
-
-      const target =
-        allowed.includes(page)
-
-          ? page
-
-          : "index.html";
-
-
-      box.innerHTML =
-        trips.map(
-          trip => {
-
-            const id =
-              Number(
-                trip.id
-              );
-
-
-            const current =
-              id ===
-              Number(
-                footerTripId
-              );
-
-
-            const dates =
-
-              trip.start_date &&
-              trip.end_date
-
-                ?
-
-              `${
-                prettyDate(
-                  trip.start_date
-                )
-              } – ${
-                prettyDate(
-                  trip.end_date
-                )
-              }`
-
-                :
-
-              "";
-
-
-            const meta =
-              [
-                trip.country,
-                dates
-              ]
-              .filter(Boolean)
-              .join(" · ");
-
-
-            return `
-
-              <a
-                class="
-                  footer-trip-card
-                  ${
-                    current
-                      ? "current"
-                      : ""
-                  }
-                "
-                href="${target}?trip=${id}"
-              >
-
-                <div class="footer-trip-icon">
-
-                  ${
-                    tripIcon(
-                      trip.country
-                    )
-                  }
-
-                </div>
-
-
-                <div>
-
-                  <div class="footer-trip-name">
-
-                    ${
-                      esc(
-                        trip.name ||
-                        "Unnamed Trip"
-                      )
-                    }
-
-                  </div>
-
-
-                  <div class="footer-trip-meta">
-
-                    ${
-                      esc(meta)
-                    }
-
-                  </div>
-
-
-                  <span class="footer-trip-role">
-
-                    ${
-                      current
-                        ? "CURRENT · "
-                        : ""
-                    }
-
-                    ${
-                      trip.__role ===
-                      "owner"
-
-                        ? "YOUR TRIP"
-
-                        : "SHARED WITH YOU"
-                    }
-
-                  </span>
-
-                </div>
-
-
-                <div class="footer-trip-arrow">
-                  →
-                </div>
-
-              </a>
-
-            `;
-
-          }
-        )
-        .join("");
-
-    }
-
-    catch(error){
-
-      console.error(
-        "Switch trip:",
-        error
-      );
-
-
-      box.innerHTML = `
-
-        <div class="
-          footer-trip-message
-          error
-        ">
-
-          Could not load your trips.
-
-          <br><br>
-
-          ${
-            esc(
-              error.message ||
-              "Supabase error"
-            )
-          }
-
-        </div>
-
-      `;
-
-    }
-
-  }
-
-
-  /* =======================================================
-     START
-  ======================================================= */
-
-  async function start(){
-
-    try{
-
-      const loaded =
-        await loadHTML();
-
-
-      if(!loaded){
-        return;
-      }
-
-
-      await resolveTrip();
-
-
-      setupLinks();
-
-      setupUI();
-
-    }
-
-    catch(error){
-
-      console.error(
-        "Shared radial navigation:",
-        error
-      );
-
-
-      const host =
-        document.getElementById(
-          "footer"
-        );
-
-
-      if(host){
-
-        host.innerHTML = `
-
-          <div
-            style="
-              position:fixed;
-              right:12px;
-              bottom:12px;
-              z-index:9999;
-              padding:8px 10px;
-              border:1px solid #5a3434;
-              border-radius:10px;
-              background:#1a1010;
-              color:#ffc5c1;
-              font:11px system-ui;
-            "
-          >
-            Menu could not load.
-          </div>
-
-        `;
-
-      }
-
-    }
-
-  }
-
-
-  /* =======================================================
-     INITIALIZE
-  ======================================================= */
-
-  if(
-    document.readyState ===
-    "loading"
-  ){
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      start
-    );
-
-  }
-
-  else{
-
-    start();
-
-  }
-
-})();
+<style>
+:root{
+  --radial-bg:#070c10;
+  --radial-surface:#11181e;
+  --radial-line:#2a3540;
+  --radial-text:#f5f3ef;
+  --radial-muted:#929ca4;
+  --radial-red:#ff625f;
+  --radial-red-soft:rgba(255,98,95,.12);
+  --radial-red-line:rgba(255,98,95,.42);
+}
+
+#footer{position:relative;z-index:9000}
+
+.radial-dim{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(3,7,10,.62);
+  backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;
+  transition:opacity .22s ease,visibility .22s ease;
+}
+.radial-dim.open{opacity:1;visibility:visible}
+
+.radial-wrap{
+  position:fixed;
+  right:max(18px,env(safe-area-inset-right));
+  bottom:calc(18px + env(safe-area-inset-bottom));
+  z-index:9020;
+  width:330px;height:405px;
+  pointer-events:none;
+}
+
+.radial-main{
+  position:absolute;right:0;bottom:0;
+  width:58px;height:58px;border-radius:50%;
+  border:1px solid var(--radial-red-line);
+  background:linear-gradient(145deg,#17212a,#0b1116);
+  box-shadow:0 8px 26px rgba(0,0,0,.45),0 0 0 5px rgba(255,98,95,.035);
+  display:grid;place-items:center;
+  cursor:pointer;pointer-events:auto;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+}
+.radial-main img{width:42px;height:42px;object-fit:contain;transition:opacity .18s ease,transform .28s ease}
+.radial-main .radial-x{position:absolute;color:var(--radial-red);font:300 32px/1 system-ui;opacity:0;transform:rotate(-70deg) scale(.7);transition:.25s ease}
+.radial-wrap.open .radial-main{
+  background:#151a20;
+  box-shadow:0 8px 30px rgba(0,0,0,.5),0 0 18px rgba(255,98,95,.28);
+  transform:scale(1.04);
+}
+.radial-wrap.open .radial-main img{opacity:0;transform:rotate(50deg) scale(.6)}
+.radial-wrap.open .radial-main .radial-x{opacity:1;transform:rotate(0) scale(1)}
+
+.radial-item{
+  --x:0px;--y:0px;--delay:0ms;
+  position:absolute;right:5px;bottom:5px;
+  display:flex;align-items:center;gap:8px;
+  color:var(--radial-text);text-decoration:none;
+  pointer-events:none;
+  opacity:0;
+  transform:translate(0,0) scale(.55);
+  transform-origin:right center;
+  transition:
+    transform .40s cubic-bezier(.18,.85,.25,1.12) var(--delay),
+    opacity .20s ease var(--delay);
+}
+.radial-wrap.open .radial-item{
+  opacity:1;
+  pointer-events:auto;
+  transform:translate(var(--x),var(--y)) scale(1);
+}
+.radial-label{
+  order:-1;
+  min-width:58px;
+  text-align:right;
+  padding:5px 8px;
+  border:1px solid rgba(255,98,95,.25);
+  border-radius:999px;
+  background:rgba(7,12,16,.92);
+  box-shadow:0 5px 18px rgba(0,0,0,.28);
+  font-size:9px;font-weight:800;white-space:nowrap;
+}
+.radial-icon{
+  width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid var(--radial-line);
+  background:rgba(15,22,28,.96);
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.radial-icon img{width:35px;height:35px;object-fit:contain}
+.radial-item.active .radial-icon{
+  border-color:var(--radial-red-line);
+  background:var(--radial-red-soft);
+  box-shadow:0 0 16px rgba(255,98,95,.16);
+}
+.radial-item.active .radial-label{color:#ffc2be;border-color:var(--radial-red-line)}
+
+/* fan positions: bottom-right upward */
+.radial-map{--x:-78px;--y:-24px;--delay:25ms}
+.radial-booking{--x:-132px;--y:-67px;--delay:50ms}
+.radial-expenses{--x:-171px;--y:-122px;--delay:75ms}
+.radial-food{--x:-190px;--y:-184px;--delay:100ms}
+.radial-plan{--x:-184px;--y:-247px;--delay:125ms}
+.radial-home{--x:-151px;--y:-302px;--delay:150ms}
+.radial-more{--x:-95px;--y:-346px;--delay:175ms}
+
+.radial-more .radial-icon{font-size:19px;color:#e9a3a0}
+
+.radial-sheet-backdrop,.radial-trip-backdrop{
+  position:fixed;inset:0;z-index:9050;
+  display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(3,7,10,.70);
+  opacity:0;visibility:hidden;
+  transition:.2s ease;
+}
+.radial-sheet-backdrop.open,.radial-trip-backdrop.open{opacity:1;visibility:visible}
+.radial-sheet{
+  width:min(100%,520px);max-height:82vh;overflow:auto;
+  padding:10px 14px calc(18px + env(safe-area-inset-bottom));
+  border:1px solid #28343d;border-bottom:0;
+  border-radius:20px 20px 0 0;
+  background:#0d1318;
+  transform:translateY(20px);transition:.22s ease;
+}
+.open>.radial-sheet{transform:translateY(0)}
+.radial-handle{width:38px;height:3px;margin:2px auto 12px;border-radius:999px;background:#34414b}
+.radial-sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.radial-sheet-title{font:700 21px Georgia,serif}
+.radial-close{border:0;background:transparent;color:#89959d;font-size:22px;cursor:pointer}
+.radial-more-link{
+  width:100%;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;
+  min-height:54px;padding:8px 4px;border:0;border-bottom:1px solid rgba(255,255,255,.06);
+  background:transparent;color:var(--radial-text);text-decoration:none;text-align:left;cursor:pointer;
+}
+.radial-more-icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid #29343d;border-radius:10px;background:#11181e;font-size:15px}
+.radial-more-title{font-size:9px;font-weight:900}
+.radial-more-sub{margin-top:2px;color:#75818a;font-size:7px}
+.radial-more-arrow{color:#64717a}
+.radial-trip-list{display:grid;gap:6px}
+.footer-trip-message{padding:18px;color:#82909a;text-align:center;font-size:9px}
+.footer-trip-message.error{color:#ffaaa5}
+.footer-trip-card{
+  display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;
+  padding:10px;border:1px solid #263039;border-radius:11px;background:#10171d;
+  color:#f5f3ef;text-decoration:none;
+}
+.footer-trip-card.current{border-color:var(--radial-red-line);background:var(--radial-red-soft)}
+.footer-trip-icon{font-size:21px} .footer-trip-name{font-size:9px;font-weight:900}
+.footer-trip-meta{margin-top:2px;color:#7e8a93;font-size:7px}
+.footer-trip-role{display:inline-block;margin-top:4px;color:#b4bdc3;font-size:6px;font-weight:900}
+.footer-trip-arrow{color:#65727b}
+
+@media(max-width:430px){
+  .radial-wrap{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));transform:scale(.94);transform-origin:right bottom}
+}
+</style>
+
+<div id="radialDim" class="radial-dim"></div>
+
+<nav id="radialMenu" class="radial-wrap" aria-label="Main navigation">
+  <a id="sharedNavHome" class="radial-item radial-home"><span class="radial-label">Home</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Homefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTI3LCJleHAiOjMzMzI1NjMyMTI3fQ.9BTopbR22KJCzKMMoLItwlXMPKMgkWFTB85CvDXmkxDrTGCwWtxIQfPpde2qSjrpCFojB5ijYTArNqJf0G5hPQ" alt=""></span></a>
+  <a id="sharedNavPlan" class="radial-item radial-plan"><span class="radial-label">Plan</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/planfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvcGxhbmZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMjAzLCJleHAiOjMzMzI1NjMyMjAzfQ.AzUGiKb-G7XtS_cERRiRhEqdIKs7MhJKW4vU-uWwMMS-CiArHmZnalWRfAxxFMj_DkEdD98fE01CTBNa6Cporg" alt=""></span></a>
+  <a id="sharedNavFood" class="radial-item radial-food"><span class="radial-label">Food</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/foodfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZGZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTA1LCJleHAiOjMzMzI1NjMyMTA1fQ.BGrE11IoO2jl4Cf6xjkaaM5VbOTDtKfUW1xUoDnWlHa_3xJoOnOCmhuZXfLsMZ9gJFY8xSgg67C94PKYmYR1RA" alt=""></span></a>
+  <a id="sharedNavExpenses" class="radial-item radial-expenses"><span class="radial-label">Expenses</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/expensesfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZXhwZW5zZXNmb290ZXIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTY0MjQwMCwiZXhwIjozMzMyNTY0MjQwMH0.2N_yNGsFpk3jtyT5yNEeMxf6T6iW38taHMwkcalrL6erpYf81ELyq_ah1kIcerGMKL6BQmIOVWuMRsCRuVDb4A" alt=""></span></a>
+  <a id="sharedNavHub" class="radial-item radial-booking"><span class="radial-label">Booking</span><span class="radial-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/bookingfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvYm9va2luZ2Zvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMDc4LCJleHAiOjQ5NDMyMzIwNzh9.AnZhB83lYYXO-5q5ADhzDQ_SzLNjtJHlwyOyPac-XdZ7zG4INt4wTp_S9VhoVoxz6KbtIrCZaUY1MxRm6G3BVA" alt=""></span></a>
+  <a id="sharedNavMap" class="radial-item radial-map"><span class="radial-label">Map</span><span class="radial-icon">🗺️</span></a>
+
+  <button id="sharedSecondaryMore" class="radial-item radial-more" type="button">
+    <span class="radial-label">More</span><span class="radial-icon">•••</span>
+  </button>
+
+  <button id="sharedNavMore" class="radial-main" type="button" aria-label="Open navigation" aria-expanded="false">
+    <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/morefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvbW9yZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTc1LCJleHAiOjQ5NDMyMzIxNzV9.O6Lx5IOJjw8nXT5tGcTXIhHlWLfWDMzx8bKePRYd-uPgHlsiaeOWPw6QR6VgkghuSHMMrDiJxEZjEnUpNNsarQ" alt="">
+    <span class="radial-x">×</span>
+  </button>
+</nav>
+
+<div id="sharedMoreBackdrop" class="radial-sheet-backdrop">
+  <div class="radial-sheet">
+    <div class="radial-handle"></div>
+    <div class="radial-sheet-head">
+      <div class="radial-sheet-title">More</div>
+      <button id="sharedCloseMore" class="radial-close" type="button">×</button>
+    </div>
+
+    <a id="sharedProfileLink" class="radial-more-link">
+      <span class="radial-more-icon">👤</span>
+      <span><div class="radial-more-title">Profile & Sharing</div><div class="radial-more-sub">Account · people · permissions</div></span>
+      <span class="radial-more-arrow">→</span>
+    </a>
+
+    <button id="sharedSwitchTrip" class="radial-more-link" type="button">
+      <span class="radial-more-icon">⇄</span>
+      <span><div class="radial-more-title">Switch Trip</div><div class="radial-more-sub">Change your active trip</div></span>
+      <span class="radial-more-arrow">→</span>
+    </button>
+
+    <a id="sharedTripsLink" class="radial-more-link">
+      <span class="radial-more-icon">🧳</span>
+      <span><div class="radial-more-title">My Trips</div><div class="radial-more-sub">Create · edit · manage trips</div></span>
+      <span class="radial-more-arrow">→</span>
+    </a>
+
+    <a id="sharedPlacesLink" class="radial-more-link">
+      <span class="radial-more-icon">📍</span>
+      <span><div class="radial-more-title">Places</div><div class="radial-more-sub">Saved places · coordinates</div></span>
+      <span class="radial-more-arrow">→</span>
+    </a>
+
+    <button id="sharedLogout" class="radial-more-link" type="button">
+      <span class="radial-more-icon">↪</span>
+      <span><div class="radial-more-title">Log Out</div><div class="radial-more-sub">Sign out of this device</div></span>
+      <span class="radial-more-arrow">→</span>
+    </button>
+  </div>
+</div>
+
+<div id="sharedTripBackdrop" class="radial-trip-backdrop">
+  <div class="radial-sheet">
+    <div class="radial-handle"></div>
+    <div class="radial-sheet-head">
+      <div class="radial-sheet-title">Switch Trip</div>
+      <button id="sharedCloseTrips" class="radial-close" type="button">×</button>
+    </div>
+    <div id="sharedTripList" class="radial-trip-list"></div>
+  </div>
+</div>
