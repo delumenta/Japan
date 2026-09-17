@@ -337,19 +337,25 @@ function renderDates(){
     </button>`).join("")}</div>`;
 }
 function groupRows(rows){
+  // TIME/ITINERARY ORDER FIRST, AREA SECOND.
+  // Returning to the same area later creates a new block.
+  const ordered=[...rows].sort((a,b)=>{
+    const timeKey=row=>row.start_time ? String(row.start_time).slice(0,8) : "99:99:99";
+    const byTime=timeKey(a).localeCompare(timeKey(b));
+    if(byTime!==0)return byTime;
+    return Number(a.sort_order||0)-Number(b.sort_order||0);
+  });
+
   const groups=[];
-  const byArea=new Map();
+  let last=null;
 
-  rows.forEach(row=>{
+  ordered.forEach(row=>{
     const area=rowArea(row);
-
-    if(!byArea.has(area)){
-      const group={name:area,rows:[]};
-      byArea.set(area,group);
-      groups.push(group);
+    if(!last || last.name!==area){
+      last={name:area,rows:[]};
+      groups.push(last);
     }
-
-    byArea.get(area).rows.push(row);
+    last.rows.push(row);
   });
 
   return groups;
