@@ -1,5 +1,5 @@
 /* =========================================================
-   SHARED FOOTER
+   SHARED RADIAL NAVIGATION
    Requires:
    - supabase-js
    - supabase.js
@@ -12,8 +12,18 @@
 
   let footerTripId =
     Number(
-      new URLSearchParams(window.location.search).get("trip")
-    ) || null;
+      new URLSearchParams(
+        location.search
+      ).get("trip")
+    )
+    ||
+    Number(
+      localStorage.getItem(
+        "current_trip_id"
+      )
+    )
+    ||
+    null;
 
   let footerUser = null;
 
@@ -22,42 +32,34 @@
      HELPERS
   ======================================================= */
 
-  function footerText(value){
-    return String(value ?? "");
-  }
+  const txt = value =>
+    String(value ?? "");
 
 
-  function footerEsc(value){
-
-    return footerText(value)
+  const esc = value =>
+    txt(value)
       .replaceAll("&","&amp;")
       .replaceAll("<","&lt;")
       .replaceAll(">","&gt;")
       .replaceAll('"',"&quot;")
       .replaceAll("'","&#039;");
 
-  }
 
-
-  function footerNorm(value){
-
-    return footerText(value)
+  const norm = value =>
+    txt(value)
       .trim()
       .toLowerCase();
 
-  }
 
-
-  function footerFormatDate(value){
+  function prettyDate(value){
 
     if(!value){
       return "";
     }
 
-    const date =
-      new Date(value + "T12:00:00");
-
-    return date.toLocaleDateString(
+    return new Date(
+      value + "T12:00:00"
+    ).toLocaleDateString(
       "en-SG",
       {
         day:"numeric",
@@ -69,49 +71,71 @@
   }
 
 
-  function footerTripIcon(country){
+  function tripIcon(country){
 
     const value =
-      footerNorm(country);
+      norm(country);
 
-    if(value.includes("japan")) return "🇯🇵";
-    if(value.includes("taiwan")) return "🇹🇼";
-    if(value.includes("singapore")) return "🇸🇬";
-    if(value.includes("korea")) return "🇰🇷";
-    if(value.includes("china")) return "🇨🇳";
-    if(value.includes("thailand")) return "🇹🇭";
-    if(value.includes("malaysia")) return "🇲🇾";
-    if(value.includes("indonesia")) return "🇮🇩";
+    if(value.includes("japan")){
+      return "🇯🇵";
+    }
+
+    if(value.includes("taiwan")){
+      return "🇹🇼";
+    }
+
+    if(value.includes("singapore")){
+      return "🇸🇬";
+    }
+
+    if(value.includes("korea")){
+      return "🇰🇷";
+    }
+
+    if(value.includes("china")){
+      return "🇨🇳";
+    }
+
+    if(value.includes("thailand")){
+      return "🇹🇭";
+    }
+
+    if(value.includes("malaysia")){
+      return "🇲🇾";
+    }
+
+    if(value.includes("indonesia")){
+      return "🇮🇩";
+    }
 
     return "✈️";
 
   }
 
 
-  function footerCurrentPage(){
+  function currentPage(){
 
-    const page =
-      window.location.pathname
+    return (
+      location.pathname
         .split("/")
         .pop()
-        .toLowerCase();
-
-    return page || "index.html";
+        .toLowerCase()
+      ||
+      "index.html"
+    );
 
   }
 
 
-  function footerWithTrip(page){
+  function withTrip(page){
 
-    if(!footerTripId){
-      return page;
-    }
+    return footerTripId
 
-    return (
-      page +
-      "?trip=" +
-      encodeURIComponent(footerTripId)
-    );
+      ? `${page}?trip=${encodeURIComponent(
+          footerTripId
+        )}`
+
+      : page;
 
   }
 
@@ -120,15 +144,18 @@
      LOAD FOOTER.HTML
   ======================================================= */
 
-  async function loadFooterHTML(){
+  async function loadHTML(){
 
     const host =
-      document.getElementById("footer");
+      document.getElementById(
+        "footer"
+      );
+
 
     if(!host){
 
       console.warn(
-        'Shared footer: <div id="footer"></div> was not found.'
+        'Shared navigation: <div id="footer"></div> not found.'
       );
 
       return false;
@@ -157,18 +184,21 @@
     host.innerHTML =
       await response.text();
 
+
     return true;
 
   }
 
 
   /* =======================================================
-     LINKS + ACTIVE PAGE
+     SET LINKS
   ======================================================= */
 
-  function setupFooterLinks(){
+  function setupLinks(){
 
     const links = {
+
+      /* RADIAL MENU */
 
       sharedNavHome:
         "index.html",
@@ -179,13 +209,17 @@
       sharedNavFood:
         "food.html",
 
+      sharedNavExpenses:
+        "expenses.html",
+
       sharedNavHub:
         "bookings.html",
 
-      /* EXPENSES — MAIN FOOTER ICON */
+      sharedNavMap:
+        "maps.html",
 
-      sharedNavExpenses:
-        "expenses.html",
+
+      /* SECONDARY MORE MENU */
 
       sharedProfileLink:
         "profile.html",
@@ -199,25 +233,29 @@
     };
 
 
-    Object.entries(links)
-      .forEach(([id,page]) => {
+    Object.entries(
+      links
+    ).forEach(
+      ([id,page]) => {
 
         const element =
           document.getElementById(id);
 
+
         if(element){
 
           element.href =
-            footerWithTrip(page);
+            withTrip(page);
 
         }
 
-      });
+      }
+    );
 
 
-    const page =
-      footerCurrentPage();
-
+    /* =====================================================
+       ACTIVE PAGE
+    ===================================================== */
 
     const activeMap = {
 
@@ -230,34 +268,36 @@
       "food.html":
         "sharedNavFood",
 
+      "expenses.html":
+        "sharedNavExpenses",
+
       "bookings.html":
         "sharedNavHub",
 
-      "expenses.html":
-        "sharedNavExpenses"
+      "maps.html":
+        "sharedNavMap"
 
     };
 
 
-    const activeId =
-      activeMap[page];
+    const active =
+      document.getElementById(
+        activeMap[
+          currentPage()
+        ]
+      );
 
 
-    if(activeId){
+    if(active){
 
-      const active =
-        document.getElementById(activeId);
+      active.classList.add(
+        "active"
+      );
 
-      if(active){
-
-        active.classList.add("active");
-
-        active.setAttribute(
-          "aria-current",
-          "page"
-        );
-
-      }
+      active.setAttribute(
+        "aria-current",
+        "page"
+      );
 
     }
 
@@ -265,29 +305,96 @@
 
 
   /* =======================================================
-     MORE + SWITCH TRIP SHEETS
+     OPEN / CLOSE RADIAL MENU
   ======================================================= */
 
-  function setupFooterSheets(){
+  function setRadial(open){
+
+    const menu =
+      document.getElementById(
+        "radialMenu"
+      );
+
+    const dim =
+      document.getElementById(
+        "radialDim"
+      );
+
+    const button =
+      document.getElementById(
+        "sharedNavMore"
+      );
+
+
+    menu?.classList.toggle(
+      "open",
+      open
+    );
+
+
+    dim?.classList.toggle(
+      "open",
+      open
+    );
+
+
+    button?.setAttribute(
+      "aria-expanded",
+      String(open)
+    );
+
+
+    button?.setAttribute(
+      "aria-label",
+
+      open
+        ? "Close navigation"
+        : "Open navigation"
+    );
+
+  }
+
+
+  /* =======================================================
+     SET UP RADIAL + SHEETS
+  ======================================================= */
+
+  function setupUI(){
+
+    const mainButton =
+      document.getElementById(
+        "sharedNavMore"
+      );
+
+    const dim =
+      document.getElementById(
+        "radialDim"
+      );
+
+    const secondaryMore =
+      document.getElementById(
+        "sharedSecondaryMore"
+      );
+
+
+    /* MORE SHEET */
 
     const more =
       document.getElementById(
         "sharedMoreBackdrop"
       );
 
-    const trips =
-      document.getElementById(
-        "sharedTripBackdrop"
-      );
-
-    const moreButton =
-      document.getElementById(
-        "sharedNavMore"
-      );
-
     const closeMore =
       document.getElementById(
         "sharedCloseMore"
+      );
+
+
+    /* SWITCH TRIP SHEET */
+
+    const trips =
+      document.getElementById(
+        "sharedTripBackdrop"
       );
 
     const switchTrip =
@@ -300,211 +407,315 @@
         "sharedCloseTrips"
       );
 
-    const logoutButton =
+
+    /* LOGOUT */
+
+    const logout =
       document.getElementById(
         "sharedLogout"
       );
 
 
-    /* LOG OUT */
+    /* =====================================================
+       MAIN FLOATING BUTTON
+    ===================================================== */
 
-    if(logoutButton){
+    mainButton?.addEventListener(
+      "click",
+      () => {
 
-      logoutButton.onclick = async () => {
-
-        logoutButton.disabled = true;
-
-        const title =
-          logoutButton.querySelector(
-            ".footer-more-title"
-          );
-
-        if(title){
-          title.textContent = "Logging Out…";
-        }
-
-        try{
-
-          if(typeof db === "undefined"){
-
-            throw new Error(
-              "Supabase is not ready."
-            );
-
-          }
-
-
-          const { error } =
-            await db.auth.signOut();
-
-
-          if(error){
-            throw error;
-          }
-
-
-          localStorage.removeItem(
-            "current_trip_id"
+        const menu =
+          document.getElementById(
+            "radialMenu"
           );
 
 
-          location.replace(
-            "login.html"
+        const isOpen =
+          menu?.classList.contains(
+            "open"
+          );
+
+
+        setRadial(
+          !isOpen
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       CLICK BACKGROUND TO CLOSE
+    ===================================================== */
+
+    dim?.addEventListener(
+      "click",
+      () => {
+
+        setRadial(false);
+
+      }
+    );
+
+
+    /* =====================================================
+       CLOSE WHEN NAVIGATION ITEM CLICKED
+    ===================================================== */
+
+    document
+      .querySelectorAll(
+        ".radial-item[href]"
+      )
+      .forEach(
+        item => {
+
+          item.addEventListener(
+            "click",
+            () => {
+
+              setRadial(false);
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       SECONDARY "MORE"
+    ===================================================== */
+
+    secondaryMore?.addEventListener(
+      "click",
+      () => {
+
+        setRadial(false);
+
+        more?.classList.add(
+          "open"
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       CLOSE MORE SHEET
+    ===================================================== */
+
+    closeMore?.addEventListener(
+      "click",
+      () => {
+
+        more?.classList.remove(
+          "open"
+        );
+
+      }
+    );
+
+
+    more?.addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target === more
+        ){
+
+          more.classList.remove(
+            "open"
           );
 
         }
 
-        catch(error){
+      }
+    );
 
-          console.error(
-            "Shared footer logout:",
-            error
+
+    /* =====================================================
+       SWITCH TRIP
+    ===================================================== */
+
+    switchTrip?.addEventListener(
+      "click",
+      async () => {
+
+        more?.classList.remove(
+          "open"
+        );
+
+        trips?.classList.add(
+          "open"
+        );
+
+        await loadTrips();
+
+      }
+    );
+
+
+    closeTrips?.addEventListener(
+      "click",
+      () => {
+
+        trips?.classList.remove(
+          "open"
+        );
+
+      }
+    );
+
+
+    trips?.addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target === trips
+        ){
+
+          trips.classList.remove(
+            "open"
           );
 
-
-          logoutButton.disabled = false;
-
-
-          if(title){
-
-            title.textContent =
-              "Log Out";
-
-          }
-
-
-          alert(
-            error.message ||
-            "Could not log out. Please try again."
-          );
-
         }
 
-      };
-
-    }
-
-
-    /* OPEN MORE */
-
-    if(moreButton){
-
-      moreButton.onclick = () => {
-
-        more?.classList.add("open");
-
-      };
-
-    }
+      }
+    );
 
 
-    /* CLOSE MORE */
-
-    if(closeMore){
-
-      closeMore.onclick = () => {
-
-        more?.classList.remove("open");
-
-      };
-
-    }
-
-
-    /* OPEN SWITCH TRIP */
-
-    if(switchTrip){
-
-      switchTrip.onclick = async () => {
-
-        more?.classList.remove("open");
-
-        trips?.classList.add("open");
-
-        await loadFooterTrips();
-
-      };
-
-    }
-
-
-    /* CLOSE SWITCH TRIP */
-
-    if(closeTrips){
-
-      closeTrips.onclick = () => {
-
-        trips?.classList.remove("open");
-
-      };
-
-    }
-
-
-    /* CLICK OUTSIDE MORE */
-
-    if(more){
-
-      more.onclick = event => {
-
-        if(event.target === more){
-
-          more.classList.remove("open");
-
-        }
-
-      };
-
-    }
-
-
-    /* CLICK OUTSIDE TRIPS */
-
-    if(trips){
-
-      trips.onclick = event => {
-
-        if(event.target === trips){
-
-          trips.classList.remove("open");
-
-        }
-
-      };
-
-    }
-
-
-    /* ESC KEY */
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
 
     document.addEventListener(
       "keydown",
       event => {
 
-        if(event.key !== "Escape"){
+        if(
+          event.key !== "Escape"
+        ){
           return;
         }
 
-        more?.classList.remove("open");
 
-        trips?.classList.remove("open");
+        setRadial(false);
+
+
+        more?.classList.remove(
+          "open"
+        );
+
+
+        trips?.classList.remove(
+          "open"
+        );
 
       }
     );
+
+
+    /* =====================================================
+       LOG OUT
+    ===================================================== */
+
+    if(logout){
+
+      logout.addEventListener(
+        "click",
+        async () => {
+
+          logout.disabled =
+            true;
+
+
+          const title =
+            logout.querySelector(
+              ".radial-more-title"
+            );
+
+
+          if(title){
+
+            title.textContent =
+              "Logging Out…";
+
+          }
+
+
+          try{
+
+            const {
+              error
+            } =
+              await db.auth.signOut();
+
+
+            if(error){
+              throw error;
+            }
+
+
+            localStorage.removeItem(
+              "current_trip_id"
+            );
+
+
+            location.replace(
+              "login.html"
+            );
+
+          }
+
+          catch(error){
+
+            console.error(
+              "Logout:",
+              error
+            );
+
+
+            logout.disabled =
+              false;
+
+
+            if(title){
+
+              title.textContent =
+                "Log Out";
+
+            }
+
+
+            alert(
+              error.message ||
+              "Could not log out."
+            );
+
+          }
+
+        }
+      );
+
+    }
 
   }
 
 
   /* =======================================================
-     GET LOGGED-IN USER
+     GET CURRENT USER
   ======================================================= */
 
-  async function footerGetUser(){
+  async function getUser(){
 
-    if(typeof db === "undefined"){
+    if(
+      typeof db === "undefined"
+    ){
 
       throw new Error(
-        "Supabase is not ready. Make sure supabase.js loads before footer.js."
+        "Supabase is not ready. Load supabase.js before footer.js."
       );
 
     }
@@ -523,7 +734,8 @@
 
 
     footerUser =
-      data?.user || null;
+      data?.user ||
+      null;
 
 
     return footerUser;
@@ -532,14 +744,14 @@
 
 
   /* =======================================================
-     GET ACCESSIBLE TRIPS
+     ACCESSIBLE TRIPS
   ======================================================= */
 
-  async function footerAccessibleTrips(){
+  async function accessibleTrips(){
 
     const user =
       footerUser ||
-      await footerGetUser();
+      await getUser();
 
 
     if(!user){
@@ -551,51 +763,50 @@
     }
 
 
-    /* -----------------------------------------------
-       TRIPS OWNED BY USER
-    ----------------------------------------------- */
+    const [
+      owned,
+      members
+    ] =
+      await Promise.all([
 
-    const ownedResult =
-      await db
-        .from("trips")
-        .select("*")
-        .eq(
-          "owner_id",
-          user.id
-        );
+        db
+          .from("trips")
+          .select("*")
+          .eq(
+            "owner_id",
+            user.id
+          ),
+
+        db
+          .from("trip_members")
+          .select("trip_id")
+          .eq(
+            "user_id",
+            user.id
+          )
+
+      ]);
 
 
-    if(ownedResult.error){
-      throw ownedResult.error;
+    if(owned.error){
+      throw owned.error;
     }
 
 
-    /* -----------------------------------------------
-       TRIPS SHARED WITH USER
-    ----------------------------------------------- */
-
-    const memberResult =
-      await db
-        .from("trip_members")
-        .select("trip_id")
-        .eq(
-          "user_id",
-          user.id
-        );
-
-
-    if(memberResult.error){
-      throw memberResult.error;
+    if(members.error){
+      throw members.error;
     }
 
 
-    const sharedIds =
+    const ids =
       [
         ...new Set(
-          (memberResult.data || [])
+          (members.data || [])
             .map(
               row =>
-                Number(row.trip_id)
+                Number(
+                  row.trip_id
+                )
             )
             .filter(
               Number.isFinite
@@ -604,62 +815,68 @@
       ];
 
 
-    let sharedTrips = [];
+    let shared =
+      [];
 
 
-    if(sharedIds.length){
+    if(ids.length){
 
-      const sharedResult =
+      const result =
         await db
           .from("trips")
           .select("*")
           .in(
             "id",
-            sharedIds
+            ids
           );
 
 
-      if(sharedResult.error){
-        throw sharedResult.error;
+      if(result.error){
+        throw result.error;
       }
 
 
-      sharedTrips =
-        sharedResult.data || [];
+      shared =
+        result.data ||
+        [];
 
     }
 
-
-    /* -----------------------------------------------
-       COMBINE WITHOUT DUPLICATES
-    ----------------------------------------------- */
 
     const tripMap =
       new Map();
 
 
-    (ownedResult.data || [])
-      .forEach(trip => {
+    (owned.data || [])
+      .forEach(
+        trip => {
 
-        tripMap.set(
-          Number(trip.id),
-          {
-            ...trip,
-            __role:"owner"
-          }
-        );
+          tripMap.set(
+            Number(
+              trip.id
+            ),
+            {
+              ...trip,
+              __role:"owner"
+            }
+          );
 
-      });
+        }
+      );
 
 
-    sharedTrips
-      .forEach(trip => {
+    shared.forEach(
+      trip => {
 
         const id =
-          Number(trip.id);
+          Number(
+            trip.id
+          );
 
 
-        if(!tripMap.has(id)){
+        if(
+          !tripMap.has(id)
+        ){
 
           tripMap.set(
             id,
@@ -671,21 +888,65 @@
 
         }
 
-      });
+      }
+    );
 
 
-    return [...tripMap.values()]
-      .sort((a,b) => {
+    return [
+      ...tripMap.values()
+    ].sort(
+      (a,b) =>
 
-        return footerText(
+        txt(
           a.start_date
         ).localeCompare(
-          footerText(
+          txt(
             b.start_date
           )
-        );
+        )
+    );
 
-      });
+  }
+
+
+  /* =======================================================
+     RESOLVE CURRENT TRIP
+  ======================================================= */
+
+  async function resolveTrip(){
+
+    if(footerTripId){
+      return;
+    }
+
+
+    try{
+
+      const trips =
+        await accessibleTrips();
+
+
+      if(
+        trips.length
+      ){
+
+        footerTripId =
+          Number(
+            trips[0].id
+          );
+
+      }
+
+    }
+
+    catch(error){
+
+      console.warn(
+        "Radial navigation could not resolve trip:",
+        error
+      );
+
+    }
 
   }
 
@@ -694,42 +955,40 @@
      LOAD SWITCH TRIP LIST
   ======================================================= */
 
-  async function loadFooterTrips(){
+  async function loadTrips(){
 
-    const container =
+    const box =
       document.getElementById(
         "sharedTripList"
       );
 
 
-    if(!container){
+    if(!box){
       return;
     }
 
 
-    container.innerHTML = `
-
+    box.innerHTML = `
       <div class="footer-trip-message">
         Loading your trips…
       </div>
-
     `;
 
 
     try{
 
       const trips =
-        await footerAccessibleTrips();
+        await accessibleTrips();
 
 
-      if(!trips.length){
+      if(
+        !trips.length
+      ){
 
-        container.innerHTML = `
-
+        box.innerHTML = `
           <div class="footer-trip-message">
             No trips available yet.
           </div>
-
         `;
 
         return;
@@ -737,159 +996,192 @@
       }
 
 
-      const currentPage =
-        footerCurrentPage();
+      const page =
+        currentPage();
 
 
-      /* =================================================
-         KEEP SAME PAGE WHEN SWITCHING TRIP
-         INCLUDING EXPENSES.HTML
-      ================================================= */
+      /* Pages where switching trip
+         keeps you on the same page */
 
-      const switchPage =
-        [
-          "index.html",
-          "schedule.html",
-          "food.html",
-          "bookings.html",
-          "expenses.html",
-          "profile.html",
-          "places.html"
-        ]
-        .includes(currentPage)
+      const allowed = [
 
-          ? currentPage
+        "index.html",
+        "schedule.html",
+        "food.html",
+        "bookings.html",
+        "expenses.html",
+        "maps.html",
+        "profile.html",
+        "places.html"
+
+      ];
+
+
+      const target =
+        allowed.includes(page)
+
+          ? page
+
           : "index.html";
 
 
-      container.innerHTML =
-        trips.map(trip => {
+      box.innerHTML =
+        trips.map(
+          trip => {
 
-          const id =
-            Number(trip.id);
-
-
-          const current =
-            id === Number(footerTripId);
-
-
-          const role =
-            trip.__role === "owner"
-              ? "YOUR TRIP"
-              : "SHARED WITH YOU";
+            const id =
+              Number(
+                trip.id
+              );
 
 
-          const dates =
-            trip.start_date &&
-            trip.end_date
+            const current =
+              id ===
+              Number(
+                footerTripId
+              );
 
-              ?
 
-            `${footerFormatDate(
-              trip.start_date
-            )} – ${footerFormatDate(
+            const dates =
+
+              trip.start_date &&
               trip.end_date
-            )}`
 
-              :
+                ?
 
-            "";
+              `${
+                prettyDate(
+                  trip.start_date
+                )
+              } – ${
+                prettyDate(
+                  trip.end_date
+                )
+              }`
 
+                :
 
-          const meta =
-            [
-              trip.country,
-              dates
-            ]
-            .filter(Boolean)
-            .join(" · ");
-
-
-          return `
-
-            <a
-              class="
-                footer-trip-card
-                ${current ? "current" : ""}
-              "
-              href="${switchPage}?trip=${id}"
-            >
-
-              <div class="footer-trip-icon">
-
-                ${footerTripIcon(
-                  trip.country
-                )}
-
-              </div>
+              "";
 
 
-              <div class="footer-trip-main">
-
-                <div class="footer-trip-name">
-
-                  ${footerEsc(
-                    trip.name ||
-                    "Unnamed Trip"
-                  )}
-
-                </div>
+            const meta =
+              [
+                trip.country,
+                dates
+              ]
+              .filter(Boolean)
+              .join(" · ");
 
 
-                <div class="footer-trip-meta">
+            return `
 
-                  ${footerEsc(meta)}
-
-                </div>
-
-
-                <span class="footer-trip-role">
-
+              <a
+                class="
+                  footer-trip-card
                   ${
                     current
-                      ? "CURRENT · "
+                      ? "current"
                       : ""
                   }
+                "
+                href="${target}?trip=${id}"
+              >
 
-                  ${role}
+                <div class="footer-trip-icon">
 
-                </span>
+                  ${
+                    tripIcon(
+                      trip.country
+                    )
+                  }
 
-              </div>
+                </div>
 
 
-              <div class="footer-trip-arrow">
-                →
-              </div>
+                <div>
 
-            </a>
+                  <div class="footer-trip-name">
 
-          `;
+                    ${
+                      esc(
+                        trip.name ||
+                        "Unnamed Trip"
+                      )
+                    }
 
-        }).join("");
+                  </div>
+
+
+                  <div class="footer-trip-meta">
+
+                    ${
+                      esc(meta)
+                    }
+
+                  </div>
+
+
+                  <span class="footer-trip-role">
+
+                    ${
+                      current
+                        ? "CURRENT · "
+                        : ""
+                    }
+
+                    ${
+                      trip.__role ===
+                      "owner"
+
+                        ? "YOUR TRIP"
+
+                        : "SHARED WITH YOU"
+                    }
+
+                  </span>
+
+                </div>
+
+
+                <div class="footer-trip-arrow">
+                  →
+                </div>
+
+              </a>
+
+            `;
+
+          }
+        )
+        .join("");
 
     }
 
     catch(error){
 
       console.error(
-        "Shared footer trip switcher:",
+        "Switch trip:",
         error
       );
 
 
-      container.innerHTML = `
+      box.innerHTML = `
 
-        <div class="footer-trip-message error">
+        <div class="
+          footer-trip-message
+          error
+        ">
 
           Could not load your trips.
 
           <br><br>
 
-          ${footerEsc(
-            error.message ||
-            "Supabase error"
-          )}
+          ${
+            esc(
+              error.message ||
+              "Supabase error"
+            )
+          }
 
         </div>
 
@@ -901,56 +1193,15 @@
 
 
   /* =======================================================
-     RESOLVE TRIP IF URL HAS NO ?trip=
-  ======================================================= */
-
-  async function resolveFooterTrip(){
-
-    if(footerTripId){
-      return;
-    }
-
-
-    try{
-
-      const trips =
-        await footerAccessibleTrips();
-
-
-      if(!trips.length){
-        return;
-      }
-
-
-      footerTripId =
-        Number(
-          trips[0].id
-        );
-
-    }
-
-    catch(error){
-
-      console.warn(
-        "Shared footer could not resolve a trip:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
      START
   ======================================================= */
 
-  async function startSharedFooter(){
+  async function start(){
 
     try{
 
       const loaded =
-        await loadFooterHTML();
+        await loadHTML();
 
 
       if(!loaded){
@@ -958,19 +1209,19 @@
       }
 
 
-      await resolveFooterTrip();
+      await resolveTrip();
 
 
-      setupFooterLinks();
+      setupLinks();
 
-      setupFooterSheets();
+      setupUI();
 
     }
 
     catch(error){
 
       console.error(
-        "Shared footer error:",
+        "Shared radial navigation:",
         error
       );
 
@@ -988,20 +1239,18 @@
           <div
             style="
               position:fixed;
-              left:10px;
-              right:10px;
-              bottom:10px;
-              z-index:999;
-              padding:10px;
+              right:12px;
+              bottom:12px;
+              z-index:9999;
+              padding:8px 10px;
               border:1px solid #5a3434;
               border-radius:10px;
               background:#1a1010;
               color:#ffc5c1;
-              font:12px system-ui,sans-serif;
-              text-align:center;
+              font:11px system-ui;
             "
           >
-            Footer could not load.
+            Menu could not load.
           </div>
 
         `;
@@ -1014,23 +1263,24 @@
 
 
   /* =======================================================
-     WAIT UNTIL PAGE IS READY
+     INITIALIZE
   ======================================================= */
 
   if(
-    document.readyState === "loading"
+    document.readyState ===
+    "loading"
   ){
 
     document.addEventListener(
       "DOMContentLoaded",
-      startSharedFooter
+      start
     );
 
   }
 
   else{
 
-    startSharedFooter();
+    start();
 
   }
 
