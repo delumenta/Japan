@@ -146,6 +146,90 @@ h1{
   cursor:pointer;
 }
 
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.add-top-btn{
+  color:#9cf6ba;
+  border-color:rgba(103,197,135,.38);
+  background:rgba(103,197,135,.08);
+}
+
+.google-add-box{
+  display:none;
+  margin-top:9px;
+  padding:10px;
+  border:1px solid rgba(92,157,255,.24);
+  border-radius:12px;
+  background:rgba(92,157,255,.035);
+}
+
+.google-add-box.show{display:block}
+
+.google-add-title{
+  color:#9fc4ff;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.08em;
+  margin-bottom:3px;
+}
+
+.google-add-sub{
+  color:#71808a;
+  font-size:7px;
+  line-height:1.45;
+  margin-bottom:8px;
+}
+
+.google-add-row{
+  display:grid;
+  grid-template-columns:1fr 84px;
+  gap:7px;
+}
+
+.google-add-row input{
+  min-width:0;
+}
+
+.google-search-btn{
+  border:1px solid rgba(92,157,255,.42);
+  border-radius:10px;
+  background:rgba(92,157,255,.09);
+  color:#b8d3ff;
+  font-size:8px;
+  font-weight:900;
+}
+
+.google-results{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:8px;
+}
+
+.google-result{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:9px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#0e151b;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+
+.google-result-main{flex:1;min-width:0}
+.google-result-name{font-size:8px;font-weight:900}
+.google-result-address{margin-top:2px;color:#7f8b93;font-size:6.5px;line-height:1.35}
+.google-result-use{color:#9cf6ba;font-size:7px;font-weight:900}
+.google-empty{padding:9px;color:#7f8b93;font-size:7px;text-align:center}
+
 .edit-btn.active{
   border-color:rgba(103,197,135,.35);
   background:rgba(103,197,135,.09);
@@ -1217,13 +1301,23 @@ main{
     </div>
 
 
-    <button
-      id="editButton"
-      class="edit-btn"
-      type="button"
-    >
-      ✏️ EDIT
-    </button>
+    <div class="header-actions">
+      <button
+        id="addButton"
+        class="edit-btn add-top-btn"
+        type="button"
+      >
+        ＋ ADD
+      </button>
+
+      <button
+        id="editButton"
+        class="edit-btn"
+        type="button"
+      >
+        ✏️ EDIT
+      </button>
+    </div>
 
   </div>
 
@@ -1431,6 +1525,40 @@ main{
             ＋ ADD NEW PLACE
           </button>
 
+        </div>
+
+        <div
+          id="googleAddBox"
+          class="google-add-box"
+        >
+          <div class="google-add-title">
+            GOOGLE AUTO-VERIFY
+          </div>
+
+          <div class="google-add-sub">
+            Search Google, choose the correct match, and it will be saved to your master Places database automatically.
+          </div>
+
+          <div class="google-add-row">
+            <input
+              id="googleAddSearch"
+              type="search"
+              placeholder="Search Google for a place..."
+              autocomplete="off"
+            >
+            <button
+              id="googleAddSearchButton"
+              class="google-search-btn"
+              type="button"
+            >
+              SEARCH
+            </button>
+          </div>
+
+          <div
+            id="googleAddResults"
+            class="google-results"
+          ></div>
         </div>
 
 
@@ -1662,6 +1790,9 @@ const tripEyebrow =
 const dateScroller =
   document.getElementById("dateScroller");
 
+const addButton =
+  document.getElementById("addButton");
+
 const editButton =
   document.getElementById("editButton");
 
@@ -1712,6 +1843,18 @@ const masterHelpText =
 
 const masterHelpButton =
   document.getElementById("masterHelpButton");
+
+const googleAddBox =
+  document.getElementById("googleAddBox");
+
+const googleAddSearch =
+  document.getElementById("googleAddSearch");
+
+const googleAddSearchButton =
+  document.getElementById("googleAddSearchButton");
+
+const googleAddResults =
+  document.getElementById("googleAddResults");
 
 const fieldDate =
   document.getElementById("fieldDate");
@@ -3103,40 +3246,14 @@ function renderDay(){
             Nothing planned yet
           </strong>
 
-          Turn on Edit and add something to this day.
+          Use ＋ ADD above to add something to this day.
 
         </div>
       `
     }
 
 
-    <div class="add-row">
-
-      <button
-        id="addItemButton"
-        class="add-item-btn"
-        type="button"
-      >
-        ＋ ADD ITEM
-      </button>
-
-    </div>
-
   `;
-
-
-  const addButton =
-    document.getElementById(
-      "addItemButton"
-    );
-
-
-  if(addButton){
-
-    addButton.onclick =
-      openNewItem;
-
-  }
 
 }
 
@@ -3301,8 +3418,12 @@ function timelineHTML(item){
 
 
 /* =========================================================
-   EDIT MODE
+   ADD + EDIT
 ========================================================= */
+
+addButton.onclick =
+  openNewItem;
+
 
 editButton.onclick =
   () => {
@@ -3419,6 +3540,12 @@ function setFormType(type){
     "show"
   );
 
+  googleAddBox.classList.remove(
+    "show"
+  );
+
+  googleAddResults.innerHTML = "";
+
 
   if(type === "custom"){
 
@@ -3481,7 +3608,7 @@ function setFormType(type){
 
 
     masterHelpButton.textContent =
-      "＋ ADD NEW PLACE";
+      "＋ ADD + VERIFY WITH GOOGLE";
 
   }
 
@@ -3531,8 +3658,14 @@ masterHelpButton.onclick =
 
     if(formType === "place"){
 
-      location.href =
-        `places-setup.html?trip=${TRIP_ID}`;
+      googleAddBox.classList.add("show");
+
+      googleAddSearch.value =
+        entitySearch.value.trim();
+
+      googleAddResults.innerHTML = "";
+
+      googleAddSearch.focus();
 
     }
 
@@ -3547,6 +3680,624 @@ masterHelpButton.onclick =
     }
 
   };
+
+
+/* =========================================================
+   GOOGLE AUTO-VERIFY NEW PLACE
+========================================================= */
+
+let googleAddMatches = [];
+
+
+function googleRegionCode(country){
+
+  const value =
+    norm(country);
+
+  if(value.includes("japan")) return "jp";
+  if(value.includes("singapore")) return "sg";
+  if(value.includes("taiwan")) return "tw";
+  if(value.includes("korea")) return "kr";
+  if(value.includes("china")) return "cn";
+  if(value.includes("thailand")) return "th";
+  if(value.includes("malaysia")) return "my";
+  if(value.includes("indonesia")) return "id";
+
+  return undefined;
+
+}
+
+
+function googleLat(place){
+
+  if(!place?.location){
+    return null;
+  }
+
+  return typeof place.location.lat === "function"
+    ? place.location.lat()
+    : place.location.lat;
+
+}
+
+
+function googleLng(place){
+
+  if(!place?.location){
+    return null;
+  }
+
+  return typeof place.location.lng === "function"
+    ? place.location.lng()
+    : place.location.lng;
+
+}
+
+
+googleAddSearchButton.onclick =
+  searchGoogleForNewPlace;
+
+
+googleAddSearch.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+
+      event.preventDefault();
+
+      searchGoogleForNewPlace();
+
+    }
+
+  }
+);
+
+
+async function searchGoogleForNewPlace(){
+
+  const raw =
+    googleAddSearch.value.trim();
+
+
+  if(!raw){
+
+    googleAddResults.innerHTML =
+      `<div class="google-empty">
+        Enter a place name first.
+       </div>`;
+
+    return;
+
+  }
+
+
+  googleAddSearchButton.disabled = true;
+
+  googleAddSearchButton.textContent =
+    "SEARCHING…";
+
+
+  googleAddResults.innerHTML =
+    `<div class="google-empty">
+      Searching Google…
+     </div>`;
+
+
+  try{
+
+    if(
+      typeof window.getGooglePlaces !==
+      "function"
+    ){
+
+      throw new Error(
+        "google-maps.js is not ready."
+      );
+
+    }
+
+
+    const library =
+      await window.getGooglePlaces();
+
+
+    const PlaceClass =
+      library.Place;
+
+
+    if(
+      !PlaceClass ||
+      typeof PlaceClass.searchByText !==
+      "function"
+    ){
+
+      throw new Error(
+        "Google Place text search is unavailable."
+      );
+
+    }
+
+
+    const country =
+      trip?.country || "";
+
+
+    const query =
+      country &&
+      !norm(raw).includes(
+        norm(country)
+      )
+      ?
+      `${raw} ${country}`
+      :
+      raw;
+
+
+    const request = {
+
+      textQuery:
+        query,
+
+      fields:[
+        "id",
+        "displayName",
+        "formattedAddress",
+        "location",
+        "googleMapsURI"
+      ],
+
+      maxResultCount:
+        5
+
+    };
+
+
+    const region =
+      googleRegionCode(
+        country
+      );
+
+
+    if(region){
+      request.region = region;
+    }
+
+
+    const response =
+      await PlaceClass.searchByText(
+        request
+      );
+
+
+    googleAddMatches =
+      response.places || [];
+
+
+    renderGoogleAddMatches();
+
+  }
+
+
+  catch(error){
+
+    console.error(
+      "Google add place:",
+      error
+    );
+
+
+    googleAddResults.innerHTML =
+      `<div class="google-empty">
+        ${esc(
+          error.message ||
+          "Google search failed."
+        )}
+       </div>`;
+
+  }
+
+
+  finally{
+
+    googleAddSearchButton.disabled =
+      false;
+
+    googleAddSearchButton.textContent =
+      "SEARCH";
+
+  }
+
+}
+
+
+function renderGoogleAddMatches(){
+
+  if(!googleAddMatches.length){
+
+    googleAddResults.innerHTML =
+      `<div class="google-empty">
+        No Google matches found. Try a different search.
+       </div>`;
+
+    return;
+
+  }
+
+
+  googleAddResults.innerHTML =
+    googleAddMatches
+      .map(
+        (place,index) => {
+
+          return `
+
+            <button
+              class="google-result"
+              type="button"
+              data-google-index="${index}"
+            >
+
+              <div class="google-result-main">
+
+                <div class="google-result-name">
+                  ${esc(
+                    place.displayName ||
+                    "Unnamed Google Place"
+                  )}
+                </div>
+
+                <div class="google-result-address">
+                  ${esc(
+                    place.formattedAddress ||
+                    "Address unavailable"
+                  )}
+                </div>
+
+              </div>
+
+              <div class="google-result-use">
+                USE
+              </div>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  googleAddResults
+    .querySelectorAll(
+      "[data-google-index]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            saveVerifiedGooglePlace(
+              Number(
+                button.dataset.googleIndex
+              ),
+              button
+            );
+
+          };
+
+      }
+    );
+
+}
+
+
+async function saveVerifiedGooglePlace(
+  index,
+  button
+){
+
+  const googlePlace =
+    googleAddMatches[index];
+
+
+  if(!googlePlace){
+    return;
+  }
+
+
+  const providerId =
+    googlePlace.id || null;
+
+
+  const lat =
+    googleLat(
+      googlePlace
+    );
+
+
+  const lng =
+    googleLng(
+      googlePlace
+    );
+
+
+  if(
+    !providerId ||
+    lat === null ||
+    lng === null
+  ){
+
+    formMessage.textContent =
+      "Google did not return a usable place ID and coordinates.";
+
+    formMessage.className =
+      "form-message error";
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+
+  const useLabel =
+    button.querySelector(
+      ".google-result-use"
+    );
+
+
+  if(useLabel){
+    useLabel.textContent = "SAVING…";
+  }
+
+
+  try{
+
+    /*
+      First reuse an existing verified master place.
+      This prevents duplicate Google places.
+    */
+
+    const existing =
+      await db
+        .from("places")
+        .select("*")
+        .eq(
+          "provider",
+          "google"
+        )
+        .eq(
+          "provider_place_id",
+          providerId
+        )
+        .maybeSingle();
+
+
+    if(existing.error){
+      throw existing.error;
+    }
+
+
+    let savedPlace =
+      existing.data || null;
+
+
+    if(!savedPlace){
+
+      const payload = {
+
+        name:
+          googlePlace.displayName ||
+          googleAddSearch.value.trim(),
+
+        country:
+          trip?.country ||
+          null,
+
+        provider:
+          "google",
+
+        provider_place_id:
+          providerId,
+
+        latitude:
+          Number(lat),
+
+        longitude:
+          Number(lng),
+
+        address:
+          googlePlace.formattedAddress ||
+          null,
+
+        maps_url:
+          googlePlace.googleMapsURI ||
+          null,
+
+        updated_at:
+          new Date().toISOString()
+
+      };
+
+
+      const created =
+        await db
+          .from("places")
+          .insert(
+            payload
+          )
+          .select()
+          .single();
+
+
+      if(created.error){
+
+        /*
+          If another request created the same Google
+          place at the same time, fetch and reuse it.
+        */
+
+        if(created.error.code === "23505"){
+
+          const duplicate =
+            await db
+              .from("places")
+              .select("*")
+              .eq(
+                "provider",
+                "google"
+              )
+              .eq(
+                "provider_place_id",
+                providerId
+              )
+              .single();
+
+
+          if(duplicate.error){
+            throw duplicate.error;
+          }
+
+
+          savedPlace =
+            duplicate.data;
+
+        }
+
+
+        else{
+          throw created.error;
+        }
+
+      }
+
+
+      else{
+
+        savedPlace =
+          created.data;
+
+      }
+
+    }
+
+
+    const placeIndex =
+      places.findIndex(
+        row =>
+          Number(row.id) ===
+          Number(savedPlace.id)
+      );
+
+
+    if(placeIndex >= 0){
+
+      places[placeIndex] =
+        savedPlace;
+
+    }
+
+
+    else{
+
+      places.push(
+        savedPlace
+      );
+
+
+      places.sort(
+        (a,b) =>
+          String(a.name || "")
+            .localeCompare(
+              String(b.name || "")
+            )
+      );
+
+    }
+
+
+    selectedPlaceId =
+      savedPlace.id;
+
+    selectedRestaurantId =
+      null;
+
+
+    entitySearch.value =
+      savedPlace.name || "";
+
+
+    fieldTitle.value =
+      savedPlace.name || "";
+
+
+    fieldLocation.value =
+      [
+        savedPlace.area,
+        savedPlace.city,
+        savedPlace.prefecture
+      ]
+      .filter(Boolean)
+      .join(", ") ||
+      savedPlace.address ||
+      "";
+
+
+    googleAddBox.classList.remove(
+      "show"
+    );
+
+
+    googleAddResults.innerHTML = "";
+
+
+    entityResults.classList.remove(
+      "show"
+    );
+
+
+    updateSelectedEntity();
+
+
+    formMessage.textContent =
+      "Google verified ✓ Place saved and selected.";
+
+    formMessage.className =
+      "form-message success";
+
+  }
+
+
+  catch(error){
+
+    console.error(
+      "Save verified Google place:",
+      error
+    );
+
+
+    formMessage.textContent =
+      error.message ||
+      "Could not save this Google place.";
+
+    formMessage.className =
+      "form-message error";
+
+
+    button.disabled = false;
+
+
+    if(useLabel){
+      useLabel.textContent = "USE";
+    }
+
+  }
+
+}
 
 
 /* =========================================================
@@ -3587,6 +4338,12 @@ function openNewItem(){
   fieldOptional.checked = false;
 
   entitySearch.value = "";
+
+  googleAddSearch.value = "";
+
+  googleAddResults.innerHTML = "";
+
+  googleAddBox.classList.remove("show");
 
 
   setFormType(
@@ -3846,7 +4603,11 @@ function renderEntityResults(queryValue){
 
         <br><br>
 
-        Add it to your master database first.
+        ${
+          formType === "place"
+          ? "Use “ADD + VERIFY WITH GOOGLE” below."
+          : "Add it to your saved restaurants first."
+        }
 
       </div>
 
