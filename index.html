@@ -236,6 +236,33 @@ h1{
   font-size:12px;
 }
 
+.block.eaten{
+  opacity:.58;
+}
+
+.block.eaten .block-name{
+  text-decoration:line-through;
+  text-decoration-thickness:1px;
+}
+
+.block-eaten{
+  flex:0 0 auto;
+  min-height:29px;
+  padding:0 8px;
+  border:1px solid rgba(103,197,135,.26);
+  border-radius:8px;
+  background:rgba(103,197,135,.08);
+  color:#a9e8bb;
+  font-size:6px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.block-eaten.done{
+  color:#88aa93;
+  background:rgba(103,197,135,.04);
+}
+
 /* =========================================================
    FULL PLAN
 ========================================================= */
@@ -1604,8 +1631,7 @@ function savedRestaurantHTML(row){
       [
         row.name,
         row.area,
-        row.city,
-        "Japan"
+        row.city
       ]
       .filter(Boolean)
       .join(" ")
@@ -1742,22 +1768,59 @@ async function getSavedPicksNearby(
   userLng
 ){
 
-  const result =
+  /*
+    Picks and Eaten are trip-specific states stored in trip_restaurants.
+    Restaurant details stay in restaurants.
+  */
+
+  const relationResult =
+    await db
+      .from("trip_restaurants")
+      .select("*")
+      .eq("trip_id",TRIP_ID)
+      .eq("is_pick",true)
+      .eq("is_eaten",false);
+
+
+  if(relationResult.error){
+    throw relationResult.error;
+  }
+
+
+  const relations =
+    relationResult.data || [];
+
+
+  const ids =
+    [
+      ...new Set(
+        relations
+          .map(row => Number(row.restaurant_id))
+          .filter(Number.isFinite)
+      )
+    ];
+
+
+  if(!ids.length){
+    return [];
+  }
+
+
+  const restaurantResult =
     await db
       .from("restaurants")
       .select("*")
-      .eq("trip_id",TRIP_ID);
+      .in("id",ids);
 
 
-  if(result.error){
-    throw result.error;
+  if(restaurantResult.error){
+    throw restaurantResult.error;
   }
 
 
   return (
-    result.data || []
+    restaurantResult.data || []
   )
-  .filter(restaurantIsPick)
   .map(row => {
 
     const coords =
@@ -1793,7 +1856,6 @@ async function getSavedPicksNearby(
   .slice(0,3);
 
 }
-
 
 async function getGoogleRestaurantsNearby(
   userLat,
@@ -2215,7 +2277,8 @@ async function loadTripFromDatabase(){
 
     const [
       tripResult,
-      scheduleResult
+      scheduleResult,
+      restaurantStateResult
     ] =
       await Promise.all([
 
@@ -2236,7 +2299,12 @@ async function loadTripFromDatabase(){
           .order(
             "sort_order",
             {ascending:true}
-          )
+          ),
+
+        db
+          .from("trip_restaurants")
+          .select("restaurant_id,is_eaten,eaten_at")
+          .eq("trip_id",TRIP_ID)
 
       ]);
 
@@ -2249,12 +2317,86 @@ async function loadTripFromDatabase(){
       throw scheduleResult.error;
     }
 
+    if(restaurantStateResult.error){
+      throw restaurantStateResult.error;
+    }
+
 
     const trip =
       tripResult.data;
 
     const rows =
       scheduleResult.data || [];
+
+
+    const restaurantState =
+      new Map(
+        (restaurantStateResult.data || [])
+          .map(row => [
+            Number(row.restaurant_id),
+            row
+          ])
+      );
+
+
+    function restaurantEaten(row){
+
+      if(!row.restaurant_id){
+        return false;
+      }
+
+      return Boolean(
+        restaurantState
+          .get(Number(row.restaurant_id))
+          ?.is_eaten
+      );
+
+    }
+
+
+    async function toggleRestaurantEaten(row){
+
+      if(!row.restaurant_id){
+        return;
+      }
+
+      const id =
+        Number(row.restaurant_id);
+
+      const current =
+        restaurantState.get(id);
+
+      const value =
+        !Boolean(current?.is_eaten);
+
+
+      const result =
+        await db
+          .from("trip_restaurants")
+          .update({
+            is_eaten:value,
+            eaten_at:
+              value
+                ? new Date().toISOString()
+                : null
+          })
+          .eq("trip_id",TRIP_ID)
+          .eq("restaurant_id",id)
+          .select("restaurant_id,is_eaten,eaten_at")
+          .single();
+
+
+      if(result.error){
+        throw result.error;
+      }
+
+
+      restaurantState.set(
+        id,
+        result.data
+      );
+
+    }
 
 
     /* -----------------------------------------------
@@ -2734,10 +2876,16 @@ async function loadTripFromDatabase(){
           const map =
             mapFor(row);
 
+          const eaten =
+            restaurantEaten(row);
+
+          const canMarkEaten =
+            Boolean(row.restaurant_id);
+
 
           return `
 
-            <div class="block">
+            <div class="block ${eaten ? "eaten" : ""}">
 
               <div class="block-head">
 
@@ -2764,6 +2912,22 @@ async function loadTripFromDatabase(){
                   }
 
                 </div>
+
+                ${
+                  canMarkEaten
+                    ?
+                  `
+                    <button
+                      class="block-eaten ${eaten ? "done" : ""}"
+                      type="button"
+                      data-eaten-restaurant="${Number(row.restaurant_id)}"
+                    >
+                      ${eaten ? "✓ EATEN" : "EATEN"}
+                    </button>
+                  `
+                    :
+                  ""
+                }
 
                 ${
                   map
@@ -2855,6 +3019,65 @@ async function loadTripFromDatabase(){
                 false;
 
               renderDynamic();
+
+            };
+
+        });
+
+
+      document
+        .querySelectorAll(
+          "[data-eaten-restaurant]"
+        )
+        .forEach(button => {
+
+          button.onclick =
+            async () => {
+
+              const restaurantId =
+                Number(
+                  button.dataset.eatenRestaurant
+                );
+
+              const row =
+                dayRows.find(
+                  item =>
+                    Number(item.restaurant_id) === restaurantId
+                );
+
+
+              if(!row){
+                return;
+              }
+
+
+              button.disabled = true;
+
+
+              try{
+
+                await toggleRestaurantEaten(row);
+
+                nearbyLoaded = false;
+
+                renderDynamic();
+
+              }
+              catch(error){
+
+                console.error(
+                  "Eaten update error:",
+                  error
+                );
+
+                alert(
+                  error.message ||
+                  "Couldn't update Eaten."
+                );
+
+                button.disabled = false;
+
+              }
 
             };
 
