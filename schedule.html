@@ -13,7 +13,6 @@
 
 <title>Plan · Travel</title>
 
-
 <style>
 
 :root{
@@ -125,7 +124,7 @@ h1{
 }
 
 .trip-name{
-  margin-top:2px;
+  margin-top:3px;
   color:var(--muted);
   font-size:8px;
 }
@@ -134,14 +133,10 @@ h1{
   min-height:35px;
   padding:6px 10px;
 
-  border:
-    1px solid
-    rgba(201,111,104,.35);
-
+  border:1px solid rgba(201,111,104,.35);
   border-radius:10px;
 
-  background:
-    rgba(201,111,104,.10);
+  background:rgba(201,111,104,.10);
 
   color:#f4d4d1;
 
@@ -152,12 +147,8 @@ h1{
 }
 
 .edit-btn.active{
-  border-color:
-    rgba(103,197,135,.35);
-
-  background:
-    rgba(103,197,135,.09);
-
+  border-color:rgba(103,197,135,.35);
+  background:rgba(103,197,135,.09);
   color:#aee5bf;
 }
 
@@ -233,9 +224,7 @@ h1{
 
 .date-btn.active{
   border-color:var(--red);
-
-  background:
-    rgba(201,111,104,.12);
+  background:rgba(201,111,104,.12);
 }
 
 .date-btn.active .date-weekday,
@@ -305,9 +294,7 @@ main{
   border:1px solid var(--line);
   border-radius:14px;
 
-  padding:
-    7px
-    11px;
+  padding:7px 11px;
 
   background:
     linear-gradient(
@@ -332,9 +319,7 @@ main{
 
   min-height:47px;
 
-  padding:
-    7px
-    0;
+  padding:7px 0;
 }
 
 .timeline-row:not(:last-child)::after{
@@ -428,13 +413,25 @@ main{
 
   padding:1px 4px;
 
-  border:
-    1px solid
-    rgba(227,184,92,.22);
-
+  border:1px solid rgba(227,184,92,.22);
   border-radius:999px;
 
   color:var(--gold);
+
+  font-size:6px;
+}
+
+.locked{
+  display:inline-block;
+
+  margin-left:4px;
+
+  padding:1px 4px;
+
+  border:1px solid rgba(103,197,135,.22);
+  border-radius:999px;
+
+  color:#aee5bf;
 
   font-size:6px;
 }
@@ -469,7 +466,6 @@ main{
 
 .add-row{
   display:none;
-
   margin-top:8px;
 }
 
@@ -482,14 +478,10 @@ main{
 
   min-height:41px;
 
-  border:
-    1px dashed
-    rgba(201,111,104,.42);
-
+  border:1px dashed rgba(201,111,104,.42);
   border-radius:11px;
 
-  background:
-    rgba(201,111,104,.06);
+  background:rgba(201,111,104,.06);
 
   color:#e2a19b;
 
@@ -507,10 +499,7 @@ main{
 .state{
   padding:28px 16px;
 
-  border:
-    1px dashed
-    #35414a;
-
+  border:1px dashed #35414a;
   border-radius:14px;
 
   text-align:center;
@@ -518,6 +507,7 @@ main{
   color:var(--muted);
 
   font-size:9px;
+  line-height:1.55;
 }
 
 .state strong{
@@ -532,30 +522,46 @@ main{
 
 
 /* =========================================================
-   SHEET
+   SHEETS
 ========================================================= */
 
-.sheet-backdrop{
+.sheet-backdrop,
+.more-backdrop,
+.trip-backdrop{
   position:fixed;
 
   inset:0;
 
-  z-index:100;
-
   display:none;
   align-items:flex-end;
 
-  background:
-    rgba(0,0,0,.7);
+  background:rgba(0,0,0,.70);
 
   backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
 }
 
-.sheet-backdrop.open{
+.sheet-backdrop{
+  z-index:100;
+}
+
+.more-backdrop{
+  z-index:150;
+}
+
+.trip-backdrop{
+  z-index:170;
+}
+
+.sheet-backdrop.open,
+.more-backdrop.open,
+.trip-backdrop.open{
   display:flex;
 }
 
-.sheet{
+.sheet,
+.more-sheet,
+.trip-sheet{
   width:100%;
 
   max-height:
@@ -568,9 +574,7 @@ main{
     14px
     calc(18px + env(safe-area-inset-bottom));
 
-  border:
-    1px solid
-    var(--line);
+  border:1px solid var(--line);
 
   border-radius:
     20px
@@ -579,6 +583,12 @@ main{
     0;
 
   background:#0d1318;
+}
+
+.more-sheet,
+.trip-sheet{
+  max-width:760px;
+  margin:0 auto;
 }
 
 .sheet-handle{
@@ -595,7 +605,8 @@ main{
   background:#39454d;
 }
 
-.sheet-head{
+.sheet-head,
+.more-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -605,7 +616,8 @@ main{
   margin-bottom:12px;
 }
 
-.sheet-title{
+.sheet-title,
+.more-title{
   font-family:
     Georgia,
     "Times New Roman",
@@ -614,7 +626,8 @@ main{
   font-size:19px;
 }
 
-.close-btn{
+.close-btn,
+.more-close{
   width:34px;
   height:34px;
 
@@ -661,33 +674,25 @@ main{
 }
 
 .type-btn.active{
-  border-color:
-    rgba(201,111,104,.5);
-
-  background:
-    rgba(201,111,104,.11);
-
+  border-color:rgba(201,111,104,.5);
+  background:rgba(201,111,104,.11);
   color:#fff;
 }
 
 
 /* =========================================================
-   SAVED ENTITY PICKER
+   ENTITY PICKER
 ========================================================= */
 
 .entity-picker{
   grid-column:1/-1;
 
-  border:
-    1px solid
-    rgba(92,157,255,.20);
-
+  border:1px solid rgba(92,157,255,.20);
   border-radius:12px;
 
   padding:10px;
 
-  background:
-    rgba(92,157,255,.045);
+  background:rgba(92,157,255,.045);
 }
 
 .entity-picker-title{
@@ -780,9 +785,7 @@ main{
   padding:10px;
 
   border:0;
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.055);
+  border-bottom:1px solid rgba(255,255,255,.055);
 
   background:transparent;
 
@@ -798,8 +801,7 @@ main{
 }
 
 .entity-result:active{
-  background:
-    rgba(255,255,255,.04);
+  background:rgba(255,255,255,.04);
 }
 
 .entity-result-icon{
@@ -881,14 +883,10 @@ main{
 
   padding:9px 10px;
 
-  border:
-    1px solid
-    rgba(103,197,135,.25);
-
+  border:1px solid rgba(103,197,135,.25);
   border-radius:10px;
 
-  background:
-    rgba(103,197,135,.06);
+  background:rgba(103,197,135,.06);
 }
 
 .selected-entity.show{
@@ -907,8 +905,7 @@ main{
 
   border-radius:8px;
 
-  background:
-    rgba(103,197,135,.08);
+  background:rgba(103,197,135,.08);
 
   font-size:15px;
 }
@@ -953,14 +950,10 @@ main{
 
   padding:5px 8px;
 
-  border:
-    1px solid
-    rgba(103,197,135,.22);
-
+  border:1px solid rgba(103,197,135,.22);
   border-radius:8px;
 
-  background:
-    rgba(103,197,135,.05);
+  background:rgba(103,197,135,.05);
 
   color:#9dd9b0;
 
@@ -972,7 +965,7 @@ main{
 
 
 /* =========================================================
-   ADD NEW MASTER LINK
+   MASTER HELP
 ========================================================= */
 
 .master-help{
@@ -985,14 +978,9 @@ main{
 
   gap:8px;
 
-  padding:
-    8px
-    9px;
+  padding:8px 9px;
 
-  border:
-    1px dashed
-    #35414a;
-
+  border:1px dashed #35414a;
   border-radius:9px;
 
   color:#7f8b93;
@@ -1009,14 +997,10 @@ main{
 
   padding:5px 8px;
 
-  border:
-    1px solid
-    rgba(92,157,255,.25);
-
+  border:1px solid rgba(92,157,255,.25);
   border-radius:8px;
 
-  background:
-    rgba(92,157,255,.06);
+  background:rgba(92,157,255,.06);
 
   color:#9bc4ff;
 
@@ -1063,9 +1047,7 @@ main{
 
   min-height:40px;
 
-  padding:
-    8px
-    9px;
+  padding:8px 9px;
 
   border:1px solid var(--line);
   border-radius:9px;
@@ -1081,7 +1063,6 @@ main{
 
 .field textarea{
   min-height:65px;
-
   resize:vertical;
 }
 
@@ -1090,11 +1071,6 @@ main{
 .field select:focus{
   border-color:var(--red);
 }
-
-
-/* =========================================================
-   CHECK
-========================================================= */
 
 .check-row{
   display:flex;
@@ -1106,9 +1082,7 @@ main{
 
   margin-top:9px;
 
-  padding:
-    7px
-    9px;
+  padding:7px 9px;
 
   border:1px solid var(--line);
   border-radius:9px;
@@ -1125,11 +1099,6 @@ main{
   width:15px;
   height:15px;
 }
-
-
-/* =========================================================
-   FORM BUTTONS
-========================================================= */
 
 .sheet-actions{
   display:grid;
@@ -1156,24 +1125,14 @@ main{
 }
 
 .delete-btn{
-  border:
-    1px solid
-    rgba(201,111,104,.25);
-
-  background:
-    rgba(201,111,104,.05);
-
+  border:1px solid rgba(201,111,104,.25);
+  background:rgba(201,111,104,.05);
   color:#d98a83;
 }
 
 .save-btn{
-  border:
-    1px solid
-    rgba(103,197,135,.32);
-
-  background:
-    rgba(103,197,135,.10);
-
+  border:1px solid rgba(103,197,135,.32);
+  background:rgba(103,197,135,.10);
   color:#aee5bf;
 }
 
@@ -1197,95 +1156,22 @@ main{
 .form-message.error{
   display:block;
 
-  border:
-    1px solid
-    rgba(201,111,104,.25);
+  border:1px solid rgba(201,111,104,.25);
 
-  background:
-    rgba(201,111,104,.07);
+  background:rgba(201,111,104,.07);
 
   color:#ffc5c1;
 }
 
 
 /* =========================================================
-   MORE SHEET
+   MORE
 ========================================================= */
-
-.more-backdrop{
-  position:fixed;
-
-  inset:0;
-
-  z-index:150;
-
-  display:none;
-  align-items:flex-end;
-
-  background:
-    rgba(0,0,0,.68);
-
-  backdrop-filter:blur(4px);
-}
-
-.more-backdrop.open{
-  display:flex;
-}
-
-.more-sheet{
-  width:100%;
-  max-width:760px;
-  margin:0 auto;
-
-  padding:
-    8px
-    13px
-    calc(18px + env(safe-area-inset-bottom));
-
-  border:1px solid var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
-  background:#0d1318;
-}
-
-.more-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:9px;
-}
-
-.more-title{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-}
-
-.more-close{
-  width:32px;
-  height:32px;
-
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  background:#151c22;
-
-  color:#fff;
-
-  cursor:pointer;
-}
 
 .more-link{
   min-height:58px;
+
+  width:100%;
 
   display:flex;
   align-items:center;
@@ -1303,6 +1189,13 @@ main{
   color:#fff;
 
   text-decoration:none;
+  text-align:left;
+
+  cursor:pointer;
+}
+
+button.more-link{
+  appearance:none;
 }
 
 .more-link-icon{
@@ -1315,6 +1208,7 @@ main{
 
 .more-link-main{
   flex:1;
+  min-width:0;
 }
 
 .more-link-title{
@@ -1333,6 +1227,118 @@ main{
 .more-link-arrow{
   color:#8d9aa2;
   font-size:12px;
+}
+
+
+/* =========================================================
+   SWITCH TRIP
+========================================================= */
+
+.trip-sheet-sub{
+  margin:-5px 0 11px;
+
+  color:#74818a;
+
+  font-size:7px;
+  line-height:1.45;
+}
+
+.trip-list{
+  display:grid;
+  gap:6px;
+}
+
+.trip-card{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+
+  min-height:62px;
+
+  padding:10px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:#11181e;
+
+  color:#fff;
+
+  text-align:left;
+
+  cursor:pointer;
+}
+
+.trip-card.current{
+  border-color:rgba(201,111,104,.45);
+  background:rgba(201,111,104,.08);
+}
+
+.trip-card-icon{
+  flex:0 0 32px;
+
+  width:32px;
+  height:32px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  background:#182028;
+
+  font-size:17px;
+}
+
+.trip-card-main{
+  min-width:0;
+  flex:1;
+}
+
+.trip-card-label{
+  margin-bottom:2px;
+
+  color:#8d9aa2;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:.08em;
+}
+
+.trip-card-name{
+  font-size:9px;
+  font-weight:900;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.trip-card-meta{
+  margin-top:3px;
+
+  color:#77858f;
+
+  font-size:6.5px;
+}
+
+.trip-card-arrow{
+  color:#8d9aa2;
+}
+
+.trip-loading{
+  padding:20px 10px;
+
+  color:#89959d;
+
+  text-align:center;
+
+  font-size:8px;
 }
 
 
@@ -1363,10 +1369,10 @@ main{
 
   border-top:1px solid var(--line);
 
-  background:
-    rgba(7,12,16,.98);
+  background:rgba(7,12,16,.98);
 
   backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 }
 
 .bottom-nav a,
@@ -1404,12 +1410,9 @@ main{
 .bottom-nav .active{
   color:#fff;
 
-  border:
-    1px solid
-    rgba(201,111,104,.22);
+  border:1px solid rgba(201,111,104,.22);
 
-  background:
-    rgba(201,111,104,.08);
+  background:rgba(201,111,104,.08);
 }
 
 
@@ -1430,8 +1433,7 @@ main{
 
     width:min(820px,100%);
 
-    transform:
-      translateX(-50%);
+    transform:translateX(-50%);
   }
 
 }
@@ -1519,7 +1521,7 @@ main{
 
 
 <!-- =========================================================
-     EDIT / ADD SHEET
+     EDIT SHEET
 ========================================================= -->
 
 <div
@@ -1531,7 +1533,6 @@ main{
 
     <div class="sheet-handle"></div>
 
-
     <div class="sheet-head">
 
       <div
@@ -1540,7 +1541,6 @@ main{
       >
         Edit Schedule
       </div>
-
 
       <button
         id="closeSheet"
@@ -1552,8 +1552,6 @@ main{
 
     </div>
 
-
-    <!-- TYPE -->
 
     <div
       id="typeGrid"
@@ -1568,7 +1566,6 @@ main{
         📍 PLACE
       </button>
 
-
       <button
         class="type-btn"
         type="button"
@@ -1576,7 +1573,6 @@ main{
       >
         🍽 FOOD
       </button>
-
 
       <button
         class="type-btn"
@@ -1593,11 +1589,6 @@ main{
 
       <div class="form-grid">
 
-
-        <!-- ===============================================
-             SAVED PLACE / RESTAURANT PICKER
-        ================================================ -->
-
         <div
           id="entityPicker"
           class="entity-picker"
@@ -1610,14 +1601,12 @@ main{
             📍 CHOOSE FROM SAVED PLACES
           </div>
 
-
           <div
             id="entityPickerSub"
             class="entity-picker-sub"
           >
-            Search your master Places database.
+            Search your saved places.
           </div>
-
 
           <div class="entity-search-wrap">
 
@@ -1635,7 +1624,6 @@ main{
 
           </div>
 
-
           <div
             id="entityResults"
             class="entity-results"
@@ -1643,10 +1631,6 @@ main{
 
         </div>
 
-
-        <!-- ===============================================
-             SELECTED ENTITY
-        ================================================ -->
 
         <div
           id="selectedEntity"
@@ -1659,7 +1643,6 @@ main{
           >
             📍
           </div>
-
 
           <div class="selected-main">
 
@@ -1682,7 +1665,6 @@ main{
 
           </div>
 
-
           <button
             id="changeEntityButton"
             class="change-entity"
@@ -1694,10 +1676,6 @@ main{
         </div>
 
 
-        <!-- ===============================================
-             MASTER LIST HELP
-        ================================================ -->
-
         <div
           id="masterHelp"
           class="master-help"
@@ -1706,7 +1684,6 @@ main{
           <span id="masterHelpText">
             Can't find the place?
           </span>
-
 
           <button
             id="masterHelpButton"
@@ -1717,8 +1694,6 @@ main{
 
         </div>
 
-
-        <!-- DATE -->
 
         <div class="field">
 
@@ -1735,8 +1710,6 @@ main{
         </div>
 
 
-        <!-- TIME -->
-
         <div class="field">
 
           <label>
@@ -1751,8 +1724,6 @@ main{
         </div>
 
 
-        <!-- TIME LABEL -->
-
         <div class="field full">
 
           <label>
@@ -1766,8 +1737,6 @@ main{
 
         </div>
 
-
-        <!-- TITLE -->
 
         <div class="field full">
 
@@ -1784,8 +1753,6 @@ main{
         </div>
 
 
-        <!-- LOCATION -->
-
         <div class="field full">
 
           <label>
@@ -1799,8 +1766,6 @@ main{
 
         </div>
 
-
-        <!-- NOTES -->
 
         <div class="field full">
 
@@ -1840,7 +1805,6 @@ main{
           🗑 DELETE
         </button>
 
-
         <button
           id="saveButton"
           class="save-btn"
@@ -1878,13 +1842,11 @@ main{
 
     <div class="sheet-handle"></div>
 
-
     <div class="more-head">
 
       <div class="more-title">
         More
       </div>
-
 
       <button
         id="closeMore"
@@ -1925,10 +1887,10 @@ main{
     </a>
 
 
-    <a
-      id="tripsLink"
+    <button
+      id="switchTripButton"
       class="more-link"
-      href="trips.html"
+      type="button"
     >
 
       <div class="more-link-icon">
@@ -1938,11 +1900,11 @@ main{
       <div class="more-link-main">
 
         <div class="more-link-title">
-          My Trips
+          Switch Trip
         </div>
 
         <div class="more-link-sub">
-          Create · open · switch trips
+          Open another trip
         </div>
 
       </div>
@@ -1951,13 +1913,12 @@ main{
         →
       </div>
 
-    </a>
+    </button>
 
 
     <a
       id="placesLink"
       class="more-link"
-      href="places-setup.html"
     >
 
       <div class="more-link-icon">
@@ -1971,7 +1932,7 @@ main{
         </div>
 
         <div class="more-link-sub">
-          Manage your master places
+          Manage your saved places
         </div>
 
       </div>
@@ -1989,7 +1950,57 @@ main{
 
 
 <!-- =========================================================
-     NAV
+     SWITCH TRIP SHEET
+========================================================= -->
+
+<div
+  id="tripBackdrop"
+  class="trip-backdrop"
+>
+
+  <div class="trip-sheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="sheet-head">
+
+      <div class="sheet-title">
+        🧳 Switch Trip
+      </div>
+
+      <button
+        id="closeTrips"
+        class="close-btn"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="trip-sheet-sub">
+      Your trips and trips shared with you.
+    </div>
+
+    <div
+      id="tripList"
+      class="trip-list"
+    >
+
+      <div class="trip-loading">
+        Loading trips…
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     BOTTOM NAV
 ========================================================= -->
 
 <nav
@@ -2083,11 +2094,10 @@ main{
 <script src="supabase.js"></script>
 
 
-
 <script>
 
 /* =========================================================
-   TRIP
+   GLOBAL STATE
 ========================================================= */
 
 const params =
@@ -2096,10 +2106,10 @@ const params =
   );
 
 
-const urlTripId =
+const requestedTripId =
   Number(
     params.get("trip")
-  );
+  ) || null;
 
 
 const savedTripId =
@@ -2107,35 +2117,20 @@ const savedTripId =
     localStorage.getItem(
       "current_trip_id"
     )
-  );
+  ) || null;
 
 
-const TRIP_ID =
-  urlTripId ||
+let TRIP_ID =
+  requestedTripId ||
   savedTripId ||
-  1;
+  null;
 
 
-/*
-  Remember the trip if it came
-  from the URL.
-*/
-
-if(TRIP_ID){
-
-  localStorage.setItem(
-    "current_trip_id",
-    String(TRIP_ID)
-  );
-
-}
-
-
-/* =========================================================
-   DATA
-========================================================= */
+let currentUser = null;
 
 let trip = null;
+
+let accessibleTrips = [];
 
 let schedule = [];
 
@@ -2163,223 +2158,106 @@ let selectedRestaurantId = null;
 ========================================================= */
 
 const main =
-  document.getElementById(
-    "main"
-  );
-
+  document.getElementById("main");
 
 const tripName =
-  document.getElementById(
-    "tripName"
-  );
-
+  document.getElementById("tripName");
 
 const tripEyebrow =
-  document.getElementById(
-    "tripEyebrow"
-  );
-
+  document.getElementById("tripEyebrow");
 
 const dateScroller =
-  document.getElementById(
-    "dateScroller"
-  );
-
+  document.getElementById("dateScroller");
 
 const editButton =
-  document.getElementById(
-    "editButton"
-  );
-
+  document.getElementById("editButton");
 
 const editSheet =
-  document.getElementById(
-    "editSheet"
-  );
-
+  document.getElementById("editSheet");
 
 const sheetTitle =
-  document.getElementById(
-    "sheetTitle"
-  );
-
+  document.getElementById("sheetTitle");
 
 const typeGrid =
-  document.getElementById(
-    "typeGrid"
-  );
-
+  document.getElementById("typeGrid");
 
 const entityPicker =
-  document.getElementById(
-    "entityPicker"
-  );
-
+  document.getElementById("entityPicker");
 
 const entityPickerTitle =
-  document.getElementById(
-    "entityPickerTitle"
-  );
-
+  document.getElementById("entityPickerTitle");
 
 const entityPickerSub =
-  document.getElementById(
-    "entityPickerSub"
-  );
-
+  document.getElementById("entityPickerSub");
 
 const entitySearch =
-  document.getElementById(
-    "entitySearch"
-  );
-
+  document.getElementById("entitySearch");
 
 const entityResults =
-  document.getElementById(
-    "entityResults"
-  );
-
+  document.getElementById("entityResults");
 
 const selectedEntity =
-  document.getElementById(
-    "selectedEntity"
-  );
-
+  document.getElementById("selectedEntity");
 
 const selectedEntityIcon =
-  document.getElementById(
-    "selectedEntityIcon"
-  );
-
+  document.getElementById("selectedEntityIcon");
 
 const selectedEntityLabel =
-  document.getElementById(
-    "selectedEntityLabel"
-  );
-
+  document.getElementById("selectedEntityLabel");
 
 const selectedEntityName =
-  document.getElementById(
-    "selectedEntityName"
-  );
-
+  document.getElementById("selectedEntityName");
 
 const selectedEntityMeta =
-  document.getElementById(
-    "selectedEntityMeta"
-  );
-
+  document.getElementById("selectedEntityMeta");
 
 const masterHelp =
-  document.getElementById(
-    "masterHelp"
-  );
-
+  document.getElementById("masterHelp");
 
 const masterHelpText =
-  document.getElementById(
-    "masterHelpText"
-  );
-
+  document.getElementById("masterHelpText");
 
 const masterHelpButton =
-  document.getElementById(
-    "masterHelpButton"
-  );
-
+  document.getElementById("masterHelpButton");
 
 const fieldDate =
-  document.getElementById(
-    "fieldDate"
-  );
-
+  document.getElementById("fieldDate");
 
 const fieldTime =
-  document.getElementById(
-    "fieldTime"
-  );
-
+  document.getElementById("fieldTime");
 
 const fieldTimeLabel =
-  document.getElementById(
-    "fieldTimeLabel"
-  );
-
+  document.getElementById("fieldTimeLabel");
 
 const fieldTitle =
-  document.getElementById(
-    "fieldTitle"
-  );
-
+  document.getElementById("fieldTitle");
 
 const fieldLocation =
-  document.getElementById(
-    "fieldLocation"
-  );
-
+  document.getElementById("fieldLocation");
 
 const fieldNotes =
-  document.getElementById(
-    "fieldNotes"
-  );
-
+  document.getElementById("fieldNotes");
 
 const fieldOptional =
-  document.getElementById(
-    "fieldOptional"
-  );
-
+  document.getElementById("fieldOptional");
 
 const deleteButton =
-  document.getElementById(
-    "deleteButton"
-  );
-
+  document.getElementById("deleteButton");
 
 const saveButton =
-  document.getElementById(
-    "saveButton"
-  );
-
+  document.getElementById("saveButton");
 
 const formMessage =
-  document.getElementById(
-    "formMessage"
-  );
+  document.getElementById("formMessage");
 
+const moreBackdrop =
+  document.getElementById("moreBackdrop");
 
-/* =========================================================
-   NAV
-========================================================= */
+const tripBackdrop =
+  document.getElementById("tripBackdrop");
 
-document.getElementById(
-  "navHome"
-).href =
-  `index.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "navPlan"
-).href =
-  `schedule.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "navFood"
-).href =
-  `food.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "navHub"
-).href =
-  `bookings.html?trip=${TRIP_ID}`;
-
-
-document.getElementById(
-  "profileLink"
-).href =
-  `profile.html?trip=${TRIP_ID}`;
+const tripList =
+  document.getElementById("tripList");
 
 
 /* =========================================================
@@ -2400,13 +2278,9 @@ function esc(value){
   return text(value)
 
     .replaceAll("&","&amp;")
-
     .replaceAll("<","&lt;")
-
     .replaceAll(">","&gt;")
-
     .replaceAll('"',"&quot;")
-
     .replaceAll("'","&#039;");
 
 }
@@ -2424,8 +2298,7 @@ function norm(value){
 function parseDate(value){
 
   return new Date(
-    value +
-    "T12:00:00"
+    value + "T12:00:00"
   );
 
 }
@@ -2433,22 +2306,12 @@ function parseDate(value){
 
 function localDateString(){
 
-  const d =
-    new Date();
-
+  const d = new Date();
 
   return [
-
     d.getFullYear(),
-
-    String(
-      d.getMonth()+1
-    ).padStart(2,"0"),
-
-    String(
-      d.getDate()
-    ).padStart(2,"0")
-
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
   ].join("-");
 
 }
@@ -2472,11 +2335,30 @@ function formatDate(value){
 }
 
 
+function shortTripDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  ).format(
+    parseDate(value)
+  );
+
+}
+
+
 function dateParts(value){
 
   const d =
     parseDate(value);
-
 
   return {
 
@@ -2528,33 +2410,317 @@ function entityMeta(item){
 
 
 /* =========================================================
-   LOAD
+   ACCESSIBLE TRIPS
+========================================================= */
+
+async function getAccessibleTrips(){
+
+  if(!currentUser){
+    return [];
+  }
+
+
+  const [
+    ownResult,
+    memberResult
+  ] =
+    await Promise.all([
+
+      db
+        .from("trips")
+        .select("*")
+        .eq(
+          "owner_id",
+          currentUser.id
+        )
+        .order(
+          "start_date",
+          {
+            ascending:true
+          }
+        ),
+
+      db
+        .from("trip_members")
+        .select("trip_id")
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+
+    ]);
+
+
+  if(ownResult.error){
+    throw ownResult.error;
+  }
+
+
+  if(memberResult.error){
+    throw memberResult.error;
+  }
+
+
+  const ownTrips =
+    (ownResult.data || [])
+      .map(
+        row => ({
+          ...row,
+          access_type:"owner"
+        })
+      );
+
+
+  const sharedIds =
+    [
+      ...new Set(
+        (memberResult.data || [])
+          .map(
+            row => Number(row.trip_id)
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  let sharedTrips = [];
+
+
+  if(sharedIds.length){
+
+    const sharedResult =
+      await db
+        .from("trips")
+        .select("*")
+        .in(
+          "id",
+          sharedIds
+        )
+        .order(
+          "start_date",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(sharedResult.error){
+      throw sharedResult.error;
+    }
+
+
+    sharedTrips =
+      (sharedResult.data || [])
+        .map(
+          row => ({
+            ...row,
+            access_type:
+              row.owner_id === currentUser.id
+              ?
+              "owner"
+              :
+              "shared"
+          })
+        );
+
+  }
+
+
+  const map =
+    new Map();
+
+
+  [
+    ...ownTrips,
+    ...sharedTrips
+  ]
+  .forEach(
+    row => {
+
+      const id =
+        Number(row.id);
+
+
+      if(
+        !map.has(id) ||
+        row.access_type === "owner"
+      ){
+
+        map.set(
+          id,
+          row
+        );
+
+      }
+
+    }
+  );
+
+
+  return [
+    ...map.values()
+  ]
+  .sort(
+    (a,b) => {
+
+      const ad =
+        a.start_date || "";
+
+      const bd =
+        b.start_date || "";
+
+      return ad.localeCompare(bd);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   RESOLVE CURRENT TRIP
+========================================================= */
+
+async function resolveTrip(){
+
+  const authResult =
+    await db.auth.getUser();
+
+
+  if(authResult.error){
+    throw authResult.error;
+  }
+
+
+  currentUser =
+    authResult.data?.user || null;
+
+
+  if(!currentUser){
+
+    throw new Error(
+      "Please sign in to view your trips."
+    );
+
+  }
+
+
+  accessibleTrips =
+    await getAccessibleTrips();
+
+
+  if(!accessibleTrips.length){
+
+    throw new Error(
+      "You do not have any accessible trips yet."
+    );
+
+  }
+
+
+  let resolved =
+    accessibleTrips.find(
+      row =>
+        Number(row.id) ===
+        Number(TRIP_ID)
+    );
+
+
+  if(!resolved){
+
+    resolved =
+      accessibleTrips[0];
+
+  }
+
+
+  TRIP_ID =
+    Number(
+      resolved.id
+    );
+
+
+  localStorage.setItem(
+    "current_trip_id",
+    String(TRIP_ID)
+  );
+
+
+  const hash =
+    window.location.hash || "";
+
+
+  history.replaceState(
+    null,
+    "",
+    `?trip=${TRIP_ID}${hash}`
+  );
+
+
+  updateNavigation();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function updateNavigation(){
+
+  document.getElementById(
+    "navHome"
+  ).href =
+    `index.html?trip=${TRIP_ID}`;
+
+
+  document.getElementById(
+    "navPlan"
+  ).href =
+    `schedule.html?trip=${TRIP_ID}`;
+
+
+  document.getElementById(
+    "navFood"
+  ).href =
+    `food.html?trip=${TRIP_ID}`;
+
+
+  document.getElementById(
+    "navHub"
+  ).href =
+    `bookings.html?trip=${TRIP_ID}`;
+
+
+  document.getElementById(
+    "profileLink"
+  ).href =
+    `profile.html?trip=${TRIP_ID}`;
+
+
+  document.getElementById(
+    "placesLink"
+  ).href =
+    `places-setup.html?trip=${TRIP_ID}`;
+
+}
+
+
+/* =========================================================
+   LOAD DATA
 ========================================================= */
 
 async function loadData(){
 
   try{
 
+    await resolveTrip();
 
-    /*
-      STEP 1
-
-      Load the current trip FIRST.
-
-      We need its country before loading
-      public.places and public.restaurants.
-    */
 
     const tripResult =
       await db
         .from("trips")
-        .select(`
-          id,
-          name,
-          country,
-          start_date,
-          end_date
-        `)
+        .select("*")
         .eq(
           "id",
           TRIP_ID
@@ -2572,50 +2738,42 @@ async function loadData(){
 
 
     if(!trip){
+
       throw new Error(
         "Trip not found."
       );
+
     }
 
 
     tripName.textContent =
-      trip.name;
+      trip.name || "My Trip";
 
 
     tripEyebrow.textContent =
-      `${trip.country || "TRIP"} TRIP`;
+      trip.country
+      ?
+      `${trip.country} TRIP`
+      :
+      "TRIP PLAN";
 
 
     document.title =
-      `Plan · ${trip.name}`;
+      `Plan · ${trip.name || "Travel"}`;
 
 
     /*
-      STEP 2
+      Master lists.
 
-      Now load:
-
-      - this trip's schedule
-      - places for this country
-      - restaurants for this country
+      We load them separately so the page
+      still uses your saved Places and
+      Restaurants database.
     */
 
     let placesQuery =
       db
         .from("places")
-        .select(`
-          id,
-          name,
-          name_japanese,
-          country,
-          prefecture,
-          city,
-          area,
-          address,
-          latitude,
-          longitude,
-          maps_url
-        `)
+        .select("*")
         .order(
           "name",
           {
@@ -2627,20 +2785,7 @@ async function loadData(){
     let restaurantsQuery =
       db
         .from("restaurants")
-        .select(`
-          id,
-          name,
-          name_japanese,
-          country,
-          prefecture,
-          city,
-          area,
-          location,
-          address,
-          latitude,
-          longitude,
-          maps_url
-        `)
+        .select("*")
         .order(
           "name",
           {
@@ -2650,8 +2795,8 @@ async function loadData(){
 
 
     /*
-      Filter master lists according
-      to the current trip country.
+      If your trips table has country,
+      filter the master lists by country.
     */
 
     if(trip.country){
@@ -2679,80 +2824,9 @@ async function loadData(){
     ] =
       await Promise.all([
 
-
-        db
-          .from("schedule")
-          .select(`
-            id,
-            trip_id,
-            schedule_date,
-            start_time,
-            end_time,
-            time_label,
-            sort_order,
-            title,
-            item_type,
-            description,
-            notes,
-            restaurant_id,
-            place_id,
-            location_name,
-            address,
-            latitude,
-            longitude,
-            maps_url,
-            is_optional,
-            is_locked,
-
-            place:places(
-              id,
-              name,
-              name_japanese,
-              country,
-              prefecture,
-              city,
-              area,
-              address,
-              latitude,
-              longitude,
-              maps_url
-            ),
-
-            restaurant:restaurants(
-              id,
-              name,
-              name_japanese,
-              country,
-              prefecture,
-              city,
-              area,
-              location,
-              address,
-              latitude,
-              longitude,
-              maps_url
-            )
-          `)
-          .eq(
-            "trip_id",
-            TRIP_ID
-          )
-          .order(
-            "schedule_date",
-            {
-              ascending:true
-            }
-          )
-          .order(
-            "sort_order",
-            {
-              ascending:true
-            }
-          ),
-
+        loadScheduleQuery(),
 
         placesQuery,
-
 
         restaurantsQuery
 
@@ -2801,6 +2875,10 @@ async function loadData(){
     console.error(error);
 
 
+    tripName.textContent =
+      "Unable to load trip";
+
+
     main.innerHTML = `
 
       <div class="state">
@@ -2824,7 +2902,86 @@ async function loadData(){
 
 
 /* =========================================================
-   GROUP
+   SCHEDULE QUERY
+========================================================= */
+
+function loadScheduleQuery(){
+
+  return db
+    .from("schedule")
+    .select(`
+      id,
+      trip_id,
+      schedule_date,
+      start_time,
+      end_time,
+      time_label,
+      sort_order,
+      title,
+      item_type,
+      description,
+      notes,
+      restaurant_id,
+      place_id,
+      location_name,
+      address,
+      latitude,
+      longitude,
+      maps_url,
+      is_optional,
+      is_locked,
+
+      place:places(
+        id,
+        name,
+        name_japanese,
+        country,
+        prefecture,
+        city,
+        area,
+        address,
+        latitude,
+        longitude,
+        maps_url
+      ),
+
+      restaurant:restaurants(
+        id,
+        name,
+        name_japanese,
+        country,
+        prefecture,
+        city,
+        area,
+        location,
+        address,
+        latitude,
+        longitude,
+        maps_url
+      )
+    `)
+    .eq(
+      "trip_id",
+      TRIP_ID
+    )
+    .order(
+      "schedule_date",
+      {
+        ascending:true
+      }
+    )
+    .order(
+      "sort_order",
+      {
+        ascending:true
+      }
+    );
+
+}
+
+
+/* =========================================================
+   GROUP DAYS
 ========================================================= */
 
 function buildDays(){
@@ -2865,23 +3022,6 @@ function buildDays(){
 
 function chooseDate(){
 
-  const dates =
-    Object.keys(
-      groupedDays
-    )
-    .sort();
-
-
-  if(!dates.length){
-
-    selectedDate =
-      trip.start_date;
-
-    return;
-
-  }
-
-
   const hash =
     window.location.hash
       .replace("#","");
@@ -2889,6 +3029,8 @@ function chooseDate(){
 
   if(
     hash &&
+    trip.start_date &&
+    trip.end_date &&
     hash >= trip.start_date &&
     hash <= trip.end_date
   ){
@@ -2906,6 +3048,8 @@ function chooseDate(){
 
 
   if(
+    trip.start_date &&
+    trip.end_date &&
     today >= trip.start_date &&
     today <= trip.end_date
   ){
@@ -2919,6 +3063,7 @@ function chooseDate(){
 
 
   if(
+    trip.start_date &&
     today < trip.start_date
   ){
 
@@ -2930,8 +3075,26 @@ function chooseDate(){
   }
 
 
+  if(trip.end_date){
+
+    selectedDate =
+      trip.end_date;
+
+    return;
+
+  }
+
+
+  const dates =
+    Object.keys(
+      groupedDays
+    )
+    .sort();
+
+
   selectedDate =
-    trip.end_date;
+    dates[0] ||
+    today;
 
 }
 
@@ -2941,6 +3104,18 @@ function chooseDate(){
 ========================================================= */
 
 function renderDates(){
+
+  if(
+    !trip.start_date ||
+    !trip.end_date
+  ){
+
+    dateScroller.innerHTML = "";
+
+    return;
+
+  }
+
 
   const dates = [];
 
@@ -3100,7 +3275,9 @@ function renderDates(){
 function itemTime(item){
 
   if(item.time_label){
+
     return item.time_label;
+
   }
 
 
@@ -3112,9 +3289,7 @@ function itemTime(item){
 
 
     let hour =
-      Number(
-        parts[0]
-      );
+      Number(parts[0]);
 
 
     const minute =
@@ -3133,9 +3308,7 @@ function itemTime(item){
       hour % 12 || 12;
 
 
-    return (
-      `${hour}:${minute} ${suffix}`
-    );
+    return `${hour}:${minute} ${suffix}`;
 
   }
 
@@ -3172,15 +3345,11 @@ function itemMap(item){
 function itemIcon(item){
 
   const type =
-    norm(
-      item.item_type
-    );
+    norm(item.item_type);
 
 
   const title =
-    norm(
-      item.title
-    );
+    norm(item.title);
 
 
   if(
@@ -3198,7 +3367,8 @@ function itemIcon(item){
   if(
     type.includes("hotel") ||
     title.includes("hotel") ||
-    title.includes("check-in")
+    title.includes("check-in") ||
+    title.includes("check in")
   ){
     return "🏨";
   }
@@ -3257,112 +3427,160 @@ function itemIcon(item){
 
 
 /* =========================================================
-   DAY AREA
+   DYNAMIC DAY AREA
 ========================================================= */
 
 function dayArea(date){
 
+  const items =
+    groupedDays[date] || [];
+
+
   /*
-    Keep your existing Japan labels.
+    Try to determine the area from
+    the actual saved place / restaurant.
+
+    This means changing the itinerary
+    also changes the day heading.
   */
 
-  if(
-    Number(TRIP_ID) === 1 &&
-    norm(trip.country) === "japan"
-  ){
+  const areas = [];
 
-    if(
-      date <= "2026-10-20"
-    ){
-      return "⛩️ Kyoto";
+
+  items.forEach(
+    item => {
+
+      const values = [
+
+        item.place?.city,
+        item.restaurant?.city,
+        item.place?.area,
+        item.restaurant?.area
+
+      ]
+      .filter(Boolean);
+
+
+      values.forEach(
+        value => {
+
+          if(
+            !areas.some(
+              existing =>
+                norm(existing) ===
+                norm(value)
+            )
+          ){
+
+            areas.push(value);
+
+          }
+
+        }
+      );
+
     }
+  );
 
 
-    if(
-      date === "2026-10-21"
-    ){
-      return "🌊 Ine";
+  /*
+    Prefer city names.
+  */
+
+  const cities = [];
+
+
+  items.forEach(
+    item => {
+
+      const city =
+        item.place?.city ||
+        item.restaurant?.city;
+
+
+      if(
+        city &&
+        !cities.some(
+          existing =>
+            norm(existing) ===
+            norm(city)
+        )
+      ){
+
+        cities.push(city);
+
+      }
+
     }
+  );
 
 
-    if(
-      date === "2026-10-22"
-    ){
-      return "⛩️ Kyoto";
-    }
+  if(cities.length === 1){
+
+    return `📍 ${cities[0]}`;
+
+  }
 
 
-    if(
-      date === "2026-10-23"
-    ){
-      return "🚗 Kyoto → Dorogawa";
-    }
+  if(cities.length >= 2){
+
+    return `📍 ${cities[0]} → ${cities[cities.length - 1]}`;
+
+  }
 
 
-    if(
-      date === "2026-10-24"
-    ){
-      return "🏔️ Dorogawa → Ryujin";
-    }
+  if(areas.length === 1){
+
+    return `📍 ${areas[0]}`;
+
+  }
 
 
-    if(
-      date === "2026-10-25"
-    ){
-      return "⛩️ Kumano";
-    }
+  if(areas.length >= 2){
 
-
-    if(
-      date === "2026-10-26"
-    ){
-      return "💧 Nachi → Osaka";
-    }
-
-
-    if(
-      date === "2026-10-27"
-    ){
-      return "🌃 Osaka";
-    }
-
-
-    if(
-      date === "2026-10-28"
-    ){
-      return "🚄 Aichi Day Trip";
-    }
-
-
-    if(
-      date === "2026-10-29"
-    ){
-      return "🦌 Nara";
-    }
-
-
-    if(
-      date === "2026-10-30"
-    ){
-      return "✈️ Departure";
-    }
+    return `📍 ${areas[0]} → ${areas[areas.length - 1]}`;
 
   }
 
 
   /*
-    For Taiwan / future trips,
-    use the country rather than
-    hardcoding Japan.
+    If the schedule rows themselves
+    have location_name, use that.
   */
 
-  return trip.country || "Trip";
+  const locations =
+    items
+      .map(
+        item =>
+          item.location_name
+      )
+      .filter(Boolean);
+
+
+  if(locations.length){
+
+    return `📍 ${locations[0]}`;
+
+  }
+
+
+  /*
+    Final fallback.
+  */
+
+  return (
+    trip.country
+    ?
+    `📍 ${trip.country}`
+    :
+    "📍 Trip Day"
+  );
 
 }
 
 
 /* =========================================================
-   DAY
+   RENDER DAY
 ========================================================= */
 
 function renderDay(){
@@ -3448,8 +3666,7 @@ function renderDay(){
             Nothing planned yet
           </strong>
 
-          Turn on Edit and add
-          something to this day.
+          Turn on Edit and add something to this day.
 
         </div>
       `
@@ -3564,6 +3781,23 @@ function timelineHTML(item){
             ""
           }
 
+
+          ${
+            item.is_locked
+
+            ?
+
+            `
+              <span class="locked">
+                LOCKED
+              </span>
+            `
+
+            :
+
+            ""
+          }
+
         </div>
 
 
@@ -3640,11 +3874,10 @@ editButton.onclick =
       !editing;
 
 
-    editButton.classList
-      .toggle(
-        "active",
-        editing
-      );
+    editButton.classList.toggle(
+      "active",
+      editing
+    );
 
 
     editButton.textContent =
@@ -3661,7 +3894,7 @@ editButton.onclick =
 
 
 /* =========================================================
-   SHEET
+   EDIT SHEET
 ========================================================= */
 
 document.getElementById(
@@ -3687,22 +3920,20 @@ editSheet.onclick =
 
 function closeEditSheet(){
 
-  editSheet.classList
-    .remove(
-      "open"
-    );
+  editSheet.classList.remove(
+    "open"
+  );
 
 
-  entityResults.classList
-    .remove(
-      "show"
-    );
+  entityResults.classList.remove(
+    "show"
+  );
 
 }
 
 
 /* =========================================================
-   TYPE
+   FORM TYPE
 ========================================================= */
 
 typeGrid
@@ -3738,50 +3969,39 @@ function setFormType(type){
     .forEach(
       button => {
 
-        button.classList
-          .toggle(
-            "active",
-            button.dataset.type ===
-            type
-          );
+        button.classList.toggle(
+          "active",
+          button.dataset.type === type
+        );
 
       }
     );
 
 
-  entityResults.classList
-    .remove(
-      "show"
-    );
+  entityResults.classList.remove(
+    "show"
+  );
 
-
-  /*
-    CUSTOM
-  */
 
   if(type === "custom"){
 
-    selectedPlaceId =
-      null;
+    selectedPlaceId = null;
 
-    selectedRestaurantId =
-      null;
+    selectedRestaurantId = null;
 
 
     entityPicker.style.display =
       "none";
 
 
-    selectedEntity.classList
-      .remove(
-        "show"
-      );
+    selectedEntity.classList.remove(
+      "show"
+    );
 
 
-    masterHelp.classList
-      .remove(
-        "show"
-      );
+    masterHelp.classList.remove(
+      "show"
+    );
 
 
     return;
@@ -3789,24 +4009,18 @@ function setFormType(type){
   }
 
 
-  /*
-    PLACE / FOOD
-  */
-
   entityPicker.style.display =
     "block";
 
 
-  masterHelp.classList
-    .add(
-      "show"
-    );
+  masterHelp.classList.add(
+    "show"
+  );
 
 
   if(type === "place"){
 
-    selectedRestaurantId =
-      null;
+    selectedRestaurantId = null;
 
 
     entityPickerTitle.textContent =
@@ -3814,7 +4028,11 @@ function setFormType(type){
 
 
     entityPickerSub.textContent =
-      `Showing places for ${trip.country || "this trip"}.`;
+      trip?.country
+      ?
+      `Showing saved places for ${trip.country}.`
+      :
+      "Search your saved places.";
 
 
     entitySearch.placeholder =
@@ -3833,8 +4051,7 @@ function setFormType(type){
 
   else{
 
-    selectedPlaceId =
-      null;
+    selectedPlaceId = null;
 
 
     entityPickerTitle.textContent =
@@ -3842,7 +4059,11 @@ function setFormType(type){
 
 
     entityPickerSub.textContent =
-      `Showing restaurants for ${trip.country || "this trip"}.`;
+      trip?.country
+      ?
+      `Showing restaurants for ${trip.country}.`
+      :
+      "Search your saved restaurants.";
 
 
     entitySearch.placeholder =
@@ -3871,21 +4092,13 @@ function setFormType(type){
 masterHelpButton.onclick =
   () => {
 
-    /*
-      PLACE:
-      go to your master Places manager.
-
-      FOOD:
-      go to food.html, where restaurants
-      can be added to the master list.
-    */
-
     if(formType === "place"){
 
       location.href =
         `places-setup.html?trip=${TRIP_ID}`;
 
     }
+
 
     else if(
       formType === "restaurant"
@@ -3900,21 +4113,16 @@ masterHelpButton.onclick =
 
 
 /* =========================================================
-   OPEN NEW
+   OPEN NEW ITEM
 ========================================================= */
 
 function openNewItem(){
 
-  editingId =
-    null;
+  editingId = null;
 
+  selectedPlaceId = null;
 
-  selectedPlaceId =
-    null;
-
-
-  selectedRestaurantId =
-    null;
+  selectedRestaurantId = null;
 
 
   sheetTitle.textContent =
@@ -3929,32 +4137,19 @@ function openNewItem(){
     selectedDate;
 
 
-  fieldTime.value =
-    "";
+  fieldTime.value = "";
 
+  fieldTimeLabel.value = "";
 
-  fieldTimeLabel.value =
-    "";
+  fieldTitle.value = "";
 
+  fieldLocation.value = "";
 
-  fieldTitle.value =
-    "";
+  fieldNotes.value = "";
 
+  fieldOptional.checked = false;
 
-  fieldLocation.value =
-    "";
-
-
-  fieldNotes.value =
-    "";
-
-
-  fieldOptional.checked =
-    false;
-
-
-  entitySearch.value =
-    "";
+  entitySearch.value = "";
 
 
   setFormType(
@@ -3969,16 +4164,10 @@ function openNewItem(){
     "form-message";
 
 
-  editSheet.classList
-    .add(
-      "open"
-    );
+  editSheet.classList.add(
+    "open"
+  );
 
-
-  /*
-    Show a few useful initial results
-    immediately.
-  */
 
   renderEntityResults("");
 
@@ -3986,7 +4175,7 @@ function openNewItem(){
 
 
 /* =========================================================
-   OPEN EDIT
+   OPEN EDIT ITEM
 ========================================================= */
 
 function openEditItem(id){
@@ -4009,13 +4198,11 @@ function openEditItem(id){
 
 
   selectedPlaceId =
-    item.place_id ||
-    null;
+    item.place_id || null;
 
 
   selectedRestaurantId =
-    item.restaurant_id ||
-    null;
+    item.restaurant_id || null;
 
 
   sheetTitle.textContent =
@@ -4039,8 +4226,7 @@ function openEditItem(id){
 
 
   fieldTimeLabel.value =
-    item.time_label ||
-    "";
+    item.time_label || "";
 
 
   fieldTitle.value =
@@ -4071,8 +4257,7 @@ function openEditItem(id){
 
 
     entitySearch.value =
-      item.restaurant?.name ||
-      "";
+      item.restaurant?.name || "";
 
   }
 
@@ -4085,8 +4270,7 @@ function openEditItem(id){
 
 
     entitySearch.value =
-      item.place?.name ||
-      "";
+      item.place?.name || "";
 
   }
 
@@ -4098,8 +4282,7 @@ function openEditItem(id){
     );
 
 
-    entitySearch.value =
-      "";
+    entitySearch.value = "";
 
   }
 
@@ -4111,16 +4294,15 @@ function openEditItem(id){
     "form-message";
 
 
-  editSheet.classList
-    .add(
-      "open"
-    );
+  editSheet.classList.add(
+    "open"
+  );
 
 }
 
 
 /* =========================================================
-   SEARCH
+   ENTITY SEARCH
 ========================================================= */
 
 entitySearch.addEventListener(
@@ -4148,13 +4330,6 @@ entitySearch.addEventListener(
     }
 
 
-    /*
-      Typing doesn't detach the current
-      entity yet.
-
-      It only searches for another one.
-    */
-
     renderEntityResults(
       entitySearch.value
     );
@@ -4164,15 +4339,13 @@ entitySearch.addEventListener(
 
 
 /* =========================================================
-   RENDER SEARCH RESULTS
+   ENTITY RESULTS
 ========================================================= */
 
 function renderEntityResults(queryValue){
 
   const query =
-    norm(
-      queryValue
-    );
+    norm(queryValue);
 
 
   const source =
@@ -4236,18 +4409,16 @@ function renderEntityResults(queryValue){
 
         <br><br>
 
-        Use the button below to add it
-        to your master database first.
+        Add it to your master database first.
 
       </div>
 
     `;
 
 
-    entityResults.classList
-      .add(
-        "show"
-      );
+    entityResults.classList.add(
+      "show"
+    );
 
 
     return;
@@ -4275,8 +4446,7 @@ function renderEntityResults(queryValue){
               <div class="entity-result-icon">
 
                 ${
-                  formType ===
-                  "restaurant"
+                  formType === "restaurant"
                   ?
                   "🍽️"
                   :
@@ -4290,9 +4460,7 @@ function renderEntityResults(queryValue){
 
                 <div class="entity-result-name">
 
-                  ${esc(
-                    item.name
-                  )}
+                  ${esc(item.name)}
 
                 </div>
 
@@ -4305,9 +4473,7 @@ function renderEntityResults(queryValue){
                   `
                     <div class="entity-result-japanese">
 
-                      ${esc(
-                        item.name_japanese
-                      )}
+                      ${esc(item.name_japanese)}
 
                     </div>
                   `
@@ -4352,10 +4518,9 @@ function renderEntityResults(queryValue){
       .join("");
 
 
-  entityResults.classList
-    .add(
-      "show"
-    );
+  entityResults.classList.add(
+    "show"
+  );
 
 
   entityResults
@@ -4436,11 +4601,11 @@ function chooseEntity(id){
 
 
   entitySearch.value =
-    item.name;
+    item.name || "";
 
 
   fieldTitle.value =
-    item.name;
+    item.name || "";
 
 
   fieldLocation.value =
@@ -4452,10 +4617,9 @@ function chooseEntity(id){
     .join(", ");
 
 
-  entityResults.classList
-    .remove(
-      "show"
-    );
+  entityResults.classList.remove(
+    "show"
+  );
 
 
   updateSelectedEntity();
@@ -4469,8 +4633,7 @@ function chooseEntity(id){
 
 function updateSelectedEntity(){
 
-  let item =
-    null;
+  let item = null;
 
 
   if(
@@ -4505,10 +4668,9 @@ function updateSelectedEntity(){
 
   if(!item){
 
-    selectedEntity.classList
-      .remove(
-        "show"
-      );
+    selectedEntity.classList.remove(
+      "show"
+    );
 
     return;
 
@@ -4532,17 +4694,16 @@ function updateSelectedEntity(){
 
 
   selectedEntityName.textContent =
-    item.name;
+    item.name || "";
 
 
   selectedEntityMeta.textContent =
     entityMeta(item);
 
 
-  selectedEntity.classList
-    .add(
-      "show"
-    );
+  selectedEntity.classList.add(
+    "show"
+  );
 
 }
 
@@ -4560,8 +4721,7 @@ document.getElementById(
       formType === "place"
     ){
 
-      selectedPlaceId =
-        null;
+      selectedPlaceId = null;
 
     }
 
@@ -4570,14 +4730,12 @@ document.getElementById(
       formType === "restaurant"
     ){
 
-      selectedRestaurantId =
-        null;
+      selectedRestaurantId = null;
 
     }
 
 
-    entitySearch.value =
-      "";
+    entitySearch.value = "";
 
 
     updateSelectedEntity();
@@ -4592,20 +4750,8 @@ document.getElementById(
 
 
 /* =========================================================
-   TIME / TIME LABEL
+   TIME
 ========================================================= */
-
-/*
-  If an exact time is entered,
-  clear the flexible label.
-
-  If a flexible label is entered,
-  clear the exact time.
-
-  This fixes the old:
-    time ? null : null
-  problem.
-*/
 
 fieldTime.addEventListener(
   "input",
@@ -4613,8 +4759,7 @@ fieldTime.addEventListener(
 
     if(fieldTime.value){
 
-      fieldTimeLabel.value =
-        "";
+      fieldTimeLabel.value = "";
 
     }
 
@@ -4630,8 +4775,7 @@ fieldTimeLabel.addEventListener(
       fieldTimeLabel.value.trim()
     ){
 
-      fieldTime.value =
-        "";
+      fieldTime.value = "";
 
     }
 
@@ -4671,7 +4815,7 @@ function nextSortOrder(date){
 
 
 /* =========================================================
-   SAVE
+   SAVE ITEM
 ========================================================= */
 
 document.getElementById(
@@ -4683,9 +4827,7 @@ document.getElementById(
     event.preventDefault();
 
 
-    saveButton.disabled =
-      true;
-
+    saveButton.disabled = true;
 
     saveButton.textContent =
       "SAVING…";
@@ -4696,7 +4838,6 @@ document.getElementById(
 
 
     try{
-
 
       const date =
         fieldDate.value;
@@ -4714,7 +4855,7 @@ document.getElementById(
         fieldTitle.value.trim();
 
 
-      const location =
+      const locationName =
         fieldLocation.value.trim();
 
 
@@ -4740,23 +4881,13 @@ document.getElementById(
       }
 
 
-      /*
-        A PLACE must actually be selected
-        from public.places.
-
-        A RESTAURANT must actually be
-        selected from public.restaurants.
-
-        CUSTOM doesn't need an ID.
-      */
-
       if(
         formType === "place" &&
         !selectedPlaceId
       ){
 
         throw new Error(
-          "Please choose a saved place from the list."
+          "Please choose a saved place."
         );
 
       }
@@ -4768,26 +4899,10 @@ document.getElementById(
       ){
 
         throw new Error(
-          "Please choose a saved restaurant from the list."
+          "Please choose a saved restaurant."
         );
 
       }
-
-
-      const placeId =
-        formType === "place"
-        ?
-        selectedPlaceId
-        :
-        null;
-
-
-      const restaurantId =
-        formType === "restaurant"
-        ?
-        selectedRestaurantId
-        :
-        null;
 
 
       const payload = {
@@ -4833,23 +4948,27 @@ document.getElementById(
           notes || null,
 
         location_name:
-          location || null,
+          locationName || null,
 
         place_id:
-          placeId,
+          formType === "place"
+          ?
+          selectedPlaceId
+          :
+          null,
 
         restaurant_id:
-          restaurantId,
+          formType === "restaurant"
+          ?
+          selectedRestaurantId
+          :
+          null,
 
         is_optional:
           fieldOptional.checked
 
       };
 
-
-      /*
-        NEW ITEM
-      */
 
       if(
         editingId === null
@@ -4877,10 +4996,6 @@ document.getElementById(
 
       }
 
-
-      /*
-        EDIT ITEM
-      */
 
       else{
 
@@ -4912,7 +5027,7 @@ document.getElementById(
         ){
 
           throw new Error(
-            "The schedule item was not updated. Check your trip editing permission."
+            "The item was not updated. Check your editing permission."
           );
 
         }
@@ -4950,9 +5065,7 @@ document.getElementById(
 
     finally{
 
-      saveButton.disabled =
-        false;
-
+      saveButton.disabled = false;
 
       saveButton.textContent =
         "SAVE";
@@ -4964,7 +5077,7 @@ document.getElementById(
 
 
 /* =========================================================
-   DELETE
+   DELETE ITEM
 ========================================================= */
 
 deleteButton.onclick =
@@ -5067,75 +5180,7 @@ deleteButton.onclick =
 async function reloadSchedule(){
 
   const result =
-    await db
-      .from("schedule")
-      .select(`
-        id,
-        trip_id,
-        schedule_date,
-        start_time,
-        end_time,
-        time_label,
-        sort_order,
-        title,
-        item_type,
-        description,
-        notes,
-        restaurant_id,
-        place_id,
-        location_name,
-        address,
-        latitude,
-        longitude,
-        maps_url,
-        is_optional,
-        is_locked,
-
-        place:places(
-          id,
-          name,
-          name_japanese,
-          country,
-          prefecture,
-          city,
-          area,
-          address,
-          latitude,
-          longitude,
-          maps_url
-        ),
-
-        restaurant:restaurants(
-          id,
-          name,
-          name_japanese,
-          country,
-          prefecture,
-          city,
-          area,
-          location,
-          address,
-          latitude,
-          longitude,
-          maps_url
-        )
-      `)
-      .eq(
-        "trip_id",
-        TRIP_ID
-      )
-      .order(
-        "schedule_date",
-        {
-          ascending:true
-        }
-      )
-      .order(
-        "sort_order",
-        {
-          ascending:true
-        }
-      );
+    await loadScheduleQuery();
 
 
   if(result.error){
@@ -5160,30 +5205,20 @@ async function reloadSchedule(){
    MORE
 ========================================================= */
 
-const moreBackdrop =
-  document.getElementById(
-    "moreBackdrop"
-  );
-
-
 function openMore(){
 
-  moreBackdrop
-    .classList
-    .add(
-      "open"
-    );
+  moreBackdrop.classList.add(
+    "open"
+  );
 
 }
 
 
 function closeMore(){
 
-  moreBackdrop
-    .classList
-    .remove(
-      "open"
-    );
+  moreBackdrop.classList.remove(
+    "open"
+  );
 
 }
 
@@ -5209,6 +5244,266 @@ moreBackdrop.onclick =
     ){
 
       closeMore();
+
+    }
+
+  };
+
+
+/* =========================================================
+   SWITCH TRIP
+========================================================= */
+
+async function openTripSwitcher(){
+
+  closeMore();
+
+
+  tripBackdrop.classList.add(
+    "open"
+  );
+
+
+  tripList.innerHTML = `
+
+    <div class="trip-loading">
+      Loading trips…
+    </div>
+
+  `;
+
+
+  try{
+
+    accessibleTrips =
+      await getAccessibleTrips();
+
+
+    renderTripSwitcher();
+
+  }
+
+
+  catch(error){
+
+    console.error(error);
+
+
+    tripList.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          Couldn't load trips
+        </strong>
+
+        ${esc(
+          error.message ||
+          "Unknown database error."
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+function closeTripSwitcher(){
+
+  tripBackdrop.classList.remove(
+    "open"
+  );
+
+}
+
+
+function renderTripSwitcher(){
+
+  if(!accessibleTrips.length){
+
+    tripList.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          No trips found
+        </strong>
+
+        You don't have any accessible trips.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  tripList.innerHTML =
+    accessibleTrips
+      .map(
+        item => {
+
+          const current =
+            Number(item.id) ===
+            Number(TRIP_ID);
+
+
+          const label =
+            item.access_type === "owner"
+            ?
+            "YOUR TRIP"
+            :
+            "SHARED WITH YOU";
+
+
+          const dates =
+            item.start_date &&
+            item.end_date
+
+            ?
+
+            `${shortTripDate(item.start_date)} – ${shortTripDate(item.end_date)}`
+
+            :
+
+            "Trip dates not set";
+
+
+          return `
+
+            <button
+              class="
+                trip-card
+                ${current ? "current" : ""}
+              "
+              type="button"
+              data-trip-id="${Number(item.id)}"
+            >
+
+              <div class="trip-card-icon">
+                ${
+                  current
+                  ?
+                  "✓"
+                  :
+                  "🧳"
+                }
+              </div>
+
+
+              <div class="trip-card-main">
+
+                <div class="trip-card-label">
+
+                  ${esc(label)}
+
+                </div>
+
+
+                <div class="trip-card-name">
+
+                  ${esc(
+                    item.name ||
+                    "Untitled Trip"
+                  )}
+
+                </div>
+
+
+                <div class="trip-card-meta">
+
+                  ${
+                    item.country
+                    ?
+                    `${esc(item.country)} · `
+                    :
+                    ""
+                  }
+
+                  ${esc(dates)}
+
+                </div>
+
+              </div>
+
+
+              <div class="trip-card-arrow">
+                →
+              </div>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  tripList
+    .querySelectorAll(
+      "[data-trip-id]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            const newTripId =
+              Number(
+                button.dataset.tripId
+              );
+
+
+            localStorage.setItem(
+              "current_trip_id",
+              String(newTripId)
+            );
+
+
+            /*
+              Stay on the Plan page when
+              switching trips.
+            */
+
+            location.href =
+              `schedule.html?trip=${newTripId}`;
+
+          };
+
+      }
+    );
+
+}
+
+
+document.getElementById(
+  "switchTripButton"
+).onclick =
+  openTripSwitcher;
+
+
+document.getElementById(
+  "closeTrips"
+).onclick =
+  closeTripSwitcher;
+
+
+tripBackdrop.onclick =
+  event => {
+
+    if(
+      event.target ===
+      tripBackdrop
+    ){
+
+      closeTripSwitcher();
 
     }
 
