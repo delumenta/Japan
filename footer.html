@@ -2,16 +2,15 @@
      SHARED FOOTER
      Loaded by footer.js
 
-     NEW JAPANESE MINIMAL FOOTER
-     --------------------------------
-     PNG = transparent artwork only
-     CSS = circle / active state / glow
+     TRANSPARENT ICON ARTWORK
+     CSS creates:
+       - circular frame
+       - active red border
+       - active glow
+       - active label colour
 
-     INACTIVE:
-       Grey circle + normal artwork + grey label
-
-     ACTIVE:
-       Red circle + subtle red glow + red label
+     Individual artwork sizes are adjusted so the icons
+     appear visually balanced.
 ========================================================= -->
 
 <style>
@@ -21,7 +20,7 @@
   --footer-panel:#10161c;
   --footer-line:#29323b;
   --footer-text:#f5f5f3;
-  --footer-muted:#9ca6ae;
+  --footer-muted:#aeb5bc;
   --footer-red:#ff625f;
   --footer-blue:#5c9dff;
 }
@@ -37,7 +36,7 @@ body{
 
 
 /* =========================================================
-   BOTTOM NAV
+   BOTTOM NAVIGATION
 ========================================================= */
 
 .bottom-nav{
@@ -50,7 +49,6 @@ body{
 
   display:grid;
   grid-template-columns:repeat(5,1fr);
-
   align-items:center;
 
   padding:
@@ -68,7 +66,7 @@ body{
 
 
 /* =========================================================
-   NAV ITEMS
+   NAV ITEM
 ========================================================= */
 
 .bottom-nav a,
@@ -102,8 +100,7 @@ body{
 
 
 /* =========================================================
-   CIRCLE
-   Circle is made entirely by CSS
+   ICON CIRCLE
 ========================================================= */
 
 .bottom-nav .nav-icon{
@@ -118,6 +115,8 @@ body{
   align-items:center;
   justify-content:center;
 
+  overflow:hidden;
+
   border:1px solid #39444c;
   border-radius:50%;
 
@@ -129,26 +128,74 @@ body{
     border-color .22s ease,
     background .22s ease,
     box-shadow .22s ease,
-    transform .22s ease;
+    transform .18s ease;
 }
 
 
 /* =========================================================
-   TRANSPARENT JAPANESE ARTWORK
+   ICON ARTWORK
 ========================================================= */
 
 .bottom-nav .nav-icon img{
   display:block;
 
-  width:27px;
-  height:27px;
-
   object-fit:contain;
+
+  max-width:none;
 
   transition:
     transform .22s ease,
-    filter .22s ease,
-    opacity .22s ease;
+    filter .22s ease;
+}
+
+
+/* =========================================================
+   INDIVIDUAL ARTWORK SIZES
+
+   Booking already fills its circle nicely.
+
+   The other PNGs contain more transparent padding,
+   therefore they are rendered larger.
+========================================================= */
+
+
+/* HOME */
+
+#sharedNavHome .nav-icon img{
+  width:35px;
+  height:35px;
+}
+
+
+/* PLAN */
+
+#sharedNavPlan .nav-icon img{
+  width:35px;
+  height:35px;
+}
+
+
+/* FOOD */
+
+#sharedNavFood .nav-icon img{
+  width:37px;
+  height:37px;
+}
+
+
+/* BOOKING */
+
+#sharedNavHub .nav-icon img{
+  width:27px;
+  height:27px;
+}
+
+
+/* MORE */
+
+#sharedNavMore .nav-icon img{
+  width:37px;
+  height:37px;
 }
 
 
@@ -231,7 +278,7 @@ body{
 
 
 /* =========================================================
-   HOVER - DESKTOP
+   DESKTOP HOVER
 ========================================================= */
 
 @media(hover:hover){
@@ -264,7 +311,7 @@ body{
 
 
 /* =========================================================
-   MORE
+   MORE BUTTON
 ========================================================= */
 
 #sharedNavMore{
@@ -357,6 +404,7 @@ body{
 
 .footer-sheet-title{
   font-family:Georgia,"Times New Roman",serif;
+
   font-size:19px;
 }
 
@@ -379,7 +427,7 @@ body{
 
 
 /* =========================================================
-   MORE MENU LINKS
+   MORE LINKS
 ========================================================= */
 
 .footer-more-link{
@@ -638,6 +686,7 @@ body{
 
     <div class="footer-sheet-handle"></div>
 
+
     <div class="footer-sheet-head">
 
       <div class="footer-sheet-title">
@@ -827,6 +876,7 @@ body{
 
     <div class="footer-sheet-handle"></div>
 
+
     <div class="footer-sheet-head">
 
       <div class="footer-sheet-title">
@@ -842,6 +892,7 @@ body{
       </button>
 
     </div>
+
 
     <div
       id="sharedTripList"
