@@ -48,7 +48,7 @@ body{
   z-index:80;
 
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(6,1fr);
   align-items:center;
 
   padding:
@@ -188,6 +188,14 @@ body{
 #sharedNavHub .nav-icon img{
   width:27px;
   height:27px;
+}
+
+
+/* EXPENSES */
+
+#sharedNavExpenses .nav-icon img{
+  width:35px;
+  height:35px;
 }
 
 
@@ -795,19 +803,6 @@ body{
     </a>
 
 
-
-    <!-- EXPENSES -->
-
-    <a id="sharedExpensesLink" class="footer-more-link">
-      <div class="footer-more-icon">💰</div>
-      <div class="footer-more-main">
-        <div class="footer-more-title">Expenses</div>
-        <div class="footer-more-sub">Spending · receipts · trip costs</div>
-      </div>
-      <div class="footer-more-arrow">→</div>
-    </a>
-
-
     <!-- PLACES -->
 
     <a
@@ -1016,6 +1011,29 @@ body{
 
     <span class="nav-label">
       BOOKING
+    </span>
+
+  </a>
+
+
+
+  <!-- =====================================================
+       EXPENSES
+  ====================================================== -->
+
+  <a id="sharedNavExpenses">
+
+    <span class="nav-icon">
+
+      <img
+        src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/expensesfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZXhwZW5zZXNmb290ZXIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTY0MjQwMCwiZXhwIjozMzMyNTY0MjQwMH0.2N_yNGsFpk3jtyT5yNEeMxf6T6iW38taHMwkcalrL6erpYf81ELyq_ah1kIcerGMKL6BQmIOVWuMRsCRuVDb4A"
+        alt="Expenses"
+      >
+
+    </span>
+
+    <span class="nav-label">
+      EXPENSES
     </span>
 
   </a>
