@@ -93,21 +93,28 @@ header{
     14px
     11px;
 
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid
+    var(--line);
 
   background:
     rgba(7,12,16,.96);
 
-  backdrop-filter:blur(18px);
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
 }
 
 .header-inner{
   max-width:760px;
+
   margin:auto;
 }
 
 .eyebrow{
-  color:var(--blue);
+  color:var(--red);
 
   font-size:8px;
   font-weight:900;
@@ -117,6 +124,7 @@ header{
 
 .header-row{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 
@@ -124,7 +132,10 @@ header{
 }
 
 h1{
-  margin:3px 0 0;
+  margin:
+    3px
+    0
+    0;
 
   font-family:
     Georgia,
@@ -194,7 +205,10 @@ main{
     8px
     34px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:12px;
 
   outline:none;
@@ -206,9 +220,17 @@ main{
   font-size:9px;
 }
 
+.search::placeholder{
+  color:#64717a;
+}
+
 .search:focus{
   border-color:
-    rgba(92,157,255,.55);
+    rgba(201,111,104,.55);
+
+  box-shadow:
+    0 0 0 2px
+    rgba(201,111,104,.05);
 }
 
 
@@ -218,6 +240,7 @@ main{
 
 .section-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 
@@ -260,7 +283,10 @@ main{
 
   padding:0;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:16px;
 
   background:
@@ -273,6 +299,15 @@ main{
   color:#fff;
 
   text-align:left;
+
+  transition:
+    transform .12s ease,
+    border-color .12s ease;
+}
+
+.trip-card:hover{
+  border-color:
+    rgba(201,111,104,.30);
 }
 
 .trip-card:active{
@@ -286,8 +321,8 @@ main{
   background:
     linear-gradient(
       90deg,
-      var(--blue),
-      #3d669c
+      var(--red),
+      #754541
     );
 }
 
@@ -297,6 +332,7 @@ main{
 
 .card-top{
   display:flex;
+
   align-items:flex-start;
 
   gap:10px;
@@ -309,10 +345,14 @@ main{
   height:43px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:12px;
 
   background:#182129;
@@ -322,6 +362,7 @@ main{
 
 .card-main{
   flex:1;
+
   min-width:0;
 }
 
@@ -378,6 +419,7 @@ main{
 
 .person-row{
   display:flex;
+
   align-items:center;
 
   gap:7px;
@@ -398,17 +440,24 @@ main{
   height:25px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   overflow:hidden;
 
-  border:1px solid #34404a;
+  border:
+    1px solid
+    #34404a;
+
   border-radius:50%;
 
   background:#182129;
 
-  font-family:Georgia,serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:8px;
   font-weight:900;
@@ -423,6 +472,7 @@ main{
 
 .person{
   flex:1;
+
   min-width:0;
 }
 
@@ -446,6 +496,7 @@ main{
 
 .stats{
   display:flex;
+
   align-items:center;
 
   gap:8px;
@@ -465,9 +516,14 @@ main{
 ========================================================= */
 
 .state{
-  padding:24px 15px;
+  padding:
+    24px
+    15px;
 
-  border:1px dashed #35414a;
+  border:
+    1px dashed
+    #35414a;
+
   border-radius:13px;
 
   color:var(--muted);
@@ -501,12 +557,17 @@ main{
   z-index:150;
 
   display:none;
+
   align-items:flex-end;
 
   background:
     rgba(0,0,0,.76);
 
-  backdrop-filter:blur(5px);
+  backdrop-filter:
+    blur(5px);
+
+  -webkit-backdrop-filter:
+    blur(5px);
 }
 
 .backdrop.open{
@@ -528,7 +589,9 @@ main{
     14px
     calc(20px + env(safe-area-inset-bottom));
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
 
   border-radius:
     21px
@@ -555,6 +618,7 @@ main{
 
 .sheet-top{
   display:flex;
+
   align-items:flex-start;
 
   gap:10px;
@@ -567,10 +631,14 @@ main{
   height:44px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:12px;
 
   background:#182129;
@@ -580,6 +648,7 @@ main{
 
 .sheet-main{
   flex:1;
+
   min-width:0;
 }
 
@@ -607,7 +676,10 @@ main{
   width:34px;
   height:34px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:9px;
 
   background:#151c22;
@@ -622,6 +694,7 @@ main{
 
 .author{
   display:flex;
+
   align-items:center;
 
   gap:7px;
@@ -630,7 +703,10 @@ main{
 
   padding:8px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:10px;
 
   background:
@@ -665,11 +741,13 @@ main{
 
 
 /* =========================================================
-   STATS / ACTIONS
+   PUBLIC STATS
 ========================================================= */
 
 .public-stats{
   display:flex;
+
+  flex-wrap:wrap;
 
   gap:7px;
 
@@ -677,9 +755,14 @@ main{
 }
 
 .stat-chip{
-  padding:5px 8px;
+  padding:
+    5px
+    8px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:999px;
 
   background:#11181e;
@@ -688,6 +771,11 @@ main{
 
   font-size:6.5px;
 }
+
+
+/* =========================================================
+   LIKE / COPY
+========================================================= */
 
 .sheet-actions{
   position:sticky;
@@ -705,6 +793,7 @@ main{
   gap:7px;
 
   margin-top:11px;
+
   padding:
     7px
     0;
@@ -734,6 +823,9 @@ main{
 }
 
 .like-btn.active{
+  border-color:
+    rgba(201,111,104,.50);
+
   background:
     rgba(201,111,104,.16);
 
@@ -743,12 +835,17 @@ main{
 .copy-btn{
   border:
     1px solid
-    rgba(92,157,255,.30);
+    rgba(201,111,104,.30);
 
   background:
-    rgba(92,157,255,.07);
+    rgba(201,111,104,.07);
 
-  color:#acd0ff;
+  color:#f0b1ac;
+}
+
+.copy-btn:hover{
+  background:
+    rgba(201,111,104,.12);
 }
 
 .copy-btn:disabled{
@@ -776,6 +873,7 @@ main{
 
 .day-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 
@@ -822,14 +920,17 @@ main{
 
   padding:7px;
 
-  border:1px solid #202a31;
+  border:
+    1px solid
+    #202a31;
+
   border-radius:9px;
 
   background:#10171c;
 }
 
 .item-time{
-  color:#8ea3b0;
+  color:#b69490;
 
   font-size:6px;
   font-weight:900;
@@ -866,7 +967,9 @@ main{
 
   margin-left:4px;
 
-  padding:2px 4px;
+  padding:
+    2px
+    4px;
 
   border-radius:999px;
 
@@ -884,7 +987,7 @@ main{
 
   margin-top:4px;
 
-  color:#91bbff;
+  color:#d9938d;
 
   font-size:6px;
 
@@ -899,9 +1002,14 @@ main{
 .copy-note{
   margin-top:10px;
 
-  padding:8px 9px;
+  padding:
+    8px
+    9px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:9px;
 
   color:#71808a;
@@ -923,12 +1031,17 @@ main{
   z-index:180;
 
   display:none;
+
   align-items:flex-end;
 
   background:
     rgba(0,0,0,.72);
 
-  backdrop-filter:blur(4px);
+  backdrop-filter:
+    blur(4px);
+
+  -webkit-backdrop-filter:
+    blur(4px);
 }
 
 .more-backdrop.open{
@@ -937,6 +1050,7 @@ main{
 
 .more-sheet{
   width:100%;
+
   max-width:760px;
 
   margin:auto;
@@ -946,8 +1060,15 @@ main{
     14px
     calc(18px + env(safe-area-inset-bottom));
 
-  border:1px solid var(--line);
-  border-radius:20px 20px 0 0;
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
 
   background:#0d1318;
 }
@@ -955,7 +1076,10 @@ main{
 .more-title{
   margin-bottom:12px;
 
-  font-family:Georgia,serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:19px;
 }
@@ -964,15 +1088,21 @@ main{
   min-height:57px;
 
   display:flex;
+
   align-items:center;
 
   gap:10px;
 
   margin-bottom:6px;
 
-  padding:9px 10px;
+  padding:
+    9px
+    10px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:11px;
 
   background:#11181e;
@@ -984,10 +1114,10 @@ main{
 
 .more-link.active{
   border-color:
-    rgba(92,157,255,.30);
+    rgba(201,111,104,.30);
 
   background:
-    rgba(92,157,255,.07);
+    rgba(201,111,104,.07);
 }
 
 .more-icon{
@@ -1017,7 +1147,7 @@ main{
 
 
 /* =========================================================
-   NAV
+   BOTTOM NAV
 ========================================================= */
 
 .bottom-nav{
@@ -1041,12 +1171,18 @@ main{
     7px
     calc(6px + env(safe-area-inset-bottom));
 
-  border-top:1px solid var(--line);
+  border-top:
+    1px solid
+    var(--line);
 
   background:
     rgba(7,12,16,.98);
 
-  backdrop-filter:blur(18px);
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
 }
 
 .bottom-nav a,
@@ -1054,6 +1190,7 @@ main{
   min-height:46px;
 
   display:flex;
+
   flex-direction:column;
 
   align-items:center;
@@ -1083,11 +1220,16 @@ main{
 
   border:
     1px solid
-    rgba(92,157,255,.22);
+    rgba(201,111,104,.22);
 
   background:
-    rgba(92,157,255,.07);
+    rgba(201,111,104,.08);
 }
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
 
 @media(min-width:700px){
 
@@ -1095,7 +1237,10 @@ main{
     left:50%;
     right:auto;
 
-    width:min(820px,100%);
+    width:min(
+      820px,
+      100%
+    );
 
     transform:
       translateX(-50%);
@@ -1110,6 +1255,10 @@ main{
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header>
 
@@ -1142,6 +1291,10 @@ main{
 
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
 
   <div class="search-wrap">
@@ -1153,7 +1306,7 @@ main{
     <input
       id="search"
       class="search"
-      placeholder="Search Japan, Kyoto, trip name or traveller..."
+      placeholder="Search country, trip or traveller..."
     >
 
   </div>
@@ -1210,14 +1363,10 @@ main{
     <div class="handle"></div>
 
 
-    <div
-      id="itineraryHeader"
-    ></div>
+    <div id="itineraryHeader"></div>
 
 
-    <div
-      id="itineraryBody"
-    ></div>
+    <div id="itineraryBody"></div>
 
   </div>
 
@@ -1238,6 +1387,7 @@ main{
 
     <div class="handle"></div>
 
+
     <div class="more-title">
       More
     </div>
@@ -1251,6 +1401,7 @@ main{
       <div class="more-icon">
         👤
       </div>
+
 
       <div class="more-main">
 
@@ -1278,6 +1429,7 @@ main{
         🧳
       </div>
 
+
       <div class="more-main">
 
         <div class="more-name">
@@ -1303,6 +1455,7 @@ main{
       <div class="more-icon">
         🌐
       </div>
+
 
       <div class="more-main">
 
@@ -1338,7 +1491,9 @@ main{
       🏠
     </span>
 
-    <span>HOME</span>
+    <span>
+      HOME
+    </span>
 
   </a>
 
@@ -1349,7 +1504,9 @@ main{
       📅
     </span>
 
-    <span>PLAN</span>
+    <span>
+      PLAN
+    </span>
 
   </a>
 
@@ -1360,7 +1517,9 @@ main{
       🍽️
     </span>
 
-    <span>FOOD</span>
+    <span>
+      FOOD
+    </span>
 
   </a>
 
@@ -1371,7 +1530,9 @@ main{
       ⭐
     </span>
 
-    <span>HUB</span>
+    <span>
+      HUB
+    </span>
 
   </a>
 
@@ -1386,7 +1547,9 @@ main{
       ⋯
     </span>
 
-    <span>MORE</span>
+    <span>
+      MORE
+    </span>
 
   </button>
 
@@ -1394,7 +1557,14 @@ main{
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 <script src="supabase.js"></script>
 
 
@@ -1433,11 +1603,31 @@ function esc(value){
   return String(
     value ?? ""
   )
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
+
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
 
 }
 
@@ -1465,21 +1655,27 @@ function initials(name){
 
 
   if(!words.length){
+
     return "?";
+
   }
 
 
   if(words.length === 1){
 
     return words[0]
-      .slice(0,2)
+      .slice(
+        0,
+        2
+      )
       .toUpperCase();
 
   }
 
 
   return (
-    words[0][0] +
+    words[0][0]
+    +
     words[
       words.length - 1
     ][0]
@@ -1577,7 +1773,11 @@ function countryEmoji(country){
   };
 
 
-  return map[value] || "✈️";
+  return (
+    map[value]
+    ||
+    "✈️"
+  );
 
 }
 
@@ -1588,7 +1788,9 @@ function prettyDate(
 ){
 
   if(!value){
+
     return "";
+
   }
 
 
@@ -1601,18 +1803,23 @@ function prettyDate(
 
   return date.toLocaleDateString(
     "en-SG",
+
     year
     ?
+
     {
       day:"numeric",
       month:"short",
       year:"numeric"
     }
+
     :
+
     {
       day:"numeric",
       month:"short"
     }
+
   );
 
 }
@@ -1653,7 +1860,9 @@ function tripDays(item){
     !item.start_date ||
     !item.end_date
   ){
+
     return "";
+
   }
 
 
@@ -1674,8 +1883,7 @@ function tripDays(item){
   const diff =
     Math.round(
       (
-        end -
-        start
+        end - start
       )
       /
       86400000
@@ -1698,7 +1906,9 @@ function tripDays(item){
 function formatTime(value){
 
   if(!value){
+
     return "";
+
   }
 
 
@@ -1710,13 +1920,17 @@ function formatTime(value){
 
 
   if(!match){
+
     return value;
+
   }
 
 
   return (
-    match[1] +
-    ":" +
+    match[1]
+    +
+    ":"
+    +
     match[2]
   );
 
@@ -1726,7 +1940,9 @@ function formatTime(value){
 function dayLabel(dateString){
 
   if(!dateString){
+
     return "Trip Day";
+
   }
 
 
@@ -1762,7 +1978,9 @@ async function start(){
 
 
     if(auth.error){
+
       throw auth.error;
+
     }
 
 
@@ -1788,9 +2006,11 @@ async function start(){
 
     /*
       If arriving from:
+
       trips.html → SHARE
 
-      automatically open that itinerary.
+      automatically open
+      that itinerary.
     */
 
     const params =
@@ -1814,7 +2034,8 @@ async function start(){
           item =>
             Number(
               item.publication_id
-            ) ===
+            )
+            ===
             openId
         );
 
@@ -1834,7 +2055,9 @@ async function start(){
 
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     document.getElementById(
@@ -1862,7 +2085,7 @@ async function start(){
 
 
 /* =========================================================
-   FEED
+   LOAD FEED
 ========================================================= */
 
 async function loadFeed(){
@@ -1874,7 +2097,9 @@ async function loadFeed(){
 
 
   if(result.error){
+
     throw result.error;
+
   }
 
 
@@ -1883,7 +2108,9 @@ async function loadFeed(){
 
 
   filtered =
-    [...publications];
+    [
+      ...publications
+    ];
 
 
   renderFeed();
@@ -1897,7 +2124,8 @@ async function loadFeed(){
 
 document.getElementById(
   "search"
-).addEventListener(
+)
+.addEventListener(
   "input",
   event => {
 
@@ -1910,7 +2138,9 @@ document.getElementById(
     if(!query){
 
       filtered =
-        [...publications];
+        [
+          ...publications
+        ];
 
     }
 
@@ -1957,7 +2187,9 @@ function renderFeed(){
   document.getElementById(
     "resultCount"
   ).textContent =
-    `${filtered.length}`;
+    String(
+      filtered.length
+    );
 
 
   const feed =
@@ -2031,7 +2263,9 @@ function feedCard(item){
     <button
       class="trip-card"
       type="button"
-      data-publication="${Number(item.publication_id)}"
+      data-publication="${Number(
+        item.publication_id
+      )}"
     >
 
       <div class="card-strip"></div>
@@ -2068,6 +2302,7 @@ function feedCard(item){
                 item.country ||
                 ""
               )}
+
 
               ${
                 tripDays(item)
@@ -2122,7 +2357,9 @@ function feedCard(item){
 
         <div class="person-row">
 
-          ${avatarHTML(item)}
+          ${avatarHTML(
+            item
+          )}
 
 
           <div class="person">
@@ -2136,6 +2373,7 @@ function feedCard(item){
 
             </div>
 
+
             <div class="person-label">
               SHARED ITINERARY
             </div>
@@ -2146,8 +2384,15 @@ function feedCard(item){
           <div class="stats">
 
             <span
-              class="${item.liked_by_me ? "liked" : ""}"
+              class="${
+                item.liked_by_me
+                ?
+                "liked"
+                :
+                ""
+              }"
             >
+
               ${
                 item.liked_by_me
                 ?
@@ -2157,16 +2402,22 @@ function feedCard(item){
               }
 
               ${Number(
-                item.like_count || 0
+                item.like_count ||
+                0
               )}
+
             </span>
 
 
             <span>
+
               📋
+
               ${Number(
-                item.copy_count || 0
+                item.copy_count ||
+                0
               )}
+
             </span>
 
           </div>
@@ -2195,7 +2446,8 @@ async function openItinerary(
       item =>
         Number(
           item.publication_id
-        ) ===
+        )
+        ===
         Number(
           publicationId
         )
@@ -2203,7 +2455,9 @@ async function openItinerary(
 
 
   if(!selectedPublication){
+
     return;
+
   }
 
 
@@ -2254,7 +2508,9 @@ async function openItinerary(
 
 
     if(result.error){
+
       throw result.error;
+
     }
 
 
@@ -2269,7 +2525,9 @@ async function openItinerary(
 
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     document.getElementById(
@@ -2283,7 +2541,8 @@ async function openItinerary(
         </strong>
 
         ${esc(
-          error.message
+          error.message ||
+          "Unknown error."
         )}
 
       </div>
@@ -2296,7 +2555,7 @@ async function openItinerary(
 
 
 /* =========================================================
-   HEADER
+   ITINERARY HEADER
 ========================================================= */
 
 function renderItineraryHeader(){
@@ -2339,14 +2598,20 @@ function renderItineraryHeader(){
             ""
           )}
 
+
           ${
             item.country &&
             tripDates(item)
+
             ?
+
             " · "
+
             :
+
             ""
           }
+
 
           ${esc(
             tripDates(item)
@@ -2370,7 +2635,9 @@ function renderItineraryHeader(){
 
     <div class="author">
 
-      ${avatarHTML(item)}
+      ${avatarHTML(
+        item
+      )}
 
 
       <div class="author-info">
@@ -2383,6 +2650,7 @@ function renderItineraryHeader(){
           )}
 
         </div>
+
 
         <div class="author-sub">
           Published this itinerary
@@ -2417,20 +2685,30 @@ function renderItineraryHeader(){
     <div class="public-stats">
 
       <div class="stat-chip">
+
         ❤️
+
         ${Number(
-          item.like_count || 0
+          item.like_count ||
+          0
         )}
+
         likes
+
       </div>
 
 
       <div class="stat-chip">
+
         📋
+
         ${Number(
-          item.copy_count || 0
+          item.copy_count ||
+          0
         )}
+
         copies
+
       </div>
 
 
@@ -2441,10 +2719,13 @@ function renderItineraryHeader(){
 
         `
           <div class="stat-chip">
+
             🗓️
+
             ${esc(
               tripDays(item)
             )}
+
           </div>
         `
 
@@ -2462,7 +2743,13 @@ function renderItineraryHeader(){
         id="likeButton"
         class="
           like-btn
-          ${item.liked_by_me ? "active" : ""}
+          ${
+            item.liked_by_me
+            ?
+            "active"
+            :
+            ""
+          }
         "
         type="button"
       >
@@ -2482,7 +2769,13 @@ function renderItineraryHeader(){
         id="copyButton"
         class="copy-btn"
         type="button"
-        ${item.allow_copy ? "" : "disabled"}
+        ${
+          item.allow_copy
+          ?
+          ""
+          :
+          "disabled"
+        }
       >
 
         ${
@@ -2547,7 +2840,7 @@ function renderItinerary(){
         </strong>
 
         This traveller hasn't added
-        any public schedule items yet.
+        any schedule items yet.
 
       </div>
 
@@ -2559,8 +2852,7 @@ function renderItinerary(){
   }
 
 
-  const grouped =
-    {};
+  const grouped = {};
 
 
   selectedItems.forEach(
@@ -2592,7 +2884,9 @@ function renderItinerary(){
 
       ${
         Object
-          .entries(grouped)
+          .entries(
+            grouped
+          )
           .map(
             ([date,items]) => {
 
@@ -2606,11 +2900,17 @@ function renderItinerary(){
 
                       ${
                         date === "unknown"
+
                         ?
+
                         "Trip Day"
+
                         :
+
                         esc(
-                          dayLabel(date)
+                          dayLabel(
+                            date
+                          )
                         )
                       }
 
@@ -2620,6 +2920,7 @@ function renderItinerary(){
                     <div class="day-weekday">
 
                       ${items.length}
+
                       ${
                         items.length === 1
                         ?
@@ -2660,9 +2961,11 @@ function renderItinerary(){
     <div class="copy-note">
 
       📋 Copying creates your own independent trip.
-      It copies the public itinerary only.
-      Private booking information and trip members
-      are never copied.
+
+      It copies the shared itinerary only.
+
+      Private bookings and trip members
+      are not copied.
 
     </div>
 
@@ -2672,7 +2975,7 @@ function renderItinerary(){
 
 
 /* =========================================================
-   ITEM
+   SCHEDULE ITEM
 ========================================================= */
 
 function renderItem(item){
@@ -2697,7 +3000,9 @@ function renderItem(item){
 
       <div class="item-time">
 
-        ${esc(time)}
+        ${esc(
+          time
+        )}
 
       </div>
 
@@ -2740,6 +3045,7 @@ function renderItem(item){
             <div class="item-location">
 
               📍
+
               ${esc(
                 item.location_name
               )}
@@ -2782,9 +3088,12 @@ function renderItem(item){
           `
             <a
               class="map-link"
-              href="${esc(item.maps_url)}"
+              href="${esc(
+                item.maps_url
+              )}"
               target="_blank"
               rel="noopener"
+              onclick="event.stopPropagation()"
             >
               MAP →
             </a>
@@ -2805,7 +3114,7 @@ function renderItem(item){
 
 
 /* =========================================================
-   CLOSE
+   CLOSE ITINERARY
 ========================================================= */
 
 function closeItinerary(){
@@ -2819,10 +3128,12 @@ function closeItinerary(){
   );
 
 
-  /*
-    Remove ?open= from URL without
-    leaving the Places page.
-  */
+  selectedPublication =
+    null;
+
+
+  selectedItems = [];
+
 
   history.replaceState(
     null,
@@ -2859,8 +3170,16 @@ document.getElementById(
 async function toggleLike(){
 
   if(!selectedPublication){
+
     return;
+
   }
+
+
+  const publicationId =
+    Number(
+      selectedPublication.publication_id
+    );
 
 
   const button =
@@ -2869,8 +3188,12 @@ async function toggleLike(){
     );
 
 
-  button.disabled =
-    true;
+  if(button){
+
+    button.disabled =
+      true;
+
+  }
 
 
   try{
@@ -2880,15 +3203,15 @@ async function toggleLike(){
         "toggle_trip_like",
         {
           p_publication_id:
-            Number(
-              selectedPublication.publication_id
-            )
+            publicationId
         }
       );
 
 
     if(result.error){
+
       throw result.error;
+
     }
 
 
@@ -2896,46 +3219,53 @@ async function toggleLike(){
       Array.isArray(
         result.data
       )
+
       ?
+
       result.data[0]
+
       :
+
       result.data;
 
 
-    selectedPublication.liked_by_me =
+    const liked =
       Boolean(
         response?.liked
       );
 
 
-    selectedPublication.like_count =
+    const likeCount =
       Number(
-        response?.like_count || 0
+        response?.like_count ||
+        0
       );
 
 
-    const feedItem =
-      publications.find(
+    publications =
+      publications.map(
         item =>
           Number(
             item.publication_id
           ) ===
-          Number(
-            selectedPublication.publication_id
-          )
+          publicationId
+
+          ?
+
+          {
+            ...item,
+
+            liked_by_me:
+              liked,
+
+            like_count:
+              likeCount
+          }
+
+          :
+
+          item
       );
-
-
-    if(feedItem){
-
-      feedItem.liked_by_me =
-        selectedPublication.liked_by_me;
-
-
-      feedItem.like_count =
-        selectedPublication.like_count;
-
-    }
 
 
     filtered =
@@ -2944,20 +3274,36 @@ async function toggleLike(){
           Number(
             item.publication_id
           ) ===
-          Number(
-            selectedPublication.publication_id
-          )
+          publicationId
+
           ?
+
           {
             ...item,
+
             liked_by_me:
-              selectedPublication.liked_by_me,
+              liked,
+
             like_count:
-              selectedPublication.like_count
+              likeCount
           }
+
           :
+
           item
       );
+
+
+    selectedPublication =
+      {
+        ...selectedPublication,
+
+        liked_by_me:
+          liked,
+
+        like_count:
+          likeCount
+      };
 
 
     renderFeed();
@@ -2969,11 +3315,14 @@ async function toggleLike(){
 
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     alert(
-      "Couldn't update like.\n\n" +
+      "Couldn't update like.\n\n"
+      +
       (
         error.message ||
         "Unknown error."
@@ -3013,7 +3362,9 @@ async function copyItinerary(){
     !selectedPublication ||
     !selectedPublication.allow_copy
   ){
+
     return;
+
   }
 
 
@@ -3024,7 +3375,9 @@ async function copyItinerary(){
 
 
   if(!yes){
+
     return;
+
   }
 
 
@@ -3049,8 +3402,8 @@ async function copyItinerary(){
   try{
 
     /*
-      If itinerary items have not loaded for
-      some reason, get them first.
+      Make sure itinerary items
+      have been loaded.
     */
 
     if(!selectedItems.length){
@@ -3068,7 +3421,9 @@ async function copyItinerary(){
 
 
       if(result.error){
+
         throw result.error;
+
       }
 
 
@@ -3079,12 +3434,14 @@ async function copyItinerary(){
 
 
     /*
-      1. Create THEIR OWN new trip.
+      1. CREATE NEW TRIP
     */
 
     const tripResult =
       await db
-        .from("trips")
+        .from(
+          "trips"
+        )
         .insert({
 
           owner_id:
@@ -3123,7 +3480,9 @@ async function copyItinerary(){
 
 
     if(tripResult.error){
+
       throw tripResult.error;
+
     }
 
 
@@ -3134,7 +3493,7 @@ async function copyItinerary(){
 
 
     /*
-      2. Copy the public schedule.
+      2. COPY SCHEDULE
     */
 
     if(selectedItems.length){
@@ -3214,27 +3573,32 @@ async function copyItinerary(){
 
       const scheduleResult =
         await db
-          .from("schedule")
+          .from(
+            "schedule"
+          )
           .insert(
             scheduleRows
           );
 
 
       if(scheduleResult.error){
+
         throw scheduleResult.error;
+
       }
 
     }
 
 
     /*
-      3. Record that this public itinerary
-         was copied.
+      3. RECORD COPY
     */
 
     const copyResult =
       await db
-        .from("trip_copies")
+        .from(
+          "trip_copies"
+        )
         .insert({
 
           publication_id:
@@ -3252,12 +3616,14 @@ async function copyItinerary(){
 
 
     if(copyResult.error){
+
       throw copyResult.error;
+
     }
 
 
     /*
-      4. Make new copy current.
+      4. MAKE COPY CURRENT
     */
 
     localStorage.setItem(
@@ -3269,7 +3635,7 @@ async function copyItinerary(){
 
 
     alert(
-      "Trip copied! Your copy is now completely separate from the original."
+      "Trip copied! Your copy is now separate from the original."
     );
 
 
@@ -3281,13 +3647,14 @@ async function copyItinerary(){
 
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     /*
-      If schedule copy failed after the
-      trip was created, clean up the
-      incomplete trip.
+      Delete incomplete copy
+      if something failed.
     */
 
     if(newTripId){
@@ -3295,7 +3662,9 @@ async function copyItinerary(){
       try{
 
         await db
-          .from("trips")
+          .from(
+            "trips"
+          )
           .delete()
           .eq(
             "id",
@@ -3307,6 +3676,8 @@ async function copyItinerary(){
           );
 
       }
+
+
       catch(cleanupError){
 
         console.warn(
@@ -3320,7 +3691,8 @@ async function copyItinerary(){
 
 
     alert(
-      "Couldn't copy this itinerary.\n\n" +
+      "Couldn't copy this itinerary.\n\n"
+      +
       (
         error.message ||
         "Unknown error."
@@ -3341,16 +3713,20 @@ async function copyItinerary(){
 
 
 /* =========================================================
-   NAV
+   NAVIGATION
 ========================================================= */
 
 function setupNavigation(){
 
   const suffix =
     currentTripId
+
     ?
+
     `?trip=${currentTripId}`
+
     :
+
     "";
 
 
@@ -3364,9 +3740,13 @@ function setupNavigation(){
     "navPlan"
   ).href =
     currentTripId
+
     ?
+
     `schedule.html?trip=${currentTripId}`
+
     :
+
     "trips.html";
 
 
@@ -3374,9 +3754,13 @@ function setupNavigation(){
     "navFood"
   ).href =
     currentTripId
+
     ?
+
     `food.html?trip=${currentTripId}`
+
     :
+
     "trips.html";
 
 
@@ -3384,9 +3768,13 @@ function setupNavigation(){
     "navHub"
   ).href =
     currentTripId
+
     ?
+
     `bookings.html?trip=${currentTripId}`
+
     :
+
     "trips.html";
 
 
@@ -3394,16 +3782,20 @@ function setupNavigation(){
     "moreProfile"
   ).href =
     currentTripId
+
     ?
+
     `profile.html?trip=${currentTripId}`
+
     :
+
     "profile.html";
 
 }
 
 
 /* =========================================================
-   MORE
+   MORE MENU
 ========================================================= */
 
 const moreBackdrop =
@@ -3454,5 +3846,4 @@ start();
 </script>
 
 </body>
-
 </html>
