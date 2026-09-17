@@ -14,421 +14,320 @@
 <title>Bookings · Japan Trip</title>
 
 <style>
-
+/* Shared visual system with food.html + schedule.html */
 :root{
   --bg:#070c10;
-  --panel:#10161c;
-  --panel2:#151c23;
-  --line:#29323b;
-  --text:#f5f5f3;
-  --muted:#aeb5bc;
-  --muted2:#74818a;
-  --red:#c96f68;
-  --green:#67c587;
-  --orange:#f4a34d;
-  --blue:#5c9dff;
-  --gold:#e3b85c;
+  --surface:#0d1318;
+  --surface-2:#11181e;
+  --surface-3:#151d24;
+  --line:#263039;
+  --line-soft:rgba(255,255,255,.065);
+  --text:#f5f3ef;
+  --muted:#929ca4;
+  --muted-2:#66727b;
+  --red:#ff625f;
+  --red-soft:rgba(255,98,95,.09);
+  --red-line:rgba(255,98,95,.30);
+  --green:#79c995;
+  --orange:#efa875;
+  --blue:#78a9ef;
+  --gold:#e4bd69;
 }
 
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   min-height:100vh;
-
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      #17212a 0%,
-      transparent 36%
-    ),
-    var(--bg);
-
   color:var(--text);
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(42,56,68,.30),transparent 28%),
+    var(--bg);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
 
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
-
+button,input,textarea,select{font:inherit}
+button{-webkit-tap-highlight-color:transparent}
 
 /* =========================================================
-   HEADER
+   HEADER — MATCHES FOOD / PLAN
 ========================================================= */
-
 header{
   position:sticky;
   top:0;
   z-index:40;
-
-  padding:
-    calc(10px + env(safe-area-inset-top))
-    12px
-    10px;
-
-  border-bottom:1px solid var(--line);
-
-  background:rgba(7,12,16,.97);
-
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(7,12,16,.965);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
 
 .header-inner{
+  width:100%;
   max-width:760px;
-  margin:auto;
+  margin:0 auto;
+  padding:calc(14px + env(safe-area-inset-top)) 14px 0;
 }
 
 .title-row{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:14px;
 }
+
+.title-row>div:first-child{min-width:0}
 
 .eyebrow{
+  margin-bottom:2px;
   color:var(--red);
-  font-size:8px;
+  font-size:7px;
   font-weight:900;
-  letter-spacing:.14em;
+  letter-spacing:.17em;
+  text-transform:uppercase;
 }
 
-h1{
-  margin:2px 0 0;
+.booking-page-title{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0;
+}
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+.booking-page-title-icon{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  display:block;
+  object-fit:contain;
+}
 
-  font-size:23px;
-  line-height:1.1;
+.booking-page-title span{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:27px;
+  font-weight:700;
+  line-height:1;
 }
 
 .trip-name{
-  margin-top:3px;
+  margin:3px 0 0 53px;
+  overflow:hidden;
   color:var(--muted);
   font-size:8px;
+  font-weight:600;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .add-btn{
-  min-height:35px;
-  padding:6px 11px;
-
-  border:1px solid rgba(201,111,104,.35);
+  flex:0 0 auto;
+  min-height:36px;
+  padding:7px 11px;
+  border:1px solid var(--red-line);
   border-radius:10px;
-
-  background:rgba(201,111,104,.10);
-
-  color:#f4d4d1;
-
-  font-size:9px;
+  background:var(--red-soft);
+  color:#f3b7b3;
+  font-size:8px;
   font-weight:900;
-
+  letter-spacing:.04em;
   cursor:pointer;
 }
 
+.add-btn:active{transform:scale(.95)}
 
 /* =========================================================
    MAIN
 ========================================================= */
-
 main{
+  width:100%;
   max-width:760px;
-  margin:auto;
-
-  padding:
-    12px
-    12px
-    100px;
+  margin:0 auto;
+  padding:14px 14px 100px;
 }
-
 
 /* =========================================================
    SUMMARY
 ========================================================= */
-
 .summary{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:6px;
-
-  margin-bottom:11px;
+  margin-bottom:10px;
 }
 
 .summary-card{
   min-width:0;
-
   padding:10px 7px;
-
-  border:1px solid var(--line);
+  border:1px solid #252f37;
   border-radius:12px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #121a20,
-      #0d1318
-    );
-
+  background:linear-gradient(145deg,rgba(20,28,34,.97),rgba(12,18,23,.98));
   text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,.10);
 }
 
 .summary-number{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:22px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
   font-weight:800;
-
   line-height:1;
 }
 
 .summary-label{
   margin-top:4px;
-
-  color:var(--muted);
-
-  font-size:7px;
+  color:#748089;
+  font-size:6.5px;
   font-weight:900;
+  letter-spacing:.05em;
 }
 
-.summary-card.action .summary-number{
-  color:var(--orange);
-}
-
-.summary-card.booked .summary-number{
-  color:var(--green);
-}
-
+.summary-card.action .summary-number{color:var(--orange)}
+.summary-card.booked .summary-number{color:var(--green)}
 
 /* =========================================================
-   FILTERS
+   STATUS FILTERS — SAME CHIP LANGUAGE AS FOOD
 ========================================================= */
-
-.filters{
+.filters,
+.type-filters{
   display:flex;
+  align-items:center;
   gap:5px;
-
-  margin-bottom:7px;
-
+  width:100%;
   overflow-x:auto;
-
   scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
 }
 
-.filters::-webkit-scrollbar{
-  display:none;
+.filters::-webkit-scrollbar,
+.type-filters::-webkit-scrollbar{display:none}
+
+.filters{margin-bottom:6px}
+.type-filters{
+  margin-bottom:15px;
+  padding-bottom:1px;
 }
 
-.filter-btn{
+.filter-btn,
+.type-filter{
   flex:0 0 auto;
-
-  min-height:34px;
-
-  padding:6px 10px;
-
+  min-height:27px;
+  padding:4px 9px;
   border:1px solid var(--line);
   border-radius:999px;
-
-  background:#10171d;
-
-  color:var(--muted);
-
+  background:rgba(17,24,30,.80);
+  color:#8d979e;
   font-size:7px;
-  font-weight:900;
-
+  font-weight:850;
   white-space:nowrap;
-
   cursor:pointer;
 }
 
 .filter-btn.active{
-  border-color:rgba(201,111,104,.5);
-
-  background:rgba(201,111,104,.12);
-
-  color:#fff;
-}
-
-
-/* =========================================================
-   TYPE FILTERS
-========================================================= */
-
-.type-filters{
-  display:flex;
-  gap:5px;
-
-  margin-bottom:15px;
-
-  overflow-x:auto;
-
-  scrollbar-width:none;
-}
-
-.type-filters::-webkit-scrollbar{
-  display:none;
+  border-color:var(--red-line);
+  background:var(--red-soft);
+  color:#f0c0bc;
 }
 
 .type-filter{
-  flex:0 0 auto;
-
-  min-height:30px;
-
-  padding:5px 9px;
-
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  background:#0d1318;
-
-  color:#89959e;
-
-  font-size:7px;
-  font-weight:800;
-
-  cursor:pointer;
+  min-height:26px;
+  background:#0f161c;
+  color:#77838b;
 }
 
 .type-filter.active{
-  color:#fff;
-  border-color:#4a5660;
-  background:#182129;
+  border-color:rgba(120,169,239,.25);
+  background:rgba(120,169,239,.055);
+  color:#a7c7f3;
 }
-
 
 /* =========================================================
    SECTION
 ========================================================= */
-
-.section{
-  margin-bottom:18px;
-}
+.section{margin-bottom:20px}
 
 .section-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  margin:
-    0
-    2px
-    7px;
+  gap:10px;
+  margin:2px 1px 8px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--line-soft);
 }
 
 .section-title{
+  color:#bfc5c9;
   font-size:8px;
   font-weight:900;
-
-  letter-spacing:.1em;
-}
-
-.section-title.action{
-  color:var(--orange);
-}
-
-.section-title.booked{
-  color:var(--green);
-}
-
-.section-count{
-  color:var(--muted2);
-
-  font-size:7px;
-  font-weight:900;
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-.date-group{
-  margin-bottom:11px;
-}
-
-.date-label{
-  margin:
-    0
-    2px
-    5px;
-
-  color:#7e8b94;
-
-  font-size:7px;
-  font-weight:900;
-
   letter-spacing:.07em;
 }
 
+.section-title.action{color:var(--orange)}
+.section-title.booked{color:var(--green)}
+
+.section-count{
+  color:#626e76;
+  font-size:7px;
+  font-weight:900;
+}
+
+/* =========================================================
+   DATE GROUP
+========================================================= */
+.date-group{margin-bottom:12px}
+
+.date-label{
+  margin:0 2px 6px;
+  color:#78858d;
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
 
 /* =========================================================
    BOOKING CARD
 ========================================================= */
-
 .booking-card{
   position:relative;
-
-  margin-bottom:6px;
-
-  padding:10px;
-
-  border:1px solid var(--line);
-  border-radius:12px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #121a20,
-      #0c1217
-    );
-
+  margin-bottom:8px;
+  padding:11px 11px 9px;
+  overflow:hidden;
+  border:1px solid #252f37;
+  border-radius:14px;
+  background:linear-gradient(145deg,rgba(20,28,34,.97),rgba(12,18,23,.98));
+  box-shadow:0 6px 18px rgba(0,0,0,.13);
   cursor:pointer;
+  transition:border-color .18s ease,transform .18s ease;
+}
+
+.booking-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:13px;
+  right:13px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
 }
 
 .booking-top{
   display:flex;
   align-items:flex-start;
-  gap:8px;
+  gap:9px;
 }
 
 .booking-icon{
-  flex:0 0 31px;
-
-  width:31px;
-  height:31px;
-
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  border:1px solid #2c3841;
-  border-radius:9px;
-
-  background:#151d24;
-
-  font-size:15px;
+  border:1px solid rgba(255,98,95,.16);
+  border-radius:10px;
+  background:rgba(255,98,95,.055);
+  font-size:16px;
 }
 
 .booking-main{
@@ -437,419 +336,299 @@ main{
 }
 
 .booking-title{
-  color:#f2f2f0;
-
-  font-size:9px;
+  color:#f8f7f4;
+  font-size:10px;
   font-weight:900;
-
   line-height:1.3;
 }
 
 .booking-meta{
   margin-top:3px;
-
-  color:#89969f;
-
-  font-size:7px;
-  line-height:1.45;
+  color:#919ba2;
+  font-size:7.5px;
+  line-height:1.4;
 }
 
 .booking-note{
-  margin-top:5px;
-
-  color:#9da7ae;
-
-  font-size:7px;
-  line-height:1.45;
+  margin-top:6px;
+  color:#8f999f;
+  font-size:7.5px;
+  line-height:1.5;
 }
 
+/* STATUS */
 .status-badge{
   flex:0 0 auto;
-
-  padding:3px 6px;
-
+  padding:2px 5px;
+  border:1px solid rgba(255,255,255,.07);
   border-radius:999px;
-
+  background:rgba(255,255,255,.025);
   font-size:6px;
   font-weight:900;
+  white-space:nowrap;
 }
 
 .status-badge.planned{
-  border:1px solid rgba(244,163,77,.25);
-
-  background:rgba(244,163,77,.10);
-
-  color:#ffc176;
+  border-color:rgba(238,168,117,.22);
+  background:rgba(238,168,117,.055);
+  color:#efb07d;
 }
 
 .status-badge.booked{
-  border:1px solid rgba(103,197,135,.25);
-
-  background:rgba(103,197,135,.10);
-
-  color:#aee5bf;
+  border-color:rgba(121,201,149,.22);
+  background:rgba(121,201,149,.055);
+  color:#9edab3;
 }
 
 .status-badge.cancelled{
-  border:1px solid rgba(255,255,255,.10);
-
-  background:rgba(255,255,255,.04);
-
-  color:#818b92;
+  color:#7f8990;
 }
 
-
-/* =========================================================
-   DETAILS
-========================================================= */
-
+/* DETAILS */
 .detail-row{
   display:flex;
   flex-wrap:wrap;
   gap:4px;
-
-  margin-top:7px;
+  margin-top:8px;
 }
 
 .detail-pill{
   display:inline-flex;
   align-items:center;
-
   min-height:22px;
-
   padding:3px 6px;
-
-  border:1px solid rgba(255,255,255,.07);
+  border:0;
   border-radius:6px;
-
-  background:rgba(255,255,255,.025);
-
-  color:#929da5;
-
-  font-size:6px;
+  background:rgba(255,255,255,.035);
+  color:#aab3b9;
+  font-size:6.5px;
   font-weight:800;
 }
 
 .detail-pill.link{
-  color:#a8caff;
+  border:1px solid rgba(120,169,239,.16);
+  background:rgba(120,169,239,.035);
+  color:#91b9ef;
   text-decoration:none;
 }
 
-
-/* =========================================================
-   QUICK BOOK
-========================================================= */
-
+/* QUICK BOOK */
 .quick-book{
   width:100%;
-
-  min-height:31px;
-
-  margin-top:8px;
-
-  border:1px solid rgba(103,197,135,.25);
+  min-height:29px;
+  margin-top:9px;
+  padding:5px 8px;
+  border:1px solid rgba(121,201,149,.18);
   border-radius:8px;
-
-  background:rgba(103,197,135,.07);
-
-  color:#aee5bf;
-
-  font-size:7px;
+  background:rgba(121,201,149,.035);
+  color:#8fd0a6;
+  font-size:6.5px;
   font-weight:900;
-
   cursor:pointer;
 }
-
 
 /* =========================================================
    EMPTY / STATE
 ========================================================= */
-
 .empty,
 .state{
-  padding:22px 15px;
-
-  border:1px dashed #35414a;
-  border-radius:12px;
-
-  text-align:center;
-
-  color:var(--muted);
-
+  padding:36px 18px;
+  border:1px dashed #303b43;
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+  color:#77838b;
   font-size:8px;
-  line-height:1.5;
+  line-height:1.6;
+  text-align:center;
 }
 
 .empty strong,
 .state strong{
   display:block;
-
-  margin-bottom:4px;
-
-  color:#fff;
-
-  font-size:11px;
+  margin-bottom:5px;
+  color:#e8e7e3;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:14px;
+  font-weight:700;
 }
-
 
 /* =========================================================
-   SHEET
+   ADD / EDIT SHEET — SAME AS FOOD / PLAN
 ========================================================= */
-
 .sheet-backdrop{
   position:fixed;
-
   inset:0;
-
-  z-index:100;
-
+  z-index:150;
   display:none;
   align-items:flex-end;
-
   background:rgba(0,0,0,.72);
-
-  backdrop-filter:blur(4px);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
 }
 
-.sheet-backdrop.open{
-  display:flex;
-}
+.sheet-backdrop.open{display:flex}
 
 .sheet{
   width:100%;
-
-  max-height:
-    calc(92vh - env(safe-area-inset-top));
-
+  max-width:620px;
+  max-height:calc(92vh - env(safe-area-inset-top));
+  margin:0 auto;
+  padding:8px 14px calc(18px + env(safe-area-inset-bottom));
   overflow-y:auto;
-
-  padding:
-    8px
-    14px
-    calc(18px + env(safe-area-inset-bottom));
-
   border:1px solid var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
-  background:#0d1318;
+  border-radius:20px 20px 0 0;
+  background:#0c1217;
+  box-shadow:0 -20px 50px rgba(0,0,0,.35);
 }
 
 .sheet-handle{
-  width:38px;
+  width:36px;
   height:4px;
-
-  margin:
-    2px
-    auto
-    12px;
-
+  margin:2px auto 13px;
   border-radius:999px;
-
-  background:#39454d;
+  background:#35414a;
 }
 
 .sheet-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   gap:10px;
-
-  margin-bottom:12px;
+  margin-bottom:14px;
 }
 
 .sheet-title{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:19px;
 }
 
 .close-btn{
   width:34px;
   height:34px;
-
   border:1px solid var(--line);
   border-radius:9px;
-
-  background:#151c22;
-
+  background:#131b21;
   color:#fff;
-
   cursor:pointer;
 }
 
-
-/* =========================================================
-   FORM
-========================================================= */
-
+/* FORM */
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:9px;
 }
 
-.field.full{
-  grid-column:1/-1;
-}
+.field.full{grid-column:1/-1}
 
 .field label{
   display:block;
-
   margin-bottom:4px;
-
-  color:#aeb5bc;
-
-  font-size:7px;
+  color:#8d989f;
+  font-size:6.5px;
   font-weight:900;
+  letter-spacing:.04em;
 }
 
 .field input,
 .field textarea,
 .field select{
   width:100%;
-
   min-height:40px;
-
   padding:8px 9px;
-
   border:1px solid var(--line);
   border-radius:9px;
-
-  outline:none;
-
-  background:#10171d;
-
+  outline:0;
+  background:#0f161c;
   color:#fff;
-
-  font-size:10px;
+  font-size:9px;
 }
 
 .field textarea{
-  min-height:68px;
+  min-height:76px;
   resize:vertical;
 }
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus{
-  border-color:var(--red);
+  border-color:var(--red-line);
 }
-
-
-/* =========================================================
-   FORM ACTIONS
-========================================================= */
 
 .sheet-actions{
   display:grid;
-
   grid-template-columns:1fr 2fr;
-
   gap:6px;
-
-  margin-top:12px;
+  margin-top:11px;
 }
 
 .delete-btn,
 .save-btn{
   min-height:43px;
-
   border-radius:10px;
-
   font-size:8px;
   font-weight:900;
-
   cursor:pointer;
 }
 
 .delete-btn{
-  border:1px solid rgba(201,111,104,.25);
-
-  background:rgba(201,111,104,.05);
-
+  border:1px solid rgba(255,98,95,.20);
+  background:rgba(255,98,95,.04);
   color:#d98a83;
 }
 
 .save-btn{
-  border:1px solid rgba(103,197,135,.32);
-
-  background:rgba(103,197,135,.10);
-
-  color:#aee5bf;
+  border:1px solid rgba(121,201,149,.24);
+  background:rgba(121,201,149,.07);
+  color:#a7dbb8;
 }
 
 .save-btn:disabled,
-.delete-btn:disabled{
-  opacity:.5;
-}
+.delete-btn:disabled{opacity:.5}
 
 .form-message{
   display:none;
-
   margin-top:8px;
-
   padding:8px;
-
   border-radius:8px;
-
   font-size:8px;
 }
 
 .form-message.error{
   display:block;
-
-  border:1px solid rgba(201,111,104,.25);
-
-  background:rgba(201,111,104,.07);
-
-  color:#ffc5c1;
+  border:1px solid rgba(255,98,95,.20);
+  background:rgba(255,98,95,.055);
+  color:#f3aaa6;
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
+@media(max-width:480px){
+  .header-inner{padding-left:12px;padding-right:12px}
+  main{padding-left:12px;padding-right:12px}
+
+  .booking-page-title-icon{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+  }
+
+  .booking-page-title span{font-size:25px}
+  .trip-name{margin-left:49px}
+
+  .booking-card{padding:10px}
+}
 
 /* =========================================================
    DESKTOP
 ========================================================= */
-
 @media(min-width:700px){
-
-  .sheet{
-    max-width:620px;
-    margin:auto;
-  }
-
-}
-
-
-/* BOOKING HEADER ICON */
-.booking-page-title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.booking-page-title-icon{
-  width:54px;
-  height:54px;
-  flex:0 0 54px;
-  display:block;
-  object-fit:contain;
-}
-@media(max-width:480px){
-  .booking-page-title-icon{
-    width:50px;
-    height:50px;
-    flex-basis:50px;
+  .booking-card:hover{
+    border-color:#35414a;
+    transform:translateY(-1px);
   }
 }
-
 </style>
 </head>
 
