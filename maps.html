@@ -1,759 +1,3610 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#070c10">
+
 <title>Map · Travel</title>
 
+
 <style>
+
 :root{
-  --bg:#070c10;--surface:#0d1318;--surface-2:#11181e;--line:#263039;
-  --line-soft:rgba(255,255,255,.065);--text:#f5f3ef;--muted:#929ca4;
-  --muted-2:#68747d;--red:#ff625f;--red-soft:rgba(255,98,95,.09);
-  --red-line:rgba(255,98,95,.30);--blue:#78a9ef
+
+  --bg:#070c10;
+
+  --surface:#0d1318;
+  --surface-2:#11181e;
+  --surface-3:#151d24;
+
+  --line:#263039;
+  --line-soft:rgba(255,255,255,.065);
+
+  --text:#f5f3ef;
+
+  --muted:#929ca4;
+  --muted-2:#68747d;
+
+  --red:#c96f68;
+  --red-soft:rgba(201,111,104,.10);
+  --red-line:rgba(201,111,104,.35);
+
+  --blue:#78a9ef;
+
+  --green:#67c587;
+  --gold:#e3b85c;
+
 }
-*{box-sizing:border-box}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+
+html{
+  scroll-behavior:smooth;
+}
+
+
 body{
-  margin:0;min-height:100vh;color:var(--text);
-  background:radial-gradient(circle at 50% -8%,rgba(42,56,68,.30),transparent 28%),var(--bg);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased
+
+  margin:0;
+
+  min-height:100vh;
+
+  color:var(--text);
+
+  background:
+
+    radial-gradient(
+      circle at 50% -8%,
+      rgba(42,56,68,.30),
+      transparent 28%
+    ),
+
+    var(--bg);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing:
+    antialiased;
+
 }
-button{font:inherit;-webkit-tap-highlight-color:transparent}
+
+
+button{
+  font:inherit;
+
+  -webkit-tap-highlight-color:
+    transparent;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header{
-  position:sticky;top:0;z-index:40;border-bottom:1px solid var(--line-soft);
-  background:rgba(7,12,16,.965);backdrop-filter:blur(18px)
+
+  position:sticky;
+
+  top:0;
+
+  z-index:40;
+
+  border-bottom:
+    1px solid
+    var(--line-soft);
+
+  background:
+    rgba(7,12,16,.965);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+
 }
-.header-inner{width:100%;max-width:760px;margin:auto;padding:calc(14px + env(safe-area-inset-top)) 14px 10px}
-.eyebrow{color:var(--red);font-size:7px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
-h1{margin:3px 0 0;font:700 27px/1 Georgia,"Times New Roman",serif}
-.trip-name{margin-top:4px;color:var(--muted);font-size:8px;font-weight:600}
-main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
-.date-scroller{display:flex;gap:5px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none}
-.date-scroller::-webkit-scrollbar{display:none}
+
+
+.header-inner{
+
+  width:100%;
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+
+    calc(
+      14px +
+      env(safe-area-inset-top)
+    )
+
+    14px
+
+    10px;
+
+}
+
+
+.eyebrow{
+
+  color:var(--red);
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.17em;
+
+  text-transform:uppercase;
+
+}
+
+
+h1{
+
+  margin:
+    3px
+    0
+    0;
+
+  font:
+    700
+    27px/1
+    Georgia,
+    "Times New Roman",
+    serif;
+
+}
+
+
+.trip-name{
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  font-weight:600;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+
+  width:100%;
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+
+    14px
+
+    14px
+
+    100px;
+
+}
+
+
+/* =========================================================
+   CURRENT DAY
+========================================================= */
+
+.day-summary{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:8px;
+
+}
+
+
+.day-summary-left{
+
+  min-width:0;
+
+}
+
+
+.day-label{
+
+  color:var(--red);
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.12em;
+
+}
+
+
+.day-title{
+
+  margin-top:2px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:17px;
+
+  font-weight:700;
+
+}
+
+
+.day-area{
+
+  margin-top:2px;
+
+  color:#7e8b94;
+
+  font-size:7px;
+
+}
+
+
+.day-count{
+
+  flex:0 0 auto;
+
+  padding:
+    5px
+    8px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:999px;
+
+  background:
+    #10171d;
+
+  color:#aab3b9;
+
+  font-size:6.5px;
+
+  font-weight:900;
+
+}
+
+
+/* =========================================================
+   DATE SCROLLER
+========================================================= */
+
+.date-scroller{
+
+  display:flex;
+
+  gap:6px;
+
+  margin-bottom:10px;
+
+  padding-bottom:2px;
+
+  overflow-x:auto;
+
+  scroll-snap-type:x proximity;
+
+  scrollbar-width:none;
+
+}
+
+
+.date-scroller::-webkit-scrollbar{
+  display:none;
+}
+
+
 .date-btn{
-  flex:0 0 auto;min-height:32px;padding:6px 10px;border:1px solid var(--line);
-  border-radius:999px;background:#0f161c;color:#8d99a1;font-size:7px;font-weight:900;cursor:pointer
+
+  flex:0 0 auto;
+
+  min-width:61px;
+
+  min-height:48px;
+
+  padding:
+    6px
+    8px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:11px;
+
+  background:
+    #0f161c;
+
+  color:#7d8991;
+
+  text-align:center;
+
+  cursor:pointer;
+
+  scroll-snap-align:start;
+
 }
-.date-btn.active{border-color:var(--red-line);background:var(--red-soft);color:#f3b7b3}
+
+
+.date-btn-day{
+
+  display:block;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:.08em;
+
+}
+
+
+.date-btn-date{
+
+  display:block;
+
+  margin-top:2px;
+
+  color:#c6ccd0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+
+.date-btn.active{
+
+  border-color:
+    var(--red-line);
+
+  background:
+    var(--red-soft);
+
+  color:#e6aaa5;
+
+}
+
+
+.date-btn.active
+.date-btn-date{
+
+  color:#f3c3bf;
+
+}
+
+
+.date-btn.all{
+
+  min-width:54px;
+
+}
+
+
+/* =========================================================
+   MAP CARD
+========================================================= */
+
+.map-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:16px;
+
+  background:
+    var(--surface-2);
+
+}
+
+
 #map{
-  width:100%;height:min(58vh,560px);min-height:390px;border:1px solid var(--line);
-  border-radius:14px;overflow:hidden;background:var(--surface-2)
+
+  width:100%;
+
+  height:min(
+    56vh,
+    540px
+  );
+
+  min-height:390px;
+
+  background:
+    #10171d;
+
 }
-.map-note{margin:7px 2px 13px;color:#71808a;font-size:6.5px}
-.section-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;color:#aeb6bb;font-size:7px;font-weight:900;letter-spacing:.08em}
+
+
+.map-day-badge{
+
+  position:absolute;
+
+  left:10px;
+
+  top:10px;
+
+  z-index:5;
+
+  max-width:
+    calc(
+      100% -
+      70px
+    );
+
+  padding:
+    6px
+    9px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.10);
+
+  border-radius:9px;
+
+  background:
+    rgba(7,12,16,.88);
+
+  box-shadow:
+    0
+    4px
+    18px
+    rgba(0,0,0,.30);
+
+  backdrop-filter:
+    blur(8px);
+
+  -webkit-backdrop-filter:
+    blur(8px);
+
+  color:#d7dddf;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  pointer-events:none;
+
+}
+
+
+.map-note{
+
+  margin:
+    7px
+    2px
+    14px;
+
+  color:#71808a;
+
+  font-size:6.5px;
+
+  line-height:1.45;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section-head{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:
+    space-between;
+
+  gap:10px;
+
+  margin-bottom:7px;
+
+  color:#aeb6bb;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.08em;
+
+}
+
+
+/* =========================================================
+   STOP CARDS
+========================================================= */
+
 .stop{
-  display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;
-  margin-bottom:5px;padding:8px 9px;border:1px solid var(--line);border-radius:10px;background:#0f161c
+
+  display:grid;
+
+  grid-template-columns:
+    31px
+    minmax(0,1fr)
+    auto;
+
+  gap:9px;
+
+  align-items:center;
+
+  margin-bottom:6px;
+
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:11px;
+
+  background:
+    #0f161c;
+
 }
+
+
+.stop:hover{
+
+  border-color:
+    rgba(201,111,104,.30);
+
+}
+
+
 .num{
-  width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--red-line);
-  border-radius:50%;background:var(--red-soft);color:#f3b7b3;font-size:8px;font-weight:900
+
+  width:31px;
+
+  height:31px;
+
+  display:grid;
+
+  place-items:center;
+
+  border:
+    1px solid
+    var(--red-line);
+
+  border-radius:50%;
+
+  background:
+    var(--red-soft);
+
+  color:#f3b7b3;
+
+  font-size:8px;
+
+  font-weight:900;
+
 }
-.stop-title{font-size:8px;font-weight:900;line-height:1.35}
-.stop-meta{margin-top:2px;color:#75818a;font-size:6.5px;line-height:1.35}
-.maps-link{color:#9fc2f1;text-decoration:none;font-size:6.5px;font-weight:900;white-space:nowrap}
-.empty,.error{
-  padding:22px 12px;border:1px dashed #344049;border-radius:12px;
-  color:#7d8991;text-align:center;font-size:8px;line-height:1.55
+
+
+.stop-title{
+
+  font-size:8.5px;
+
+  font-weight:900;
+
+  line-height:1.35;
+
 }
-.error{border-color:var(--red-line);color:#ffc0bc}
-@media(max-width:480px){
-  .header-inner,main{padding-left:12px;padding-right:12px}
-  #map{height:53vh;min-height:360px}
+
+
+.stop-meta{
+
+  margin-top:3px;
+
+  color:#75818a;
+
+  font-size:6.5px;
+
+  line-height:1.4;
+
 }
+
+
+.stop-notes{
+
+  margin-top:3px;
+
+  color:#65727b;
+
+  font-size:6.2px;
+
+  line-height:1.4;
+
+}
+
+
+.maps-link{
+
+  color:#9fc2f1;
+
+  text-decoration:none;
+
+  font-size:6.5px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   EMPTY / ERROR
+========================================================= */
+
+.empty,
+.error{
+
+  padding:
+    22px
+    12px;
+
+  border:
+    1px dashed
+    #344049;
+
+  border-radius:12px;
+
+  color:#7d8991;
+
+  text-align:center;
+
+  font-size:8px;
+
+  line-height:1.55;
+
+}
+
+
+.error{
+
+  border-color:
+    var(--red-line);
+
+  color:#ffc0bc;
+
+}
+
+
+/* =========================================================
+   GOOGLE MAP UI
+========================================================= */
+
+/*
+  Makes Google controls fit the site
+  slightly better.
+*/
+
+.gm-style .gm-style-iw-c{
+
+  padding:0 !important;
+
+  border-radius:12px !important;
+
+  background:#11181e !important;
+
+  box-shadow:
+    0 8px 28px
+    rgba(0,0,0,.55) !important;
+
+}
+
+
+.gm-style .gm-style-iw-d{
+
+  overflow:auto !important;
+
+}
+
+
+.gm-style .gm-style-iw-tc::after{
+
+  background:#11181e !important;
+
+}
+
+
+.gm-ui-hover-effect{
+
+  filter:
+    invert(1)
+    grayscale(1);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(
+  max-width:480px
+){
+
+  .header-inner,
+  main{
+
+    padding-left:12px;
+    padding-right:12px;
+
+  }
+
+
+  #map{
+
+    height:51vh;
+
+    min-height:360px;
+
+  }
+
+
+  .stop{
+
+    grid-template-columns:
+      30px
+      minmax(0,1fr)
+      auto;
+
+  }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
+
   <div class="header-inner">
-    <div id="tripEyebrow" class="eyebrow">TRIP MAP</div>
-    <h1>Map</h1>
-    <div id="tripName" class="trip-name">Loading trip…</div>
+
+    <div
+      id="tripEyebrow"
+      class="eyebrow"
+    >
+      TRIP MAP
+    </div>
+
+
+    <h1>
+      Map
+    </h1>
+
+
+    <div
+      id="tripName"
+      class="trip-name"
+    >
+      Loading trip…
+    </div>
+
   </div>
+
 </header>
 
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
-  <div id="dateScroller" class="date-scroller"></div>
 
-  <div id="map"></div>
 
-  <div class="map-note">
-    Pins follow your schedule order. Only schedule items with coordinates can be shown.
+  <!-- CURRENT DAY -->
+
+  <div class="day-summary">
+
+    <div class="day-summary-left">
+
+      <div
+        id="dayLabel"
+        class="day-label"
+      >
+        LOADING
+      </div>
+
+
+      <div
+        id="dayTitle"
+        class="day-title"
+      >
+        Trip Map
+      </div>
+
+
+      <div
+        id="dayArea"
+        class="day-area"
+      ></div>
+
+    </div>
+
+
+    <div
+      id="dayCount"
+      class="day-count"
+    >
+      —
+    </div>
+
   </div>
 
+
+
+  <!-- DATE BUTTONS -->
+
+  <div
+    id="dateScroller"
+    class="date-scroller"
+  ></div>
+
+
+
+  <!-- MAP -->
+
+  <div class="map-card">
+
+    <div id="map"></div>
+
+
+    <div
+      id="mapDayBadge"
+      class="map-day-badge"
+    >
+      Loading map…
+    </div>
+
+  </div>
+
+
+  <div class="map-note">
+
+    Map pins follow your itinerary order.
+    Only schedule items with coordinates are shown.
+
+  </div>
+
+
+
+  <!-- STOP LIST -->
+
   <section>
+
     <div class="section-head">
-      <span id="listTitle">SCHEDULED STOPS</span>
+
+      <span id="listTitle">
+        SCHEDULED STOPS
+      </span>
+
+
       <span id="pinCount"></span>
+
     </div>
+
+
     <div id="stops">
-      <div class="empty">Loading schedule…</div>
+
+      <div class="empty">
+        Loading schedule…
+      </div>
+
     </div>
+
   </section>
+
+
 </main>
+
+
+
+<!-- =========================================================
+     SHARED FOOTER
+========================================================= -->
 
 <div id="footer"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 <script src="supabase.js"></script>
+
 <script src="google-maps.js"></script>
 
+
+
 <script>
-const params = new URLSearchParams(location.search);
+
+/* =========================================================
+   DARK GOOGLE MAP STYLE
+========================================================= */
+
+/*
+  This is still Google Maps.
+
+  We are simply styling Google's map
+  to match your dark website.
+*/
+
+const DARK_MAP_STYLE = [
+
+  {
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#111820"
+      }
+    ]
+  },
+
+  {
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#88939c"
+      }
+    ]
+  },
+
+  {
+    elementType:"labels.text.stroke",
+    stylers:[
+      {
+        color:"#111820"
+      }
+    ]
+  },
+
+  {
+    featureType:"administrative",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#26323c"
+      }
+    ]
+  },
+
+  {
+    featureType:"administrative.country",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#a8b0b6"
+      }
+    ]
+  },
+
+  {
+    featureType:"administrative.locality",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#d2d5d7"
+      }
+    ]
+  },
+
+  {
+    featureType:"poi",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#7f8e96"
+      }
+    ]
+  },
+
+  {
+    featureType:"poi",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#151d24"
+      }
+    ]
+  },
+
+  {
+    featureType:"poi.park",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#132019"
+      }
+    ]
+  },
+
+  {
+    featureType:"poi.park",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#64806b"
+      }
+    ]
+  },
+
+  {
+    featureType:"road",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#26313a"
+      }
+    ]
+  },
+
+  {
+    featureType:"road",
+    elementType:"geometry.stroke",
+    stylers:[
+      {
+        color:"#172028"
+      }
+    ]
+  },
+
+  {
+    featureType:"road",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#949ea5"
+      }
+    ]
+  },
+
+  {
+    featureType:"road.highway",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#38434b"
+      }
+    ]
+  },
+
+  {
+    featureType:"road.highway",
+    elementType:"geometry.stroke",
+    stylers:[
+      {
+        color:"#202a31"
+      }
+    ]
+  },
+
+  {
+    featureType:"road.highway",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#b6bec3"
+      }
+    ]
+  },
+
+  {
+    featureType:"transit",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#1b242c"
+      }
+    ]
+  },
+
+  {
+    featureType:"transit.station",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#7d8a93"
+      }
+    ]
+  },
+
+  {
+    featureType:"water",
+    elementType:"geometry",
+    stylers:[
+      {
+        color:"#07131c"
+      }
+    ]
+  },
+
+  {
+    featureType:"water",
+    elementType:"labels.text.fill",
+    stylers:[
+      {
+        color:"#536a78"
+      }
+    ]
+  }
+
+];
+
+
+
+/* =========================================================
+   TRIP
+========================================================= */
+
+const params =
+  new URLSearchParams(
+    location.search
+  );
+
 
 let TRIP_ID =
-  Number(params.get("trip")) ||
-  Number(localStorage.getItem("current_trip_id")) ||
+
+  Number(
+    params.get("trip")
+  )
+
+  ||
+
+  Number(
+    localStorage.getItem(
+      "current_trip_id"
+    )
+  )
+
+  ||
+
   null;
 
-let currentUser = null;
-let trip = null;
-let schedule = [];
-let selectedDate = "all";
 
-let map = null;
-let infoWindow = null;
-let markers = [];
 
-const tripName = document.getElementById("tripName");
-const tripEyebrow = document.getElementById("tripEyebrow");
-const dateScroller = document.getElementById("dateScroller");
-const stops = document.getElementById("stops");
-const listTitle = document.getElementById("listTitle");
-const pinCount = document.getElementById("pinCount");
+/* =========================================================
+   STATE
+========================================================= */
 
-function text(v){ return String(v ?? ""); }
+let currentUser =
+  null;
 
-function esc(v){
-  return text(v)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+let trip =
+  null;
+
+
+let schedule =
+  [];
+
+
+/*
+  IMPORTANT:
+
+  We no longer begin with "all".
+
+  Once the schedule loads,
+  selectedDate becomes the first
+  schedule date automatically.
+*/
+
+let selectedDate =
+  null;
+
+
+let map =
+  null;
+
+
+let infoWindow =
+  null;
+
+
+let markers =
+  [];
+
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const tripName =
+  document.getElementById(
+    "tripName"
+  );
+
+
+const tripEyebrow =
+  document.getElementById(
+    "tripEyebrow"
+  );
+
+
+const dateScroller =
+  document.getElementById(
+    "dateScroller"
+  );
+
+
+const stops =
+  document.getElementById(
+    "stops"
+  );
+
+
+const listTitle =
+  document.getElementById(
+    "listTitle"
+  );
+
+
+const pinCount =
+  document.getElementById(
+    "pinCount"
+  );
+
+
+const dayLabel =
+  document.getElementById(
+    "dayLabel"
+  );
+
+
+const dayTitle =
+  document.getElementById(
+    "dayTitle"
+  );
+
+
+const dayArea =
+  document.getElementById(
+    "dayArea"
+  );
+
+
+const dayCount =
+  document.getElementById(
+    "dayCount"
+  );
+
+
+const mapDayBadge =
+  document.getElementById(
+    "mapDayBadge"
+  );
+
+
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function text(value){
+
+  return String(
+    value ?? ""
+  );
+
 }
 
-function parseDate(v){
-  return new Date(v + "T12:00:00");
+
+function esc(value){
+
+  return text(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
 }
 
-function shortDate(v){
-  return new Intl.DateTimeFormat("en-SG",{
-    weekday:"short",
-    day:"numeric",
-    month:"short"
-  }).format(parseDate(v)).toUpperCase();
+
+
+/* =========================================================
+   DATE HELPERS
+========================================================= */
+
+function parseDate(value){
+
+  return new Date(
+    value +
+    "T12:00:00"
+  );
+
 }
+
+
+function weekday(value){
+
+  return new Intl
+    .DateTimeFormat(
+      "en-SG",
+      {
+        weekday:"short"
+      }
+    )
+    .format(
+      parseDate(value)
+    )
+    .toUpperCase();
+
+}
+
+
+function dayMonth(value){
+
+  return new Intl
+    .DateTimeFormat(
+      "en-SG",
+      {
+        day:"numeric",
+        month:"short"
+      }
+    )
+    .format(
+      parseDate(value)
+    )
+    .toUpperCase();
+
+}
+
+
+function fullDate(value){
+
+  return new Intl
+    .DateTimeFormat(
+      "en-SG",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"long"
+      }
+    )
+    .format(
+      parseDate(value)
+    );
+
+}
+
+
+
+/* =========================================================
+   TIME
+========================================================= */
 
 function itemTime(item){
-  if(item.time_label) return item.time_label;
+
+  if(item.time_label){
+
+    return item.time_label;
+
+  }
+
 
   if(item.start_time){
-    const parts = item.start_time.split(":");
-    let hour = Number(parts[0]);
-    const minute = parts[1] || "00";
-    const suffix = hour >= 12 ? "PM" : "AM";
-    hour = hour % 12 || 12;
-    return `${hour}:${minute} ${suffix}`;
+
+    const parts =
+      item.start_time
+        .split(":");
+
+
+    let hour =
+      Number(
+        parts[0]
+      );
+
+
+    const minute =
+      parts[1] ||
+      "00";
+
+
+    const suffix =
+      hour >= 12
+      ?
+      "PM"
+      :
+      "AM";
+
+
+    hour =
+      hour % 12 ||
+      12;
+
+
+    return (
+      `${hour}:${minute} ${suffix}`
+    );
+
   }
+
 
   return "Flexible";
+
 }
+
+
+
+/* =========================================================
+   ITEM ENTITY
+========================================================= */
 
 function itemEntity(item){
-  return item.restaurant || item.place || null;
+
+  return (
+    item.restaurant ||
+    item.place ||
+    null
+  );
+
 }
+
+
+
+/* =========================================================
+   SAFE COORDINATES
+========================================================= */
+
+function coordinateNumber(value){
+
+  /*
+    Prevent blank fields from turning
+    into 0 with Number("").
+  */
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return null;
+
+  }
+
+
+  const number =
+    Number(value);
+
+
+  if(
+    !Number.isFinite(number)
+  ){
+
+    return null;
+
+  }
+
+
+  return number;
+
+}
+
 
 function itemCoordinates(item){
-  const entity = itemEntity(item);
 
-  const lat = Number(
-    entity?.latitude ??
-    item.latitude
-  );
+  const entity =
+    itemEntity(item);
 
-  const lng = Number(
-    entity?.longitude ??
-    item.longitude
-  );
 
-  if(!Number.isFinite(lat) || !Number.isFinite(lng)){
+  const latitude =
+    coordinateNumber(
+      entity?.latitude
+    )
+
+    ??
+
+    coordinateNumber(
+      item.latitude
+    );
+
+
+  const longitude =
+    coordinateNumber(
+      entity?.longitude
+    )
+
+    ??
+
+    coordinateNumber(
+      item.longitude
+    );
+
+
+  if(
+    latitude === null ||
+    longitude === null
+  ){
+
     return null;
+
   }
 
-  return {lat,lng};
+
+  /*
+    Basic coordinate validation.
+  */
+
+  if(
+    latitude < -90 ||
+    latitude > 90 ||
+    longitude < -180 ||
+    longitude > 180
+  ){
+
+    return null;
+
+  }
+
+
+  return {
+
+    lat:
+      latitude,
+
+    lng:
+      longitude
+
+  };
+
 }
+
+
+
+/* =========================================================
+   ITEM LOCATION
+========================================================= */
 
 function itemLocation(item){
+
   return (
-    item.restaurant?.name ||
-    item.place?.name ||
-    item.location_name ||
+
+    item.restaurant?.name
+
+    ||
+
+    item.place?.name
+
+    ||
+
+    item.location_name
+
+    ||
+
     ""
+
   );
+
 }
+
+
+
+/* =========================================================
+   ITEM AREA
+========================================================= */
+
+function itemArea(item){
+
+  const entity =
+    itemEntity(item);
+
+
+  return (
+
+    entity?.area
+
+    ||
+
+    entity?.city
+
+    ||
+
+    item.location_name
+
+    ||
+
+    ""
+
+  );
+
+}
+
+
+
+/* =========================================================
+   MAP URL
+========================================================= */
 
 function itemMapsUrl(item){
-  const entity = itemEntity(item);
 
-  if(entity?.maps_url) return entity.maps_url;
-  if(item.maps_url) return item.maps_url;
+  const entity =
+    itemEntity(item);
 
-  const coords = itemCoordinates(item);
 
-  if(coords){
-    return `https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lng}`;
+  if(entity?.maps_url){
+
+    return entity.maps_url;
+
   }
 
+
+  if(item.maps_url){
+
+    return item.maps_url;
+
+  }
+
+
+  const coords =
+    itemCoordinates(item);
+
+
+  if(coords){
+
+    return (
+      "https://www.google.com/maps/search/" +
+      "?api=1" +
+      `&query=${coords.lat},${coords.lng}`
+    );
+
+  }
+
+
   return null;
+
 }
+
+
+
+/* =========================================================
+   ACCESSIBLE TRIPS
+========================================================= */
 
 async function getAccessibleTrips(){
 
-  const [ownResult,memberResult] = await Promise.all([
-    db.from("trips")
-      .select("*")
-      .eq("owner_id",currentUser.id)
-      .order("start_date",{ascending:true}),
+  const [
+    ownResult,
+    memberResult
+  ] =
 
-    db.from("trip_members")
-      .select("trip_id")
-      .eq("user_id",currentUser.id)
-  ]);
+  await Promise.all([
 
-  if(ownResult.error) throw ownResult.error;
-  if(memberResult.error) throw memberResult.error;
 
-  const map = new Map();
-
-  (ownResult.data || []).forEach(row => {
-    map.set(Number(row.id),row);
-  });
-
-  const sharedIds = [
-    ...new Set(
-      (memberResult.data || [])
-        .map(row => Number(row.trip_id))
-        .filter(Boolean)
-    )
-  ];
-
-  if(sharedIds.length){
-    const sharedResult = await db
+    db
       .from("trips")
       .select("*")
-      .in("id",sharedIds)
-      .order("start_date",{ascending:true});
+      .eq(
+        "owner_id",
+        currentUser.id
+      )
+      .order(
+        "start_date",
+        {
+          ascending:true
+        }
+      ),
 
-    if(sharedResult.error) throw sharedResult.error;
 
-    (sharedResult.data || []).forEach(row => {
-      if(!map.has(Number(row.id))){
-        map.set(Number(row.id),row);
-      }
-    });
+    db
+      .from("trip_members")
+      .select("trip_id")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+
+  ]);
+
+
+  if(ownResult.error){
+
+    throw ownResult.error;
+
   }
 
-  return [...map.values()].sort((a,b) =>
-    text(a.start_date).localeCompare(text(b.start_date))
+
+  if(memberResult.error){
+
+    throw memberResult.error;
+
+  }
+
+
+  const resultMap =
+    new Map();
+
+
+  (
+    ownResult.data ||
+    []
+  )
+  .forEach(
+    row => {
+
+      resultMap.set(
+        Number(row.id),
+        row
+      );
+
+    }
   );
+
+
+  const sharedIds = [
+
+    ...new Set(
+
+      (
+        memberResult.data ||
+        []
+      )
+
+      .map(
+        row =>
+          Number(
+            row.trip_id
+          )
+      )
+
+      .filter(Boolean)
+
+    )
+
+  ];
+
+
+  if(sharedIds.length){
+
+    const sharedResult =
+
+      await db
+        .from("trips")
+        .select("*")
+        .in(
+          "id",
+          sharedIds
+        )
+        .order(
+          "start_date",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(sharedResult.error){
+
+      throw sharedResult.error;
+
+    }
+
+
+    (
+      sharedResult.data ||
+      []
+    )
+    .forEach(
+      row => {
+
+        if(
+          !resultMap.has(
+            Number(row.id)
+          )
+        ){
+
+          resultMap.set(
+            Number(row.id),
+            row
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  return [
+    ...resultMap.values()
+  ]
+  .sort(
+    (a,b) =>
+
+      text(
+        a.start_date
+      )
+      .localeCompare(
+        text(
+          b.start_date
+        )
+      )
+
+  );
+
 }
+
+
+
+/* =========================================================
+   RESOLVE CURRENT TRIP
+========================================================= */
 
 async function resolveTrip(){
 
-  const authResult = await db.auth.getUser();
+  const authResult =
+    await db.auth.getUser();
 
-  if(authResult.error) throw authResult.error;
 
-  currentUser = authResult.data?.user || null;
+  if(authResult.error){
+
+    throw authResult.error;
+
+  }
+
+
+  currentUser =
+    authResult.data?.user ||
+    null;
+
 
   if(!currentUser){
-    location.href = "login.html";
-    throw new Error("Please sign in.");
+
+    location.href =
+      "login.html";
+
+
+    throw new Error(
+      "Please sign in."
+    );
+
   }
 
-  const accessibleTrips = await getAccessibleTrips();
 
-  if(!accessibleTrips.length){
-    throw new Error("You do not have any accessible trips yet.");
+  const accessibleTrips =
+    await getAccessibleTrips();
+
+
+  if(
+    !accessibleTrips.length
+  ){
+
+    throw new Error(
+      "You do not have any accessible trips yet."
+    );
+
   }
 
-  let resolved = accessibleTrips.find(
-    row => Number(row.id) === Number(TRIP_ID)
-  );
+
+  let resolved =
+
+    accessibleTrips.find(
+      row =>
+        Number(row.id) ===
+        Number(TRIP_ID)
+    );
+
 
   if(!resolved){
-    resolved = accessibleTrips[0];
+
+    resolved =
+      accessibleTrips[0];
+
   }
 
-  TRIP_ID = Number(resolved.id);
+
+  TRIP_ID =
+    Number(
+      resolved.id
+    );
+
 
   localStorage.setItem(
     "current_trip_id",
     String(TRIP_ID)
   );
 
+
   history.replaceState(
     null,
     "",
     `maps.html?trip=${TRIP_ID}`
   );
+
 }
+
+
+
+/* =========================================================
+   LOAD SCHEDULE
+========================================================= */
 
 function loadScheduleQuery(){
 
   return db
+
     .from("schedule")
+
     .select(`
+
       id,
       trip_id,
+
       schedule_date,
+
       start_time,
       end_time,
       time_label,
+
       sort_order,
+
       title,
+
       item_type,
+
       description,
       notes,
+
       restaurant_id,
       place_id,
+
       location_name,
+
       address,
+
       latitude,
       longitude,
+
       maps_url,
+
       is_optional,
       is_locked,
 
       place:places(
+
         id,
         name,
         name_japanese,
+
         country,
         prefecture,
         city,
         area,
+
         address,
+
         latitude,
         longitude,
+
         maps_url
+
       ),
 
       restaurant:restaurants(
+
         id,
         name,
         name_japanese,
+
         country,
         prefecture,
         city,
         area,
         location,
+
         address,
+
         latitude,
         longitude,
+
         maps_url
+
       )
+
     `)
-    .eq("trip_id",TRIP_ID)
-    .order("schedule_date",{ascending:true})
-    .order("sort_order",{ascending:true});
+
+    .eq(
+      "trip_id",
+      TRIP_ID
+    )
+
+    .order(
+      "schedule_date",
+      {
+        ascending:true
+      }
+    )
+
+    .order(
+      "sort_order",
+      {
+        ascending:true
+      }
+    );
+
 }
 
-/*
-  IMPORTANT:
-  This uses the SAME loader your working schedule.html uses.
-*/
+
+
+/* =========================================================
+   GOOGLE MAP LOADER
+========================================================= */
+
 async function loadMapAPI(){
 
-  if(window.google?.maps){
+  if(
+    window.google?.maps
+  ){
+
     return;
+
   }
 
-  if(typeof window.loadGoogleMaps !== "function"){
+
+  if(
+    typeof window.loadGoogleMaps !==
+    "function"
+  ){
+
     throw new Error(
-      "Google Maps helper was not found. Check google-maps.js."
+
+      "Google Maps helper was not found. " +
+      "Check google-maps.js."
+
     );
+
   }
 
-  await window.loadGoogleMaps();
 
-  if(!window.google?.maps){
+  await window
+    .loadGoogleMaps();
+
+
+  if(
+    !window.google?.maps
+  ){
+
     throw new Error(
       "Google Maps API could not be loaded."
     );
+
   }
+
 }
+
+
+
+/* =========================================================
+   UNIQUE DATES
+========================================================= */
+
+function tripDates(){
+
+  return [
+
+    ...new Set(
+
+      schedule
+
+        .map(
+          item =>
+            item.schedule_date
+        )
+
+        .filter(Boolean)
+
+    )
+
+  ]
+  .sort();
+
+}
+
+
+
+/* =========================================================
+   DAY ROWS
+========================================================= */
+
+function rowsForDate(date){
+
+  if(
+    date === "all"
+  ){
+
+    return schedule;
+
+  }
+
+
+  return schedule.filter(
+    item =>
+      item.schedule_date ===
+      date
+  );
+
+}
+
+
+
+/* =========================================================
+   MAP ROWS
+========================================================= */
+
+function mapRowsForDate(date){
+
+  return rowsForDate(date)
+
+    .map(
+      item => ({
+
+        item:
+
+          item,
+
+        coords:
+
+          itemCoordinates(
+            item
+          )
+
+      })
+    )
+
+    .filter(
+      row =>
+        row.coords
+    );
+
+}
+
+
+
+/* =========================================================
+   DAY NUMBER
+========================================================= */
+
+function dayNumber(date){
+
+  const dates =
+    tripDates();
+
+
+  const index =
+    dates.indexOf(date);
+
+
+  return (
+    index >= 0
+    ?
+    index + 1
+    :
+    null
+  );
+
+}
+
+
+
+/* =========================================================
+   DAY AREA
+========================================================= */
+
+function areaForDate(date){
+
+  const rows =
+    rowsForDate(date);
+
+
+  const values = [
+
+    ...new Set(
+
+      rows
+
+        .map(
+          item =>
+            itemArea(item)
+        )
+
+        .map(
+          value =>
+            text(value).trim()
+        )
+
+        .filter(Boolean)
+
+    )
+
+  ];
+
+
+  if(!values.length){
+
+    return (
+      trip?.country ||
+      ""
+    );
+
+  }
+
+
+  /*
+    Keep the header compact.
+  */
+
+  return values
+    .slice(
+      0,
+      3
+    )
+    .join(
+      " · "
+    );
+
+}
+
+
+
+/* =========================================================
+   RENDER DATE BUTTONS
+========================================================= */
 
 function renderDates(){
 
-  const dates = [
-    ...new Set(
-      schedule
-        .map(item => item.schedule_date)
-        .filter(Boolean)
-    )
-  ].sort();
+  const dates =
+    tripDates();
+
 
   dateScroller.innerHTML = `
-    <button
-      class="date-btn ${selectedDate === "all" ? "active" : ""}"
-      type="button"
-      data-date="all"
-    >
-      ALL TRIP
-    </button>
+
+
     ${
-      dates.map(date => `
-        <button
-          class="date-btn ${selectedDate === date ? "active" : ""}"
-          type="button"
-          data-date="${date}"
-        >
-          ${esc(shortDate(date))}
-        </button>
-      `).join("")
+
+      dates
+
+        .map(
+          date => {
+
+            const number =
+              dayNumber(date);
+
+
+            return `
+
+              <button
+
+                class="
+                  date-btn
+                  ${
+                    selectedDate ===
+                    date
+                    ?
+                    "active"
+                    :
+                    ""
+                  }
+                "
+
+                type="button"
+
+                data-date="${esc(date)}"
+
+              >
+
+                <span class="date-btn-day">
+
+                  DAY ${number}
+
+                </span>
+
+
+                <span class="date-btn-date">
+
+                  ${esc(
+                    dayMonth(date)
+                  )}
+
+                </span>
+
+              </button>
+
+            `;
+
+          }
+        )
+        .join("")
+
     }
+
+
+    <button
+
+      class="
+        date-btn
+        all
+        ${
+          selectedDate === "all"
+          ?
+          "active"
+          :
+          ""
+        }
+      "
+
+      type="button"
+
+      data-date="all"
+
+    >
+
+      <span class="date-btn-day">
+        WHOLE
+      </span>
+
+      <span class="date-btn-date">
+        ALL
+      </span>
+
+    </button>
+
   `;
 
+
   dateScroller
-    .querySelectorAll("[data-date]")
-    .forEach(button => {
 
-      button.onclick = () => {
+    .querySelectorAll(
+      "[data-date]"
+    )
 
-        selectedDate = button.dataset.date;
+    .forEach(
+      button => {
 
-        renderDates();
-        renderMapAndList();
 
-      };
+        button.onclick =
+          () => {
 
-    });
-}
 
-function filteredRows(){
+            selectedDate =
+              button.dataset.date;
 
-  const source =
-    selectedDate === "all"
-      ? schedule
-      : schedule.filter(
-          item => item.schedule_date === selectedDate
-        );
 
-  return source
-    .map(item => ({
-      item,
-      coords:itemCoordinates(item)
-    }))
-    .filter(row => row.coords);
-}
+            renderDates();
 
-function clearMarkers(){
+            renderMapAndList();
 
-  markers.forEach(marker => {
-    marker.setMap(null);
-  });
 
-  markers = [];
-}
+            /*
+              Scroll selected date
+              gently into view.
+            */
 
-function renderMapAndList(){
+            button.scrollIntoView({
 
-  if(!map) return;
+              behavior:"smooth",
 
-  clearMarkers();
+              block:"nearest",
 
-  const rows = filteredRows();
+              inline:"center"
 
-  const bounds =
-    new google.maps.LatLngBounds();
+            });
 
-  rows.forEach((row,index) => {
-
-    const item = row.item;
-    const coords = row.coords;
-
-    const marker =
-      new google.maps.Marker({
-        map,
-        position:coords,
-        title:item.title || itemLocation(item) || "Stop",
-        label:{
-          text:String(index + 1),
-          color:"#ffffff",
-          fontSize:"10px",
-          fontWeight:"700"
-        }
-      });
-
-    marker.addListener(
-      "click",
-      () => {
-
-        const mapsUrl =
-          itemMapsUrl(item);
-
-        const location =
-          itemLocation(item);
-
-        infoWindow.setContent(`
-          <div style="
-            min-width:170px;
-            max-width:240px;
-            color:#111;
-            font-family:system-ui,sans-serif;
-            line-height:1.4;
-          ">
-            <div style="font-weight:800">
-              ${esc(item.title || location || "Schedule stop")}
-            </div>
-
-            ${
-              location &&
-              location !== item.title
-              ?
-              `<div style="margin-top:3px;font-size:11px;color:#555">
-                ${esc(location)}
-              </div>`
-              :
-              ""
-            }
-
-            <div style="margin-top:3px;font-size:11px;color:#666">
-              ${esc(itemTime(item))}
-              ${item.schedule_date ? " · " + esc(shortDate(item.schedule_date)) : ""}
-            </div>
-
-            ${
-              mapsUrl
-              ?
-              `<div style="margin-top:7px">
-                <a
-                  href="${esc(mapsUrl)}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open in Google Maps ↗
-                </a>
-              </div>`
-              :
-              ""
-            }
-          </div>
-        `);
-
-        infoWindow.open({
-          map,
-          anchor:marker
-        });
+          };
 
       }
     );
 
-    markers.push(marker);
+}
 
-    bounds.extend(coords);
+
+
+/* =========================================================
+   CLEAR MARKERS
+========================================================= */
+
+function clearMarkers(){
+
+  markers.forEach(
+    marker => {
+
+      marker.setMap(
+        null
+      );
+
+    }
+  );
+
+
+  markers = [];
+
+}
+
+
+
+/* =========================================================
+   DARK NUMBERED MARKER
+========================================================= */
+
+function createMarker(
+  coords,
+  number,
+  title
+){
+
+  return new google.maps.Marker({
+
+    map:
+
+      map,
+
+    position:
+
+      coords,
+
+    title:
+
+      title,
+
+    icon:{
+
+      path:
+        google.maps.SymbolPath.CIRCLE,
+
+      fillColor:
+        "#c96f68",
+
+      fillOpacity:
+        1,
+
+      strokeColor:
+        "#f1b7b2",
+
+      strokeOpacity:
+        .9,
+
+      strokeWeight:
+        1.5,
+
+      scale:
+        14
+
+    },
+
+    label:{
+
+      text:
+        String(number),
+
+      color:
+        "#ffffff",
+
+      fontSize:
+        "10px",
+
+      fontWeight:
+        "900"
+
+    }
 
   });
 
-  if(rows.length === 1){
+}
 
-    map.setCenter(rows[0].coords);
-    map.setZoom(15);
+
+
+/* =========================================================
+   DAY HEADER
+========================================================= */
+
+function renderDayHeader(rows){
+
+  if(
+    selectedDate === "all"
+  ){
+
+    dayLabel.textContent =
+      "WHOLE TRIP";
+
+
+    dayTitle.textContent =
+      trip?.name ||
+      "Trip Map";
+
+
+    dayArea.textContent =
+      trip?.country ||
+      "";
+
+
+    dayCount.textContent =
+
+      `${rows.length} ` +
+
+      (
+        rows.length === 1
+        ?
+        "PIN"
+        :
+        "PINS"
+      );
+
+
+    mapDayBadge.textContent =
+      "Whole trip";
+
+
+    return;
 
   }
-  else if(rows.length > 1){
 
-    map.fitBounds(bounds,50);
+
+  const number =
+    dayNumber(
+      selectedDate
+    );
+
+
+  dayLabel.textContent =
+    `DAY ${number}`;
+
+
+  dayTitle.textContent =
+    fullDate(
+      selectedDate
+    );
+
+
+  dayArea.textContent =
+    areaForDate(
+      selectedDate
+    );
+
+
+  dayCount.textContent =
+
+    `${rows.length} ` +
+
+    (
+      rows.length === 1
+      ?
+      "PIN"
+      :
+      "PINS"
+    );
+
+
+  mapDayBadge.textContent =
+
+    `Day ${number} · ` +
+
+    dayMonth(
+      selectedDate
+    );
+
+}
+
+
+
+/* =========================================================
+   INFO WINDOW
+========================================================= */
+
+function openMarkerInfo(
+  marker,
+  item
+){
+
+  const mapsUrl =
+    itemMapsUrl(
+      item
+    );
+
+
+  const location =
+    itemLocation(
+      item
+    );
+
+
+  infoWindow.setContent(`
+
+    <div
+      style="
+        min-width:180px;
+        max-width:240px;
+        padding:11px 12px;
+        background:#11181e;
+        color:#f5f3ef;
+        font-family:system-ui,sans-serif;
+        line-height:1.4;
+      "
+    >
+
+      <div
+        style="
+          color:#c96f68;
+          font-size:9px;
+          font-weight:900;
+          letter-spacing:.07em;
+        "
+      >
+
+        ${esc(
+          selectedDate === "all"
+          ?
+          dayMonth(
+            item.schedule_date
+          )
+          :
+          itemTime(item)
+        )}
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:3px;
+          font-size:13px;
+          font-weight:800;
+        "
+      >
+
+        ${esc(
+          item.title ||
+          location ||
+          "Schedule stop"
+        )}
+
+      </div>
+
+
+      ${
+        location &&
+        location !==
+        item.title
+
+        ?
+
+        `
+
+          <div
+            style="
+              margin-top:3px;
+              color:#8b979f;
+              font-size:10px;
+            "
+          >
+
+            ${esc(location)}
+
+          </div>
+
+        `
+
+        :
+
+        ""
+
+      }
+
+
+      ${
+        selectedDate === "all"
+
+        ?
+
+        `
+
+          <div
+            style="
+              margin-top:5px;
+              color:#74818a;
+              font-size:10px;
+            "
+          >
+
+            ${esc(
+              itemTime(item)
+            )}
+
+          </div>
+
+        `
+
+        :
+
+        ""
+
+      }
+
+
+      ${
+        mapsUrl
+
+        ?
+
+        `
+
+          <div
+            style="
+              margin-top:9px;
+            "
+          >
+
+            <a
+
+              href="${esc(mapsUrl)}"
+
+              target="_blank"
+
+              rel="noopener noreferrer"
+
+              style="
+                color:#9fc2f1;
+                font-size:10px;
+                font-weight:800;
+                text-decoration:none;
+              "
+
+            >
+
+              Open in Google Maps ↗
+
+            </a>
+
+          </div>
+
+        `
+
+        :
+
+        ""
+
+      }
+
+    </div>
+
+  `);
+
+
+  infoWindow.open({
+
+    map:
+
+      map,
+
+    anchor:
+
+      marker
+
+  });
+
+}
+
+
+
+/* =========================================================
+   RENDER MAP + LIST
+========================================================= */
+
+function renderMapAndList(){
+
+  if(!map){
+
+    return;
 
   }
+
+
+  clearMarkers();
+
+
+  const rows =
+    mapRowsForDate(
+      selectedDate
+    );
+
+
+  renderDayHeader(
+    rows
+  );
+
+
+  const bounds =
+    new google.maps
+      .LatLngBounds();
+
+
+  rows.forEach(
+    (
+      row,
+      index
+    ) => {
+
+
+      const item =
+        row.item;
+
+
+      const coords =
+        row.coords;
+
+
+      const marker =
+        createMarker(
+
+          coords,
+
+          index + 1,
+
+          item.title
+
+          ||
+
+          itemLocation(item)
+
+          ||
+
+          "Stop"
+
+        );
+
+
+      marker.addListener(
+        "click",
+        () => {
+
+          openMarkerInfo(
+            marker,
+            item
+          );
+
+        }
+      );
+
+
+      markers.push(
+        marker
+      );
+
+
+      bounds.extend(
+        coords
+      );
+
+    }
+  );
+
+
+  /*
+    ZOOM
+  */
+
+  if(
+    rows.length === 1
+  ){
+
+    map.setCenter(
+      rows[0].coords
+    );
+
+
+    map.setZoom(
+      15
+    );
+
+  }
+
+
+  else if(
+    rows.length > 1
+  ){
+
+    map.fitBounds(
+      bounds,
+      55
+    );
+
+
+    /*
+      Prevent a group of very close
+      markers from zooming in too far.
+    */
+
+    google.maps.event
+      .addListenerOnce(
+        map,
+        "idle",
+        () => {
+
+          if(
+            map.getZoom() >
+            16
+          ){
+
+            map.setZoom(
+              16
+            );
+
+          }
+
+        }
+      );
+
+  }
+
 
   pinCount.textContent =
-    `${rows.length} PIN${rows.length === 1 ? "" : "S"}`;
+
+    `${rows.length} PIN` +
+
+    (
+      rows.length === 1
+      ?
+      ""
+      :
+      "S"
+    );
+
 
   listTitle.textContent =
+
     selectedDate === "all"
-      ? "SCHEDULED STOPS"
-      : shortDate(selectedDate);
+
+    ?
+
+    "WHOLE TRIP"
+
+    :
+
+    `DAY ${dayNumber(
+      selectedDate
+    )} STOPS`;
+
+
+  /*
+    NO PINS
+  */
 
   if(!rows.length){
 
     stops.innerHTML = `
+
       <div class="empty">
-        No scheduled places with coordinates
+
+        No scheduled places with
+        coordinates for
+
         ${
           selectedDate === "all"
-          ? "for this trip."
-          : "for this day."
+          ?
+          "this trip."
+          :
+          "this day."
         }
+
       </div>
+
     `;
 
+
     return;
+
   }
 
+
+  /*
+    STOP LIST
+  */
+
   stops.innerHTML =
-    rows.map((row,index) => {
 
-      const item = row.item;
-      const location = itemLocation(item);
-      const mapsUrl = itemMapsUrl(item);
+    rows
 
-      const meta = [
-        selectedDate === "all"
-          ? shortDate(item.schedule_date)
-          : null,
-        itemTime(item),
-        location && location !== item.title
-          ? location
-          : null
-      ]
-      .filter(Boolean)
-      .join(" · ");
+      .map(
+        (
+          row,
+          index
+        ) => {
 
-      return `
-        <div class="stop">
 
-          <div class="num">
-            ${index + 1}
-          </div>
+          const item =
+            row.item;
 
-          <div>
-            <div class="stop-title">
-              ${esc(item.title || location || "Schedule stop")}
+
+          const location =
+            itemLocation(
+              item
+            );
+
+
+          const mapsUrl =
+            itemMapsUrl(
+              item
+            );
+
+
+          const meta = [
+
+            selectedDate === "all"
+
+            ?
+
+            dayMonth(
+              item.schedule_date
+            )
+
+            :
+
+            null,
+
+
+            itemTime(
+              item
+            ),
+
+
+            location &&
+            location !==
+            item.title
+
+            ?
+
+            location
+
+            :
+
+            null
+
+          ]
+
+          .filter(Boolean)
+
+          .join(
+            " · "
+          );
+
+
+          return `
+
+            <div class="stop">
+
+
+              <div class="num">
+
+                ${index + 1}
+
+              </div>
+
+
+              <div>
+
+                <div class="stop-title">
+
+                  ${esc(
+                    item.title
+
+                    ||
+
+                    location
+
+                    ||
+
+                    "Schedule stop"
+                  )}
+
+                </div>
+
+
+                ${
+                  meta
+
+                  ?
+
+                  `
+
+                    <div class="stop-meta">
+
+                      ${esc(meta)}
+
+                    </div>
+
+                  `
+
+                  :
+
+                  ""
+
+                }
+
+
+                ${
+                  item.notes
+
+                  ?
+
+                  `
+
+                    <div class="stop-notes">
+
+                      ${esc(
+                        item.notes
+                      )}
+
+                    </div>
+
+                  `
+
+                  :
+
+                  ""
+
+                }
+
+              </div>
+
+
+              ${
+                mapsUrl
+
+                ?
+
+                `
+
+                  <a
+
+                    class="maps-link"
+
+                    href="${esc(
+                      mapsUrl
+                    )}"
+
+                    target="_blank"
+
+                    rel="noopener noreferrer"
+
+                  >
+
+                    MAPS ↗
+
+                  </a>
+
+                `
+
+                :
+
+                ""
+
+              }
+
+
             </div>
 
-            ${
-              meta
-              ?
-              `<div class="stop-meta">
-                ${esc(meta)}
-              </div>`
-              :
-              ""
-            }
-          </div>
+          `;
 
-          ${
-            mapsUrl
-            ?
-            `<a
-              class="maps-link"
-              href="${esc(mapsUrl)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              MAPS ↗
-            </a>`
-            :
-            ""
-          }
+        }
+      )
 
-        </div>
-      `;
+      .join("");
 
-    }).join("");
 }
+
+
+
+/* =========================================================
+   LOAD EVERYTHING
+========================================================= */
 
 async function loadData(){
 
   try{
 
+
+    /*
+      RESOLVE TRIP
+    */
+
     await resolveTrip();
 
-    const [
-      tripResult,
-      scheduleResult
-    ] = await Promise.all([
 
-      db.from("trips")
+    /*
+      LOAD TRIP + SCHEDULE
+    */
+
+    const [
+
+      tripResult,
+
+      scheduleResult
+
+    ] =
+
+    await Promise.all([
+
+
+      db
+        .from("trips")
         .select("*")
-        .eq("id",TRIP_ID)
+        .eq(
+          "id",
+          TRIP_ID
+        )
         .single(),
+
 
       loadScheduleQuery()
 
     ]);
 
-    if(tripResult.error){
+
+    if(
+      tripResult.error
+    ){
+
       throw tripResult.error;
+
     }
 
-    if(scheduleResult.error){
+
+    if(
+      scheduleResult.error
+    ){
+
       throw scheduleResult.error;
+
     }
 
-    trip = tripResult.data;
-    schedule = scheduleResult.data || [];
+
+    trip =
+      tripResult.data;
+
+
+    schedule =
+      scheduleResult.data ||
+      [];
+
+
+    /*
+      PAGE TITLE
+    */
 
     tripName.textContent =
-      trip?.name || "My Trip";
+
+      trip?.name
+
+      ||
+
+      "My Trip";
+
 
     tripEyebrow.textContent =
+
       trip?.country
-        ? `${trip.country} TRIP MAP`
-        : "TRIP MAP";
+
+      ?
+
+      `${trip.country} TRIP MAP`
+
+      :
+
+      "TRIP MAP";
+
 
     document.title =
-      `Map · ${trip?.name || "Travel"}`;
+
+      `Map · ${
+        trip?.name ||
+        "Travel"
+      }`;
+
+
+    /*
+      DEFAULT TO FIRST DAY.
+
+      This is the important change.
+
+      It no longer starts with every
+      pin from the whole trip.
+    */
+
+    const dates =
+      tripDates();
+
+
+    selectedDate =
+
+      dates[0]
+
+      ||
+
+      "all";
+
 
     renderDates();
 
+
+    /*
+      LOAD GOOGLE MAPS
+    */
+
     await loadMapAPI();
 
+
+    /*
+      CREATE DARK GOOGLE MAP
+    */
+
     map =
+
       new google.maps.Map(
-        document.getElementById("map"),
+
+        document.getElementById(
+          "map"
+        ),
+
         {
+
           center:{
-            lat:35.0116,
-            lng:135.7681
+
+            lat:
+              35.0116,
+
+            lng:
+              135.7681
+
           },
-          zoom:11,
-          mapTypeControl:false,
-          streetViewControl:false,
-          fullscreenControl:true
+
+
+          zoom:
+            11,
+
+
+          styles:
+            DARK_MAP_STYLE,
+
+
+          backgroundColor:
+            "#111820",
+
+
+          mapTypeControl:
+            false,
+
+
+          streetViewControl:
+            false,
+
+
+          fullscreenControl:
+            true,
+
+
+          zoomControl:
+            true,
+
+
+          clickableIcons:
+            false,
+
+
+          gestureHandling:
+            "greedy"
+
         }
+
       );
 
+
+    /*
+      INFO WINDOW
+    */
+
     infoWindow =
-      new google.maps.InfoWindow();
+
+      new google.maps
+        .InfoWindow();
+
+
+    /*
+      INITIAL DAY
+    */
 
     renderMapAndList();
 
+
+    /*
+      Scroll Day 1 button into view.
+    */
+
+    setTimeout(
+      () => {
+
+        document
+          .querySelector(
+            ".date-btn.active"
+          )
+          ?.scrollIntoView({
+
+            behavior:
+              "smooth",
+
+            block:
+              "nearest",
+
+            inline:
+              "center"
+
+          });
+
+      },
+      200
+    );
+
+
   }
 
+
   catch(error){
+
 
     console.error(
       "Map page:",
       error
     );
 
+
     tripName.textContent =
       "Unable to load map";
 
+
+    dayLabel.textContent =
+      "ERROR";
+
+
+    dayTitle.textContent =
+      "Map unavailable";
+
+
+    dayArea.textContent =
+      "";
+
+
+    mapDayBadge.textContent =
+      "Map unavailable";
+
+
     stops.innerHTML = `
+
       <div class="error">
+
         ${esc(
-          error.message ||
+
+          error.message
+
+          ||
+
           "Could not load your trip map."
+
         )}
+
       </div>
+
     `;
 
   }
+
 }
 
+
+
+/* =========================================================
+   START
+========================================================= */
+
 loadData();
+
 </script>
+
 
 <script src="footer.js"></script>
 
+
 </body>
+
 </html>
