@@ -1550,33 +1550,140 @@ function loadScheduleQuery(){
    GROUP DAYS
 ========================================================= */
 
+function timeToMinutes(value){
+
+  if(!value){
+    return null;
+  }
+
+  const parts = String(value).slice(0,5).split(":");
+  const hour = Number(parts[0]);
+  const minute = Number(parts[1]);
+
+  if(Number.isNaN(hour) || Number.isNaN(minute)){
+    return null;
+  }
+
+  return (hour * 60) + minute;
+}
+
+
+function labelToMinutes(value){
+
+  const label = String(value || "").trim();
+
+  if(!label){
+    return null;
+  }
+
+  const match = label.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+
+  if(!match){
+    return null;
+  }
+
+  let hour = Number(match[1]);
+  const minute = Number(match[2] || 0);
+  const suffix = match[3].toUpperCase();
+
+  if(hour === 12){
+    hour = 0;
+  }
+
+  if(suffix === "PM"){
+    hour += 12;
+  }
+
+  return (hour * 60) + minute;
+}
+
+
+function scheduleSortKey(item){
+
+  const exact = timeToMinutes(item.start_time);
+
+  if(exact !== null){
+    return exact;
+  }
+
+  const flexible = labelToMinutes(item.time_label);
+
+  if(flexible !== null){
+    return flexible;
+  }
+
+  const label = norm(item.time_label);
+
+  if(
+    label.includes("afterward") ||
+    label.includes("afterwards") ||
+    label.startsWith("after ")
+  ){
+    return 2000;
+  }
+
+  if(label.includes("evening")){
+    return 18 * 60;
+  }
+
+  if(label.includes("afternoon")){
+    return 15 * 60;
+  }
+
+  if(label.includes("lunch")){
+    return 12 * 60;
+  }
+
+  if(label.includes("morning")){
+    return 8 * 60;
+  }
+
+  return 1900;
+}
+
+
+function compareScheduleItems(a,b){
+
+  const aKey = scheduleSortKey(a);
+  const bKey = scheduleSortKey(b);
+
+  if(aKey !== bKey){
+    return aKey - bKey;
+  }
+
+  const aSort = Number(a.sort_order || 0);
+  const bSort = Number(b.sort_order || 0);
+
+  if(aSort !== bSort){
+    return aSort - bSort;
+  }
+
+  return Number(a.id || 0) - Number(b.id || 0);
+}
+
+
 function buildDays(){
 
   groupedDays = {};
 
-
   schedule.forEach(
     item => {
 
-      if(
-        !groupedDays[
-          item.schedule_date
-        ]
-      ){
-
-        groupedDays[
-          item.schedule_date
-        ] = [];
-
+      if(!groupedDays[item.schedule_date]){
+        groupedDays[item.schedule_date] = [];
       }
 
-
-      groupedDays[
-        item.schedule_date
-      ]
-      .push(item);
+      groupedDays[item.schedule_date].push(item);
 
     }
+  );
+
+  /*
+    Sort each day by actual/flexible displayed time.
+    sort_order is only used when two items share the same time.
+  */
+  Object.values(groupedDays).forEach(
+    items => items.sort(compareScheduleItems)
   );
 
 }
