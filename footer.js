@@ -188,6 +188,10 @@
       sharedTripsLink:
         "trips.html",
 
+      /* NEW — EXPENSES */
+      sharedExpensesLink:
+        "expense.html",
+
       sharedPlacesLink:
         "places.html"
 
@@ -733,6 +737,14 @@
         footerCurrentPage();
 
 
+      /*
+        EXPENSE.HTML IS INCLUDED HERE.
+
+        This means if you're currently looking at Expenses
+        and choose another trip from Switch Trip, you remain
+        on expense.html and only the trip changes.
+      */
+
       const switchPage =
         [
           "index.html",
@@ -740,6 +752,7 @@
           "food.html",
           "bookings.html",
           "profile.html",
+          "expense.html",
           "places.html"
         ]
         .includes(currentPage)
