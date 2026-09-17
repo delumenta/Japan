@@ -1,61 +1,759 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070c10">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070c10">
 <title>Map · Travel</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="google-maps.js"></script>
+
 <style>
-:root{--bg:#070c10;--surface:#0d1318;--line:#263039;--soft:rgba(255,255,255,.065);--text:#f5f3ef;--muted:#929ca4;--red:#ff625f;--redsoft:rgba(255,98,95,.09);--redline:rgba(255,98,95,.30)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}button{font:inherit}
-header{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--soft);background:rgba(7,12,16,.97);backdrop-filter:blur(18px)}
-.header-inner{max-width:760px;margin:auto;padding:calc(14px + env(safe-area-inset-top)) 14px 10px}.eyebrow{color:var(--red);font-size:7px;font-weight:900;letter-spacing:.17em}
-h1{margin:3px 0 0;font:700 27px/1 Georgia,serif}.trip-name{margin-top:4px;color:var(--muted);font-size:8px}
-main{max-width:760px;margin:auto;padding:12px 12px 100px}.controls{display:flex;gap:5px;overflow:auto;margin-bottom:9px;scrollbar-width:none}.controls::-webkit-scrollbar{display:none}
-.chip{flex:none;min-height:30px;padding:0 9px;border:1px solid var(--line);border-radius:999px;background:#0f161c;color:#8f9aa1;font-size:7px;font-weight:900}.chip.active{border-color:var(--redline);background:var(--redsoft);color:#f1b4b0}
-#map{height:min(57vh,560px);min-height:390px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#11181e}.map-note{margin:7px 2px 10px;color:#71808a;font-size:6.5px}
-.section{margin-top:12px}.section-head{display:flex;justify-content:space-between;margin-bottom:6px;color:#aeb6bb;font-size:7px;font-weight:900;letter-spacing:.08em}
-.stop{display:grid;grid-template-columns:27px 1fr auto;gap:8px;align-items:center;padding:8px 9px;margin-bottom:5px;border:1px solid var(--line);border-radius:10px;background:#0f161c}
-.num{width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:var(--redsoft);border:1px solid var(--redline);color:#f1b4b0;font-size:8px;font-weight:900}.stop-title{font-size:8px;font-weight:900}.stop-meta{margin-top:2px;color:#75818a;font-size:6.5px}.maps-link{color:#9fc2f1;text-decoration:none;font-size:6.5px;font-weight:900}
-.empty,.error{padding:20px 10px;border:1px dashed #344049;border-radius:12px;color:#7d8991;text-align:center;font-size:8px;line-height:1.5}.error{color:#ffc0bc;border-color:var(--redline)}
-@media(max-width:480px){#map{height:53vh;min-height:360px}}
-</style></head><body>
-<header><div class="header-inner"><div class="eyebrow">TRIP MAP</div><h1>Map</h1><div id="tripName" class="trip-name">Loading trip…</div></div></header>
-<main><div id="dateChips" class="controls"></div><div id="map"></div><div class="map-note">Pins follow your schedule order. Only scheduled places with coordinates can be shown.</div>
-<section class="section"><div class="section-head"><span id="listTitle">SCHEDULED STOPS</span><span id="count"></span></div><div id="stops"><div class="empty">Loading schedule…</div></div></section></main>
-<div id="footer"></div><script src="footer.js"></script>
+:root{
+  --bg:#070c10;--surface:#0d1318;--surface-2:#11181e;--line:#263039;
+  --line-soft:rgba(255,255,255,.065);--text:#f5f3ef;--muted:#929ca4;
+  --muted-2:#68747d;--red:#ff625f;--red-soft:rgba(255,98,95,.09);
+  --red-line:rgba(255,98,95,.30);--blue:#78a9ef
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  background:radial-gradient(circle at 50% -8%,rgba(42,56,68,.30),transparent 28%),var(--bg);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased
+}
+button{font:inherit;-webkit-tap-highlight-color:transparent}
+header{
+  position:sticky;top:0;z-index:40;border-bottom:1px solid var(--line-soft);
+  background:rgba(7,12,16,.965);backdrop-filter:blur(18px)
+}
+.header-inner{width:100%;max-width:760px;margin:auto;padding:calc(14px + env(safe-area-inset-top)) 14px 10px}
+.eyebrow{color:var(--red);font-size:7px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+h1{margin:3px 0 0;font:700 27px/1 Georgia,"Times New Roman",serif}
+.trip-name{margin-top:4px;color:var(--muted);font-size:8px;font-weight:600}
+main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
+.date-scroller{display:flex;gap:5px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none}
+.date-scroller::-webkit-scrollbar{display:none}
+.date-btn{
+  flex:0 0 auto;min-height:32px;padding:6px 10px;border:1px solid var(--line);
+  border-radius:999px;background:#0f161c;color:#8d99a1;font-size:7px;font-weight:900;cursor:pointer
+}
+.date-btn.active{border-color:var(--red-line);background:var(--red-soft);color:#f3b7b3}
+#map{
+  width:100%;height:min(58vh,560px);min-height:390px;border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;background:var(--surface-2)
+}
+.map-note{margin:7px 2px 13px;color:#71808a;font-size:6.5px}
+.section-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;color:#aeb6bb;font-size:7px;font-weight:900;letter-spacing:.08em}
+.stop{
+  display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;
+  margin-bottom:5px;padding:8px 9px;border:1px solid var(--line);border-radius:10px;background:#0f161c
+}
+.num{
+  width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--red-line);
+  border-radius:50%;background:var(--red-soft);color:#f3b7b3;font-size:8px;font-weight:900
+}
+.stop-title{font-size:8px;font-weight:900;line-height:1.35}
+.stop-meta{margin-top:2px;color:#75818a;font-size:6.5px;line-height:1.35}
+.maps-link{color:#9fc2f1;text-decoration:none;font-size:6.5px;font-weight:900;white-space:nowrap}
+.empty,.error{
+  padding:22px 12px;border:1px dashed #344049;border-radius:12px;
+  color:#7d8991;text-align:center;font-size:8px;line-height:1.55
+}
+.error{border-color:var(--red-line);color:#ffc0bc}
+@media(max-width:480px){
+  .header-inner,main{padding-left:12px;padding-right:12px}
+  #map{height:53vh;min-height:360px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div id="tripEyebrow" class="eyebrow">TRIP MAP</div>
+    <h1>Map</h1>
+    <div id="tripName" class="trip-name">Loading trip…</div>
+  </div>
+</header>
+
+<main>
+  <div id="dateScroller" class="date-scroller"></div>
+
+  <div id="map"></div>
+
+  <div class="map-note">
+    Pins follow your schedule order. Only schedule items with coordinates can be shown.
+  </div>
+
+  <section>
+    <div class="section-head">
+      <span id="listTitle">SCHEDULED STOPS</span>
+      <span id="pinCount"></span>
+    </div>
+    <div id="stops">
+      <div class="empty">Loading schedule…</div>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="google-maps.js"></script>
+
 <script>
-const qs=new URLSearchParams(location.search);let TRIP_ID=Number(qs.get("trip"))||Number(localStorage.getItem("current_trip_id"))||null;
-let trip=null,schedule=[],places=[],restaurants=[],selectedDate="all",map=null,markers=[],infoWindow=null;
-const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
-const pd=s=>new Date(s+"T12:00:00");const dl=s=>pd(s).toLocaleDateString("en-SG",{weekday:"short",day:"numeric",month:"short"}).toUpperCase();
-function ent(r){
-  if(r.place) return r.place;
-  if(r.restaurant) return r.restaurant;
-  if(r.place_id!=null){let x=places.find(p=>String(p.id)===String(r.place_id));if(x)return x}
-  if(r.restaurant_id!=null)return restaurants.find(p=>String(p.id)===String(r.restaurant_id))||null;
+const params = new URLSearchParams(location.search);
+
+let TRIP_ID =
+  Number(params.get("trip")) ||
+  Number(localStorage.getItem("current_trip_id")) ||
+  null;
+
+let currentUser = null;
+let trip = null;
+let schedule = [];
+let selectedDate = "all";
+
+let map = null;
+let infoWindow = null;
+let markers = [];
+
+const tripName = document.getElementById("tripName");
+const tripEyebrow = document.getElementById("tripEyebrow");
+const dateScroller = document.getElementById("dateScroller");
+const stops = document.getElementById("stops");
+const listTitle = document.getElementById("listTitle");
+const pinCount = document.getElementById("pinCount");
+
+function text(v){ return String(v ?? ""); }
+
+function esc(v){
+  return text(v)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function parseDate(v){
+  return new Date(v + "T12:00:00");
+}
+
+function shortDate(v){
+  return new Intl.DateTimeFormat("en-SG",{
+    weekday:"short",
+    day:"numeric",
+    month:"short"
+  }).format(parseDate(v)).toUpperCase();
+}
+
+function itemTime(item){
+  if(item.time_label) return item.time_label;
+
+  if(item.start_time){
+    const parts = item.start_time.split(":");
+    let hour = Number(parts[0]);
+    const minute = parts[1] || "00";
+    const suffix = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+    return `${hour}:${minute} ${suffix}`;
+  }
+
+  return "Flexible";
+}
+
+function itemEntity(item){
+  return item.restaurant || item.place || null;
+}
+
+function itemCoordinates(item){
+  const entity = itemEntity(item);
+
+  const lat = Number(
+    entity?.latitude ??
+    item.latitude
+  );
+
+  const lng = Number(
+    entity?.longitude ??
+    item.longitude
+  );
+
+  if(!Number.isFinite(lat) || !Number.isFinite(lng)){
+    return null;
+  }
+
+  return {lat,lng};
+}
+
+function itemLocation(item){
+  return (
+    item.restaurant?.name ||
+    item.place?.name ||
+    item.location_name ||
+    ""
+  );
+}
+
+function itemMapsUrl(item){
+  const entity = itemEntity(item);
+
+  if(entity?.maps_url) return entity.maps_url;
+  if(item.maps_url) return item.maps_url;
+
+  const coords = itemCoordinates(item);
+
+  if(coords){
+    return `https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lng}`;
+  }
+
   return null;
 }
-function point(r){let x=ent(r)||{},lat=Number(x.latitude??r.latitude),lng=Number(x.longitude??r.longitude);return Number.isFinite(lat)&&Number.isFinite(lng)?{...x,...r,latitude:lat,longitude:lng,maps_url:x.maps_url||r.maps_url}:null}
-function gurl(x){return x.maps_url||`https://www.google.com/maps/search/?api=1&query=${x.latitude},${x.longitude}`}
-async function mapsReady(){if(window.google?.maps)return;if(typeof loadGoogleMapsApi==="function")return loadGoogleMapsApi();if(typeof ensureGoogleMaps==="function")return ensureGoogleMaps();throw Error("Google Maps did not load. Keep your existing google-maps.js beside maps.html.")}
-async function start(){try{
-let a=await db.auth.getUser(),u=a.data?.user;if(a.error)throw a.error;if(!u){location.href="login.html";return}
-if(!TRIP_ID){let q=await db.from("trips").select("id").eq("owner_id",u.id).neq("status","deleted").order("start_date").limit(1);if(q.error)throw q.error;if(!q.data?.length)throw Error("No trip selected.");TRIP_ID=Number(q.data[0].id)}
-localStorage.setItem("current_trip_id",String(TRIP_ID));history.replaceState(null,"",`maps.html?trip=${TRIP_ID}`);
-let [t,s,p,f]=await Promise.all([db.from("trips").select("*").eq("id",TRIP_ID).single(),db.from("schedule").select(`
-      id, trip_id, schedule_date, start_time, end_time, time_label, sort_order,
-      title, item_type, description, notes, restaurant_id, place_id,
-      location_name, address, latitude, longitude, maps_url, is_optional, is_locked,
-      place:places(id,name,name_japanese,country,prefecture,city,area,address,latitude,longitude,maps_url),
-      restaurant:restaurants(id,name,name_japanese,country,prefecture,city,area,location,address,latitude,longitude,maps_url)
-    `).eq("trip_id",TRIP_ID).order("schedule_date").order("sort_order"),db.from("places").select("*"),db.from("restaurants").select("*")]);
-if(t.error)throw t.error;if(s.error)throw s.error;if(p.error)throw p.error;if(f.error)throw f.error;trip=t.data;schedule=s.data||[];places=p.data||[];restaurants=f.data||[];
-document.getElementById("tripName").textContent=trip.name||"My Trip";dates();await mapsReady();map=new google.maps.Map(document.getElementById("map"),{center:{lat:35.0116,lng:135.7681},zoom:11,mapTypeControl:false,streetViewControl:false});infoWindow=new google.maps.InfoWindow();render()
-}catch(e){console.error(e);document.getElementById("stops").innerHTML=`<div class="error">${esc(e.message||"Could not load map.")}</div>`}}
-function dates(){let ds=[...new Set(schedule.map(x=>x.schedule_date).filter(Boolean))].sort();dateChips.innerHTML=`<button class="chip active" data-d="all">ALL TRIP</button>`+ds.map(d=>`<button class="chip" data-d="${d}">${dl(d)}</button>`).join("");document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{selectedDate=b.dataset.d;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));render()})}
-function render(){markers.forEach(m=>m.setMap(null));markers=[];let rows=(selectedDate==="all"?schedule:schedule.filter(r=>r.schedule_date===selectedDate)).map(point).filter(Boolean),bounds=new google.maps.LatLngBounds();
-rows.forEach((r,i)=>{let pos={lat:r.latitude,lng:r.longitude},m=new google.maps.Marker({map,position:pos,label:String(i+1),title:r.title||r.name||""});m.addListener("click",()=>infoWindow.open({map,anchor:m,content:`<div style="color:#111"><b>${esc(r.title||r.name||"Stop")}</b><br><a target="_blank" href="${gurl(r)}">Open in Google Maps</a></div>`}));markers.push(m);bounds.extend(pos)});
-if(rows.length===1){map.setCenter({lat:rows[0].latitude,lng:rows[0].longitude});map.setZoom(15)}else if(rows.length)map.fitBounds(bounds,50);
-count.textContent=`${rows.length} PINS`;listTitle.textContent=selectedDate==="all"?"SCHEDULED STOPS":dl(selectedDate);
-stops.innerHTML=rows.length?rows.map((r,i)=>`<div class="stop"><div class="num">${i+1}</div><div><div class="stop-title">${esc(r.title||r.name||"Stop")}</div><div class="stop-meta">${esc([r.schedule_time||r.time_label,r.location||r.area||r.city].filter(Boolean).join(" · "))}</div></div><a class="maps-link" target="_blank" href="${gurl(r)}">MAPS ↗</a></div>`).join(""):`<div class="empty">No scheduled places with coordinates for this ${selectedDate==="all"?"trip":"day"}.</div>`}
-start();
-</script></body></html>
+
+async function getAccessibleTrips(){
+
+  const [ownResult,memberResult] = await Promise.all([
+    db.from("trips")
+      .select("*")
+      .eq("owner_id",currentUser.id)
+      .order("start_date",{ascending:true}),
+
+    db.from("trip_members")
+      .select("trip_id")
+      .eq("user_id",currentUser.id)
+  ]);
+
+  if(ownResult.error) throw ownResult.error;
+  if(memberResult.error) throw memberResult.error;
+
+  const map = new Map();
+
+  (ownResult.data || []).forEach(row => {
+    map.set(Number(row.id),row);
+  });
+
+  const sharedIds = [
+    ...new Set(
+      (memberResult.data || [])
+        .map(row => Number(row.trip_id))
+        .filter(Boolean)
+    )
+  ];
+
+  if(sharedIds.length){
+    const sharedResult = await db
+      .from("trips")
+      .select("*")
+      .in("id",sharedIds)
+      .order("start_date",{ascending:true});
+
+    if(sharedResult.error) throw sharedResult.error;
+
+    (sharedResult.data || []).forEach(row => {
+      if(!map.has(Number(row.id))){
+        map.set(Number(row.id),row);
+      }
+    });
+  }
+
+  return [...map.values()].sort((a,b) =>
+    text(a.start_date).localeCompare(text(b.start_date))
+  );
+}
+
+async function resolveTrip(){
+
+  const authResult = await db.auth.getUser();
+
+  if(authResult.error) throw authResult.error;
+
+  currentUser = authResult.data?.user || null;
+
+  if(!currentUser){
+    location.href = "login.html";
+    throw new Error("Please sign in.");
+  }
+
+  const accessibleTrips = await getAccessibleTrips();
+
+  if(!accessibleTrips.length){
+    throw new Error("You do not have any accessible trips yet.");
+  }
+
+  let resolved = accessibleTrips.find(
+    row => Number(row.id) === Number(TRIP_ID)
+  );
+
+  if(!resolved){
+    resolved = accessibleTrips[0];
+  }
+
+  TRIP_ID = Number(resolved.id);
+
+  localStorage.setItem(
+    "current_trip_id",
+    String(TRIP_ID)
+  );
+
+  history.replaceState(
+    null,
+    "",
+    `maps.html?trip=${TRIP_ID}`
+  );
+}
+
+function loadScheduleQuery(){
+
+  return db
+    .from("schedule")
+    .select(`
+      id,
+      trip_id,
+      schedule_date,
+      start_time,
+      end_time,
+      time_label,
+      sort_order,
+      title,
+      item_type,
+      description,
+      notes,
+      restaurant_id,
+      place_id,
+      location_name,
+      address,
+      latitude,
+      longitude,
+      maps_url,
+      is_optional,
+      is_locked,
+
+      place:places(
+        id,
+        name,
+        name_japanese,
+        country,
+        prefecture,
+        city,
+        area,
+        address,
+        latitude,
+        longitude,
+        maps_url
+      ),
+
+      restaurant:restaurants(
+        id,
+        name,
+        name_japanese,
+        country,
+        prefecture,
+        city,
+        area,
+        location,
+        address,
+        latitude,
+        longitude,
+        maps_url
+      )
+    `)
+    .eq("trip_id",TRIP_ID)
+    .order("schedule_date",{ascending:true})
+    .order("sort_order",{ascending:true});
+}
+
+/*
+  IMPORTANT:
+  This uses the SAME loader your working schedule.html uses.
+*/
+async function loadMapAPI(){
+
+  if(window.google?.maps){
+    return;
+  }
+
+  if(typeof window.loadGoogleMaps !== "function"){
+    throw new Error(
+      "Google Maps helper was not found. Check google-maps.js."
+    );
+  }
+
+  await window.loadGoogleMaps();
+
+  if(!window.google?.maps){
+    throw new Error(
+      "Google Maps API could not be loaded."
+    );
+  }
+}
+
+function renderDates(){
+
+  const dates = [
+    ...new Set(
+      schedule
+        .map(item => item.schedule_date)
+        .filter(Boolean)
+    )
+  ].sort();
+
+  dateScroller.innerHTML = `
+    <button
+      class="date-btn ${selectedDate === "all" ? "active" : ""}"
+      type="button"
+      data-date="all"
+    >
+      ALL TRIP
+    </button>
+    ${
+      dates.map(date => `
+        <button
+          class="date-btn ${selectedDate === date ? "active" : ""}"
+          type="button"
+          data-date="${date}"
+        >
+          ${esc(shortDate(date))}
+        </button>
+      `).join("")
+    }
+  `;
+
+  dateScroller
+    .querySelectorAll("[data-date]")
+    .forEach(button => {
+
+      button.onclick = () => {
+
+        selectedDate = button.dataset.date;
+
+        renderDates();
+        renderMapAndList();
+
+      };
+
+    });
+}
+
+function filteredRows(){
+
+  const source =
+    selectedDate === "all"
+      ? schedule
+      : schedule.filter(
+          item => item.schedule_date === selectedDate
+        );
+
+  return source
+    .map(item => ({
+      item,
+      coords:itemCoordinates(item)
+    }))
+    .filter(row => row.coords);
+}
+
+function clearMarkers(){
+
+  markers.forEach(marker => {
+    marker.setMap(null);
+  });
+
+  markers = [];
+}
+
+function renderMapAndList(){
+
+  if(!map) return;
+
+  clearMarkers();
+
+  const rows = filteredRows();
+
+  const bounds =
+    new google.maps.LatLngBounds();
+
+  rows.forEach((row,index) => {
+
+    const item = row.item;
+    const coords = row.coords;
+
+    const marker =
+      new google.maps.Marker({
+        map,
+        position:coords,
+        title:item.title || itemLocation(item) || "Stop",
+        label:{
+          text:String(index + 1),
+          color:"#ffffff",
+          fontSize:"10px",
+          fontWeight:"700"
+        }
+      });
+
+    marker.addListener(
+      "click",
+      () => {
+
+        const mapsUrl =
+          itemMapsUrl(item);
+
+        const location =
+          itemLocation(item);
+
+        infoWindow.setContent(`
+          <div style="
+            min-width:170px;
+            max-width:240px;
+            color:#111;
+            font-family:system-ui,sans-serif;
+            line-height:1.4;
+          ">
+            <div style="font-weight:800">
+              ${esc(item.title || location || "Schedule stop")}
+            </div>
+
+            ${
+              location &&
+              location !== item.title
+              ?
+              `<div style="margin-top:3px;font-size:11px;color:#555">
+                ${esc(location)}
+              </div>`
+              :
+              ""
+            }
+
+            <div style="margin-top:3px;font-size:11px;color:#666">
+              ${esc(itemTime(item))}
+              ${item.schedule_date ? " · " + esc(shortDate(item.schedule_date)) : ""}
+            </div>
+
+            ${
+              mapsUrl
+              ?
+              `<div style="margin-top:7px">
+                <a
+                  href="${esc(mapsUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open in Google Maps ↗
+                </a>
+              </div>`
+              :
+              ""
+            }
+          </div>
+        `);
+
+        infoWindow.open({
+          map,
+          anchor:marker
+        });
+
+      }
+    );
+
+    markers.push(marker);
+
+    bounds.extend(coords);
+
+  });
+
+  if(rows.length === 1){
+
+    map.setCenter(rows[0].coords);
+    map.setZoom(15);
+
+  }
+  else if(rows.length > 1){
+
+    map.fitBounds(bounds,50);
+
+  }
+
+  pinCount.textContent =
+    `${rows.length} PIN${rows.length === 1 ? "" : "S"}`;
+
+  listTitle.textContent =
+    selectedDate === "all"
+      ? "SCHEDULED STOPS"
+      : shortDate(selectedDate);
+
+  if(!rows.length){
+
+    stops.innerHTML = `
+      <div class="empty">
+        No scheduled places with coordinates
+        ${
+          selectedDate === "all"
+          ? "for this trip."
+          : "for this day."
+        }
+      </div>
+    `;
+
+    return;
+  }
+
+  stops.innerHTML =
+    rows.map((row,index) => {
+
+      const item = row.item;
+      const location = itemLocation(item);
+      const mapsUrl = itemMapsUrl(item);
+
+      const meta = [
+        selectedDate === "all"
+          ? shortDate(item.schedule_date)
+          : null,
+        itemTime(item),
+        location && location !== item.title
+          ? location
+          : null
+      ]
+      .filter(Boolean)
+      .join(" · ");
+
+      return `
+        <div class="stop">
+
+          <div class="num">
+            ${index + 1}
+          </div>
+
+          <div>
+            <div class="stop-title">
+              ${esc(item.title || location || "Schedule stop")}
+            </div>
+
+            ${
+              meta
+              ?
+              `<div class="stop-meta">
+                ${esc(meta)}
+              </div>`
+              :
+              ""
+            }
+          </div>
+
+          ${
+            mapsUrl
+            ?
+            `<a
+              class="maps-link"
+              href="${esc(mapsUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              MAPS ↗
+            </a>`
+            :
+            ""
+          }
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+async function loadData(){
+
+  try{
+
+    await resolveTrip();
+
+    const [
+      tripResult,
+      scheduleResult
+    ] = await Promise.all([
+
+      db.from("trips")
+        .select("*")
+        .eq("id",TRIP_ID)
+        .single(),
+
+      loadScheduleQuery()
+
+    ]);
+
+    if(tripResult.error){
+      throw tripResult.error;
+    }
+
+    if(scheduleResult.error){
+      throw scheduleResult.error;
+    }
+
+    trip = tripResult.data;
+    schedule = scheduleResult.data || [];
+
+    tripName.textContent =
+      trip?.name || "My Trip";
+
+    tripEyebrow.textContent =
+      trip?.country
+        ? `${trip.country} TRIP MAP`
+        : "TRIP MAP";
+
+    document.title =
+      `Map · ${trip?.name || "Travel"}`;
+
+    renderDates();
+
+    await loadMapAPI();
+
+    map =
+      new google.maps.Map(
+        document.getElementById("map"),
+        {
+          center:{
+            lat:35.0116,
+            lng:135.7681
+          },
+          zoom:11,
+          mapTypeControl:false,
+          streetViewControl:false,
+          fullscreenControl:true
+        }
+      );
+
+    infoWindow =
+      new google.maps.InfoWindow();
+
+    renderMapAndList();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Map page:",
+      error
+    );
+
+    tripName.textContent =
+      "Unable to load map";
+
+    stops.innerHTML = `
+      <div class="error">
+        ${esc(
+          error.message ||
+          "Could not load your trip map."
+        )}
+      </div>
+    `;
+
+  }
+}
+
+loadData();
+</script>
+
+<script src="footer.js"></script>
+
+</body>
+</html>
