@@ -27,7 +27,13 @@ const qs=new URLSearchParams(location.search);let TRIP_ID=Number(qs.get("trip"))
 let trip=null,schedule=[],places=[],restaurants=[],selectedDate="all",map=null,markers=[],infoWindow=null;
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 const pd=s=>new Date(s+"T12:00:00");const dl=s=>pd(s).toLocaleDateString("en-SG",{weekday:"short",day:"numeric",month:"short"}).toUpperCase();
-function ent(r){if(r.place_id!=null){let x=places.find(p=>String(p.id)===String(r.place_id));if(x)return x}if(r.restaurant_id!=null)return restaurants.find(p=>String(p.id)===String(r.restaurant_id))||null;return null}
+function ent(r){
+  if(r.place) return r.place;
+  if(r.restaurant) return r.restaurant;
+  if(r.place_id!=null){let x=places.find(p=>String(p.id)===String(r.place_id));if(x)return x}
+  if(r.restaurant_id!=null)return restaurants.find(p=>String(p.id)===String(r.restaurant_id))||null;
+  return null;
+}
 function point(r){let x=ent(r)||{},lat=Number(x.latitude??r.latitude),lng=Number(x.longitude??r.longitude);return Number.isFinite(lat)&&Number.isFinite(lng)?{...x,...r,latitude:lat,longitude:lng,maps_url:x.maps_url||r.maps_url}:null}
 function gurl(x){return x.maps_url||`https://www.google.com/maps/search/?api=1&query=${x.latitude},${x.longitude}`}
 async function mapsReady(){if(window.google?.maps)return;if(typeof loadGoogleMapsApi==="function")return loadGoogleMapsApi();if(typeof ensureGoogleMaps==="function")return ensureGoogleMaps();throw Error("Google Maps did not load. Keep your existing google-maps.js beside maps.html.")}
@@ -35,7 +41,13 @@ async function start(){try{
 let a=await db.auth.getUser(),u=a.data?.user;if(a.error)throw a.error;if(!u){location.href="login.html";return}
 if(!TRIP_ID){let q=await db.from("trips").select("id").eq("owner_id",u.id).neq("status","deleted").order("start_date").limit(1);if(q.error)throw q.error;if(!q.data?.length)throw Error("No trip selected.");TRIP_ID=Number(q.data[0].id)}
 localStorage.setItem("current_trip_id",String(TRIP_ID));history.replaceState(null,"",`maps.html?trip=${TRIP_ID}`);
-let [t,s,p,f]=await Promise.all([db.from("trips").select("*").eq("id",TRIP_ID).single(),db.from("schedule_items").select("*").eq("trip_id",TRIP_ID).order("schedule_date").order("sort_order"),db.from("places").select("*"),db.from("restaurants").select("*")]);
+let [t,s,p,f]=await Promise.all([db.from("trips").select("*").eq("id",TRIP_ID).single(),db.from("schedule").select(`
+      id, trip_id, schedule_date, start_time, end_time, time_label, sort_order,
+      title, item_type, description, notes, restaurant_id, place_id,
+      location_name, address, latitude, longitude, maps_url, is_optional, is_locked,
+      place:places(id,name,name_japanese,country,prefecture,city,area,address,latitude,longitude,maps_url),
+      restaurant:restaurants(id,name,name_japanese,country,prefecture,city,area,location,address,latitude,longitude,maps_url)
+    `).eq("trip_id",TRIP_ID).order("schedule_date").order("sort_order"),db.from("places").select("*"),db.from("restaurants").select("*")]);
 if(t.error)throw t.error;if(s.error)throw s.error;if(p.error)throw p.error;if(f.error)throw f.error;trip=t.data;schedule=s.data||[];places=p.data||[];restaurants=f.data||[];
 document.getElementById("tripName").textContent=trip.name||"My Trip";dates();await mapsReady();map=new google.maps.Map(document.getElementById("map"),{center:{lat:35.0116,lng:135.7681},zoom:11,mapTypeControl:false,streetViewControl:false});infoWindow=new google.maps.InfoWindow();render()
 }catch(e){console.error(e);document.getElementById("stops").innerHTML=`<div class="error">${esc(e.message||"Could not load map.")}</div>`}}
