@@ -1,0 +1,5800 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+<meta name="theme-color" content="#070c10">
+
+<title>Food</title>
+
+<style>
+:root{
+  --bg:#070c10;
+  --surface:#0d1318;
+  --surface-2:#11181e;
+  --surface-3:#151d24;
+  --line:#263039;
+  --line-soft:rgba(255,255,255,.065);
+  --text:#f5f3ef;
+  --muted:#929ca4;
+  --muted-2:#66727b;
+  --red:#ff625f;
+  --red-soft:rgba(255,98,95,.09);
+  --red-line:rgba(255,98,95,.30);
+  --gold:#e4bd69;
+  --green:#79c995;
+  --blue:#78a9ef;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(
+      circle at 50% -8%,
+      rgba(42,56,68,.25),
+      transparent 28%
+    ),
+    var(--bg);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing:antialiased;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+  position:relative;
+  z-index:40;
+  border-bottom:1px solid var(--line-soft);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12,18,23,.99),
+      rgba(7,12,16,.98)
+    );
+}
+
+.header-inner{
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  padding:
+    calc(14px + env(safe-area-inset-top))
+    14px
+    0;
+}
+
+.title-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+
+.title-row > div:first-child{
+  min-width:0;
+}
+
+.eyebrow{
+  margin-bottom:2px;
+  color:var(--red);
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+
+.food-page-title{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0;
+}
+
+.food-page-title-icon{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  display:block;
+  object-fit:contain;
+}
+
+.food-page-title span{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:27px;
+  font-weight:700;
+  line-height:1;
+}
+
+.trip-name{
+  margin:3px 0 0 53px;
+  overflow:hidden;
+  color:var(--muted);
+  font-size:8px;
+  font-weight:600;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.add-btn{
+  flex:0 0 auto;
+  min-height:36px;
+  padding:7px 11px;
+
+  border:1px solid var(--red-line);
+  border-radius:10px;
+
+  background:var(--red-soft);
+  color:#f3b7b3;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.04em;
+
+  cursor:pointer;
+}
+
+.add-btn:active{
+  transform:scale(.96);
+}
+
+
+/* =========================================================
+   MY FOOD / DISCOVER
+========================================================= */
+
+.main-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  margin-top:12px;
+
+  border-bottom:1px solid var(--line);
+}
+
+.main-tab{
+  position:relative;
+
+  min-height:37px;
+  padding:6px 5px;
+
+  border:0;
+  background:transparent;
+
+  color:#737f87;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.05em;
+
+  cursor:pointer;
+}
+
+.main-tab::after{
+  content:"";
+
+  position:absolute;
+  left:22%;
+  right:22%;
+  bottom:-1px;
+
+  height:2px;
+
+  border-radius:999px;
+  background:transparent;
+}
+
+.main-tab.active{
+  color:#fff;
+}
+
+.main-tab.active::after{
+  background:var(--red);
+  box-shadow:0 0 8px rgba(255,98,95,.25);
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filter-panel{
+  padding:8px 0 9px;
+}
+
+
+/* city */
+
+.city-chips,
+.status-chips{
+  display:flex;
+  align-items:center;
+  gap:5px;
+
+  width:100%;
+
+  margin:0 0 6px;
+  padding:0 0 1px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+
+.city-chips::-webkit-scrollbar,
+.status-chips::-webkit-scrollbar{
+  display:none;
+}
+
+.chip{
+  flex:0 0 auto;
+
+  min-height:27px;
+  padding:4px 9px;
+
+  border:1px solid var(--line);
+  border-radius:999px;
+
+  background:rgba(17,24,30,.80);
+  color:#8d979e;
+
+  font-size:7px;
+  font-weight:850;
+
+  white-space:nowrap;
+
+  cursor:pointer;
+}
+
+.chip.active{
+  border-color:var(--red-line);
+  background:var(--red-soft);
+  color:#f1c1bd;
+}
+
+
+/* main compact controls */
+
+.filter-main-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 34px;
+  gap:5px;
+  align-items:center;
+}
+
+.filter-select-wrap{
+  position:relative;
+  min-width:0;
+}
+
+.filter-select-btn{
+  width:100%;
+  min-height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:5px;
+
+  padding:6px 8px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#0f161c;
+  color:#aeb6bc;
+
+  font-size:7px;
+  font-weight:850;
+
+  cursor:pointer;
+}
+
+.filter-select-btn > span:first-child{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.filter-select-btn.active{
+  border-color:var(--red-line);
+  background:var(--red-soft);
+  color:#f0c2bf;
+}
+
+.filter-chevron{
+  flex:0 0 auto;
+  color:#65717a;
+  font-size:9px;
+}
+
+.filter-menu{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  z-index:130;
+
+  width:max(100%,180px);
+  max-height:290px;
+
+  padding:5px;
+
+  overflow-y:auto;
+
+  border:1px solid var(--line);
+  border-radius:11px;
+
+  background:#0d1419;
+
+  box-shadow:0 16px 40px rgba(0,0,0,.52);
+}
+
+.filter-menu[hidden]{
+  display:none;
+}
+
+.filter-menu-item{
+  width:100%;
+  min-height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+
+  padding:6px 8px;
+
+  border:0;
+  border-radius:7px;
+
+  background:transparent;
+  color:#a6b0b7;
+
+  font-size:8px;
+  font-weight:800;
+
+  text-align:left;
+
+  cursor:pointer;
+}
+
+.filter-menu-item.active,
+.filter-menu-item:hover{
+  background:var(--red-soft);
+  color:#fff;
+}
+
+.filter-menu-count{
+  color:#626f77;
+  font-size:6px;
+}
+
+
+/* clear */
+
+.clear-filter-btn{
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#0f161c;
+  color:#65717a;
+
+  font-size:9px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.clear-filter-btn.active{
+  border-color:rgba(255,98,95,.22);
+  color:#d9948f;
+}
+
+
+/* search */
+
+.quick-search{
+  min-height:34px;
+
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  margin-top:5px;
+  padding:0 9px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#0f161c;
+}
+
+.quick-search:focus-within{
+  border-color:var(--red-line);
+  background:rgba(255,98,95,.025);
+}
+
+.quick-search-icon{
+  flex:0 0 auto;
+  opacity:.55;
+  font-size:9px;
+}
+
+.quick-search input{
+  width:100%;
+  min-width:0;
+
+  padding:0;
+
+  border:0;
+  outline:0;
+
+  background:transparent;
+  color:#e7e9e9;
+
+  font-size:8px;
+}
+
+.quick-search input::placeholder{
+  color:#626d75;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+  width:100%;
+  max-width:760px;
+
+  margin:0 auto;
+
+  padding:11px 14px 105px;
+}
+
+
+/* =========================================================
+   RESULTS SUMMARY
+========================================================= */
+
+.result-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  margin:0 1px 9px;
+}
+
+.result-label{
+  color:#bfc5c9;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.result-count{
+  color:#69757d;
+  font-size:7px;
+  font-weight:750;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.food-section{
+  margin-bottom:17px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  margin:0 2px 7px;
+
+  color:#aeb6bb;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.section-title::after{
+  content:"";
+  flex:1;
+
+  height:1px;
+
+  margin-left:3px;
+
+  background:var(--line-soft);
+}
+
+.section-title span{
+  color:#5f6b73;
+  font-size:6.5px;
+  letter-spacing:0;
+}
+
+
+/* =========================================================
+   RESTAURANT CARD
+========================================================= */
+
+.restaurant-card{
+  position:relative;
+
+  margin-bottom:7px;
+  padding:10px;
+
+  overflow:hidden;
+
+  border:1px solid #242e36;
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,26,32,.97),
+      rgba(11,17,22,.98)
+    );
+
+  box-shadow:0 4px 14px rgba(0,0,0,.10);
+}
+
+.restaurant-card.pick-card{
+  border-left:2px solid rgba(255,98,95,.55);
+}
+
+.restaurant-card.scheduled-card{
+  border-left:2px solid rgba(121,201,149,.48);
+}
+
+.restaurant-card.eaten-card{
+  opacity:.62;
+}
+
+
+/* top row */
+
+.card-top{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+}
+
+.food-icon{
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:rgba(255,255,255,.035);
+
+  font-size:17px;
+}
+
+.card-main{
+  flex:1;
+  min-width:0;
+}
+
+.name-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.restaurant-name{
+  margin:0;
+
+  overflow:hidden;
+
+  color:#f8f7f4;
+
+  font-size:11.5px;
+  font-weight:850;
+  line-height:1.25;
+}
+
+.primary-tag{
+  flex:0 0 auto;
+
+  padding:2px 5px;
+
+  border-radius:999px;
+
+  font-size:5.8px;
+  font-weight:900;
+  letter-spacing:.03em;
+}
+
+.primary-tag.pick{
+  background:rgba(255,98,95,.09);
+  color:#ee8f89;
+}
+
+.primary-tag.scheduled{
+  background:rgba(121,201,149,.08);
+  color:#94d1a9;
+}
+
+.primary-tag.top{
+  background:rgba(228,189,105,.08);
+  color:#dfbd70;
+}
+
+.japanese{
+  margin-top:1px;
+
+  color:#6f7b83;
+
+  font-size:7px;
+}
+
+.location{
+  margin-top:3px;
+
+  overflow:hidden;
+
+  color:#8d979e;
+
+  font-size:7px;
+  line-height:1.3;
+
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+
+/* compact info */
+
+.card-info{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:4px;
+
+  margin-top:6px;
+}
+
+.info-pill{
+  padding:2px 5px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.035);
+
+  color:#9aa4aa;
+
+  font-size:6.3px;
+  font-weight:750;
+}
+
+.info-pill.gold{
+  background:rgba(228,189,105,.06);
+  color:#d9b96f;
+}
+
+.info-pill.blue{
+  background:rgba(120,169,239,.055);
+  color:#9bbceb;
+}
+
+.info-pill.green{
+  background:rgba(121,201,149,.055);
+  color:#96cfa9;
+}
+
+.info-pill.red{
+  background:rgba(255,98,95,.055);
+  color:#df918c;
+}
+
+
+/* schedule */
+
+.plan-box{
+  margin-top:7px;
+  padding:5px 7px;
+
+  border-radius:6px;
+
+  background:rgba(121,201,149,.045);
+
+  color:#99cdaa;
+
+  font-size:6.7px;
+  font-weight:800;
+}
+
+
+/* description */
+
+.description{
+  margin-top:7px;
+
+  color:#858f96;
+
+  font-size:7px;
+  line-height:1.45;
+}
+
+
+/* actions */
+
+.actions{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:4px;
+
+  margin-top:8px;
+  padding-top:7px;
+
+  border-top:1px solid var(--line-soft);
+}
+
+.action-btn{
+  min-height:25px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:4px 7px;
+
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:7px;
+
+  background:rgba(255,255,255,.022);
+  color:#8d989f;
+
+  text-decoration:none;
+
+  font-size:6.2px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.action-btn.map{
+  border-color:rgba(255,98,95,.17);
+  color:#df8b86;
+}
+
+.action-btn.gold{
+  border-color:rgba(228,189,105,.18);
+  color:#d9b86d;
+}
+
+.action-btn.green{
+  border-color:rgba(121,201,149,.18);
+  color:#8fd0a6;
+}
+
+.action-btn.blue{
+  border-color:rgba(120,169,239,.18);
+  color:#91b9ef;
+}
+
+.action-btn.active{
+  background:rgba(255,98,95,.055);
+  border-color:rgba(255,98,95,.20);
+  color:#e49792;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.state{
+  padding:34px 18px;
+
+  border:1px dashed #303b43;
+  border-radius:14px;
+
+  background:rgba(255,255,255,.012);
+
+  color:#77838b;
+
+  font-size:8px;
+  line-height:1.6;
+
+  text-align:center;
+}
+
+.state strong{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#e8e7e3;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:14px;
+  font-weight:700;
+}
+
+
+/* =========================================================
+   ADD RESTAURANT SHEET
+========================================================= */
+
+.sheet-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:150;
+
+  display:none;
+  align-items:flex-end;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+
+.sheet-backdrop.open{
+  display:flex;
+}
+
+.sheet{
+  width:100%;
+  max-width:620px;
+  max-height:calc(92vh - env(safe-area-inset-top));
+
+  margin:auto auto 0;
+
+  padding:
+    8px
+    14px
+    calc(18px + env(safe-area-inset-bottom));
+
+  overflow-y:auto;
+
+  border:1px solid var(--line);
+  border-radius:20px 20px 0 0;
+
+  background:#0c1217;
+
+  box-shadow:0 -20px 50px rgba(0,0,0,.35);
+}
+
+.sheet-handle{
+  width:36px;
+  height:4px;
+
+  margin:2px auto 13px;
+
+  border-radius:999px;
+
+  background:#35414a;
+}
+
+.sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  margin-bottom:14px;
+}
+
+.sheet-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
+}
+
+.close-btn{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#131b21;
+  color:#fff;
+
+  cursor:pointer;
+}
+
+.google-place-box{
+  grid-column:1/-1;
+
+  margin-bottom:3px;
+  padding:10px;
+
+  border:1px solid rgba(120,169,239,.18);
+  border-radius:11px;
+
+  background:rgba(120,169,239,.035);
+}
+
+.google-place-label{
+  margin-bottom:7px;
+
+  color:#8fa0ad;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+#googlePlaceSearch{
+  width:100%;
+}
+
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+  width:100%;
+  min-height:42px;
+}
+
+.place-status{
+  margin-top:6px;
+
+  color:#6f7d86;
+
+  font-size:7px;
+  line-height:1.4;
+}
+
+.place-status.success{
+  color:#96d4ab;
+}
+
+.place-status.error{
+  color:#f2a4a0;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#8d989f;
+
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+  min-height:40px;
+
+  padding:8px 9px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  outline:0;
+
+  background:#0f161c;
+  color:#fff;
+
+  font-size:9px;
+}
+
+.field textarea{
+  min-height:76px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--red-line);
+}
+
+.checks{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+
+  margin-top:10px;
+}
+
+.check{
+  min-height:39px;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  padding:6px 8px;
+
+  border:1px solid var(--line);
+  border-radius:9px;
+
+  background:#10171d;
+  color:#aab3b9;
+
+  font-size:7px;
+  font-weight:800;
+}
+
+.check input{
+  width:14px;
+  height:14px;
+
+  accent-color:var(--red);
+}
+
+.save-btn{
+  width:100%;
+  min-height:43px;
+
+  margin-top:11px;
+
+  border:1px solid var(--red-line);
+  border-radius:10px;
+
+  background:var(--red-soft);
+  color:#f2b5b1;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.05em;
+
+  cursor:pointer;
+}
+
+.save-btn:disabled{
+  opacity:.45;
+}
+
+.form-message{
+  display:none;
+
+  margin-top:8px;
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:8px;
+}
+
+.form-message.error{
+  display:block;
+
+  border:1px solid rgba(255,98,95,.20);
+
+  background:rgba(255,98,95,.055);
+  color:#f3aaa6;
+}
+
+.form-message.success{
+  display:block;
+
+  border:1px solid rgba(121,201,149,.20);
+
+  background:rgba(121,201,149,.055);
+  color:#9dd8b2;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+  .header-inner{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  main{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .food-page-title-icon{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+  }
+
+  .food-page-title span{
+    font-size:25px;
+  }
+
+  .trip-name{
+    margin-left:49px;
+  }
+
+  .add-btn{
+    min-height:34px;
+    padding:6px 9px;
+  }
+
+  .restaurant-card{
+    padding:9px;
+  }
+
+  .checks{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(min-width:700px){
+
+  .restaurant-card:hover{
+    border-color:#35414a;
+    transform:translateY(-1px);
+  }
+
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+  <div class="header-inner">
+
+    <div class="title-row">
+
+      <div>
+
+        <div id="tripEyebrow" class="eyebrow">
+          LOADING TRIP…
+        </div>
+
+        <h1 class="food-page-title">
+
+          <img
+            class="food-page-title-icon"
+            src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Food.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvRm9vZC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTEwLCJleHAiOjIxMDQ5ODc5MTB9.S3ziYBOlZ-A98ltUXENugtbieKjgxRWXX_TiqLJO_n9sZoPjCR017CviZvILW5wsRZ_ydjsGgSpWutnXE33OIg"
+            alt=""
+            aria-hidden="true"
+          >
+
+          <span>Food</span>
+
+        </h1>
+
+        <div id="tripName" class="trip-name">
+          Loading trip…
+        </div>
+
+      </div>
+
+
+      <button
+        id="openAdd"
+        class="add-btn"
+        type="button"
+      >
+        ＋ ADD
+      </button>
+
+    </div>
+
+
+    <!-- TABS -->
+
+    <div class="main-tabs">
+
+      <button
+        class="main-tab active"
+        data-tab="mine"
+        type="button"
+      >
+        ❤️ MY FOOD
+      </button>
+
+      <button
+        class="main-tab"
+        data-tab="discover"
+        type="button"
+      >
+        🔎 DISCOVER
+      </button>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filter-panel">
+
+      <div
+        id="cityChips"
+        class="city-chips"
+      ></div>
+
+
+      <div
+        id="statusChips"
+        class="status-chips"
+      >
+
+        <button
+          class="chip active"
+          data-myfilter="all"
+          type="button"
+        >
+          ALL
+        </button>
+
+        <button
+          class="chip"
+          data-myfilter="pick"
+          type="button"
+        >
+          ⭐ PICKS
+        </button>
+
+        <button
+          class="chip"
+          data-myfilter="flexible"
+          type="button"
+        >
+          🌙 FLEX
+        </button>
+
+        <button
+          class="chip"
+          data-myfilter="scheduled"
+          type="button"
+        >
+          📅 PLANNED
+        </button>
+
+        <button
+          class="chip"
+          data-myfilter="eaten"
+          type="button"
+        >
+          ✓ EATEN
+        </button>
+
+      </div>
+
+
+      <div class="filter-main-row">
+
+        <div class="filter-select-wrap">
+
+          <button
+            id="areaFilterButton"
+            class="filter-select-btn"
+            type="button"
+            aria-expanded="false"
+          >
+            <span id="areaFilterButtonText">
+              📍 All Areas
+            </span>
+
+            <span class="filter-chevron">
+              ⌄
+            </span>
+          </button>
+
+          <div
+            id="areaFilterMenu"
+            class="filter-menu"
+            hidden
+          ></div>
+
+        </div>
+
+
+        <div class="filter-select-wrap">
+
+          <button
+            id="foodFilterButton"
+            class="filter-select-btn"
+            type="button"
+            aria-expanded="false"
+          >
+            <span id="foodFilterButtonText">
+              🍽️ All Food
+            </span>
+
+            <span class="filter-chevron">
+              ⌄
+            </span>
+          </button>
+
+          <div
+            id="foodFilterMenu"
+            class="filter-menu"
+            hidden
+          ></div>
+
+        </div>
+
+
+        <button
+          id="clearFilters"
+          class="clear-filter-btn"
+          type="button"
+          title="Clear filters"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <div class="quick-search">
+
+        <span class="quick-search-icon">
+          🔎
+        </span>
+
+        <input
+          id="quickSearch"
+          type="search"
+          autocomplete="off"
+          placeholder="Restaurant, area or food..."
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================================================
+     RESULTS
+========================================================= -->
+
+<main>
+
+  <div class="result-head">
+
+    <div
+      id="resultLabel"
+      class="result-label"
+    >
+      SAVED RESTAURANTS
+    </div>
+
+    <div
+      id="resultCount"
+      class="result-count"
+    ></div>
+
+  </div>
+
+
+  <div id="results">
+
+    <div class="state">
+
+      <strong>
+        Loading restaurants…
+      </strong>
+
+      Getting your food list from Supabase.
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- =========================================================
+     ADD RESTAURANT
+========================================================= -->
+
+<div
+  id="addSheet"
+  class="sheet-backdrop"
+>
+
+  <div class="sheet">
+
+    <div class="sheet-handle"></div>
+
+
+    <div class="sheet-head">
+
+      <div class="sheet-title">
+        ＋ Add Restaurant
+      </div>
+
+      <button
+        id="closeAdd"
+        class="close-btn"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <form id="addForm">
+
+      <div class="form-grid">
+
+
+        <div class="google-place-box">
+
+          <div class="google-place-label">
+            🔎 GOOGLE PLACES AUTOFILL
+          </div>
+
+          <div id="googlePlaceSearch"></div>
+
+          <div
+            id="googlePlaceStatus"
+            class="place-status"
+          >
+            Search a restaurant, then choose the correct Google result.
+          </div>
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>RESTAURANT NAME *</label>
+
+          <input
+            id="newName"
+            required
+            placeholder="Restaurant name"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>LOCAL NAME</label>
+
+          <input
+            id="newJapanese"
+            placeholder="Name in the local language"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>CITY *</label>
+
+          <input
+            id="newCity"
+            required
+            placeholder="Kyoto"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>AREA</label>
+
+          <input
+            id="newArea"
+            placeholder="Gion"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>LOCATION</label>
+
+          <input
+            id="newLocation"
+            placeholder="Pontocho"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>CUISINE</label>
+
+          <input
+            id="newCuisine"
+            placeholder="Yakitori"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>TABELOG RATING</label>
+
+          <input
+            id="newRating"
+            inputmode="decimal"
+            placeholder="3.70"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>BUDGET / PERSON</label>
+
+          <input
+            id="newPrice"
+            placeholder="¥3K–5K"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>TABELOG URL</label>
+
+          <input
+            id="newTabelog"
+            type="url"
+            placeholder="https://tabelog.com/..."
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>GOOGLE MAPS URL</label>
+
+          <input
+            id="newMaps"
+            type="url"
+            placeholder="Google Maps URL"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>WEBSITE</label>
+
+          <input
+            id="newWebsite"
+            type="url"
+            placeholder="Website URL"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>WHY / NOTES</label>
+
+          <textarea
+            id="newDescription"
+            placeholder="Why do you want to try this?"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="checks">
+
+        <label class="check">
+
+          <input
+            id="newAddTrip"
+            type="checkbox"
+            checked
+          >
+
+          ❤️ My Food
+
+        </label>
+
+
+        <label class="check">
+
+          <input
+            id="newPick"
+            type="checkbox"
+          >
+
+          ⭐ Pick
+
+        </label>
+
+
+        <label class="check">
+
+          <input
+            id="newFlexible"
+            type="checkbox"
+          >
+
+          🌙 Flexible
+
+        </label>
+
+      </div>
+
+
+      <button
+        id="saveBtn"
+        class="save-btn"
+        type="submit"
+      >
+        SAVE RESTAURANT
+      </button>
+
+
+      <div
+        id="formMessage"
+        class="form-message"
+      ></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div id="footer"></div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="google-maps.js"></script>
+
+
+<script>
+
+/* =========================================================
+   TRIP
+========================================================= */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+let TRIP_ID =
+  Number(
+    params.get("trip")
+  ) || null;
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let trip = null;
+let restaurants = [];
+let tripRestaurants = [];
+let scheduleRows = [];
+let currentUser = null;
+
+
+/* =========================================================
+   FILTER STATE
+========================================================= */
+
+let activeTab = "mine";
+
+let selectedCity = "";
+
+let myFilter = "all";
+
+let selectedArea = "";
+
+let foodGroupFilter = "";
+
+let quickSearchTerm = "";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const tripName =
+  document.getElementById(
+    "tripName"
+  );
+
+const tripEyebrow =
+  document.getElementById(
+    "tripEyebrow"
+  );
+
+const results =
+  document.getElementById(
+    "results"
+  );
+
+const resultLabel =
+  document.getElementById(
+    "resultLabel"
+  );
+
+const resultCount =
+  document.getElementById(
+    "resultCount"
+  );
+
+const cityChips =
+  document.getElementById(
+    "cityChips"
+  );
+
+const statusChips =
+  document.getElementById(
+    "statusChips"
+  );
+
+const areaFilterButton =
+  document.getElementById(
+    "areaFilterButton"
+  );
+
+const areaFilterButtonText =
+  document.getElementById(
+    "areaFilterButtonText"
+  );
+
+const areaFilterMenu =
+  document.getElementById(
+    "areaFilterMenu"
+  );
+
+const foodFilterButton =
+  document.getElementById(
+    "foodFilterButton"
+  );
+
+const foodFilterButtonText =
+  document.getElementById(
+    "foodFilterButtonText"
+  );
+
+const foodFilterMenu =
+  document.getElementById(
+    "foodFilterMenu"
+  );
+
+const clearFilters =
+  document.getElementById(
+    "clearFilters"
+  );
+
+const quickSearch =
+  document.getElementById(
+    "quickSearch"
+  );
+
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function text(value){
+
+  return String(
+    value ?? ""
+  );
+
+}
+
+
+function esc(value){
+
+  return text(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function norm(value){
+
+  return text(value)
+    .trim()
+    .toLowerCase();
+
+}
+
+
+function unique(values){
+
+  return [
+    ...new Set(
+      values
+        .map(
+          value =>
+            text(value).trim()
+        )
+        .filter(Boolean)
+    )
+  ]
+  .sort(
+    (a,b) =>
+      a.localeCompare(b)
+  );
+
+}
+
+
+/* =========================================================
+   ACCESSIBLE TRIPS
+========================================================= */
+
+async function getAccessibleTrips(){
+
+  const {
+    data:userData,
+    error:userError
+  } =
+    await db.auth.getUser();
+
+
+  if(userError){
+    throw userError;
+  }
+
+
+  const user =
+    userData?.user;
+
+
+  if(!user){
+
+    throw new Error(
+      "You are not signed in."
+    );
+
+  }
+
+
+  currentUser =
+    user;
+
+
+  const ownedResult =
+    await db
+      .from("trips")
+      .select("*")
+      .eq(
+        "owner_id",
+        user.id
+      );
+
+
+  if(ownedResult.error){
+    throw ownedResult.error;
+  }
+
+
+  const memberResult =
+    await db
+      .from("trip_members")
+      .select("trip_id")
+      .eq(
+        "user_id",
+        user.id
+      );
+
+
+  if(memberResult.error){
+    throw memberResult.error;
+  }
+
+
+  const sharedIds =
+    [
+      ...new Set(
+        (memberResult.data || [])
+          .map(
+            row =>
+              Number(row.trip_id)
+          )
+          .filter(
+            Number.isFinite
+          )
+      )
+    ];
+
+
+  let sharedTrips = [];
+
+
+  if(sharedIds.length){
+
+    const sharedResult =
+      await db
+        .from("trips")
+        .select("*")
+        .in(
+          "id",
+          sharedIds
+        );
+
+
+    if(sharedResult.error){
+      throw sharedResult.error;
+    }
+
+
+    sharedTrips =
+      sharedResult.data || [];
+
+  }
+
+
+  const tripMap =
+    new Map();
+
+
+  (ownedResult.data || [])
+    .forEach(
+      item => {
+
+        tripMap.set(
+          Number(item.id),
+          {
+            ...item,
+            __role:"owner"
+          }
+        );
+
+      }
+    );
+
+
+  sharedTrips.forEach(
+    item => {
+
+      const id =
+        Number(item.id);
+
+
+      if(!tripMap.has(id)){
+
+        tripMap.set(
+          id,
+          {
+            ...item,
+            __role:"member"
+          }
+        );
+
+      }
+
+    }
+  );
+
+
+  return [
+    ...tripMap.values()
+  ]
+  .sort(
+    (a,b) =>
+      String(
+        a.start_date || ""
+      )
+      .localeCompare(
+        String(
+          b.start_date || ""
+        )
+      )
+  );
+
+}
+
+
+/* =========================================================
+   RESOLVE TRIP
+========================================================= */
+
+async function resolveTrip(){
+
+  const accessibleTrips =
+    await getAccessibleTrips();
+
+
+  if(!accessibleTrips.length){
+
+    throw new Error(
+      "No trips are available for this account."
+    );
+
+  }
+
+
+  if(!TRIP_ID){
+
+    TRIP_ID =
+      Number(
+        accessibleTrips[0].id
+      );
+
+
+    history.replaceState(
+      {},
+      "",
+      `food.html?trip=${TRIP_ID}`
+    );
+
+  }
+
+
+  const allowed =
+    accessibleTrips.some(
+      item =>
+        Number(item.id) ===
+        Number(TRIP_ID)
+    );
+
+
+  if(!allowed){
+
+    TRIP_ID =
+      Number(
+        accessibleTrips[0].id
+      );
+
+
+    history.replaceState(
+      {},
+      "",
+      `food.html?trip=${TRIP_ID}`
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RESTAURANT HELPERS
+========================================================= */
+
+function rCity(r){
+  return r.city || "";
+}
+
+function rArea(r){
+  return r.area || "";
+}
+
+function rCuisine(r){
+  return r.cuisine || "Restaurant";
+}
+
+function rJapanese(r){
+  return r.name_japanese || "";
+}
+
+function rRating(r){
+  return r.rating ?? "";
+}
+
+function rPrice(r){
+
+  return (
+    r.price ||
+    r.dinner_price ||
+    r.lunch_price ||
+    ""
+  );
+
+}
+
+function rDescription(r){
+  return r.description || "";
+}
+
+function rLocation(r){
+
+  return (
+    r.location ||
+    r.area ||
+    r.city ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+function foodIcon(value){
+
+  const v =
+    norm(value);
+
+
+  if(v.includes("ramen"))
+    return "🍜";
+
+  if(v.includes("sushi"))
+    return "🍣";
+
+  if(v.includes("yakitori"))
+    return "🍢";
+
+  if(v.includes("chicken"))
+    return "🍗";
+
+  if(v.includes("oyakodon"))
+    return "🍳";
+
+  if(
+    v.includes("udon") ||
+    v.includes("soba")
+  )
+    return "🥢";
+
+  if(
+    v.includes("tonkatsu") ||
+    v.includes("katsu")
+  )
+    return "🐷";
+
+  if(v.includes("unagi"))
+    return "🐟";
+
+  if(v.includes("tempura"))
+    return "🍤";
+
+  if(v.includes("curry"))
+    return "🍛";
+
+  if(v.includes("izakaya"))
+    return "🍶";
+
+  if(v.includes("gyoza"))
+    return "🥟";
+
+  if(
+    v.includes("bakery") ||
+    v.includes("pastry")
+  )
+    return "🥐";
+
+  if(v.includes("seafood"))
+    return "🦐";
+
+
+  return "🍽️";
+
+}
+
+
+/* =========================================================
+   RELATION HELPERS
+========================================================= */
+
+function relationFor(id){
+
+  return tripRestaurants.find(
+    item =>
+      Number(item.restaurant_id)
+      ===
+      Number(id)
+  );
+
+}
+
+
+function inMyFood(r){
+
+  return Boolean(
+    relationFor(r.id)
+  );
+
+}
+
+
+function isPick(r){
+
+  return Boolean(
+    relationFor(r.id)
+      ?.is_pick
+  );
+
+}
+
+
+function isFlexible(r){
+
+  return Boolean(
+    relationFor(r.id)
+      ?.is_flexible
+  );
+
+}
+
+
+function isEaten(r){
+
+  return Boolean(
+    relationFor(r.id)
+      ?.is_eaten
+  );
+
+}
+
+
+function eatenDate(r){
+
+  const value =
+    relationFor(r.id)
+      ?.eaten_at;
+
+
+  if(!value){
+    return "";
+  }
+
+
+  const d =
+    new Date(value);
+
+
+  if(Number.isNaN(d.getTime())){
+    return "";
+  }
+
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  )
+  .format(d)
+  .toUpperCase();
+
+}
+
+
+function scheduleFor(r){
+
+  return scheduleRows
+    .filter(
+      item =>
+        Number(item.restaurant_id)
+        ===
+        Number(r.id)
+    )
+    .sort(
+      (a,b) =>
+        String(
+          a.schedule_date
+        )
+        .localeCompare(
+          String(
+            b.schedule_date
+          )
+        )
+    );
+
+}
+
+
+function isScheduled(r){
+
+  return (
+    scheduleFor(r).length > 0
+  );
+
+}
+
+
+/* =========================================================
+   MASTER FLAGS
+========================================================= */
+
+function isTop(r){
+
+  if(
+    r.is_tabelog_top100 === true
+  ){
+    return true;
+  }
+
+
+  const award =
+    norm(
+      r.award ||
+      r.recognition
+    );
+
+
+  return (
+    award.includes("top 100") ||
+    award.includes("top100")
+  );
+
+}
+
+
+function isHot(r){
+
+  if(
+    r.is_hot === true
+  ){
+    return true;
+  }
+
+
+  return norm(
+    r.award ||
+    r.recognition
+  )
+  .includes(
+    "hot restaurant"
+  );
+
+}
+
+
+function hasTabelog(r){
+
+  return Boolean(
+    text(r.tabelog_url).trim()
+  );
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatScheduleDate(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  const d =
+    new Date(
+      value + "T12:00:00"
+    );
+
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  )
+  .format(d)
+  .toUpperCase();
+
+}
+
+
+/* =========================================================
+   FOOD GROUPS
+========================================================= */
+
+const FOOD_GROUPS = [
+
+  {
+    key:"sushi",
+    label:"Sushi",
+    icon:"🍣"
+  },
+
+  {
+    key:"noodles",
+    label:"Noodles",
+    icon:"🍜"
+  },
+
+  {
+    key:"yakitori",
+    label:"Yakitori",
+    icon:"🍢"
+  },
+
+  {
+    key:"katsu",
+    label:"Katsu",
+    icon:"🐷"
+  },
+
+  {
+    key:"rice",
+    label:"Rice",
+    icon:"🍚"
+  },
+
+  {
+    key:"tempura",
+    label:"Tempura",
+    icon:"🍤"
+  },
+
+  {
+    key:"seafood",
+    label:"Seafood",
+    icon:"🐟"
+  },
+
+  {
+    key:"curry",
+    label:"Curry",
+    icon:"🍛"
+  },
+
+  {
+    key:"izakaya",
+    label:"Izakaya",
+    icon:"🍶"
+  },
+
+  {
+    key:"cafe",
+    label:"Cafe / Sweets",
+    icon:"☕"
+  }
+
+];
+
+
+function foodGroup(restaurant){
+
+  const value =
+    norm(
+      rCuisine(restaurant)
+    );
+
+
+  if(
+    value.includes("sushi") ||
+    value.includes("sashimi") ||
+    value.includes("omakase")
+  ){
+    return "sushi";
+  }
+
+
+  if(
+    value.includes("ramen") ||
+    value.includes("udon") ||
+    value.includes("soba") ||
+    value.includes("noodle")
+  ){
+    return "noodles";
+  }
+
+
+  if(
+    value.includes("yakitori") ||
+    value.includes("kushiyaki") ||
+    value.includes("chicken")
+  ){
+    return "yakitori";
+  }
+
+
+  if(
+    value.includes("tonkatsu") ||
+    value.includes("katsu")
+  ){
+    return "katsu";
+  }
+
+
+  if(
+    value.includes("oyakodon") ||
+    value.includes("donburi") ||
+    value.includes("rice bowl") ||
+    value.includes("rice")
+  ){
+    return "rice";
+  }
+
+
+  if(value.includes("tempura")){
+    return "tempura";
+  }
+
+
+  if(
+    value.includes("unagi") ||
+    value.includes("eel") ||
+    value.includes("seafood") ||
+    value.includes("fish")
+  ){
+    return "seafood";
+  }
+
+
+  if(value.includes("curry")){
+    return "curry";
+  }
+
+
+  if(
+    value.includes("izakaya") ||
+    value.includes("japanese pub")
+  ){
+    return "izakaya";
+  }
+
+
+  if(
+    value.includes("cafe") ||
+    value.includes("coffee") ||
+    value.includes("dessert") ||
+    value.includes("sweet") ||
+    value.includes("wagashi") ||
+    value.includes("bakery") ||
+    value.includes("pastry")
+  ){
+    return "cafe";
+  }
+
+
+  return "";
+
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+async function loadData(){
+
+  try{
+
+    await resolveTrip();
+
+
+    const tripResult =
+      await db
+        .from("trips")
+        .select("*")
+        .eq(
+          "id",
+          TRIP_ID
+        )
+        .single();
+
+
+    if(tripResult.error){
+      throw tripResult.error;
+    }
+
+
+    trip =
+      tripResult.data;
+
+
+    tripName.textContent =
+      trip.name ||
+      "My Trip";
+
+
+    tripEyebrow.textContent =
+      trip.country
+      ?
+      `${trip.country} · TRIP FOOD`
+      :
+      "TRIP FOOD";
+
+
+    document.title =
+      `Food · ${
+        trip.name ||
+        "My Trip"
+      }`;
+
+
+    /* restaurants */
+
+    const restaurantResult =
+      await db
+        .from("restaurants")
+        .select("*")
+        .order(
+          "name",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(restaurantResult.error){
+      throw restaurantResult.error;
+    }
+
+
+    restaurants =
+      restaurantResult.data || [];
+
+
+    if(trip.country){
+
+      const country =
+        norm(trip.country);
+
+
+      restaurants =
+        restaurants.filter(
+          restaurant =>
+            !restaurant.country ||
+            norm(restaurant.country)
+            ===
+            country
+        );
+
+    }
+
+
+    /* trip restaurants */
+
+    const relationResult =
+      await db
+        .from("trip_restaurants")
+        .select("*")
+        .eq(
+          "trip_id",
+          TRIP_ID
+        );
+
+
+    if(relationResult.error){
+      throw relationResult.error;
+    }
+
+
+    tripRestaurants =
+      relationResult.data || [];
+
+
+    /* scheduled restaurants */
+
+    const scheduleResult =
+      await db
+        .from("schedule")
+        .select(`
+          id,
+          restaurant_id,
+          schedule_date,
+          start_time,
+          time_label,
+          title,
+          is_locked
+        `)
+        .eq(
+          "trip_id",
+          TRIP_ID
+        )
+        .not(
+          "restaurant_id",
+          "is",
+          null
+        );
+
+
+    if(scheduleResult.error){
+
+      console.warn(
+        "Schedule food:",
+        scheduleResult.error
+      );
+
+      scheduleRows = [];
+
+    }
+
+    else{
+
+      scheduleRows =
+        scheduleResult.data || [];
+
+    }
+
+
+    createCityChips();
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Food load error:",
+      error
+    );
+
+
+    tripEyebrow.textContent =
+      "FOOD";
+
+
+    tripName.textContent =
+      "Could not load trip";
+
+
+    results.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          Couldn't load Food
+        </strong>
+
+        ${esc(
+          error.message ||
+          "Unknown database error."
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+document
+  .querySelectorAll(".main-tab")
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          activeTab =
+            button.dataset.tab;
+
+
+          document
+            .querySelectorAll(".main-tab")
+            .forEach(
+              item => {
+
+                item.classList.toggle(
+                  "active",
+                  item === button
+                );
+
+              }
+            );
+
+
+          selectedArea = "";
+          foodGroupFilter = "";
+
+
+          if(activeTab === "mine"){
+
+            statusChips.innerHTML = `
+
+              <button
+                class="chip ${myFilter === "all" ? "active" : ""}"
+                data-myfilter="all"
+                type="button"
+              >
+                ALL
+              </button>
+
+              <button
+                class="chip ${myFilter === "pick" ? "active" : ""}"
+                data-myfilter="pick"
+                type="button"
+              >
+                ⭐ PICKS
+              </button>
+
+              <button
+                class="chip ${myFilter === "flexible" ? "active" : ""}"
+                data-myfilter="flexible"
+                type="button"
+              >
+                🌙 FLEX
+              </button>
+
+              <button
+                class="chip ${myFilter === "scheduled" ? "active" : ""}"
+                data-myfilter="scheduled"
+                type="button"
+              >
+                📅 PLANNED
+              </button>
+
+              <button
+                class="chip ${myFilter === "eaten" ? "active" : ""}"
+                data-myfilter="eaten"
+                type="button"
+              >
+                ✓ EATEN
+              </button>
+
+            `;
+
+          }
+
+          else{
+
+            statusChips.innerHTML = `
+
+              <button
+                class="chip active"
+                data-discoverfilter="all"
+                type="button"
+              >
+                ALL
+              </button>
+
+              <button
+                class="chip"
+                data-discoverfilter="tabelog"
+                type="button"
+              >
+                🏆 TABELOG
+              </button>
+
+              <button
+                class="chip"
+                data-discoverfilter="notmine"
+                type="button"
+              >
+                ＋ NEW
+              </button>
+
+            `;
+
+          }
+
+
+          bindStatusFilters();
+
+          render();
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   CITY
+========================================================= */
+
+function createCityChips(){
+
+  const cities =
+    unique(
+      restaurants.map(rCity)
+    );
+
+
+  cityChips.innerHTML = `
+
+    <button
+      class="chip ${!selectedCity ? "active" : ""}"
+      data-city=""
+      type="button"
+    >
+      🌏 ALL
+    </button>
+
+    ${
+      cities.map(
+        city => `
+
+          <button
+            class="chip ${
+              norm(selectedCity) === norm(city)
+              ?
+              "active"
+              :
+              ""
+            }"
+            data-city="${esc(city)}"
+            type="button"
+          >
+            📍 ${esc(city)}
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+
+  cityChips
+    .querySelectorAll("[data-city]")
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            selectedCity =
+              button.dataset.city || "";
+
+            selectedArea = "";
+            foodGroupFilter = "";
+
+            createCityChips();
+
+            render();
+
+          };
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   STATUS FILTERS
+========================================================= */
+
+let discoverFilter = "all";
+
+
+function bindStatusFilters(){
+
+  statusChips
+    .querySelectorAll("[data-myfilter]")
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            myFilter =
+              button.dataset.myfilter;
+
+
+            statusChips
+              .querySelectorAll("[data-myfilter]")
+              .forEach(
+                item => {
+
+                  item.classList.toggle(
+                    "active",
+                    item === button
+                  );
+
+                }
+              );
+
+
+            render();
+
+          };
+
+      }
+    );
+
+
+  statusChips
+    .querySelectorAll("[data-discoverfilter]")
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            discoverFilter =
+              button.dataset.discoverfilter;
+
+
+            statusChips
+              .querySelectorAll("[data-discoverfilter]")
+              .forEach(
+                item => {
+
+                  item.classList.toggle(
+                    "active",
+                    item === button
+                  );
+
+                }
+              );
+
+
+            render();
+
+          };
+
+      }
+    );
+
+}
+
+
+bindStatusFilters();
+
+
+/* =========================================================
+   QUICK SEARCH
+========================================================= */
+
+quickSearch.addEventListener(
+  "input",
+  () => {
+
+    quickSearchTerm =
+      norm(
+        quickSearch.value
+      );
+
+    render();
+
+  }
+);
+
+
+function matchesQuickSearch(r){
+
+  if(!quickSearchTerm){
+    return true;
+  }
+
+
+  const haystack =
+    norm(
+      [
+        r.name,
+        rJapanese(r),
+        rCuisine(r),
+        rCity(r),
+        rArea(r),
+        rLocation(r),
+        rDescription(r),
+        r.award,
+        r.recognition
+      ]
+      .join(" ")
+    );
+
+
+  return haystack.includes(
+    quickSearchTerm
+  );
+
+}
+
+
+/* =========================================================
+   FILTER SOURCE
+========================================================= */
+
+function baseFilteredSource(){
+
+  let list =
+    restaurants.slice();
+
+
+  if(activeTab === "mine"){
+
+    list =
+      list.filter(inMyFood);
+
+
+    if(myFilter === "eaten"){
+
+      list =
+        list.filter(isEaten);
+
+    }
+
+    else{
+
+      list =
+        list.filter(
+          restaurant =>
+            !isEaten(restaurant)
+        );
+
+
+      if(myFilter === "pick"){
+
+        list =
+          list.filter(isPick);
+
+      }
+
+
+      if(myFilter === "flexible"){
+
+        list =
+          list.filter(isFlexible);
+
+      }
+
+
+      if(myFilter === "scheduled"){
+
+        list =
+          list.filter(isScheduled);
+
+      }
+
+    }
+
+  }
+
+  else{
+
+    if(discoverFilter === "tabelog"){
+
+      list =
+        list.filter(hasTabelog);
+
+    }
+
+
+    if(discoverFilter === "notmine"){
+
+      list =
+        list.filter(
+          restaurant =>
+            !inMyFood(restaurant)
+        );
+
+    }
+
+  }
+
+
+  if(selectedCity){
+
+    list =
+      list.filter(
+        restaurant =>
+          norm(rCity(restaurant))
+          ===
+          norm(selectedCity)
+      );
+
+  }
+
+
+  return list;
+
+}
+
+
+/* =========================================================
+   FILTER MENUS
+========================================================= */
+
+function renderFilterMenus(){
+
+  const source =
+    baseFilteredSource()
+      .filter(matchesQuickSearch);
+
+
+  /* areas */
+
+  const areaCounts =
+    new Map();
+
+
+  source.forEach(
+    restaurant => {
+
+      const area =
+        text(rArea(restaurant))
+          .trim();
+
+
+      if(!area){
+        return;
+      }
+
+
+      const key =
+        norm(area);
+
+
+      if(!areaCounts.has(key)){
+
+        areaCounts.set(
+          key,
+          {
+            label:area,
+            count:0
+          }
+        );
+
+      }
+
+
+      areaCounts.get(key).count++;
+
+    }
+  );
+
+
+  const areas =
+    [...areaCounts.values()]
+      .sort(
+        (a,b) =>
+          a.label.localeCompare(b.label)
+      );
+
+
+  if(
+    selectedArea &&
+    !areas.some(
+      item =>
+        norm(item.label)
+        ===
+        norm(selectedArea)
+    )
+  ){
+
+    selectedArea = "";
+
+  }
+
+
+  areaFilterButtonText.textContent =
+    selectedArea
+    ?
+    `📍 ${selectedArea}`
+    :
+    "📍 All Areas";
+
+
+  areaFilterButton.classList.toggle(
+    "active",
+    Boolean(selectedArea)
+  );
+
+
+  areaFilterMenu.innerHTML = `
+
+    <button
+      class="filter-menu-item ${!selectedArea ? "active" : ""}"
+      data-area=""
+      type="button"
+    >
+      <span>All Areas</span>
+      <span class="filter-menu-count">
+        ${source.length}
+      </span>
+    </button>
+
+    ${
+      areas.map(
+        item => `
+
+          <button
+            class="filter-menu-item ${
+              norm(selectedArea)
+              ===
+              norm(item.label)
+              ?
+              "active"
+              :
+              ""
+            }"
+            data-area="${esc(item.label)}"
+            type="button"
+          >
+
+            <span>
+              ${esc(item.label)}
+            </span>
+
+            <span class="filter-menu-count">
+              ${item.count}
+            </span>
+
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+
+  areaFilterMenu
+    .querySelectorAll("[data-area]")
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            selectedArea =
+              button.dataset.area || "";
+
+            foodGroupFilter = "";
+
+            closeMenus();
+
+            render();
+
+          };
+
+      }
+    );
+
+
+  /* food */
+
+  let foodSource =
+    source.slice();
+
+
+  if(selectedArea){
+
+    foodSource =
+      foodSource.filter(
+        restaurant =>
+          norm(rArea(restaurant))
+          ===
+          norm(selectedArea)
+      );
+
+  }
+
+
+  const foodCounts = {};
+
+
+  FOOD_GROUPS.forEach(
+    group => {
+
+      foodCounts[group.key] = 0;
+
+    }
+  );
+
+
+  foodSource.forEach(
+    restaurant => {
+
+      const key =
+        foodGroup(restaurant);
+
+
+      if(
+        key &&
+        key in foodCounts
+      ){
+
+        foodCounts[key]++;
+
+      }
+
+    }
+  );
+
+
+  const availableGroups =
+    FOOD_GROUPS.filter(
+      group =>
+        foodCounts[group.key] > 0
+    );
+
+
+  if(
+    foodGroupFilter &&
+    !availableGroups.some(
+      group =>
+        group.key === foodGroupFilter
+    )
+  ){
+
+    foodGroupFilter = "";
+
+  }
+
+
+  const selectedGroup =
+    FOOD_GROUPS.find(
+      group =>
+        group.key === foodGroupFilter
+    );
+
+
+  foodFilterButtonText.textContent =
+    selectedGroup
+    ?
+    `${selectedGroup.icon} ${selectedGroup.label}`
+    :
+    "🍽️ All Food";
+
+
+  foodFilterButton.classList.toggle(
+    "active",
+    Boolean(foodGroupFilter)
+  );
+
+
+  foodFilterMenu.innerHTML = `
+
+    <button
+      class="filter-menu-item ${!foodGroupFilter ? "active" : ""}"
+      data-food=""
+      type="button"
+    >
+      <span>All Food</span>
+
+      <span class="filter-menu-count">
+        ${foodSource.length}
+      </span>
+    </button>
+
+    ${
+      availableGroups.map(
+        group => `
+
+          <button
+            class="filter-menu-item ${
+              foodGroupFilter === group.key
+              ?
+              "active"
+              :
+              ""
+            }"
+            data-food="${group.key}"
+            type="button"
+          >
+
+            <span>
+              ${group.icon}
+              ${group.label}
+            </span>
+
+            <span class="filter-menu-count">
+              ${foodCounts[group.key]}
+            </span>
+
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+
+  foodFilterMenu
+    .querySelectorAll("[data-food]")
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            foodGroupFilter =
+              button.dataset.food || "";
+
+            closeMenus();
+
+            render();
+
+          };
+
+      }
+    );
+
+
+  clearFilters.classList.toggle(
+    "active",
+    Boolean(
+      selectedArea ||
+      foodGroupFilter ||
+      quickSearchTerm
+    )
+  );
+
+}
+
+
+/* =========================================================
+   MENUS
+========================================================= */
+
+function closeMenus(){
+
+  areaFilterMenu.hidden = true;
+  foodFilterMenu.hidden = true;
+
+  areaFilterButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  foodFilterButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+areaFilterButton.onclick =
+  event => {
+
+    event.stopPropagation();
+
+
+    const open =
+      areaFilterMenu.hidden;
+
+
+    closeMenus();
+
+
+    areaFilterMenu.hidden =
+      !open;
+
+
+    areaFilterButton.setAttribute(
+      "aria-expanded",
+      String(open)
+    );
+
+  };
+
+
+foodFilterButton.onclick =
+  event => {
+
+    event.stopPropagation();
+
+
+    const open =
+      foodFilterMenu.hidden;
+
+
+    closeMenus();
+
+
+    foodFilterMenu.hidden =
+      !open;
+
+
+    foodFilterButton.setAttribute(
+      "aria-expanded",
+      String(open)
+    );
+
+  };
+
+
+clearFilters.onclick =
+  () => {
+
+    selectedArea = "";
+    foodGroupFilter = "";
+    quickSearchTerm = "";
+
+    quickSearch.value = "";
+
+    closeMenus();
+
+    render();
+
+  };
+
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if(
+      !event.target.closest(
+        ".filter-select-wrap"
+      )
+    ){
+
+      closeMenus();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   FINAL FILTER
+========================================================= */
+
+function filteredRestaurants(){
+
+  let list =
+    baseFilteredSource();
+
+
+  if(selectedArea){
+
+    list =
+      list.filter(
+        restaurant =>
+          norm(rArea(restaurant))
+          ===
+          norm(selectedArea)
+      );
+
+  }
+
+
+  if(foodGroupFilter){
+
+    list =
+      list.filter(
+        restaurant =>
+          foodGroup(restaurant)
+          ===
+          foodGroupFilter
+      );
+
+  }
+
+
+  list =
+    list.filter(
+      matchesQuickSearch
+    );
+
+
+  return list;
+
+}
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+function planHTML(r){
+
+  const rows =
+    scheduleFor(r);
+
+
+  if(!rows.length){
+    return "";
+  }
+
+
+  return rows.map(
+    row => {
+
+      const time =
+        row.time_label ||
+        (
+          row.start_time
+          ?
+          row.start_time.slice(0,5)
+          :
+          ""
+        );
+
+
+      return `
+
+        <div class="plan-box">
+
+          📅
+          ${esc(
+            formatScheduleDate(
+              row.schedule_date
+            )
+          )}
+
+          ${
+            time
+            ?
+            ` · ${esc(time)}`
+            :
+            ""
+          }
+
+          ${
+            row.is_locked
+            ?
+            " · 🔒"
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+    }
+  )
+  .join("");
+
+}
+
+
+/* =========================================================
+   CARD INFO
+========================================================= */
+
+function infoHTML(r){
+
+  let html = `
+
+    <span class="info-pill">
+
+      ${foodIcon(rCuisine(r))}
+      ${esc(rCuisine(r))}
+
+    </span>
+
+  `;
+
+
+  if(rRating(r)){
+
+    html += `
+
+      <span class="info-pill gold">
+
+        ⭐ ${esc(rRating(r))}
+
+      </span>
+
+    `;
+
+  }
+
+
+  if(rPrice(r)){
+
+    html += `
+
+      <span class="info-pill">
+
+        💴 ${esc(rPrice(r))}
+
+      </span>
+
+    `;
+
+  }
+
+
+  if(isFlexible(r)){
+
+    html += `
+
+      <span class="info-pill blue">
+        🌙 Flexible
+      </span>
+
+    `;
+
+  }
+
+
+  if(isTop(r)){
+
+    html += `
+
+      <span class="info-pill gold">
+        🏆 Top 100
+      </span>
+
+    `;
+
+  }
+
+
+  if(isHot(r)){
+
+    html += `
+
+      <span class="info-pill red">
+        🔥 Hot
+      </span>
+
+    `;
+
+  }
+
+
+  if(isEaten(r)){
+
+    const date =
+      eatenDate(r);
+
+
+    html += `
+
+      <span class="info-pill green">
+
+        ✓ Eaten
+        ${
+          date
+          ?
+          ` · ${esc(date)}`
+          :
+          ""
+        }
+
+      </span>
+
+    `;
+
+  }
+
+
+  return html;
+
+}
+
+
+/* =========================================================
+   PRIMARY TAG
+========================================================= */
+
+function primaryTag(r){
+
+  if(isPick(r)){
+
+    return `
+      <span class="primary-tag pick">
+        ★ PICK
+      </span>
+    `;
+
+  }
+
+
+  if(isScheduled(r)){
+
+    return `
+      <span class="primary-tag scheduled">
+        PLANNED
+      </span>
+    `;
+
+  }
+
+
+  if(isTop(r)){
+
+    return `
+      <span class="primary-tag top">
+        TOP 100
+      </span>
+    `;
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function cardHTML(r){
+
+  const relation =
+    relationFor(r.id);
+
+
+  const mapsURL =
+    r.maps_url
+    ||
+    `https://www.google.com/maps/search/?api=1&query=${
+      encodeURIComponent(
+        [
+          r.name,
+          rCity(r),
+          trip?.country || ""
+        ]
+        .filter(Boolean)
+        .join(" ")
+      )
+    }`;
+
+
+  let cardClass =
+    "restaurant-card";
+
+
+  if(isPick(r)){
+
+    cardClass +=
+      " pick-card";
+
+  }
+
+  else if(isScheduled(r)){
+
+    cardClass +=
+      " scheduled-card";
+
+  }
+
+
+  if(isEaten(r)){
+
+    cardClass +=
+      " eaten-card";
+
+  }
+
+
+  return `
+
+    <article class="${cardClass}">
+
+
+      <div class="card-top">
+
+
+        <div class="food-icon">
+
+          ${foodIcon(
+            rCuisine(r)
+          )}
+
+        </div>
+
+
+        <div class="card-main">
+
+
+          <div class="name-row">
+
+            <h3 class="restaurant-name">
+
+              ${esc(r.name)}
+
+            </h3>
+
+            ${primaryTag(r)}
+
+          </div>
+
+
+          ${
+            rJapanese(r)
+
+            ?
+
+            `
+              <div class="japanese">
+
+                ${esc(
+                  rJapanese(r)
+                )}
+
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+
+          <div class="location">
+
+            📍
+
+            ${
+              [
+                rLocation(r),
+                rCity(r)
+              ]
+              .filter(Boolean)
+              .filter(
+                (value,index,array) =>
+                  array.findIndex(
+                    other =>
+                      norm(other)
+                      ===
+                      norm(value)
+                  )
+                  ===
+                  index
+              )
+              .map(esc)
+              .join(" · ")
+            }
+
+          </div>
+
+
+          <div class="card-info">
+
+            ${infoHTML(r)}
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      ${planHTML(r)}
+
+
+      ${
+        rDescription(r)
+
+        ?
+
+        `
+          <div class="description">
+
+            ${esc(
+              rDescription(r)
+            )}
+
+          </div>
+        `
+
+        :
+
+        ""
+      }
+
+
+      <div class="actions">
+
+
+        <a
+          class="action-btn map"
+          href="${esc(mapsURL)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          📍 MAP
+        </a>
+
+
+        ${
+          r.tabelog_url
+
+          ?
+
+          `
+            <a
+              class="action-btn gold"
+              href="${esc(r.tabelog_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🏆 TABELOG
+            </a>
+          `
+
+          :
+
+          ""
+        }
+
+
+        ${
+          r.booking_url
+
+          ?
+
+          `
+            <a
+              class="action-btn green"
+              href="${esc(r.booking_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              BOOK
+            </a>
+          `
+
+          :
+
+          ""
+        }
+
+
+        ${
+          relation
+
+          ?
+
+          `
+
+            <button
+              class="action-btn ${
+                relation.is_pick
+                ?
+                "active"
+                :
+                "blue"
+              }"
+              type="button"
+              onclick="togglePick(${Number(r.id)})"
+            >
+
+              ${
+                relation.is_pick
+                ?
+                "★ PICK"
+                :
+                "☆ PICK"
+              }
+
+            </button>
+
+
+            <button
+              class="action-btn ${
+                relation.is_flexible
+                ?
+                "active"
+                :
+                "blue"
+              }"
+              type="button"
+              onclick="toggleFlexible(${Number(r.id)})"
+            >
+
+              ${
+                relation.is_flexible
+                ?
+                "🌙 FLEX"
+                :
+                "＋ FLEX"
+              }
+
+            </button>
+
+
+            <button
+              class="action-btn ${
+                isEaten(r)
+                ?
+                ""
+                :
+                "green"
+              }"
+              type="button"
+              onclick="toggleEaten(${Number(r.id)})"
+            >
+
+              ${
+                isEaten(r)
+                ?
+                "↶ EATEN"
+                :
+                "✓ EATEN"
+              }
+
+            </button>
+
+
+            ${
+              !isScheduled(r) &&
+              !isEaten(r)
+
+              ?
+
+              `
+                <button
+                  class="action-btn"
+                  type="button"
+                  onclick="removeFromMyFood(${Number(r.id)})"
+                >
+                  REMOVE
+                </button>
+              `
+
+              :
+
+              ""
+            }
+
+          `
+
+          :
+
+          `
+
+            <button
+              class="action-btn green"
+              type="button"
+              onclick="addToMyFood(${Number(r.id)})"
+            >
+              ＋ MY FOOD
+            </button>
+
+          `
+        }
+
+
+      </div>
+
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+function sectionHTML(
+  title,
+  list
+){
+
+  if(!list.length){
+    return "";
+  }
+
+
+  return `
+
+    <section class="food-section">
+
+      <div class="section-title">
+
+        ${title}
+
+        <span>
+          ${list.length}
+        </span>
+
+      </div>
+
+
+      ${
+        list
+          .map(cardHTML)
+          .join("")
+      }
+
+    </section>
+
+  `;
+
+}
+
+
+/* =========================================================
+   MY FOOD
+========================================================= */
+
+function renderMine(list){
+
+  if(!list.length){
+
+    results.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          No restaurants here
+        </strong>
+
+        ${
+          myFilter === "eaten"
+          ?
+          "Nothing marked as eaten yet."
+          :
+          myFilter === "all"
+          ?
+          "Open Discover to find restaurants and add them to My Food."
+          :
+          "No restaurants match this filter."
+        }
+
+      </div>
+
+    `;
+
+
+    return;
+
+  }
+
+
+  if(myFilter !== "all"){
+
+    results.innerHTML =
+      list
+        .map(cardHTML)
+        .join("");
+
+
+    return;
+
+  }
+
+
+  const picks =
+    list.filter(isPick);
+
+
+  const scheduled =
+    list.filter(
+      restaurant =>
+        isScheduled(restaurant) &&
+        !isPick(restaurant)
+    );
+
+
+  const flexible =
+    list.filter(
+      restaurant =>
+        isFlexible(restaurant) &&
+        !isPick(restaurant) &&
+        !isScheduled(restaurant)
+    );
+
+
+  const saved =
+    list.filter(
+      restaurant =>
+        !isPick(restaurant) &&
+        !isFlexible(restaurant) &&
+        !isScheduled(restaurant)
+    );
+
+
+  results.innerHTML =
+
+    sectionHTML(
+      "⭐ PICKS",
+      picks
+    )
+
+    +
+
+    sectionHTML(
+      "📅 PLANNED",
+      scheduled
+    )
+
+    +
+
+    sectionHTML(
+      "🌙 FLEXIBLE",
+      flexible
+    )
+
+    +
+
+    sectionHTML(
+      "❤️ SAVED",
+      saved
+    );
+
+}
+
+
+/* =========================================================
+   DISCOVER
+========================================================= */
+
+function renderDiscover(list){
+
+  if(!list.length){
+
+    results.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          No restaurants found
+        </strong>
+
+        Try another city,
+        area, food type or search.
+
+      </div>
+
+    `;
+
+
+    return;
+
+  }
+
+
+  results.innerHTML =
+    list
+      .map(cardHTML)
+      .join("");
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+  renderFilterMenus();
+
+
+  const list =
+    filteredRestaurants();
+
+
+  resultCount.textContent =
+    `${list.length} ${
+      list.length === 1
+      ?
+      "restaurant"
+      :
+      "restaurants"
+    }`;
+
+
+  if(activeTab === "mine"){
+
+    resultLabel.textContent =
+      myFilter === "all"
+      ?
+      "SAVED RESTAURANTS"
+      :
+      myFilter === "pick"
+      ?
+      "YOUR PICKS"
+      :
+      myFilter === "flexible"
+      ?
+      "FLEXIBLE OPTIONS"
+      :
+      myFilter === "scheduled"
+      ?
+      "PLANNED FOOD"
+      :
+      "EATEN";
+
+
+    renderMine(list);
+
+  }
+
+  else{
+
+    resultLabel.textContent =
+      "DISCOVER RESTAURANTS";
+
+
+    renderDiscover(list);
+
+  }
+
+}
+
+
+/* =========================================================
+   ADD TO MY FOOD
+========================================================= */
+
+async function addToMyFood(
+  restaurantId
+){
+
+  if(!currentUser){
+
+    window.location.href =
+      "login.html";
+
+    return;
+
+  }
+
+
+  try{
+
+    const result =
+      await db
+        .from("trip_restaurants")
+        .insert({
+
+          trip_id:
+            TRIP_ID,
+
+          restaurant_id:
+            restaurantId,
+
+          is_pick:
+            false,
+
+          is_flexible:
+            false,
+
+          is_eaten:
+            false,
+
+          eaten_at:
+            null
+
+        })
+        .select()
+        .single();
+
+
+    if(result.error){
+      throw result.error;
+    }
+
+
+    tripRestaurants.push(
+      result.data
+    );
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      error.message ||
+      "Couldn't add restaurant."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   PICK
+========================================================= */
+
+async function togglePick(
+  restaurantId
+){
+
+  const relation =
+    relationFor(
+      restaurantId
+    );
+
+
+  if(!relation){
+    return;
+  }
+
+
+  const value =
+    !relation.is_pick;
+
+
+  try{
+
+    const result =
+      await db
+        .from("trip_restaurants")
+        .update({
+          is_pick:value
+        })
+        .eq(
+          "trip_id",
+          TRIP_ID
+        )
+        .eq(
+          "restaurant_id",
+          restaurantId
+        );
+
+
+    if(result.error){
+      throw result.error;
+    }
+
+
+    relation.is_pick =
+      value;
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      error.message ||
+      "Couldn't update Pick."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   FLEXIBLE
+========================================================= */
+
+async function toggleFlexible(
+  restaurantId
+){
+
+  const relation =
+    relationFor(
+      restaurantId
+    );
+
+
+  if(!relation){
+    return;
+  }
+
+
+  const value =
+    !relation.is_flexible;
+
+
+  try{
+
+    const result =
+      await db
+        .from("trip_restaurants")
+        .update({
+          is_flexible:value
+        })
+        .eq(
+          "trip_id",
+          TRIP_ID
+        )
+        .eq(
+          "restaurant_id",
+          restaurantId
+        );
+
+
+    if(result.error){
+      throw result.error;
+    }
+
+
+    relation.is_flexible =
+      value;
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      error.message ||
+      "Couldn't update Flexible."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   EATEN
+========================================================= */
+
+async function toggleEaten(
+  restaurantId
+){
+
+  const relation =
+    relationFor(
+      restaurantId
+    );
+
+
+  if(!relation){
+    return;
+  }
+
+
+  const value =
+    !relation.is_eaten;
+
+
+  try{
+
+    const result =
+      await db
+        .from("trip_restaurants")
+        .update({
+
+          is_eaten:
+            value,
+
+          eaten_at:
+            value
+            ?
+            new Date().toISOString()
+            :
+            null
+
+        })
+        .eq(
+          "trip_id",
+          TRIP_ID
+        )
+        .eq(
+          "restaurant_id",
+          restaurantId
+        )
+        .select()
+        .single();
+
+
+    if(result.error){
+      throw result.error;
+    }
+
+
+    relation.is_eaten =
+      result.data.is_eaten;
+
+
+    relation.eaten_at =
+      result.data.eaten_at;
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      error.message ||
+      "Couldn't update Eaten."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   REMOVE
+========================================================= */
+
+async function removeFromMyFood(
+  restaurantId
+){
+
+  const restaurant =
+    restaurants.find(
+      item =>
+        Number(item.id)
+        ===
+        Number(restaurantId)
+    );
+
+
+  if(!restaurant){
+    return;
+  }
+
+
+  const okay =
+    confirm(
+      `Remove "${restaurant.name}" from My Food?\n\nThe restaurant will stay in the master list.`
+    );
+
+
+  if(!okay){
+    return;
+  }
+
+
+  try{
+
+    const result =
+      await db
+        .from("trip_restaurants")
+        .delete()
+        .eq(
+          "trip_id",
+          TRIP_ID
+        )
+        .eq(
+          "restaurant_id",
+          restaurantId
+        );
+
+
+    if(result.error){
+      throw result.error;
+    }
+
+
+    tripRestaurants =
+      tripRestaurants.filter(
+        item =>
+          Number(item.restaurant_id)
+          !==
+          Number(restaurantId)
+      );
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      error.message ||
+      "Couldn't remove restaurant."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   GOOGLE PLACES
+========================================================= */
+
+let googlePlaceAutocomplete =
+  null;
+
+let selectedGoogleLatitude =
+  null;
+
+let selectedGoogleLongitude =
+  null;
+
+
+function setPlaceStatus(
+  message,
+  type=""
+){
+
+  const el =
+    document.getElementById(
+      "googlePlaceStatus"
+    );
+
+
+  if(!el){
+    return;
+  }
+
+
+  el.textContent =
+    message;
+
+
+  el.className =
+    `place-status ${type}`
+      .trim();
+
+}
+
+
+function guessCuisine(types){
+
+  const values =
+    (types || [])
+      .map(norm);
+
+
+  if(values.includes("ramen_restaurant")){
+    return "Ramen";
+  }
+
+
+  if(values.includes("sushi_restaurant")){
+    return "Sushi";
+  }
+
+
+  if(values.includes("japanese_restaurant")){
+    return "Japanese";
+  }
+
+
+  if(values.includes("seafood_restaurant")){
+    return "Seafood";
+  }
+
+
+  if(values.includes("cafe")){
+    return "Cafe";
+  }
+
+
+  if(values.includes("bakery")){
+    return "Bakery";
+  }
+
+
+  if(values.includes("bar")){
+    return "Bar";
+  }
+
+
+  if(values.includes("restaurant")){
+    return "Restaurant";
+  }
+
+
+  return "";
+
+}
+
+
+async function initGooglePlaces(){
+
+  const host =
+    document.getElementById(
+      "googlePlaceSearch"
+    );
+
+
+  if(!host){
+    return;
+  }
+
+
+  try{
+
+    setPlaceStatus(
+      "Loading Google Places…"
+    );
+
+
+    if(
+      typeof window.loadGoogleMaps !== "function" ||
+      typeof window.getGooglePlaces !== "function" ||
+      typeof window.createGooglePlaceAutocomplete !== "function" ||
+      typeof window.getGooglePlaceDetails !== "function" ||
+      typeof window.normalizeGooglePlace !== "function"
+    ){
+
+      throw new Error(
+        "The Google Maps helper functions were not found."
+      );
+
+    }
+
+
+    await window.loadGoogleMaps();
+
+    await window.getGooglePlaces();
+
+
+    googlePlaceAutocomplete =
+      await window
+        .createGooglePlaceAutocomplete(
+          host,
+          {
+            placeholder:
+              `Search restaurant${
+                trip?.country
+                ?
+                " in " + trip.country
+                :
+                ""
+              }...`
+          }
+        );
+
+
+    googlePlaceAutocomplete
+      .addEventListener(
+        "gmp-select",
+        async event => {
+
+          try{
+
+            setPlaceStatus(
+              "Getting place details…"
+            );
+
+
+            const place =
+              await window
+                .getGooglePlaceDetails(
+                  event
+                );
+
+
+            const data =
+              window
+                .normalizeGooglePlace(
+                  place
+                );
+
+
+            selectedGoogleLatitude =
+              data.latitude ??
+              null;
+
+
+            selectedGoogleLongitude =
+              data.longitude ??
+              null;
+
+
+            document.getElementById(
+              "newName"
+            ).value =
+              data.name || "";
+
+
+            document.getElementById(
+              "newCity"
+            ).value =
+              data.city ||
+              selectedCity ||
+              "";
+
+
+            document.getElementById(
+              "newArea"
+            ).value =
+              data.area || "";
+
+
+            document.getElementById(
+              "newLocation"
+            ).value =
+              data.address || "";
+
+
+            document.getElementById(
+              "newMaps"
+            ).value =
+              data.maps_url || "";
+
+
+            document.getElementById(
+              "newWebsite"
+            ).value =
+              data.website_url || "";
+
+
+            const cuisineInput =
+              document.getElementById(
+                "newCuisine"
+              );
+
+
+            if(
+              !cuisineInput
+                .value
+                .trim()
+            ){
+
+              cuisineInput.value =
+                guessCuisine(
+                  place.types || []
+                );
+
+            }
+
+
+            setPlaceStatus(
+              `✓ ${
+                data.name ||
+                "Restaurant"
+              } selected.`,
+              "success"
+            );
+
+          }
+
+          catch(error){
+
+            console.error(
+              "Google Places selection:",
+              error
+            );
+
+
+            setPlaceStatus(
+              "Google place error: " +
+              (
+                error.message ||
+                String(error)
+              ),
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    setPlaceStatus(
+      "Search for a restaurant and select the correct Google result."
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Google Places init:",
+      error
+    );
+
+
+    setPlaceStatus(
+      "Google Places error: " +
+      (
+        error.message ||
+        String(error)
+      ),
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ADD SHEET
+========================================================= */
+
+const addSheet =
+  document.getElementById(
+    "addSheet"
+  );
+
+
+document.getElementById(
+  "openAdd"
+).onclick =
+  () => {
+
+    if(!currentUser){
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    selectedGoogleLatitude =
+      null;
+
+
+    selectedGoogleLongitude =
+      null;
+
+
+    document.getElementById(
+      "newCity"
+    ).value =
+      selectedCity || "";
+
+
+    addSheet.classList.add(
+      "open"
+    );
+
+  };
+
+
+document.getElementById(
+  "closeAdd"
+).onclick =
+  closeAddSheet;
+
+
+addSheet.onclick =
+  event => {
+
+    if(event.target === addSheet){
+
+      closeAddSheet();
+
+    }
+
+  };
+
+
+function closeAddSheet(){
+
+  addSheet.classList.remove(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   ADD FORM
+========================================================= */
+
+const addForm =
+  document.getElementById(
+    "addForm"
+  );
+
+
+const formMessage =
+  document.getElementById(
+    "formMessage"
+  );
+
+
+function showFormMessage(
+  message,
+  type
+){
+
+  formMessage.textContent =
+    message;
+
+
+  formMessage.className =
+    `form-message ${type}`;
+
+}
+
+
+addForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+
+    if(!currentUser){
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    const saveBtn =
+      document.getElementById(
+        "saveBtn"
+      );
+
+
+    saveBtn.disabled =
+      true;
+
+
+    saveBtn.textContent =
+      "SAVING…";
+
+
+    formMessage.className =
+      "form-message";
+
+
+    try{
+
+      const name =
+        document.getElementById(
+          "newName"
+        ).value.trim();
+
+
+      const japanese =
+        document.getElementById(
+          "newJapanese"
+        ).value.trim();
+
+
+      const city =
+        document.getElementById(
+          "newCity"
+        ).value.trim();
+
+
+      const area =
+        document.getElementById(
+          "newArea"
+        ).value.trim();
+
+
+      const location =
+        document.getElementById(
+          "newLocation"
+        ).value.trim();
+
+
+      const cuisine =
+        document.getElementById(
+          "newCuisine"
+        ).value.trim();
+
+
+      const ratingText =
+        document.getElementById(
+          "newRating"
+        ).value.trim();
+
+
+      const price =
+        document.getElementById(
+          "newPrice"
+        ).value.trim();
+
+
+      const tabelog =
+        document.getElementById(
+          "newTabelog"
+        ).value.trim();
+
+
+      const maps =
+        document.getElementById(
+          "newMaps"
+        ).value.trim();
+
+
+      const website =
+        document.getElementById(
+          "newWebsite"
+        ).value.trim();
+
+
+      const description =
+        document.getElementById(
+          "newDescription"
+        ).value.trim();
+
+
+      const addTrip =
+        document.getElementById(
+          "newAddTrip"
+        ).checked;
+
+
+      const pick =
+        document.getElementById(
+          "newPick"
+        ).checked;
+
+
+      const flexible =
+        document.getElementById(
+          "newFlexible"
+        ).checked;
+
+
+      /* duplicate */
+
+      const duplicate =
+        restaurants.find(
+          restaurant =>
+            norm(restaurant.name)
+            ===
+            norm(name)
+            &&
+            norm(rCity(restaurant))
+            ===
+            norm(city)
+        );
+
+
+      if(duplicate){
+
+        throw new Error(
+          "This restaurant already appears to be in the master list. Find it in Discover and tap + My Food instead."
+        );
+
+      }
+
+
+      /* rating */
+
+      let rating =
+        null;
+
+
+      if(ratingText){
+
+        rating =
+          Number(ratingText);
+
+
+        if(Number.isNaN(rating)){
+
+          throw new Error(
+            "Tabelog rating must be a number."
+          );
+
+        }
+
+      }
+
+
+      /* restaurant */
+
+      const restaurantResult =
+        await db
+          .from("restaurants")
+          .insert({
+
+            name:
+              name,
+
+            name_japanese:
+              japanese || null,
+
+            cuisine:
+              cuisine || null,
+
+            country:
+              trip?.country || null,
+
+            city:
+              city,
+
+            area:
+              area || null,
+
+            location:
+              location || null,
+
+            description:
+              description || null,
+
+            price:
+              price || null,
+
+            tabelog_url:
+              tabelog || null,
+
+            maps_url:
+              maps || null,
+
+            website_url:
+              website || null,
+
+            rating:
+              rating,
+
+            latitude:
+              selectedGoogleLatitude,
+
+            longitude:
+              selectedGoogleLongitude,
+
+            status:
+              "active",
+
+            created_by:
+              currentUser.id,
+
+            verified:
+              false
+
+          })
+          .select()
+          .single();
+
+
+      if(restaurantResult.error){
+
+        throw restaurantResult.error;
+
+      }
+
+
+      const newRestaurant =
+        restaurantResult.data;
+
+
+      /* add to trip */
+
+      if(addTrip){
+
+        const relationResult =
+          await db
+            .from("trip_restaurants")
+            .insert({
+
+              trip_id:
+                TRIP_ID,
+
+              restaurant_id:
+                newRestaurant.id,
+
+              is_pick:
+                pick,
+
+              is_flexible:
+                flexible,
+
+              is_eaten:
+                false,
+
+              eaten_at:
+                null
+
+            })
+            .select()
+            .single();
+
+
+        if(relationResult.error){
+
+          throw relationResult.error;
+
+        }
+
+
+        tripRestaurants.push(
+          relationResult.data
+        );
+
+      }
+
+
+      restaurants.push(
+        newRestaurant
+      );
+
+
+      restaurants.sort(
+        (a,b) =>
+          text(a.name)
+            .localeCompare(
+              text(b.name)
+            )
+      );
+
+
+      showFormMessage(
+        addTrip
+        ?
+        "Added to the restaurant list and My Food."
+        :
+        "Added to the restaurant list.",
+        "success"
+      );
+
+
+      addForm.reset();
+
+
+      selectedGoogleLatitude =
+        null;
+
+
+      selectedGoogleLongitude =
+        null;
+
+
+      document.getElementById(
+        "newAddTrip"
+      ).checked =
+        true;
+
+
+      createCityChips();
+
+      render();
+
+
+      setTimeout(
+        closeAddSheet,
+        850
+      );
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      showFormMessage(
+        error.message ||
+        "Couldn't save restaurant.",
+        "error"
+      );
+
+    }
+
+    finally{
+
+      saveBtn.disabled =
+        false;
+
+
+      saveBtn.textContent =
+        "SAVE RESTAURANT";
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function start(){
+
+  await loadData();
+
+  await initGooglePlaces();
+
+}
+
+
+start();
+
+</script>
+
+
+<!-- Shared footer -->
+<script src="footer.js"></script>
+
+</body>
+</html>
