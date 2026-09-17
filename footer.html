@@ -16,8 +16,11 @@
 body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
 .bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:80;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 8px calc(7px + env(safe-area-inset-bottom));border-top:1px solid var(--footer-line);background:rgba(7,12,16,.98);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 .bottom-nav a,.bottom-nav button{min-height:47px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;border-radius:10px;background:transparent;color:var(--footer-muted);text-decoration:none;font:inherit;font-size:8px;font-weight:800;cursor:pointer}
-.bottom-nav .nav-icon{font-size:16px;line-height:1}
+.bottom-nav .nav-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;line-height:1}
+.bottom-nav .nav-icon img{display:block;width:21px;height:21px;object-fit:contain}
+.bottom-nav .nav-icon.emoji{font-size:16px}
 .bottom-nav .active{color:#fff;border:1px solid rgba(201,111,104,.24);background:rgba(201,111,104,.09)}
+.bottom-nav .active .nav-icon img{filter:brightness(1.12)}
 .footer-sheet-backdrop{position:fixed;inset:0;z-index:150;display:none;align-items:flex-end;background:rgba(0,0,0,.68);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .footer-sheet-backdrop.open{display:flex}
 .footer-sheet{width:100%;max-width:760px;max-height:calc(92vh - env(safe-area-inset-top));overflow-y:auto;margin:0 auto;padding:8px 14px calc(18px + env(safe-area-inset-bottom));border:1px solid var(--footer-line);border-radius:20px 20px 0 0;background:#0d1318;color:var(--footer-text)}
@@ -106,9 +109,28 @@ body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
 </div>
 
 <nav class="bottom-nav" aria-label="Main navigation">
-  <a id="sharedNavHome"><span class="nav-icon">🏠</span><span>HOME</span></a>
-  <a id="sharedNavPlan"><span class="nav-icon">📅</span><span>PLAN</span></a>
-  <a id="sharedNavFood"><span class="nav-icon">🍽️</span><span>FOOD</span></a>
-  <a id="sharedNavHub"><span class="nav-icon">⭐</span><span>HUB</span></a>
-  <button id="sharedNavMore" type="button"><span class="nav-icon">⋯</span><span>MORE</span></button>
+  <a id="sharedNavHome">
+    <span class="nav-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Home.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvSG9tZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTM5LCJleHAiOjIxMDQ5ODc5Mzl9.hOh9j22ov7HVKAyzHEEftav0cCyXEdSmkpRxtOaiyvNJhJrB4L0FQq-T-hrezgHGYZ5hranOP8RI70LWHFLz1g" alt=""></span>
+    <span>HOME</span>
+  </a>
+
+  <a id="sharedNavPlan">
+    <span class="nav-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Plan.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvUGxhbi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI4MDk1LCJleHAiOjIxMDQ5ODgwOTV9.y5ce4vah9CX-CnpAFWVUXw7pHtNakfgezG6RlS8EJ3BzGYBm7SgdUOgum92WHo-jpLPb1kbuYdvneZJytrLobw" alt=""></span>
+    <span>PLAN</span>
+  </a>
+
+  <a id="sharedNavFood">
+    <span class="nav-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Food.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvRm9vZC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTEwLCJleHAiOjIxMDQ5ODc5MTB9.S3ziYBOlZ-A98ltUXENugtbieKjgxRWXX_TiqLJO_n9sZoPjCR017CviZvILW5wsRZ_ydjsGgSpWutnXE33OIg" alt=""></span>
+    <span>FOOD</span>
+  </a>
+
+  <a id="sharedNavHub">
+    <span class="nav-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Booking.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQm9va2luZy5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3ODU2LCJleHAiOjIxMDQ5ODc4NTZ9.So320gSGj5TK_okESeEqmZGSK03R15D1KjrIvXnie1CCuG3av6uoiXvs54kSmfUYqcjTmkzyYQ6RkIrPeAW_-w" alt=""></span>
+    <span>BOOKING</span>
+  </a>
+
+  <button id="sharedNavMore" type="button">
+    <span class="nav-icon"><img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/more.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvbW9yZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTYxLCJleHAiOjIxMDQ5ODc5NjF9.izyjBYJ1Q8KVyfVjbNZsnvdYZdgetBzblOQ_duXf0rnY9Hyz1_NCGahKF8y2997HuwHFzzynHmQ9A827e8u1mA" alt=""></span>
+    <span>MORE</span>
+  </button>
 </nav>
