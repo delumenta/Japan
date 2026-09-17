@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
 
 <meta
@@ -40,7 +41,11 @@ html{
 
 body{
   margin:0;
+
   min-height:100vh;
+
+  padding-bottom:
+    calc(90px + env(safe-area-inset-bottom));
 
   background:
     radial-gradient(
@@ -68,6 +73,10 @@ select{
   font:inherit;
 }
 
+button{
+  cursor:pointer;
+}
+
 
 /* =========================================================
    HEADER
@@ -75,7 +84,9 @@ select{
 
 header{
   position:sticky;
+
   top:0;
+
   z-index:40;
 
   padding:
@@ -83,16 +94,22 @@ header{
     14px
     10px;
 
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid var(--line);
 
-  background:rgba(7,12,16,.96);
+  background:
+    rgba(7,12,16,.96);
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
 }
 
 .header-inner{
   max-width:760px;
+
   margin:auto;
 }
 
@@ -106,7 +123,10 @@ header{
 }
 
 h1{
-  margin:3px 0 0;
+  margin:
+    3px
+    0
+    0;
 
   font-family:
     Georgia,
@@ -131,12 +151,13 @@ h1{
 
 main{
   max-width:760px;
+
   margin:auto;
 
   padding:
     13px
     13px
-    100px;
+    30px;
 }
 
 .section-label{
@@ -165,7 +186,10 @@ main{
 .profile-card{
   padding:12px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:15px;
 
   background:
@@ -178,6 +202,7 @@ main{
 
 .profile-top{
   display:flex;
+
   align-items:center;
 
   gap:11px;
@@ -190,12 +215,16 @@ main{
   height:45px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   overflow:hidden;
 
-  border:1px solid #35414a;
+  border:
+    1px solid
+    #35414a;
+
   border-radius:50%;
 
   background:#1a232a;
@@ -218,6 +247,7 @@ main{
 
 .profile-info{
   flex:1;
+
   min-width:0;
 }
 
@@ -260,9 +290,14 @@ main{
 .edit-profile{
   min-height:32px;
 
-  padding:5px 9px;
+  padding:
+    5px
+    9px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:8px;
 
   background:#151d23;
@@ -271,8 +306,6 @@ main{
 
   font-size:7px;
   font-weight:900;
-
-  cursor:pointer;
 }
 
 
@@ -282,13 +315,16 @@ main{
 
 .user-id-box{
   display:flex;
+
   align-items:center;
 
   gap:8px;
 
   margin-top:11px;
 
-  padding:8px 9px;
+  padding:
+    8px
+    9px;
 
   border:
     1px solid
@@ -302,6 +338,7 @@ main{
 
 .user-id-info{
   flex:1;
+
   min-width:0;
 }
 
@@ -337,7 +374,9 @@ main{
   min-width:55px;
   min-height:30px;
 
-  padding:5px 8px;
+  padding:
+    5px
+    8px;
 
   border:
     1px solid
@@ -352,13 +391,11 @@ main{
 
   font-size:7px;
   font-weight:900;
-
-  cursor:pointer;
 }
 
 
 /* =========================================================
-   TRIP CARD
+   TRIP
 ========================================================= */
 
 .trip-card{
@@ -380,6 +417,7 @@ main{
 
 .trip-top{
   display:flex;
+
   align-items:flex-start;
   justify-content:space-between;
 
@@ -404,17 +442,32 @@ main{
 }
 
 .trip-dates{
-  margin-top:2px;
+  margin-top:3px;
 
   color:var(--muted);
 
   font-size:7px;
 }
 
-.role-pill{
-  flex:0 0 auto;
+.trip-status-row{
+  display:flex;
 
-  padding:4px 7px;
+  flex-wrap:wrap;
+
+  gap:5px;
+
+  margin-top:8px;
+}
+
+.role-pill,
+.public-pill{
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:
+    4px
+    7px;
 
   border-radius:999px;
 
@@ -455,15 +508,276 @@ main{
   color:#aacbff;
 }
 
+.public-pill{
+  border:
+    1px solid
+    rgba(103,197,135,.22);
+
+  background:
+    rgba(103,197,135,.07);
+
+  color:#afe3bf;
+}
+
+.trip-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:6px;
+
+  margin-top:11px;
+}
+
+.trip-action{
+  min-height:37px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:9px;
+
+  background:#151d23;
+
+  color:#cbd1d5;
+
+  text-decoration:none;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.trip-action.primary{
+  border-color:
+    rgba(201,111,104,.30);
+
+  background:
+    rgba(201,111,104,.07);
+
+  color:#efaaa5;
+}
+
+
+/* =========================================================
+   MEMBERS
+========================================================= */
+
+.member-list{
+  overflow:hidden;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:14px;
+
+  background:#10161c;
+}
+
+.member{
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  min-height:57px;
+
+  padding:
+    8px
+    10px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
+}
+
+.member:last-child{
+  border-bottom:0;
+}
+
+.member-avatar{
+  flex:0 0 34px;
+
+  width:34px;
+  height:34px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    #34404a;
+
+  border-radius:50%;
+
+  background:#182129;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:12px;
+  font-weight:800;
+}
+
+.member-avatar img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.member-info{
+  flex:1;
+
+  min-width:0;
+}
+
+.member-name{
+  font-size:9px;
+  font-weight:900;
+}
+
+.member-access{
+  margin-top:2px;
+
+  color:#7e8a92;
+
+  font-size:6.5px;
+}
+
+.role-badge{
+  padding:
+    4px
+    7px;
+
+  border-radius:999px;
+
+  font-size:6px;
+  font-weight:900;
+}
+
+.role-badge.owner{
+  color:#e4c67c;
+
+  background:
+    rgba(227,184,92,.07);
+
+  border:
+    1px solid
+    rgba(227,184,92,.22);
+}
+
+.role-badge.editor{
+  color:#aee5bf;
+
+  background:
+    rgba(103,197,135,.07);
+
+  border:
+    1px solid
+    rgba(103,197,135,.22);
+}
+
+.role-badge.viewer{
+  color:#a8caff;
+
+  background:
+    rgba(92,157,255,.07);
+
+  border:
+    1px solid
+    rgba(92,157,255,.22);
+}
+
+.member-menu{
+  width:30px;
+  height:30px;
+
+  border:0;
+  border-radius:7px;
+
+  background:transparent;
+
+  color:#87939b;
+}
+
+.share-button{
+  width:100%;
+
+  min-height:43px;
+
+  margin-top:8px;
+
+  border:
+    1px solid
+    rgba(201,111,104,.32);
+
+  border-radius:11px;
+
+  background:
+    rgba(201,111,104,.09);
+
+  color:#f0cfcc;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.permission-note{
+  margin-top:8px;
+
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.018);
+
+  color:#79868e;
+
+  font-size:7px;
+  line-height:1.55;
+}
+
+.permission-note strong{
+  color:#b7c0c5;
+}
+
 
 /* =========================================================
    NO TRIP
 ========================================================= */
 
 .no-trip{
-  padding:16px 12px;
+  padding:
+    16px
+    12px;
 
-  border:1px dashed #35414a;
+  border:
+    1px dashed
+    #35414a;
+
   border-radius:14px;
 
   background:#0e1419;
@@ -506,6 +820,7 @@ main{
   min-height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -513,206 +828,19 @@ main{
 
   border:
     1px solid
-    rgba(92,157,255,.25);
+    rgba(201,111,104,.25);
 
   border-radius:10px;
 
   background:
-    rgba(92,157,255,.07);
+    rgba(201,111,104,.07);
 
-  color:#b5d2ff;
+  color:#efaaa5;
 
   text-decoration:none;
 
   font-size:8px;
   font-weight:900;
-
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   MEMBERS
-========================================================= */
-
-.member-list{
-  overflow:hidden;
-
-  border:1px solid var(--line);
-  border-radius:14px;
-
-  background:#10161c;
-}
-
-.member{
-  display:flex;
-  align-items:center;
-
-  gap:9px;
-
-  min-height:57px;
-
-  padding:8px 10px;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.055);
-}
-
-.member:last-child{
-  border-bottom:0;
-}
-
-.member-avatar{
-  flex:0 0 34px;
-
-  width:34px;
-  height:34px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  overflow:hidden;
-
-  border:1px solid #34404a;
-  border-radius:50%;
-
-  background:#182129;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:12px;
-  font-weight:800;
-}
-
-.member-avatar img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-}
-
-.member-info{
-  flex:1;
-  min-width:0;
-}
-
-.member-name{
-  font-size:9px;
-  font-weight:900;
-}
-
-.member-access{
-  margin-top:2px;
-
-  color:#7e8a92;
-
-  font-size:6.5px;
-}
-
-.role-badge{
-  padding:4px 7px;
-
-  border-radius:999px;
-
-  font-size:6px;
-  font-weight:900;
-}
-
-.role-badge.owner{
-  border:
-    1px solid
-    rgba(227,184,92,.22);
-
-  background:
-    rgba(227,184,92,.07);
-
-  color:#e4c67c;
-}
-
-.role-badge.editor{
-  border:
-    1px solid
-    rgba(103,197,135,.22);
-
-  background:
-    rgba(103,197,135,.07);
-
-  color:#aee5bf;
-}
-
-.role-badge.viewer{
-  border:
-    1px solid
-    rgba(92,157,255,.22);
-
-  background:
-    rgba(92,157,255,.07);
-
-  color:#a8caff;
-}
-
-.member-menu{
-  width:30px;
-  height:30px;
-
-  border:0;
-  border-radius:7px;
-
-  background:transparent;
-
-  color:#87939b;
-
-  cursor:pointer;
-}
-
-.share-button{
-  width:100%;
-
-  min-height:43px;
-
-  margin-top:8px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.32);
-
-  border-radius:11px;
-
-  background:
-    rgba(201,111,104,.09);
-
-  color:#f0cfcc;
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.permission-note{
-  margin-top:8px;
-
-  padding:9px 10px;
-
-  border:1px solid var(--line);
-  border-radius:10px;
-
-  background:
-    rgba(255,255,255,.018);
-
-  color:#79868e;
-
-  font-size:7px;
-  line-height:1.55;
-}
-
-.permission-note strong{
-  color:#b7c0c5;
 }
 
 
@@ -721,43 +849,40 @@ main{
 ========================================================= */
 
 .backdrop,
-.more-backdrop,
-.trip-backdrop{
+.more-backdrop{
   position:fixed;
 
   inset:0;
 
   display:none;
+
   align-items:flex-end;
 
   background:
     rgba(0,0,0,.72);
 
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:
+    blur(4px);
+
+  -webkit-backdrop-filter:
+    blur(4px);
 }
 
 .backdrop{
-  z-index:100;
+  z-index:120;
 }
 
 .more-backdrop{
-  z-index:150;
-}
-
-.trip-backdrop{
   z-index:170;
 }
 
 .backdrop.open,
-.more-backdrop.open,
-.trip-backdrop.open{
+.more-backdrop.open{
   display:flex;
 }
 
 .sheet,
-.more-sheet,
-.trip-sheet{
+.more-sheet{
   width:100%;
 
   max-height:90vh;
@@ -769,7 +894,9 @@ main{
     14px
     calc(18px + env(safe-area-inset-bottom));
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
 
   border-radius:
     20px
@@ -780,10 +907,16 @@ main{
   background:#0d1318;
 }
 
-.more-sheet,
-.trip-sheet{
+.sheet{
+  max-width:600px;
+
+  margin:auto;
+}
+
+.more-sheet{
   max-width:760px;
-  margin:0 auto;
+
+  margin:auto;
 }
 
 .handle{
@@ -800,9 +933,9 @@ main{
   background:#39454d;
 }
 
-.sheet-head,
-.more-head{
+.sheet-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 
@@ -821,19 +954,19 @@ main{
   font-size:19px;
 }
 
-.close,
-.more-close{
+.close{
   width:34px;
   height:34px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:9px;
 
   background:#151c22;
 
   color:#fff;
-
-  cursor:pointer;
 }
 
 
@@ -862,9 +995,14 @@ main{
 
   min-height:43px;
 
-  padding:8px 10px;
+  padding:
+    8px
+    10px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:9px;
 
   outline:none;
@@ -902,14 +1040,12 @@ main{
 
   font-size:8px;
   font-weight:900;
-
-  cursor:pointer;
 }
 
 .primary{
   border:
     1px solid
-    rgba(103,197,135,.3);
+    rgba(103,197,135,.30);
 
   background:
     rgba(103,197,135,.10);
@@ -958,38 +1094,34 @@ main{
   color:#ffc3bf;
 }
 
-.message.success{
-  display:block;
-
-  border:
-    1px solid
-    rgba(103,197,135,.25);
-
-  background:
-    rgba(103,197,135,.07);
-
-  color:#b9ebc8;
-}
-
 
 /* =========================================================
    MORE
 ========================================================= */
 
-.more-link{
-  width:100%;
+.more-title{
+  margin-bottom:12px;
+}
 
-  min-height:58px;
+.more-link{
+  min-height:57px;
 
   display:flex;
+
   align-items:center;
 
   gap:10px;
 
-  padding:9px 10px;
   margin-bottom:6px;
 
-  border:1px solid var(--line);
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:11px;
 
   background:#11181e;
@@ -997,26 +1129,17 @@ main{
   color:#fff;
 
   text-decoration:none;
-  text-align:left;
-
-  cursor:pointer;
-}
-
-button.more-link{
-  appearance:none;
 }
 
 .more-link.active{
   border-color:
-    rgba(201,111,104,.32);
+    rgba(201,111,104,.30);
 
   background:
-    rgba(201,111,104,.08);
+    rgba(201,111,104,.07);
 }
 
-.more-link-icon{
-  flex:0 0 31px;
-
+.more-icon{
   width:31px;
 
   font-size:18px;
@@ -1024,141 +1147,21 @@ button.more-link{
   text-align:center;
 }
 
-.more-link-main{
+.more-main{
   flex:1;
-  min-width:0;
 }
 
-.more-link-title{
+.more-name{
   font-size:9px;
   font-weight:900;
 }
 
-.more-link-sub{
+.more-sub{
   margin-top:2px;
 
-  color:#7f8b93;
+  color:#7d8991;
 
   font-size:6.5px;
-}
-
-.more-link-arrow{
-  color:#8d9aa2;
-}
-
-
-/* =========================================================
-   SWITCH TRIP
-========================================================= */
-
-.trip-switch-sub{
-  margin:
-    -5px
-    0
-    11px;
-
-  color:#75828b;
-
-  font-size:7px;
-}
-
-.trip-list{
-  display:grid;
-
-  gap:6px;
-}
-
-.trip-choice{
-  width:100%;
-
-  min-height:64px;
-
-  display:flex;
-  align-items:center;
-
-  gap:10px;
-
-  padding:10px;
-
-  border:1px solid var(--line);
-  border-radius:12px;
-
-  background:#11181e;
-
-  color:#fff;
-
-  text-align:left;
-
-  cursor:pointer;
-}
-
-.trip-choice.current{
-  border-color:
-    rgba(201,111,104,.45);
-
-  background:
-    rgba(201,111,104,.08);
-}
-
-.trip-choice-icon{
-  flex:0 0 34px;
-
-  width:34px;
-  height:34px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:9px;
-
-  background:#182129;
-
-  font-size:18px;
-}
-
-.trip-choice-main{
-  flex:1;
-  min-width:0;
-}
-
-.trip-choice-label{
-  color:#84919a;
-
-  font-size:6px;
-  font-weight:900;
-
-  letter-spacing:.08em;
-}
-
-.trip-choice.current .trip-choice-label{
-  color:#df9993;
-}
-
-.trip-choice-name{
-  margin-top:2px;
-
-  overflow:hidden;
-
-  font-size:9px;
-  font-weight:900;
-
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-.trip-choice-meta{
-  margin-top:3px;
-
-  color:#75828b;
-
-  font-size:6.5px;
-}
-
-.trip-choice-arrow{
-  color:#8d9aa2;
-
-  font-size:12px;
 }
 
 
@@ -1167,9 +1170,14 @@ button.more-link{
 ========================================================= */
 
 .state{
-  padding:24px 15px;
+  padding:
+    24px
+    15px;
 
-  border:1px dashed #35414a;
+  border:
+    1px dashed
+    #35414a;
+
   border-radius:13px;
 
   color:var(--muted);
@@ -1216,13 +1224,18 @@ button.more-link{
     7px
     calc(6px + env(safe-area-inset-bottom));
 
-  border-top:1px solid var(--line);
+  border-top:
+    1px solid
+    var(--line);
 
   background:
     rgba(7,12,16,.98);
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
 }
 
 .bottom-nav a,
@@ -1249,8 +1262,6 @@ button.more-link{
 
   font-size:8px;
   font-weight:800;
-
-  cursor:pointer;
 }
 
 .nav-icon{
@@ -1269,22 +1280,16 @@ button.more-link{
 }
 
 
-/* =========================================================
-   DESKTOP
-========================================================= */
-
 @media(min-width:700px){
-
-  .sheet{
-    max-width:600px;
-    margin:auto;
-  }
 
   .bottom-nav{
     left:50%;
     right:auto;
 
-    width:min(820px,100%);
+    width:min(
+      820px,
+      100%
+    );
 
     transform:
       translateX(-50%);
@@ -1293,6 +1298,7 @@ button.more-link{
 }
 
 </style>
+
 </head>
 
 
@@ -1480,10 +1486,11 @@ button.more-link{
           autocomplete="off"
         >
 
+
         <div class="help">
 
-          Ask the person to open Profile and
-          press COPY beside their Supabase User ID.
+          Ask the person to open Profile
+          and press COPY beside their User ID.
 
         </div>
 
@@ -1642,20 +1649,8 @@ button.more-link{
     <div class="handle"></div>
 
 
-    <div class="more-head">
-
-      <div class="more-title">
-        More
-      </div>
-
-      <button
-        id="closeMore"
-        class="more-close"
-        type="button"
-      >
-        ✕
-      </button>
-
+    <div class="more-title">
+      More
     </div>
 
 
@@ -1664,82 +1659,78 @@ button.more-link{
       class="more-link active"
     >
 
-      <div class="more-link-icon">
+      <div class="more-icon">
         👤
       </div>
 
-      <div class="more-link-main">
 
-        <div class="more-link-title">
+      <div class="more-main">
+
+        <div class="more-name">
           Profile & Sharing
         </div>
 
-        <div class="more-link-sub">
-          Profile · User ID · trip members
+        <div class="more-sub">
+          Account · trip members
         </div>
 
       </div>
 
-      <div class="more-link-arrow">
-        ✓
-      </div>
+      ✓
 
     </a>
-
-
-    <button
-      id="switchTripButton"
-      class="more-link"
-      type="button"
-    >
-
-      <div class="more-link-icon">
-        🧳
-      </div>
-
-      <div class="more-link-main">
-
-        <div class="more-link-title">
-          Switch Trip
-        </div>
-
-        <div class="more-link-sub">
-          Your trips · trips shared with you
-        </div>
-
-      </div>
-
-      <div class="more-link-arrow">
-        →
-      </div>
-
-    </button>
 
 
     <a
-      id="placesLink"
+      href="trips.html"
       class="more-link"
     >
 
-      <div class="more-link-icon">
-        📍
+      <div class="more-icon">
+        🧳
       </div>
 
-      <div class="more-link-main">
 
-        <div class="more-link-title">
+      <div class="more-main">
+
+        <div class="more-name">
+          My Trips
+        </div>
+
+        <div class="more-sub">
+          Create · open · share
+        </div>
+
+      </div>
+
+      →
+
+    </a>
+
+
+    <a
+      href="places.html"
+      class="more-link"
+    >
+
+      <div class="more-icon">
+        🌐
+      </div>
+
+
+      <div class="more-main">
+
+        <div class="more-name">
           Places
         </div>
 
-        <div class="more-link-sub">
-          Manage your master places
+        <div class="more-sub">
+          Shared itineraries
         </div>
 
       </div>
 
-      <div class="more-link-arrow">
-        →
-      </div>
+      →
 
     </a>
 
@@ -1750,66 +1741,10 @@ button.more-link{
 
 
 <!-- =========================================================
-     SWITCH TRIP
+     BOTTOM NAV
 ========================================================= -->
 
-<div
-  id="tripBackdrop"
-  class="trip-backdrop"
->
-
-  <div class="trip-sheet">
-
-    <div class="handle"></div>
-
-
-    <div class="sheet-head">
-
-      <div class="sheet-title">
-        🧳 Switch Trip
-      </div>
-
-      <button
-        id="closeTrips"
-        class="close"
-        type="button"
-      >
-        ✕
-      </button>
-
-    </div>
-
-
-    <div class="trip-switch-sub">
-      Your trips and trips shared with you.
-    </div>
-
-
-    <div
-      id="tripList"
-      class="trip-list"
-    >
-
-      <div class="state">
-        Loading trips…
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<nav
-  class="bottom-nav"
-  aria-label="Main navigation"
->
+<nav class="bottom-nav">
 
   <a id="navHome">
 
@@ -1883,14 +1818,7 @@ button.more-link{
 
 
 
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
-
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 
 
@@ -1918,38 +1846,35 @@ let myRole = null;
 
 let editingMemberId = null;
 
+let publication = null;
+
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
-function text(value){
+function esc(value){
 
   return String(
     value ?? ""
-  );
+  )
 
-}
-
-
-function esc(value){
-
-  return text(value)
-
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 
 }
 
 
 function norm(value){
 
-  return text(value)
-    .trim()
-    .toLowerCase();
+  return String(
+    value ?? ""
+  )
+  .trim()
+  .toLowerCase();
 
 }
 
@@ -1957,28 +1882,36 @@ function norm(value){
 function initials(name){
 
   const words =
-    text(name || "?")
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
+    String(
+      name || "?"
+    )
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
 
 
   if(!words.length){
+
     return "?";
+
   }
 
 
   if(words.length === 1){
 
     return words[0]
-      .slice(0,2)
+      .slice(
+        0,
+        2
+      )
       .toUpperCase();
 
   }
 
 
   return (
-    words[0][0] +
+    words[0][0]
+    +
     words[
       words.length - 1
     ][0]
@@ -2005,7 +1938,9 @@ function avatarHTML(
       <div class="${cssClass}">
 
         <img
-          src="${esc(person.avatar_url)}"
+          src="${esc(
+            person.avatar_url
+          )}"
           alt="${esc(name)}"
         >
 
@@ -2043,24 +1978,78 @@ function isOwner(){
 }
 
 
-function normalizeMemberRole(role){
+function normalizeRole(role){
 
-  return role === "editor"
+  return (
+    role === "editor"
     ?
     "editor"
     :
-    "viewer";
+    "viewer"
+  );
 
 }
 
 
-function prettyTripDates(
-  tripValue = trip
-){
+function countryEmoji(country){
+
+  const value =
+    norm(country);
+
+
+  const map = {
+
+    japan:"🇯🇵",
+
+    singapore:"🇸🇬",
+
+    malaysia:"🇲🇾",
+
+    indonesia:"🇮🇩",
+
+    thailand:"🇹🇭",
+
+    vietnam:"🇻🇳",
+
+    taiwan:"🇹🇼",
+
+    china:"🇨🇳",
+
+    korea:"🇰🇷",
+
+    "south korea":"🇰🇷",
+
+    france:"🇫🇷",
+
+    italy:"🇮🇹",
+
+    spain:"🇪🇸",
+
+    uk:"🇬🇧",
+
+    "united kingdom":"🇬🇧",
+
+    usa:"🇺🇸",
+
+    "united states":"🇺🇸"
+
+  };
+
+
+  return (
+    map[value]
+    ||
+    "✈️"
+  );
+
+}
+
+
+function prettyTripDates(){
 
   if(
-    !tripValue?.start_date ||
-    !tripValue?.end_date
+    !trip?.start_date ||
+    !trip?.end_date
   ){
 
     return "";
@@ -2070,14 +2059,14 @@ function prettyTripDates(
 
   const start =
     new Date(
-      tripValue.start_date +
+      trip.start_date +
       "T12:00:00"
     );
 
 
   const end =
     new Date(
-      tripValue.end_date +
+      trip.end_date +
       "T12:00:00"
     );
 
@@ -2106,60 +2095,6 @@ function prettyTripDates(
 }
 
 
-function tripIcon(country){
-
-  const value =
-    norm(country);
-
-
-  if(value.includes("japan")){
-    return "🇯🇵";
-  }
-
-
-  if(value.includes("taiwan")){
-    return "🇹🇼";
-  }
-
-
-  if(
-    value.includes("south korea") ||
-    value === "korea"
-  ){
-    return "🇰🇷";
-  }
-
-
-  if(value.includes("singapore")){
-    return "🇸🇬";
-  }
-
-
-  if(value.includes("malaysia")){
-    return "🇲🇾";
-  }
-
-
-  if(value.includes("indonesia")){
-    return "🇮🇩";
-  }
-
-
-  if(value.includes("thailand")){
-    return "🇹🇭";
-  }
-
-
-  if(value.includes("china")){
-    return "🇨🇳";
-  }
-
-
-  return "✈️";
-
-}
-
-
 /* =========================================================
    START
 ========================================================= */
@@ -2168,22 +2103,19 @@ async function start(){
 
   try{
 
-    /*
-      AUTH
-    */
-
-    const userResult =
+    const auth =
       await db.auth.getUser();
 
 
-    if(userResult.error){
-      throw userResult.error;
+    if(auth.error){
+
+      throw auth.error;
+
     }
 
 
     currentUser =
-      userResult.data?.user ||
-      null;
+      auth.data.user;
 
 
     if(!currentUser){
@@ -2196,26 +2128,11 @@ async function start(){
     }
 
 
-    /*
-      PROFILE
-    */
-
     await loadMyProfile();
 
 
-    /*
-      Render profile first.
-
-      Even if trip loading has an issue,
-      the account profile still works.
-    */
-
     render();
 
-
-    /*
-      TRIPS
-    */
 
     accessibleTrips =
       await getAccessibleTrips();
@@ -2223,10 +2140,6 @@ async function start(){
 
     await findCurrentTrip();
 
-
-    /*
-      Final render.
-    */
 
     render();
 
@@ -2236,7 +2149,6 @@ async function start(){
   catch(error){
 
     console.error(
-      "Profile load error:",
       error
     );
 
@@ -2266,7 +2178,7 @@ async function start(){
 
 
 /* =========================================================
-   LOAD MY PROFILE
+   MY PROFILE
 ========================================================= */
 
 async function loadMyProfile(){
@@ -2290,17 +2202,15 @@ async function loadMyProfile(){
 
 
   if(result.error){
+
     throw result.error;
+
   }
 
 
   profile =
     result.data;
 
-
-  /*
-    Create missing profile row.
-  */
 
   if(!profile){
 
@@ -2337,7 +2247,9 @@ async function loadMyProfile(){
 
 
     if(createResult.error){
+
       throw createResult.error;
+
     }
 
 
@@ -2355,10 +2267,6 @@ async function loadMyProfile(){
 
 async function getAccessibleTrips(){
 
-  /*
-    Trips I own.
-  */
-
   const ownResult =
     await db
       .from("trips")
@@ -2366,23 +2274,15 @@ async function getAccessibleTrips(){
       .eq(
         "owner_id",
         currentUser.id
-      )
-      .order(
-        "start_date",
-        {
-          ascending:true
-        }
       );
 
 
   if(ownResult.error){
+
     throw ownResult.error;
+
   }
 
-
-  /*
-    Trips shared with me.
-  */
 
   const memberResult =
     await db
@@ -2398,7 +2298,9 @@ async function getAccessibleTrips(){
 
 
   if(memberResult.error){
+
     throw memberResult.error;
+
   }
 
 
@@ -2412,7 +2314,9 @@ async function getAccessibleTrips(){
         memberships
           .map(
             row =>
-              Number(row.trip_id)
+              Number(
+                row.trip_id
+              )
           )
           .filter(Boolean)
       )
@@ -2431,17 +2335,13 @@ async function getAccessibleTrips(){
         .in(
           "id",
           sharedIds
-        )
-        .order(
-          "start_date",
-          {
-            ascending:true
-          }
         );
 
 
     if(sharedResult.error){
+
       throw sharedResult.error;
+
     }
 
 
@@ -2451,26 +2351,26 @@ async function getAccessibleTrips(){
   }
 
 
-  /*
-    Combine.
-
-    Owner always wins if somehow a trip
-    appears in both lists.
-  */
-
   const map =
     new Map();
 
 
   (ownResult.data || [])
+    .filter(
+      item =>
+        item.status !==
+        "deleted"
+    )
     .forEach(
       item => {
 
         map.set(
-          Number(item.id),
+          Number(
+            item.id
+          ),
           {
             ...item,
-            __access:"owner"
+            access_role:"owner"
           }
         );
 
@@ -2478,60 +2378,57 @@ async function getAccessibleTrips(){
     );
 
 
-  sharedTrips.forEach(
-    item => {
+  sharedTrips
+    .filter(
+      item =>
+        item.status !==
+        "deleted"
+    )
+    .forEach(
+      item => {
 
-      const id =
-        Number(item.id);
+        const id =
+          Number(
+            item.id
+          );
 
 
-      if(map.has(id)){
-        return;
-      }
+        if(map.has(id)){
+
+          return;
+
+        }
 
 
-      const membership =
-        memberships.find(
-          row =>
-            Number(row.trip_id) ===
-            id
+        const membership =
+          memberships.find(
+            row =>
+              Number(
+                row.trip_id
+              ) ===
+              id
+          );
+
+
+        map.set(
+          id,
+          {
+            ...item,
+
+            access_role:
+              normalizeRole(
+                membership?.role
+              )
+          }
         );
 
-
-      map.set(
-        id,
-        {
-          ...item,
-
-          __access:
-            normalizeMemberRole(
-              membership?.role
-            )
-        }
-      );
-
-    }
-  );
+      }
+    );
 
 
   return [
     ...map.values()
-  ]
-  .sort(
-    (a,b) => {
-
-      const aDate =
-        a.start_date || "";
-
-      const bDate =
-        b.start_date || "";
-
-      return aDate.localeCompare(
-        bDate
-      );
-
-    }
-  );
+  ];
 
 }
 
@@ -2550,6 +2447,8 @@ async function findCurrentTrip(){
 
   myRole = null;
 
+  publication = null;
+
   currentTripId = null;
 
 
@@ -2561,7 +2460,9 @@ async function findCurrentTrip(){
 
   const urlTrip =
     Number(
-      params.get("trip")
+      params.get(
+        "trip"
+      )
     ) || null;
 
 
@@ -2573,44 +2474,49 @@ async function findCurrentTrip(){
     ) || null;
 
 
-  /*
-    Priority:
+  const firstTrip =
+    accessibleTrips[0]?.id
+    ||
+    null;
 
-    1. URL
-    2. remembered trip
-    3. first accessible trip
-  */
 
-  const candidateIds =
+  const candidates =
     [
       urlTrip,
       savedTrip,
-      accessibleTrips[0]?.id
+      firstTrip
     ]
     .map(Number)
     .filter(
       (value,index,array) =>
         Number.isFinite(value) &&
         value > 0 &&
-        array.indexOf(value) === index
+        array.indexOf(value) ===
+        index
     );
 
 
   for(
     const tripId
-    of candidateIds
+    of candidates
   ){
 
-    const allowed =
+    const available =
       accessibleTrips.some(
         item =>
-          Number(item.id) ===
-          Number(tripId)
+          Number(
+            item.id
+          ) ===
+          Number(
+            tripId
+          )
       );
 
 
-    if(!allowed){
+    if(!available){
+
       continue;
+
     }
 
 
@@ -2623,18 +2529,18 @@ async function findCurrentTrip(){
     if(found){
 
       currentTripId =
-        Number(tripId);
+        Number(
+          tripId
+        );
 
 
       localStorage.setItem(
         "current_trip_id",
-        String(currentTripId)
+        String(
+          currentTripId
+        )
       );
 
-
-      /*
-        Ensure URL contains current trip.
-      */
 
       history.replaceState(
         null,
@@ -2643,7 +2549,7 @@ async function findCurrentTrip(){
       );
 
 
-      setNavLinks();
+      setupNavigation();
 
 
       return;
@@ -2653,169 +2559,178 @@ async function findCurrentTrip(){
   }
 
 
-  /*
-    No accessible trip.
-  */
-
-  setNavLinks();
+  setupNavigation();
 
 }
 
 
 /* =========================================================
-   TRY LOAD TRIP
+   LOAD TRIP
 ========================================================= */
 
 async function tryLoadTrip(
   tripId
 ){
 
-  try{
-
-    const result =
-      await db
-        .from("trips")
-        .select("*")
-        .eq(
-          "id",
-          tripId
-        )
-        .maybeSingle();
+  const result =
+    await db
+      .from("trips")
+      .select("*")
+      .eq(
+        "id",
+        tripId
+      )
+      .maybeSingle();
 
 
-    if(result.error){
-
-      console.warn(
-        "Trip unavailable:",
-        result.error
-      );
-
-
-      return false;
-
-    }
-
-
-    if(!result.data){
-
-      return false;
-
-    }
-
-
-    trip =
-      result.data;
-
-
-    /*
-      ROLE
-    */
-
-    if(
-      trip.owner_id ===
-      currentUser.id
-    ){
-
-      myRole =
-        "owner";
-
-    }
-
-
-    else{
-
-      const membership =
-        await db
-          .from("trip_members")
-          .select(`
-            id,
-            trip_id,
-            user_id,
-            role
-          `)
-          .eq(
-            "trip_id",
-            trip.id
-          )
-          .eq(
-            "user_id",
-            currentUser.id
-          )
-          .maybeSingle();
-
-
-      if(membership.error){
-
-        console.warn(
-          "Membership unavailable:",
-          membership.error
-        );
-
-
-        trip = null;
-
-        return false;
-
-      }
-
-
-      if(!membership.data){
-
-        trip = null;
-
-        return false;
-
-      }
-
-
-      myRole =
-        normalizeMemberRole(
-          membership.data.role
-        );
-
-    }
-
-
-    await loadTripPeople();
-
-
-    return true;
-
-  }
-
-
-  catch(error){
+  if(result.error){
 
     console.warn(
-      "Could not load trip:",
-      error
+      result.error
     );
-
-
-    trip = null;
-
 
     return false;
 
   }
 
+
+  if(!result.data){
+
+    return false;
+
+  }
+
+
+  trip =
+    result.data;
+
+
+  if(
+    trip.owner_id ===
+    currentUser.id
+  ){
+
+    myRole =
+      "owner";
+
+  }
+
+
+  else{
+
+    const membership =
+      await db
+        .from("trip_members")
+        .select(`
+          id,
+          role
+        `)
+        .eq(
+          "trip_id",
+          trip.id
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .maybeSingle();
+
+
+    if(
+      membership.error ||
+      !membership.data
+    ){
+
+      trip = null;
+
+      return false;
+
+    }
+
+
+    myRole =
+      normalizeRole(
+        membership.data.role
+      );
+
+  }
+
+
+  await loadTripPeople();
+
+  await loadPublication();
+
+
+  return true;
+
 }
 
 
 /* =========================================================
-   LOAD TRIP PEOPLE
+   PUBLICATION
+========================================================= */
+
+async function loadPublication(){
+
+  publication =
+    null;
+
+
+  if(!trip){
+
+    return;
+
+  }
+
+
+  const result =
+    await db
+      .from(
+        "trip_publications"
+      )
+      .select(`
+        id,
+        trip_id,
+        is_public,
+        allow_copy
+      `)
+      .eq(
+        "trip_id",
+        trip.id
+      )
+      .maybeSingle();
+
+
+  if(result.error){
+
+    console.warn(
+      "Publication unavailable:",
+      result.error
+    );
+
+    return;
+
+  }
+
+
+  publication =
+    result.data;
+
+}
+
+
+/* =========================================================
+   TRIP PEOPLE
 ========================================================= */
 
 async function loadTripPeople(){
 
   if(!trip){
+
     return;
+
   }
 
-
-  /*
-    OWNER PROFILE
-  */
 
   const ownerResult =
     await db
@@ -2839,15 +2754,6 @@ async function loadTripPeople(){
 
   }
 
-
-  /*
-    MEMBERS
-
-    With the current RLS:
-    - owner can see all members
-    - shared member can at minimum see
-      their own membership
-  */
 
   const memberResult =
     await db
@@ -2874,13 +2780,10 @@ async function loadTripPeople(){
   if(memberResult.error){
 
     console.warn(
-      "Could not load members:",
       memberResult.error
     );
 
-
     members = [];
-
 
     return;
 
@@ -2889,15 +2792,6 @@ async function loadTripPeople(){
 
   const rawMembers =
     memberResult.data || [];
-
-
-  if(!rawMembers.length){
-
-    members = [];
-
-    return;
-
-  }
 
 
   const ids =
@@ -2915,14 +2809,7 @@ async function loadTripPeople(){
 
   if(!ids.length){
 
-    members =
-      rawMembers.map(
-        row => ({
-          ...row,
-          profile:null
-        })
-      );
-
+    members = [];
 
     return;
 
@@ -2945,12 +2832,6 @@ async function loadTripPeople(){
 
   if(profilesResult.error){
 
-    console.warn(
-      "Member profiles unavailable:",
-      profilesResult.error
-    );
-
-
     members =
       rawMembers.map(
         row => ({
@@ -2958,7 +2839,6 @@ async function loadTripPeople(){
           profile:null
         })
       );
-
 
     return;
 
@@ -2991,16 +2871,20 @@ async function loadTripPeople(){
 
 
 /* =========================================================
-   NAVIGATION
+   NAV
 ========================================================= */
 
-function setNavLinks(){
+function setupNavigation(){
 
   const suffix =
     currentTripId
+
     ?
+
     `?trip=${currentTripId}`
+
     :
+
     "";
 
 
@@ -3014,9 +2898,13 @@ function setNavLinks(){
     "navPlan"
   ).href =
     currentTripId
+
     ?
+
     `schedule.html?trip=${currentTripId}`
+
     :
+
     "trips.html";
 
 
@@ -3024,9 +2912,13 @@ function setNavLinks(){
     "navFood"
   ).href =
     currentTripId
+
     ?
+
     `food.html?trip=${currentTripId}`
+
     :
+
     "trips.html";
 
 
@@ -3034,9 +2926,13 @@ function setNavLinks(){
     "navHub"
   ).href =
     currentTripId
+
     ?
+
     `bookings.html?trip=${currentTripId}`
+
     :
+
     "trips.html";
 
 
@@ -3044,20 +2940,14 @@ function setNavLinks(){
     "moreProfile"
   ).href =
     currentTripId
+
     ?
+
     `profile.html?trip=${currentTripId}`
+
     :
+
     "profile.html";
-
-
-  document.getElementById(
-    "placesLink"
-  ).href =
-    currentTripId
-    ?
-    `places-setup.html?trip=${currentTripId}`
-    :
-    "places-setup.html";
 
 }
 
@@ -3072,7 +2962,9 @@ function render(){
     !currentUser ||
     !profile
   ){
+
     return;
+
   }
 
 
@@ -3184,10 +3076,6 @@ function render(){
   `;
 
 
-  /* =======================================================
-     TRIP EXISTS
-  ======================================================= */
-
   if(trip){
 
     html += `
@@ -3204,10 +3092,12 @@ function render(){
           <div>
 
             <div class="trip-name">
+
               ${esc(
                 trip.name ||
-                "Untitled Trip"
+                "Unnamed Trip"
               )}
+
             </div>
 
 
@@ -3218,8 +3108,15 @@ function render(){
 
               `
                 <div class="trip-country">
-                  ${tripIcon(trip.country)}
-                  ${esc(trip.country)}
+
+                  ${countryEmoji(
+                    trip.country
+                  )}
+
+                  ${esc(
+                    trip.country
+                  )}
+
                 </div>
               `
 
@@ -3251,27 +3148,79 @@ function render(){
 
           </div>
 
+        </div>
+
+
+        <div class="trip-status-row">
 
           <span
             class="
               role-pill
-              ${esc(myRole || "viewer")}
+              ${esc(
+                myRole ||
+                "viewer"
+              )}
             "
           >
 
             ${
               myRole === "owner"
+
               ?
+
               "👑 OWNER"
+
               :
+
               myRole === "editor"
+
               ?
+
               "✏️ EDITOR"
+
               :
+
               "👁️ VIEWER"
             }
 
           </span>
+
+
+          ${
+            publication?.is_public
+
+            ?
+
+            `
+              <span class="public-pill">
+                🌐 PUBLISHED TO PLACES
+              </span>
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+
+        <div class="trip-actions">
+
+          <a
+            class="trip-action primary"
+            href="index.html?trip=${Number(trip.id)}"
+          >
+            OPEN TRIP
+          </a>
+
+
+          <a
+            class="trip-action"
+            href="trips.html"
+          >
+            🧳 SWITCH TRIP
+          </a>
 
         </div>
 
@@ -3286,6 +3235,7 @@ function render(){
       <div class="member-list">
 
         ${renderOwner()}
+
 
         ${
           members
@@ -3336,14 +3286,22 @@ function render(){
         <strong>
           ✏️ Editor
         </strong>
-        can view and edit shared Plan and Food content.
+        can view and edit Plan and Food.
 
         <br>
 
         <strong>
           👁️ Viewer
         </strong>
-        can view the shared trip but cannot make changes.
+        can view the trip but cannot make changes.
+
+        <br><br>
+
+        <strong>
+          🌐 Places
+        </strong>
+        is separate public sharing.
+        Publishing or unpublishing is managed from My Trips.
 
       </div>
 
@@ -3351,10 +3309,6 @@ function render(){
 
   }
 
-
-  /* =======================================================
-     NO TRIP
-  ======================================================= */
 
   else{
 
@@ -3379,55 +3333,18 @@ function render(){
 
         <div class="no-trip-text">
 
-          Your profile is working.
-
-          ${
-            accessibleTrips.length
-
-            ?
-
-            `
-              Use Switch Trip to choose
-              one of your available trips.
-            `
-
-            :
-
-            `
-              Create a trip or have
-              someone share one with you.
-            `
-          }
+          Open My Trips to choose one of
+          your trips or a trip shared with you.
 
         </div>
 
 
-        ${
-          accessibleTrips.length
-
-          ?
-
-          `
-            <button
-              id="noTripSwitch"
-              class="trip-button"
-              type="button"
-            >
-              🧳 SWITCH TRIP
-            </button>
-          `
-
-          :
-
-          `
-            <a
-              class="trip-button"
-              href="trips.html"
-            >
-              🧳 MY TRIPS
-            </a>
-          `
-        }
+        <a
+          class="trip-button"
+          href="trips.html"
+        >
+          🧳 MY TRIPS
+        </a>
 
       </div>
 
@@ -3469,8 +3386,11 @@ function renderOwner(){
       :
 
       {
-        display_name:"Trip Owner",
-        avatar_url:null
+        display_name:
+          "Trip Owner",
+
+        avatar_url:
+          null
       }
     );
 
@@ -3493,6 +3413,7 @@ function renderOwner(){
             owner.display_name ||
             "Trip Owner"
           )}
+
 
           ${
             currentUser.id ===
@@ -3540,17 +3461,16 @@ function renderMember(member){
     ||
 
     {
-      display_name:"Trip Member",
-      avatar_url:null
+      display_name:
+        "Trip Member",
+
+      avatar_url:
+        null
     };
 
 
-  /*
-    Legacy "member" is view-only.
-  */
-
   const role =
-    normalizeMemberRole(
+    normalizeRole(
       member.role
     );
 
@@ -3573,6 +3493,7 @@ function renderMember(member){
             person.display_name ||
             "Trip Member"
           )}
+
 
           ${
             member.user_id ===
@@ -3615,9 +3536,7 @@ function renderMember(member){
           ${role}
         "
       >
-
         ${role.toUpperCase()}
-
       </span>
 
 
@@ -3631,7 +3550,6 @@ function renderMember(member){
             class="member-menu"
             type="button"
             data-member="${Number(member.id)}"
-            aria-label="Manage member"
           >
             ⋯
           </button>
@@ -3679,7 +3597,9 @@ function bindRenderedEvents(){
 
     copy.onclick =
       () =>
-        copyUserId(copy);
+        copyUserId(
+          copy
+        );
 
   }
 
@@ -3694,20 +3614,6 @@ function bindRenderedEvents(){
 
     share.onclick =
       openMemberSheet;
-
-  }
-
-
-  const noTripSwitch =
-    document.getElementById(
-      "noTripSwitch"
-    );
-
-
-  if(noTripSwitch){
-
-    noTripSwitch.onclick =
-      openTripSwitcher;
 
   }
 
@@ -3734,14 +3640,17 @@ function bindRenderedEvents(){
 
 
 /* =========================================================
-   COPY UID
+   COPY USER ID
 ========================================================= */
 
-async function copyUserId(button){
+async function copyUserId(
+  button
+){
 
   try{
 
-    await navigator.clipboard
+    await navigator
+      .clipboard
       .writeText(
         currentUser.id
       );
@@ -3762,7 +3671,9 @@ async function copyUserId(button){
 
 
     document.body
-      .appendChild(temp);
+      .appendChild(
+        temp
+      );
 
 
     temp.select();
@@ -3855,7 +3766,7 @@ document
 
 
 /* =========================================================
-   PROFILE EDIT
+   EDIT PROFILE
 ========================================================= */
 
 function openProfileSheet(){
@@ -3896,6 +3807,7 @@ document.getElementById(
 )
 .addEventListener(
   "submit",
+
   async event => {
 
     event.preventDefault();
@@ -3973,7 +3885,9 @@ document.getElementById(
 
 
       if(result.error){
+
         throw result.error;
+
       }
 
 
@@ -4001,9 +3915,6 @@ document.getElementById(
 
 
     catch(error){
-
-      console.error(error);
-
 
       message.textContent =
         error.message ||
@@ -4041,7 +3952,9 @@ function openMemberSheet(){
     !trip ||
     !isOwner()
   ){
+
     return;
+
   }
 
 
@@ -4078,6 +3991,7 @@ document.getElementById(
 )
 .addEventListener(
   "submit",
+
   async event => {
 
     event.preventDefault();
@@ -4129,18 +4043,17 @@ document.getElementById(
         .trim();
 
 
-      const selectedRole =
+      const role =
         document.getElementById(
           "memberRole"
-        )
-        .value;
+        ).value === "editor"
 
-
-      const role =
-        selectedRole === "editor"
         ?
+
         "editor"
+
         :
+
         "viewer";
 
 
@@ -4188,10 +4101,6 @@ document.getElementById(
       }
 
 
-      /*
-        Confirm profile exists.
-      */
-
       const profileResult =
         await db
           .from("profiles")
@@ -4207,7 +4116,9 @@ document.getElementById(
 
 
       if(profileResult.error){
+
         throw profileResult.error;
+
       }
 
 
@@ -4240,15 +4151,13 @@ document.getElementById(
 
 
       if(result.error){
+
         throw result.error;
+
       }
 
 
       await loadTripPeople();
-
-
-      accessibleTrips =
-        await getAccessibleTrips();
 
 
       closeSheets();
@@ -4259,9 +4168,6 @@ document.getElementById(
 
 
     catch(error){
-
-      console.error(error);
-
 
       message.textContent =
         error.message ||
@@ -4296,20 +4202,29 @@ document.getElementById(
 function openEditMember(id){
 
   if(!isOwner()){
+
     return;
+
   }
 
 
   const member =
     members.find(
       row =>
-        Number(row.id) ===
-        Number(id)
+        Number(
+          row.id
+        )
+        ===
+        Number(
+          id
+        )
     );
 
 
   if(!member){
+
     return;
+
   }
 
 
@@ -4320,14 +4235,15 @@ function openEditMember(id){
   document.getElementById(
     "editMemberName"
   ).value =
-    member.profile?.display_name ||
+    member.profile?.display_name
+    ||
     member.user_id;
 
 
   document.getElementById(
     "editMemberRole"
   ).value =
-    normalizeMemberRole(
+    normalizeRole(
       member.role
     );
 
@@ -4350,13 +4266,12 @@ function openEditMember(id){
 
 
 /* =========================================================
-   SAVE MEMBER ROLE
+   SAVE ROLE
 ========================================================= */
 
 document.getElementById(
   "saveMemberRole"
-)
-.onclick =
+).onclick =
   async () => {
 
     if(
@@ -4364,14 +4279,10 @@ document.getElementById(
       !trip ||
       !isOwner()
     ){
+
       return;
+
     }
-
-
-    const button =
-      document.getElementById(
-        "saveMemberRole"
-      );
 
 
     const message =
@@ -4380,30 +4291,18 @@ document.getElementById(
       );
 
 
-    const selectedRole =
+    const role =
       document.getElementById(
         "editMemberRole"
-      ).value;
+      ).value === "editor"
 
-
-    const role =
-      selectedRole === "editor"
       ?
+
       "editor"
+
       :
+
       "viewer";
-
-
-    button.disabled =
-      true;
-
-
-    button.textContent =
-      "SAVING…";
-
-
-    message.className =
-      "message";
 
 
     try{
@@ -4425,19 +4324,17 @@ document.getElementById(
             "trip_id",
             trip.id
           )
-          .select(`
-            id,
-            role
-          `)
-          .maybeSingle();
+          .select();
 
 
       if(result.error){
+
         throw result.error;
+
       }
 
 
-      if(!result.data){
+      if(!result.data?.length){
 
         throw new Error(
           "Member access was not updated."
@@ -4458,28 +4355,13 @@ document.getElementById(
 
     catch(error){
 
-      console.error(error);
-
-
       message.textContent =
         error.message ||
-        "Couldn't update member access.";
+        "Couldn't update member.";
 
 
       message.className =
         "message error";
-
-    }
-
-
-    finally{
-
-      button.disabled =
-        false;
-
-
-      button.textContent =
-        "SAVE ACCESS";
 
     }
 
@@ -4492,8 +4374,7 @@ document.getElementById(
 
 document.getElementById(
   "removeMember"
-)
-.onclick =
+).onclick =
   async () => {
 
     if(
@@ -4501,25 +4382,35 @@ document.getElementById(
       !trip ||
       !isOwner()
     ){
+
       return;
+
     }
 
 
     const member =
       members.find(
         row =>
-          Number(row.id) ===
-          Number(editingMemberId)
+          Number(
+            row.id
+          )
+          ===
+          Number(
+            editingMemberId
+          )
       );
 
 
     if(!member){
+
       return;
+
     }
 
 
     const name =
-      member.profile?.display_name ||
+      member.profile?.display_name
+      ||
       "this person";
 
 
@@ -4528,32 +4419,10 @@ document.getElementById(
         `Remove ${name} from this trip?`
       )
     ){
+
       return;
+
     }
-
-
-    const button =
-      document.getElementById(
-        "removeMember"
-      );
-
-
-    const message =
-      document.getElementById(
-        "editMemberMessage"
-      );
-
-
-    button.disabled =
-      true;
-
-
-    button.textContent =
-      "REMOVING…";
-
-
-    message.className =
-      "message";
 
 
     try{
@@ -4570,21 +4439,20 @@ document.getElementById(
             "trip_id",
             trip.id
           )
-          .select("id");
+          .select();
 
 
       if(result.error){
+
         throw result.error;
+
       }
 
 
-      if(
-        !result.data ||
-        !result.data.length
-      ){
+      if(!result.data?.length){
 
         throw new Error(
-          "This member was not removed."
+          "Member was not removed."
         );
 
       }
@@ -4606,7 +4474,10 @@ document.getElementById(
 
     catch(error){
 
-      console.error(error);
+      const message =
+        document.getElementById(
+          "editMemberMessage"
+        );
 
 
       message.textContent =
@@ -4619,23 +4490,11 @@ document.getElementById(
 
     }
 
-
-    finally{
-
-      button.disabled =
-        false;
-
-
-      button.textContent =
-        "REMOVE FROM TRIP";
-
-    }
-
   };
 
 
 /* =========================================================
-   MORE
+   MORE MENU
 ========================================================= */
 
 const moreBackdrop =
@@ -4644,38 +4503,18 @@ const moreBackdrop =
   );
 
 
-function openMore(){
-
-  moreBackdrop
-    .classList
-    .add(
-      "open"
-    );
-
-}
-
-
-function closeMore(){
-
-  moreBackdrop
-    .classList
-    .remove(
-      "open"
-    );
-
-}
-
-
 document.getElementById(
   "navMore"
 ).onclick =
-  openMore;
+  () => {
 
+    moreBackdrop
+      .classList
+      .add(
+        "open"
+      );
 
-document.getElementById(
-  "closeMore"
-).onclick =
-  closeMore;
+  };
 
 
 moreBackdrop.onclick =
@@ -4686,292 +4525,11 @@ moreBackdrop.onclick =
       moreBackdrop
     ){
 
-      closeMore();
-
-    }
-
-  };
-
-
-/* =========================================================
-   SWITCH TRIP
-========================================================= */
-
-const tripBackdrop =
-  document.getElementById(
-    "tripBackdrop"
-  );
-
-
-const tripList =
-  document.getElementById(
-    "tripList"
-  );
-
-
-async function openTripSwitcher(){
-
-  closeMore();
-
-
-  tripBackdrop
-    .classList
-    .add(
-      "open"
-    );
-
-
-  tripList.innerHTML = `
-
-    <div class="state">
-      Loading trips…
-    </div>
-
-  `;
-
-
-  try{
-
-    accessibleTrips =
-      await getAccessibleTrips();
-
-
-    renderTripSwitcher();
-
-  }
-
-
-  catch(error){
-
-    console.error(
-      "Switch trip error:",
-      error
-    );
-
-
-    tripList.innerHTML = `
-
-      <div class="state">
-
-        <strong>
-          Couldn't load trips
-        </strong>
-
-        ${esc(
-          error.message ||
-          "Unknown error."
-        )}
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-function closeTripSwitcher(){
-
-  tripBackdrop
-    .classList
-    .remove(
-      "open"
-    );
-
-}
-
-
-function renderTripSwitcher(){
-
-  if(!accessibleTrips.length){
-
-    tripList.innerHTML = `
-
-      <div class="state">
-
-        <strong>
-          No trips found
-        </strong>
-
-        Create a trip or have someone
-        share one with you.
-
-      </div>
-
-    `;
-
-
-    return;
-
-  }
-
-
-  tripList.innerHTML =
-    accessibleTrips
-      .map(
-        item => {
-
-          const current =
-            Number(item.id) ===
-            Number(currentTripId);
-
-
-          const label =
-            item.__access === "owner"
-            ?
-            "YOUR TRIP"
-            :
-            item.__access === "editor"
-            ?
-            "SHARED · EDITOR"
-            :
-            "SHARED · VIEWER";
-
-
-          return `
-
-            <button
-              class="
-                trip-choice
-                ${current ? "current" : ""}
-              "
-              type="button"
-              data-trip="${Number(item.id)}"
-            >
-
-              <div class="trip-choice-icon">
-
-                ${
-                  current
-                  ?
-                  "✓"
-                  :
-                  tripIcon(
-                    item.country
-                  )
-                }
-
-              </div>
-
-
-              <div class="trip-choice-main">
-
-                <div class="trip-choice-label">
-
-                  ${
-                    current
-                    ?
-                    `CURRENT · ${label}`
-                    :
-                    label
-                  }
-
-                </div>
-
-
-                <div class="trip-choice-name">
-
-                  ${esc(
-                    item.name ||
-                    "Untitled Trip"
-                  )}
-
-                </div>
-
-
-                <div class="trip-choice-meta">
-
-                  ${
-                    item.country
-                    ?
-                    `${esc(item.country)} · `
-                    :
-                    ""
-                  }
-
-                  ${esc(
-                    prettyTripDates(
-                      item
-                    )
-                  )}
-
-                </div>
-
-              </div>
-
-
-              <div class="trip-choice-arrow">
-                →
-              </div>
-
-            </button>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  tripList
-    .querySelectorAll(
-      "[data-trip]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            const id =
-              Number(
-                button.dataset.trip
-              );
-
-
-            localStorage.setItem(
-              "current_trip_id",
-              String(id)
-            );
-
-
-            /*
-              Stay on Profile when switching.
-            */
-
-            location.href =
-              `profile.html?trip=${id}`;
-
-          };
-
-      }
-    );
-
-}
-
-
-document.getElementById(
-  "switchTripButton"
-).onclick =
-  openTripSwitcher;
-
-
-document.getElementById(
-  "closeTrips"
-).onclick =
-  closeTripSwitcher;
-
-
-tripBackdrop.onclick =
-  event => {
-
-    if(
-      event.target ===
-      tripBackdrop
-    ){
-
-      closeTripSwitcher();
+      moreBackdrop
+        .classList
+        .remove(
+          "open"
+        );
 
     }
 
@@ -4982,7 +4540,7 @@ tripBackdrop.onclick =
    INITIAL NAV
 ========================================================= */
 
-setNavLinks();
+setupNavigation();
 
 
 /* =========================================================
