@@ -1177,6 +1177,18 @@ gmp-place-autocomplete{
   }
 }
 
+
+/* Discover header now follows My Food:
+   tabs -> search -> city only.
+   Food type is handled by the permanent right-side filter. */
+#discoverModeRow,
+.discover-mode,
+.discover-modes,
+.mode-tabs,
+#browseChips{
+  display:none !important;
+}
+
 </style>
 </head>
 
@@ -3062,74 +3074,11 @@ function discoverSource(){
 
 
 function createDiscoverChips(){
-
-  if(activeTab !== "discover"){
+  discoverFilter = "";
+  if(browseChips){
     browseChips.innerHTML = "";
     browseChips.style.display = "none";
-    return;
   }
-
-  browseChips.style.display = "flex";
-
-  let source = restaurants.slice();
-
-  if(selectedCity){
-    source = source.filter(
-      restaurant =>
-        norm(rCity(restaurant)) === norm(selectedCity)
-    );
-  }
-
-  const areas =
-    [...new Set(
-      source
-        .map(rArea)
-        .filter(Boolean)
-    )]
-    .sort((a,b)=>a.localeCompare(b));
-
-  if(
-    discoverFilter &&
-    !areas.some(area => norm(area) === norm(discoverFilter))
-  ){
-    discoverFilter = "";
-  }
-
-  browseChips.innerHTML = `
-    <button
-      class="chip ${!discoverFilter ? "active" : ""}"
-      data-discover-area=""
-      type="button"
-    >
-      📍 ALL AREAS
-    </button>
-
-    ${areas.map(area => `
-      <button
-        class="chip ${
-          norm(discoverFilter) === norm(area)
-          ? "active"
-          : ""
-        }"
-        data-discover-area="${esc(area)}"
-        type="button"
-      >
-        📍 ${esc(area)}
-      </button>
-    `).join("")}
-  `;
-
-  browseChips
-    .querySelectorAll("[data-discover-area]")
-    .forEach(button => {
-      button.onclick = () => {
-        discoverFilter =
-          button.dataset.discoverArea || "";
-
-        createDiscoverChips();
-        render();
-      };
-    });
 }
 
 
