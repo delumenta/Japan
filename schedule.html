@@ -160,6 +160,7 @@ h1{
 
 .google-add-box{
   display:none;
+  grid-column:1/-1;
   margin-top:9px;
   padding:10px;
   border:1px solid rgba(92,157,255,.24);
@@ -184,577 +185,44 @@ h1{
   margin-bottom:8px;
 }
 
-.google-add-row{
-  display:grid;
-  grid-template-columns:1fr 84px;
-  gap:7px;
-}
-
-.google-add-row input{
-  min-width:0;
-}
-
-.google-search-btn{
-  border:1px solid rgba(92,157,255,.42);
-  border-radius:10px;
-  background:rgba(92,157,255,.09);
-  color:#b8d3ff;
-  font-size:8px;
-  font-weight:900;
-}
-
-.google-results{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:8px;
-}
-
-.google-result{
+#googlePlaceSearch{
   width:100%;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:9px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#0e151b;
-  color:#fff;
-  text-align:left;
-  cursor:pointer;
 }
 
-.google-result-main{flex:1;min-width:0}
-.google-result-name{font-size:8px;font-weight:900}
-.google-result-address{margin-top:2px;color:#7f8b93;font-size:6.5px;line-height:1.35}
-.google-result-use{color:#9cf6ba;font-size:7px;font-weight:900}
-.google-empty{padding:9px;color:#7f8b93;font-size:7px;text-align:center}
-
-.edit-btn.active{
-  border-color:rgba(103,197,135,.35);
-  background:rgba(103,197,135,.09);
-  color:#aee5bf;
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+  width:100%;
+  min-height:40px;
+  color-scheme:dark;
 }
 
-
-/* =========================================================
-   DATE SCROLLER
-========================================================= */
-
-.date-scroller{
-  display:flex;
-  gap:5px;
-
-  margin-top:9px;
-
-  overflow-x:auto;
-  padding-bottom:2px;
-
-  scrollbar-width:none;
-}
-
-.date-scroller::-webkit-scrollbar{
-  display:none;
-}
-
-.date-btn{
-  flex:0 0 48px;
-
-  min-height:49px;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  padding:4px 2px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#10171d;
-
-  color:var(--muted);
-
-  cursor:pointer;
-}
-
-.date-weekday{
-  color:#6f7c85;
-  font-size:6px;
-  font-weight:900;
-}
-
-.date-number{
-  margin:2px 0 1px;
-
-  color:#fff;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:18px;
-  font-weight:800;
-
-  line-height:1;
-}
-
-.date-month{
-  font-size:6px;
-  font-weight:900;
-}
-
-.date-btn.active{
-  border-color:var(--red);
-  background:rgba(201,111,104,.12);
-}
-
-.date-btn.active .date-weekday,
-.date-btn.active .date-month{
-  color:#d99b95;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-main{
-  max-width:760px;
-  margin:auto;
-
-  padding:
-    12px
-    12px
-    100px;
-}
-
-
-/* =========================================================
-   DAY HEADER
-========================================================= */
-
-.day-head{
-  margin-bottom:10px;
-}
-
-.day-date{
-  color:var(--red);
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:.12em;
-}
-
-.day-title{
-  margin-top:4px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:21px;
-  font-weight:800;
-}
-
-.day-summary{
-  margin-top:3px;
-
-  color:var(--muted);
-
-  font-size:8px;
-}
-
-
-/* =========================================================
-   TIMELINE
-========================================================= */
-
-.timeline{
-  border:1px solid var(--line);
-  border-radius:14px;
-
-  padding:7px 11px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #121a20,
-      #0c1217
-    );
-}
-
-.timeline-row{
-  position:relative;
-
-  display:grid;
-
-  grid-template-columns:
-    72px
-    16px
-    1fr
-    auto;
-
-  gap:7px;
-
-  min-height:47px;
-
-  padding:7px 0;
-}
-
-.timeline-row:not(:last-child)::after{
-  content:"";
-
-  position:absolute;
-
-  left:80px;
-  top:30px;
-  bottom:-8px;
-
-  width:1px;
-
-  background:#26323a;
-}
-
-.timeline-time{
-  padding-top:2px;
-
-  color:#9bb8d0;
-
-  font-size:8px;
-  font-weight:900;
-
-  line-height:1.25;
-}
-
-.marker{
-  position:relative;
-  z-index:2;
-
-  display:flex;
-  justify-content:center;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-
-  margin-top:4px;
-
-  border:2px solid #172029;
-  border-radius:50%;
-
-  background:var(--red);
-
-  box-shadow:
-    0 0 0 1px
-    rgba(201,111,104,.35);
-}
-
-.item-main{
-  min-width:0;
-}
-
-.item-title{
-  color:#f2f2f0;
-
-  font-size:9px;
-  font-weight:900;
-
-  line-height:1.3;
-}
-
-.item-title a{
-  color:inherit;
-  text-decoration:none;
-}
-
-.item-location{
-  margin-top:2px;
-
-  color:#77858f;
-
-  font-size:7px;
-}
-
-.item-note{
-  margin-top:3px;
-
-  color:#9fa9af;
-
+.place-status{
+  margin-top:6px;
+  color:#81909a;
   font-size:7px;
   line-height:1.4;
 }
 
-.optional{
-  display:inline-block;
+.place-status.success{color:#9fe1b5}
+.place-status.error{color:#ffc5c1}
 
-  margin-left:4px;
-
-  padding:1px 4px;
-
-  border:1px solid rgba(227,184,92,.22);
-  border-radius:999px;
-
-  color:var(--gold);
-
-  font-size:6px;
+/* Keep all Schedule form/search boxes compact and dark. */
+.form-grid input,
+.form-grid textarea,
+.form-grid select,
+.entity-search{
+  background:#080d11 !important;
+  color:#f5f5f3 !important;
+  border-color:#29323b !important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  font-size:10px !important;
 }
 
-.locked{
-  display:inline-block;
-
-  margin-left:4px;
-
-  padding:1px 4px;
-
-  border:1px solid rgba(103,197,135,.22);
-  border-radius:999px;
-
-  color:#aee5bf;
-
-  font-size:6px;
-}
-
-.row-edit{
-  display:none;
-
-  width:28px;
-  height:28px;
-
-  align-items:center;
-  justify-content:center;
-
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  background:#151c22;
-
-  color:#c6cdd2;
-
-  cursor:pointer;
-}
-
-.editing .row-edit{
-  display:flex;
-}
-
-
-/* =========================================================
-   ADD
-========================================================= */
-
-.add-row{
-  display:none;
-  margin-top:8px;
-}
-
-.editing .add-row{
-  display:block;
-}
-
-.add-item-btn{
-  width:100%;
-
-  min-height:41px;
-
-  border:1px dashed rgba(201,111,104,.42);
-  border-radius:11px;
-
-  background:rgba(201,111,104,.06);
-
-  color:#e2a19b;
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-.state{
-  padding:28px 16px;
-
-  border:1px dashed #35414a;
-  border-radius:14px;
-
-  text-align:center;
-
-  color:var(--muted);
-
-  font-size:9px;
-  line-height:1.55;
-}
-
-.state strong{
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#fff;
-
-  font-size:12px;
-}
-
-
-/* =========================================================
-   SHEETS
-========================================================= */
-
-.sheet-backdrop,
-.more-backdrop,
-.trip-backdrop{
-  position:fixed;
-
-  inset:0;
-
-  display:none;
-  align-items:flex-end;
-
-  background:rgba(0,0,0,.70);
-
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-}
-
-.sheet-backdrop{
-  z-index:100;
-}
-
-.more-backdrop{
-  z-index:150;
-}
-
-.trip-backdrop{
-  z-index:170;
-}
-
-.sheet-backdrop.open,
-.more-backdrop.open,
-.trip-backdrop.open{
-  display:flex;
-}
-
-.sheet,
-.more-sheet,
-.trip-sheet{
-  width:100%;
-
-  max-height:
-    calc(92vh - env(safe-area-inset-top));
-
-  overflow-y:auto;
-
-  padding:
-    8px
-    14px
-    calc(18px + env(safe-area-inset-bottom));
-
-  border:1px solid var(--line);
-
-  border-radius:
-    20px
-    20px
-    0
-    0;
-
-  background:#0d1318;
-}
-
-.more-sheet,
-.trip-sheet{
-  max-width:760px;
-  margin:0 auto;
-}
-
-.sheet-handle{
-  width:38px;
-  height:4px;
-
-  margin:
-    2px
-    auto
-    12px;
-
-  border-radius:999px;
-
-  background:#39454d;
-}
-
-.sheet-head,
-.more-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:10px;
-
-  margin-bottom:12px;
-}
-
-.sheet-title,
-.more-title{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:19px;
-}
-
-.close-btn,
-.more-close{
-  width:34px;
-  height:34px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#151c22;
-
-  color:#fff;
-
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   TYPE
-========================================================= */
-
-.type-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:5px;
-
-  margin-bottom:11px;
-}
-
-.type-btn{
-  min-height:42px;
-
-  border:1px solid var(--line);
-  border-radius:9px;
-
-  background:#11181e;
-
-  color:var(--muted);
-
-  font-size:8px;
-  font-weight:900;
-
-  cursor:pointer;
+.form-grid input::placeholder,
+.form-grid textarea::placeholder,
+.entity-search::placeholder{
+  color:#65737e !important;
+  opacity:1;
 }
 
 .type-btn.active{
@@ -1262,6 +730,100 @@ main{
 }
 
 </style>
+
+<style>
+/* =========================================================
+   COMPACT ADD-SHEET OVERRIDES
+   Keep type buttons + all form controls visually consistent
+========================================================= */
+
+.type-row,
+.type-grid{
+  gap:5px !important;
+}
+
+.type-btn{
+  min-height:34px !important;
+  padding:6px 7px !important;
+  border:1px solid #29323b !important;
+  border-radius:9px !important;
+  background:#080d11 !important;
+  color:#aeb5bc !important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  font-size:8px !important;
+  line-height:1.15 !important;
+  font-weight:900 !important;
+  letter-spacing:0 !important;
+}
+
+.type-btn.active{
+  color:#fff !important;
+  border-color:rgba(201,111,104,.48) !important;
+  background:rgba(201,111,104,.10) !important;
+}
+
+/* Same black box, border, font and height everywhere in Add/Edit */
+.form-grid input,
+.form-grid textarea,
+.form-grid select,
+.entity-search,
+#entitySearch{
+  width:100% !important;
+  min-height:38px !important;
+  padding:8px 9px !important;
+  border:1px solid #29323b !important;
+  border-radius:9px !important;
+  background:#080d11 !important;
+  color:#f5f5f3 !important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  font-size:10px !important;
+  line-height:1.3 !important;
+  font-weight:500 !important;
+  outline:none !important;
+}
+
+.form-grid textarea{
+  min-height:64px !important;
+}
+
+.form-grid input::placeholder,
+.form-grid textarea::placeholder,
+.entity-search::placeholder,
+#entitySearch::placeholder{
+  color:#65737e !important;
+  opacity:1 !important;
+}
+
+.form-grid input:focus,
+.form-grid textarea:focus,
+.form-grid select:focus,
+.entity-search:focus,
+#entitySearch:focus{
+  border-color:#5c9dff !important;
+}
+
+/* Labels should also match the compact Food form */
+.form-grid label,
+.field label,
+.entity-label,
+.form-label{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  font-size:7px !important;
+  line-height:1.25 !important;
+  font-weight:900 !important;
+  letter-spacing:0 !important;
+  color:#aeb5bc !important;
+}
+
+/* Google autocomplete host matches the same dark field */
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+  width:100% !important;
+  min-height:38px !important;
+  color-scheme:dark !important;
+}
+</style>
+
 </head>
 
 
@@ -1431,7 +993,7 @@ main{
             id="entityPickerTitle"
             class="entity-picker-title"
           >
-            📍 CHOOSE FROM SAVED PLACES
+            📍 MY SAVED PLACES
           </div>
 
           <div
@@ -1532,33 +1094,21 @@ main{
           class="google-add-box"
         >
           <div class="google-add-title">
-            GOOGLE AUTO-VERIFY
+            🔎 GOOGLE PLACES AUTOFILL
           </div>
 
           <div class="google-add-sub">
-            Search Google, choose the correct match, and it will be saved to your master Places database automatically.
+            Search Google only when the place is not already in your saved Places.
           </div>
 
-          <div class="google-add-row">
-            <input
-              id="googleAddSearch"
-              type="search"
-              placeholder="Search Google for a place..."
-              autocomplete="off"
-            >
-            <button
-              id="googleAddSearchButton"
-              class="google-search-btn"
-              type="button"
-            >
-              SEARCH
-            </button>
-          </div>
+          <div id="googlePlaceSearch"></div>
 
           <div
-            id="googleAddResults"
-            class="google-results"
-          ></div>
+            id="googlePlaceStatus"
+            class="place-status"
+          >
+            Search a place, then choose the correct Google result.
+          </div>
         </div>
 
 
@@ -1847,14 +1397,11 @@ const masterHelpButton =
 const googleAddBox =
   document.getElementById("googleAddBox");
 
-const googleAddSearch =
-  document.getElementById("googleAddSearch");
 
-const googleAddSearchButton =
-  document.getElementById("googleAddSearchButton");
 
-const googleAddResults =
-  document.getElementById("googleAddResults");
+
+
+
 
 const fieldDate =
   document.getElementById("fieldDate");
@@ -3543,11 +3090,7 @@ function setFormType(type){
   googleAddBox.classList.remove(
     "show"
   );
-
-  googleAddResults.innerHTML = "";
-
-
-  if(type === "custom"){
+if(type === "custom"){
 
     selectedPlaceId = null;
 
@@ -3588,15 +3131,15 @@ function setFormType(type){
 
 
     entityPickerTitle.textContent =
-      "📍 CHOOSE FROM SAVED PLACES";
+      "📍 MY SAVED PLACES";
 
 
     entityPickerSub.textContent =
       trip?.country
       ?
-      `Showing saved places for ${trip.country}.`
+      `Type to search your saved places for ${trip.country}.`
       :
-      "Search your saved places.";
+      "Type to search your saved places.";
 
 
     entitySearch.placeholder =
@@ -3608,7 +3151,7 @@ function setFormType(type){
 
 
     masterHelpButton.textContent =
-      "＋ ADD + VERIFY WITH GOOGLE";
+      "＋ ADD NEW PLACE";
 
   }
 
@@ -3654,25 +3197,21 @@ function setFormType(type){
 ========================================================= */
 
 masterHelpButton.onclick =
-  () => {
+  async () => {
 
     if(formType === "place"){
 
       googleAddBox.classList.add("show");
 
-      googleAddSearch.value =
-        entitySearch.value.trim();
-
-      googleAddResults.innerHTML = "";
-
-      googleAddSearch.focus();
+      /*
+        Initialise once. This is the same Google Places
+        autocomplete flow used by food.html.
+      */
+      await initGooglePlaceAutocomplete();
 
     }
 
-
-    else if(
-      formType === "restaurant"
-    ){
+    else if(formType === "restaurant"){
 
       location.href =
         `food.html?trip=${TRIP_ID}`;
@@ -3683,589 +3222,425 @@ masterHelpButton.onclick =
 
 
 /* =========================================================
-   GOOGLE AUTO-VERIFY NEW PLACE
+   GOOGLE PLACES — SAME FLOW AS FOOD.HTML
 ========================================================= */
 
-let googleAddMatches = [];
+let googlePlaceAutocomplete = null;
 
 
-function googleRegionCode(country){
+function setGooglePlaceStatus(message,type=""){
 
-  const value =
-    norm(country);
+  const el =
+    document.getElementById("googlePlaceStatus");
 
-  if(value.includes("japan")) return "jp";
-  if(value.includes("singapore")) return "sg";
-  if(value.includes("taiwan")) return "tw";
-  if(value.includes("korea")) return "kr";
-  if(value.includes("china")) return "cn";
-  if(value.includes("thailand")) return "th";
-  if(value.includes("malaysia")) return "my";
-  if(value.includes("indonesia")) return "id";
+  if(!el) return;
 
-  return undefined;
+  el.textContent = message;
+  el.className =
+    `place-status ${type}`.trim();
 
 }
 
 
-function googleLat(place){
+function addressPart(components,wantedTypes){
 
-  if(!place?.location){
-    return null;
-  }
+  const item =
+    (components || []).find(
+      component =>
+        wantedTypes.some(
+          type =>
+            component.types?.includes(type)
+        )
+    );
 
-  return typeof place.location.lat === "function"
-    ? place.location.lat()
-    : place.location.lat;
-
-}
-
-
-function googleLng(place){
-
-  if(!place?.location){
-    return null;
-  }
-
-  return typeof place.location.lng === "function"
-    ? place.location.lng()
-    : place.location.lng;
+  return (
+    item?.longText ||
+    item?.shortText ||
+    ""
+  );
 
 }
 
 
-googleAddSearchButton.onclick =
-  searchGoogleForNewPlace;
+async function initGooglePlaceAutocomplete(){
 
+  const host =
+    document.getElementById("googlePlaceSearch");
 
-googleAddSearch.addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      searchGoogleForNewPlace();
-
-    }
-
-  }
-);
-
-
-async function searchGoogleForNewPlace(){
-
-  const raw =
-    googleAddSearch.value.trim();
-
-
-  if(!raw){
-
-    googleAddResults.innerHTML =
-      `<div class="google-empty">
-        Enter a place name first.
-       </div>`;
-
+  if(!host || googlePlaceAutocomplete){
     return;
-
   }
-
-
-  googleAddSearchButton.disabled = true;
-
-  googleAddSearchButton.textContent =
-    "SEARCHING…";
-
-
-  googleAddResults.innerHTML =
-    `<div class="google-empty">
-      Searching Google…
-     </div>`;
 
 
   try{
 
-    /*
-      Same Google search flow used by the older
-      Places Setup page.
-    */
-    const library =
-      await window.getGooglePlaces();
-
-
-    const PlaceClass =
-      library.Place;
+    setGooglePlaceStatus(
+      "Loading Google Places…"
+    );
 
 
     if(
-      !PlaceClass ||
-      typeof PlaceClass.searchByText !== "function"
+      typeof window.loadGoogleMaps !== "function" ||
+      typeof window.getGooglePlaces !== "function" ||
+      typeof window.createGooglePlaceAutocomplete !== "function" ||
+      typeof window.getGooglePlaceDetails !== "function" ||
+      typeof window.normalizeGooglePlace !== "function"
     ){
-
       throw new Error(
-        "Google Place text search is unavailable."
+        "The Google Maps helper functions were not found."
+      );
+    }
+
+
+    await window.loadGoogleMaps();
+    await window.getGooglePlaces();
+
+
+    googlePlaceAutocomplete =
+      await window.createGooglePlaceAutocomplete(
+        host,
+        {
+          placeholder:
+            `Search place${
+              trip?.country
+              ? " in " + trip.country
+              : ""
+            }...`
+        }
       );
 
-    }
+
+    googlePlaceAutocomplete.addEventListener(
+      "gmp-select",
+      async event => {
+
+        try{
+
+          setGooglePlaceStatus(
+            "Getting place details…"
+          );
 
 
-    const country =
-      trip?.country || "";
-
-
-    const query =
-      country &&
-      !norm(raw).includes(norm(country))
-        ? `${raw} ${country}`
-        : raw;
-
-
-    const response =
-      await PlaceClass.searchByText({
-
-        textQuery:query,
-
-        fields:[
-          "id",
-          "displayName",
-          "formattedAddress",
-          "location",
-          "googleMapsURI"
-        ],
-
-        maxResultCount:5,
-
-        region:
-          googleRegionCode(country) || "jp"
-
-      });
-
-
-    googleAddMatches =
-      response.places || [];
-
-
-    renderGoogleAddMatches();
-
-  }
-
-
-  catch(error){
-
-    console.error(
-      "Google add place:",
-      error
-    );
-
-
-    googleAddResults.innerHTML =
-      `<div class="google-empty">
-        ${esc(
-          error.message ||
-          "Google search failed."
-        )}
-       </div>`;
-
-  }
-
-
-  finally{
-
-    googleAddSearchButton.disabled =
-      false;
-
-    googleAddSearchButton.textContent =
-      "SEARCH";
-
-  }
-
-}
-
-
-function renderGoogleAddMatches(){
-
-  if(!googleAddMatches.length){
-
-    googleAddResults.innerHTML =
-      `<div class="google-empty">
-        No Google matches found. Try a different search.
-       </div>`;
-
-    return;
-
-  }
-
-
-  googleAddResults.innerHTML =
-    googleAddMatches
-      .map(
-        (place,index) => {
-
-          return `
-
-            <button
-              class="google-result"
-              type="button"
-              data-google-index="${index}"
-            >
-
-              <div class="google-result-main">
-
-                <div class="google-result-name">
-                  ${esc(
-                    place.displayName ||
-                    "Unnamed Google Place"
-                  )}
-                </div>
-
-                <div class="google-result-address">
-                  ${esc(
-                    place.formattedAddress ||
-                    "Address unavailable"
-                  )}
-                </div>
-
-              </div>
-
-              <div class="google-result-use">
-                USE
-              </div>
-
-            </button>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  googleAddResults
-    .querySelectorAll(
-      "[data-google-index]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            saveVerifiedGooglePlace(
-              Number(
-                button.dataset.googleIndex
-              ),
-              button
+          const place =
+            await window.getGooglePlaceDetails(
+              event
             );
 
-          };
 
-      }
-    );
-
-}
-
-
-async function saveVerifiedGooglePlace(
-  index,
-  button
-){
-
-  const googlePlace =
-    googleAddMatches[index];
+          const data =
+            window.normalizeGooglePlace(
+              place
+            );
 
 
-  if(!googlePlace){
-    return;
-  }
+          const components =
+            place.addressComponents || [];
 
 
-  const providerId =
-    googlePlace.id || null;
+          const prefecture =
+            data.prefecture ||
+            addressPart(
+              components,
+              ["administrative_area_level_1"]
+            ) ||
+            null;
 
 
-  const lat =
-    googleLat(
-      googlePlace
-    );
+          const city =
+            data.city ||
+            addressPart(
+              components,
+              [
+                "locality",
+                "postal_town",
+                "administrative_area_level_2"
+              ]
+            ) ||
+            null;
 
 
-  const lng =
-    googleLng(
-      googlePlace
-    );
+          const area =
+            data.area ||
+            addressPart(
+              components,
+              [
+                "sublocality_level_1",
+                "sublocality",
+                "administrative_area_level_3"
+              ]
+            ) ||
+            null;
 
 
-  if(
-    !providerId ||
-    lat === null ||
-    lng === null
-  ){
-
-    formMessage.textContent =
-      "Google did not return a usable place ID and coordinates.";
-
-    formMessage.className =
-      "form-message error";
-
-    return;
-
-  }
+          const country =
+            data.country ||
+            addressPart(
+              components,
+              ["country"]
+            ) ||
+            trip?.country ||
+            null;
 
 
-  button.disabled = true;
+          const providerPlaceId =
+            data.provider_place_id ||
+            data.google_place_id ||
+            place.id ||
+            null;
 
 
-  const useLabel =
-    button.querySelector(
-      ".google-result-use"
-    );
-
-
-  if(useLabel){
-    useLabel.textContent = "SAVING…";
-  }
-
-
-  try{
-
-    /*
-      First reuse an existing verified master place.
-      This prevents duplicate Google places.
-    */
-
-    const existing =
-      await db
-        .from("places")
-        .select("*")
-        .eq(
-          "provider",
-          "google"
-        )
-        .eq(
-          "provider_place_id",
-          providerId
-        )
-        .maybeSingle();
-
-
-    if(existing.error){
-      throw existing.error;
-    }
-
-
-    let savedPlace =
-      existing.data || null;
-
-
-    if(!savedPlace){
-
-      const payload = {
-
-        name:
-          googlePlace.displayName ||
-          googleAddSearch.value.trim(),
-
-        country:
-          trip?.country ||
-          null,
-
-        provider:
-          "google",
-
-        provider_place_id:
-          providerId,
-
-        latitude:
-          Number(lat),
-
-        longitude:
-          Number(lng),
-
-        address:
-          googlePlace.formattedAddress ||
-          null,
-
-        maps_url:
-          googlePlace.googleMapsURI ||
-          null,
-
-        updated_at:
-          new Date().toISOString()
-
-      };
-
-
-      const created =
-        await db
-          .from("places")
-          .insert(
-            payload
-          )
-          .select()
-          .single();
-
-
-      if(created.error){
-
-        /*
-          If another request created the same Google
-          place at the same time, fetch and reuse it.
-        */
-
-        if(created.error.code === "23505"){
-
-          const duplicate =
-            await db
-              .from("places")
-              .select("*")
-              .eq(
-                "provider",
-                "google"
-              )
-              .eq(
-                "provider_place_id",
-                providerId
-              )
-              .single();
-
-
-          if(duplicate.error){
-            throw duplicate.error;
+          if(!providerPlaceId){
+            throw new Error(
+              "Google did not return a Place ID."
+            );
           }
 
 
-          savedPlace =
-            duplicate.data;
+          /*
+            Always check the Google provider ID first.
+            If this place already exists, reuse it.
+          */
+          const existing =
+            await db
+              .from("places")
+              .select("*")
+              .eq("provider","google")
+              .eq(
+                "provider_place_id",
+                providerPlaceId
+              )
+              .maybeSingle();
+
+
+          if(existing.error){
+            throw existing.error;
+          }
+
+
+          let savedPlace =
+            existing.data || null;
+
+
+          if(!savedPlace){
+
+            const payload = {
+
+              name:
+                data.name ||
+                place.displayName ||
+                "Unnamed place",
+
+              country:
+                country,
+
+              prefecture:
+                prefecture,
+
+              city:
+                city,
+
+              area:
+                area,
+
+              address:
+                data.address ||
+                place.formattedAddress ||
+                null,
+
+              latitude:
+                data.latitude ?? null,
+
+              longitude:
+                data.longitude ?? null,
+
+              maps_url:
+                data.maps_url ||
+                place.googleMapsURI ||
+                null,
+
+              provider:
+                "google",
+
+              provider_place_id:
+                providerPlaceId,
+
+              updated_at:
+                new Date().toISOString()
+
+            };
+
+
+            const created =
+              await db
+                .from("places")
+                .insert(payload)
+                .select()
+                .single();
+
+
+            if(created.error){
+
+              /*
+                Handles a simultaneous duplicate insert
+                when provider/provider_place_id is unique.
+              */
+              if(created.error.code === "23505"){
+
+                const duplicate =
+                  await db
+                    .from("places")
+                    .select("*")
+                    .eq("provider","google")
+                    .eq(
+                      "provider_place_id",
+                      providerPlaceId
+                    )
+                    .single();
+
+                if(duplicate.error){
+                  throw duplicate.error;
+                }
+
+                savedPlace =
+                  duplicate.data;
+
+              }
+              else{
+                throw created.error;
+              }
+
+            }
+            else{
+              savedPlace =
+                created.data;
+            }
+
+          }
+
+
+          const index =
+            places.findIndex(
+              row =>
+                Number(row.id) ===
+                Number(savedPlace.id)
+            );
+
+
+          if(index >= 0){
+            places[index] = savedPlace;
+          }
+          else{
+            places.push(savedPlace);
+            places.sort(
+              (a,b) =>
+                String(a.name || "")
+                  .localeCompare(
+                    String(b.name || "")
+                  )
+            );
+          }
+
+
+          /*
+            schedule.place_id uses our Supabase
+            public.places.id — never Google's ID.
+          */
+          selectedPlaceId =
+            savedPlace.id;
+
+          selectedRestaurantId =
+            null;
+
+
+          entitySearch.value =
+            savedPlace.name || "";
+
+          fieldTitle.value =
+            savedPlace.name || "";
+
+          fieldLocation.value =
+            [
+              savedPlace.area,
+              savedPlace.city,
+              savedPlace.prefecture
+            ]
+            .filter(Boolean)
+            .join(", ")
+            ||
+            savedPlace.address
+            ||
+            "";
+
+
+          entityResults.classList.remove(
+            "show"
+          );
+
+          googleAddBox.classList.remove(
+            "show"
+          );
+
+
+          updateSelectedEntity();
+
+
+          setGooglePlaceStatus(
+            `✓ ${savedPlace.name} saved to Places.`,
+            "success"
+          );
+
+
+          formMessage.textContent =
+            "Google verified ✓ Place saved and selected.";
+
+          formMessage.className =
+            "form-message success";
 
         }
 
+        catch(error){
 
-        else{
-          throw created.error;
+          console.error(
+            "Google Places selection:",
+            error
+          );
+
+          setGooglePlaceStatus(
+            "Google place error: " +
+            (
+              error.message ||
+              String(error)
+            ),
+            "error"
+          );
+
         }
 
       }
-
-
-      else{
-
-        savedPlace =
-          created.data;
-
-      }
-
-    }
-
-
-    const placeIndex =
-      places.findIndex(
-        row =>
-          Number(row.id) ===
-          Number(savedPlace.id)
-      );
-
-
-    if(placeIndex >= 0){
-
-      places[placeIndex] =
-        savedPlace;
-
-    }
-
-
-    else{
-
-      places.push(
-        savedPlace
-      );
-
-
-      places.sort(
-        (a,b) =>
-          String(a.name || "")
-            .localeCompare(
-              String(b.name || "")
-            )
-      );
-
-    }
-
-
-    selectedPlaceId =
-      savedPlace.id;
-
-    selectedRestaurantId =
-      null;
-
-
-    entitySearch.value =
-      savedPlace.name || "";
-
-
-    fieldTitle.value =
-      savedPlace.name || "";
-
-
-    fieldLocation.value =
-      [
-        savedPlace.area,
-        savedPlace.city,
-        savedPlace.prefecture
-      ]
-      .filter(Boolean)
-      .join(", ") ||
-      savedPlace.address ||
-      "";
-
-
-    googleAddBox.classList.remove(
-      "show"
     );
 
 
-    googleAddResults.innerHTML = "";
-
-
-    entityResults.classList.remove(
-      "show"
+    setGooglePlaceStatus(
+      "Search for a place and select the correct Google result."
     );
-
-
-    updateSelectedEntity();
-
-
-    formMessage.textContent =
-      "Google verified ✓ Place saved and selected.";
-
-    formMessage.className =
-      "form-message success";
 
   }
-
 
   catch(error){
 
     console.error(
-      "Save verified Google place:",
+      "Google Places init:",
       error
     );
 
-
-    formMessage.textContent =
-      error.message ||
-      "Could not save this Google place.";
-
-    formMessage.className =
-      "form-message error";
-
-
-    button.disabled = false;
-
-
-    if(useLabel){
-      useLabel.textContent = "USE";
-    }
+    setGooglePlaceStatus(
+      "Google Places error: " +
+      (
+        error.message ||
+        String(error)
+      ),
+      "error"
+    );
 
   }
 
@@ -4310,12 +3685,7 @@ function openNewItem(){
   fieldOptional.checked = false;
 
   entitySearch.value = "";
-
-  googleAddSearch.value = "";
-
-  googleAddResults.innerHTML = "";
-
-  googleAddBox.classList.remove("show");
+googleAddBox.classList.remove("show");
 
 
   setFormType(
@@ -4475,12 +3845,13 @@ entitySearch.addEventListener(
   "focus",
   () => {
 
-    if(formType !== "custom"){
-
+    if(
+      formType !== "custom" &&
+      entitySearch.value.trim()
+    ){
       renderEntityResults(
         entitySearch.value
       );
-
     }
 
   }
@@ -4495,6 +3866,18 @@ entitySearch.addEventListener(
       return;
     }
 
+    /*
+      If the user changes the typed text after selecting
+      a saved place, require them to select a result again.
+    */
+    if(formType === "place"){
+      selectedPlaceId = null;
+    }
+    else if(formType === "restaurant"){
+      selectedRestaurantId = null;
+    }
+
+    updateSelectedEntity();
 
     renderEntityResults(
       entitySearch.value
@@ -4512,6 +3895,19 @@ function renderEntityResults(queryValue){
 
   const query =
     norm(queryValue);
+
+
+  /*
+    Saved Places is type-to-search.
+    Do not dump the whole master list when the box is empty.
+  */
+  if(!query){
+
+    entityResults.innerHTML = "";
+    entityResults.classList.remove("show");
+    return;
+
+  }
 
 
   const source =
@@ -4577,7 +3973,7 @@ function renderEntityResults(queryValue){
 
         ${
           formType === "place"
-          ? "Use “ADD + VERIFY WITH GOOGLE” below."
+          ? "Use “ADD NEW PLACE” below."
           : "Add it to your saved restaurants first."
         }
 
@@ -5384,30 +4780,3 @@ loadData();
 
 </body>
 </html>
-<style>
-/* Schedule form controls — dark, compact, consistent with the page */
-.form-sheet input,
-.form-sheet textarea,
-.form-sheet select,
-#googleAddSearch{
-  background:#080d11 !important;
-  color:#f5f5f3 !important;
-  border:1px solid #29323b !important;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
-  font-size:11px !important;
-  line-height:1.35 !important;
-}
-.form-sheet input::placeholder,
-.form-sheet textarea::placeholder,
-#googleAddSearch::placeholder{
-  color:#65737e !important;
-  opacity:1;
-}
-.form-sheet input:focus,
-.form-sheet textarea:focus,
-.form-sheet select:focus,
-#googleAddSearch:focus{
-  border-color:#5c9dff !important;
-  outline:none !important;
-}
-</style>
