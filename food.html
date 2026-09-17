@@ -1194,6 +1194,95 @@ gmp-place-autocomplete{
 .discover-controls{
   display:none !important;
 }
+
+/* =========================================================
+   STICKY IN-PAGE FOOD FILTER
+   The filter follows vertically but stays attached to the
+   site's content instead of the browser edge.
+========================================================= */
+
+.food-side-filter{
+  position:sticky !important;
+  top:14px !important;
+  right:auto !important;
+
+  width:68px !important;
+  max-height:calc(100vh - 90px);
+
+  flex:0 0 68px;
+
+  transform:none !important;
+
+  align-self:flex-start;
+
+  overflow-y:auto;
+  scrollbar-width:none;
+
+  padding:4px !important;
+
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+
+  background:rgba(9,14,18,.93);
+  box-shadow:0 8px 28px rgba(0,0,0,.22);
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.food-side-filter::-webkit-scrollbar{
+  display:none;
+}
+
+.food-results-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+
+  width:100%;
+}
+
+.food-results-main{
+  min-width:0;
+  flex:1 1 auto;
+}
+
+/* Undo the old mobile space that was reserved for a fixed overlay. */
+main{
+  padding-right:inherit !important;
+}
+
+/* On narrow phones keep the rail compact, but still inside the page. */
+@media(max-width:640px){
+  .food-results-layout{
+    gap:6px;
+  }
+
+  .food-side-filter{
+    width:55px !important;
+    flex-basis:55px;
+  }
+
+  .food-side-title{
+    font-size:5px;
+  }
+
+  .food-side-btn{
+    min-height:31px !important;
+    padding:3px 1px !important;
+  }
+
+  .food-side-btn .side-food-icon{
+    width:14px !important;
+    flex-basis:14px !important;
+    font-size:11px !important;
+  }
+
+  .food-side-btn .side-food-label{
+    font-size:4.8px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -1370,7 +1459,9 @@ gmp-place-autocomplete{
   </div>
 
 
-  <div id="results">
+  <div class="food-results-layout">
+  <div class="food-results-main">
+<div id="results">
 
     <div class="state">
 
@@ -1383,16 +1474,9 @@ gmp-place-autocomplete{
     </div>
 
   </div>
+  </div>
 
-</main>
-
-
-
-<!-- =========================================================
-     PERMANENT RIGHT-SIDE FOOD FILTER
-========================================================= -->
-
-<aside
+  <aside
   id="foodSideFilter"
   class="food-side-filter"
   aria-label="Food type filter"
@@ -1403,6 +1487,17 @@ gmp-place-autocomplete{
 
   <div id="foodSideFilterButtons"></div>
 </aside>
+</div>
+
+</main>
+
+
+
+<!-- =========================================================
+     PERMANENT RIGHT-SIDE FOOD FILTER
+========================================================= -->
+
+
 
 
 <!-- =========================================================
