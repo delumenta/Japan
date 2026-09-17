@@ -292,6 +292,90 @@
         "sharedCloseTrips"
       );
 
+    const logoutButton =
+      document.getElementById(
+        "sharedLogout"
+      );
+
+
+    /* LOG OUT */
+
+    if(logoutButton){
+
+      logoutButton.onclick = async () => {
+
+        logoutButton.disabled = true;
+
+        const title =
+          logoutButton.querySelector(
+            ".footer-more-title"
+          );
+
+        if(title){
+          title.textContent = "Logging Out…";
+        }
+
+        try{
+
+          if(typeof db === "undefined"){
+
+            throw new Error(
+              "Supabase is not ready."
+            );
+
+          }
+
+
+          const { error } =
+            await db.auth.signOut();
+
+
+          if(error){
+            throw error;
+          }
+
+
+          localStorage.removeItem(
+            "current_trip_id"
+          );
+
+
+          location.replace(
+            "login.html"
+          );
+
+        }
+
+        catch(error){
+
+          console.error(
+            "Shared footer logout:",
+            error
+          );
+
+
+          logoutButton.disabled = false;
+
+
+          if(title){
+
+            title.textContent =
+              "Log Out";
+
+          }
+
+
+          alert(
+            error.message ||
+            "Could not log out. Please try again."
+          );
+
+        }
+
+      };
+
+    }
+
 
     /* OPEN MORE */
 
@@ -649,16 +733,6 @@
         footerCurrentPage();
 
 
-      /*
-        If you're on a normal trip page,
-        switching trips keeps you on the same page.
-
-        Example:
-        food.html?trip=1
-        →
-        food.html?trip=2
-      */
-
       const switchPage =
         [
           "index.html",
@@ -817,13 +891,6 @@
   ======================================================= */
 
   async function resolveFooterTrip(){
-
-    /*
-      Your main pages normally already know the trip.
-
-      This is only a fallback so the footer still works
-      if someone opens a page without ?trip=.
-    */
 
     if(footerTripId){
       return;
