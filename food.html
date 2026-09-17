@@ -534,6 +534,16 @@ main{
     rgba(103,197,135,.07);
 }
 
+.badge.eaten{
+  color:#b9e4c7;
+  border-color:rgba(103,197,135,.28);
+  background:rgba(103,197,135,.10);
+}
+
+.restaurant-card.eaten-card{
+  opacity:.72;
+}
+
 
 /* =========================================================
    META
@@ -1372,6 +1382,14 @@ gmp-place-autocomplete{
       type="button"
     >
       📅 SCHEDULED
+    </button>
+
+    <button
+      class="chip"
+      data-myfilter="eaten"
+      type="button"
+    >
+      ✓ EATEN
     </button>
 
   </div>
@@ -2575,6 +2593,45 @@ function isFlexible(r){
 }
 
 
+function isEaten(r){
+
+  return Boolean(
+    relationFor(r.id)
+      ?.is_eaten
+  );
+
+}
+
+
+function eatenDate(r){
+
+  const value =
+    relationFor(r.id)
+      ?.eaten_at;
+
+  if(!value){
+    return "";
+  }
+
+  const d = new Date(value);
+
+  if(Number.isNaN(d.getTime())){
+    return "";
+  }
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  )
+  .format(d)
+  .toUpperCase();
+
+}
+
+
 function scheduleFor(r){
 
   return scheduleRows
@@ -3492,37 +3549,64 @@ function filteredRestaurants(){
 
 
     if(
-      myFilter === "pick"
+      myFilter === "eaten"
     ){
 
       list =
         list.filter(
-          isPick
+          isEaten
         );
 
     }
 
+    else{
 
-    if(
-      myFilter === "flexible"
-    ){
-
-      list =
-        list.filter(
-          isFlexible
-        );
-
-    }
-
-
-    if(
-      myFilter === "scheduled"
-    ){
+      /*
+        Eaten restaurants are archived from normal My Food views.
+        They remain available under the EATEN filter.
+      */
 
       list =
         list.filter(
-          isScheduled
+          restaurant =>
+            !isEaten(restaurant)
         );
+
+
+      if(
+        myFilter === "pick"
+      ){
+
+        list =
+          list.filter(
+            isPick
+          );
+
+      }
+
+
+      if(
+        myFilter === "flexible"
+      ){
+
+        list =
+          list.filter(
+            isFlexible
+          );
+
+      }
+
+
+      if(
+        myFilter === "scheduled"
+      ){
+
+        list =
+          list.filter(
+            isScheduled
+          );
+
+      }
 
     }
 
@@ -3681,6 +3765,22 @@ function badges(r){
   }
 
 
+  if(isEaten(r)){
+
+    const when =
+      eatenDate(r);
+
+    html += `
+
+      <span class="badge eaten">
+        ✓ Eaten${when ? ` · ${esc(when)}` : ""}
+      </span>
+
+    `;
+
+  }
+
+
   return html;
 
 }
@@ -3784,7 +3884,7 @@ function cardHTML(r){
 
   return `
 
-    <article class="restaurant-card">
+    <article class="restaurant-card ${isEaten(r) ? "eaten-card" : ""}">
 
 
       <div class="card-top">
@@ -4049,8 +4149,21 @@ function cardHTML(r){
             </button>
 
 
+            <button
+              class="action-btn ${isEaten(r) ? "muted" : "green"}"
+              type="button"
+              onclick="toggleEaten(${Number(r.id)})"
+            >
+              ${
+                isEaten(r)
+                ? "↶ UNDO EATEN"
+                : "✓ EATEN"
+              }
+            </button>
+
+
             ${
-              !isScheduled(r)
+              !isScheduled(r) && !isEaten(r)
 
               ?
 
@@ -4161,6 +4274,16 @@ function renderMine(list){
             Open Discover and tap
             <b>＋ My Food</b>
             on restaurants you want to remember.
+          `
+
+          :
+
+          myFilter === "eaten"
+
+          ?
+
+          `
+            Nothing marked as eaten yet.
           `
 
           :
@@ -4400,7 +4523,13 @@ async function addToMyFood(
             false,
 
           is_flexible:
-            false
+            false,
+
+          is_eaten:
+            false,
+
+          eaten_at:
+            null
 
         })
         .select()
@@ -4571,6 +4700,89 @@ async function toggleFlexible(
     alert(
       error.message ||
       "Couldn't update Flexible."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   EATEN
+========================================================= */
+
+async function toggleEaten(
+  restaurantId
+){
+
+  const relation =
+    relationFor(
+      restaurantId
+    );
+
+
+  if(!relation){
+    return;
+  }
+
+
+  const value =
+    !relation.is_eaten;
+
+
+  try{
+
+    const result =
+      await db
+        .from(
+          "trip_restaurants"
+        )
+        .update({
+          is_eaten:value,
+          eaten_at:
+            value
+            ?
+            new Date().toISOString()
+            :
+            null
+        })
+        .eq(
+          "trip_id",
+          TRIP_ID
+        )
+        .eq(
+          "restaurant_id",
+          restaurantId
+        )
+        .select()
+        .single();
+
+
+    if(result.error){
+      throw result.error;
+    }
+
+
+    relation.is_eaten =
+      result.data.is_eaten;
+
+
+    relation.eaten_at =
+      result.data.eaten_at;
+
+
+    render();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    alert(
+      error.message ||
+      "Couldn't update Eaten."
     );
 
   }
@@ -5398,7 +5610,13 @@ addForm.addEventListener(
                 pick,
 
               is_flexible:
-                flexible
+                flexible,
+
+              is_eaten:
+                false,
+
+              eaten_at:
+                null
 
             })
             .select()
