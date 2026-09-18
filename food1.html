@@ -36,10 +36,17 @@ header{
   border-bottom:1px solid var(--line-soft);
   background:linear-gradient(180deg,rgba(12,18,23,.99),rgba(7,12,16,.98));
 }
-.header-inner{
-  position:relative;
-  z-index:2;
-  padding:26px 20px 0;
+.header-inner{width:100%;max-width:760px;margin:auto;padding:calc(14px + env(safe-area-inset-top)) 14px 0}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.title-row>div:first-child{min-width:0}
+.eyebrow{margin-bottom:2px;color:var(--red);font-size:7px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+.food-page-title{display:flex;align-items:center;gap:9px;margin:0}
+.food-page-title-icon{width:44px;height:44px;flex:0 0 44px;display:block;object-fit:contain}
+.food-page-title span{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:700;line-height:1}
+.trip-name{margin:3px 0 0 53px;overflow:hidden;color:var(--muted);font-size:8px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
+.add-btn{
+  flex:0 0 auto;min-height:36px;padding:7px 11px;border:1px solid var(--red-line);border-radius:10px;
+  background:var(--red-soft);color:#f3b7b3;font-size:8px;font-weight:900;letter-spacing:.04em;cursor:pointer;
 }
 .add-btn:active{transform:scale(.95)}
 
@@ -55,75 +62,48 @@ header{
 
 /* FILTER PANEL */
 .unified-filter-panel{
-  position:sticky;
-  top:0;
-  z-index:75;
-  margin:0 -17px;
-  padding:8px 17px 10px;
-  border-bottom:1px solid var(--line-soft);
-  background:rgba(7,13,17,.97);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  position:sticky;top:0;z-index:75;margin:0 -14px;padding:8px 14px 9px;
+  border-bottom:1px solid var(--line-soft);background:rgba(7,12,16,.96);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
 }
 .chips{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  width:100%;
-  margin:0 0 7px;
-  padding:0;
-  overflow-x:auto;
-  scrollbar-width:none;
-  -webkit-overflow-scrolling:touch;
+  display:flex;align-items:center;gap:5px;width:100%;margin:0 0 6px;padding:0 0 1px;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
 .chips::-webkit-scrollbar{display:none}
 .chip{
-  flex:0 0 auto;
-  min-height:29px;
-  padding:5px 9px;
-  border:1px solid #29343c;
-  border-radius:9px;
-  background:#0f161c;
-  color:#87929a;
-  font-size:7px;
-  font-weight:900;
-  white-space:nowrap;
-  cursor:pointer;
+  flex:0 0 auto;min-height:27px;padding:4px 9px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(17,24,30,.80);color:#8d979e;font-size:7px;font-weight:850;white-space:nowrap;cursor:pointer;
 }
-.chip.active{
-  border-color:var(--red-line);
-  background:var(--red-soft);
-  color:#f0c0bc;
-}
+.chip.active{border-color:var(--red-line);background:var(--red-soft);color:#f0c0bc}
 .sticky-filter-bar{
   display:grid;
-  grid-template-columns:minmax(72px,.85fr) minmax(72px,.85fr) minmax(100px,1.5fr) 29px;
+  grid-template-columns:minmax(0,.9fr) minmax(0,.9fr) minmax(0,1.45fr) 34px;
   align-items:center;
   gap:5px;
   width:100%;
+  margin-top:2px;
+  padding:0;
+  border:0;
+  background:transparent;
 }
 .filter-select-wrap{position:relative;min-width:0}
-.filter-select-btn,
-.quick-filter-wrap,
-.clear-compact-filter{
-  height:35px;
-  min-height:35px;
-  border:1px solid var(--line);
-  border-radius:9px;
-  background:#0f161c;
-}
 .filter-select-btn{
   width:100%;
   min-width:0;
+  min-height:34px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:4px;
-  padding:0 8px;
+  padding:6px 7px;
   overflow:hidden;
-  color:#87929a;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#0f161c;
+  color:#aeb6bc;
   font-size:7px;
-  font-weight:900;
+  font-weight:850;
   cursor:pointer;
 }
 .filter-select-btn>span:first-child{
@@ -132,12 +112,8 @@ header{
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-.filter-select-btn.active{
-  border-color:var(--red-line);
-  background:var(--red-soft);
-  color:#f0c0bc;
-}
-.filter-chevron{flex:0 0 auto;color:#65717a;font-size:8px}
+.filter-select-btn.active{border-color:var(--red-line);background:var(--red-soft);color:#f0c2bf}
+.filter-chevron{flex:0 0 auto;color:#65717a;font-size:9px}
 .filter-menu{
   position:absolute;
   top:calc(100% + 6px);
@@ -170,19 +146,20 @@ header{
   text-align:left;
   cursor:pointer;
 }
-.filter-menu-item.active,.filter-menu-item:hover{
-  background:var(--red-soft);
-  color:#fff;
-}
+.filter-menu-item.active,.filter-menu-item:hover{background:var(--red-soft);color:#fff}
 .filter-menu-count{color:#626f77;font-size:6px}
 .quick-filter-wrap{
   min-width:0;
+  min-height:34px;
   display:flex;
   align-items:center;
   gap:5px;
   padding:0 8px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#0f161c;
 }
-.quick-filter-wrap:focus-within{border-color:var(--red-line)}
+.quick-filter-wrap:focus-within{border-color:var(--red-line);background:rgba(255,98,95,.035)}
 .quick-filter-icon{flex:0 0 auto;opacity:.65;font-size:8px}
 .quick-filter-input{
   width:100%;
@@ -191,24 +168,25 @@ header{
   border:0;
   outline:0;
   background:transparent;
-  color:#fff;
+  color:#e7e9e9;
   font-size:7px;
 }
-.quick-filter-input::placeholder{color:#65717a}
+.quick-filter-input::placeholder{color:#626d75}
 .clear-compact-filter{
-  width:29px;
-  min-width:29px;
+  width:34px;
+  min-width:34px;
+  min-height:34px;
   padding:0;
-  color:#87929a;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#0f161c;
+  color:#606c74;
   font-size:0;
   font-weight:900;
   cursor:pointer;
 }
-.clear-compact-filter::after{content:"✕";font-size:8px}
-.clear-compact-filter.active{
-  border-color:var(--red-line);
-  color:#efaaa6;
-}
+.clear-compact-filter::after{content:"✕";font-size:9px}
+.clear-compact-filter.active{border-color:rgba(255,98,95,.22);color:#d9948f}
 
 /* RETIRED EXPERIMENTAL FILTERS */
 .food-side-filter,#foodSideFilter,.discover-area-row,#discoverAreaRow,#discoverControls,.discover-controls,
@@ -329,52 +307,286 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 
 /* MOBILE */
 @media(max-width:650px){
-  .food-shell{width:calc(100% - 24px)}
-  .header-inner{padding-left:20px;padding-right:20px}
-  main{padding-left:17px;padding-right:17px}
+  .header-inner{padding-left:12px;padding-right:12px}
+  .unified-filter-panel{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  main{padding-left:12px;padding-right:12px}
+
+  /* Keep Area + Food + Search + Clear on one row */
+  .sticky-filter-bar{
+    grid-template-columns:minmax(0,.82fr) minmax(0,.82fr) minmax(0,1.36fr) 30px;
+    gap:4px;
+  }
+
+  .filter-select-btn{
+    min-height:32px;
+    padding:5px 6px;
+    font-size:6.5px;
+  }
+
+  .filter-chevron{
+    font-size:8px;
+  }
+
+  .quick-filter-wrap{
+    grid-column:auto;
+    grid-row:auto;
+    min-height:32px;
+    padding:0 6px;
+  }
+
+  .quick-filter-icon{
+    font-size:7px;
+  }
+
+  .quick-filter-input{
+    font-size:6.5px;
+  }
+
+  .clear-compact-filter{
+    grid-column:auto;
+    grid-row:auto;
+    width:30px;
+    min-width:30px;
+    min-height:32px;
+    padding:0;
+  }
+}
+@media(max-width:430px){
+  .food-page-title-icon{width:40px;height:40px;flex-basis:40px}
+  .food-page-title span{font-size:25px}
+  .trip-name{margin-left:49px}
+  .add-btn{min-height:34px;padding:6px 9px}
+  .restaurant-card{padding:10px}
+  .checks{grid-template-columns:1fr}
+}
+@media(min-width:700px){
+  .restaurant-card:hover{border-color:#35414a;transform:translateY(-1px)}
+}
+
+/* =========================================================
+   PLAN VISUAL — SAFE CSS-ONLY OVERRIDE
+   No Food HTML/JS structure changed.
+========================================================= */
+
+/* Plan-like framed app surface */
+body{
+  padding-top:14px;
+}
+
+header{
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto;
+  overflow:visible;
+  border:1px solid #273139;
+  border-bottom:0;
+  border-radius:27px 27px 0 0;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+  box-shadow:0 24px 65px rgba(0,0,0,.24);
+}
+
+/* Plan's subtle Japanese watermark, without changing markup */
+header::before{
+  content:"食";
+  position:absolute;
+  z-index:0;
+  right:6px;
+  top:7px;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:126px;
+  font-weight:700;
+  line-height:1;
+  color:var(--red);
+  opacity:.042;
+  pointer-events:none;
+  user-select:none;
+}
+
+.header-inner{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:26px 20px 0;
+}
+
+.title-row{
+  align-items:flex-start;
+  gap:12px;
+}
+
+.eyebrow{
+  margin-bottom:14px;
+  color:#df7775;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+.food-page-title{
+  gap:15px;
+  align-items:center;
+}
+
+.food-page-title-icon{
+  width:65px;
+  height:65px;
+  flex:0 0 65px;
+  padding:10px;
+  border:1px solid rgba(255,98,95,.30);
+  border-radius:50%;
+  background:#0b1217;
+  object-fit:contain;
+  opacity:.88;
+}
+
+.food-page-title span{
+  color:#f7f4ee;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:41px;
+  font-weight:700;
+  letter-spacing:-.03em;
+}
+
+.trip-name{
+  margin:8px 0 0 80px;
+  max-width:350px;
+  color:#89949c;
+  font-size:9px;
+  font-weight:500;
+  line-height:1.4;
+}
+
+.add-btn{
+  min-height:29px;
+  padding:0 10px;
+  border:1px solid rgba(255,98,95,.32);
+  border-radius:9px;
+  background:rgba(255,98,95,.07);
+  color:#efaaa6;
+  font-size:7px;
+  font-weight:900;
+}
+
+/* Keep Food's own tabs and filters functional, just visually compact */
+.main-tabs{
+  margin-top:17px;
+}
+
+.unified-filter-panel{
+  margin-left:-20px;
+  margin-right:-20px;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+/* Area + Food + Search + X stay in one row */
+.sticky-filter-bar{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,.82fr) minmax(0,1.36fr) 30px;
+  gap:4px;
+  align-items:center;
+}
+
+.filter-select-btn,
+.quick-filter-wrap,
+.clear-compact-filter{
+  min-height:32px;
+  height:32px;
+  border-radius:8px;
+}
+
+.filter-select-btn{
+  padding:5px 6px;
+  font-size:6.5px;
+}
+
+.quick-filter-wrap{
+  grid-column:auto;
+  grid-row:auto;
+  padding:0 6px;
+}
+
+.quick-filter-input{
+  font-size:6.5px;
+}
+
+.clear-compact-filter{
+  grid-column:auto;
+  grid-row:auto;
+  width:30px;
+  min-width:30px;
+}
+
+/* Continue the same framed surface around results */
+main{
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto 105px;
+  padding:14px 20px 22px;
+  border:1px solid #273139;
+  border-top:0;
+  border-radius:0 0 27px 27px;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+}
+
+/* Keep modal sheets above the app frame */
+.sheet-backdrop,
+.more-backdrop{
+  z-index:150;
+}
+
+@media(max-width:430px){
+  body{padding-top:9px}
+
+  header,
+  main{
+    width:calc(100% - 18px);
+  }
+
+  .header-inner{
+    padding-left:17px;
+    padding-right:17px;
+  }
+
   .unified-filter-panel{
     margin-left:-17px;
     margin-right:-17px;
     padding-left:17px;
     padding-right:17px;
   }
-  .sticky-filter-bar{
-    grid-template-columns:minmax(62px,.78fr) minmax(62px,.78fr) minmax(82px,1.45fr) 29px;
-    gap:4px;
+
+  .food-page-title-icon{
+    width:60px;
+    height:60px;
+    flex-basis:60px;
+    padding:9px;
   }
-  .filter-select-btn{padding:0 6px;font-size:6.4px}
-  .quick-filter-wrap{padding:0 6px}
-  .quick-filter-input{font-size:6.4px}
-}
-@media(max-width:430px){
-  .restaurant-card{padding:10px}
-  .checks{grid-template-columns:1fr}
-}
-@media(max-width:390px){
-  .food-shell{width:calc(100% - 18px)}
-  .header-inner{padding-left:17px;padding-right:17px}
-  .food-page-title span{font-size:38px}
-  .food-icon-wrap{width:60px;height:60px;flex-basis:60px}
-  .food-page-title-icon{width:42px;height:42px}
-  main{padding-left:14px;padding-right:14px}
-  .unified-filter-panel{
-    margin-left:-14px;
-    margin-right:-14px;
-    padding-left:14px;
-    padding-right:14px;
+
+  .food-page-title span{
+    font-size:38px;
   }
-  .sticky-filter-bar{
-    grid-template-columns:minmax(57px,.75fr) minmax(57px,.75fr) minmax(76px,1.35fr) 27px;
-    gap:3px;
+
+  .trip-name{
+    margin-left:75px;
   }
-  .filter-select-btn{padding:0 5px;font-size:6px}
-  .quick-filter-wrap{padding:0 5px}
-  .quick-filter-input{font-size:6px}
-  .clear-compact-filter{width:27px;min-width:27px}
+
+  main{
+    padding-left:17px;
+    padding-right:17px;
+  }
 }
-@media(min-width:700px){
-  .restaurant-card:hover{border-color:#35414a;transform:translateY(-1px)}
+
+
+/* =========================================================
+   SAVE SPACE — HIDE MY FOOD / DISCOVER NAV ROW
+   CSS ONLY: existing HTML + JavaScript stay untouched.
+========================================================= */
+.tabs{
+  display:none !important;
 }
+
 </style>
 </head>
 
@@ -590,7 +802,9 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
     class="clear-compact-filter"
     type="button"
     title="Clear area, food and search filters"
-  ></button>
+  >
+    ✕ CLEAR
+  </button>
 </div>
 </div>
 
@@ -980,8 +1194,6 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 <!-- =========================================================
      SHARED FOOTER
 ========================================================= -->
-
-</div>
 
 <div id="footer"></div>
 
