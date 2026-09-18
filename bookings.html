@@ -1421,6 +1421,494 @@ main{
   }
 }
 
+
+/* =========================================================
+   BOOKING CONTENT — DAY TIMELINE STYLE
+   Outer Bookings page remains unchanged.
+========================================================= */
+
+/* The filtered result is now a date card, so don't add another status card header. */
+.section{
+  margin-bottom:12px !important;
+}
+
+.section-head{
+  display:none !important;
+}
+
+/* One rounded card for each date */
+.date-group{
+  position:relative;
+  margin:0 0 12px !important;
+  overflow:hidden;
+
+  border:1px solid #2a363f;
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(11,18,23,.985),
+      rgba(7,14,18,.995)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018),
+    0 7px 20px rgba(0,0,0,.10);
+}
+
+.date-label{
+  display:none !important;
+}
+
+/* Date-card heading */
+.day-booking-head{
+  position:relative;
+
+  min-height:87px;
+
+  padding:
+    16px
+    96px
+    13px
+    17px;
+
+  border-bottom:1px solid rgba(255,255,255,.075);
+}
+
+.day-route{
+  overflow:hidden;
+
+  color:#ff6d69;
+
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.13em;
+  line-height:1.35;
+
+  text-transform:uppercase;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.day-count{
+  margin-top:7px;
+
+  color:#f8f4ee;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:23px;
+  font-weight:700;
+  line-height:1;
+
+  letter-spacing:-.025em;
+}
+
+/* Stamp in the upper-right */
+.day-stamp{
+  position:absolute;
+
+  top:13px;
+  right:17px;
+
+  width:58px;
+  min-height:58px;
+
+  padding:5px 4px;
+
+  border:1px solid rgba(255,98,95,.47);
+  border-radius:7px;
+
+  background:rgba(255,98,95,.025);
+
+  transform:rotate(-7deg);
+
+  text-align:center;
+
+  box-shadow:
+    inset 0 0 14px rgba(255,98,95,.025);
+}
+
+.day-stamp-weekday{
+  color:#7f8b92;
+
+  font-size:5.4px;
+  font-weight:800;
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+}
+
+.day-stamp-date{
+  margin-top:1px;
+
+  color:#aab2b7;
+
+  font-size:6.1px;
+  font-weight:900;
+
+  text-transform:uppercase;
+}
+
+.day-stamp-kanji{
+  margin-top:2px;
+
+  color:#df6c68;
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:16px;
+  line-height:1;
+}
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline-list{
+  --time-col:68px;
+
+  position:relative;
+
+  padding:
+    14px
+    14px
+    8px;
+}
+
+/* one continuous vertical line */
+.timeline-list::before{
+  content:"";
+
+  position:absolute;
+  z-index:0;
+
+  top:21px;
+  bottom:22px;
+
+  left:
+    calc(
+      14px +
+      var(--time-col) +
+      8px
+    );
+
+  width:1px;
+
+  background:#2a363e;
+
+  pointer-events:none;
+}
+
+/* Each booking becomes a timeline row, not a separate boxed card */
+.booking-card{
+  position:relative !important;
+  z-index:1;
+
+  display:grid !important;
+
+  grid-template-columns:
+    var(--time-col)
+    17px
+    minmax(0,1fr);
+
+  column-gap:0;
+
+  align-items:start;
+
+  margin:0 !important;
+
+  padding:
+    0
+    0
+    18px !important;
+
+  overflow:visible !important;
+
+  border:0 !important;
+  border-radius:0 !important;
+
+  background:transparent !important;
+
+  box-shadow:none !important;
+
+  cursor:pointer;
+}
+
+.booking-card:last-child{
+  padding-bottom:8px !important;
+}
+
+.booking-card::before{
+  display:none !important;
+}
+
+/* time on the left */
+.timeline-time{
+  padding:
+    2px
+    9px
+    0
+    0;
+
+  color:#9fc9f4;
+
+  font-size:7.4px;
+  font-weight:900;
+  line-height:1.2;
+
+  white-space:nowrap;
+}
+
+/* dot sits on the vertical line */
+.timeline-marker{
+  position:relative;
+
+  min-height:20px;
+}
+
+.timeline-dot{
+  position:absolute;
+  z-index:2;
+
+  top:3px;
+  left:50%;
+
+  width:9px;
+  height:9px;
+
+  border:2px solid rgba(255,98,95,.23);
+  border-radius:50%;
+
+  background:#ff625f;
+
+  transform:translateX(-50%);
+
+  box-shadow:
+    0 0 0 3px rgba(255,98,95,.10);
+}
+
+/* actual booking content */
+.timeline-content{
+  min-width:0;
+
+  padding-left:4px;
+}
+
+.booking-title-line{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+
+  gap:5px;
+}
+
+.booking-title{
+  color:#f8f4ef !important;
+
+  font-size:10.4px !important;
+  font-weight:900 !important;
+  line-height:1.22 !important;
+}
+
+.status-badge{
+  flex:0 0 auto;
+
+  padding:2px 5px !important;
+
+  border-radius:999px !important;
+
+  font-size:5.8px !important;
+  line-height:1.1;
+}
+
+.status-badge.booked{
+  border-color:rgba(121,201,149,.22) !important;
+
+  background:rgba(121,201,149,.035) !important;
+
+  color:#7ed59c !important;
+}
+
+.status-badge.planned{
+  border-color:rgba(228,189,105,.24) !important;
+
+  background:rgba(228,189,105,.035) !important;
+
+  color:#e6c16e !important;
+}
+
+.status-badge.cancelled{
+  color:#818b92 !important;
+}
+
+/* type + location under the title */
+.timeline-kind{
+  margin-top:5px;
+
+  color:#9fb1c2;
+
+  font-size:7.2px;
+  line-height:1.35;
+}
+
+.booking-note{
+  margin-top:7px !important;
+
+  color:#9ba4aa !important;
+
+  font-size:7.2px !important;
+  line-height:1.5 !important;
+}
+
+.detail-row{
+  display:flex !important;
+  flex-wrap:wrap !important;
+
+  gap:4px !important;
+
+  margin-top:7px !important;
+}
+
+.detail-pill{
+  min-height:21px !important;
+
+  display:inline-flex !important;
+  align-items:center !important;
+
+  padding:
+    3px
+    7px !important;
+
+  border:1px solid #2a353d !important;
+  border-radius:999px !important;
+
+  background:rgba(255,255,255,.018) !important;
+
+  color:#9eabb3 !important;
+
+  font-size:6.3px !important;
+  font-weight:800 !important;
+}
+
+/* booking link becomes a text action below the pills */
+.detail-pill.link{
+  display:none !important;
+}
+
+.timeline-actions{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:8px;
+}
+
+.timeline-link,
+.timeline-edit,
+.timeline-book{
+  min-height:22px;
+
+  padding:0;
+
+  border:0;
+
+  background:transparent;
+
+  font-size:7px;
+  font-weight:700;
+}
+
+.timeline-link{
+  color:#ff7772;
+
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+.timeline-edit{
+  color:#aab2b8;
+}
+
+.timeline-book{
+  color:#82d39f;
+}
+
+/* old full-width quick action is replaced by the small text action */
+.quick-book{
+  display:none !important;
+}
+
+/* old icon/card layout isn't used in the timeline markup */
+.booking-top,
+.booking-icon,
+.booking-main{
+  display:contents;
+}
+
+@media(max-width:480px){
+
+  .day-booking-head{
+    min-height:81px;
+
+    padding:
+      14px
+      84px
+      12px
+      14px;
+  }
+
+  .day-stamp{
+    top:12px;
+    right:13px;
+
+    width:53px;
+    min-height:54px;
+  }
+
+  .day-count{
+    font-size:21px;
+  }
+
+  .timeline-list{
+    --time-col:61px;
+
+    padding:
+      13px
+      11px
+      7px;
+  }
+
+  .timeline-list::before{
+    left:
+      calc(
+        11px +
+        var(--time-col) +
+        8px
+      );
+  }
+
+  .timeline-time{
+    font-size:7px;
+  }
+
+  .booking-title{
+    font-size:10px !important;
+  }
+
+}
+
 </style>
 </head>
 
@@ -2625,101 +3113,12 @@ function typeFilterHTML(
 function renderFiltered(items){
 
   /*
-    If ALL statuses are selected,
-    make TO BOOK the first section.
-
-    This makes the page act like
-    a reminder list first.
+    Keep all matching bookings together by date.
+    Status is shown on each timeline item, so a single day's
+    booked + planned items stay inside the same day card.
   */
 
-  if(statusFilter === "all"){
-
-    const planned =
-      items.filter(
-        item =>
-          item.status === "planned"
-      );
-
-
-    const booked =
-      items.filter(
-        item =>
-          item.status === "booked"
-      );
-
-
-    const cancelled =
-      items.filter(
-        item =>
-          item.status === "cancelled"
-      );
-
-
-    let html = "";
-
-
-    if(planned.length){
-
-      html +=
-        renderSection(
-          "⏳ NEED TO BOOK / ARRANGE",
-          "action",
-          planned
-        );
-
-    }
-
-
-    if(booked.length){
-
-      html +=
-        renderSection(
-          "✅ BOOKED",
-          "booked",
-          booked
-        );
-
-    }
-
-
-    if(cancelled.length){
-
-      html +=
-        renderSection(
-          "❌ CANCELLED",
-          "",
-          cancelled
-        );
-
-    }
-
-
-    return html;
-
-  }
-
-
-  return renderSection(
-    statusFilter === "planned"
-    ?
-    "⏳ NEED TO BOOK / ARRANGE"
-    :
-    statusFilter === "booked"
-    ?
-    "✅ BOOKED"
-    :
-    "❌ CANCELLED",
-    statusFilter === "planned"
-    ?
-    "action"
-    :
-    statusFilter === "booked"
-    ?
-    "booked"
-    :
-    "",
-    items
-  );
+  return renderDateGroups(items);
 
 }
 
@@ -2772,6 +3171,222 @@ function renderSection(
    DATE GROUPS
 ========================================================= */
 
+function tripDayNumber(dateValue, fallback){
+
+  if(
+    !dateValue ||
+    dateValue === "undated" ||
+    !trip?.start_date
+  ){
+    return fallback;
+  }
+
+
+  const start =
+    new Date(
+      trip.start_date +
+      "T12:00:00"
+    );
+
+
+  const current =
+    new Date(
+      dateValue +
+      "T12:00:00"
+    );
+
+
+  const diff =
+    Math.round(
+      (
+        current -
+        start
+      )
+      /
+      86400000
+    );
+
+
+  return (
+    Number.isFinite(diff)
+    ?
+    diff + 1
+    :
+    fallback
+  );
+
+}
+
+
+function dayRouteSummary(items){
+
+  const locations =
+    items
+      .map(
+        item =>
+          text(
+            item.location_name
+          ).trim()
+      )
+      .filter(Boolean);
+
+
+  const explicitRoute =
+    locations.find(
+      value =>
+        value.includes("→")
+        ||
+        value.includes("->")
+    );
+
+
+  if(explicitRoute){
+    return explicitRoute;
+  }
+
+
+  const uniqueLocations =
+    [
+      ...new Set(
+        locations
+      )
+    ];
+
+
+  if(uniqueLocations.length >= 2){
+
+    return (
+      uniqueLocations[0] +
+      " → " +
+      uniqueLocations[
+        uniqueLocations.length - 1
+      ]
+    );
+
+  }
+
+
+  if(uniqueLocations.length === 1){
+    return uniqueLocations[0];
+  }
+
+
+  return "Bookings";
+
+}
+
+
+function bookingStampKanji(items){
+
+  const value =
+    norm(
+      items
+        .map(
+          item =>
+            [
+              item.location_name,
+              item.address,
+              item.title
+            ]
+            .filter(Boolean)
+            .join(" ")
+        )
+        .join(" ")
+    );
+
+
+  if(
+    value.includes("osaka") ||
+    value.includes("namba") ||
+    value.includes("dotonbori") ||
+    value.includes("kix")
+  ){
+    return "大阪";
+  }
+
+
+  if(
+    value.includes("kyoto") ||
+    value.includes("gion") ||
+    value.includes("arashiyama")
+  ){
+    return "京都";
+  }
+
+
+  if(value.includes("nara")){
+    return "奈良";
+  }
+
+
+  if(value.includes("nagoya")){
+    return "名古屋";
+  }
+
+
+  if(
+    value.includes("koya") ||
+    value.includes("koyasan")
+  ){
+    return "高野";
+  }
+
+
+  if(value.includes("wakayama")){
+    return "和歌山";
+  }
+
+
+  if(value.includes("nachi")){
+    return "那智";
+  }
+
+
+  if(value.includes("kumano")){
+    return "熊野";
+  }
+
+
+  if(value.includes("tokyo")){
+    return "東京";
+  }
+
+
+  return "予約";
+
+}
+
+
+function timelineTypeLabel(type){
+
+  switch(type){
+
+    case "accommodation":
+      return "Stay";
+
+    case "restaurant":
+      return "Food";
+
+    case "ticket":
+      return "Ticket";
+
+    case "transport":
+      return "Transport";
+
+    case "car":
+      return "Car";
+
+    case "activity":
+      return "Activity";
+
+    default:
+      return "Booking";
+
+  }
+
+}
+
+
 function renderDateGroups(items){
 
   const groups = {};
@@ -2817,36 +3432,135 @@ function renderDateGroups(items){
 
   return dates
     .map(
-      date => `
+      (date,index) => {
 
-        <div class="date-group">
+        const dayItems =
+          groups[date];
 
-          <div class="date-label">
 
-            ${
-              date === "undated"
-              ?
-              "NO DATE"
-              :
-              esc(
-                prettyDate(date)
-              )
-            }
+        const dayNumber =
+          tripDayNumber(
+            date,
+            index + 1
+          );
+
+
+        const route =
+          dayRouteSummary(
+            dayItems
+          );
+
+
+        let weekday =
+          "UNDATED";
+
+        let stampDate =
+          "NO DATE";
+
+
+        if(date !== "undated"){
+
+          const d =
+            parseDate(date);
+
+
+          weekday =
+            new Intl.DateTimeFormat(
+              "en-SG",
+              {
+                weekday:"long"
+              }
+            )
+            .format(d)
+            .toUpperCase();
+
+
+          stampDate =
+            new Intl.DateTimeFormat(
+              "en-SG",
+              {
+                day:"numeric",
+                month:"short"
+              }
+            )
+            .format(d)
+            .toUpperCase();
+
+        }
+
+
+        const countText =
+          `${dayItems.length} ${
+            dayItems.length === 1
+            ?
+            "booking"
+            :
+            "bookings"
+          }`;
+
+
+        return `
+
+          <div class="date-group">
+
+            <div class="day-booking-head">
+
+              <div class="day-route">
+
+                ${
+                  date === "undated"
+                  ?
+                  "UNDATED"
+                  :
+                  `DAY ${String(dayNumber).padStart(2,"0")} · ${esc(route)}`
+                }
+
+              </div>
+
+
+              <div class="day-count">
+
+                ${esc(countText)}
+
+              </div>
+
+
+              <div class="day-stamp">
+
+                <div class="day-stamp-weekday">
+                  ${esc(weekday)}
+                </div>
+
+                <div class="day-stamp-date">
+                  ${esc(stampDate)}
+                </div>
+
+                <div class="day-stamp-kanji">
+                  ${bookingStampKanji(dayItems)}
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="timeline-list">
+
+              ${
+                dayItems
+                  .map(
+                    bookingHTML
+                  )
+                  .join("")
+              }
+
+            </div>
 
           </div>
 
+        `;
 
-          ${
-            groups[date]
-              .map(
-                bookingHTML
-              )
-              .join("")
-          }
-
-        </div>
-
-      `
+      }
     )
     .join("");
 
@@ -2854,40 +3568,10 @@ function renderDateGroups(items){
 
 
 /* =========================================================
-   BOOKING HTML
+   BOOKING TIMELINE ITEM
 ========================================================= */
 
 function bookingHTML(item){
-
-  const meta = [];
-
-
-  if(item.start_time){
-
-    meta.push(
-      prettyTime(
-        item.start_time
-      )
-    );
-
-  }
-
-
-  meta.push(
-    typeLabel(
-      item.booking_type
-    )
-  );
-
-
-  if(item.location_name){
-
-    meta.push(
-      item.location_name
-    );
-
-  }
-
 
   const details = [];
 
@@ -2940,23 +3624,28 @@ function bookingHTML(item){
   }
 
 
-  if(item.booking_url){
-
-    details.push(
-      `
-        <a
-          class="detail-pill link"
-          href="${esc(item.booking_url)}"
-          target="_blank"
-          rel="noopener noreferrer"
-          onclick="event.stopPropagation()"
-        >
-          OPEN ↗
-        </a>
-      `
+  const kind =
+    timelineTypeLabel(
+      item.booking_type
     );
 
-  }
+
+  const location =
+    item.location_name
+    ?
+    ` · ${esc(item.location_name)}`
+    :
+    "";
+
+
+  const time =
+    item.start_time
+    ?
+    prettyTime(
+      item.start_time
+    )
+    :
+    "—";
 
 
   return `
@@ -2966,19 +3655,24 @@ function bookingHTML(item){
       data-booking-id="${Number(item.id)}"
     >
 
-      <div class="booking-top">
+      <div class="timeline-time">
+
+        ${esc(time)}
+
+      </div>
 
 
-        <div class="booking-icon">
+      <div class="timeline-marker">
 
-          ${bookingIcon(
-            item.booking_type
-          )}
+        <span class="timeline-dot"></span>
 
-        </div>
+      </div>
 
 
-        <div class="booking-main">
+      <div class="timeline-content">
+
+
+        <div class="booking-title-line">
 
           <div class="booking-title">
 
@@ -2987,26 +3681,84 @@ function bookingHTML(item){
           </div>
 
 
-          <div class="booking-meta">
+          <span
+            class="
+              status-badge
+              ${esc(item.status)}
+            "
+          >
 
-            ${esc(
-              meta.join(" · ")
+            ${statusLabel(
+              item.status
             )}
 
-          </div>
+          </span>
 
+        </div>
+
+
+        <div class="timeline-kind">
+
+          ${esc(kind)}${location}
+
+        </div>
+
+
+        ${
+          item.notes
+
+          ?
+
+          `
+            <div class="booking-note">
+
+              ${esc(item.notes)}
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+        ${
+          details.length
+
+          ?
+
+          `
+            <div class="detail-row">
+
+              ${details.join("")}
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+        <div class="timeline-actions">
 
           ${
-            item.notes
+            item.booking_url
 
             ?
 
             `
-              <div class="booking-note">
-
-                ${esc(item.notes)}
-
-              </div>
+              <a
+                class="timeline-link"
+                href="${esc(item.booking_url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="event.stopPropagation()"
+              >
+                Open link
+              </a>
             `
 
             :
@@ -3015,17 +3767,31 @@ function bookingHTML(item){
           }
 
 
+          <button
+            class="timeline-edit"
+            type="button"
+            onclick="
+              event.stopPropagation();
+              openEdit(${Number(item.id)});
+            "
+          >
+            Edit
+          </button>
+
+
           ${
-            details.length
+            item.status === "planned"
 
             ?
 
             `
-              <div class="detail-row">
-
-                ${details.join("")}
-
-              </div>
+              <button
+                class="timeline-book"
+                type="button"
+                data-mark-booked="${Number(item.id)}"
+              >
+                Mark booked
+              </button>
             `
 
             :
@@ -3036,41 +3802,7 @@ function bookingHTML(item){
         </div>
 
 
-        <span
-          class="
-            status-badge
-            ${esc(item.status)}
-          "
-        >
-
-          ${statusLabel(
-            item.status
-          )}
-
-        </span>
-
       </div>
-
-
-      ${
-        item.status === "planned"
-
-        ?
-
-        `
-          <button
-            class="quick-book"
-            type="button"
-            data-mark-booked="${Number(item.id)}"
-          >
-            ✓ MARK AS BOOKED
-          </button>
-        `
-
-        :
-
-        ""
-      }
 
     </article>
 
