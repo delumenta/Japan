@@ -77,115 +77,40 @@ header{
 }
 .chip.active{border-color:var(--red-line);background:var(--red-soft);color:#f0c0bc}
 .sticky-filter-bar{
-  display:grid;
-  grid-template-columns:minmax(0,.9fr) minmax(0,.9fr) minmax(0,1.45fr) 34px;
-  align-items:center;
-  gap:5px;
-  width:100%;
-  margin-top:2px;
-  padding:0;
-  border:0;
-  background:transparent;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(130px,1.2fr) auto;
+  align-items:center;gap:5px;width:100%;margin-top:2px;padding:0;border:0;background:transparent;
 }
 .filter-select-wrap{position:relative;min-width:0}
 .filter-select-btn{
-  width:100%;
-  min-width:0;
-  min-height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:4px;
-  padding:6px 7px;
-  overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:9px;
-  background:#0f161c;
-  color:#aeb6bc;
-  font-size:7px;
-  font-weight:850;
-  cursor:pointer;
+  width:100%;min-height:34px;display:flex;align-items:center;justify-content:space-between;gap:5px;padding:6px 8px;
+  overflow:hidden;border:1px solid var(--line);border-radius:9px;background:#0f161c;color:#aeb6bc;font-size:7px;font-weight:850;cursor:pointer;
 }
-.filter-select-btn>span:first-child{
-  min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
+.filter-select-btn>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .filter-select-btn.active{border-color:var(--red-line);background:var(--red-soft);color:#f0c2bf}
 .filter-chevron{flex:0 0 auto;color:#65717a;font-size:9px}
 .filter-menu{
-  position:absolute;
-  top:calc(100% + 6px);
-  left:0;
-  z-index:130;
-  width:max(100%,180px);
-  max-height:290px;
-  padding:5px;
-  overflow-y:auto;
-  border:1px solid var(--line);
-  border-radius:11px;
-  background:#0d1419;
-  box-shadow:0 16px 40px rgba(0,0,0,.52);
+  position:absolute;top:calc(100% + 6px);left:0;z-index:130;width:max(100%,180px);max-height:290px;padding:5px;
+  overflow-y:auto;border:1px solid var(--line);border-radius:11px;background:#0d1419;box-shadow:0 16px 40px rgba(0,0,0,.52);
 }
 .filter-menu[hidden]{display:none}
 .filter-menu-item{
-  width:100%;
-  min-height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  padding:6px 8px;
-  border:0;
-  border-radius:7px;
-  background:transparent;
-  color:#a6b0b7;
-  font-size:8px;
-  font-weight:800;
-  text-align:left;
-  cursor:pointer;
+  width:100%;min-height:34px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px;
+  border:0;border-radius:7px;background:transparent;color:#a6b0b7;font-size:8px;font-weight:800;text-align:left;cursor:pointer;
 }
 .filter-menu-item.active,.filter-menu-item:hover{background:var(--red-soft);color:#fff}
 .filter-menu-count{color:#626f77;font-size:6px}
 .quick-filter-wrap{
-  min-width:0;
-  min-height:34px;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  padding:0 8px;
-  border:1px solid var(--line);
-  border-radius:9px;
-  background:#0f161c;
+  min-width:0;min-height:34px;display:flex;align-items:center;gap:6px;padding:0 9px;
+  border:1px solid var(--line);border-radius:9px;background:#0f161c;
 }
 .quick-filter-wrap:focus-within{border-color:var(--red-line);background:rgba(255,98,95,.035)}
-.quick-filter-icon{flex:0 0 auto;opacity:.65;font-size:8px}
-.quick-filter-input{
-  width:100%;
-  min-width:0;
-  padding:0;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:#e7e9e9;
-  font-size:7px;
-}
+.quick-filter-icon{flex:0 0 auto;opacity:.65;font-size:9px}
+.quick-filter-input{width:100%;min-width:0;padding:0;border:0;outline:0;background:transparent;color:#e7e9e9;font-size:8px}
 .quick-filter-input::placeholder{color:#626d75}
 .clear-compact-filter{
-  width:34px;
-  min-width:34px;
-  min-height:34px;
-  padding:0;
-  border:1px solid var(--line);
-  border-radius:9px;
-  background:#0f161c;
-  color:#606c74;
-  font-size:0;
-  font-weight:900;
-  cursor:pointer;
+  min-height:34px;padding:6px 9px;border:1px solid var(--line);border-radius:9px;background:#0f161c;
+  color:#606c74;font-size:7px;font-weight:900;cursor:pointer;
 }
-.clear-compact-filter::after{content:"✕";font-size:9px}
 .clear-compact-filter.active{border-color:rgba(255,98,95,.22);color:#d9948f}
 
 /* RETIRED EXPERIMENTAL FILTERS */
@@ -310,46 +235,10 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
   .header-inner{padding-left:12px;padding-right:12px}
   .unified-filter-panel{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
   main{padding-left:12px;padding-right:12px}
-
-  /* Keep Area + Food + Search + Clear on one row */
-  .sticky-filter-bar{
-    grid-template-columns:minmax(0,.82fr) minmax(0,.82fr) minmax(0,1.36fr) 30px;
-    gap:4px;
-  }
-
-  .filter-select-btn{
-    min-height:32px;
-    padding:5px 6px;
-    font-size:6.5px;
-  }
-
-  .filter-chevron{
-    font-size:8px;
-  }
-
-  .quick-filter-wrap{
-    grid-column:auto;
-    grid-row:auto;
-    min-height:32px;
-    padding:0 6px;
-  }
-
-  .quick-filter-icon{
-    font-size:7px;
-  }
-
-  .quick-filter-input{
-    font-size:6.5px;
-  }
-
-  .clear-compact-filter{
-    grid-column:auto;
-    grid-row:auto;
-    width:30px;
-    min-width:30px;
-    min-height:32px;
-    padding:0;
-  }
+  .sticky-filter-bar{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 34px}
+  .quick-filter-wrap{grid-column:1/-1;grid-row:2;min-height:32px}
+  .clear-compact-filter{grid-column:3;grid-row:1;width:34px;padding:0;font-size:0}
+  .clear-compact-filter::after{content:"✕";font-size:9px}
 }
 @media(max-width:430px){
   .food-page-title-icon{width:40px;height:40px;flex-basis:40px}
@@ -364,1593 +253,89 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 }
 
 /* =========================================================
-   SAVE SPACE — HIDE MY FOOD / DISCOVER NAV ROW
-   CSS ONLY: existing HTML + JavaScript stay untouched.
+   FINAL 3-ROW FOOD FILTER HEADER
+   Row 1: My Food / Discover
+   Row 2: status filters
+   Row 3: City / Area / Food / Search
 ========================================================= */
-.tabs{
-  display:none !important;
-}
-
-
-/* =========================================================
-   EXTRA COMPACT FOOD VIEW
-========================================================= */
-
-/* Remove the remaining "My Food / Discover" heading + count row */
-.result-head{
-  display:none !important;
-}
-
-/* Pull results upward after removing the heading */
-main{
-  padding-top:7px !important;
-}
-#results{
-  margin-top:0 !important;
-}
-.food-section{
-  margin-bottom:12px !important;
-}
-.section-title{
-  margin:0 1px 5px !important;
-  padding-bottom:4px !important;
-  font-size:7px !important;
-}
-
-/* More compact restaurant cards */
-.restaurant-card{
-  margin-bottom:5px !important;
-  padding:8px 9px 7px !important;
-  border-radius:11px !important;
-}
-.card-top{
-  gap:7px !important;
-}
-.food-icon{
-  width:29px !important;
-  height:29px !important;
-  flex-basis:29px !important;
-  border-radius:8px !important;
-  font-size:14px !important;
-}
-.restaurant-name{
-  font-size:11px !important;
-  line-height:1.18 !important;
-}
-.japanese{
-  margin-top:1px !important;
-  font-size:6.8px !important;
-}
-.location{
-  margin-top:3px !important;
-  font-size:6.8px !important;
-  line-height:1.25 !important;
-}
-.badges{
-  gap:3px !important;
-  margin-top:5px !important;
-}
-.badge{
-  padding:2px 4px !important;
-  font-size:6px !important;
-}
-
-/* Rating + price on one compact line, side-by-side */
-.meta{
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  align-items:center !important;
-  gap:3px !important;
-  margin-top:5px !important;
-}
-.meta-item{
-  padding:2px 5px !important;
-  border-radius:5px !important;
-  font-size:6.4px !important;
-  white-space:nowrap !important;
-}
-
-/* Tighten optional content */
-.plan-box{
-  margin-top:5px !important;
-  padding:4px 6px !important;
-  font-size:6.5px !important;
-}
-.description{
-  margin-top:5px !important;
-  font-size:6.8px !important;
-  line-height:1.35 !important;
-}
-.actions{
-  gap:3px !important;
-  margin-top:6px !important;
-  padding-top:6px !important;
-}
-.action-btn{
-  min-height:23px !important;
-  padding:3px 6px !important;
-  border-radius:6px !important;
-  font-size:6px !important;
-}
-.state{
-  padding:24px 14px !important;
-}
-
-
-/* Price + rating now live beside cuisine/status tags */
-.price-badge{
-  color:#d7b06b !important;
-  border-color:rgba(228,189,105,.18) !important;
-  background:rgba(228,189,105,.045) !important;
-}
-.rating-badge{
-  color:#e4bd69 !important;
-  border-color:rgba(228,189,105,.18) !important;
-  background:rgba(228,189,105,.045) !important;
-}
-
-
-
-
-/* =========================================================
-   FINAL SCHEDULE-STYLE FOOD SHELL
-   Same Food structure + Schedule layout + photographic hero
-========================================================= */
-
-:root{
-  --food-hero-image:url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/food1%20(1).png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZDEgKDEpLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk3Mzg4NDIsImV4cCI6MTg3NjEzODg0Mn0.IdOfy_yyVvK-FoUpFxN6thWF46U_cvZVcUejrZtppGxzRHAaUSmCkmJONBa7y8rtMTEMV8Iv3M1x0PBwyjmSXw");
-}
-
-body{
-  padding-top:14px;
-}
-
-/* One continuous Schedule-style framed surface */
-.food-shell{
-  position:relative;
-  width:calc(100% - 24px);
-  max-width:720px;
-  margin:0 auto 105px;
-  overflow:hidden;
-  border:1px solid #273139;
-  border-radius:27px;
-  background:linear-gradient(180deg,#0a1116,#070d11);
-  box-shadow:0 24px 65px rgba(0,0,0,.40);
-}
-
-/* Thin coral-red line across the top, like Schedule */
-.food-shell::before{
-  content:"";
-  position:absolute;
-  z-index:90;
-  left:20px;
-  right:20px;
-  top:-1px;
-  height:3px;
-  border-radius:999px;
-  background:linear-gradient(
-    90deg,
-    #ff625f 0%,
-    #ff827e 52%,
-    rgba(255,98,95,.68) 100%
-  );
-  box-shadow:0 0 14px rgba(255,98,95,.24);
-  pointer-events:none;
-}
-
-/* =========================================================
-   HERO / HEADER
-========================================================= */
-
-header{
-  position:relative;
-  z-index:40;
-  isolation:isolate;
-
-  width:100%;
-  max-width:none;
-  margin:0;
-
-  overflow:hidden;
-
-  border:0;
-  border-radius:26px 26px 0 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2,5,8,.28) 0%,
-      rgba(4,8,11,.40) 33%,
-      rgba(5,10,14,.67) 66%,
-      rgba(7,13,17,.94) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.34) 0%,
-      rgba(0,0,0,.10) 47%,
-      rgba(0,0,0,.23) 100%
-    ),
-    var(--food-hero-image) center 52% / cover no-repeat;
-
-  box-shadow:none;
-}
-
-/* Large subtle 食 watermark */
-header::before{
-  content:"食";
-  position:absolute;
-  z-index:1;
-
-  right:10px;
-  top:7px;
-
-  font-family:
-    "Yu Mincho",
-    "Hiragino Mincho ProN",
-    "Noto Serif JP",
-    Georgia,
-    serif;
-
-  font-size:126px;
-  font-weight:700;
-  line-height:1;
-
-  color:#ff625f;
-  opacity:.070;
-
-  text-shadow:0 0 28px rgba(255,98,95,.14);
-
-  pointer-events:none;
-  user-select:none;
-}
-
-/* Extra photographic vignette */
-header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-
-  background:
-    radial-gradient(
-      circle at 83% 12%,
-      rgba(255,98,95,.08),
-      transparent 29%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(2,6,9,.16),
-      transparent 44%,
-      rgba(2,6,9,.12)
-    );
-
-  pointer-events:none;
-}
-
-.header-inner{
-  position:relative;
-  z-index:2;
-
-  width:100%;
-  max-width:none;
-  margin:0;
-
-  padding:26px 20px 0;
-}
-
-.title-row{
-  position:relative;
-  z-index:3;
-
-  align-items:flex-start;
-  gap:12px;
-}
-
-.eyebrow{
-  margin-bottom:14px;
-
-  color:#ef7d79;
-
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.18em;
-
-  text-shadow:0 1px 12px rgba(0,0,0,.70);
-}
-
-.food-page-title{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin:0;
-}
-
-.food-page-title-icon{
-  width:65px;
-  height:65px;
-  flex:0 0 65px;
-
-  display:block;
-
-  padding:10px;
-
-  border:1px solid rgba(255,98,95,.34);
-  border-radius:50%;
-
-  background:rgba(7,13,17,.80);
-
-  object-fit:contain;
-  opacity:.92;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.012),
-    0 8px 24px rgba(0,0,0,.25);
-}
-
-.food-page-title span{
-  color:#f8f4ee;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:41px;
-  font-weight:700;
-  line-height:1;
-
-  letter-spacing:-.03em;
-
-  text-shadow:0 2px 18px rgba(0,0,0,.68);
-}
-
-.trip-name{
-  margin:8px 0 0 80px;
-
-  max-width:350px;
-
-  overflow:hidden;
-
-  color:#9ba4aa;
-
-  font-size:9px;
-  font-weight:500;
-  line-height:1.4;
-
-  text-overflow:ellipsis;
-  white-space:nowrap;
-
-  text-shadow:0 1px 10px rgba(0,0,0,.66);
-}
-
-.add-btn{
-  min-height:29px;
-
-  padding:0 10px;
-
-  border:1px solid rgba(255,98,95,.38);
-  border-radius:9px;
-
-  background:rgba(255,98,95,.09);
-
-  color:#ffb3ae;
-
-  font-size:7px;
-  font-weight:900;
-
-  box-shadow:
-    inset 0 0 16px rgba(255,98,95,.025),
-    0 3px 14px rgba(0,0,0,.18);
-
-  text-shadow:0 1px 8px rgba(0,0,0,.45);
-}
-
-/* =========================================================
-   FOOD CONTROLS OVER HERO
-========================================================= */
-
-.main-tabs{
-  margin-top:19px;
-  border-bottom-color:rgba(255,255,255,.085);
-}
-
-.main-tab{
-  color:#7e8990;
-}
-
-.main-tab.active{
-  color:#fff;
-}
-
-.main-tab.active::after{
-  background:#ff625f;
-  box-shadow:0 0 9px rgba(255,98,95,.34);
-}
-
-.unified-filter-panel{
-  margin-left:-20px;
-  margin-right:-20px;
-
-  padding:
-    8px
-    20px
-    9px;
-
-  border-bottom:1px solid rgba(255,255,255,.075);
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.57),
-      rgba(7,12,16,.87)
-    );
-
-  backdrop-filter:blur(17px) saturate(118%);
-  -webkit-backdrop-filter:blur(17px) saturate(118%);
-}
-
-.chip,
-.filter-select-btn,
-.quick-filter-wrap,
-.clear-compact-filter{
-  background:rgba(10,17,22,.80);
-
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-
-.chip.active,
-.filter-select-btn.active{
-  background:rgba(255,98,95,.105);
-}
-
-/* Keep Area + Food + Search + X on one compact line */
-.sticky-filter-bar{
-  display:grid;
-  grid-template-columns:
-    minmax(0,.82fr)
-    minmax(0,.82fr)
-    minmax(0,1.36fr)
-    30px;
-
-  align-items:center;
-
-  gap:4px;
-}
-
-.filter-select-btn,
-.quick-filter-wrap,
-.clear-compact-filter{
-  min-height:32px;
-  height:32px;
-  border-radius:8px;
-}
-
-.filter-select-btn{
-  padding:5px 6px;
-  font-size:6.5px;
-}
-
-.quick-filter-wrap{
-  grid-column:auto;
-  grid-row:auto;
-
-  padding:0 6px;
-}
-
-.quick-filter-input{
-  font-size:6.5px;
-}
-
-.clear-compact-filter{
-  grid-column:auto;
-  grid-row:auto;
-
-  width:30px;
-  min-width:30px;
-}
-
-/* =========================================================
-   RESULTS — CONTINUE SAME SCHEDULE SHELL
-========================================================= */
-
-main{
-  width:100%;
-  max-width:none;
-
-  margin:0;
-
-  padding:
-    7px
-    20px
-    22px !important;
-
-  border:0;
-  border-radius:0 0 26px 26px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #091015,
-      #070d11
-    );
-}
-
-/* Keep modal sheets above the shell */
-.sheet-backdrop,
-.more-backdrop{
-  z-index:150;
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
+.city-source{display:none!important}
+.main-tabs{display:grid!important;grid-template-columns:1fr 1fr!important;margin-top:18px!important;border-bottom:0!important}
+.main-tab{min-height:36px!important;padding:7px 5px 9px!important}
+.main-tab::after{left:22%!important;right:22%!important}
+.unified-filter-panel{padding-top:7px!important}
+#myFilters,#discoverStatusRow{display:flex;align-items:center;gap:5px;margin-bottom:7px!important;overflow-x:auto}
+#myFilters .chip,#discoverStatusRow .chip{min-height:26px;padding:4px 8px;font-size:6.7px}
+.sticky-filter-bar{grid-template-columns:minmax(0,.82fr) minmax(0,.95fr) minmax(0,.95fr) minmax(0,1.35fr)!important;gap:4px!important}
+.filter-select-btn,.quick-filter-wrap{height:32px!important;min-height:32px!important;border-radius:8px!important}
+.filter-select-btn{padding:5px 6px!important;font-size:6.5px!important}
+.quick-filter-wrap{padding:0 7px!important}
+.quick-filter-input{font-size:6.5px!important}
+.clear-compact-filter{display:none!important}
 @media(max-width:430px){
-
-  body{
-    padding-top:9px;
-  }
-
-  .food-shell{
-    width:calc(100% - 18px);
-  }
-
-  .food-shell::before{
-    left:12px;
-    right:12px;
-  }
-
-  header{
-    background-position:center 50%;
-  }
-
-  .header-inner{
-    padding-left:17px;
-    padding-right:17px;
-  }
-
-  .unified-filter-panel{
-    margin-left:-17px;
-    margin-right:-17px;
-
-    padding-left:17px;
-    padding-right:17px;
-  }
-
-  .food-page-title-icon{
-    width:60px;
-    height:60px;
-    flex-basis:60px;
-
-    padding:9px;
-  }
-
-  .food-page-title span{
-    font-size:38px;
-  }
-
-  .trip-name{
-    margin-left:75px;
-  }
-
-  main{
-    padding-left:17px !important;
-    padding-right:17px !important;
-  }
-
-}
-
-
-/* =========================================================
-   SEAMLESS HERO BLEND
-   Removes the visible join between the photo header and body.
-========================================================= */
-
-/*
-  Put the food artwork on the whole outer shell rather than
-  ending it exactly at the bottom of the header.
-*/
-.food-shell{
-  background:
-    var(--food-hero-image)
-    center top / 100% 330px
-    no-repeat,
-    linear-gradient(180deg,#0a1116,#070d11);
-}
-
-/*
-  The header itself becomes transparent and only supplies
-  the dark overlay, so the same artwork continues naturally.
-*/
-header{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2,5,8,.22) 0%,
-      rgba(4,8,11,.32) 36%,
-      rgba(5,10,14,.56) 70%,
-      rgba(7,13,17,.77) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.34) 0%,
-      rgba(0,0,0,.08) 47%,
-      rgba(0,0,0,.20) 100%
-    );
-}
-
-/*
-  Fade from the photographic hero into the dark food list
-  instead of using a hard edge.
-*/
-main{
-  position:relative;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,.78) 0px,
-      rgba(8,15,20,.92) 34px,
-      #091015 76px,
-      #070d11 210px
-    );
-}
-
-/*
-  Soft overlap hides the visible horizontal seam between
-  the header/filter area and the content surface.
-*/
-main::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  left:0;
-  right:0;
-  top:-26px;
-  height:56px;
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,0) 0%,
-      rgba(7,13,17,.48) 42%,
-      rgba(7,13,17,.90) 78%,
-      #091015 100%
-    );
-}
-
-main > *{
-  position:relative;
-  z-index:1;
-}
-
-/*
-  Make the sticky filter panel blend into the same hero fade.
-*/
-.unified-filter-panel{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.48),
-      rgba(7,12,16,.80)
-    );
-}
-
-/*
-  Keep only the outside border of the Schedule-style shell.
-*/
-header,
-main{
-  border-top:0 !important;
-  border-bottom:0 !important;
-}
-
-/* Keep the coral top accent clean and aligned. */
-.food-shell::before{
-  left:18px;
-  right:18px;
-  top:0;
-  height:3px;
-}
-
-@media(max-width:430px){
-  .food-shell{
-    background-size:auto 300px;
-    background-position:center top;
-  }
-
-  .food-shell::before{
-    left:11px;
-    right:11px;
-  }
-
-  main::before{
-    top:-22px;
-    height:50px;
-  }
-}
-
-
-/* =========================================================
-   MATCH BOOKINGS HERO TREATMENT EXACTLY
-========================================================= */
-
-/*
-  Use the same composition as Bookings:
-  artwork is painted on the whole shell, not only the header.
-*/
-.food-shell{
-  background:
-    var(--food-hero-image)
-    center top / 100% 330px
-    no-repeat,
-    linear-gradient(180deg,#0a1116,#070d11);
-}
-
-/* Header is only the overlay layer */
-header{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2,5,8,.22) 0%,
-      rgba(4,8,11,.32) 36%,
-      rgba(5,10,14,.56) 70%,
-      rgba(7,13,17,.77) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.34) 0%,
-      rgba(0,0,0,.08) 47%,
-      rgba(0,0,0,.20) 100%
-    ) !important;
-}
-
-/*
-  Let the lower part of the hero remain visible behind
-  the top of the Food content, exactly like Bookings.
-*/
-main{
-  position:relative;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,.78) 0px,
-      rgba(8,15,20,.92) 34px,
-      #091015 76px,
-      #070d11 210px
-    ) !important;
-}
-
-main::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  left:0;
-  right:0;
-  top:-26px;
-  height:56px;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,0) 0%,
-      rgba(7,13,17,.48) 42%,
-      rgba(7,13,17,.90) 78%,
-      #091015 100%
-    );
-}
-
-main > *{
-  position:relative;
-  z-index:1;
-}
-
-/*
-  Keep Food filters translucent instead of turning into
-  a solid band, so the photo remains visible behind them.
-*/
-.unified-filter-panel{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.42),
-      rgba(7,12,16,.72)
-    ) !important;
-  backdrop-filter:blur(13px) saturate(112%);
-  -webkit-backdrop-filter:blur(13px) saturate(112%);
-}
-
-/* Exact same top accent behavior */
-.food-shell::before{
-  left:18px;
-  right:18px;
-  top:0;
-  height:3px;
-}
-
-/* Do not draw an internal divider between hero and content */
-header,
-main{
-  border-top:0 !important;
-  border-bottom:0 !important;
-}
-
-@media(max-width:430px){
-  .food-shell{
-    background-size:auto 300px;
-    background-position:center top;
-  }
-
-  .food-shell::before{
-    left:11px;
-    right:11px;
-  }
-
-  main::before{
-    top:-22px;
-    height:50px;
-  }
-}
-
-
-/* =========================================================
-   FINAL RESTAURANT CARD DETAIL
-   Keep the existing Food page exactly as-is, but give each
-   restaurant card the vertical coral rail + horizontal action
-   divider shown in the reference.
-========================================================= */
-
-.restaurant-card{
-  position:relative !important;
-  overflow:hidden !important;
-
-  border:1px solid #2a353d !important;
-  border-radius:12px !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(21,29,35,.98) 0%,
-      rgba(13,20,25,.99) 100%
-    ) !important;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025),
-    0 6px 18px rgba(0,0,0,.11) !important;
-}
-
-/* Vertical coral line on the left */
-.restaurant-card::before{
-  content:"" !important;
-
-  display:block !important;
-
-  position:absolute !important;
-  z-index:2 !important;
-
-  top:1px !important;
-  bottom:1px !important;
-  left:0 !important;
-
-  width:2px !important;
-  height:auto !important;
-
-  border-radius:12px 0 0 12px !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,98,95,.95) 0%,
-      rgba(255,98,95,.76) 60%,
-      rgba(255,98,95,.42) 100%
-    ) !important;
-
-  box-shadow:
-    0 0 9px rgba(255,98,95,.13) !important;
-
-  pointer-events:none !important;
-}
-
-/* Give the content a little breathing room from the rail */
-.card-top{
-  padding-left:3px !important;
-}
-
-/* Horizontal divider above the action buttons */
-.actions{
-  position:relative !important;
-
-  margin-top:7px !important;
-  padding-top:7px !important;
-
-  border-top:1px solid rgba(255,255,255,.075) !important;
-}
-
-/* Keep the divider subtle and clean */
-.actions::before{
-  content:"";
-  position:absolute;
-
-  top:-1px;
-  left:0;
-  right:0;
-
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.015),
-      rgba(255,255,255,.055) 18%,
-      rgba(255,255,255,.055) 82%,
-      rgba(255,255,255,.015)
-    );
-
-  pointer-events:none;
-}
-
-/* Slight red edge glow at the top-left, matching the reference */
-.restaurant-card::after{
-  content:"";
-
-  position:absolute;
-  z-index:1;
-
-  top:0;
-  left:0;
-
-  width:115px;
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,98,95,.55),
-      rgba(255,98,95,.16),
-      transparent
-    );
-
-  pointer-events:none;
-}
-
-/* Keep the icon treatment compact beside the vertical rail */
-.food-icon{
-  border-color:rgba(255,98,95,.25) !important;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,98,95,.09),
-      rgba(255,255,255,.025)
-    ) !important;
-
-  box-shadow:
-    inset 0 0 10px rgba(255,98,95,.025) !important;
-}
-
-/* Avoid any extra divider effect from plan/description content */
-.plan-box,
-.description{
-  border-top:0 !important;
-  border-bottom:0 !important;
-}
-
-/* Mobile: retain the same card language without making the rail heavy */
-@media(max-width:430px){
-
-  .restaurant-card::before{
-    width:2px !important;
-  }
-
-  .actions{
-    margin-top:6px !important;
-    padding-top:6px !important;
-  }
-
-}
-
-
-/* =========================================================
-   FOOD HERO — CINEMATIC VIGNETTE
-   Tuned for food1 (1).png
-========================================================= */
-
-header{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2,5,8,.12) 0%,
-      rgba(3,7,10,.20) 32%,
-      rgba(5,10,14,.42) 68%,
-      rgba(7,13,17,.74) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.64) 0%,
-      rgba(0,0,0,.38) 18%,
-      rgba(0,0,0,.11) 46%,
-      rgba(0,0,0,.04) 68%,
-      rgba(0,0,0,.22) 100%
-    ) !important;
-}
-
-header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-
-  background:
-    radial-gradient(
-      ellipse at 69% 43%,
-      rgba(0,0,0,0) 0%,
-      rgba(0,0,0,.04) 38%,
-      rgba(0,0,0,.20) 70%,
-      rgba(0,0,0,.54) 100%
-    ),
-    radial-gradient(
-      circle at 84% 10%,
-      rgba(150,26,24,.10) 0%,
-      rgba(115,18,18,.05) 27%,
-      transparent 49%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.02) 0%,
-      rgba(0,0,0,.08) 54%,
-      rgba(7,13,17,.68) 100%
-    ) !important;
-}
-
-/* Keep hero content clearly above the overlays */
-.header-inner{
-  position:relative;
-  z-index:2;
-}
-
-
-/* =========================================================
-   REMOVE EXTRA FOOD WATERMARK
-   The background artwork already contains 食.
-========================================================= */
-header::before{
-  display:none !important;
-  content:none !important;
-}
-
-
-/* =========================================================
-   FILTER DROPDOWN LAYER FIX
-   Allow Area / Food menus to open above the restaurant list.
-========================================================= */
-
-/* The dropdowns live inside <header>. The old overflow:hidden
-   clipped them at the bottom edge of the header. */
-header{
-  overflow:visible !important;
-  z-index:100 !important;
-}
-
-/* Keep every parent in the filter chain open for the menu. */
-.header-inner,
-.unified-filter-panel,
-.sticky-filter-bar,
-.filter-select-wrap{
-  overflow:visible !important;
-}
-
-.unified-filter-panel{
-  position:relative !important;
-  z-index:500 !important;
-}
-
-.sticky-filter-bar{
-  position:relative !important;
-  z-index:510 !important;
-}
-
-.filter-select-wrap{
-  position:relative !important;
-  z-index:520 !important;
-}
-
-/* Dropdown itself sits above everything in the content area. */
-.filter-menu{
-  z-index:9999 !important;
-}
-
-/* Restaurant/results content stays below the header dropdowns. */
-main{
-  position:relative !important;
-  z-index:1 !important;
-}
-
-/* Keep the outer rounded Schedule-style shell clipping intact. */
-.food-shell{
-  overflow:hidden !important;
-}
-
-
-/* =========================================================
-   SOFT FADE DIVIDERS
-   Replace hard black horizontal lines with subtle fades.
-========================================================= */
-
-/* Remove the hard line beneath MY FOOD / DISCOVER */
-.main-tabs{
-  position:relative !important;
-  border-bottom:0 !important;
-}
-
-/* Soft faded divider instead */
-.main-tabs::before{
-  content:"";
-  position:absolute;
-  left:24px;
-  right:24px;
-  bottom:0;
-  height:1px;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(38,48,57,0) 0%,
-      rgba(38,48,57,.08) 12%,
-      rgba(38,48,57,.20) 28%,
-      rgba(38,48,57,.34) 50%,
-      rgba(38,48,57,.20) 72%,
-      rgba(38,48,57,.08) 88%,
-      rgba(38,48,57,0) 100%
-    );
-  box-shadow:
-    0 0 14px rgba(255,98,95,.025);
-}
-
-/* Remove hard divider under the filter block */
-.unified-filter-panel{
-  border-bottom:0 !important;
-}
-
-/* Add a very soft fade into the results area */
-.unified-filter-panel::after{
-  content:"";
-  position:absolute;
-  left:20px;
-  right:20px;
-  bottom:-1px;
-  height:1px;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(38,48,57,0) 0%,
-      rgba(38,48,57,.05) 10%,
-      rgba(38,48,57,.14) 26%,
-      rgba(38,48,57,.26) 50%,
-      rgba(38,48,57,.14) 74%,
-      rgba(38,48,57,.05) 90%,
-      rgba(38,48,57,0) 100%
-    );
-}
-
-/* Hide the visual cut where header meets results */
-header{
-  border-bottom:0 !important;
-}
-
-/* A little extra tonal blend behind the controls */
-.unified-filter-panel{
-  box-shadow:
-    inset 0 -18px 28px -28px rgba(0,0,0,.85);
-}
-
-@media(max-width:430px){
-  .main-tabs::before{
-    left:16px;
-    right:16px;
-  }
-
-  .unified-filter-panel::after{
-    left:14px;
-    right:14px;
-  }
-}
-
-
-/* =========================================================
-   FINAL HERO FADE — COPY PLAN / SCHEDULE TREATMENT
-   Food layout stays unchanged. This only changes the photo
-   treatment and the fade into the Food controls/results.
-========================================================= */
-
-/*
-  IMPORTANT:
-  Plan/Schedule paints the photograph directly on HEADER.
-  Earlier Food versions painted it on .food-shell and then
-  stacked several extra vignette layers on top. That is why
-  the two pages did not look the same.
-*/
-.food-shell{
-  background:
-    linear-gradient(
-      180deg,
-      #0a1116,
-      #070d11
-    ) !important;
-}
-
-/* Use the exact Plan/Schedule overlay recipe */
-header{
-  position:relative !important;
-
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(4,8,11,.74) 0%,
-      rgba(4,8,11,.50) 52%,
-      rgba(4,8,11,.35) 100%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(4,8,11,.58) 0%,
-      rgba(4,8,11,.06) 58%
-    ),
-    var(--food-hero-image) !important;
-
-  background-size:cover !important;
-  background-position:center 48% !important;
-
-  /* dropdowns need to escape the header */
-  overflow:visible !important;
-
-  border-top:3px solid var(--red) !important;
-  border-bottom:0 !important;
-}
-
-/* Exact Plan/Schedule bottom fade */
-header::after{
-  content:"" !important;
-  position:absolute !important;
-  inset:0 !important;
-  z-index:0 !important;
-  pointer-events:none !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      transparent 72%,
-      rgba(5,9,12,.55) 100%
-    ) !important;
-}
-
-/* The image already contains 食 */
-header::before{
-  display:none !important;
-  content:none !important;
-}
-
-/* Keep all Food content above the photo overlays */
-.header-inner{
-  position:relative !important;
-  z-index:2 !important;
-}
-
-/*
-  Keep the Food filters visible over the photo without
-  introducing another strong black band.
-*/
-.unified-filter-panel{
-  position:relative !important;
-  z-index:500 !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.16) 0%,
-      rgba(7,12,16,.34) 42%,
-      rgba(7,12,16,.60) 100%
-    ) !important;
-
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-
-  border-bottom:0 !important;
-  box-shadow:none !important;
-}
-
-/* Keep dropdown layering fix */
-.sticky-filter-bar{
-  position:relative !important;
-  z-index:510 !important;
-  overflow:visible !important;
-}
-
-.filter-select-wrap{
-  position:relative !important;
-  z-index:520 !important;
-  overflow:visible !important;
-}
-
-.filter-menu{
-  z-index:9999 !important;
-}
-
-/*
-  Remove older fake seam/fade layers.
-  Schedule does not use these.
-*/
-main::before{
-  display:none !important;
-  content:none !important;
-}
-
-main{
-  position:relative !important;
-  z-index:1 !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      #091015 0%,
-      #070d11 100%
-    ) !important;
-}
-
-/*
-  The earlier Food shell top pseudo-line would duplicate the
-  Schedule header border. Turn it off so the top accent is the
-  same single coral line as Plan.
-*/
-.food-shell::before{
-  display:none !important;
-}
-
-/* Preserve the rounded shell clipping while allowing menus
-   to visually overlay the result area inside the shell. */
-.food-shell{
-  overflow:hidden !important;
-}
-
-/* Soft transition around the tab/filter region only */
-.main-tabs{
-  border-bottom:0 !important;
-}
-
-.main-tabs::before{
-  content:"";
-  position:absolute;
-  left:24px;
-  right:24px;
-  bottom:0;
-  height:1px;
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(38,48,57,0),
-      rgba(38,48,57,.17) 28%,
-      rgba(38,48,57,.28) 50%,
-      rgba(38,48,57,.17) 72%,
-      rgba(38,48,57,0)
-    ) !important;
-}
-
-/* Do not add another divider underneath the filter panel */
-.unified-filter-panel::after{
-  display:none !important;
-  content:none !important;
-}
-
-@media(max-width:430px){
-  header{
-    background-size:cover !important;
-    background-position:center 48% !important;
-  }
-}
-
-
-/* =========================================================
-   HERO → RESULTS SEAM FIX
-   Keep the Schedule-style hero, but softly bridge the final
-   filter row into the Food results so there is no hard cut.
-========================================================= */
-
-main{
-  position:relative !important;
-  isolation:isolate;
-  background:
-    linear-gradient(
-      180deg,
-      #091015 0%,
-      #070d11 100%
-    ) !important;
-}
-
-/* Soft overlap into the bottom of the header/filter area */
-main::before{
-  content:"" !important;
-  display:block !important;
-
-  position:absolute !important;
-  z-index:0 !important;
-
-  left:0 !important;
-  right:0 !important;
-  top:-34px !important;
-
-  height:52px !important;
-
-  pointer-events:none !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,0) 0%,
-      rgba(7,13,17,.22) 28%,
-      rgba(7,13,17,.58) 58%,
-      rgba(8,15,20,.86) 82%,
-      #091015 100%
-    ) !important;
-}
-
-/* Keep Food content above the blending layer */
-main > *{
-  position:relative !important;
-  z-index:1 !important;
-}
-
-/* Remove any remaining hard edge at the bottom of the filter block */
-.unified-filter-panel{
-  border-bottom:0 !important;
-  box-shadow:none !important;
-}
-
-/* Let the last part of the filter panel gently darken instead */
-.unified-filter-panel::after{
-  content:"" !important;
-  display:block !important;
-
-  position:absolute !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:-18px !important;
-
-  height:26px !important;
-
-  pointer-events:none !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.08) 0%,
-      rgba(7,12,16,.28) 42%,
-      rgba(7,13,17,.62) 72%,
-      rgba(7,13,17,0) 100%
-    ) !important;
-}
-
-/* Keep dropdowns above the fade layer */
-.filter-menu{
-  z-index:9999 !important;
-}
-
-@media(max-width:430px){
-  main::before{
-    top:-30px !important;
-    height:48px !important;
-  }
-
-  .unified-filter-panel::after{
-    bottom:-16px !important;
-    height:23px !important;
-  }
-}
-
-
-/* =========================================================
-   STRONGER SOFT OVERLAY FADE
-   Same layout, just a deeper and longer fade into the Food body.
-========================================================= */
-
-/* Make the lower hero/filter area darken more decisively */
-.unified-filter-panel{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.24) 0%,
-      rgba(7,12,16,.46) 38%,
-      rgba(7,12,16,.72) 72%,
-      rgba(7,12,16,.90) 100%
-    ) !important;
-}
-
-/* Stronger bridge from filters into results */
-.unified-filter-panel::after{
-  content:"" !important;
-  display:block !important;
-
-  position:absolute !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:-30px !important;
-
-  height:44px !important;
-
-  pointer-events:none !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.28) 0%,
-      rgba(7,12,16,.52) 30%,
-      rgba(7,13,17,.78) 58%,
-      rgba(8,15,20,.95) 82%,
-      #091015 100%
-    ) !important;
-}
-
-/* Extend the fade farther into the content so there is no visible cut */
-main::before{
-  content:"" !important;
-  display:block !important;
-
-  position:absolute !important;
-  z-index:0 !important;
-
-  left:0 !important;
-  right:0 !important;
-  top:-48px !important;
-
-  height:76px !important;
-
-  pointer-events:none !important;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,0) 0%,
-      rgba(7,13,17,.24) 18%,
-      rgba(7,13,17,.52) 42%,
-      rgba(7,13,17,.78) 66%,
-      rgba(8,15,20,.95) 86%,
-      #091015 100%
-    ) !important;
-}
-
-/* Slightly deepen the first part of the results surface too */
-main{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(9,16,21,.98) 0%,
-      #081015 64px,
-      #070d11 190px,
-      #070d11 100%
-    ) !important;
-}
-
-@media(max-width:430px){
-  .unified-filter-panel::after{
-    bottom:-26px !important;
-    height:40px !important;
-  }
-
-  main::before{
-    top:-42px !important;
-    height:68px !important;
-  }
+  .main-tabs{margin-top:15px!important}
+  #myFilters .chip,#discoverStatusRow .chip{padding:4px 7px;font-size:6.2px}
+  .sticky-filter-bar{grid-template-columns:minmax(0,.82fr) minmax(0,.9fr) minmax(0,.9fr) minmax(0,1.25fr)!important;gap:3px!important}
+  .filter-select-btn{padding:4px 5px!important;font-size:6.1px!important}
+  .quick-filter-wrap{padding:0 5px!important}
+  .quick-filter-input{font-size:6.1px!important}
 }
 
 </style>
+
+<style id="food-three-row-final">
+/* Row 1: one segmented pill */
+.main-tabs{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:4px!important;
+  margin:18px 0 8px!important;
+  padding:4px!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  border-radius:999px!important;
+  background:rgba(7,12,16,.52)!important;
+  overflow:hidden!important;
+}
+.main-tabs::before{display:none!important}
+.main-tab{
+  min-height:34px!important;
+  padding:7px 10px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  color:#7f8990!important;
+}
+.main-tab::after{display:none!important}
+.main-tab.active{
+  color:#fff!important;
+  background:linear-gradient(180deg,rgba(255,98,95,.20),rgba(255,98,95,.10))!important;
+  box-shadow:inset 0 0 0 1px rgba(255,98,95,.36),0 0 14px rgba(255,98,95,.07)!important;
+}
+/* Old city chips are replaced by the Row 3 city dropdown. */
+#cityChips{display:none!important}
+/* Row 2 stays directly under the segmented pill. */
+#myFilters,#discoverStatusRow{margin:0 0 7px!important}
+/* Row 3: City | Area | Food | Search */
+.sticky-filter-bar{
+  display:grid!important;
+  grid-template-columns:minmax(0,.82fr) minmax(0,.92fr) minmax(0,.92fr) minmax(0,1.30fr)!important;
+  gap:4px!important;
+}
+.clear-compact-filter{display:none!important}
+@media(max-width:430px){
+  .sticky-filter-bar{
+    grid-template-columns:minmax(0,.78fr) minmax(0,.90fr) minmax(0,.90fr) minmax(0,1.22fr)!important;
+  }
+  .filter-select-btn{padding:5px!important;font-size:6.2px!important}
+  .quick-filter-wrap{padding:0 5px!important}
+  .quick-filter-input{font-size:6.2px!important}
+}
+</style>
+
 </head>
 
 
 <body>
 
-<div class="food-shell">
 
 <!-- =========================================================
      HEADER
@@ -1971,14 +356,10 @@ main{
         LOADING TRIP…
       </div>
 
-     <h1 class="food-page-title">
-  <img
-    class="food-page-title-icon"
-    src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
-    alt=""
-  >
-  <span>Food</span>
-</h1>
+      <h1 class="food-page-title">
+        <img class="food-page-title-icon" src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Food.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvRm9vZC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTEwLCJleHAiOjIxMDQ5ODc5MTB9.S3ziYBOlZ-A98ltUXENugtbieKjgxRWXX_TiqLJO_n9sZoPjCR017CviZvILW5wsRZ_ydjsGgSpWutnXE33OIg" alt="" aria-hidden="true">
+        <span>Food</span>
+      </h1>
 
       <div
         id="tripName"
@@ -2030,10 +411,7 @@ main{
      UNIFIED STICKY FILTER PANEL
 ========================================================= -->
 <div id="unifiedFilterPanel" class="unified-filter-panel">
-  <div
-    id="cityChips"
-    class="chips"
-  ></div>
+  <div id="cityChips" class="chips city-source" aria-hidden="true"></div>
 
   <div
     id="myFilters"
@@ -2095,15 +473,54 @@ main{
     🏆 TABELOG
   </button>
 
+  <button class="chip" data-discover-status="top100" type="button">
+    🏅 TOP 100
+  </button>
+
+  <button class="chip" data-discover-status="top100" type="button">
+    🏅 TOP 100
+  </button>
+
   <button class="chip" data-discover-status="eaten" type="button">
     ✓ EATEN
   </button>
 </div>
 
-  <div
-  id="stickyFilterBar"
-  class="sticky-filter-bar"
->
+  <div id="stickyFilterBar" class="sticky-filter-bar">
+
+  <div class="filter-select-wrap">
+    <button id="cityFilterButton" class="filter-select-btn" type="button" aria-expanded="false">
+      <span id="cityFilterButtonText">📍 Kyoto</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+    <div id="cityFilterMenu" class="filter-menu" hidden></div>
+  </div>
+
+  <div class="filter-select-wrap">
+    <button id="areaFilterButton" class="filter-select-btn" type="button" aria-expanded="false">
+      <span id="areaFilterButtonText">📍 All Areas</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+    <div id="areaFilterMenu" class="filter-menu" hidden></div>
+  </div>
+
+  <div class="filter-select-wrap">
+    <button id="foodFilterButton" class="filter-select-btn" type="button" aria-expanded="false">
+      <span id="foodFilterButtonText">🍽️ All Food</span>
+      <span class="filter-chevron">⌄</span>
+    </button>
+    <div id="foodFilterMenu" class="filter-menu" hidden></div>
+  </div>
+
+  <div class="quick-filter-wrap">
+    <span class="quick-filter-icon">🔎</span>
+    <input id="quickFilterInput" class="quick-filter-input" type="search"
+      autocomplete="off" placeholder="Search..." aria-label="Search restaurants">
+  </div>
+
+</div>
+</div>
+
   <div class="filter-select-wrap">
 
     <button
@@ -2153,29 +570,13 @@ main{
       class="quick-filter-input"
       type="search"
       autocomplete="off"
-      placeholder="Search..."
+      placeholder="Area / food / category..."
       aria-label="Quick filter by restaurant, area, food or category"
     />
   </div>
-
-
-  <button
-    id="clearCompactFilters"
-    class="clear-compact-filter"
-    type="button"
-    title="Clear area, food and search filters"
-  >
-    ✕ CLEAR
-  </button>
+<button id="clearCompactFilters" type="button" hidden></button>
 </div>
 </div>
-
-
-
-
-
-
-  
 
 
   <div
@@ -2252,7 +653,6 @@ main{
 
 </main>
 
-</div><!-- /food-shell -->
 
 
 <!-- =========================================================
@@ -3517,6 +1917,7 @@ async function loadData(){
 
 
     createCityChips();
+    chooseInitialCity();
 
     createDiscoverChips();
 
@@ -4045,13 +2446,12 @@ function filteredRestaurants(){
     }
 
 
+    if(discoverStatusFilter === "top100"){
+      list = list.filter(isTop);
+    }
+
     if(discoverStatusFilter === "eaten"){
-
-      list =
-        list.filter(
-          isEaten
-        );
-
+      list = list.filter(isEaten);
     }
 
   }
@@ -4375,28 +2775,75 @@ function cardHTML(r){
 
             ${badges(r)}
 
-            ${
-              rPrice(r)
-              ?
-              `<span class="badge price-badge">💴 ${esc(rPrice(r))}</span>`
-              :
-              ""
-            }
-
-            ${
-              rRating(r)
-              ?
-              `<span class="badge rating-badge">⭐ ${esc(rRating(r))}</span>`
-              :
-              ""
-            }
-
           </div>
 
 
         </div>
 
       </div>
+
+
+      ${
+        rRating(r) ||
+        rPrice(r)
+
+        ?
+
+        `
+
+          <div class="meta">
+
+            ${
+              rRating(r)
+
+              ?
+
+              `
+                <span class="meta-item">
+
+                  ⭐ Tabelog
+                  ${esc(
+                    rRating(r)
+                  )}
+
+                </span>
+              `
+
+              :
+
+              ""
+            }
+
+
+            ${
+              rPrice(r)
+
+              ?
+
+              `
+                <span class="meta-item">
+
+                  💴
+                  ${esc(
+                    rPrice(r)
+                  )}
+
+                </span>
+              `
+
+              :
+
+              ""
+            }
+
+          </div>
+
+        `
+
+        :
+
+        ""
+      }
 
 
       ${planHTML(r)}
@@ -6295,6 +4742,14 @@ function foodFilterBaseSource(){
       source = source.filter(hasTabelog);
     }
 
+    if(discoverStatusFilter === "top100"){
+      source = source.filter(isTop);
+    }
+
+    if(discoverStatusFilter === "top100"){
+      source = source.filter(isTop);
+    }
+
     if(discoverStatusFilter === "eaten"){
       source = source.filter(isEaten);
     }
@@ -6433,6 +4888,10 @@ function discoverAreaSource(){
     source = source.filter(hasTabelog);
   }
 
+
+  if(discoverStatusFilter === "top100"){
+    source = source.filter(isTop);
+  }
 
   if(discoverStatusFilter === "eaten"){
     source = source.filter(isEaten);
@@ -6698,6 +5157,14 @@ function compactAreaSource(){
 
     if(discoverStatusFilter === "tabelog"){
       source = source.filter(hasTabelog);
+    }
+
+    if(discoverStatusFilter === "top100"){
+      source = source.filter(isTop);
+    }
+
+    if(discoverStatusFilter === "top100"){
+      source = source.filter(isTop);
     }
 
     if(discoverStatusFilter === "eaten"){
@@ -7125,6 +5592,177 @@ document.addEventListener(
   }
 );
 
+
+
+
+/* =========================================================
+   ROW 3 CITY DROPDOWN
+========================================================= */
+const cityFilterButton = document.getElementById("cityFilterButton");
+const cityFilterButtonText = document.getElementById("cityFilterButtonText");
+const cityFilterMenu = document.getElementById("cityFilterMenu");
+
+function renderCityDropdown(){
+  if(!cityFilterMenu || !cityFilterButtonText) return;
+  const cities = unique(restaurants.map(rCity));
+  if(!selectedCity && cities.length === 1) selectedCity = cities[0];
+  cityFilterButtonText.textContent = selectedCity ? `📍 ${selectedCity}` : "📍 All Cities";
+  cityFilterButton.classList.toggle("active", Boolean(selectedCity));
+  cityFilterMenu.innerHTML = `
+    <button class="filter-menu-item ${!selectedCity ? "active" : ""}" data-row-city="" type="button">
+      <span>✓ All Cities</span><span class="filter-menu-count">${restaurants.length}</span>
+    </button>
+    ${cities.map(city => {
+      const count = restaurants.filter(r => norm(rCity(r)) === norm(city)).length;
+      return `<button class="filter-menu-item ${norm(selectedCity)===norm(city)?"active":""}" data-row-city="${esc(city)}" type="button"><span>📍 ${esc(city)}</span><span class="filter-menu-count">${count}</span></button>`;
+    }).join("")}`;
+  cityFilterMenu.querySelectorAll("[data-row-city]").forEach(button => {
+    button.onclick = () => {
+      selectedCity = button.dataset.rowCity || "";
+      sideAreaFilter = "";
+      foodGroupFilter = "";
+      cityFilterMenu.hidden = true;
+      cityFilterButton.setAttribute("aria-expanded","false");
+      createCityChips();
+      render();
+    };
+  });
+}
+
+if(cityFilterButton){
+  cityFilterButton.onclick = event => {
+    event.stopPropagation();
+    const opening = cityFilterMenu.hidden;
+    closeCompactMenus();
+    cityFilterMenu.hidden = !opening;
+    cityFilterButton.setAttribute("aria-expanded", String(opening));
+  };
+}
+
+const _oldRenderCompactFilters = renderCompactFilters;
+renderCompactFilters = function(){
+  renderCityDropdown();
+  _oldRenderCompactFilters();
+};
+
+const _oldCloseCompactMenus = closeCompactMenus;
+closeCompactMenus = function(){
+  _oldCloseCompactMenus();
+  if(cityFilterMenu) cityFilterMenu.hidden = true;
+  if(cityFilterButton) cityFilterButton.setAttribute("aria-expanded","false");
+};
+
+
+
+/* =========================================================
+   CITY DROPDOWN — ROW 3
+========================================================= */
+function cityFilterSource(){
+  let source = activeTab === "mine"
+    ? restaurants.filter(inMyFood)
+    : restaurants.slice();
+
+  if(activeTab === "mine"){
+    if(myFilter === "eaten") source = source.filter(isEaten);
+    else{
+      source = source.filter(r => !isEaten(r));
+      if(myFilter === "pick") source = source.filter(isPick);
+      if(myFilter === "flexible") source = source.filter(isFlexible);
+      if(myFilter === "scheduled") source = source.filter(isScheduled);
+    }
+  } else {
+    if(discoverStatusFilter === "tabelog") source = source.filter(hasTabelog);
+    if(discoverStatusFilter === "top100") source = source.filter(isTop);
+    if(discoverStatusFilter === "eaten") source = source.filter(isEaten);
+  }
+  return source;
+}
+
+function chooseInitialCity(){
+  if(selectedCity) return;
+  const cities = unique(restaurants.map(rCity));
+  const tripCity = text(trip?.city).trim();
+  const tripMatch = cities.find(c => norm(c) === norm(tripCity));
+  if(tripMatch){ selectedCity = tripMatch; return; }
+
+  if(norm(trip?.country) === "japan"){
+    const kyoto = cities.find(c => norm(c) === "kyoto");
+    if(kyoto){ selectedCity = kyoto; return; }
+  }
+
+  if(cities.length === 1) selectedCity = cities[0];
+}
+
+function renderCityFilter(){
+  const button = document.getElementById("cityFilterButton");
+  const buttonText = document.getElementById("cityFilterButtonText");
+  const menu = document.getElementById("cityFilterMenu");
+  if(!button || !buttonText || !menu) return;
+
+  const source = cityFilterSource();
+  const counts = new Map();
+  source.forEach(r => {
+    const city = text(rCity(r)).trim();
+    if(!city) return;
+    const key = norm(city);
+    if(!counts.has(key)) counts.set(key,{label:city,count:0});
+    counts.get(key).count++;
+  });
+  const cities = [...counts.values()].sort((a,b)=>a.label.localeCompare(b.label));
+
+  buttonText.textContent = selectedCity ? `📍 ${selectedCity}` : "📍 All Cities";
+  button.classList.toggle("active", Boolean(selectedCity));
+
+  menu.innerHTML = `
+    <button class="filter-menu-item ${!selectedCity ? "active" : ""}" data-compact-city="" type="button">
+      <span>✓ All Cities</span><span class="filter-menu-count">${source.length}</span>
+    </button>
+    ${cities.map(city => `
+      <button class="filter-menu-item ${norm(selectedCity)===norm(city.label) ? "active" : ""}"
+        data-compact-city="${esc(city.label)}" type="button">
+        <span>📍 ${esc(city.label)}</span><span class="filter-menu-count">${city.count}</span>
+      </button>`).join("")}
+  `;
+
+  menu.querySelectorAll("[data-compact-city]").forEach(item => {
+    item.onclick = () => {
+      selectedCity = item.dataset.compactCity || "";
+      sideAreaFilter = "";
+      foodGroupFilter = "";
+      menu.hidden = true;
+      button.setAttribute("aria-expanded","false");
+      render();
+    };
+  });
+}
+
+const cityFilterButton = document.getElementById("cityFilterButton");
+const cityFilterMenu = document.getElementById("cityFilterMenu");
+
+if(cityFilterButton){
+  cityFilterButton.onclick = event => {
+    event.stopPropagation();
+    const opening = cityFilterMenu.hidden;
+    closeCompactMenus();
+    cityFilterMenu.hidden = !opening;
+    cityFilterButton.setAttribute("aria-expanded",String(opening));
+  };
+}
+
+const _oldCloseCompactMenus = closeCompactMenus;
+closeCompactMenus = function(){
+  _oldCloseCompactMenus();
+  if(cityFilterMenu){
+    cityFilterMenu.hidden = true;
+    cityFilterButton?.setAttribute("aria-expanded","false");
+  }
+};
+
+const _oldRenderCompactFilters = renderCompactFilters;
+renderCompactFilters = function(){
+  renderCityFilter();
+  _oldRenderCompactFilters();
+};
 
 
 /* =========================================================
