@@ -496,6 +496,43 @@ header{
 
 
 
+
+/* =========================================================
+   PLAN MODE SWITCH
+========================================================= */
+
+.plan-mode-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+  margin:0 0 13px;
+  padding:3px;
+  border:1px solid #28343c;
+  border-radius:12px;
+  background:#080e12;
+}
+
+.plan-mode-btn{
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  border-radius:9px;
+  background:transparent;
+  color:#6f7b83;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.10em;
+  text-decoration:none;
+}
+
+.plan-mode-btn.active{
+  border:1px solid rgba(255,98,95,.24);
+  background:rgba(255,98,95,.065);
+  color:#efaaa6;
+}
+
 /* =========================================================
    MAIN
 ========================================================= */
@@ -1872,6 +1909,176 @@ gmp-place-autocomplete{
 
 }
 
+
+/* =========================================================
+   ASSIST — PLANNING / LIVE MODE
+========================================================= */
+.assist-mode-area{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 10px 0;
+}
+.assist-mode-switch{
+  flex:0 0 190px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+  padding:3px;
+  border:1px solid #29363e;
+  border-radius:11px;
+  background:#070d11;
+}
+.assist-mode-btn{
+  min-height:32px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:#71808a;
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:.09em;
+  cursor:pointer;
+}
+.assist-mode-btn.active{
+  border:1px solid rgba(120,169,239,.24);
+  background:rgba(120,169,239,.065);
+  color:#b7d0ef;
+}
+.assist-mode-context{
+  flex:1;
+  min-width:0;
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#74818a;
+  font-size:6.2px;
+  line-height:1.35;
+}
+.assist-mode-context strong{
+  color:#dfe5e8;
+  font-size:6.5px;
+}
+.assist-mode-context .live-dot{
+  display:inline-block;
+  width:5px;
+  height:5px;
+  margin-right:5px;
+  border-radius:50%;
+  background:var(--red-bright);
+  vertical-align:1px;
+}
+@media(max-width:480px){
+  .assist-mode-switch{flex-basis:165px}
+  .assist-mode-context{font-size:5.7px}
+}
+.assist-launch-icon{
+  width:34px;height:34px;flex:0 0 34px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(120,169,239,.20);border-radius:10px;
+  background:rgba(120,169,239,.055);font-size:15px;
+}
+.assist-launch-main{min-width:0;flex:1}
+.assist-launch-title{color:#e9edf0;font-size:8px;font-weight:900}
+.assist-launch-sub{margin-top:2px;color:#74818a;font-size:6.5px;line-height:1.4}
+.assist-launch-arrow{color:#86a9d7;font-size:12px}
+.assist-panel{
+  display:none;margin:0 0 13px;overflow:hidden;
+  border:1px solid #2b3942;border-radius:16px;background:#091116;
+}
+.assist-panel.open{display:block}
+.assist-panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 12px;border-bottom:1px solid var(--line-soft);
+}
+.assist-panel-title{font-family:Georgia,"Times New Roman",serif;font-size:15px;font-weight:700}
+.assist-panel-sub{margin-top:2px;color:#75828a;font-size:6px}
+.assist-close{
+  width:28px;height:28px;border:1px solid #2b363e;border-radius:8px;
+  background:#10181d;color:#aeb7bc;cursor:pointer
+}
+.assist-suggestions{
+  display:flex;gap:6px;padding:9px 10px 0;overflow-x:auto;scrollbar-width:none
+}
+.assist-suggestions::-webkit-scrollbar{display:none}
+.assist-chip{
+  flex:0 0 auto;padding:6px 8px;border:1px solid #29363e;border-radius:999px;
+  background:#0e171c;color:#8998a2;font-size:6px;font-weight:900;cursor:pointer
+}
+.assist-messages{
+  min-height:105px;max-height:310px;overflow-y:auto;padding:10px;
+  display:flex;flex-direction:column;gap:7px
+}
+.assist-welcome{
+  padding:13px;border:1px dashed #2b373f;border-radius:11px;color:#7f8b93;
+  font-size:7px;line-height:1.55
+}
+.assist-welcome strong{display:block;margin-bottom:3px;color:#e7e9e7;font-size:9px}
+.assist-msg{display:flex}.assist-msg.user{justify-content:flex-end}
+.assist-bubble{
+  max-width:84%;padding:8px 10px;border:1px solid #29353d;border-radius:12px;
+  background:#10181d;color:#e9ecea;font-size:7.5px;line-height:1.5;white-space:pre-wrap
+}
+.assist-msg.user .assist-bubble{
+  border-color:rgba(255,98,95,.27);background:rgba(255,98,95,.065);color:#fff0ee
+}
+.assist-source{margin-top:4px;color:#64727b;font-size:5px;font-weight:900;letter-spacing:.08em}
+.assist-compose{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:9px;
+  border-top:1px solid var(--line-soft)
+}
+.assist-input{
+  min-height:38px;max-height:95px;resize:none;padding:9px 10px;border:1px solid #2a353d;
+  border-radius:10px;outline:0;background:#070d11;color:#fff;font-size:8px
+}
+.assist-input:focus{border-color:rgba(120,169,239,.38)}
+.assist-send{
+  min-width:52px;border:1px solid rgba(120,169,239,.25);border-radius:10px;
+  background:rgba(120,169,239,.065);color:#a9c5e9;font-size:6.5px;font-weight:900;cursor:pointer
+}
+.assist-send:disabled{opacity:.45}
+
+.assist-starters{
+  display:grid;grid-template-columns:1fr;gap:7px;padding:10px 10px 0
+}
+.assist-starters.hidden{display:none}
+.assist-starter{
+  width:100%;display:flex;align-items:center;gap:9px;text-align:left;
+  padding:10px 11px;border:1px solid #29363e;border-radius:11px;
+  background:#0e171c;color:#dfe5e8;cursor:pointer
+}
+.assist-starter:hover{border-color:rgba(120,169,239,.32);background:#101b21}
+.assist-starter-icon{
+  width:26px;height:26px;flex:0 0 26px;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(120,169,239,.16);border-radius:8px;background:rgba(120,169,239,.045);
+  color:#9ab9df;font-size:11px
+}
+.assist-starter-text{font-size:7.5px;font-weight:800}
+.assist-starter-sub{margin-top:2px;color:#687781;font-size:5.7px;font-weight:600}
+.assist-action-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.assist-action-btn{
+  padding:6px 8px;border:1px solid rgba(120,169,239,.25);border-radius:8px;
+  background:rgba(120,169,239,.055);color:#a9c5e9;font-size:5.8px;font-weight:900;cursor:pointer
+}
+.assist-action-btn.confirm{
+  border-color:rgba(121,201,149,.28);background:rgba(121,201,149,.06);color:#9bd7af
+}
+.assist-action-btn:disabled{opacity:.45;cursor:default}
+.assist-action-btn.danger{
+  border-color:rgba(255,98,95,.28);background:rgba(255,98,95,.055);color:#ff8a87
+}
+.assist-action-btn.neutral{
+  border-color:#2b363e;background:#10171c;color:#9aa6ae
+}
+.assist-action-btn.confirm-danger{
+  border-color:rgba(255,98,95,.34);background:rgba(255,98,95,.075);color:#ff9a97
+}
+.assist-confirm{
+  margin-top:7px;padding:8px;border:1px solid rgba(121,201,149,.18);
+  border-radius:9px;background:rgba(121,201,149,.035);color:#aeb9b3;font-size:6.3px;line-height:1.45
+}
+
 </style>
 
 </head>
@@ -1916,12 +2123,16 @@ gmp-place-autocomplete{
 
           <div class="plan-icon-wrap">
 
-            <img
-              class="plan-page-title-icon"
-              src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/travelogo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvdHJhdmVsb2dvLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk2OTY3MTksImV4cCI6MzMzMjU2OTY3MTl9.m8_j9o90WZfMksafYPcKAE_AqeiQujFDL9_affNg8KXUMlYU_9jvmlUKDi9LBaQXqzdVqAK71Wvl9SpJ-MfQDw"
-              alt=""
-              aria-hidden="true"
-            >
+<div class="plan-icon-wrap">
+
+  <img
+    class="plan-page-title-icon"
+    src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
+    alt=""
+    aria-hidden="true"
+  >
+
+</div>
 
           </div>
 
@@ -1995,7 +2206,42 @@ gmp-place-autocomplete{
 
 <main id="main">
 
-  <div class="state">
+  <button id="assistLaunch" class="assist-launch" type="button" aria-expanded="false">
+    <div class="assist-launch-icon">✦</div>
+    <div class="assist-launch-main">
+      <div class="assist-launch-title">Ask Assist</div>
+      <div class="assist-launch-sub">Bookings, spending, food ideas, pacing or changes to this day.</div>
+    </div>
+    <div class="assist-launch-arrow">›</div>
+  </button>
+
+  <section id="assistPanel" class="assist-panel" aria-hidden="true">
+    <div class="assist-panel-head">
+      <div>
+        <div class="assist-panel-title">Travel Assist</div>
+        <div id="assistStatus" class="assist-panel-sub">Ask anything about this trip.</div>
+      </div>
+      <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
+    </div>
+    <div class="assist-mode-area">
+      <div class="assist-mode-switch" role="tablist" aria-label="Travel Assist mode">
+        <button id="assistPlanningMode" class="assist-mode-btn active" type="button">PLANNING</button>
+        <button id="assistLiveMode" class="assist-mode-btn" type="button">LIVE</button>
+      </div>
+      <div id="assistModeContext" class="assist-mode-context"><strong>Planning mode</strong> · Preparing this trip before departure.</div>
+    </div>
+    <div id="assistStarters" class="assist-starters"></div>
+    <div id="assistMessages" class="assist-messages">
+      <div id="assistWelcome" class="assist-welcome"><strong>How can I help?</strong>Pick a question above or type your own. Assist knows which trip and itinerary day you're viewing.</div>
+    </div>
+    <div class="assist-compose">
+      <textarea id="assistInput" class="assist-input" rows="1" placeholder="Ask about your trip…"></textarea>
+      <button id="assistSend" class="assist-send" type="button">SEND</button>
+    </div>
+  </section>
+
+  <div id="dayContent">
+    <div class="state">
 
     <strong>
       Loading plan…
@@ -2003,6 +2249,7 @@ gmp-place-autocomplete{
 
     Getting your itinerary from Supabase.
 
+    </div>
   </div>
 
 </main>
@@ -2472,6 +2719,10 @@ const main =
     "main"
   );
 
+const dayContent =
+  document.getElementById(
+    "dayContent"
+  );
 
 const tripName =
   document.getElementById(
@@ -3080,8 +3331,20 @@ async function resolveTrip(){
     `?trip=${TRIP_ID}${hash}`
   );
 
+  syncPlanModeLinks();
+
 }
 
+
+
+
+/* =========================================================
+   PLAN MODE LINKS
+========================================================= */
+
+function syncPlanModeLinks(){
+  /* Assist now lives inside Plan, so there are no separate mode links to sync. */
+}
 
 
 /* =========================================================
@@ -3283,9 +3546,14 @@ async function loadData(){
 
     chooseDate();
 
+    syncPlanModeLinks();
+
     renderDates();
 
     renderDay();
+
+    if(!assistModeManuallyChosen)assistMode=automaticAssistMode();
+    renderAssistMode();
 
   }
 
@@ -3300,7 +3568,7 @@ async function loadData(){
       "Unable to load trip";
 
 
-    main.innerHTML = `
+    dayContent.innerHTML = `
 
       <div class="state">
 
@@ -3904,9 +4172,13 @@ function renderDates(){
             );
 
 
+            syncPlanModeLinks();
+
             renderDates();
 
             renderDay();
+
+            if(assistMode)renderAssistMode();
 
           };
 
@@ -4441,7 +4713,7 @@ function renderDay(){
 
   if(!items.length){
 
-    main.innerHTML = `
+    dayContent.innerHTML = `
 
       <div class="state">
 
@@ -4460,7 +4732,7 @@ function renderDay(){
   }
 
 
-  main.innerHTML = `
+  dayContent.innerHTML = `
 
     <section class="day-card">
 
@@ -6801,12 +7073,394 @@ async function reloadSchedule(){
 
   buildDays();
 
+  syncPlanModeLinks();
+
   renderDates();
 
   renderDay();
 
 }
 
+
+
+
+/* =========================================================
+   ASSIST CHAT
+========================================================= */
+const assistLaunch=document.getElementById("assistLaunch");
+const assistPanel=document.getElementById("assistPanel");
+const assistClose=document.getElementById("assistClose");
+const assistMessages=document.getElementById("assistMessages");
+const assistInput=document.getElementById("assistInput");
+const assistSend=document.getElementById("assistSend");
+const assistStatus=document.getElementById("assistStatus");
+const assistStarters=document.getElementById("assistStarters");
+const assistPlanningMode=document.getElementById("assistPlanningMode");
+const assistLiveMode=document.getElementById("assistLiveMode");
+const assistModeContext=document.getElementById("assistModeContext");
+let assistBusy=false;
+let assistMode=null;
+let assistModeManuallyChosen=false;
+
+function automaticAssistMode(){
+  const today=localDateString();
+  if(trip?.start_date&&trip?.end_date&&today>=trip.start_date&&today<=trip.end_date)return "live";
+  return "planning";
+}
+function isLivePreview(){return assistMode==="live"&&automaticAssistMode()!=="live"}
+function daysUntilTrip(){
+  if(!trip?.start_date)return null;
+  return Math.ceil((parseDate(trip.start_date)-parseDate(localDateString()))/86400000);
+}
+function assistSelectedDayLabel(){
+  if(!selectedDate)return "selected day";
+  const p=dateParts(selectedDate); return `${p.day} ${p.month}`;
+}
+function getAssistStarters(){
+  if(assistMode==="live")return [
+    {icon:"✦",title:"How's this day looking?",sub:"Check timing, pacing and possible problems.",prompt:`Review my plan for ${selectedDate}. In Live mode, tell me how the day is looking, what is next, and flag any timing or pacing problems.`},
+    {icon:"☔",title:"Will weather affect this day?",sub:"Check outdoor plans and suggest sensible alternatives.",prompt:`Check whether weather could affect my itinerary for ${selectedDate}. Only use live weather if it is actually available; do not invent weather.`},
+    {icon:"⌖",title:"What's around this itinerary?",sub:"Find useful places around the route I'm viewing.",prompt:`What useful or interesting places are near my itinerary for ${selectedDate}? Prioritise places that fit naturally around my route.`},
+    {icon:"🍽",title:"Where should I eat?",sub:"Find food that fits this day's route and timing.",prompt:`Help me choose where to eat around my itinerary for ${selectedDate}. Use my saved food and trip data where available.`},
+    {icon:"⏱",title:"I'm running late",sub:"Work out what to keep, move or skip.",prompt:`Pretend I am running late on ${selectedDate}. Review the itinerary and help me adjust the rest of the day without changing anything until I confirm.`}
+  ];
+  return [
+    {icon:"✦",title:"Review my itinerary",sub:"Check pacing, gaps and possible problems.",prompt:"Review my full itinerary. Look for pacing problems, unrealistic days, gaps, unnecessary backtracking and anything I should consider changing."},
+    {icon:"▣",title:"Check my bookings",sub:"See what's booked and what may still need reserving.",prompt:"Check my trip bookings and itinerary. Tell me what is already booked and what itinerary items may still need a reservation."},
+    {icon:"🍽",title:"Plan my food",sub:"Fit restaurants naturally around the itinerary.",prompt:`Help me plan food around my itinerary, especially the selected day ${selectedDate}. Use my saved restaurants and trip data.`},
+    {icon:"⌖",title:`Improve ${assistSelectedDayLabel()}`,sub:"Analyse the itinerary day currently selected above.",prompt:`Review my plan for ${selectedDate}. Suggest improvements to timing, route, pacing and useful additions, but do not change the schedule unless I confirm.`},
+    {icon:"$",title:"Review my spending",sub:"Check expenses, bookings and the trip budget.",prompt:"Review my trip spending, expenses and booking costs. Summarise how my spending looks using only the trip data you actually have."}
+  ];
+}
+function renderAssistMode(){
+  if(!assistMode)assistMode=automaticAssistMode();
+  assistPlanningMode.classList.toggle("active",assistMode==="planning");
+  assistLiveMode.classList.toggle("active",assistMode==="live");
+  const auto=automaticAssistMode(), preview=isLivePreview(), until=daysUntilTrip();
+  if(assistMode==="live"){
+    assistModeContext.innerHTML=preview
+      ? `<span class="live-dot"></span><strong>Live preview</strong> · Testing ${esc(assistSelectedDayLabel())} as a travel day. Your real trip has not started yet.`
+      : `<span class="live-dot"></span><strong>Live trip</strong> · Using ${esc(assistSelectedDayLabel())} as the active itinerary day.`;
+  }else{
+    let detail="Preparing and reviewing this trip.";
+    if(auto==="live")detail="Planning view while your trip is currently in progress.";
+    else if(until!==null&&until>0)detail=`Trip starts in ${until} day${until===1?"":"s"}.`;
+    else if(until===0)detail="Trip starts today.";
+    else if(trip?.end_date&&localDateString()>trip.end_date)detail="Reviewing a completed trip.";
+    assistModeContext.innerHTML=`<strong>Planning mode</strong> · ${esc(detail)}`;
+  }
+  assistStarters.innerHTML=getAssistStarters().map((item,index)=>`<button class="assist-starter" type="button" data-assist-index="${index}"><span class="assist-starter-icon">${esc(item.icon)}</span><span><span class="assist-starter-text">${esc(item.title)}</span><span class="assist-starter-sub">${esc(item.sub)}</span></span></button>`).join("");
+  assistStarters.classList.remove("hidden");
+  assistStarters.querySelectorAll("[data-assist-index]").forEach(button=>{button.onclick=()=>{const item=getAssistStarters()[Number(button.dataset.assistIndex)];if(item)askAssist(item.prompt)}});
+  assistStatus.textContent=assistMode==="live"?(preview?"Live Preview uses the itinerary day selected above.":"Live mode is focused on the active trip day."):"Planning mode is focused on preparing and improving your trip.";
+}
+function setAssistMode(mode,manual=true){if(mode!=="planning"&&mode!=="live")return;assistMode=mode;if(manual)assistModeManuallyChosen=true;renderAssistMode()}
+assistPlanningMode.onclick=()=>setAssistMode("planning");
+assistLiveMode.onclick=()=>setAssistMode("live");
+let assistThreadId=null;
+
+function setAssistOpen(open){
+  assistPanel.classList.toggle("open",open);
+  assistPanel.setAttribute("aria-hidden",String(!open));
+  assistLaunch.setAttribute("aria-expanded",String(open));
+  assistLaunch.style.display=open?"none":"flex";
+  if(open) setTimeout(()=>assistInput.focus(),50);
+}
+assistLaunch.onclick=()=>setAssistOpen(true);
+assistClose.onclick=()=>setAssistOpen(false);
+
+function assistMessage(role,message,source=""){
+  document.getElementById("assistWelcome")?.remove();
+  if(role==="user") assistStarters?.classList.add("hidden");
+  const row=document.createElement("div"); row.className=`assist-msg ${role}`;
+  const bubble=document.createElement("div"); bubble.className="assist-bubble"; bubble.textContent=message;
+  if(source){
+    const meta=document.createElement("div"); meta.className="assist-source";
+    meta.textContent=source==="supabase"?"TRIP DATA":source==="gemini"?"AI ASSIST":source.toUpperCase();
+    bubble.appendChild(meta);
+  }
+  row.appendChild(bubble); assistMessages.appendChild(row);
+  assistMessages.scrollTop=assistMessages.scrollHeight;
+  return row;
+}
+
+function addAssistActions(row,data){
+  const bubble=row?.querySelector(".assist-bubble");
+  if(!bubble)return;
+
+  const actions=Array.isArray(data?.actions)
+    ? data.actions
+    : (data?.action ? [data.action] : []);
+
+  if(!actions.length)return;
+
+  const wrap=document.createElement("div");
+  wrap.className="assist-action-row";
+  bubble.appendChild(wrap);
+
+  const renderActions=()=>{
+    wrap.innerHTML="";
+
+    for(const action of actions){
+      const kind=text(action?.kind||action?.type||"").toLowerCase();
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="assist-action-btn";
+      if(kind.includes("remove")||kind.includes("delete"))button.classList.add("danger");
+      button.textContent=text(action?.label||action?.title||defaultAssistActionLabel(kind)).toUpperCase();
+
+      button.onclick=async()=>{
+        if(kind==="map"&&action?.url){
+          window.open(action.url,"_blank","noopener");
+          return;
+        }
+
+        // If the backend gives us an existing master place/restaurant without a
+        // proposal yet, use the normal schedule editor as the confirmation UI.
+        if((kind==="add_schedule"||kind==="schedule_add") &&
+           !action?.proposal_id &&
+           (action?.place_id||action?.restaurant_id)){
+          openNewItem();
+          fieldDate.value=action.schedule_date||selectedDate||fieldDate.value;
+          if(action.start_time)fieldTime.value=String(action.start_time).slice(0,5);
+          if(action.title)fieldTitle.value=action.title;
+          if(action.location_name)fieldLocation.value=action.location_name;
+
+          if(action.restaurant_id){
+            setFormType("restaurant");
+            selectedRestaurantId=Number(action.restaurant_id);
+            selectedPlaceId=null;
+            entitySearch.value=action.title||"";
+          }else{
+            setFormType("place");
+            selectedPlaceId=Number(action.place_id);
+            selectedRestaurantId=null;
+            entitySearch.value=action.title||"";
+          }
+          updateSelectedEntity();
+          return;
+        }
+
+        // All writes from Assist go through a proposal. The HTML only renders
+        // confirmation; the Edge Function owns the actual database operation.
+        if(action?.proposal_id){
+          showAssistConfirmation(wrap,action,renderActions);
+          return;
+        }
+
+        // MOVE can also open the existing editor if the backend returned a
+        // concrete schedule row but has not created a proposal.
+        if((kind==="move_schedule"||kind==="update_schedule") && action?.schedule_id){
+          const item=schedule.find(x=>Number(x.id)===Number(action.schedule_id));
+          if(item){
+            openEditItem(item.id);
+            if(action.schedule_date)fieldDate.value=action.schedule_date;
+            if(action.start_time)fieldTime.value=String(action.start_time).slice(0,5);
+          }
+          return;
+        }
+      };
+
+      wrap.appendChild(button);
+    }
+  };
+
+  renderActions();
+}
+
+function defaultAssistActionLabel(kind){
+  if(kind==="add_schedule"||kind==="schedule_add")return "ADD TO SCHEDULE";
+  if(kind==="move_schedule"||kind==="update_schedule")return "MOVE";
+  if(kind==="remove_schedule"||kind==="delete_schedule")return "REMOVE FROM PLAN";
+  if(kind==="save_restaurant")return "SAVE FOOD";
+  if(kind==="add_booking")return "ADD BOOKING";
+  if(kind==="add_expense")return "ADD EXPENSE";
+  if(kind==="map")return "MAP";
+  return "CONFIRM";
+}
+
+function assistActionVerb(kind){
+  if(kind.includes("remove")||kind.includes("delete"))return "REMOVE";
+  if(kind.includes("move")||kind.includes("update"))return "MOVE";
+  if(kind==="save_restaurant")return "SAVE";
+  if(kind==="add_booking")return "ADD BOOKING";
+  if(kind==="add_expense")return "ADD EXPENSE";
+  return "ADD";
+}
+
+function assistConfirmationSummary(action){
+  if(action?.confirmation_text)return text(action.confirmation_text);
+
+  const bits=[];
+  if(action?.title)bits.push(text(action.title));
+
+  const date=text(action?.schedule_date||action?.date||"");
+  const from=text(action?.from_time||"");
+  const to=text(action?.to_time||action?.start_time||"");
+
+  if(date)bits.push(formatDisplayDate(date));
+  if(from&&to)bits.push(`${formatTime(from)} → ${formatTime(to)}`);
+  else if(to)bits.push(formatTime(to));
+
+  if(action?.amount){
+    bits.push(`${text(action.currency||"")} ${Number(action.amount).toLocaleString()}`.trim());
+  }
+  return bits.join(" · ")||"Confirm this change?";
+}
+
+function showAssistConfirmation(wrap,action,onCancel){
+  wrap.innerHTML="";
+  const kind=text(action?.kind||action?.type||"").toLowerCase();
+
+  const box=document.createElement("div");
+  box.className="assist-confirm";
+  box.style.width="100%";
+
+  const summary=document.createElement("div");
+  summary.textContent=assistConfirmationSummary(action);
+  box.appendChild(summary);
+
+  const buttons=document.createElement("div");
+  buttons.className="assist-action-row";
+
+  const confirm=document.createElement("button");
+  confirm.type="button";
+  confirm.className="assist-action-btn confirm";
+  if(kind.includes("remove")||kind.includes("delete")){
+    confirm.classList.remove("confirm");
+    confirm.classList.add("confirm-danger");
+  }
+  confirm.textContent=`CONFIRM ${assistActionVerb(kind)}`;
+
+  const cancel=document.createElement("button");
+  cancel.type="button";
+  cancel.className="assist-action-btn neutral";
+  cancel.textContent="CANCEL";
+  cancel.onclick=()=>onCancel();
+
+  confirm.onclick=async()=>{
+    confirm.disabled=true;
+    cancel.disabled=true;
+    confirm.textContent="WORKING…";
+
+    try{
+      const sessionResult=await db.auth.getSession();
+      const token=sessionResult.data?.session?.access_token;
+      if(!token)throw new Error("Your session expired.");
+
+      const {data:applied,error}=await db.functions.invoke("travel-assist",{
+        body:{
+          action:"apply",
+          trip_id:TRIP_ID,
+          proposal_id:action.proposal_id,
+          selected_date:selectedDate||null
+        },
+        headers:{Authorization:`Bearer ${token}`}
+      });
+
+      if(error)throw new Error(await invokeErrorText(error));
+      if(applied?.error)throw new Error(applied.error);
+
+      box.innerHTML="";
+      const done=document.createElement("div");
+      done.style.fontWeight="900";
+      done.style.color="var(--green)";
+      done.textContent=text(applied?.message||action?.success_message||"✓ Done");
+      box.appendChild(done);
+
+      await loadData();
+    }catch(error){
+      confirm.disabled=false;
+      cancel.disabled=false;
+      confirm.textContent=`CONFIRM ${assistActionVerb(kind)}`;
+      assistMessage("assistant",error.message||"I couldn't make that change yet.");
+    }
+  };
+
+  buttons.appendChild(confirm);
+  buttons.appendChild(cancel);
+  box.appendChild(buttons);
+  wrap.appendChild(box);
+}
+async function invokeErrorText(error){
+  let msg=error?.message||"Travel Assist request failed.";
+  try{
+    const ctx=error?.context;
+    if(ctx&&typeof ctx.json==="function"){
+      const body=await ctx.json();
+      msg=body?.error||body?.message||body?.details||msg;
+    }
+  }catch(_){}
+  return msg;
+}
+
+async function askAssist(forced=null){
+  if(assistBusy)return;
+  let message=text(forced??assistInput.value).trim();
+  if(!message)return;
+  if(!TRIP_ID){assistStatus.textContent="No trip selected.";return}
+
+  setAssistOpen(true);
+  assistBusy=true; assistSend.disabled=true; assistInput.disabled=true; assistInput.value="";
+  assistMessage("user",message);
+  const waiting=assistMessage("assistant","Checking your trip…");
+  assistStatus.textContent="Working…";
+
+  try{
+    const sessionResult=await db.auth.getSession();
+    if(sessionResult.error)throw sessionResult.error;
+    const token=sessionResult.data?.session?.access_token;
+    if(!token)throw new Error("Your session expired. Please sign in again.");
+
+    const body={
+      action:"chat",
+      trip_id:TRIP_ID,
+      message,
+      selected_date:selectedDate||null,
+      entry_point:"schedule",
+      assist_mode:assistMode||automaticAssistMode(),
+      live_preview:isLivePreview(),
+      context:{
+        selected_date:selectedDate||null,
+        page:"schedule",
+        assist_mode:assistMode||automaticAssistMode(),
+        live_preview:isLivePreview(),
+        selected_day_item_ids:schedule
+          .filter(x=>x.schedule_date===selectedDate)
+          .map(x=>x.id)
+      }
+    };
+    if(assistThreadId)body.thread_id=assistThreadId;
+
+    const {data,error}=await db.functions.invoke("travel-assist",{
+      body,
+      headers:{Authorization:`Bearer ${token}`}
+    });
+    if(error)throw new Error(await invokeErrorText(error));
+    if(data?.error)throw new Error(data.error);
+
+    const reply=text(data?.reply??data?.message).trim();
+    if(!reply)throw new Error("Travel Assist returned an empty response.");
+    if(data?.thread_id)assistThreadId=data.thread_id;
+
+    waiting.remove();
+    const answerRow=assistMessage("assistant",reply,data?.source||"");
+    addAssistActions(answerRow,data);
+    assistStatus.textContent=data?.ai_used?"Assist used your trip data to work this out.":"Answered from your trip data.";
+  }catch(error){
+    console.error("travel-assist",error);
+    waiting.remove();
+    assistMessage("assistant",`I couldn't answer that yet.\n\n${error.message||"Unknown error."}`);
+    assistStatus.textContent="Assist connection needs attention.";
+  }finally{
+    assistBusy=false; assistSend.disabled=false; assistInput.disabled=false; assistInput.focus();
+  }
+}
+
+assistSend.onclick=()=>askAssist();
+assistInput.addEventListener("keydown",event=>{
+  if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();askAssist()}
+});
 
 
 /* =========================================================
