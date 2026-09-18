@@ -1320,7 +1320,7 @@ main{
 ========================================================= */
 
 const DEFAULT_HERO =
-  "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1600&q=88";
+  "https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Bavkground%20image.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQmF2a2dyb3VuZCBpbWFnZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NzIwNzY5LCJleHAiOjMzMzI1NzIwNzY5fQ.fyNIjD9vAXA26vNjxYbQJmz5myxaSZbkT0xmjJvcmV0hbbImJWEwjLYe_nS8qOOA3EgAcOsEnCkU5sa8K0EmPQ";
 
 
 
@@ -2566,17 +2566,11 @@ function renderHero(){
     to trips, this automatically uses it.
   */
 
-  const cover =
-
-    currentTrip.cover_image_url
-
-    ||
-
-    currentTrip.image_url
-
-    ||
-
-    DEFAULT_HERO;
+  /*
+    Homepage hero is fixed to the Kyoto autumn
+    background stored in Supabase Storage.
+  */
+  const cover = DEFAULT_HERO;
 
 
   document.getElementById(
