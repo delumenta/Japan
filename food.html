@@ -498,7 +498,7 @@ main{
 ========================================================= */
 
 :root{
-  --food-hero-image:url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/food1.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZDEucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTczMzQwNSwiZXhwIjozMzMyNTczMzQwNX0.CGwvuSG1zOfvgqfiuDdrKfwMwKOwMAf9hYZQRK5zVgKzIqszkqff37cyCW_34OhorHx9z_mZJqmKg94LUIaBWA");
+  --food-hero-image:url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/food1%20(1).png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZDEgKDEpLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk3Mzg4NDIsImV4cCI6MTg3NjEzODg0Mn0.IdOfy_yyVvK-FoUpFxN6thWF46U_cvZVcUejrZtppGxzRHAaUSmCkmJONBa7y8rtMTEMV8Iv3M1x0PBwyjmSXw");
 }
 
 body{
@@ -1348,6 +1348,76 @@ main{
     padding-top:6px !important;
   }
 
+}
+
+
+/* =========================================================
+   FOOD HERO — CINEMATIC VIGNETTE
+   Tuned for food1 (1).png
+========================================================= */
+
+header{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,5,8,.12) 0%,
+      rgba(3,7,10,.20) 32%,
+      rgba(5,10,14,.42) 68%,
+      rgba(7,13,17,.74) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.64) 0%,
+      rgba(0,0,0,.38) 18%,
+      rgba(0,0,0,.11) 46%,
+      rgba(0,0,0,.04) 68%,
+      rgba(0,0,0,.22) 100%
+    ) !important;
+}
+
+header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at 69% 43%,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,.04) 38%,
+      rgba(0,0,0,.20) 70%,
+      rgba(0,0,0,.54) 100%
+    ),
+    radial-gradient(
+      circle at 84% 10%,
+      rgba(150,26,24,.10) 0%,
+      rgba(115,18,18,.05) 27%,
+      transparent 49%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02) 0%,
+      rgba(0,0,0,.08) 54%,
+      rgba(7,13,17,.68) 100%
+    ) !important;
+}
+
+/* Keep hero content clearly above the overlays */
+.header-inner{
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================================================
+   REMOVE EXTRA FOOD WATERMARK
+   The background artwork already contains 食.
+========================================================= */
+header::before{
+  display:none !important;
+  content:none !important;
 }
 
 </style>
