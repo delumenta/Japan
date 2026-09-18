@@ -1558,6 +1558,171 @@ header{
   }
 }
 
+
+/* =========================================================
+   FOOD HERO — MATCH SCHEDULE FADING ONLY
+   Food layout / controls / cards stay unchanged.
+========================================================= */
+
+/* Same photo-on-shell treatment as Schedule */
+.food-shell{
+  position:relative;
+  isolation:isolate;
+
+  background:
+    var(--food-hero-image)
+    center top / 100% 350px
+    no-repeat,
+    linear-gradient(180deg,#0a1116,#070d11) !important;
+
+  box-shadow:
+    inset 26px 0 42px -34px rgba(0,0,0,.72),
+    inset -26px 0 42px -34px rgba(0,0,0,.72),
+    0 24px 65px rgba(0,0,0,.40) !important;
+}
+
+/* Same Schedule hero overlay */
+header{
+  position:relative;
+  isolation:isolate;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,5,8,.18) 0%,
+      rgba(3,7,10,.24) 30%,
+      rgba(5,10,14,.47) 67%,
+      rgba(7,13,17,.72) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.27) 0%,
+      rgba(0,0,0,.04) 44%,
+      rgba(0,0,0,.16) 76%,
+      rgba(0,0,0,.28) 100%
+    ) !important;
+}
+
+/* Exact Schedule-style vignette + warm tint */
+header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at 46% 42%,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,.02) 28%,
+      rgba(0,0,0,.13) 50%,
+      rgba(0,0,0,.34) 75%,
+      rgba(0,0,0,.58) 100%
+    ),
+    radial-gradient(
+      circle at 84% 8%,
+      rgba(145,28,24,.18) 0%,
+      rgba(112,23,20,.09) 23%,
+      transparent 56%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(2,5,8,0) 0%,
+      rgba(4,9,12,.12) 58%,
+      rgba(7,13,17,.46) 82%,
+      rgba(7,13,17,.72) 100%
+    ) !important;
+}
+
+/* Keep Food header content above the vignette */
+.header-inner{
+  position:relative;
+  z-index:2;
+}
+
+/* Same text legibility as Schedule */
+.eyebrow,
+.food-page-title span,
+.trip-name,
+.main-tab,
+.chip,
+.filter-select-btn,
+.quick-filter-input{
+  text-shadow:0 1px 10px rgba(0,0,0,.62);
+}
+
+/* Filters remain Food filters, but visually sit on the same fading hero */
+.unified-filter-panel{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.34),
+      rgba(7,12,16,.66)
+    ) !important;
+
+  backdrop-filter:blur(13px) saturate(112%);
+  -webkit-backdrop-filter:blur(13px) saturate(112%);
+}
+
+/* Exact Schedule-like fade from hero into Food results */
+main{
+  position:relative;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,.72) 0px,
+      rgba(8,15,20,.90) 34px,
+      #091015 82px,
+      #070d11 220px
+    ) !important;
+}
+
+/* Soft overlap hides the header/result seam */
+main::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+
+  left:0;
+  right:0;
+  top:-28px;
+
+  height:60px;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.44) 42%,
+      rgba(7,13,17,.88) 80%,
+      #091015 100%
+    ) !important;
+}
+
+main > *{
+  position:relative;
+  z-index:1;
+}
+
+@media(max-width:430px){
+  .food-shell{
+    background:
+      var(--food-hero-image)
+      center top / auto 330px
+      no-repeat,
+      linear-gradient(180deg,#0a1116,#070d11) !important;
+  }
+
+  main::before{
+    top:-25px;
+    height:56px;
+  }
+}
+
 </style>
 </head>
 
