@@ -692,6 +692,19 @@ main{
   padding:24px 14px !important;
 }
 
+
+/* Price + rating now live beside cuisine/status tags */
+.price-badge{
+  color:#d7b06b !important;
+  border-color:rgba(228,189,105,.18) !important;
+  background:rgba(228,189,105,.045) !important;
+}
+.rating-badge{
+  color:#e4bd69 !important;
+  border-color:rgba(228,189,105,.18) !important;
+  background:rgba(228,189,105,.045) !important;
+}
+
 </style>
 </head>
 
@@ -3117,75 +3130,28 @@ function cardHTML(r){
 
             ${badges(r)}
 
+            ${
+              rPrice(r)
+              ?
+              `<span class="badge price-badge">💴 ${esc(rPrice(r))}</span>`
+              :
+              ""
+            }
+
+            ${
+              rRating(r)
+              ?
+              `<span class="badge rating-badge">⭐ ${esc(rRating(r))}</span>`
+              :
+              ""
+            }
+
           </div>
 
 
         </div>
 
       </div>
-
-
-      ${
-        rRating(r) ||
-        rPrice(r)
-
-        ?
-
-        `
-
-          <div class="meta">
-
-            ${
-              rRating(r)
-
-              ?
-
-              `
-                <span class="meta-item">
-
-                  ⭐ Tabelog
-                  ${esc(
-                    rRating(r)
-                  )}
-
-                </span>
-              `
-
-              :
-
-              ""
-            }
-
-
-            ${
-              rPrice(r)
-
-              ?
-
-              `
-                <span class="meta-item">
-
-                  💴
-                  ${esc(
-                    rPrice(r)
-                  )}
-
-                </span>
-              `
-
-              :
-
-              ""
-            }
-
-          </div>
-
-        `
-
-        :
-
-        ""
-      }
 
 
       ${planHTML(r)}
