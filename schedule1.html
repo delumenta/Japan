@@ -377,125 +377,101 @@ header{
 
 
 /* =========================================================
-   DATE STRIP
+   DATE TIMELINE
 ========================================================= */
 
 .date-scroller{
+  position:relative;
   display:flex;
-
-  gap:7px;
-
-  margin-top:24px;
-
-  padding:
-    0
-    0
-    17px;
-
+  gap:5px;
+  margin-top:23px;
+  padding:0 0 16px;
   overflow-x:auto;
-
   scrollbar-width:none;
-
   -webkit-overflow-scrolling:touch;
 }
 
-
-.date-scroller::-webkit-scrollbar{
-  display:none;
-}
-
+.date-scroller::-webkit-scrollbar{display:none;}
 
 .date-btn{
-  flex:0 0 60px;
-
-  min-height:70px;
-
+  position:relative;
+  flex:0 0 52px;
+  min-height:52px;
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-  justify-content:center;
-
-  padding:7px 3px;
-
-  border:1px solid #29343c;
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #11191f,
-      #0b1217
-    );
-
+  justify-content:flex-start;
+  padding:3px 2px 9px;
+  border:0;
+  border-radius:0;
+  background:transparent;
   color:var(--muted);
-
   cursor:pointer;
 }
 
-
-.date-weekday{
-  color:#747f86;
-
-  font-size:6px;
-  font-weight:800;
+.date-btn::after{
+  content:"";
+  position:absolute;
+  left:5px;
+  right:5px;
+  bottom:0;
+  height:1px;
+  border-radius:999px;
+  background:#263139;
 }
 
+.date-weekday{
+  color:#687780;
+  font-size:5.5px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
 
 .date-number{
-  margin:
-    4px
-    0
-    4px;
-
-  color:#f0eee9;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:21px;
+  margin:4px 0 2px;
+  color:#eeeae4;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
   font-weight:700;
-
   line-height:1;
 }
 
-
 .date-month{
-  color:#747f86;
-
-  font-size:6px;
-  font-weight:800;
+  color:#64727b;
+  font-size:5px;
+  font-weight:900;
 }
-
-
-.date-btn.active{
-  border-color:
-    rgba(255,98,95,.40);
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(255,98,95,.10),
-      transparent 70%
-    ),
-    #151318;
-
-  box-shadow:
-    0 0 15px rgba(255,98,95,.03);
-}
-
 
 .date-btn.active .date-weekday,
-.date-btn.active .date-month{
-  color:#d99895;
+.date-btn.active .date-month{color:#e18b88;}
+
+.date-btn.active .date-number{color:#fff5f1;}
+
+.date-btn.active::after{
+  height:2px;
+  background:var(--red-bright);
+  box-shadow:0 0 9px rgba(255,98,95,.22);
 }
 
+.date-btn.has-plan:not(.active)::after{background:#34414a;}
 
+.date-btn.today:not(.active) .date-number{color:#b9d1eb;}
 
+.date-btn.today:not(.active)::after{background:rgba(120,169,239,.55);}
+
+.date-day-label{
+  position:absolute;
+  bottom:5px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#ef8b87;
+  font-size:4.5px;
+  font-weight:900;
+  letter-spacing:.06em;
+  white-space:nowrap;
+}
+
+.date-btn.active .date-day-label + .date-month{visibility:hidden;}
 
 /* =========================================================
    PLAN MODE SWITCH
@@ -1865,7 +1841,7 @@ gmp-place-autocomplete{
 
 
   .date-btn{
-    flex-basis:57px;
+    flex-basis:48px;
   }
 
 
@@ -1973,6 +1949,61 @@ gmp-place-autocomplete{
   .assist-mode-switch{flex-basis:165px}
   .assist-mode-context{font-size:5.7px}
 }
+.assist-launch{
+  width:100%;
+  margin:0 0 13px;
+  padding:9px 10px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  border:1px solid #2b3942;
+  border-radius:14px;
+  background:linear-gradient(145deg,#0f181e,#091116);
+  color:var(--text);
+  appearance:none;
+  -webkit-appearance:none;
+  text-align:left;
+  cursor:pointer;
+  box-shadow:none;
+}
+.assist-launch:hover{
+  border-color:rgba(120,169,239,.28);
+  background:linear-gradient(145deg,#111c22,#0a1217);
+}
+.assist-launch:focus{
+  outline:none;
+  border-color:rgba(120,169,239,.38);
+}
+.assist-launch-modes{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:3px;
+  padding:3px;
+  border:1px solid #29363e;
+  border-radius:9px;
+  background:#070d11;
+}
+.assist-launch-mode{
+  min-width:58px;
+  min-height:27px;
+  padding:0 8px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#6f7e87;
+  appearance:none;
+  -webkit-appearance:none;
+  font-size:5.6px;
+  font-weight:900;
+  letter-spacing:.07em;
+  cursor:pointer;
+}
+.assist-launch-mode.active{
+  border:1px solid rgba(120,169,239,.24);
+  background:rgba(120,169,239,.07);
+  color:#b7d0ef;
+}
 .assist-launch-icon{
   width:34px;height:34px;flex:0 0 34px;
   display:flex;align-items:center;justify-content:center;
@@ -1980,8 +2011,8 @@ gmp-place-autocomplete{
   background:rgba(120,169,239,.055);font-size:15px;
 }
 .assist-launch-main{min-width:0;flex:1}
-.assist-launch-title{color:#e9edf0;font-size:8px;font-weight:900}
-.assist-launch-sub{margin-top:2px;color:#74818a;font-size:6.5px;line-height:1.4}
+.assist-launch-title{color:#eef1f2;font-family:Georgia,"Times New Roman",serif;font-size:10px;font-weight:700;line-height:1.1}
+.assist-launch-sub{margin-top:2px;color:#74818a;font-size:5.8px;line-height:1.35}
 .assist-launch-arrow{color:#86a9d7;font-size:12px}
 .assist-panel{
   display:none;margin:0 0 13px;overflow:hidden;
@@ -2040,13 +2071,26 @@ gmp-place-autocomplete{
 .assist-send:disabled{opacity:.45}
 
 .assist-starters{
-  display:grid;grid-template-columns:1fr;gap:7px;padding:10px 10px 0
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:7px;
+  padding:10px 10px 0;
 }
 .assist-starters.hidden{display:none}
 .assist-starter{
-  width:100%;display:flex;align-items:center;gap:9px;text-align:left;
-  padding:10px 11px;border:1px solid #29363e;border-radius:11px;
-  background:#0e171c;color:#dfe5e8;cursor:pointer
+  width:100%;
+  min-width:0;
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-align:left;
+  padding:9px 9px;
+  border:1px solid #29363e;
+  border-radius:11px;
+  background:#0e171c;
+  color:#dfe5e8;
+  cursor:pointer;
 }
 .assist-starter:hover{border-color:rgba(120,169,239,.32);background:#101b21}
 .assist-starter-icon{
@@ -2054,8 +2098,8 @@ gmp-place-autocomplete{
   border:1px solid rgba(120,169,239,.16);border-radius:8px;background:rgba(120,169,239,.045);
   color:#9ab9df;font-size:11px
 }
-.assist-starter-text{font-size:7.5px;font-weight:800}
-.assist-starter-sub{margin-top:2px;color:#687781;font-size:5.7px;font-weight:600}
+.assist-starter-text{display:block;font-size:6.6px;font-weight:900;line-height:1.3}
+.assist-starter-sub{display:block;margin-top:3px;color:#687781;font-size:5.2px;font-weight:600;line-height:1.35}
 .assist-action-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .assist-action-btn{
   padding:6px 8px;border:1px solid rgba(120,169,239,.25);border-radius:8px;
@@ -2077,6 +2121,198 @@ gmp-place-autocomplete{
 .assist-confirm{
   margin-top:7px;padding:8px;border:1px solid rgba(121,201,149,.18);
   border-radius:9px;background:rgba(121,201,149,.035);color:#aeb9b3;font-size:6.3px;line-height:1.45
+}
+
+
+@media(max-width:480px){
+  .assist-launch{gap:7px;padding:8px}
+  .assist-launch-sub{display:none}
+  .assist-launch-mode{min-width:46px;padding:0 5px;font-size:5.1px}
+  .assist-launch-icon{width:30px;height:30px;flex-basis:30px}
+}
+
+
+@media(max-width:700px){
+  .assist-starters{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .assist-starters::-webkit-scrollbar{display:none}
+  .assist-starter{
+    flex:0 0 185px;
+    min-height:68px;
+  }
+}
+
+
+/* =========================================================
+   ASSIST — COMPACT FINAL OVERRIDES
+========================================================= */
+.assist-mode-area{
+  gap:7px;
+  padding:8px 10px 0;
+}
+.assist-mode-switch{
+  flex:0 0 145px;
+  gap:2px;
+  padding:2px;
+  border-radius:9px;
+}
+.assist-mode-btn{
+  min-height:25px;
+  padding:0 7px;
+  border-radius:7px;
+  font-size:5.6px;
+  letter-spacing:.07em;
+}
+.assist-mode-context{
+  font-size:5.6px;
+  line-height:1.3;
+}
+.assist-mode-context strong{
+  font-size:5.8px;
+}
+.assist-starter{
+  min-height:48px;
+  gap:7px;
+  padding:7px 8px;
+  border-radius:10px;
+}
+.assist-starter-icon{
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  border-radius:7px;
+  font-size:10px;
+}
+.assist-starter-text{
+  font-size:6.2px;
+  line-height:1.25;
+}
+.assist-starter-sub{
+  display:none !important;
+}
+@media(max-width:480px){
+  .assist-mode-switch{flex-basis:125px}
+  .assist-mode-context{font-size:5.1px}
+}
+@media(max-width:700px){
+  .assist-starter{
+    flex:0 0 150px;
+    min-height:46px;
+  }
+}
+
+
+/* =========================================================
+   ASSIST — MODE SWITCH BESIDE TITLE
+========================================================= */
+.assist-panel-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.assist-panel-heading{
+  flex:1;
+  min-width:0;
+}
+.assist-header-actions{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.assist-mode-switch-header{
+  flex:0 0 auto !important;
+  width:142px;
+  margin:0;
+  padding:2px;
+  border-radius:9px;
+}
+.assist-mode-switch-header .assist-mode-btn{
+  min-height:25px;
+  padding:0 7px;
+  font-size:5.5px;
+}
+.assist-mode-context-header{
+  margin-top:2px;
+  padding:0;
+  border:0;
+  background:transparent;
+  font-size:5.2px;
+  line-height:1.25;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:480px){
+  .assist-panel-head{gap:6px}
+  .assist-header-actions{gap:5px}
+  .assist-mode-switch-header{width:108px}
+  .assist-mode-switch-header .assist-mode-btn{
+    min-height:23px;
+    padding:0 4px;
+    font-size:4.7px;
+    letter-spacing:.035em;
+  }
+  .assist-mode-context-header{display:none}
+  .assist-close{
+    width:27px;
+    height:27px;
+    flex-basis:27px;
+  }
+}
+
+
+
+/* =========================================================
+   PHOTO HERO HEADER — FINAL OVERRIDE
+========================================================= */
+header{
+  position:relative;
+  overflow:hidden;
+  background-image:
+    linear-gradient(90deg,rgba(4,8,11,.74) 0%,rgba(4,8,11,.50) 52%,rgba(4,8,11,.35) 100%),
+    linear-gradient(0deg,rgba(4,8,11,.58) 0%,rgba(4,8,11,.06) 58%),
+    url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/244e17e1-70ca-45c9-a3c7-c893a56e70c7.jpg?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvMjQ0ZTE3ZTEtNzBjYS00NWM5LWEzYzctYzg5M2E1NmU3MGM3LmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk3MjMxODMsImV4cCI6MzMzMjU3MjMxODN9.y8iKSm_UiONEu05o3uq2fSJbG5-vmgOm5udOX-C2Zjt6vNmF_w015sJnEuP3y64vbWapYX8le1eof2bdKBhYug");
+  background-size:cover;
+  background-position:center 48%;
+  border-top:3px solid var(--red-bright);
+}
+header::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 72%,rgba(5,9,12,.55));}
+.header-inner{padding:25px 20px 0;}
+.plan-kanji{right:8px;top:8px;color:#ff625f;opacity:.07;font-size:116px;}
+.eyebrow{margin-bottom:10px;color:#ef8580;font-size:7px;letter-spacing:.22em;}
+.plan-hero{gap:13px;}
+.plan-icon-wrap{width:58px;height:58px;flex-basis:58px;background:rgba(6,12,16,.78);backdrop-filter:blur(3px);}
+.plan-page-title-icon{width:40px;height:40px;}
+.plan-page-title span{font-size:38px;text-shadow:0 2px 12px rgba(0,0,0,.45);}
+.trip-name{margin-top:6px;color:#aab2b6;font-size:8px;text-shadow:0 1px 8px rgba(0,0,0,.65);}
+.header-actions{right:0;top:0;gap:6px;}
+.edit-btn{width:31px;height:31px;border-color:rgba(255,98,95,.42);background:rgba(25,11,14,.46);color:#ff9b97;backdrop-filter:blur(4px);}
+.date-scroller{gap:7px;margin-top:18px;padding:0 0 10px;}
+.date-btn{flex:0 0 58px;min-height:64px;justify-content:center;padding:7px 3px;border:1px solid rgba(111,128,139,.42);border-radius:14px;background:rgba(7,14,18,.76);backdrop-filter:blur(5px);}
+.date-btn::after{display:none;}
+.date-weekday{font-size:5.8px;color:#8c9aa3;}
+.date-number{margin:4px 0 3px;font-size:20px;color:#f5f1eb;}
+.date-month{font-size:5.3px;color:#74828b;}
+.date-btn.active{border-color:rgba(255,98,95,.62);background:rgba(37,17,20,.76);box-shadow:inset 0 0 0 1px rgba(255,98,95,.08);}
+.date-btn.active .date-weekday,.date-btn.active .date-month{color:#ff8f8b;}
+.date-btn.active .date-number{color:#fff7f2;}
+.date-btn.has-plan:not(.active){border-color:rgba(87,103,113,.45);}
+.date-btn.today:not(.active){border-color:rgba(120,169,239,.45);}
+.date-day-label{bottom:5px;font-size:4.5px;}
+@media(max-width:390px){
+  .header-inner{padding-left:17px;padding-right:17px;}
+  .plan-page-title span{font-size:35px;}
+  .plan-icon-wrap{width:54px;height:54px;flex-basis:54px;}
+  .plan-page-title-icon{width:37px;height:37px;}
+  .date-btn{flex-basis:54px;min-height:60px;border-radius:13px;}
+  .date-number{font-size:18px;}
 }
 
 </style>
@@ -2123,16 +2359,12 @@ gmp-place-autocomplete{
 
           <div class="plan-icon-wrap">
 
-<div class="plan-icon-wrap">
-
   <img
     class="plan-page-title-icon"
     src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
     alt=""
     aria-hidden="true"
   >
-
-</div>
 
           </div>
 
@@ -2206,29 +2438,34 @@ gmp-place-autocomplete{
 
 <main id="main">
 
-  <button id="assistLaunch" class="assist-launch" type="button" aria-expanded="false">
+  <div id="assistLaunch" class="assist-launch" role="button" tabindex="0" aria-expanded="false">
     <div class="assist-launch-icon">✦</div>
     <div class="assist-launch-main">
-      <div class="assist-launch-title">Ask Assist</div>
-      <div class="assist-launch-sub">Bookings, spending, food ideas, pacing or changes to this day.</div>
+      <div class="assist-launch-title">Travel Assist</div>
+      <div class="assist-launch-sub">Plan ahead or preview your live travel assistant.</div>
+    </div>
+    <div class="assist-launch-modes">
+      <button id="assistLaunchPlanning" class="assist-launch-mode active" type="button">PLANNING</button>
+      <button id="assistLaunchLive" class="assist-launch-mode" type="button">LIVE</button>
     </div>
     <div class="assist-launch-arrow">›</div>
-  </button>
+  </div>
 
   <section id="assistPanel" class="assist-panel" aria-hidden="true">
     <div class="assist-panel-head">
-      <div>
+      <div class="assist-panel-heading">
         <div class="assist-panel-title">Travel Assist</div>
         <div id="assistStatus" class="assist-panel-sub">Ask anything about this trip.</div>
+        <div id="assistModeContext" class="assist-mode-context assist-mode-context-header">Planning your trip.</div>
       </div>
-      <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
-    </div>
-    <div class="assist-mode-area">
-      <div class="assist-mode-switch" role="tablist" aria-label="Travel Assist mode">
-        <button id="assistPlanningMode" class="assist-mode-btn active" type="button">PLANNING</button>
-        <button id="assistLiveMode" class="assist-mode-btn" type="button">LIVE</button>
+
+      <div class="assist-header-actions">
+        <div class="assist-mode-switch assist-mode-switch-header" role="tablist" aria-label="Travel Assist mode">
+          <button id="assistPlanningMode" class="assist-mode-btn active" type="button">PLANNING</button>
+          <button id="assistLiveMode" class="assist-mode-btn" type="button">LIVE</button>
+        </div>
+        <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
       </div>
-      <div id="assistModeContext" class="assist-mode-context"><strong>Planning mode</strong> · Preparing this trip before departure.</div>
     </div>
     <div id="assistStarters" class="assist-starters"></div>
     <div id="assistMessages" class="assist-messages">
@@ -4116,16 +4353,7 @@ function renderDates(){
           return `
 
             <button
-              class="
-                date-btn
-                ${
-                  date === selectedDate
-                  ?
-                  "active"
-                  :
-                  ""
-                }
-              "
+              class="date-btn${date === selectedDate ? " active" : ""}${(groupedDays[date] || []).length ? " has-plan" : ""}${date === localDateString() ? " today" : ""}"
               type="button"
               data-date="${date}"
             >
@@ -4138,9 +4366,7 @@ function renderDates(){
                 ${esc(parts.day)}
               </span>
 
-              <span class="date-month">
-                ${esc(parts.month)}
-              </span>
+              ${date === selectedDate ? `<span class="date-day-label">DAY ${dayNumber(date)}</span>` : `<span class="date-month">${esc(parts.month)}</span>`}
 
             </button>
 
@@ -7098,6 +7324,8 @@ const assistStarters=document.getElementById("assistStarters");
 const assistPlanningMode=document.getElementById("assistPlanningMode");
 const assistLiveMode=document.getElementById("assistLiveMode");
 const assistModeContext=document.getElementById("assistModeContext");
+const assistLaunchPlanning=document.getElementById("assistLaunchPlanning");
+const assistLaunchLive=document.getElementById("assistLaunchLive");
 let assistBusy=false;
 let assistMode=null;
 let assistModeManuallyChosen=false;
@@ -7136,6 +7364,8 @@ function renderAssistMode(){
   if(!assistMode)assistMode=automaticAssistMode();
   assistPlanningMode.classList.toggle("active",assistMode==="planning");
   assistLiveMode.classList.toggle("active",assistMode==="live");
+  assistLaunchPlanning?.classList.toggle("active",assistMode==="planning");
+  assistLaunchLive?.classList.toggle("active",assistMode==="live");
   const auto=automaticAssistMode(), preview=isLivePreview(), until=daysUntilTrip();
   if(assistMode==="live"){
     assistModeContext.innerHTML=preview
@@ -7149,7 +7379,7 @@ function renderAssistMode(){
     else if(trip?.end_date&&localDateString()>trip.end_date)detail="Reviewing a completed trip.";
     assistModeContext.innerHTML=`<strong>Planning mode</strong> · ${esc(detail)}`;
   }
-  assistStarters.innerHTML=getAssistStarters().map((item,index)=>`<button class="assist-starter" type="button" data-assist-index="${index}"><span class="assist-starter-icon">${esc(item.icon)}</span><span><span class="assist-starter-text">${esc(item.title)}</span><span class="assist-starter-sub">${esc(item.sub)}</span></span></button>`).join("");
+  assistStarters.innerHTML=getAssistStarters().map((item,index)=>`<button class="assist-starter" type="button" data-assist-index="${index}"><span class="assist-starter-icon">${esc(item.icon)}</span><span><span class="assist-starter-text">${esc(item.title)}</span></span></button>`).join("");
   assistStarters.classList.remove("hidden");
   assistStarters.querySelectorAll("[data-assist-index]").forEach(button=>{button.onclick=()=>{const item=getAssistStarters()[Number(button.dataset.assistIndex)];if(item)askAssist(item.prompt)}});
   assistStatus.textContent=assistMode==="live"?(preview?"Live Preview uses the itinerary day selected above.":"Live mode is focused on the active trip day."):"Planning mode is focused on preparing and improving your trip.";
@@ -7166,7 +7396,26 @@ function setAssistOpen(open){
   assistLaunch.style.display=open?"none":"flex";
   if(open) setTimeout(()=>assistInput.focus(),50);
 }
-assistLaunch.onclick=()=>setAssistOpen(true);
+assistLaunch.onclick=event=>{
+  if(event.target.closest(".assist-launch-mode"))return;
+  setAssistOpen(true);
+};
+assistLaunch.onkeydown=event=>{
+  if(event.key==="Enter"||event.key===" "){
+    event.preventDefault();
+    setAssistOpen(true);
+  }
+};
+assistLaunchPlanning.onclick=event=>{
+  event.stopPropagation();
+  setAssistMode("planning");
+  setAssistOpen(true);
+};
+assistLaunchLive.onclick=event=>{
+  event.stopPropagation();
+  setAssistMode("live");
+  setAssistOpen(true);
+};
 assistClose.onclick=()=>setAssistOpen(false);
 
 function assistMessage(role,message,source=""){
