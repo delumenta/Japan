@@ -377,125 +377,101 @@ header{
 
 
 /* =========================================================
-   DATE STRIP
+   DATE TIMELINE
 ========================================================= */
 
 .date-scroller{
+  position:relative;
   display:flex;
-
-  gap:7px;
-
-  margin-top:24px;
-
-  padding:
-    0
-    0
-    17px;
-
+  gap:5px;
+  margin-top:23px;
+  padding:0 0 16px;
   overflow-x:auto;
-
   scrollbar-width:none;
-
   -webkit-overflow-scrolling:touch;
 }
 
-
-.date-scroller::-webkit-scrollbar{
-  display:none;
-}
-
+.date-scroller::-webkit-scrollbar{display:none;}
 
 .date-btn{
-  flex:0 0 60px;
-
-  min-height:70px;
-
+  position:relative;
+  flex:0 0 52px;
+  min-height:52px;
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-  justify-content:center;
-
-  padding:7px 3px;
-
-  border:1px solid #29343c;
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #11191f,
-      #0b1217
-    );
-
+  justify-content:flex-start;
+  padding:3px 2px 9px;
+  border:0;
+  border-radius:0;
+  background:transparent;
   color:var(--muted);
-
   cursor:pointer;
 }
 
-
-.date-weekday{
-  color:#747f86;
-
-  font-size:6px;
-  font-weight:800;
+.date-btn::after{
+  content:"";
+  position:absolute;
+  left:5px;
+  right:5px;
+  bottom:0;
+  height:1px;
+  border-radius:999px;
+  background:#263139;
 }
 
+.date-weekday{
+  color:#687780;
+  font-size:5.5px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
 
 .date-number{
-  margin:
-    4px
-    0
-    4px;
-
-  color:#f0eee9;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:21px;
+  margin:4px 0 2px;
+  color:#eeeae4;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
   font-weight:700;
-
   line-height:1;
 }
 
-
 .date-month{
-  color:#747f86;
-
-  font-size:6px;
-  font-weight:800;
+  color:#64727b;
+  font-size:5px;
+  font-weight:900;
 }
-
-
-.date-btn.active{
-  border-color:
-    rgba(255,98,95,.40);
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(255,98,95,.10),
-      transparent 70%
-    ),
-    #151318;
-
-  box-shadow:
-    0 0 15px rgba(255,98,95,.03);
-}
-
 
 .date-btn.active .date-weekday,
-.date-btn.active .date-month{
-  color:#d99895;
+.date-btn.active .date-month{color:#e18b88;}
+
+.date-btn.active .date-number{color:#fff5f1;}
+
+.date-btn.active::after{
+  height:2px;
+  background:var(--red-bright);
+  box-shadow:0 0 9px rgba(255,98,95,.22);
 }
 
+.date-btn.has-plan:not(.active)::after{background:#34414a;}
 
+.date-btn.today:not(.active) .date-number{color:#b9d1eb;}
 
+.date-btn.today:not(.active)::after{background:rgba(120,169,239,.55);}
+
+.date-day-label{
+  position:absolute;
+  bottom:5px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#ef8b87;
+  font-size:4.5px;
+  font-weight:900;
+  letter-spacing:.06em;
+  white-space:nowrap;
+}
+
+.date-btn.active .date-day-label + .date-month{visibility:hidden;}
 
 /* =========================================================
    PLAN MODE SWITCH
@@ -1865,7 +1841,7 @@ gmp-place-autocomplete{
 
 
   .date-btn{
-    flex-basis:57px;
+    flex-basis:48px;
   }
 
 
@@ -2292,46 +2268,6 @@ gmp-place-autocomplete{
 }
 
 
-/* =========================================================
-   DATE STRIP — SLIGHTLY MORE COMPACT
-========================================================= */
-.date-strip{
-  gap:7px;
-}
-.date-chip{
-  width:82px;
-  min-width:82px;
-  height:92px;
-  border-radius:17px;
-}
-.date-chip .dow{
-  font-size:5.5px;
-}
-.date-chip .day{
-  font-size:20px;
-  margin-top:7px;
-}
-.date-chip .mon{
-  font-size:5.5px;
-  margin-top:5px;
-}
-
-@media(max-width:480px){
-  .date-strip{
-    gap:6px;
-  }
-  .date-chip{
-    width:74px;
-    min-width:74px;
-    height:86px;
-    border-radius:15px;
-  }
-  .date-chip .day{
-    font-size:18px;
-    margin-top:6px;
-  }
-}
-
 </style>
 
 </head>
@@ -2376,16 +2312,12 @@ gmp-place-autocomplete{
 
           <div class="plan-icon-wrap">
 
-<div class="plan-icon-wrap">
-
   <img
     class="plan-page-title-icon"
     src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
     alt=""
     aria-hidden="true"
   >
-
-</div>
 
           </div>
 
@@ -4374,16 +4306,7 @@ function renderDates(){
           return `
 
             <button
-              class="
-                date-btn
-                ${
-                  date === selectedDate
-                  ?
-                  "active"
-                  :
-                  ""
-                }
-              "
+              class="date-btn${date === selectedDate ? " active" : ""}${(groupedDays[date] || []).length ? " has-plan" : ""}${date === localDateString() ? " today" : ""}"
               type="button"
               data-date="${date}"
             >
@@ -4396,9 +4319,7 @@ function renderDates(){
                 ${esc(parts.day)}
               </span>
 
-              <span class="date-month">
-                ${esc(parts.month)}
-              </span>
+              ${date === selectedDate ? `<span class="date-day-label">DAY ${dayNumber(date)}</span>` : `<span class="date-month">${esc(parts.month)}</span>`}
 
             </button>
 
