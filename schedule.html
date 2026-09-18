@@ -1911,16 +1911,122 @@ gmp-place-autocomplete{
 
 
 /* =========================================================
-   ASSIST — INLINE CHAT DRAWER
+   ASSIST — PLANNING / LIVE MODE
 ========================================================= */
-.assist-launch{
-  margin:0 0 13px;
-  padding:11px 12px;
-  display:flex;align-items:center;gap:10px;
-  border:1px solid rgba(120,169,239,.20);
-  border-radius:14px;
-  background:linear-gradient(145deg,rgba(120,169,239,.055),rgba(255,255,255,.012));
+.assist-mode-area{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 10px 0;
+}
+.assist-mode-switch{
+  flex:0 0 190px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+  padding:3px;
+  border:1px solid #29363e;
+  border-radius:11px;
+  background:#070d11;
+}
+.assist-mode-btn{
+  min-height:32px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:#71808a;
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:.09em;
   cursor:pointer;
+}
+.assist-mode-btn.active{
+  border:1px solid rgba(120,169,239,.24);
+  background:rgba(120,169,239,.065);
+  color:#b7d0ef;
+}
+.assist-mode-context{
+  flex:1;
+  min-width:0;
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#74818a;
+  font-size:6.2px;
+  line-height:1.35;
+}
+.assist-mode-context strong{
+  color:#dfe5e8;
+  font-size:6.5px;
+}
+.assist-mode-context .live-dot{
+  display:inline-block;
+  width:5px;
+  height:5px;
+  margin-right:5px;
+  border-radius:50%;
+  background:var(--red-bright);
+  vertical-align:1px;
+}
+@media(max-width:480px){
+  .assist-mode-switch{flex-basis:165px}
+  .assist-mode-context{font-size:5.7px}
+}
+.assist-launch{
+  width:100%;
+  margin:0 0 13px;
+  padding:9px 10px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  border:1px solid #2b3942;
+  border-radius:14px;
+  background:linear-gradient(145deg,#0f181e,#091116);
+  color:var(--text);
+  appearance:none;
+  -webkit-appearance:none;
+  text-align:left;
+  cursor:pointer;
+  box-shadow:none;
+}
+.assist-launch:hover{
+  border-color:rgba(120,169,239,.28);
+  background:linear-gradient(145deg,#111c22,#0a1217);
+}
+.assist-launch:focus{
+  outline:none;
+  border-color:rgba(120,169,239,.38);
+}
+.assist-launch-modes{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:3px;
+  padding:3px;
+  border:1px solid #29363e;
+  border-radius:9px;
+  background:#070d11;
+}
+.assist-launch-mode{
+  min-width:58px;
+  min-height:27px;
+  padding:0 8px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#6f7e87;
+  appearance:none;
+  -webkit-appearance:none;
+  font-size:5.6px;
+  font-weight:900;
+  letter-spacing:.07em;
+  cursor:pointer;
+}
+.assist-launch-mode.active{
+  border:1px solid rgba(120,169,239,.24);
+  background:rgba(120,169,239,.07);
+  color:#b7d0ef;
 }
 .assist-launch-icon{
   width:34px;height:34px;flex:0 0 34px;
@@ -1929,8 +2035,8 @@ gmp-place-autocomplete{
   background:rgba(120,169,239,.055);font-size:15px;
 }
 .assist-launch-main{min-width:0;flex:1}
-.assist-launch-title{color:#e9edf0;font-size:8px;font-weight:900}
-.assist-launch-sub{margin-top:2px;color:#74818a;font-size:6.5px;line-height:1.4}
+.assist-launch-title{color:#eef1f2;font-family:Georgia,"Times New Roman",serif;font-size:10px;font-weight:700;line-height:1.1}
+.assist-launch-sub{margin-top:2px;color:#74818a;font-size:5.8px;line-height:1.35}
 .assist-launch-arrow{color:#86a9d7;font-size:12px}
 .assist-panel{
   display:none;margin:0 0 13px;overflow:hidden;
@@ -1989,10 +2095,7 @@ gmp-place-autocomplete{
 .assist-send:disabled{opacity:.45}
 
 .assist-starters{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0, 1fr));
-  gap:7px;
-  padding:10px 10px 0;
+  display:grid;grid-template-columns:1fr;gap:7px;padding:10px 10px 0
 }
 .assist-starters.hidden{display:none}
 .assist-starter{
@@ -2029,6 +2132,14 @@ gmp-place-autocomplete{
 .assist-confirm{
   margin-top:7px;padding:8px;border:1px solid rgba(121,201,149,.18);
   border-radius:9px;background:rgba(121,201,149,.035);color:#aeb9b3;font-size:6.3px;line-height:1.45
+}
+
+
+@media(max-width:480px){
+  .assist-launch{gap:7px;padding:8px}
+  .assist-launch-sub{display:none}
+  .assist-launch-mode{min-width:46px;padding:0 5px;font-size:5.1px}
+  .assist-launch-icon{width:30px;height:30px;flex-basis:30px}
 }
 
 </style>
@@ -2158,14 +2269,18 @@ gmp-place-autocomplete{
 
 <main id="main">
 
-  <button id="assistLaunch" class="assist-launch" type="button" aria-expanded="false">
+  <div id="assistLaunch" class="assist-launch" role="button" tabindex="0" aria-expanded="false">
     <div class="assist-launch-icon">✦</div>
     <div class="assist-launch-main">
-      <div class="assist-launch-title">Ask Assist</div>
-      <div class="assist-launch-sub">Bookings, spending, food ideas, pacing or changes to this day.</div>
+      <div class="assist-launch-title">Travel Assist</div>
+      <div class="assist-launch-sub">Plan ahead or preview your live travel assistant.</div>
+    </div>
+    <div class="assist-launch-modes">
+      <button id="assistLaunchPlanning" class="assist-launch-mode active" type="button">PLANNING</button>
+      <button id="assistLaunchLive" class="assist-launch-mode" type="button">LIVE</button>
     </div>
     <div class="assist-launch-arrow">›</div>
-  </button>
+  </div>
 
   <section id="assistPanel" class="assist-panel" aria-hidden="true">
     <div class="assist-panel-head">
@@ -2175,20 +2290,14 @@ gmp-place-autocomplete{
       </div>
       <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
     </div>
-    <div id="assistStarters" class="assist-starters">
-      <button class="assist-starter" type="button" data-assist="What places are nearby?">
-        <span class="assist-starter-icon">⌖</span>
-        <span><span class="assist-starter-text">What places are nearby?</span><span class="assist-starter-sub">Uses the day you're viewing and your Places catalogue.</span></span>
-      </button>
-      <button class="assist-starter" type="button" data-assist="What bookings do I have?">
-        <span class="assist-starter-icon">▣</span>
-        <span><span class="assist-starter-text">What bookings do I have?</span><span class="assist-starter-sub">Checks the bookings saved to this trip.</span></span>
-      </button>
-      <button class="assist-starter" type="button" data-assist="What food is near me?">
-        <span class="assist-starter-icon">♨</span>
-        <span><span class="assist-starter-text">What food is near me?</span><span class="assist-starter-sub">Checks saved food plus your full restaurant catalogue.</span></span>
-      </button>
+    <div class="assist-mode-area">
+      <div class="assist-mode-switch" role="tablist" aria-label="Travel Assist mode">
+        <button id="assistPlanningMode" class="assist-mode-btn active" type="button">PLANNING</button>
+        <button id="assistLiveMode" class="assist-mode-btn" type="button">LIVE</button>
+      </div>
+      <div id="assistModeContext" class="assist-mode-context"><strong>Planning mode</strong> · Preparing this trip before departure.</div>
     </div>
+    <div id="assistStarters" class="assist-starters"></div>
     <div id="assistMessages" class="assist-messages">
       <div id="assistWelcome" class="assist-welcome"><strong>How can I help?</strong>Pick a question above or type your own. Assist knows which trip and itinerary day you're viewing.</div>
     </div>
@@ -3510,6 +3619,9 @@ async function loadData(){
 
     renderDay();
 
+    if(!assistModeManuallyChosen)assistMode=automaticAssistMode();
+    renderAssistMode();
+
   }
 
   catch(error){
@@ -4132,6 +4244,8 @@ function renderDates(){
             renderDates();
 
             renderDay();
+
+            if(assistMode)renderAssistMode();
 
           };
 
@@ -7048,7 +7162,72 @@ const assistInput=document.getElementById("assistInput");
 const assistSend=document.getElementById("assistSend");
 const assistStatus=document.getElementById("assistStatus");
 const assistStarters=document.getElementById("assistStarters");
+const assistPlanningMode=document.getElementById("assistPlanningMode");
+const assistLiveMode=document.getElementById("assistLiveMode");
+const assistModeContext=document.getElementById("assistModeContext");
+const assistLaunchPlanning=document.getElementById("assistLaunchPlanning");
+const assistLaunchLive=document.getElementById("assistLaunchLive");
 let assistBusy=false;
+let assistMode=null;
+let assistModeManuallyChosen=false;
+
+function automaticAssistMode(){
+  const today=localDateString();
+  if(trip?.start_date&&trip?.end_date&&today>=trip.start_date&&today<=trip.end_date)return "live";
+  return "planning";
+}
+function isLivePreview(){return assistMode==="live"&&automaticAssistMode()!=="live"}
+function daysUntilTrip(){
+  if(!trip?.start_date)return null;
+  return Math.ceil((parseDate(trip.start_date)-parseDate(localDateString()))/86400000);
+}
+function assistSelectedDayLabel(){
+  if(!selectedDate)return "selected day";
+  const p=dateParts(selectedDate); return `${p.day} ${p.month}`;
+}
+function getAssistStarters(){
+  if(assistMode==="live")return [
+    {icon:"✦",title:"How's this day looking?",sub:"Check timing, pacing and possible problems.",prompt:`Review my plan for ${selectedDate}. In Live mode, tell me how the day is looking, what is next, and flag any timing or pacing problems.`},
+    {icon:"☔",title:"Will weather affect this day?",sub:"Check outdoor plans and suggest sensible alternatives.",prompt:`Check whether weather could affect my itinerary for ${selectedDate}. Only use live weather if it is actually available; do not invent weather.`},
+    {icon:"⌖",title:"What's around this itinerary?",sub:"Find useful places around the route I'm viewing.",prompt:`What useful or interesting places are near my itinerary for ${selectedDate}? Prioritise places that fit naturally around my route.`},
+    {icon:"🍽",title:"Where should I eat?",sub:"Find food that fits this day's route and timing.",prompt:`Help me choose where to eat around my itinerary for ${selectedDate}. Use my saved food and trip data where available.`},
+    {icon:"⏱",title:"I'm running late",sub:"Work out what to keep, move or skip.",prompt:`Pretend I am running late on ${selectedDate}. Review the itinerary and help me adjust the rest of the day without changing anything until I confirm.`}
+  ];
+  return [
+    {icon:"✦",title:"Review my itinerary",sub:"Check pacing, gaps and possible problems.",prompt:"Review my full itinerary. Look for pacing problems, unrealistic days, gaps, unnecessary backtracking and anything I should consider changing."},
+    {icon:"▣",title:"Check my bookings",sub:"See what's booked and what may still need reserving.",prompt:"Check my trip bookings and itinerary. Tell me what is already booked and what itinerary items may still need a reservation."},
+    {icon:"🍽",title:"Plan my food",sub:"Fit restaurants naturally around the itinerary.",prompt:`Help me plan food around my itinerary, especially the selected day ${selectedDate}. Use my saved restaurants and trip data.`},
+    {icon:"⌖",title:`Improve ${assistSelectedDayLabel()}`,sub:"Analyse the itinerary day currently selected above.",prompt:`Review my plan for ${selectedDate}. Suggest improvements to timing, route, pacing and useful additions, but do not change the schedule unless I confirm.`},
+    {icon:"$",title:"Review my spending",sub:"Check expenses, bookings and the trip budget.",prompt:"Review my trip spending, expenses and booking costs. Summarise how my spending looks using only the trip data you actually have."}
+  ];
+}
+function renderAssistMode(){
+  if(!assistMode)assistMode=automaticAssistMode();
+  assistPlanningMode.classList.toggle("active",assistMode==="planning");
+  assistLiveMode.classList.toggle("active",assistMode==="live");
+  assistLaunchPlanning?.classList.toggle("active",assistMode==="planning");
+  assistLaunchLive?.classList.toggle("active",assistMode==="live");
+  const auto=automaticAssistMode(), preview=isLivePreview(), until=daysUntilTrip();
+  if(assistMode==="live"){
+    assistModeContext.innerHTML=preview
+      ? `<span class="live-dot"></span><strong>Live preview</strong> · Testing ${esc(assistSelectedDayLabel())} as a travel day. Your real trip has not started yet.`
+      : `<span class="live-dot"></span><strong>Live trip</strong> · Using ${esc(assistSelectedDayLabel())} as the active itinerary day.`;
+  }else{
+    let detail="Preparing and reviewing this trip.";
+    if(auto==="live")detail="Planning view while your trip is currently in progress.";
+    else if(until!==null&&until>0)detail=`Trip starts in ${until} day${until===1?"":"s"}.`;
+    else if(until===0)detail="Trip starts today.";
+    else if(trip?.end_date&&localDateString()>trip.end_date)detail="Reviewing a completed trip.";
+    assistModeContext.innerHTML=`<strong>Planning mode</strong> · ${esc(detail)}`;
+  }
+  assistStarters.innerHTML=getAssistStarters().map((item,index)=>`<button class="assist-starter" type="button" data-assist-index="${index}"><span class="assist-starter-icon">${esc(item.icon)}</span><span><span class="assist-starter-text">${esc(item.title)}</span><span class="assist-starter-sub">${esc(item.sub)}</span></span></button>`).join("");
+  assistStarters.classList.remove("hidden");
+  assistStarters.querySelectorAll("[data-assist-index]").forEach(button=>{button.onclick=()=>{const item=getAssistStarters()[Number(button.dataset.assistIndex)];if(item)askAssist(item.prompt)}});
+  assistStatus.textContent=assistMode==="live"?(preview?"Live Preview uses the itinerary day selected above.":"Live mode is focused on the active trip day."):"Planning mode is focused on preparing and improving your trip.";
+}
+function setAssistMode(mode,manual=true){if(mode!=="planning"&&mode!=="live")return;assistMode=mode;if(manual)assistModeManuallyChosen=true;renderAssistMode()}
+assistPlanningMode.onclick=()=>setAssistMode("planning");
+assistLiveMode.onclick=()=>setAssistMode("live");
 let assistThreadId=null;
 
 function setAssistOpen(open){
@@ -7058,7 +7237,26 @@ function setAssistOpen(open){
   assistLaunch.style.display=open?"none":"flex";
   if(open) setTimeout(()=>assistInput.focus(),50);
 }
-assistLaunch.onclick=()=>setAssistOpen(true);
+assistLaunch.onclick=event=>{
+  if(event.target.closest(".assist-launch-mode"))return;
+  setAssistOpen(true);
+};
+assistLaunch.onkeydown=event=>{
+  if(event.key==="Enter"||event.key===" "){
+    event.preventDefault();
+    setAssistOpen(true);
+  }
+};
+assistLaunchPlanning.onclick=event=>{
+  event.stopPropagation();
+  setAssistMode("planning");
+  setAssistOpen(true);
+};
+assistLaunchLive.onclick=event=>{
+  event.stopPropagation();
+  setAssistMode("live");
+  setAssistOpen(true);
+};
 assistClose.onclick=()=>setAssistOpen(false);
 
 function assistMessage(role,message,source=""){
@@ -7143,9 +7341,9 @@ function addAssistActions(row,data){
         // MOVE can also open the existing editor if the backend returned a
         // concrete schedule row but has not created a proposal.
         if((kind==="move_schedule"||kind==="update_schedule") && action?.schedule_id){
-          const item=items.find(x=>Number(x.id)===Number(action.schedule_id));
+          const item=schedule.find(x=>Number(x.id)===Number(action.schedule_id));
           if(item){
-            openEditItem(item);
+            openEditItem(item.id);
             if(action.schedule_date)fieldDate.value=action.schedule_date;
             if(action.start_time)fieldTime.value=String(action.start_time).slice(0,5);
           }
@@ -7310,10 +7508,14 @@ async function askAssist(forced=null){
       message,
       selected_date:selectedDate||null,
       entry_point:"schedule",
+      assist_mode:assistMode||automaticAssistMode(),
+      live_preview:isLivePreview(),
       context:{
         selected_date:selectedDate||null,
         page:"schedule",
-        selected_day_item_ids:items
+        assist_mode:assistMode||automaticAssistMode(),
+        live_preview:isLivePreview(),
+        selected_day_item_ids:schedule
           .filter(x=>x.schedule_date===selectedDate)
           .map(x=>x.id)
       }
@@ -7348,9 +7550,6 @@ async function askAssist(forced=null){
 assistSend.onclick=()=>askAssist();
 assistInput.addEventListener("keydown",event=>{
   if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();askAssist()}
-});
-document.querySelectorAll("[data-assist]").forEach(button=>{
-  button.onclick=()=>askAssist(button.dataset.assist);
 });
 
 
