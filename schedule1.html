@@ -675,13 +675,12 @@ main{
 
 /* =========================================================
    TIMELINE
-   Compact entry style from the original schedule
+   Continuous route line aligned exactly through each marker
 ========================================================= */
 
 .timeline{
   padding:5px 11px 8px;
 }
-
 
 .timeline-row{
   position:relative;
@@ -699,34 +698,16 @@ main{
   min-height:49px;
 
   padding:8px 0;
-}
 
-
-/* no horizontal dividers — let the vertical route line do the work */
-.timeline-row:not(:last-child){
   border-bottom:0;
 }
 
-
-/* thin route line */
-.timeline-row:not(:last-child)::after{
-  content:"";
-
-  position:absolute;
-
-  left:66px;
-
-  top:27px;
-  bottom:-9px;
-
-  width:1px;
-
-  background:#263139;
+/* remove the old row-positioned line */
+.timeline-row::after{
+  display:none !important;
 }
 
-
 /* TIME */
-
 .timeline-time{
   padding-top:1px;
 
@@ -738,34 +719,83 @@ main{
   line-height:1.25;
 }
 
-
 /* MARKER */
-
 .marker{
   position:relative;
 
   z-index:3;
 
   display:flex;
-
+  align-items:flex-start;
   justify-content:center;
 }
 
+/*
+   The line is anchored to the marker column itself, so it stays
+   exactly centred through every dot even when a row becomes taller.
+*/
+.timeline-row:not(:last-child) .marker::after{
+  content:"";
+
+  position:absolute;
+
+  z-index:0;
+
+  left:50%;
+  top:6px;
+  bottom:-22px;
+
+  width:1px;
+
+  transform:translateX(-50%);
+
+  background:#35414a;
+
+  pointer-events:none;
+}
+
+/* subtle coral start fading into the normal route line */
+.timeline-row:first-child:not(:last-child) .marker::after{
+  background:linear-gradient(
+    180deg,
+    rgba(255,98,95,.72) 0%,
+    rgba(255,98,95,.38) 28%,
+    #35414a 72%,
+    #35414a 100%
+  );
+}
 
 .dot{
-  width:7px;
-  height:7px;
+  position:relative;
 
-  margin-top:3px;
+  z-index:2;
 
-  border:1px solid rgba(70,24,28,.95);
+  width:8px;
+  height:8px;
+
+  margin-top:2px;
+
+  border:1.5px solid #e97975;
 
   border-radius:50%;
+
+  background:#0b1217;
+
+  box-shadow:
+    0 0 0 3px #0b1217,
+    0 0 0 4px rgba(255,98,95,.14);
+}
+
+/* first / active stop */
+.timeline-row:first-child .dot{
+  border-color:#ff8b87;
 
   background:var(--red-bright);
 
   box-shadow:
-    0 0 0 1px rgba(255,98,95,.16);
+    0 0 0 3px #0b1217,
+    0 0 0 4px rgba(255,98,95,.18),
+    0 0 9px rgba(255,98,95,.14);
 }
 
 
@@ -1868,10 +1898,6 @@ gmp-place-autocomplete{
   }
 
 
-  .timeline-row:not(:last-child)::after{
-    left:61px;
-  }
-
 }
 
 
@@ -2288,7 +2314,7 @@ gmp-place-autocomplete{
   position:absolute;
   z-index:-2;
   inset:0 0 auto 0;
-  height:570px;
+  height:390px;
   pointer-events:none;
 
   background-image:
@@ -2327,7 +2353,7 @@ gmp-place-autocomplete{
     url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/244e17e1-70ca-45c9-a3c7-c893a56e70c7.jpg?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvMjQ0ZTE3ZTEtNzBjYS00NWM5LWEzYzctYzg5M2E1NmU3MGM3LmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk3MjMxODMsImV4cCI6MzMzMjU3MjMxODN9.y8iKSm_UiONEu05o3uq2fSJbG5-vmgOm5udOX-C2Zjt6vNmF_w015sJnEuP3y64vbWapYX8le1eof2bdKBhYug");
 
   background-size:cover;
-  background-position:center 42%;
+  background-position:center 82%;
   background-repeat:no-repeat;
 }
 
@@ -2337,10 +2363,10 @@ gmp-place-autocomplete{
   content:"";
   position:absolute;
   z-index:-1;
-  top:345px;
+  top:205px;
   left:0;
   right:0;
-  height:255px;
+  height:205px;
   pointer-events:none;
   background:linear-gradient(
     180deg,
@@ -2432,8 +2458,8 @@ main{
 }
 
 @media(max-width:390px){
-  .plan-shell::before{height:570px;background-position:58% 42%;}
-  .plan-shell::after{top:280px;height:320px;}
+  .plan-shell::before{height:420px;background-position:58% 78%;}
+  .plan-shell::after{top:215px;height:225px;}
   .header-inner{padding-left:17px;padding-right:17px;}
   .plan-page-title span{font-size:35px;}
   .plan-icon-wrap{width:54px;height:54px;flex-basis:54px;}
