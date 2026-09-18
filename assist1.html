@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05090c">
+<title>Assist · Travel</title>
+
+<style>
+:root{
+  --bg:#05090c;--surface:#0b1217;--surface2:#0f171d;--surface3:#141d24;
+  --line:#28323a;--soft:rgba(255,255,255,.06);--text:#f5f2ed;
+  --muted:#909aa1;--muted2:#69757d;--red:#ff625f;--redsoft:rgba(255,98,95,.08);
+  --redline:rgba(255,98,95,.32);--green:#79c995;--greensoft:rgba(121,201,149,.07);
+  --greenline:rgba(121,201,149,.24);--blue:#78a9ef;--gold:#e4bd69;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  background:radial-gradient(circle at 50% -5%,rgba(48,61,70,.20),transparent 30%),#030608;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+.assist-shell{
+  width:calc(100% - 24px);max-width:720px;
+  margin:calc(14px + env(safe-area-inset-top)) auto 105px;
+  overflow:hidden;border:1px solid #273139;border-radius:27px;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+  box-shadow:0 24px 65px rgba(0,0,0,.40);
+}
+
+header{
+  position:relative;overflow:hidden;border-bottom:1px solid var(--soft);
+  background:
+    radial-gradient(circle at 88% 0%,rgba(255,98,95,.065),transparent 27%),
+    linear-gradient(145deg,#10181e,#081015 65%,#070c10);
+}
+.header-inner{position:relative;z-index:2;padding:26px 20px 18px}
+.assist-kanji{
+  position:absolute;right:7px;top:5px;z-index:0;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:124px;font-weight:700;line-height:1;color:var(--red);opacity:.04;
+  pointer-events:none;user-select:none;
+}
+.title-row{position:relative;display:flex;justify-content:space-between;gap:12px}
+.eyebrow{margin-bottom:14px;color:#df7775;font-size:8px;font-weight:900;letter-spacing:.18em}
+.assist-hero{display:flex;align-items:center;gap:15px}
+.assist-icon{
+  width:65px;height:65px;flex:0 0 65px;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,98,95,.32);border-radius:50%;background:#0b1217;
+  color:#ef9692;font-size:28px;
+}
+h1{
+  margin:0;color:#f7f4ee;font-family:Georgia,"Times New Roman",serif;
+  font-size:41px;font-weight:700;line-height:1;letter-spacing:-.03em;
+}
+.trip-name{margin-top:8px;max-width:360px;color:#89949c;font-size:9px;line-height:1.4}
+.header-actions{position:absolute;right:0;top:0}
+.header-btn{
+  min-width:38px;height:29px;padding:0 8px;border:1px solid rgba(255,98,95,.24);
+  border-radius:9px;background:rgba(255,98,95,.045);color:#efaaa6;font-size:7px;font-weight:900;
+}
+
+.context-bar{display:flex;align-items:center;gap:7px;margin-top:22px}
+.context-date-wrap{
+  min-width:0;flex:1;display:flex;align-items:center;gap:7px;min-height:36px;padding:0 9px;
+  border:1px solid var(--line);border-radius:10px;background:#0d151a;
+}
+.context-date-label{color:#7c8991;font-size:6px;font-weight:900;letter-spacing:.08em}
+.context-date{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#dadddf;font-size:8px;font-weight:800;color-scheme:dark}
+.context-chip{
+  min-height:36px;padding:0 10px;border:1px solid rgba(120,169,239,.23);border-radius:10px;
+  background:rgba(120,169,239,.07);color:#a9c7ef;font-size:6.5px;font-weight:900;
+}
+
+main{padding:14px 17px 22px}
+
+.page-message{
+  display:none;margin-bottom:10px;padding:9px;border-radius:10px;font-size:7px;line-height:1.5;
+}
+.page-message.show{display:block}
+.page-message.bad{border:1px solid var(--redline);background:var(--redsoft);color:#ffc0bc}
+.page-message.good{border:1px solid var(--greenline);background:var(--greensoft);color:#a7dbb8}
+
+.welcome-card{
+  padding:14px;border:1px solid #28343c;border-radius:18px;
+  background:linear-gradient(145deg,rgba(17,26,32,.98),rgba(9,16,20,.98));
+}
+.welcome-kicker{color:#d67b78;font-size:6px;font-weight:900;letter-spacing:.12em}
+.welcome-title{margin-top:5px;color:#f1eee9;font-family:Georgia,"Times New Roman",serif;font-size:19px;font-weight:700}
+.welcome-copy{margin-top:5px;max-width:540px;color:#7d8991;font-size:7.5px;line-height:1.55}
+
+.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:11px}
+.quick-btn{
+  min-width:0;min-height:52px;display:flex;align-items:center;gap:8px;padding:8px 9px;
+  border:1px solid var(--line);border-radius:11px;background:#0e161b;color:#c8ced2;text-align:left;
+}
+.quick-icon{
+  flex:0 0 26px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--soft);border-radius:8px;background:#141c22;font-size:13px;
+}
+.quick-main{min-width:0}
+.quick-title{display:block;color:#e7e5e1;font-size:7.5px;font-weight:900}
+.quick-sub{display:block;margin-top:2px;color:#707c84;font-size:6px;line-height:1.35}
+
+.chat-wrap{margin-top:11px;border:1px solid #28343c;border-radius:18px;overflow:hidden;background:#091015}
+.chat-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;
+  border-bottom:1px solid var(--soft);background:#0c1419;
+}
+.chat-label{color:#aeb7bc;font-size:6.5px;font-weight:900;letter-spacing:.1em}
+.chat-status{display:flex;align-items:center;gap:5px;color:#6f7b82;font-size:6px;font-weight:800}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#68757d}
+.status-dot.ready{background:var(--green)}
+.status-dot.busy{background:var(--gold)}
+.status-dot.bad{background:var(--red)}
+
+.chat-list{
+  min-height:220px;padding:11px;display:flex;flex-direction:column;gap:9px;
+  background:radial-gradient(circle at 85% 0%,rgba(255,255,255,.012),transparent 35%);
+}
+.message-row{display:flex}
+.message-row.user{justify-content:flex-end}
+.message-row.assistant{justify-content:flex-start}
+.message-bubble{
+  max-width:88%;padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+  color:#dfe2e3;font-size:8px;line-height:1.55;white-space:pre-wrap;word-break:break-word;
+}
+.message-row.assistant .message-bubble{border-top-left-radius:4px;background:#10181d}
+.message-row.user .message-bubble{border-color:rgba(255,98,95,.23);border-top-right-radius:4px;background:rgba(255,98,95,.075);color:#f0d1cf}
+
+.typing{display:none;align-items:center;gap:5px;margin:0 11px 10px;color:#7c8990;font-size:6.5px}
+.typing.show{display:flex}
+
+.proposal{
+  display:none;margin:11px;overflow:hidden;border:1px solid var(--greenline);border-radius:14px;
+  background:linear-gradient(145deg,rgba(121,201,149,.045),rgba(13,20,24,.98));
+}
+.proposal.show{display:block}
+.proposal-head{display:flex;justify-content:space-between;gap:10px;padding:11px;border-bottom:1px solid rgba(121,201,149,.10)}
+.proposal-kicker{color:#90cda5;font-size:6px;font-weight:900;letter-spacing:.1em}
+.proposal-title{margin-top:3px;color:#e6efe9;font-family:Georgia,"Times New Roman",serif;font-size:16px;font-weight:700}
+.proposal-summary{margin-top:3px;color:#74847a;font-size:6.5px;line-height:1.45}
+.pace-badge{
+  align-self:flex-start;padding:4px 6px;border:1px solid rgba(228,189,105,.19);border-radius:999px;
+  background:rgba(228,189,105,.045);color:#d6b96f;font-size:5.5px;font-weight:900;
+}
+.proposal-list{padding:2px 10px 4px}
+.proposal-row{display:grid;grid-template-columns:59px 8px minmax(0,1fr);gap:6px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.045)}
+.proposal-row:last-child{border-bottom:0}
+.proposal-time{padding-top:1px;color:#a7bbc9;font-size:7px;font-weight:900}
+.proposal-dot{width:6px;height:6px;margin-top:3px;border-radius:50%;background:var(--green)}
+.proposal-item-title{color:#edf0ed;font-size:8px;font-weight:900}
+.proposal-item-meta{margin-top:2px;color:#718079;font-size:6px;line-height:1.4}
+.proposal-warning{
+  margin:0 10px 8px;padding:7px 8px;border:1px solid rgba(228,189,105,.22);border-radius:9px;
+  background:rgba(228,189,105,.07);color:#c7b074;font-size:6.2px;line-height:1.45;
+}
+.proposal-actions{display:grid;grid-template-columns:1fr 1.4fr;gap:6px;padding:9px 10px 10px;border-top:1px solid rgba(121,201,149,.09)}
+.proposal-btn{min-height:36px;border-radius:9px;font-size:6.5px;font-weight:900}
+.proposal-secondary{border:1px solid var(--line);background:#10181d;color:#9aa4aa}
+.proposal-primary{border:1px solid var(--greenline);background:var(--greensoft);color:#a7dbb8}
+.proposal-primary:disabled{opacity:.5}
+
+.composer{border-top:1px solid var(--soft);padding:9px;background:#0b1217}
+.composer-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:end}
+.composer-input{
+  width:100%;min-height:48px;max-height:135px;padding:9px 10px;resize:none;
+  border:1px solid var(--line);border-radius:11px;outline:0;background:#0f171c;color:#eef0ef;
+  font-size:8px;line-height:1.45;
+}
+.composer-input::placeholder{color:#657179}
+.composer-input:focus{border-color:var(--redline)}
+.send-btn{
+  width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--redline);border-radius:11px;background:var(--redsoft);color:#efaaa6;
+  font-size:16px;font-weight:900;
+}
+.send-btn:disabled{opacity:.45}
+.composer-note{margin-top:6px;color:#5f6b73;font-size:5.8px;line-height:1.45}
+
+@media(max-width:480px){
+  .assist-shell{width:calc(100% - 18px)}
+  .header-inner{padding-left:17px;padding-right:17px}
+  h1{font-size:38px}
+  .assist-icon{width:60px;height:60px;flex-basis:60px;font-size:25px}
+  .assist-kanji{right:2px;font-size:112px}
+  main{padding-left:14px;padding-right:14px}
+}
+@media(max-width:360px){
+  .quick-grid{grid-template-columns:1fr}
+  .context-bar{flex-wrap:wrap}
+  .context-date-wrap{flex-basis:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="assist-shell">
+
+<header>
+  <div class="assist-kanji">助</div>
+
+  <div class="header-inner">
+    <div class="title-row">
+      <div>
+        <div id="tripEyebrow" class="eyebrow">TRAVEL ASSIST</div>
+
+        <div class="assist-hero">
+          <div class="assist-icon" aria-hidden="true">✦</div>
+
+          <div>
+            <h1>Assist</h1>
+            <div id="tripName" class="trip-name">Loading trip…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="newChatButton" class="header-btn" type="button">NEW</button>
+      </div>
+    </div>
+
+    <div class="context-bar">
+      <label class="context-date-wrap">
+        <span class="context-date-label">DAY</span>
+        <input id="assistDate" class="context-date" type="date">
+      </label>
+
+      <button id="openPlanButton" class="context-chip" type="button">
+        VIEW PLAN
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div id="pageMessage" class="page-message"></div>
+
+  <section class="welcome-card">
+    <div class="welcome-kicker">YOUR TRIP, YOUR PREFERENCES</div>
+    <div class="welcome-title">What can I help you with?</div>
+    <div class="welcome-copy">
+      Assist can plan a day, improve your itinerary, fit food into your route,
+      or adjust the plan when things change.
+    </div>
+
+    <div class="quick-grid">
+
+      <button class="quick-btn" type="button"
+        data-prompt="Plan this day for me using my existing trip, saved places and saved restaurants. Keep the pace comfortable.">
+        <span class="quick-icon">🗓</span>
+        <span class="quick-main">
+          <span class="quick-title">Plan my day</span>
+          <span class="quick-sub">Build a sensible itinerary.</span>
+        </span>
+      </button>
+
+      <button class="quick-btn" type="button"
+        data-prompt="Improve this day's schedule. Keep the important stops, reduce unnecessary travel and make the pacing more comfortable.">
+        <span class="quick-icon">✦</span>
+        <span class="quick-main">
+          <span class="quick-title">Improve my day</span>
+          <span class="quick-sub">Better timing and pacing.</span>
+        </span>
+      </button>
+
+      <button class="quick-btn" type="button"
+        data-prompt="Help me choose food for this day from my saved restaurants. Fit the meal naturally around where I will already be.">
+        <span class="quick-icon">🍜</span>
+        <span class="quick-main">
+          <span class="quick-title">Add food</span>
+          <span class="quick-sub">Use my saved restaurants.</span>
+        </span>
+      </button>
+
+      <button class="quick-btn" type="button"
+        data-prompt="Replan this day because my plans may have changed. Keep anything important or locked, and give me a practical updated schedule.">
+        <span class="quick-icon">🌧</span>
+        <span class="quick-main">
+          <span class="quick-title">Replan today</span>
+          <span class="quick-sub">Adjust when things change.</span>
+        </span>
+      </button>
+
+    </div>
+  </section>
+
+  <section class="chat-wrap">
+
+    <div class="chat-head">
+      <div class="chat-label">ASSIST CHAT</div>
+
+      <div class="chat-status">
+        <span id="statusDot" class="status-dot"></span>
+        <span id="statusText">Loading</span>
+      </div>
+    </div>
+
+    <div id="chatList" class="chat-list" aria-live="polite"></div>
+
+    <div id="typing" class="typing">
+      Assist is thinking…
+    </div>
+
+    <section id="proposal" class="proposal">
+
+      <div class="proposal-head">
+        <div>
+          <div class="proposal-kicker">PROPOSED PLAN</div>
+          <div id="proposalTitle" class="proposal-title">Suggested changes</div>
+          <div id="proposalSummary" class="proposal-summary"></div>
+        </div>
+
+        <div id="proposalPace" class="pace-badge">NORMAL</div>
+      </div>
+
+      <div id="proposalList" class="proposal-list"></div>
+
+      <div id="proposalWarning" class="proposal-warning" hidden></div>
+
+      <div class="proposal-actions">
+        <button id="changeProposalButton" class="proposal-btn proposal-secondary" type="button">
+          ASK TO CHANGE
+        </button>
+
+        <button id="applyProposalButton" class="proposal-btn proposal-primary" type="button">
+          ✓ ADD TO PLAN
+        </button>
+      </div>
+
+    </section>
+
+    <div class="composer">
+
+      <form id="composerForm" class="composer-box">
+
+        <textarea
+          id="composerInput"
+          class="composer-input"
+          rows="2"
+          maxlength="2500"
+          placeholder="Ask Assist to plan, change, move or add something…"
+        ></textarea>
+
+        <button id="sendButton" class="send-btn" type="submit" aria-label="Send">
+          ↑
+        </button>
+
+      </form>
+
+      <div class="composer-note">
+        Assist proposes changes first. Your schedule only changes after you confirm.
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+</div>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+/*
+  ===========================================================
+  REQUIRED SUPABASE EDGE FUNCTION
+  ===========================================================
+
+  Name:
+    travel-assist
+
+  assist.html never contains your OpenAI API key.
+
+  CHAT request:
+  {
+    action: "chat",
+    trip_id: 1,
+    selected_date: "2026-10-19",
+    messages: [
+      { role:"user", content:"Plan my day" }
+    ]
+  }
+
+  Expected response:
+  {
+    reply: "I suggest...",
+    proposal: {
+      date: "2026-10-19",
+      title: "Fushimi Inari to Arashiyama",
+      summary: "A comfortable Kyoto day.",
+      pace: "Moderate",
+      mode: "append",
+      warnings: [],
+      items: [
+        {
+          schedule_date: "2026-10-19",
+          start_time: "07:30",
+          time_label: null,
+          title: "Fushimi Inari",
+          item_type: "attraction",
+          notes: "Start early before crowds.",
+          place_id: 12,
+          restaurant_id: null,
+          location_name: "Fushimi Inari"
+        }
+      ]
+    }
+  }
+
+  APPLY request:
+  {
+    action: "apply",
+    trip_id: 1,
+    selected_date: "2026-10-19",
+    proposal: { ... }
+  }
+
+  Expected APPLY response:
+  {
+    ok:true,
+    message:"Added 6 items to your plan."
+  }
+
+  Your Edge Function should:
+  1. Verify the logged-in Supabase user.
+  2. Verify access to trip_id.
+  3. Read schedule / places / restaurants server-side.
+  4. Ask OpenAI for structured itinerary JSON.
+  5. Validate all rows.
+  6. Only write schedule rows when action === "apply".
+*/
+
+
+const params=new URLSearchParams(location.search);
+const requestedTripId=Number(params.get("trip"))||null;
+const savedTripId=Number(localStorage.getItem("current_trip_id"))||null;
+
+let TRIP_ID=requestedTripId||savedTripId||null;
+let currentUser=null;
+let trip=null;
+let selectedDate=params.get("date")||null;
+let messages=[];
+let currentProposal=null;
+let sending=false;
+let applying=false;
+
+const tripName=document.getElementById("tripName");
+const tripEyebrow=document.getElementById("tripEyebrow");
+const assistDate=document.getElementById("assistDate");
+const chatList=document.getElementById("chatList");
+const composerInput=document.getElementById("composerInput");
+const sendButton=document.getElementById("sendButton");
+const typing=document.getElementById("typing");
+const statusDot=document.getElementById("statusDot");
+const statusText=document.getElementById("statusText");
+const proposal=document.getElementById("proposal");
+const proposalTitle=document.getElementById("proposalTitle");
+const proposalSummary=document.getElementById("proposalSummary");
+const proposalPace=document.getElementById("proposalPace");
+const proposalList=document.getElementById("proposalList");
+const proposalWarning=document.getElementById("proposalWarning");
+const applyProposalButton=document.getElementById("applyProposalButton");
+const pageMessage=document.getElementById("pageMessage");
+
+function esc(v){
+  return String(v??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function parseDate(v){return new Date(v+"T12:00:00")}
+
+function localDateString(){
+  const d=new Date();
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function shortDate(v){
+  if(!v)return "";
+  return new Intl.DateTimeFormat("en-SG",{weekday:"short",day:"numeric",month:"short"}).format(parseDate(v));
+}
+
+function setStatus(label,state=""){
+  statusText.textContent=label;
+  statusDot.className=`status-dot ${state}`.trim();
+}
+
+function showPageMessage(message,type="bad"){
+  pageMessage.textContent=message;
+  pageMessage.className=`page-message show ${type}`;
+}
+
+function clearPageMessage(){
+  pageMessage.textContent="";
+  pageMessage.className="page-message";
+}
+
+function updateUrl(){
+  history.replaceState(null,"",`assist.html?trip=${TRIP_ID}&date=${selectedDate}`);
+}
+
+function timeLabel(item){
+  if(item.time_label)return item.time_label;
+
+  if(item.start_time){
+    const raw=String(item.start_time).slice(0,5);
+    const [h,m]=raw.split(":");
+    let hour=Number(h);
+
+    if(Number.isNaN(hour))return raw;
+
+    const suffix=hour>=12?"PM":"AM";
+    hour=hour%12||12;
+
+    return `${hour}:${m} ${suffix}`;
+  }
+
+  return "Flexible";
+}
+
+async function resolveTrip(){
+
+  const auth=await db.auth.getUser();
+  if(auth.error)throw auth.error;
+
+  currentUser=auth.data?.user||null;
+
+  if(!currentUser){
+    location.href="login.html";
+    return;
+  }
+
+  let chosen=null;
+
+  if(TRIP_ID){
+    const direct=await db.from("trips").select("*").eq("id",TRIP_ID).maybeSingle();
+    if(direct.error)throw direct.error;
+    chosen=direct.data||null;
+  }
+
+  if(!chosen){
+    const own=await db
+      .from("trips")
+      .select("*")
+      .eq("owner_id",currentUser.id)
+      .order("start_date",{ascending:true})
+      .limit(1);
+
+    if(own.error)throw own.error;
+
+    if(own.data?.length){
+      chosen=own.data[0];
+    }
+  }
+
+  if(!chosen){
+    const membership=await db
+      .from("trip_members")
+      .select("trip_id")
+      .eq("user_id",currentUser.id)
+      .limit(1);
+
+    if(membership.error)throw membership.error;
+
+    const memberTripId=Number(membership.data?.[0]?.trip_id)||null;
+
+    if(memberTripId){
+      const shared=await db.from("trips").select("*").eq("id",memberTripId).single();
+      if(shared.error)throw shared.error;
+      chosen=shared.data;
+    }
+  }
+
+  if(!chosen)throw new Error("You do not have an accessible trip yet.");
+
+  trip=chosen;
+  TRIP_ID=Number(trip.id);
+
+  localStorage.setItem("current_trip_id",String(TRIP_ID));
+
+  if(!selectedDate){
+    const today=localDateString();
+
+    if(trip.start_date&&trip.end_date&&today>=trip.start_date&&today<=trip.end_date){
+      selectedDate=today;
+    }else{
+      selectedDate=trip.start_date||today;
+    }
+  }
+
+  if(trip.start_date&&selectedDate<trip.start_date)selectedDate=trip.start_date;
+  if(trip.end_date&&selectedDate>trip.end_date)selectedDate=trip.end_date;
+
+  assistDate.value=selectedDate;
+
+  if(trip.start_date)assistDate.min=trip.start_date;
+  if(trip.end_date)assistDate.max=trip.end_date;
+
+  tripName.textContent=trip.name||"My Trip";
+  tripEyebrow.textContent=trip.country?`${trip.country.toUpperCase()} · TRAVEL ASSIST`:"TRAVEL ASSIST";
+  document.title=`Assist · ${trip.name||"Travel"}`;
+
+  updateUrl();
+}
+
+function renderMessages(){
+
+  if(!messages.length){
+    chatList.innerHTML=`
+      <div class="message-row assistant">
+        <div class="message-bubble">
+          Hi — tell me what you want to do on <strong>${esc(shortDate(selectedDate))}</strong>.
+          I can plan, rearrange or improve this day.
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  chatList.innerHTML=messages.map(m=>`
+    <div class="message-row ${m.role==="user"?"user":"assistant"}">
+      <div class="message-bubble">${esc(m.content)}</div>
+    </div>
+  `).join("");
+
+  requestAnimationFrame(()=>{
+    chatList.scrollTop=chatList.scrollHeight;
+  });
+}
+
+function hideProposal(){
+  currentProposal=null;
+  proposal.classList.remove("show");
+  proposalList.innerHTML="";
+  proposalWarning.hidden=true;
+  proposalWarning.textContent="";
+}
+
+function normalizeProposal(value){
+
+  if(!value||typeof value!=="object")return null;
+  if(!Array.isArray(value.items)||!value.items.length)return null;
+
+  return {
+    ...value,
+    date:value.date||selectedDate,
+    title:value.title||"Suggested plan",
+    summary:value.summary||"",
+    pace:value.pace||"Normal",
+    mode:value.mode||"append",
+    warnings:Array.isArray(value.warnings)?value.warnings:[],
+    items:value.items
+  };
+}
+
+function renderProposal(value){
+
+  const p=normalizeProposal(value);
+
+  if(!p){
+    hideProposal();
+    return;
+  }
+
+  currentProposal=p;
+
+  proposalTitle.textContent=p.title;
+  proposalSummary.textContent=p.summary||shortDate(p.date);
+  proposalPace.textContent=String(p.pace||"Normal").toUpperCase();
+
+  proposalList.innerHTML=p.items.map(item=>`
+    <div class="proposal-row">
+      <div class="proposal-time">${esc(timeLabel(item))}</div>
+      <div class="proposal-dot"></div>
+      <div>
+        <div class="proposal-item-title">${esc(item.title||"Untitled")}</div>
+        ${(item.notes||item.location_name)?`
+          <div class="proposal-item-meta">${esc(item.notes||item.location_name)}</div>
+        `:""}
+      </div>
+    </div>
+  `).join("");
+
+  if(p.warnings.length){
+    proposalWarning.hidden=false;
+    proposalWarning.textContent=p.warnings.join(" · ");
+  }else{
+    proposalWarning.hidden=true;
+    proposalWarning.textContent="";
+  }
+
+  proposal.classList.add("show");
+}
+
+async function invokeAssist(action,payload){
+
+  if(!db?.functions?.invoke){
+    throw new Error("Supabase Functions are unavailable. Check supabase.js.");
+  }
+
+  const result=await db.functions.invoke("travel-assist",{
+    body:{
+      action,
+      trip_id:TRIP_ID,
+      selected_date:selectedDate,
+      ...payload
+    }
+  });
+
+  if(result.error)throw result.error;
+  if(!result.data)throw new Error("Assist returned an empty response.");
+  if(result.data.error)throw new Error(result.data.error);
+
+  return result.data;
+}
+
+async function sendMessage(prefill=null){
+
+  const content=String(prefill??composerInput.value).trim();
+
+  if(!content||sending)return;
+
+  clearPageMessage();
+
+  sending=true;
+  sendButton.disabled=true;
+  typing.classList.add("show");
+  setStatus("Thinking","busy");
+
+  messages.push({role:"user",content});
+  composerInput.value="";
+  renderMessages();
+
+  try{
+    const data=await invokeAssist("chat",{
+      messages:messages.slice(-16).map(m=>({role:m.role,content:m.content}))
+    });
+
+    messages.push({
+      role:"assistant",
+      content:String(data.reply||"I prepared a suggestion for you.")
+    });
+
+    renderMessages();
+    renderProposal(data.proposal);
+    setStatus("Ready","ready");
+
+  }catch(error){
+    console.error(error);
+
+    messages.push({
+      role:"assistant",
+      content:"I couldn't reach the travel assistant backend yet."
+    });
+
+    renderMessages();
+    setStatus("Setup needed","bad");
+
+    showPageMessage(
+      (error.message||"Could not contact Assist.")+
+      " Make sure the Supabase Edge Function named “travel-assist” is deployed.",
+      "bad"
+    );
+
+  }finally{
+    sending=false;
+    sendButton.disabled=false;
+    typing.classList.remove("show");
+  }
+}
+
+async function applyProposal(){
+
+  if(!currentProposal||applying)return;
+
+  clearPageMessage();
+
+  applying=true;
+  applyProposalButton.disabled=true;
+  applyProposalButton.textContent="ADDING…";
+  setStatus("Saving","busy");
+
+  try{
+    const data=await invokeAssist("apply",{proposal:currentProposal});
+
+    const message=data.message||"Plan updated successfully.";
+
+    showPageMessage(message,"good");
+
+    messages.push({
+      role:"assistant",
+      content:message
+    });
+
+    renderMessages();
+    hideProposal();
+    setStatus("Ready","ready");
+
+  }catch(error){
+    console.error(error);
+    setStatus("Save failed","bad");
+    showPageMessage(error.message||"Couldn't add the proposed plan.","bad");
+
+  }finally{
+    applying=false;
+    applyProposalButton.disabled=false;
+    applyProposalButton.textContent="✓ ADD TO PLAN";
+  }
+}
+
+document.getElementById("composerForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  sendMessage();
+});
+
+composerInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&!e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+document.querySelectorAll("[data-prompt]").forEach(btn=>{
+  btn.addEventListener("click",()=>sendMessage(btn.dataset.prompt));
+});
+
+assistDate.addEventListener("change",()=>{
+  if(!assistDate.value)return;
+
+  selectedDate=assistDate.value;
+  updateUrl();
+
+  messages=[];
+  hideProposal();
+  clearPageMessage();
+  renderMessages();
+});
+
+document.getElementById("openPlanButton").addEventListener("click",()=>{
+  location.href=`schedule.html?trip=${TRIP_ID}#${selectedDate}`;
+});
+
+document.getElementById("newChatButton").addEventListener("click",()=>{
+  messages=[];
+  hideProposal();
+  clearPageMessage();
+  renderMessages();
+  composerInput.focus();
+});
+
+document.getElementById("changeProposalButton").addEventListener("click",()=>{
+  composerInput.value="Change this suggestion: ";
+  composerInput.focus();
+});
+
+applyProposalButton.addEventListener("click",applyProposal);
+
+async function start(){
+  try{
+    setStatus("Loading");
+    await resolveTrip();
+    renderMessages();
+    setStatus("Ready","ready");
+  }catch(error){
+    console.error(error);
+    setStatus("Unavailable","bad");
+    showPageMessage(error.message||"Could not load Assist.","bad");
+  }
+}
+
+start();
+
+</script>
+
+<script src="footer.js"></script>
+
+</body>
+</html>
