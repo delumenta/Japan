@@ -1909,6 +1909,85 @@ gmp-place-autocomplete{
 
 }
 
+
+/* =========================================================
+   ASSIST — INLINE CHAT DRAWER
+========================================================= */
+.assist-launch{
+  margin:0 0 13px;
+  padding:11px 12px;
+  display:flex;align-items:center;gap:10px;
+  border:1px solid rgba(120,169,239,.20);
+  border-radius:14px;
+  background:linear-gradient(145deg,rgba(120,169,239,.055),rgba(255,255,255,.012));
+  cursor:pointer;
+}
+.assist-launch-icon{
+  width:34px;height:34px;flex:0 0 34px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(120,169,239,.20);border-radius:10px;
+  background:rgba(120,169,239,.055);font-size:15px;
+}
+.assist-launch-main{min-width:0;flex:1}
+.assist-launch-title{color:#e9edf0;font-size:8px;font-weight:900}
+.assist-launch-sub{margin-top:2px;color:#74818a;font-size:6.5px;line-height:1.4}
+.assist-launch-arrow{color:#86a9d7;font-size:12px}
+.assist-panel{
+  display:none;margin:0 0 13px;overflow:hidden;
+  border:1px solid #2b3942;border-radius:16px;background:#091116;
+}
+.assist-panel.open{display:block}
+.assist-panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 12px;border-bottom:1px solid var(--line-soft);
+}
+.assist-panel-title{font-family:Georgia,"Times New Roman",serif;font-size:15px;font-weight:700}
+.assist-panel-sub{margin-top:2px;color:#75828a;font-size:6px}
+.assist-close{
+  width:28px;height:28px;border:1px solid #2b363e;border-radius:8px;
+  background:#10181d;color:#aeb7bc;cursor:pointer
+}
+.assist-suggestions{
+  display:flex;gap:6px;padding:9px 10px 0;overflow-x:auto;scrollbar-width:none
+}
+.assist-suggestions::-webkit-scrollbar{display:none}
+.assist-chip{
+  flex:0 0 auto;padding:6px 8px;border:1px solid #29363e;border-radius:999px;
+  background:#0e171c;color:#8998a2;font-size:6px;font-weight:900;cursor:pointer
+}
+.assist-messages{
+  min-height:105px;max-height:310px;overflow-y:auto;padding:10px;
+  display:flex;flex-direction:column;gap:7px
+}
+.assist-welcome{
+  padding:13px;border:1px dashed #2b373f;border-radius:11px;color:#7f8b93;
+  font-size:7px;line-height:1.55
+}
+.assist-welcome strong{display:block;margin-bottom:3px;color:#e7e9e7;font-size:9px}
+.assist-msg{display:flex}.assist-msg.user{justify-content:flex-end}
+.assist-bubble{
+  max-width:84%;padding:8px 10px;border:1px solid #29353d;border-radius:12px;
+  background:#10181d;color:#e9ecea;font-size:7.5px;line-height:1.5;white-space:pre-wrap
+}
+.assist-msg.user .assist-bubble{
+  border-color:rgba(255,98,95,.27);background:rgba(255,98,95,.065);color:#fff0ee
+}
+.assist-source{margin-top:4px;color:#64727b;font-size:5px;font-weight:900;letter-spacing:.08em}
+.assist-compose{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;padding:9px;
+  border-top:1px solid var(--line-soft)
+}
+.assist-input{
+  min-height:38px;max-height:95px;resize:none;padding:9px 10px;border:1px solid #2a353d;
+  border-radius:10px;outline:0;background:#070d11;color:#fff;font-size:8px
+}
+.assist-input:focus{border-color:rgba(120,169,239,.38)}
+.assist-send{
+  min-width:52px;border:1px solid rgba(120,169,239,.25);border-radius:10px;
+  background:rgba(120,169,239,.065);color:#a9c5e9;font-size:6.5px;font-weight:900;cursor:pointer
+}
+.assist-send:disabled{opacity:.45}
+
 </style>
 
 </head>
@@ -2036,24 +2115,38 @@ gmp-place-autocomplete{
 
 <main id="main">
 
-  <div class="plan-mode-switch" aria-label="Plan view">
-    <a
-      id="itineraryModeLink"
-      class="plan-mode-btn active"
-      href="schedule.html"
-      aria-current="page"
-    >
-      ITINERARY
-    </a>
+  <button id="assistLaunch" class="assist-launch" type="button" aria-expanded="false">
+    <div class="assist-launch-icon">✦</div>
+    <div class="assist-launch-main">
+      <div class="assist-launch-title">Ask Assist</div>
+      <div class="assist-launch-sub">Bookings, spending, food ideas, pacing or changes to this day.</div>
+    </div>
+    <div class="assist-launch-arrow">›</div>
+  </button>
 
-    <a
-      id="assistModeLink"
-      class="plan-mode-btn"
-      href="assist.html"
-    >
-      ASSIST
-    </a>
-  </div>
+  <section id="assistPanel" class="assist-panel" aria-hidden="true">
+    <div class="assist-panel-head">
+      <div>
+        <div class="assist-panel-title">Travel Assist</div>
+        <div id="assistStatus" class="assist-panel-sub">Ask anything about this trip.</div>
+      </div>
+      <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
+    </div>
+    <div class="assist-suggestions">
+      <button class="assist-chip" type="button" data-assist="What bookings do I have?">BOOKINGS</button>
+      <button class="assist-chip" type="button" data-assist="What is my plan for this day?">THIS DAY</button>
+      <button class="assist-chip" type="button" data-assist="How much have I spent?">SPENDING</button>
+      <button class="assist-chip" type="button" data-assist="Is this day too tiring?">PACING</button>
+      <button class="assist-chip" type="button" data-assist="Where should I eat around my plan for this day?">FOOD</button>
+    </div>
+    <div id="assistMessages" class="assist-messages">
+      <div id="assistWelcome" class="assist-welcome"><strong>How can I help?</strong>I know which trip and day you're viewing, so you can ask naturally — for example, “What have I booked?” or “Is this day too packed?”</div>
+    </div>
+    <div class="assist-compose">
+      <textarea id="assistInput" class="assist-input" rows="1" placeholder="Ask about your trip…"></textarea>
+      <button id="assistSend" class="assist-send" type="button">SEND</button>
+    </div>
+  </section>
 
   <div id="dayContent">
     <div class="state">
@@ -2538,17 +2631,6 @@ const dayContent =
   document.getElementById(
     "dayContent"
   );
-
-const itineraryModeLink =
-  document.getElementById(
-    "itineraryModeLink"
-  );
-
-const assistModeLink =
-  document.getElementById(
-    "assistModeLink"
-  );
-
 
 const tripName =
   document.getElementById(
@@ -3169,19 +3251,9 @@ async function resolveTrip(){
 ========================================================= */
 
 function syncPlanModeLinks(){
-
-  const dateHash =
-    selectedDate
-    ? `#${selectedDate}`
-    : (window.location.hash || "");
-
-  itineraryModeLink.href =
-    `schedule.html?trip=${TRIP_ID}${dateHash}`;
-
-  assistModeLink.href =
-    `assist.html?trip=${TRIP_ID}${dateHash}`;
-
+  /* Assist now lives inside Plan, so there are no separate mode links to sync. */
 }
+
 
 /* =========================================================
    LOAD DATA
@@ -6912,6 +6984,114 @@ async function reloadSchedule(){
 
 }
 
+
+
+
+/* =========================================================
+   ASSIST CHAT
+========================================================= */
+const assistLaunch=document.getElementById("assistLaunch");
+const assistPanel=document.getElementById("assistPanel");
+const assistClose=document.getElementById("assistClose");
+const assistMessages=document.getElementById("assistMessages");
+const assistInput=document.getElementById("assistInput");
+const assistSend=document.getElementById("assistSend");
+const assistStatus=document.getElementById("assistStatus");
+let assistBusy=false;
+let assistThreadId=null;
+
+function setAssistOpen(open){
+  assistPanel.classList.toggle("open",open);
+  assistPanel.setAttribute("aria-hidden",String(!open));
+  assistLaunch.setAttribute("aria-expanded",String(open));
+  assistLaunch.style.display=open?"none":"flex";
+  if(open) setTimeout(()=>assistInput.focus(),50);
+}
+assistLaunch.onclick=()=>setAssistOpen(true);
+assistClose.onclick=()=>setAssistOpen(false);
+
+function assistMessage(role,message,source=""){
+  document.getElementById("assistWelcome")?.remove();
+  const row=document.createElement("div"); row.className=`assist-msg ${role}`;
+  const bubble=document.createElement("div"); bubble.className="assist-bubble"; bubble.textContent=message;
+  if(source){
+    const meta=document.createElement("div"); meta.className="assist-source";
+    meta.textContent=source==="supabase"?"TRIP DATA":source==="gemini"?"AI ASSIST":source.toUpperCase();
+    bubble.appendChild(meta);
+  }
+  row.appendChild(bubble); assistMessages.appendChild(row);
+  assistMessages.scrollTop=assistMessages.scrollHeight;
+  return row;
+}
+
+async function invokeErrorText(error){
+  let msg=error?.message||"Travel Assist request failed.";
+  try{
+    const ctx=error?.context;
+    if(ctx&&typeof ctx.json==="function"){
+      const body=await ctx.json();
+      msg=body?.error||body?.message||body?.details||msg;
+    }
+  }catch(_){}
+  return msg;
+}
+
+async function askAssist(forced=null){
+  if(assistBusy)return;
+  let message=text(forced??assistInput.value).trim();
+  if(!message)return;
+  if(!TRIP_ID){assistStatus.textContent="No trip selected.";return}
+
+  if(message==="What is my plan for this day?"&&selectedDate) message=`What is my schedule on ${selectedDate}?`;
+  if(message==="Is this day too tiring?"&&selectedDate) message=`Is my schedule on ${selectedDate} too tiring?`;
+  if(message==="Where should I eat around my plan for this day?"&&selectedDate) message=`Where should I eat around my schedule on ${selectedDate}?`;
+
+  setAssistOpen(true);
+  assistBusy=true; assistSend.disabled=true; assistInput.disabled=true; assistInput.value="";
+  assistMessage("user",message);
+  const waiting=assistMessage("assistant","Checking your trip…");
+  assistStatus.textContent="Working…";
+
+  try{
+    const sessionResult=await db.auth.getSession();
+    if(sessionResult.error)throw sessionResult.error;
+    const token=sessionResult.data?.session?.access_token;
+    if(!token)throw new Error("Your session expired. Please sign in again.");
+
+    const body={action:"chat",trip_id:TRIP_ID,message};
+    if(assistThreadId)body.thread_id=assistThreadId;
+
+    const {data,error}=await db.functions.invoke("travel-assist",{
+      body,
+      headers:{Authorization:`Bearer ${token}`}
+    });
+    if(error)throw new Error(await invokeErrorText(error));
+    if(data?.error)throw new Error(data.error);
+
+    const reply=text(data?.reply??data?.message).trim();
+    if(!reply)throw new Error("Travel Assist returned an empty response.");
+    if(data?.thread_id)assistThreadId=data.thread_id;
+
+    waiting.remove();
+    assistMessage("assistant",reply,data?.source||"");
+    assistStatus.textContent=data?.ai_used?"AI helped with this answer.":"Answered from your trip.";
+  }catch(error){
+    console.error("travel-assist",error);
+    waiting.remove();
+    assistMessage("assistant",`I couldn't answer that yet.\n\n${error.message||"Unknown error."}`);
+    assistStatus.textContent="Assist connection needs attention.";
+  }finally{
+    assistBusy=false; assistSend.disabled=false; assistInput.disabled=false; assistInput.focus();
+  }
+}
+
+assistSend.onclick=()=>askAssist();
+assistInput.addEventListener("keydown",event=>{
+  if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();askAssist()}
+});
+document.querySelectorAll("[data-assist]").forEach(button=>{
+  button.onclick=()=>askAssist(button.dataset.assist);
+});
 
 
 /* =========================================================
