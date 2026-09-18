@@ -362,258 +362,1448 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 @media(min-width:700px){
   .restaurant-card:hover{border-color:#35414a;transform:translateY(-1px)}
 }
+
+/* =========================================================
+   PLAN VISUAL — SAFE CSS-ONLY OVERRIDE
+   No Food HTML/JS structure changed.
+========================================================= */
+
+/* Plan-like framed app surface */
+body{
+  padding-top:14px;
+}
+
+header{
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto;
+  overflow:visible;
+  border:1px solid #273139;
+  border-bottom:0;
+  border-radius:27px 27px 0 0;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+  box-shadow:0 24px 65px rgba(0,0,0,.24);
+}
+
+/* Plan's subtle Japanese watermark, without changing markup */
+header::before{
+  content:"食";
+  position:absolute;
+  z-index:0;
+  right:6px;
+  top:7px;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:126px;
+  font-weight:700;
+  line-height:1;
+  color:var(--red);
+  opacity:.042;
+  pointer-events:none;
+  user-select:none;
+}
+
+.header-inner{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:26px 20px 0;
+}
+
+.title-row{
+  align-items:flex-start;
+  gap:12px;
+}
+
+.eyebrow{
+  margin-bottom:14px;
+  color:#df7775;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+.food-page-title{
+  gap:15px;
+  align-items:center;
+}
+
+.food-page-title-icon{
+  width:65px;
+  height:65px;
+  flex:0 0 65px;
+  padding:10px;
+  border:1px solid rgba(255,98,95,.30);
+  border-radius:50%;
+  background:#0b1217;
+  object-fit:contain;
+  opacity:.88;
+}
+
+.food-page-title span{
+  color:#f7f4ee;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:41px;
+  font-weight:700;
+  letter-spacing:-.03em;
+}
+
+.trip-name{
+  margin:8px 0 0 80px;
+  max-width:350px;
+  color:#89949c;
+  font-size:9px;
+  font-weight:500;
+  line-height:1.4;
+}
+
+.add-btn{
+  min-height:29px;
+  padding:0 10px;
+  border:1px solid rgba(255,98,95,.32);
+  border-radius:9px;
+  background:rgba(255,98,95,.07);
+  color:#efaaa6;
+  font-size:7px;
+  font-weight:900;
+}
+
+/* Keep Food's own tabs and filters functional, just visually compact */
+.main-tabs{
+  margin-top:17px;
+}
+
+.unified-filter-panel{
+  margin-left:-20px;
+  margin-right:-20px;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+/* Area + Food + Search + X stay in one row */
+.sticky-filter-bar{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,.82fr) minmax(0,1.36fr) 30px;
+  gap:4px;
+  align-items:center;
+}
+
+.filter-select-btn,
+.quick-filter-wrap,
+.clear-compact-filter{
+  min-height:32px;
+  height:32px;
+  border-radius:8px;
+}
+
+.filter-select-btn{
+  padding:5px 6px;
+  font-size:6.5px;
+}
+
+.quick-filter-wrap{
+  grid-column:auto;
+  grid-row:auto;
+  padding:0 6px;
+}
+
+.quick-filter-input{
+  font-size:6.5px;
+}
+
+.clear-compact-filter{
+  grid-column:auto;
+  grid-row:auto;
+  width:30px;
+  min-width:30px;
+}
+
+/* Continue the same framed surface around results */
+main{
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto 105px;
+  padding:14px 20px 22px;
+  border:1px solid #273139;
+  border-top:0;
+  border-radius:0 0 27px 27px;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+}
+
+/* Keep modal sheets above the app frame */
+.sheet-backdrop,
+.more-backdrop{
+  z-index:150;
+}
+
+@media(max-width:430px){
+  body{padding-top:9px}
+
+  header,
+  main{
+    width:calc(100% - 18px);
+  }
+
+  .header-inner{
+    padding-left:17px;
+    padding-right:17px;
+  }
+
+  .unified-filter-panel{
+    margin-left:-17px;
+    margin-right:-17px;
+    padding-left:17px;
+    padding-right:17px;
+  }
+
+  .food-page-title-icon{
+    width:60px;
+    height:60px;
+    flex-basis:60px;
+    padding:9px;
+  }
+
+  .food-page-title span{
+    font-size:38px;
+  }
+
+  .trip-name{
+    margin-left:75px;
+  }
+
+  main{
+    padding-left:17px;
+    padding-right:17px;
+  }
+}
+
+
+/* =========================================================
+   SAVE SPACE — HIDE MY FOOD / DISCOVER NAV ROW
+   CSS ONLY: existing HTML + JavaScript stay untouched.
+========================================================= */
+.tabs{
+  display:none !important;
+}
+
+
+/* =========================================================
+   EXTRA COMPACT FOOD VIEW
+========================================================= */
+
+/* Remove the remaining "My Food / Discover" heading + count row */
+.result-head{
+  display:none !important;
+}
+
+/* Pull results upward after removing the heading */
+main{
+  padding-top:7px !important;
+}
+#results{
+  margin-top:0 !important;
+}
+.food-section{
+  margin-bottom:12px !important;
+}
+.section-title{
+  margin:0 1px 5px !important;
+  padding-bottom:4px !important;
+  font-size:7px !important;
+}
+
+/* More compact restaurant cards */
+.restaurant-card{
+  margin-bottom:5px !important;
+  padding:8px 9px 7px !important;
+  border-radius:11px !important;
+}
+.card-top{
+  gap:7px !important;
+}
+.food-icon{
+  width:29px !important;
+  height:29px !important;
+  flex-basis:29px !important;
+  border-radius:8px !important;
+  font-size:14px !important;
+}
+.restaurant-name{
+  font-size:11px !important;
+  line-height:1.18 !important;
+}
+.japanese{
+  margin-top:1px !important;
+  font-size:6.8px !important;
+}
+.location{
+  margin-top:3px !important;
+  font-size:6.8px !important;
+  line-height:1.25 !important;
+}
+.badges{
+  gap:3px !important;
+  margin-top:5px !important;
+}
+.badge{
+  padding:2px 4px !important;
+  font-size:6px !important;
+}
+
+/* Rating + price on one compact line, side-by-side */
+.meta{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:center !important;
+  gap:3px !important;
+  margin-top:5px !important;
+}
+.meta-item{
+  padding:2px 5px !important;
+  border-radius:5px !important;
+  font-size:6.4px !important;
+  white-space:nowrap !important;
+}
+
+/* Tighten optional content */
+.plan-box{
+  margin-top:5px !important;
+  padding:4px 6px !important;
+  font-size:6.5px !important;
+}
+.description{
+  margin-top:5px !important;
+  font-size:6.8px !important;
+  line-height:1.35 !important;
+}
+.actions{
+  gap:3px !important;
+  margin-top:6px !important;
+  padding-top:6px !important;
+}
+.action-btn{
+  min-height:23px !important;
+  padding:3px 6px !important;
+  border-radius:6px !important;
+  font-size:6px !important;
+}
+.state{
+  padding:24px 14px !important;
+}
+
+
+/* Price + rating now live beside cuisine/status tags */
+.price-badge{
+  color:#d7b06b !important;
+  border-color:rgba(228,189,105,.18) !important;
+  background:rgba(228,189,105,.045) !important;
+}
+.rating-badge{
+  color:#e4bd69 !important;
+  border-color:rgba(228,189,105,.18) !important;
+  background:rgba(228,189,105,.045) !important;
+}
+
 </style>
+
+
+<style id="food-grok-layout">
+
+/* =========================================================
+   GROK-INSPIRED FOOD LAYOUT
+   Preserves existing Supabase / filter / add-food behavior.
+========================================================= */
+
+:root{
+  --food-hero-image:url("travel-autumn-01.webp");
+}
+
+body{
+  padding-top:9px !important;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(47,58,66,.18),transparent 31%),
+    #030608 !important;
+}
+
+.food-shell{
+  width:calc(100% - 20px);
+  max-width:720px;
+  margin:0 auto 105px;
+  overflow:hidden;
+  border:1px solid #28343c;
+  border-radius:28px;
+  background:#071015;
+  box-shadow:0 24px 60px rgba(0,0,0,.42);
+}
+
+/* HERO */
+.food-hero-header{
+  position:relative !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  overflow:hidden !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:
+    linear-gradient(180deg,rgba(3,8,11,.18) 0%,rgba(3,8,11,.43) 58%,rgba(3,8,11,.91) 100%),
+    var(--food-hero-image) center 46% / cover no-repeat !important;
+  box-shadow:none !important;
+}
+
+.food-hero-header::before{
+  display:none !important;
+}
+
+.food-hero-shade{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:
+    radial-gradient(circle at 74% 30%,rgba(255,98,95,.13),transparent 30%),
+    linear-gradient(90deg,rgba(3,7,10,.14),rgba(3,7,10,.02) 45%,rgba(3,7,10,.18));
+  pointer-events:none;
+}
+
+.food-hero-kanji{
+  position:absolute;
+  z-index:1;
+  right:21px;
+  top:16px;
+  color:#ff625f;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:92px;
+  font-weight:700;
+  line-height:1;
+  opacity:.13;
+  pointer-events:none;
+}
+
+.food-hero-header .header-inner{
+  position:relative;
+  z-index:2;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:25px 28px 20px !important;
+}
+
+.food-hero-header .title-row{
+  align-items:flex-start !important;
+  gap:12px !important;
+}
+
+.hero-copy{
+  min-width:0;
+  flex:1;
+}
+
+.food-hero-header .eyebrow{
+  margin:0 0 13px !important;
+  color:#f17c79 !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  letter-spacing:.20em !important;
+  text-transform:uppercase;
+  text-shadow:0 1px 10px rgba(0,0,0,.45);
+}
+
+.food-title-line{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.food-logo-shell{
+  width:70px;
+  height:70px;
+  flex:0 0 70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,98,95,.56);
+  border-radius:50%;
+  background:rgba(4,9,12,.72);
+  box-shadow:0 7px 22px rgba(0,0,0,.30);
+}
+
+.food-page-title-icon{
+  width:62px !important;
+  height:62px !important;
+  flex:0 0 62px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:transparent !important;
+  object-fit:cover !important;
+  opacity:1 !important;
+}
+
+.food-page-title{
+  display:block !important;
+  margin:0 !important;
+}
+
+.food-page-title span{
+  color:#fffaf2 !important;
+  font-family:Georgia,"Times New Roman",serif !important;
+  font-size:55px !important;
+  font-weight:700 !important;
+  line-height:.95 !important;
+  letter-spacing:-.035em !important;
+  text-shadow:0 4px 18px rgba(0,0,0,.38);
+}
+
+.trip-name{
+  margin:14px 0 0 !important;
+  max-width:440px !important;
+  overflow:hidden;
+  color:rgba(226,231,232,.68) !important;
+  font-size:10px !important;
+  font-weight:700 !important;
+  line-height:1.35 !important;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.add-btn{
+  width:47px !important;
+  height:47px !important;
+  min-height:47px !important;
+  flex:0 0 47px !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 !important;
+  border:1px solid rgba(255,98,95,.48) !important;
+  border-radius:13px !important;
+  background:rgba(126,38,42,.24) !important;
+  color:#ff7774 !important;
+  font-size:24px !important;
+  font-weight:400 !important;
+  line-height:1;
+  box-shadow:inset 0 0 0 1px rgba(255,98,95,.05);
+}
+
+/* PLAN / FOOD */
+.page-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  margin-top:24px;
+  padding:5px;
+  border:1px solid rgba(42,55,64,.95);
+  border-radius:17px;
+  background:rgba(5,13,17,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.page-switch-btn{
+  min-height:51px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid transparent;
+  border-radius:13px;
+  color:#78858d;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-decoration:none;
+}
+
+.page-switch-btn.active{
+  border-color:rgba(255,98,95,.44);
+  background:rgba(112,39,43,.24);
+  color:#f27a77;
+  box-shadow:inset 0 0 0 1px rgba(255,98,95,.07);
+}
+
+/* LARGE CITY SCROLLER */
+.city-cards{
+  display:flex;
+  align-items:stretch;
+  gap:8px;
+  width:100%;
+  margin:15px 0 16px;
+  padding:0 0 2px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+
+.city-cards::-webkit-scrollbar{
+  display:none;
+}
+
+.city-card{
+  min-width:113px;
+  min-height:82px;
+  flex:0 0 113px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  padding:10px 13px;
+  border:1px solid #2b3740;
+  border-radius:14px;
+  background:rgba(6,15,20,.88);
+  color:#aeb7bc;
+  text-align:left;
+  cursor:pointer;
+}
+
+.city-card.active{
+  border-color:rgba(255,98,95,.46);
+  background:linear-gradient(145deg,rgba(73,31,36,.44),rgba(7,15,20,.92));
+}
+
+.city-jp{
+  color:#89969e;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:20px;
+  line-height:1;
+}
+
+.city-card.active .city-jp{
+  color:#ef7b78;
+}
+
+.city-en{
+  margin-top:7px;
+  color:#f3f1ec;
+  font-size:9px;
+  font-weight:900;
+}
+
+/* MY FOOD / DISCOVER */
+.main-tabs{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:5px !important;
+  margin:0 !important;
+  padding:5px !important;
+  border:1px solid #2a363e !important;
+  border-radius:17px !important;
+  background:rgba(5,13,17,.88) !important;
+}
+
+.main-tab{
+  min-height:48px !important;
+  padding:8px !important;
+  border:1px solid transparent !important;
+  border-radius:13px !important;
+  background:transparent !important;
+  color:#76838b !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  letter-spacing:.08em !important;
+}
+
+.main-tab::after{
+  display:none !important;
+}
+
+.main-tab.active{
+  border-color:rgba(255,98,95,.42) !important;
+  background:rgba(102,38,42,.25) !important;
+  color:#f17b78 !important;
+}
+
+/* FILTERS */
+.unified-filter-panel{
+  position:relative !important;
+  top:auto !important;
+  z-index:75 !important;
+  margin:14px 0 0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+.status-chips{
+  display:flex !important;
+  gap:7px !important;
+  margin:0 0 14px !important;
+  padding:0 !important;
+}
+
+.status-chips .chip{
+  min-height:44px !important;
+  padding:7px 14px !important;
+  border:1px solid #29353d !important;
+  border-radius:13px !important;
+  background:#091217 !important;
+  color:#7e8a91 !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+  white-space:nowrap !important;
+}
+
+.status-chips .chip.active{
+  border-color:rgba(255,98,95,.42) !important;
+  background:rgba(102,38,42,.25) !important;
+  color:#f17b78 !important;
+}
+
+.sticky-filter-bar{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) 48px !important;
+  grid-template-areas:
+    "area food clear"
+    "search search search" !important;
+  gap:8px !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+.area-wrap{grid-area:area}
+.food-wrap{grid-area:food}
+.quick-filter-wrap{grid-area:search !important}
+.clear-compact-filter{grid-area:clear !important}
+
+.filter-select-btn,
+.quick-filter-wrap,
+.clear-compact-filter{
+  height:47px !important;
+  min-height:47px !important;
+  border:1px solid #2b3740 !important;
+  border-radius:13px !important;
+  background:#091217 !important;
+  box-shadow:none !important;
+}
+
+.filter-select-btn{
+  padding:0 14px !important;
+  color:#9aa5ab !important;
+  font-size:10px !important;
+  font-weight:700 !important;
+}
+
+.filter-select-btn.active{
+  border-color:rgba(255,98,95,.34) !important;
+  color:#e2b0ad !important;
+}
+
+.filter-chevron{
+  color:#78848b !important;
+  font-size:14px !important;
+}
+
+.quick-filter-wrap{
+  padding:0 14px !important;
+  gap:9px !important;
+}
+
+.quick-filter-icon{
+  color:#81909a;
+  font-size:18px !important;
+  opacity:.8 !important;
+}
+
+.quick-filter-input{
+  font-size:10px !important;
+  color:#e5e7e7 !important;
+}
+
+.quick-filter-input::placeholder{
+  color:#69767e !important;
+}
+
+.clear-compact-filter{
+  width:48px !important;
+  min-width:48px !important;
+  padding:0 !important;
+  color:#68747b !important;
+  font-size:0 !important;
+}
+
+.clear-compact-filter::after{
+  content:"✕" !important;
+  font-size:14px !important;
+}
+
+.filter-menu{
+  top:calc(100% + 7px) !important;
+  min-width:190px !important;
+  border-color:#2b3740 !important;
+  border-radius:13px !important;
+  background:#0a1318 !important;
+}
+
+.filter-menu-item{
+  min-height:38px !important;
+  font-size:9px !important;
+}
+
+/* RESULTS SURFACE */
+main{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:19px 28px 30px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#071015 !important;
+}
+
+.result-head{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  margin:0 0 14px !important;
+}
+
+.result-title{
+  display:none !important;
+}
+
+.result-count{
+  padding:0 !important;
+  color:#78858d !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase;
+}
+
+#results{
+  margin:0 !important;
+}
+
+.food-section{
+  margin:0 !important;
+}
+
+.section-title{
+  display:none !important;
+}
+
+/* CITY GROUP CARD */
+.city-food-card{
+  overflow:hidden;
+  margin-bottom:15px;
+  border:1px solid #2a363f;
+  border-radius:19px;
+  background:#081116;
+}
+
+.city-food-head{
+  position:relative;
+  min-height:112px;
+  padding:22px 92px 18px 21px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.city-food-kicker{
+  color:#f07774;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.city-food-title{
+  margin-top:14px;
+  color:#f9f5ee;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:29px;
+  font-weight:700;
+  line-height:1.08;
+  letter-spacing:-.025em;
+}
+
+.city-stamp{
+  position:absolute;
+  right:21px;
+  top:39px;
+  width:61px;
+  height:61px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid rgba(255,98,95,.42);
+  border-radius:10px;
+  color:#df716e;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:20px;
+  transform:rotate(-7deg);
+  opacity:.86;
+}
+
+.city-food-list{
+  padding:7px 20px 10px;
+}
+
+.restaurant-row{
+  display:grid;
+  grid-template-columns:118px 22px minmax(0,1fr);
+  gap:0;
+  min-height:154px;
+  padding:18px 0;
+}
+
+.restaurant-row + .restaurant-row{
+  border-top:1px solid rgba(255,255,255,.035);
+}
+
+.restaurant-area{
+  padding:2px 10px 0 0;
+  color:#a9c1d3;
+  font-size:8px;
+  font-weight:900;
+  line-height:1.35;
+}
+
+.restaurant-rail{
+  position:relative;
+}
+
+.restaurant-rail::before{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:0;
+  bottom:-22px;
+  width:1px;
+  background:#26333b;
+}
+
+.restaurant-row:last-child .restaurant-rail::before{
+  bottom:calc(100% - 11px);
+}
+
+.restaurant-dot{
+  position:absolute;
+  left:3px;
+  top:3px;
+  width:11px;
+  height:11px;
+  border:3px solid rgba(255,98,95,.16);
+  border-radius:50%;
+  background:#ff625f;
+  box-shadow:0 0 0 2px rgba(255,98,95,.06);
+}
+
+.restaurant-content{
+  min-width:0;
+}
+
+.restaurant-title-line{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+}
+
+.restaurant-utensil{
+  flex:0 0 auto;
+  color:#738088;
+  font-size:11px;
+}
+
+.restaurant-name-new{
+  min-width:0;
+  overflow:hidden;
+  color:#f8f5ef;
+  font-size:14px;
+  font-weight:900;
+  line-height:1.22;
+  text-overflow:ellipsis;
+}
+
+.restaurant-japanese-new{
+  margin:5px 0 0 19px;
+  color:#727f87;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+  font-size:8px;
+}
+
+.restaurant-badges-new{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin:8px 0 0 19px;
+}
+
+.restaurant-badges-new .badge{
+  padding:3px 7px !important;
+  border:1px solid #2c3840 !important;
+  border-radius:999px !important;
+  background:transparent !important;
+  color:#909ba2 !important;
+  font-size:7px !important;
+  font-weight:800 !important;
+}
+
+.restaurant-badges-new .badge.pick,
+.restaurant-badges-new .badge.top{
+  border-color:rgba(255,98,95,.42) !important;
+  color:#ed7b77 !important;
+}
+
+.restaurant-badges-new .badge.scheduled,
+.restaurant-badges-new .badge.eaten{
+  border-color:rgba(121,201,149,.30) !important;
+  color:#88d4a2 !important;
+}
+
+.restaurant-note-new{
+  margin:10px 0 0 19px;
+  color:#8d989f;
+  font-size:8.5px;
+  line-height:1.5;
+}
+
+.restaurant-actions-new{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:5px 14px;
+  margin:12px 0 0 19px;
+}
+
+.restaurant-action-link{
+  min-height:26px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#8d979e;
+  font-size:8px;
+  font-weight:800;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.restaurant-action-link.map{
+  color:#ed7b77;
+}
+
+.restaurant-action-link.active{
+  color:#d8d9d6;
+}
+
+.restaurant-action-link.green{
+  color:#91d1a7;
+}
+
+.restaurant-card{
+  display:none !important;
+}
+
+.state{
+  padding:32px 18px !important;
+  border:1px dashed #303b43 !important;
+  border-radius:16px !important;
+  background:rgba(255,255,255,.012) !important;
+  font-size:8px !important;
+}
+
+/* Keep add sheet forms readable and above the shell */
+.sheet-backdrop,
+.more-backdrop{
+  z-index:200 !important;
+}
+
+@media(max-width:520px){
+
+  .food-shell{
+    width:calc(100% - 16px);
+  }
+
+  .food-hero-header .header-inner{
+    padding:22px 20px 18px !important;
+  }
+
+  .food-title-line{
+    gap:16px;
+  }
+
+  .food-logo-shell{
+    width:62px;
+    height:62px;
+    flex-basis:62px;
+  }
+
+  .food-page-title-icon{
+    width:55px !important;
+    height:55px !important;
+    flex-basis:55px !important;
+  }
+
+  .food-page-title span{
+    font-size:45px !important;
+  }
+
+  .food-hero-header .eyebrow{
+    font-size:8px !important;
+  }
+
+  .trip-name{
+    margin-top:11px !important;
+    font-size:8px !important;
+  }
+
+  .add-btn{
+    width:43px !important;
+    height:43px !important;
+    min-height:43px !important;
+    flex-basis:43px !important;
+    font-size:21px !important;
+  }
+
+  .page-switch-btn{
+    min-height:46px;
+    font-size:9px;
+  }
+
+  .city-card{
+    min-width:104px;
+    min-height:75px;
+    flex-basis:104px;
+  }
+
+  .city-jp{
+    font-size:18px;
+  }
+
+  .status-chips .chip{
+    min-height:41px !important;
+    padding:6px 13px !important;
+    font-size:8px !important;
+  }
+
+  main{
+    padding:17px 20px 28px !important;
+  }
+
+  .city-food-head{
+    min-height:101px;
+    padding:18px 76px 15px 18px;
+  }
+
+  .city-food-title{
+    font-size:25px;
+  }
+
+  .city-stamp{
+    right:17px;
+    top:34px;
+    width:55px;
+    height:55px;
+    font-size:18px;
+  }
+
+  .city-food-list{
+    padding:4px 17px 8px;
+  }
+
+  .restaurant-row{
+    grid-template-columns:78px 20px minmax(0,1fr);
+    min-height:145px;
+    padding:17px 0;
+  }
+
+  .restaurant-area{
+    padding-right:7px;
+    font-size:7.3px;
+  }
+
+  .restaurant-name-new{
+    font-size:12px;
+  }
+
+  .restaurant-note-new{
+    font-size:7.8px;
+  }
+
+  .restaurant-action-link{
+    font-size:7.5px;
+  }
+
+}
+
+@media(max-width:380px){
+
+  .food-hero-header .header-inner,
+  main{
+    padding-left:16px !important;
+    padding-right:16px !important;
+  }
+
+  .food-page-title span{
+    font-size:41px !important;
+  }
+
+  .city-card{
+    min-width:96px;
+    flex-basis:96px;
+  }
+
+  .restaurant-row{
+    grid-template-columns:68px 18px minmax(0,1fr);
+  }
+
+  .restaurant-badges-new,
+  .restaurant-japanese-new,
+  .restaurant-note-new,
+  .restaurant-actions-new{
+    margin-left:15px;
+  }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
+<div class="food-shell">
 
 <!-- =========================================================
-     HEADER
+     HERO / HEADER
 ========================================================= -->
 
-<header>
+<header class="food-hero-header">
 
-<div class="header-inner">
+  <div class="food-hero-shade"></div>
+  <div class="food-hero-kanji" aria-hidden="true">食</div>
 
-  <div class="title-row">
+  <div class="header-inner">
 
-    <div>
+    <div class="title-row">
 
-      <div
-        id="tripEyebrow"
-        class="eyebrow"
-      >
-        LOADING TRIP…
+      <div class="hero-copy">
+
+        <div
+          id="tripEyebrow"
+          class="eyebrow"
+        >
+          LOADING TRIP…
+        </div>
+
+        <div class="food-title-line">
+
+          <div class="food-logo-shell">
+            <img
+              class="food-page-title-icon"
+              src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
+              alt=""
+              aria-hidden="true"
+            >
+          </div>
+
+          <div>
+            <h1 class="food-page-title">
+              <span>Food</span>
+            </h1>
+
+            <div
+              id="tripName"
+              class="trip-name"
+            >
+              Loading trip…
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
-      <h1 class="food-page-title">
-        <img class="food-page-title-icon" src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Food.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvRm9vZC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI3OTEwLCJleHAiOjIxMDQ5ODc5MTB9.S3ziYBOlZ-A98ltUXENugtbieKjgxRWXX_TiqLJO_n9sZoPjCR017CviZvILW5wsRZ_ydjsGgSpWutnXE33OIg" alt="" aria-hidden="true">
-        <span>Food</span>
-      </h1>
+      <button
+        id="openAdd"
+        class="add-btn"
+        type="button"
+        aria-label="Add restaurant"
+        title="Add restaurant"
+      >
+        ＋
+      </button>
+
+    </div>
+
+    <div class="page-switch" aria-label="Trip section">
+      <a id="planSwitch" class="page-switch-btn" href="schedule.html">
+        PLAN
+      </a>
+      <span class="page-switch-btn active">
+        FOOD
+      </span>
+    </div>
+
+    <div
+      id="cityChips"
+      class="city-cards"
+      aria-label="City filter"
+    ></div>
+
+    <div class="main-tabs">
+
+      <button
+        class="main-tab active"
+        data-tab="mine"
+        type="button"
+      >
+        MY FOOD
+      </button>
+
+      <button
+        class="main-tab"
+        data-tab="discover"
+        type="button"
+      >
+        DISCOVER
+      </button>
+
+    </div>
+
+    <div id="unifiedFilterPanel" class="unified-filter-panel">
 
       <div
-        id="tripName"
-        class="trip-name"
+        id="myFilters"
+        class="chips status-chips"
       >
-        Loading trip…
+
+        <button class="chip active" data-myfilter="all" type="button">
+          All
+        </button>
+
+        <button class="chip" data-myfilter="pick" type="button">
+          Picks
+        </button>
+
+        <button class="chip" data-myfilter="flexible" type="button">
+          Flexible
+        </button>
+
+        <button class="chip" data-myfilter="scheduled" type="button">
+          On plan
+        </button>
+
+        <button class="chip" data-myfilter="eaten" type="button">
+          Eaten
+        </button>
+
+      </div>
+
+      <div
+        id="discoverStatusRow"
+        class="chips discover-status-row status-chips"
+        style="display:none"
+      >
+        <button class="chip active" data-discover-status="all" type="button">
+          All
+        </button>
+
+        <button class="chip" data-discover-status="tabelog" type="button">
+          Tabelog
+        </button>
+
+        <button class="chip" data-discover-status="eaten" type="button">
+          Eaten
+        </button>
+      </div>
+
+      <div id="stickyFilterBar" class="sticky-filter-bar">
+
+        <div class="filter-select-wrap area-wrap">
+
+          <button
+            id="areaFilterButton"
+            class="filter-select-btn"
+            type="button"
+            aria-expanded="false"
+          >
+            <span id="areaFilterButtonText">All areas</span>
+            <span class="filter-chevron">⌄</span>
+          </button>
+
+          <div
+            id="areaFilterMenu"
+            class="filter-menu"
+            hidden
+          ></div>
+
+        </div>
+
+        <div class="filter-select-wrap food-wrap">
+
+          <button
+            id="foodFilterButton"
+            class="filter-select-btn"
+            type="button"
+            aria-expanded="false"
+          >
+            <span id="foodFilterButtonText">All food</span>
+            <span class="filter-chevron">⌄</span>
+          </button>
+
+          <div
+            id="foodFilterMenu"
+            class="filter-menu"
+            hidden
+          ></div>
+
+        </div>
+
+        <div class="quick-filter-wrap">
+          <span class="quick-filter-icon">⌕</span>
+          <input
+            id="quickFilterInput"
+            class="quick-filter-input"
+            type="search"
+            autocomplete="off"
+            placeholder="Search name, area, or dish"
+            aria-label="Search name, area, or dish"
+          >
+        </div>
+
+        <button
+          id="clearCompactFilters"
+          class="clear-compact-filter"
+          type="button"
+          title="Clear filters"
+          aria-label="Clear filters"
+        >
+          ✕
+        </button>
+
       </div>
 
     </div>
 
-
-    <button
-      id="openAdd"
-      class="add-btn"
-      type="button"
-    >
-      ＋ ADD
-    </button>
-
-  </div>
-
-
-  <div class="main-tabs">
-
-    <button
-      class="main-tab active"
-      data-tab="mine"
-      type="button"
-    >
-      ❤️ MY FOOD
-    </button>
-
-    <button
-      class="main-tab"
-      data-tab="discover"
-      type="button"
-    >
-      🔎 DISCOVER
-    </button>
-
-  </div>
-
-
-  
-
-
-  
-<!-- =========================================================
-     UNIFIED STICKY FILTER PANEL
-========================================================= -->
-<div id="unifiedFilterPanel" class="unified-filter-panel">
-  <div
-    id="cityChips"
-    class="chips"
-  ></div>
-
-  <div
-    id="myFilters"
-    class="chips"
-  >
-
-    <button
-      class="chip active"
-      data-myfilter="all"
-      type="button"
-    >
-      ALL
-    </button>
-
-    <button
-      class="chip"
-      data-myfilter="pick"
-      type="button"
-    >
-      ⭐ PICKS
-    </button>
-
-    <button
-      class="chip"
-      data-myfilter="flexible"
-      type="button"
-    >
-      🌙 FLEXIBLE
-    </button>
-
-    <button
-      class="chip"
-      data-myfilter="scheduled"
-      type="button"
-    >
-      📅 SCHEDULED
-    </button>
-
-    <button
-      class="chip"
-      data-myfilter="eaten"
-      type="button"
-    >
-      ✓ EATEN
-    </button>
-
-  </div>
-
-  <div
-  id="discoverStatusRow"
-  class="chips discover-status-row"
-  style="display:none"
->
-  <button class="chip active" data-discover-status="all" type="button">
-    ALL
-  </button>
-
-  <button class="chip" data-discover-status="tabelog" type="button">
-    🏆 TABELOG
-  </button>
-
-  <button class="chip" data-discover-status="eaten" type="button">
-    ✓ EATEN
-  </button>
-</div>
-
-  <div
-  id="stickyFilterBar"
-  class="sticky-filter-bar"
->
-  <div class="filter-select-wrap">
-
-    <button
-      id="areaFilterButton"
-      class="filter-select-btn"
-      type="button"
-      aria-expanded="false"
-    >
-      <span id="areaFilterButtonText">📍 All Areas</span>
-      <span class="filter-chevron">⌄</span>
-    </button>
-
     <div
-      id="areaFilterMenu"
-      class="filter-menu"
-      hidden
-    ></div>
-
-  </div>
-
-
-  <div class="filter-select-wrap">
-
-    <button
-      id="foodFilterButton"
-      class="filter-select-btn"
-      type="button"
-      aria-expanded="false"
-    >
-      <span id="foodFilterButtonText">🍽️ All Food</span>
-      <span class="filter-chevron">⌄</span>
-    </button>
-
-    <div
-      id="foodFilterMenu"
-      class="filter-menu"
-      hidden
-    ></div>
-
-  </div>
-
-
-  <div class="quick-filter-wrap">
-    <span class="quick-filter-icon">🔎</span>
-    <input
-      id="quickFilterInput"
-      class="quick-filter-input"
-      type="search"
-      autocomplete="off"
-      placeholder="Search..."
-      aria-label="Quick filter by restaurant, area, food or category"
-    />
-  </div>
-
-
-  <button
-    id="clearCompactFilters"
-    class="clear-compact-filter"
-    type="button"
-    title="Clear area, food and search filters"
-  >
-    ✕ CLEAR
-  </button>
-</div>
-</div>
-
-
-
-
-
-
-  
-
-
-  <div
-    id="discoverControls"
-    class="discover-controls"
-    style="display:none !important"
-    aria-hidden="true"
-  >
-    <div
-      id="browseChips"
-      class="chips"
+      id="discoverControls"
+      class="discover-controls"
       style="display:none !important"
+      aria-hidden="true"
+    >
+      <div
+        id="browseChips"
+        class="chips"
+        style="display:none !important"
+      ></div>
+    </div>
+
+    <div
+      id="discoverAreaRow"
+      class="chips discover-area-row"
+      aria-hidden="true"
+      style="display:none"
+      aria-label="Area filter"
     ></div>
+
   </div>
-
-<div
-  id="discoverAreaRow"
-  class="chips discover-area-row"
-  aria-hidden="true"
-  style="display:none"
-  aria-label="Area filter"
-></div>
-
-
-</div>
 
 </header>
 
@@ -665,6 +1855,7 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 
 </main>
 
+</div><!-- /food-shell -->
 
 
 <!-- =========================================================
@@ -2787,75 +3978,28 @@ function cardHTML(r){
 
             ${badges(r)}
 
+            ${
+              rPrice(r)
+              ?
+              `<span class="badge price-badge">💴 ${esc(rPrice(r))}</span>`
+              :
+              ""
+            }
+
+            ${
+              rRating(r)
+              ?
+              `<span class="badge rating-badge">⭐ ${esc(rRating(r))}</span>`
+              :
+              ""
+            }
+
           </div>
 
 
         </div>
 
       </div>
-
-
-      ${
-        rRating(r) ||
-        rPrice(r)
-
-        ?
-
-        `
-
-          <div class="meta">
-
-            ${
-              rRating(r)
-
-              ?
-
-              `
-                <span class="meta-item">
-
-                  ⭐ Tabelog
-                  ${esc(
-                    rRating(r)
-                  )}
-
-                </span>
-              `
-
-              :
-
-              ""
-            }
-
-
-            ${
-              rPrice(r)
-
-              ?
-
-              `
-                <span class="meta-item">
-
-                  💴
-                  ${esc(
-                    rPrice(r)
-                  )}
-
-                </span>
-              `
-
-              :
-
-              ""
-            }
-
-          </div>
-
-        `
-
-        :
-
-        ""
-      }
 
 
       ${planHTML(r)}
@@ -5259,9 +6403,9 @@ function renderCompactFilters(){
   areaFilterButtonText.textContent =
     sideAreaFilter
     ?
-    `📍 ${sideAreaFilter}`
+    `${sideAreaFilter}`
     :
-    "📍 All Areas";
+    "All areas";
 
 
   areaFilterButton.classList.toggle(
@@ -5277,7 +6421,7 @@ function renderCompactFilters(){
       data-compact-area=""
       type="button"
     >
-      <span>✓ All Areas</span>
+      <span>All areas</span>
       <span class="filter-menu-count">${areaSource.length}</span>
     </button>
 
@@ -5393,9 +6537,9 @@ function renderCompactFilters(){
   foodFilterButtonText.textContent =
     selectedFood
     ?
-    `${selectedFood.icon} ${selectedFood.label}`
+    `${selectedFood.label}`
     :
-    "🍽️ All Food";
+    "All food";
 
 
   foodFilterButton.classList.toggle(
@@ -5411,7 +6555,7 @@ function renderCompactFilters(){
       data-compact-food=""
       type="button"
     >
-      <span>✓ All Food</span>
+      <span>All food</span>
       <span class="filter-menu-count">${foodSource.length}</span>
     </button>
 
@@ -5583,6 +6727,612 @@ document.addEventListener(
 
   }
 );
+
+
+
+
+/* =========================================================
+   GROK-STYLE VISUAL HELPERS
+========================================================= */
+
+function cityJapanese(city){
+
+  const key = norm(city);
+
+  const map = {
+    "osaka":"大阪",
+    "nara":"奈良",
+    "kyoto":"京都",
+    "koyasan":"高野",
+    "koya":"高野",
+    "wakayama":"和歌山",
+    "tanabe":"田辺",
+    "ryujin":"龍神",
+    "dorogawa":"洞川",
+    "nachikatsuura":"那智勝浦",
+    "nachi katsuura":"那智勝浦",
+    "nachi-katsuura":"那智勝浦",
+    "tokoname":"常滑",
+    "nagoya":"名古屋",
+    "inuyama":"犬山",
+    "toyohashi":"豊橋",
+    "kobe":"神戸",
+    "tokyo":"東京",
+    "yokohama":"横浜",
+    "hiroshima":"広島"
+  };
+
+  return map[key] || city || "旅";
+
+}
+
+
+function seasonFromDate(value){
+
+  if(!value){
+    return "TRIP";
+  }
+
+  const d = new Date(value + "T12:00:00");
+  const month = d.getMonth() + 1;
+
+  if(month >= 3 && month <= 5){
+    return "SPRING";
+  }
+
+  if(month >= 6 && month <= 8){
+    return "SUMMER";
+  }
+
+  if(month >= 9 && month <= 11){
+    return "AUTUMN";
+  }
+
+  return "WINTER";
+
+}
+
+
+function heroDateRange(){
+
+  if(!trip?.start_date){
+    return trip?.name || "My Trip";
+  }
+
+  const start = new Date(trip.start_date + "T12:00:00");
+  const end = trip.end_date
+    ? new Date(trip.end_date + "T12:00:00")
+    : null;
+
+  const startDay = start.getDate();
+  const startMonth = start.toLocaleDateString("en-SG",{month:"short"}).toUpperCase();
+
+  let dateText = `${startDay} ${startMonth}`;
+
+  if(end){
+
+    const endDay = end.getDate();
+    const endMonth = end.toLocaleDateString("en-SG",{month:"short"}).toUpperCase();
+
+    dateText =
+      startMonth === endMonth
+      ? `${startDay}–${endDay} ${startMonth}`
+      : `${startDay} ${startMonth} – ${endDay} ${endMonth}`;
+
+  }
+
+  const label =
+    text(trip.description).trim()
+    ||
+    text(trip.name).trim()
+    ||
+    "Trip food";
+
+  return `${dateText} · ${label}`;
+
+}
+
+
+function updateFoodHero(){
+
+  if(!trip){
+    return;
+  }
+
+  const year = trip.start_date
+    ? new Date(trip.start_date + "T12:00:00").getFullYear()
+    : "";
+
+  const country = text(trip.country || "TRAVEL").toUpperCase();
+  const season = seasonFromDate(trip.start_date);
+
+  tripEyebrow.textContent =
+    [country, season, year]
+      .filter(Boolean)
+      .join(" · ");
+
+  tripName.textContent = heroDateRange();
+
+  const planSwitch = document.getElementById("planSwitch");
+
+  if(planSwitch){
+    planSwitch.href = `schedule.html?trip=${TRIP_ID}`;
+  }
+
+  const hero =
+    text(trip.hero_image_url || trip.hero_image).trim()
+    ||
+    "travel-autumn-01.webp";
+
+  document.documentElement.style.setProperty(
+    "--food-hero-image",
+    `url("${hero.replaceAll('"','%22')}")`
+  );
+
+}
+
+
+/* =========================================================
+   LARGE CITY CARDS
+========================================================= */
+
+function createCityChips(){
+
+  const cities = unique(
+    restaurants
+      .map(rCity)
+      .filter(Boolean)
+  );
+
+  cityChips.innerHTML = `
+
+    <button
+      class="city-card ${!selectedCity ? "active" : ""}"
+      data-city=""
+      type="button"
+    >
+      <span class="city-jp">食</span>
+      <span class="city-en">All</span>
+    </button>
+
+    ${
+      cities.map(
+        city => `
+
+          <button
+            class="city-card ${norm(selectedCity) === norm(city) ? "active" : ""}"
+            data-city="${esc(city)}"
+            type="button"
+          >
+            <span class="city-jp">${esc(cityJapanese(city))}</span>
+            <span class="city-en">${esc(city)}</span>
+          </button>
+
+        `
+      )
+      .join("")
+    }
+
+  `;
+
+  cityChips
+    .querySelectorAll("[data-city]")
+    .forEach(
+      button => {
+
+        button.onclick = () => {
+
+          selectedCity = button.dataset.city || "";
+          discoverFilter = "";
+          sideAreaFilter = "";
+          foodGroupFilter = "";
+
+          createCityChips();
+          createDiscoverChips();
+          render();
+
+        };
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   GROUPED CITY CARDS
+========================================================= */
+
+function groupHeading(list){
+
+  const areas = unique(
+    list
+      .map(
+        restaurant =>
+          rArea(restaurant)
+          ||
+          rLocation(restaurant)
+      )
+      .filter(Boolean)
+  );
+
+  if(!areas.length){
+    return "Food stops";
+  }
+
+  if(areas.length === 1){
+    return areas[0];
+  }
+
+  if(areas.length === 2){
+    return `${areas[0]}, ${areas[1]}`;
+  }
+
+  return `${areas[0]}, ${areas[1]} +${areas.length - 2}`;
+
+}
+
+
+function inlineScheduleBadges(r){
+
+  const rows = scheduleFor(r);
+
+  if(!rows.length){
+    return "";
+  }
+
+  return rows.map(
+    row => {
+
+      const date = formatScheduleDate(row.schedule_date);
+
+      const time =
+        row.time_label
+        ||
+        (
+          row.start_time
+          ? row.start_time.slice(0,5)
+          : ""
+        );
+
+      return `
+        <span class="badge scheduled">
+          ${esc(date)}${time ? ` · ${esc(time)}` : ""}${row.is_locked ? " · 🔒" : ""}
+        </span>
+      `;
+
+    }
+  )
+  .join("");
+
+}
+
+
+function restaurantRowHTML(r){
+
+  const relation = relationFor(r.id);
+
+  const mapsURL =
+    r.maps_url
+    ||
+    `https://www.google.com/maps/search/?api=1&query=${
+      encodeURIComponent(
+        [
+          r.name,
+          rCity(r),
+          trip?.country || ""
+        ]
+        .filter(Boolean)
+        .join(" ")
+      )
+    }`;
+
+  const area =
+    rArea(r)
+    ||
+    rLocation(r)
+    ||
+    rCity(r)
+    ||
+    "";
+
+  return `
+
+    <div class="restaurant-row ${isEaten(r) ? "eaten-row" : ""}">
+
+      <div class="restaurant-area">
+        ${esc(area)}
+      </div>
+
+      <div class="restaurant-rail">
+        <span class="restaurant-dot"></span>
+      </div>
+
+      <div class="restaurant-content">
+
+        <div class="restaurant-title-line">
+          <span class="restaurant-utensil">♜</span>
+          <span class="restaurant-name-new">${esc(r.name)}</span>
+        </div>
+
+        ${
+          rJapanese(r)
+          ?
+          `<div class="restaurant-japanese-new">${esc(rJapanese(r))}</div>`
+          :
+          ""
+        }
+
+        <div class="restaurant-badges-new">
+
+          <span class="badge">
+            ${esc(rCuisine(r))}
+          </span>
+
+          ${
+            rPrice(r)
+            ? `<span class="badge price-badge">${esc(rPrice(r))}</span>`
+            : ""
+          }
+
+          ${
+            rRating(r)
+            ? `<span class="badge rating-badge">${esc(rRating(r))}</span>`
+            : ""
+          }
+
+          ${isPick(r) ? `<span class="badge pick">Pick</span>` : ""}
+          ${isFlexible(r) ? `<span class="badge flex">Flex</span>` : ""}
+          ${isEaten(r) ? `<span class="badge eaten">Eaten</span>` : ""}
+          ${inlineScheduleBadges(r)}
+
+        </div>
+
+        ${
+          rDescription(r)
+          ?
+          `<div class="restaurant-note-new">${esc(rDescription(r))}</div>`
+          :
+          ""
+        }
+
+        <div class="restaurant-actions-new">
+
+          <a
+            class="restaurant-action-link map"
+            href="${esc(mapsURL)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ⌖ Map
+          </a>
+
+          ${
+            r.tabelog_url
+            ?
+            `
+              <a
+                class="restaurant-action-link"
+                href="${esc(r.tabelog_url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ♕ Tabelog
+              </a>
+            `
+            :
+            ""
+          }
+
+          ${
+            r.booking_url
+            ?
+            `
+              <a
+                class="restaurant-action-link green"
+                href="${esc(r.booking_url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book
+              </a>
+            `
+            :
+            ""
+          }
+
+          ${
+            relation
+            ?
+            `
+              <button
+                class="restaurant-action-link ${relation.is_pick ? "active" : ""}"
+                type="button"
+                onclick="togglePick(${Number(r.id)})"
+              >
+                ${relation.is_pick ? "Picked" : "Pick"}
+              </button>
+
+              <button
+                class="restaurant-action-link ${relation.is_flexible ? "active" : ""}"
+                type="button"
+                onclick="toggleFlexible(${Number(r.id)})"
+              >
+                ${relation.is_flexible ? "Flex" : "Flexible"}
+              </button>
+
+              <button
+                class="restaurant-action-link ${isEaten(r) ? "active" : ""}"
+                type="button"
+                onclick="toggleEaten(${Number(r.id)})"
+              >
+                ${isEaten(r) ? "Undo eaten" : "Eaten"}
+              </button>
+
+              ${
+                !isScheduled(r) && !isEaten(r)
+                ?
+                `
+                  <button
+                    class="restaurant-action-link"
+                    type="button"
+                    onclick="removeFromMyFood(${Number(r.id)})"
+                  >
+                    Remove
+                  </button>
+                `
+                :
+                ""
+              }
+            `
+            :
+            `
+              <button
+                class="restaurant-action-link"
+                type="button"
+                onclick="addToMyFood(${Number(r.id)})"
+              >
+                Save to My Food
+              </button>
+            `
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function cityGroupHTML(city,list){
+
+  return `
+
+    <section class="city-food-card">
+
+      <div class="city-food-head">
+
+        <div class="city-food-kicker">
+          ${esc(city || "OTHER")} · ${String(list.length).padStart(2,"0")} ${list.length === 1 ? "TABLE" : "TABLES"}
+        </div>
+
+        <div class="city-food-title">
+          ${esc(groupHeading(list))}
+        </div>
+
+        <div class="city-stamp" aria-hidden="true">
+          ${esc(cityJapanese(city))}
+        </div>
+
+      </div>
+
+      <div class="city-food-list">
+        ${list.map(restaurantRowHTML).join("")}
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+function renderGroupedRestaurants(list,emptyCopy){
+
+  if(!list.length){
+
+    results.innerHTML = `
+      <div class="state">
+        <strong>No restaurants found</strong>
+        ${emptyCopy || "Try another city, area, food type or search."}
+      </div>
+    `;
+
+    return;
+
+  }
+
+  const groups = new Map();
+
+  list.forEach(
+    restaurant => {
+
+      const city = rCity(restaurant) || "Other";
+
+      if(!groups.has(city)){
+        groups.set(city,[]);
+      }
+
+      groups.get(city).push(restaurant);
+
+    }
+  );
+
+  const ordered = [...groups.entries()]
+    .sort(
+      (a,b) =>
+        a[0].localeCompare(b[0])
+    );
+
+  results.innerHTML = ordered
+    .map(
+      ([city,items]) =>
+        cityGroupHTML(city,items)
+    )
+    .join("");
+
+}
+
+
+function renderMine(list){
+
+  renderGroupedRestaurants(
+    list,
+    myFilter === "eaten"
+    ? "Nothing has been marked as eaten yet."
+    : "Save restaurants from Discover and they will appear here."
+  );
+
+}
+
+
+function renderDiscover(list){
+
+  renderGroupedRestaurants(
+    list,
+    "Try another city, area, food type or search."
+  );
+
+}
+
+
+function render(){
+
+  updateFoodHero();
+  renderCompactFilters();
+  renderDiscoverArea();
+  renderDiscoverStatus();
+
+  const list = filteredRestaurants();
+
+  resultCount.textContent =
+    `${list.length} ${list.length === 1 ? "TABLE" : "TABLES"}`;
+
+  if(activeTab === "mine"){
+    resultTitle.textContent = "My Food";
+    renderMine(list);
+  }
+
+  else{
+    resultTitle.textContent = "Discover";
+    renderDiscover(list);
+  }
+
+}
 
 
 
