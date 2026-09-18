@@ -22,7 +22,6 @@
 ========================================================= */
 
 :root{
-
   --bg:#05090c;
 
   --surface:#0b1217;
@@ -30,10 +29,10 @@
   --surface-3:#141d24;
 
   --line:#28323a;
-  --line-soft:rgba(255,255,255,.065);
+  --line-soft:rgba(255,255,255,.06);
 
   --text:#f5f2ed;
-  --muted:#919ba2;
+  --muted:#909aa1;
   --muted-2:#69757d;
 
   --red:#e96d6b;
@@ -58,7 +57,6 @@ html{
 
 
 body{
-
   margin:0;
 
   min-height:100vh;
@@ -66,13 +64,11 @@ body{
   color:var(--text);
 
   background:
-
     radial-gradient(
       circle at 50% -5%,
       rgba(48,61,70,.20),
       transparent 30%
     ),
-
     #030608;
 
   font-family:
@@ -85,7 +81,6 @@ body{
     sans-serif;
 
   -webkit-font-smoothing:antialiased;
-
 }
 
 
@@ -108,21 +103,20 @@ button{
 ========================================================= */
 
 .plan-shell{
-
-  width:calc(100% - 28px);
+  width:calc(100% - 24px);
 
   max-width:720px;
 
   margin:
-    calc(16px + env(safe-area-inset-top))
+    calc(14px + env(safe-area-inset-top))
     auto
-    110px;
+    105px;
+
+  overflow:hidden;
 
   border:1px solid #273139;
 
-  border-radius:30px;
-
-  overflow:hidden;
+  border-radius:27px;
 
   background:
     linear-gradient(
@@ -132,8 +126,7 @@ button{
     );
 
   box-shadow:
-    0 30px 70px rgba(0,0,0,.44);
-
+    0 24px 65px rgba(0,0,0,.40);
 }
 
 
@@ -143,53 +136,47 @@ button{
 ========================================================= */
 
 header{
-
   position:relative;
 
   overflow:hidden;
 
   background:
-
     radial-gradient(
       circle at 88% 0%,
-      rgba(255,98,95,.07),
-      transparent 28%
+      rgba(255,98,95,.065),
+      transparent 27%
     ),
-
     linear-gradient(
       145deg,
-      #10181e 0%,
+      #10181e,
       #081015 65%,
-      #070c10 100%
+      #070c10
     );
-
 }
 
 
 .header-inner{
-
   position:relative;
-
   z-index:2;
 
   padding:
-    31px
-    22px
+    26px
+    20px
     0;
-
 }
 
 
 
-/* Faint Japanese watermark */
+/* =========================================================
+   JAPANESE WATERMARK
+========================================================= */
 
 .plan-kanji{
-
   position:absolute;
 
   z-index:0;
 
-  right:23px;
+  right:6px;
   top:7px;
 
   font-family:
@@ -199,40 +186,34 @@ header{
     Georgia,
     serif;
 
-  font-size:155px;
-
+  font-size:126px;
   font-weight:700;
 
   line-height:1;
 
   color:var(--red-bright);
 
-  opacity:.045;
+  opacity:.042;
 
   pointer-events:none;
-
   user-select:none;
-
 }
 
 
 
 /* =========================================================
-   HEADER HERO
+   HEADER TITLE
 ========================================================= */
 
 .title-row{
-
   position:relative;
 
   display:flex;
 
   align-items:flex-start;
-
   justify-content:space-between;
 
-  gap:14px;
-
+  gap:12px;
 }
 
 
@@ -242,77 +223,62 @@ header{
 
 
 .eyebrow{
-
-  margin-bottom:17px;
+  margin-bottom:14px;
 
   color:#df7775;
 
-  font-size:10px;
-
+  font-size:8px;
   font-weight:900;
 
   letter-spacing:.18em;
 
   text-transform:uppercase;
-
 }
 
 
 .plan-hero{
-
   display:flex;
 
   align-items:center;
 
-  gap:18px;
-
+  gap:15px;
 }
 
 
 .plan-icon-wrap{
+  width:65px;
+  height:65px;
 
-  width:78px;
-
-  height:78px;
-
-  flex:0 0 78px;
+  flex:0 0 65px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
-  border:1px solid rgba(255,98,95,.37);
+  border:1px solid rgba(255,98,95,.36);
 
   border-radius:50%;
 
   background:
-
     radial-gradient(
       circle,
       rgba(255,98,95,.10),
-      rgba(255,98,95,.025)
+      rgba(255,98,95,.02)
     );
-
 }
 
 
 .plan-page-title-icon{
-
-  width:54px;
-
-  height:54px;
+  width:45px;
+  height:45px;
 
   display:block;
 
   object-fit:contain;
-
 }
 
 
 .plan-page-title{
-
   margin:0;
 
   font-family:
@@ -321,35 +287,30 @@ header{
     serif;
 
   line-height:1;
-
 }
 
 
 .plan-page-title span{
-
   color:#f7f4ee;
 
-  font-size:49px;
-
+  font-size:41px;
   font-weight:700;
 
-  letter-spacing:-.035em;
-
+  letter-spacing:-.03em;
 }
 
 
 .trip-name{
+  margin-top:8px;
 
-  margin-top:10px;
-
-  max-width:360px;
+  max-width:350px;
 
   color:#89949c;
 
-  font-size:13px;
+  font-size:9px;
+  font-weight:500;
 
   line-height:1.4;
-
 }
 
 
@@ -359,7 +320,6 @@ header{
 ========================================================= */
 
 .header-actions{
-
   position:absolute;
 
   right:0;
@@ -367,60 +327,54 @@ header{
 
   display:flex;
 
-  gap:6px;
-
+  gap:5px;
 }
 
 
 .edit-btn{
-
-  width:34px;
-
-  height:34px;
+  width:29px;
+  height:29px;
 
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   padding:0;
 
-  border:1px solid rgba(255,98,95,.25);
+  border:1px solid rgba(255,98,95,.24);
 
-  border-radius:11px;
+  border-radius:9px;
 
   background:
     rgba(255,98,95,.045);
 
   color:#efaaa6;
 
-  font-size:12px;
-
+  font-size:11px;
   font-weight:900;
 
   cursor:pointer;
-
 }
 
 
 .edit-btn.active{
+  border-color:
+    rgba(121,201,149,.30);
 
-  border-color:rgba(121,201,149,.30);
-
-  background:rgba(121,201,149,.06);
+  background:
+    rgba(121,201,149,.06);
 
   color:#9ed5b0;
-
 }
 
 
 .add-top-btn{
+  border-color:
+    rgba(255,98,95,.32);
 
-  border-color:rgba(255,98,95,.33);
-
-  background:rgba(255,98,95,.07);
-
+  background:
+    rgba(255,98,95,.07);
 }
 
 
@@ -430,24 +384,22 @@ header{
 ========================================================= */
 
 .date-scroller{
-
   display:flex;
 
-  gap:10px;
+  gap:7px;
 
-  margin-top:31px;
+  margin-top:24px;
 
   padding:
     0
     0
-    22px;
+    17px;
 
   overflow-x:auto;
 
   scrollbar-width:none;
 
   -webkit-overflow-scrolling:touch;
-
 }
 
 
@@ -457,24 +409,22 @@ header{
 
 
 .date-btn{
+  flex:0 0 60px;
 
-  flex:0 0 83px;
-
-  min-height:101px;
+  min-height:70px;
 
   display:flex;
 
   flex-direction:column;
 
   align-items:center;
-
   justify-content:center;
 
-  padding:10px 5px;
+  padding:7px 3px;
 
   border:1px solid #29343c;
 
-  border-radius:19px;
+  border-radius:13px;
 
   background:
     linear-gradient(
@@ -486,27 +436,22 @@ header{
   color:var(--muted);
 
   cursor:pointer;
-
 }
 
 
 .date-weekday{
-
   color:#747f86;
 
-  font-size:10px;
-
-  font-weight:500;
-
+  font-size:6px;
+  font-weight:800;
 }
 
 
 .date-number{
-
   margin:
-    8px
+    4px
     0
-    7px;
+    4px;
 
   color:#f0eee9;
 
@@ -515,51 +460,41 @@ header{
     "Times New Roman",
     serif;
 
-  font-size:29px;
-
+  font-size:21px;
   font-weight:700;
 
   line-height:1;
-
 }
 
 
 .date-month{
-
   color:#747f86;
 
-  font-size:9px;
-
-  font-weight:600;
-
+  font-size:6px;
+  font-weight:800;
 }
 
 
 .date-btn.active{
-
-  border-color:rgba(255,98,95,.40);
+  border-color:
+    rgba(255,98,95,.40);
 
   background:
-
     radial-gradient(
       circle at 50% 0%,
       rgba(255,98,95,.10),
-      transparent 75%
+      transparent 70%
     ),
-
     #151318;
 
   box-shadow:
-    0 0 20px rgba(255,98,95,.035);
-
+    0 0 15px rgba(255,98,95,.03);
 }
 
 
 .date-btn.active .date-weekday,
 .date-btn.active .date-month{
-
   color:#d99895;
-
 }
 
 
@@ -569,14 +504,12 @@ header{
 ========================================================= */
 
 main{
-
   width:100%;
 
   padding:
     0
-    21px
-    27px;
-
+    17px
+    22px;
 }
 
 
@@ -586,23 +519,20 @@ main{
 ========================================================= */
 
 .day-card{
-
   position:relative;
 
   overflow:hidden;
 
   border:1px solid #28343c;
 
-  border-radius:23px;
+  border-radius:20px;
 
   background:
-
     radial-gradient(
       circle at 85% 0%,
-      rgba(255,255,255,.018),
+      rgba(255,255,255,.016),
       transparent 28%
     ),
-
     linear-gradient(
       150deg,
       #111a20,
@@ -610,84 +540,74 @@ main{
     );
 
   box-shadow:
-    0 14px 34px rgba(0,0,0,.20);
-
+    0 12px 30px rgba(0,0,0,.18);
 }
 
 
 
 /* =========================================================
-   DAY CARD HEADER
+   DAY HEADER
 ========================================================= */
 
 .day-card-header{
-
   position:relative;
 
-  min-height:148px;
+  min-height:103px;
 
   padding:
-    24px
-    25px
-    22px;
+    17px
+    18px
+    15px;
 
-  border-bottom:1px solid rgba(255,255,255,.06);
-
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
 }
 
 
 .day-meta-row{
-
   display:flex;
 
   align-items:flex-start;
-
   justify-content:space-between;
 
-  gap:18px;
-
+  gap:12px;
 }
 
 
 .day-number{
-
   color:#dc7774;
 
-  font-size:10px;
-
+  font-size:7px;
   font-weight:900;
 
-  letter-spacing:.17em;
+  letter-spacing:.16em;
 
   text-transform:uppercase;
-
 }
 
 
 .day-date-side{
-
   color:#768188;
 
-  font-size:9px;
+  font-size:7px;
 
-  line-height:1.45;
+  line-height:1.4;
 
   text-align:right;
 
   text-transform:uppercase;
-
 }
 
 
 .day-route-title{
-
   position:relative;
 
   z-index:2;
 
-  max-width:80%;
+  max-width:78%;
 
-  margin-top:11px;
+  margin-top:8px;
 
   color:#f4f0e9;
 
@@ -696,40 +616,37 @@ main{
     "Times New Roman",
     serif;
 
-  font-size:31px;
-
+  font-size:24px;
   font-weight:700;
 
   line-height:1.05;
 
-  letter-spacing:-.025em;
-
+  letter-spacing:-.02em;
 }
 
 
 .day-stamp{
-
   position:absolute;
 
-  right:18px;
+  right:16px;
+  bottom:10px;
 
-  bottom:15px;
-
-  width:78px;
-
-  height:78px;
+  width:58px;
+  height:58px;
 
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
-  border:2px solid rgba(255,98,95,.13);
+  border:
+    1.5px solid
+    rgba(255,98,95,.13);
 
   border-radius:50%;
 
-  color:rgba(255,98,95,.20);
+  color:
+    rgba(255,98,95,.18);
 
   font-family:
     "Yu Mincho",
@@ -737,12 +654,11 @@ main{
     "Noto Serif JP",
     serif;
 
-  font-size:25px;
+  font-size:19px;
 
   transform:rotate(-7deg);
 
   pointer-events:none;
-
 }
 
 
@@ -752,71 +668,62 @@ main{
 ========================================================= */
 
 .timeline{
-
   padding:
-    3px
-    23px
-    12px;
-
+    0
+    18px
+    7px;
 }
 
 
 .timeline-row{
-
   position:relative;
 
   display:grid;
 
   grid-template-columns:
-    92px
-    31px
+    69px
+    23px
     minmax(0,1fr)
     auto;
 
-  gap:9px;
+  gap:6px;
 
-  min-height:104px;
+  min-height:61px;
 
   padding:
-    24px
+    11px
     0;
-
 }
 
 
 .timeline-row:not(:last-child){
-
   border-bottom:
     1px solid
-    rgba(255,255,255,.052);
-
+    rgba(255,255,255,.045);
 }
 
 
 
-/* timeline vertical line */
+/* timeline line */
 
 .timeline-row:not(:last-child)::after{
-
   content:"";
 
   position:absolute;
 
-  left:107px;
+  left:79px;
 
-  top:46px;
-
-  bottom:-25px;
+  top:27px;
+  bottom:-12px;
 
   width:1px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(225,105,103,.72),
-      rgba(225,105,103,.28)
+      rgba(225,105,103,.60),
+      rgba(225,105,103,.23)
     );
-
 }
 
 
@@ -824,25 +731,21 @@ main{
 /* TIME */
 
 .timeline-time{
-
   padding-top:1px;
 
-  color:#aab2b7;
+  color:#aeb7bd;
 
-  font-size:12px;
-
+  font-size:8px;
   font-weight:800;
 
-  line-height:1.25;
-
+  line-height:1.35;
 }
 
 
 
-/* DOT */
+/* MARKER */
 
 .marker{
-
   position:relative;
 
   z-index:3;
@@ -850,92 +753,72 @@ main{
   display:flex;
 
   justify-content:center;
-
 }
 
 
 .dot{
+  width:12px;
+  height:12px;
 
-  position:relative;
+  margin-top:0;
 
-  width:19px;
-
-  height:19px;
-
-  margin-top:-1px;
-
-  border:
-    3px solid
-    #e36d6b;
+  border:2px solid #e36d6b;
 
   border-radius:50%;
 
   background:#11191f;
 
   box-shadow:
-
-    0 0 0 5px
-    rgba(255,98,95,.075),
-
-    inset 0 0 0 2px
-    #10181e;
-
+    0 0 0 3px rgba(255,98,95,.065);
 }
 
 
 
-/* CONTENT */
+/* =========================================================
+   TIMELINE TEXT
+========================================================= */
 
 .item-main{
-
   min-width:0;
-
 }
 
 
 .item-title{
-
   color:#f1efea;
 
-  font-size:14px;
-
+  font-size:9.5px;
   font-weight:800;
 
   line-height:1.35;
-
 }
 
 
 .item-title a{
-
   color:inherit;
 
   text-decoration:none;
-
 }
 
 
 .item-location{
+  margin-top:2px;
 
-  margin-top:5px;
+  color:#748089;
 
-  color:#76828a;
+  font-size:6.8px;
 
-  font-size:10px;
-
+  line-height:1.4;
 }
 
 
 .item-note{
+  margin-top:3px;
 
-  margin-top:6px;
+  color:#7b868d;
 
-  color:#737f87;
-
-  font-size:10px;
+  font-size:6.8px;
 
   line-height:1.45;
-
 }
 
 
@@ -946,75 +829,70 @@ main{
 
 .optional,
 .locked{
-
   display:inline-block;
 
-  margin-left:5px;
+  margin-left:4px;
 
   padding:
-    2px
-    5px;
+    1px
+    4px;
 
   border-radius:999px;
 
-  font-size:6px;
-
+  font-size:5px;
   font-weight:900;
 
-  vertical-align:2px;
-
+  vertical-align:1px;
 }
 
 
 .optional{
+  border:
+    1px solid
+    rgba(228,189,105,.22);
 
-  border:1px solid rgba(228,189,105,.22);
-
-  background:rgba(228,189,105,.045);
+  background:
+    rgba(228,189,105,.045);
 
   color:var(--gold);
-
 }
 
 
 .locked{
+  border:
+    1px solid
+    rgba(121,201,149,.22);
 
-  border:1px solid rgba(121,201,149,.22);
-
-  background:rgba(121,201,149,.045);
+  background:
+    rgba(121,201,149,.045);
 
   color:#a2d8b3;
-
 }
 
 
 
 /* =========================================================
-   EDIT ROW BUTTON
+   EDIT ROW
 ========================================================= */
 
 .row-edit{
-
   display:none;
 
-  width:30px;
-
-  height:30px;
+  width:26px;
+  height:26px;
 
   align-items:center;
-
   justify-content:center;
 
   border:1px solid var(--line);
 
-  border-radius:9px;
+  border-radius:8px;
 
   background:#11191f;
 
   color:#bbc3c8;
 
   cursor:pointer;
-
 }
 
 
@@ -1025,37 +903,37 @@ main{
 
 
 /* =========================================================
-   EMPTY / LOADING STATE
+   STATE
 ========================================================= */
 
 .state{
-
   padding:
-    38px
-    20px;
+    32px
+    18px;
 
-  border:1px dashed #303b43;
+  border:
+    1px dashed
+    #303b43;
 
-  border-radius:18px;
+  border-radius:16px;
 
-  background:rgba(255,255,255,.012);
+  background:
+    rgba(255,255,255,.012);
 
   color:#77838b;
 
-  font-size:10px;
+  font-size:8px;
 
   line-height:1.6;
 
   text-align:center;
-
 }
 
 
 .state strong{
-
   display:block;
 
-  margin-bottom:6px;
+  margin-bottom:5px;
 
   color:#e8e7e3;
 
@@ -1064,20 +942,18 @@ main{
     "Times New Roman",
     serif;
 
-  font-size:17px;
+  font-size:15px;
 
   font-weight:700;
-
 }
 
 
 
 /* =========================================================
-   SHEETS
+   SHEET
 ========================================================= */
 
 .sheet-backdrop{
-
   position:fixed;
 
   inset:0;
@@ -1088,12 +964,12 @@ main{
 
   align-items:flex-end;
 
-  background:rgba(0,0,0,.72);
+  background:
+    rgba(0,0,0,.72);
 
   backdrop-filter:blur(5px);
 
   -webkit-backdrop-filter:blur(5px);
-
 }
 
 
@@ -1103,24 +979,29 @@ main{
 
 
 .sheet{
-
   width:100%;
 
   max-height:
-    calc(92vh - env(safe-area-inset-top));
+    calc(
+      92vh -
+      env(safe-area-inset-top)
+    );
 
   overflow-y:auto;
 
   padding:
     8px
     14px
-    calc(18px + env(safe-area-inset-bottom));
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
 
   border:1px solid var(--line);
 
   border-radius:
-    22px
-    22px
+    20px
+    20px
     0
     0;
 
@@ -1128,14 +1009,11 @@ main{
 
   box-shadow:
     0 -20px 50px rgba(0,0,0,.35);
-
 }
 
 
 .sheet-handle{
-
   width:36px;
-
   height:4px;
 
   margin:
@@ -1146,41 +1024,33 @@ main{
   border-radius:999px;
 
   background:#35414a;
-
 }
 
 
 .sheet-head{
-
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:10px;
 
   margin-bottom:13px;
-
 }
 
 
 .sheet-title{
-
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
   font-size:19px;
-
 }
 
 
 .close-btn{
-
   width:34px;
-
   height:34px;
 
   border:1px solid var(--line);
@@ -1192,17 +1062,15 @@ main{
   color:#fff;
 
   cursor:pointer;
-
 }
 
 
 
 /* =========================================================
-   TYPE SELECTOR
+   TYPE BUTTONS
 ========================================================= */
 
 .type-grid{
-
   display:grid;
 
   grid-template-columns:
@@ -1211,12 +1079,10 @@ main{
   gap:5px;
 
   margin-bottom:10px;
-
 }
 
 
 .type-btn{
-
   min-height:35px;
 
   padding:6px;
@@ -1230,22 +1096,18 @@ main{
   color:#87929a;
 
   font-size:7px;
-
   font-weight:900;
 
   cursor:pointer;
-
 }
 
 
 .type-btn.active{
-
   border-color:var(--red-line);
 
   background:var(--red-soft);
 
   color:#f0c0bc;
-
 }
 
 
@@ -1255,35 +1117,32 @@ main{
 ========================================================= */
 
 .entity-picker{
-
   grid-column:1/-1;
 
   padding:10px;
 
-  border:1px solid rgba(120,169,239,.17);
+  border:
+    1px solid
+    rgba(120,169,239,.17);
 
   border-radius:11px;
 
-  background:rgba(120,169,239,.03);
-
+  background:
+    rgba(120,169,239,.03);
 }
 
 
 .entity-picker-title{
-
   margin-bottom:3px;
 
   color:#c5d6e5;
 
   font-size:7px;
-
   font-weight:900;
-
 }
 
 
 .entity-picker-sub{
-
   margin-bottom:7px;
 
   color:#6f7c85;
@@ -1291,7 +1150,6 @@ main{
   font-size:6.5px;
 
   line-height:1.4;
-
 }
 
 
@@ -1301,7 +1159,6 @@ main{
 
 
 .entity-search{
-
   width:100%;
 
   min-height:40px;
@@ -1323,37 +1180,31 @@ main{
   color:#fff;
 
   font-size:9px;
-
 }
 
 
 .entity-search:focus{
-
   border-color:
     rgba(120,169,239,.45);
-
 }
 
 
 .search-icon{
-
   position:absolute;
 
   right:11px;
-
   top:50%;
 
-  transform:translateY(-50%);
+  transform:
+    translateY(-50%);
 
   color:#65717a;
 
   pointer-events:none;
-
 }
 
 
 .entity-results{
-
   display:none;
 
   margin-top:6px;
@@ -1365,7 +1216,6 @@ main{
   border-radius:9px;
 
   background:#0d1419;
-
 }
 
 
@@ -1375,7 +1225,6 @@ main{
 
 
 .entity-result{
-
   width:100%;
 
   display:flex;
@@ -1399,7 +1248,6 @@ main{
   text-align:left;
 
   cursor:pointer;
-
 }
 
 
@@ -1409,17 +1257,14 @@ main{
 
 
 .entity-result-icon{
-
   flex:0 0 28px;
 
   width:28px;
-
   height:28px;
 
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border-radius:8px;
@@ -1427,23 +1272,18 @@ main{
   background:#151d23;
 
   font-size:14px;
-
 }
 
 
 .entity-result-main{
-
   min-width:0;
 
   flex:1;
-
 }
 
 
 .entity-result-name{
-
   font-size:8px;
-
   font-weight:900;
 
   white-space:nowrap;
@@ -1451,43 +1291,35 @@ main{
   overflow:hidden;
 
   text-overflow:ellipsis;
-
 }
 
 
 .entity-result-japanese{
-
   margin-top:1px;
 
   color:#89949b;
 
   font-size:7px;
-
 }
 
 
 .entity-result-meta{
-
   margin-top:2px;
 
   color:#65717a;
 
   font-size:6.5px;
-
 }
 
 
 .entity-result-arrow{
-
   color:#77858e;
 
   font-size:12px;
-
 }
 
 
 .entity-empty{
-
   padding:
     14px
     10px;
@@ -1499,7 +1331,6 @@ main{
   font-size:8px;
 
   line-height:1.5;
-
 }
 
 
@@ -1509,7 +1340,6 @@ main{
 ========================================================= */
 
 .selected-entity{
-
   display:none;
 
   grid-column:1/-1;
@@ -1530,7 +1360,6 @@ main{
 
   background:
     rgba(121,201,149,.045);
-
 }
 
 
@@ -1540,17 +1369,14 @@ main{
 
 
 .selected-icon{
-
   flex:0 0 28px;
 
   width:28px;
-
   height:28px;
 
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border-radius:8px;
@@ -1559,40 +1385,32 @@ main{
     rgba(121,201,149,.06);
 
   font-size:15px;
-
 }
 
 
 .selected-main{
-
   min-width:0;
 
   flex:1;
-
 }
 
 
 .selected-label{
-
   color:#71847a;
 
   font-size:5.5px;
-
   font-weight:900;
 
   letter-spacing:.08em;
-
 }
 
 
 .selected-name{
-
   margin-top:1px;
 
   color:#a9ddb9;
 
   font-size:8px;
-
   font-weight:900;
 
   white-space:nowrap;
@@ -1600,23 +1418,19 @@ main{
   overflow:hidden;
 
   text-overflow:ellipsis;
-
 }
 
 
 .selected-meta{
-
   margin-top:2px;
 
   color:#718078;
 
   font-size:6.5px;
-
 }
 
 
 .change-entity{
-
   min-height:28px;
 
   padding:
@@ -1635,11 +1449,9 @@ main{
   color:#96cda8;
 
   font-size:6.5px;
-
   font-weight:900;
 
   cursor:pointer;
-
 }
 
 
@@ -1649,13 +1461,11 @@ main{
 ========================================================= */
 
 .master-help{
-
   display:none;
 
   grid-column:1/-1;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:8px;
@@ -1664,14 +1474,15 @@ main{
     8px
     9px;
 
-  border:1px dashed #303b43;
+  border:
+    1px dashed
+    #303b43;
 
   border-radius:9px;
 
   color:#77838b;
 
   font-size:7px;
-
 }
 
 
@@ -1681,7 +1492,6 @@ main{
 
 
 .master-help button{
-
   min-height:29px;
 
   padding:
@@ -1700,21 +1510,18 @@ main{
   color:#94b8e9;
 
   font-size:6.5px;
-
   font-weight:900;
 
   cursor:pointer;
-
 }
 
 
 
 /* =========================================================
-   GOOGLE AUTOFILL
+   GOOGLE PLACES
 ========================================================= */
 
 .google-add-box{
-
   display:none;
 
   grid-column:1/-1;
@@ -1729,7 +1536,6 @@ main{
 
   background:
     rgba(120,169,239,.03);
-
 }
 
 
@@ -1739,22 +1545,18 @@ main{
 
 
 .google-add-title{
-
   margin-bottom:3px;
 
   color:#9fbce4;
 
   font-size:7px;
-
   font-weight:900;
 
   letter-spacing:.05em;
-
 }
 
 
 .google-add-sub{
-
   margin-bottom:7px;
 
   color:#6f7c85;
@@ -1762,7 +1564,6 @@ main{
   font-size:6.5px;
 
   line-height:1.4;
-
 }
 
 
@@ -1773,18 +1574,15 @@ main{
 
 #googlePlaceSearch gmp-place-autocomplete,
 gmp-place-autocomplete{
-
   width:100%;
 
   min-height:40px;
 
   color-scheme:dark;
-
 }
 
 
 .place-status{
-
   margin-top:6px;
 
   color:#6f7d86;
@@ -1792,7 +1590,6 @@ gmp-place-autocomplete{
   font-size:7px;
 
   line-height:1.4;
-
 }
 
 
@@ -1812,7 +1609,6 @@ gmp-place-autocomplete{
 ========================================================= */
 
 .form-grid{
-
   display:grid;
 
   grid-template-columns:
@@ -1820,7 +1616,6 @@ gmp-place-autocomplete{
     1fr;
 
   gap:9px;
-
 }
 
 
@@ -1830,7 +1625,6 @@ gmp-place-autocomplete{
 
 
 .field label{
-
   display:block;
 
   margin-bottom:4px;
@@ -1838,18 +1632,15 @@ gmp-place-autocomplete{
   color:#8d989f;
 
   font-size:6.5px;
-
   font-weight:900;
 
   letter-spacing:.04em;
-
 }
 
 
 .field input,
 .field textarea,
 .field select{
-
   width:100%;
 
   min-height:40px;
@@ -1869,30 +1660,24 @@ gmp-place-autocomplete{
   color:#fff;
 
   font-size:9px;
-
 }
 
 
 .field textarea{
-
   min-height:72px;
 
   resize:vertical;
-
 }
 
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus{
-
   border-color:var(--red-line);
-
 }
 
 
 .check-row{
-
   display:flex;
 
   align-items:center;
@@ -1916,25 +1701,19 @@ gmp-place-autocomplete{
   color:#aab3b9;
 
   font-size:7px;
-
   font-weight:800;
-
 }
 
 
 .check-row input{
-
   width:14px;
-
   height:14px;
 
   accent-color:var(--red);
-
 }
 
 
 .sheet-actions{
-
   display:grid;
 
   grid-template-columns:
@@ -1944,28 +1723,23 @@ gmp-place-autocomplete{
   gap:6px;
 
   margin-top:10px;
-
 }
 
 
 .delete-btn,
 .save-btn{
-
   min-height:42px;
 
   border-radius:10px;
 
   font-size:7px;
-
   font-weight:900;
 
   cursor:pointer;
-
 }
 
 
 .delete-btn{
-
   border:
     1px solid
     rgba(255,98,95,.20);
@@ -1974,12 +1748,10 @@ gmp-place-autocomplete{
     rgba(255,98,95,.04);
 
   color:#d98a83;
-
 }
 
 
 .save-btn{
-
   border:
     1px solid
     rgba(121,201,149,.24);
@@ -1988,7 +1760,6 @@ gmp-place-autocomplete{
     rgba(121,201,149,.07);
 
   color:#a7dbb8;
-
 }
 
 
@@ -1999,7 +1770,6 @@ gmp-place-autocomplete{
 
 
 .form-message{
-
   display:none;
 
   margin-top:8px;
@@ -2009,12 +1779,10 @@ gmp-place-autocomplete{
   border-radius:8px;
 
   font-size:8px;
-
 }
 
 
 .form-message.error{
-
   display:block;
 
   border:
@@ -2025,12 +1793,10 @@ gmp-place-autocomplete{
     rgba(255,98,95,.055);
 
   color:#f3aaa6;
-
 }
 
 
 .form-message.success{
-
   display:block;
 
   border:
@@ -2041,180 +1807,74 @@ gmp-place-autocomplete{
     rgba(121,201,149,.055);
 
   color:#9dd8b2;
-
 }
 
 
 
 /* =========================================================
-   MOBILE
+   VERY SMALL PHONES
 ========================================================= */
 
-@media(max-width:480px){
+@media(max-width:390px){
 
   .plan-shell{
-
-    width:calc(100% - 24px);
-
-    border-radius:27px;
-
+    width:calc(100% - 18px);
   }
 
 
   .header-inner{
-
-    padding-left:20px;
-
-    padding-right:20px;
-
-  }
-
-
-  .plan-kanji{
-
-    right:7px;
-
-    top:11px;
-
-    font-size:128px;
-
-  }
-
-
-  .plan-icon-wrap{
-
-    width:68px;
-
-    height:68px;
-
-    flex-basis:68px;
-
-  }
-
-
-  .plan-page-title-icon{
-
-    width:47px;
-
-    height:47px;
-
+    padding-left:17px;
+    padding-right:17px;
   }
 
 
   .plan-page-title span{
-
-    font-size:43px;
-
+    font-size:38px;
   }
 
 
-  .trip-name{
+  .plan-icon-wrap{
+    width:60px;
+    height:60px;
 
-    font-size:11px;
-
+    flex-basis:60px;
   }
 
 
-  .header-actions{
-
-    top:-3px;
-
-  }
-
-
-  .edit-btn{
-
-    width:31px;
-
-    height:31px;
-
+  .plan-page-title-icon{
+    width:42px;
+    height:42px;
   }
 
 
   .date-btn{
-
-    flex-basis:77px;
-
-    min-height:96px;
-
+    flex-basis:57px;
   }
 
 
   main{
-
-    padding-left:18px;
-
-    padding-right:18px;
-
-  }
-
-
-  .day-card-header{
-
-    padding:
-      22px
-      21px
-      20px;
-
-  }
-
-
-  .day-route-title{
-
-    font-size:29px;
-
+    padding-left:14px;
+    padding-right:14px;
   }
 
 
   .timeline{
-
-    padding:
-      3px
-      20px
-      11px;
-
+    padding-left:15px;
+    padding-right:15px;
   }
 
 
   .timeline-row{
-
     grid-template-columns:
-      83px
-      29px
+      64px
+      21px
       minmax(0,1fr)
       auto;
-
-    gap:7px;
-
   }
 
 
   .timeline-row:not(:last-child)::after{
-
-    left:97px;
-
-  }
-
-
-  .timeline-time{
-
-    font-size:11px;
-
-  }
-
-
-  .item-title{
-
-    font-size:13px;
-
-  }
-
-
-  .item-note,
-  .item-location{
-
-    font-size:9px;
-
+    left:74px;
   }
 
 }
@@ -2223,11 +1883,9 @@ gmp-place-autocomplete{
 @media(min-width:700px){
 
   .sheet{
-
     max-width:620px;
 
     margin:auto;
-
   }
 
 }
@@ -2256,6 +1914,7 @@ gmp-place-autocomplete{
 
 
   <div class="header-inner">
+
 
     <div class="title-row">
 
@@ -2288,9 +1947,7 @@ gmp-place-autocomplete{
           <div>
 
             <h1 class="plan-page-title">
-              <span>
-                Plan
-              </span>
+              <span>Plan</span>
             </h1>
 
 
@@ -2307,6 +1964,7 @@ gmp-place-autocomplete{
         </div>
 
       </div>
+
 
 
       <div class="header-actions">
@@ -2336,10 +1994,12 @@ gmp-place-autocomplete{
     </div>
 
 
+
     <div
       id="dateScroller"
       class="date-scroller"
     ></div>
+
 
   </div>
 
@@ -2380,6 +2040,7 @@ gmp-place-autocomplete{
 >
 
   <div class="sheet">
+
 
     <div class="sheet-handle"></div>
 
@@ -2684,6 +2345,7 @@ gmp-place-autocomplete{
 
         </div>
 
+
       </div>
 
 
@@ -2732,6 +2394,7 @@ gmp-place-autocomplete{
 
     </form>
 
+
   </div>
 
 </div>
@@ -2739,7 +2402,7 @@ gmp-place-autocomplete{
 
 
 <!-- =========================================================
-     SHARED FOOTER
+     FOOTER
 ========================================================= -->
 
 <div id="footer"></div>
@@ -2750,9 +2413,7 @@ gmp-place-autocomplete{
      SUPABASE
 ========================================================= -->
 
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
 
@@ -2825,135 +2486,201 @@ let selectedRestaurantId = null;
 ========================================================= */
 
 const main =
-  document.getElementById("main");
+  document.getElementById(
+    "main"
+  );
 
 
 const tripName =
-  document.getElementById("tripName");
+  document.getElementById(
+    "tripName"
+  );
 
 
 const tripEyebrow =
-  document.getElementById("tripEyebrow");
+  document.getElementById(
+    "tripEyebrow"
+  );
 
 
 const dateScroller =
-  document.getElementById("dateScroller");
+  document.getElementById(
+    "dateScroller"
+  );
 
 
 const addButton =
-  document.getElementById("addButton");
+  document.getElementById(
+    "addButton"
+  );
 
 
 const editButton =
-  document.getElementById("editButton");
+  document.getElementById(
+    "editButton"
+  );
 
 
 const editSheet =
-  document.getElementById("editSheet");
+  document.getElementById(
+    "editSheet"
+  );
 
 
 const sheetTitle =
-  document.getElementById("sheetTitle");
+  document.getElementById(
+    "sheetTitle"
+  );
 
 
 const typeGrid =
-  document.getElementById("typeGrid");
+  document.getElementById(
+    "typeGrid"
+  );
 
 
 const entityPicker =
-  document.getElementById("entityPicker");
+  document.getElementById(
+    "entityPicker"
+  );
 
 
 const entityPickerTitle =
-  document.getElementById("entityPickerTitle");
+  document.getElementById(
+    "entityPickerTitle"
+  );
 
 
 const entityPickerSub =
-  document.getElementById("entityPickerSub");
+  document.getElementById(
+    "entityPickerSub"
+  );
 
 
 const entitySearch =
-  document.getElementById("entitySearch");
+  document.getElementById(
+    "entitySearch"
+  );
 
 
 const entityResults =
-  document.getElementById("entityResults");
+  document.getElementById(
+    "entityResults"
+  );
 
 
 const selectedEntity =
-  document.getElementById("selectedEntity");
+  document.getElementById(
+    "selectedEntity"
+  );
 
 
 const selectedEntityIcon =
-  document.getElementById("selectedEntityIcon");
+  document.getElementById(
+    "selectedEntityIcon"
+  );
 
 
 const selectedEntityLabel =
-  document.getElementById("selectedEntityLabel");
+  document.getElementById(
+    "selectedEntityLabel"
+  );
 
 
 const selectedEntityName =
-  document.getElementById("selectedEntityName");
+  document.getElementById(
+    "selectedEntityName"
+  );
 
 
 const selectedEntityMeta =
-  document.getElementById("selectedEntityMeta");
+  document.getElementById(
+    "selectedEntityMeta"
+  );
 
 
 const masterHelp =
-  document.getElementById("masterHelp");
+  document.getElementById(
+    "masterHelp"
+  );
 
 
 const masterHelpText =
-  document.getElementById("masterHelpText");
+  document.getElementById(
+    "masterHelpText"
+  );
 
 
 const masterHelpButton =
-  document.getElementById("masterHelpButton");
+  document.getElementById(
+    "masterHelpButton"
+  );
 
 
 const googleAddBox =
-  document.getElementById("googleAddBox");
+  document.getElementById(
+    "googleAddBox"
+  );
 
 
 const fieldDate =
-  document.getElementById("fieldDate");
+  document.getElementById(
+    "fieldDate"
+  );
 
 
 const fieldTime =
-  document.getElementById("fieldTime");
+  document.getElementById(
+    "fieldTime"
+  );
 
 
 const fieldTimeLabel =
-  document.getElementById("fieldTimeLabel");
+  document.getElementById(
+    "fieldTimeLabel"
+  );
 
 
 const fieldTitle =
-  document.getElementById("fieldTitle");
+  document.getElementById(
+    "fieldTitle"
+  );
 
 
 const fieldLocation =
-  document.getElementById("fieldLocation");
+  document.getElementById(
+    "fieldLocation"
+  );
 
 
 const fieldNotes =
-  document.getElementById("fieldNotes");
+  document.getElementById(
+    "fieldNotes"
+  );
 
 
 const fieldOptional =
-  document.getElementById("fieldOptional");
+  document.getElementById(
+    "fieldOptional"
+  );
 
 
 const deleteButton =
-  document.getElementById("deleteButton");
+  document.getElementById(
+    "deleteButton"
+  );
 
 
 const saveButton =
-  document.getElementById("saveButton");
+  document.getElementById(
+    "saveButton"
+  );
 
 
 const formMessage =
-  document.getElementById("formMessage");
+  document.getElementById(
+    "formMessage"
+  );
 
 
 
@@ -2962,11 +2689,9 @@ const formMessage =
 ========================================================= */
 
 function text(value){
-
   return String(
     value ?? ""
   );
-
 }
 
 
@@ -2975,9 +2700,13 @@ function esc(value){
   return text(value)
 
     .replaceAll("&","&amp;")
+
     .replaceAll("<","&lt;")
+
     .replaceAll(">","&gt;")
+
     .replaceAll('"',"&quot;")
+
     .replaceAll("'","&#039;");
 
 }
@@ -3032,55 +2761,18 @@ function localDateString(){
 }
 
 
-function formatDate(value){
-
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"long"
-    }
-  )
-  .format(
-    parseDate(value)
-  )
-  .toUpperCase();
-
-}
-
-
-function shortTripDate(value){
-
-  if(!value){
-    return "";
-  }
-
-
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      day:"numeric",
-      month:"short",
-      year:"numeric"
-    }
-  )
-  .format(
-    parseDate(value)
-  );
-
-}
-
-
 function dateParts(value){
 
   const d =
-    parseDate(value);
+    parseDate(
+      value
+    );
 
 
   return {
 
     weekday:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -3091,6 +2783,7 @@ function dateParts(value){
       .toUpperCase(),
 
     weekdayLong:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -3101,6 +2794,7 @@ function dateParts(value){
       .toUpperCase(),
 
     day:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -3110,6 +2804,7 @@ function dateParts(value){
       .format(d),
 
     month:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -3250,8 +2945,10 @@ async function getAccessibleTrips(){
         .map(
           row => ({
             ...row,
+
             access_type:
-              row.owner_id === currentUser.id
+              row.owner_id ===
+              currentUser.id
               ?
               "owner"
               :
@@ -3274,7 +2971,9 @@ async function getAccessibleTrips(){
     row => {
 
       const id =
-        Number(row.id);
+        Number(
+          row.id
+        );
 
 
       if(
@@ -3307,7 +3006,9 @@ async function getAccessibleTrips(){
         b.start_date || "";
 
 
-      return ad.localeCompare(bd);
+      return ad.localeCompare(
+        bd
+      );
 
     }
   );
@@ -3332,7 +3033,8 @@ async function resolveTrip(){
 
 
   currentUser =
-    authResult.data?.user || null;
+    authResult.data?.user ||
+    null;
 
 
   if(!currentUser){
@@ -3386,7 +3088,8 @@ async function resolveTrip(){
 
 
   const hash =
-    window.location.hash || "";
+    window.location.hash ||
+    "";
 
 
   history.replaceState(
@@ -3439,9 +3142,8 @@ async function loadData(){
     }
 
 
-    /*
-      Header
-    */
+
+    /* HEADER */
 
     tripEyebrow.textContent =
       trip.country
@@ -3504,6 +3206,8 @@ async function loadData(){
       `Plan · ${trip.name || "Travel"}`;
 
 
+
+    /* MASTER LISTS */
 
     let placesQuery =
       db
@@ -3579,15 +3283,18 @@ async function loadData(){
 
 
     schedule =
-      scheduleResult.data || [];
+      scheduleResult.data ||
+      [];
 
 
     places =
-      placeResult.data || [];
+      placeResult.data ||
+      [];
 
 
     restaurants =
-      restaurantResult.data || [];
+      restaurantResult.data ||
+      [];
 
 
     buildDays();
@@ -3602,7 +3309,9 @@ async function loadData(){
 
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     tripName.textContent =
@@ -3713,7 +3422,7 @@ function loadScheduleQuery(){
 
 
 /* =========================================================
-   GROUP DAYS
+   SORT SCHEDULE
 ========================================================= */
 
 function timeToMinutes(value){
@@ -3791,7 +3500,8 @@ function labelToMinutes(value){
 
   const minute =
     Number(
-      match[2] || 0
+      match[2] ||
+      0
     );
 
 
@@ -3852,28 +3562,34 @@ function scheduleSortKey(item){
     label.includes("afterwards") ||
     label.startsWith("after ")
   ){
-
     return 2000;
-
   }
 
 
-  if(label.includes("evening")){
+  if(
+    label.includes("evening")
+  ){
     return 18 * 60;
   }
 
 
-  if(label.includes("afternoon")){
+  if(
+    label.includes("afternoon")
+  ){
     return 15 * 60;
   }
 
 
-  if(label.includes("lunch")){
+  if(
+    label.includes("lunch")
+  ){
     return 12 * 60;
   }
 
 
-  if(label.includes("morning")){
+  if(
+    label.includes("morning")
+  ){
     return 8 * 60;
   }
 
@@ -3883,7 +3599,10 @@ function scheduleSortKey(item){
 }
 
 
-function compareScheduleItems(a,b){
+function compareScheduleItems(
+  a,
+  b
+){
 
   const aKey =
     scheduleSortKey(a);
@@ -3900,13 +3619,15 @@ function compareScheduleItems(a,b){
 
   const aSort =
     Number(
-      a.sort_order || 0
+      a.sort_order ||
+      0
     );
 
 
   const bSort =
     Number(
-      b.sort_order || 0
+      b.sort_order ||
+      0
     );
 
 
@@ -4069,7 +3790,8 @@ function renderDates(){
     !trip.end_date
   ){
 
-    dateScroller.innerHTML = "";
+    dateScroller.innerHTML =
+      "";
 
     return;
 
@@ -4239,9 +3961,7 @@ function renderDates(){
 function itemTime(item){
 
   if(item.time_label){
-
     return item.time_label;
-
   }
 
 
@@ -4259,7 +3979,8 @@ function itemTime(item){
 
 
     const minute =
-      parts[1] || "00";
+      parts[1] ||
+      "00";
 
 
     const suffix =
@@ -4271,7 +3992,8 @@ function itemTime(item){
 
 
     hour =
-      hour % 12 || 12;
+      hour % 12 ||
+      12;
 
 
     return `${hour}:${minute} ${suffix}`;
@@ -4310,7 +4032,7 @@ function itemMap(item){
 
 
 /* =========================================================
-   DAY ROUTE TITLE
+   DAY AREA / TITLE
 ========================================================= */
 
 function meaningfulArea(item){
@@ -4329,7 +4051,8 @@ function meaningfulArea(item){
 function dayRouteTitle(date){
 
   const items =
-    groupedDays[date] || [];
+    groupedDays[date] ||
+    [];
 
 
   const areas = [];
@@ -4349,11 +4072,6 @@ function dayRouteTitle(date){
           item.title
         );
 
-
-      /*
-        Ignore pure transport/hotel rows when
-        choosing the visual route title.
-      */
 
       const ignore =
         type.includes("transport") ||
@@ -4408,10 +4126,6 @@ function dayRouteTitle(date){
   }
 
 
-  /*
-    Fallback to location names.
-  */
-
   const locations = [];
 
 
@@ -4441,23 +4155,23 @@ function dayRouteTitle(date){
   );
 
 
-  if(locations.length >= 2){
+  if(
+    locations.length >= 2
+  ){
 
     return `${locations[0]} to ${locations[locations.length - 1]}`;
 
   }
 
 
-  if(locations.length === 1){
+  if(
+    locations.length === 1
+  ){
 
     return locations[0];
 
   }
 
-
-  /*
-    Final fallback.
-  */
 
   if(items.length){
 
@@ -4479,12 +4193,12 @@ function dayRouteTitle(date){
 function dayCity(date){
 
   const items =
-    groupedDays[date] || [];
+    groupedDays[date] ||
+    [];
 
 
   for(
-    const item
-    of items
+    const item of items
   ){
 
     const city =
@@ -4499,14 +4213,17 @@ function dayCity(date){
   }
 
 
-  return trip?.country || "";
+  return (
+    trip?.country ||
+    ""
+  );
 
 }
 
 
 
 /* =========================================================
-   JAPANESE STAMP
+   STAMP
 ========================================================= */
 
 function cityStamp(city){
@@ -4517,37 +4234,58 @@ function cityStamp(city){
     );
 
 
-  if(value.includes("kyoto")){
+  if(
+    value.includes("kyoto")
+  ){
     return "京都";
   }
 
 
-  if(value.includes("osaka")){
+  if(
+    value.includes("osaka")
+  ){
     return "大阪";
   }
 
 
-  if(value.includes("nara")){
+  if(
+    value.includes("nara")
+  ){
     return "奈良";
   }
 
 
-  if(value.includes("nagoya")){
+  if(
+    value.includes("nagoya")
+  ){
     return "名古屋";
   }
 
 
-  if(value.includes("wakayama")){
+  if(
+    value.includes("wakayama")
+  ){
     return "和歌山";
   }
 
 
-  if(value.includes("koya")){
+  if(
+    value.includes("tanabe")
+  ){
+    return "田辺";
+  }
+
+
+  if(
+    value.includes("koya")
+  ){
     return "高野";
   }
 
 
-  if(value.includes("nachi")){
+  if(
+    value.includes("nachi")
+  ){
     return "那智";
   }
 
@@ -4564,7 +4302,9 @@ function cityStamp(city){
 
 function dayNumber(date){
 
-  if(!trip?.start_date){
+  if(
+    !trip?.start_date
+  ){
     return 1;
   }
 
@@ -4607,7 +4347,8 @@ function renderDay(){
   const items =
     groupedDays[
       selectedDate
-    ] || [];
+    ] ||
+    [];
 
 
   const parts =
@@ -4718,6 +4459,7 @@ function renderDay(){
 
 
       </div>
+
 
 
       <div class="timeline">
@@ -4854,7 +4596,7 @@ function timelineHTML(item){
           `
             <div class="item-location">
 
-              ${esc(location)}
+              📍 ${esc(location)}
 
             </div>
           `
@@ -4910,7 +4652,7 @@ function timelineHTML(item){
 
 
 /* =========================================================
-   ADD + EDIT
+   ADD / EDIT MODE
 ========================================================= */
 
 addButton.onclick =
@@ -4948,10 +4690,12 @@ editButton.onclick =
    EDIT SHEET
 ========================================================= */
 
-document.getElementById(
-  "closeSheet"
-).onclick =
-  closeEditSheet;
+document
+  .getElementById(
+    "closeSheet"
+  )
+  .onclick =
+    closeEditSheet;
 
 
 editSheet.onclick =
@@ -4985,7 +4729,7 @@ function closeEditSheet(){
 
 
 /* =========================================================
-   FORM TYPE
+   TYPE SELECTOR
 ========================================================= */
 
 typeGrid
@@ -5023,7 +4767,8 @@ function setFormType(type){
 
         button.classList.toggle(
           "active",
-          button.dataset.type === type
+          button.dataset.type ===
+          type
         );
 
       }
@@ -5040,11 +4785,16 @@ function setFormType(type){
   );
 
 
-  if(type === "custom"){
+  if(
+    type === "custom"
+  ){
 
-    selectedPlaceId = null;
+    selectedPlaceId =
+      null;
 
-    selectedRestaurantId = null;
+
+    selectedRestaurantId =
+      null;
 
 
     entityPicker.style.display =
@@ -5075,9 +4825,12 @@ function setFormType(type){
   );
 
 
-  if(type === "place"){
+  if(
+    type === "place"
+  ){
 
-    selectedRestaurantId = null;
+    selectedRestaurantId =
+      null;
 
 
     entityPickerTitle.textContent =
@@ -5108,7 +4861,8 @@ function setFormType(type){
 
   else{
 
-    selectedPlaceId = null;
+    selectedPlaceId =
+      null;
 
 
     entityPickerTitle.textContent =
@@ -5150,7 +4904,9 @@ function setFormType(type){
 masterHelpButton.onclick =
   async () => {
 
-    if(formType === "place"){
+    if(
+      formType === "place"
+    ){
 
       googleAddBox.classList.add(
         "show"
@@ -5160,6 +4916,7 @@ masterHelpButton.onclick =
       await initGooglePlaceAutocomplete();
 
     }
+
 
     else if(
       formType === "restaurant"
@@ -5178,7 +4935,8 @@ masterHelpButton.onclick =
    GOOGLE PLACES
 ========================================================= */
 
-let googlePlaceAutocomplete = null;
+let googlePlaceAutocomplete =
+  null;
 
 
 function setGooglePlaceStatus(
@@ -5288,6 +5046,7 @@ async function initGooglePlaceAutocomplete(){
 
     await window.loadGoogleMaps();
 
+
     await window.getGooglePlaces();
 
 
@@ -5299,7 +5058,8 @@ async function initGooglePlaceAutocomplete(){
             `Search place${
               trip?.country
               ?
-              " in " + trip.country
+              " in " +
+              trip.country
               :
               ""
             }...`
@@ -5332,7 +5092,8 @@ async function initGooglePlaceAutocomplete(){
 
 
             const components =
-              place.addressComponents || [];
+              place.addressComponents ||
+              [];
 
 
             const prefecture =
@@ -5391,7 +5152,9 @@ async function initGooglePlaceAutocomplete(){
               null;
 
 
-            if(!providerPlaceId){
+            if(
+              !providerPlaceId
+            ){
 
               throw new Error(
                 "Google did not return a Place ID."
@@ -5417,16 +5180,23 @@ async function initGooglePlaceAutocomplete(){
                 .maybeSingle();
 
 
-            if(existing.error){
+            if(
+              existing.error
+            ){
+
               throw existing.error;
+
             }
 
 
             let savedPlace =
-              existing.data || null;
+              existing.data ||
+              null;
 
 
-            if(!savedPlace){
+            if(
+              !savedPlace
+            ){
 
               const payload = {
 
@@ -5466,1456 +5236,3 @@ async function initGooglePlaceAutocomplete(){
                   null,
 
                 provider:
-                  "google",
-
-                provider_place_id:
-                  providerPlaceId,
-
-                updated_at:
-                  new Date()
-                    .toISOString()
-
-              };
-
-
-              const created =
-                await db
-                  .from(
-                    "places"
-                  )
-                  .insert(
-                    payload
-                  )
-                  .select()
-                  .single();
-
-
-              if(created.error){
-
-                if(
-                  created.error.code ===
-                  "23505"
-                ){
-
-                  const duplicate =
-                    await db
-                      .from(
-                        "places"
-                      )
-                      .select("*")
-                      .eq(
-                        "provider",
-                        "google"
-                      )
-                      .eq(
-                        "provider_place_id",
-                        providerPlaceId
-                      )
-                      .single();
-
-
-                  if(
-                    duplicate.error
-                  ){
-
-                    throw duplicate.error;
-
-                  }
-
-
-                  savedPlace =
-                    duplicate.data;
-
-                }
-
-                else{
-
-                  throw created.error;
-
-                }
-
-              }
-
-              else{
-
-                savedPlace =
-                  created.data;
-
-              }
-
-            }
-
-
-            const index =
-              places.findIndex(
-                row =>
-                  Number(row.id) ===
-                  Number(savedPlace.id)
-              );
-
-
-            if(index >= 0){
-
-              places[index] =
-                savedPlace;
-
-            }
-
-            else{
-
-              places.push(
-                savedPlace
-              );
-
-
-              places.sort(
-                (a,b) =>
-                  String(
-                    a.name || ""
-                  )
-                  .localeCompare(
-                    String(
-                      b.name || ""
-                    )
-                  )
-              );
-
-            }
-
-
-            selectedPlaceId =
-              savedPlace.id;
-
-
-            selectedRestaurantId =
-              null;
-
-
-            entitySearch.value =
-              savedPlace.name || "";
-
-
-            fieldTitle.value =
-              savedPlace.name || "";
-
-
-            fieldLocation.value =
-              [
-                savedPlace.area,
-                savedPlace.city,
-                savedPlace.prefecture
-              ]
-              .filter(Boolean)
-              .join(", ")
-              ||
-              savedPlace.address
-              ||
-              "";
-
-
-            entityResults.classList.remove(
-              "show"
-            );
-
-
-            googleAddBox.classList.remove(
-              "show"
-            );
-
-
-            updateSelectedEntity();
-
-
-            setGooglePlaceStatus(
-              `✓ ${savedPlace.name} saved to Places.`,
-              "success"
-            );
-
-
-            formMessage.textContent =
-              "Google verified ✓ Place saved and selected.";
-
-
-            formMessage.className =
-              "form-message success";
-
-          }
-
-          catch(error){
-
-            console.error(
-              "Google Places selection:",
-              error
-            );
-
-
-            setGooglePlaceStatus(
-              "Google place error: " +
-              (
-                error.message ||
-                String(error)
-              ),
-              "error"
-            );
-
-          }
-
-        }
-      );
-
-
-    setGooglePlaceStatus(
-      "Search for a place and select the correct Google result."
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      "Google Places init:",
-      error
-    );
-
-
-    setGooglePlaceStatus(
-      "Google Places error: " +
-      (
-        error.message ||
-        String(error)
-      ),
-      "error"
-    );
-
-  }
-
-}
-
-
-
-/* =========================================================
-   OPEN NEW ITEM
-========================================================= */
-
-function openNewItem(){
-
-  editingId = null;
-
-  selectedPlaceId = null;
-
-  selectedRestaurantId = null;
-
-
-  sheetTitle.textContent =
-    "＋ Add Schedule Item";
-
-
-  deleteButton.style.display =
-    "none";
-
-
-  fieldDate.value =
-    selectedDate;
-
-
-  fieldTime.value = "";
-
-  fieldTimeLabel.value = "";
-
-  fieldTitle.value = "";
-
-  fieldLocation.value = "";
-
-  fieldNotes.value = "";
-
-  fieldOptional.checked = false;
-
-  entitySearch.value = "";
-
-
-  googleAddBox.classList.remove(
-    "show"
-  );
-
-
-  setFormType(
-    "place"
-  );
-
-
-  updateSelectedEntity();
-
-
-  formMessage.className =
-    "form-message";
-
-
-  editSheet.classList.add(
-    "open"
-  );
-
-
-  renderEntityResults("");
-
-}
-
-
-
-/* =========================================================
-   OPEN EDIT ITEM
-========================================================= */
-
-function openEditItem(id){
-
-  const item =
-    schedule.find(
-      row =>
-        Number(row.id) ===
-        Number(id)
-    );
-
-
-  if(!item){
-    return;
-  }
-
-
-  editingId =
-    item.id;
-
-
-  selectedPlaceId =
-    item.place_id ||
-    null;
-
-
-  selectedRestaurantId =
-    item.restaurant_id ||
-    null;
-
-
-  sheetTitle.textContent =
-    "Edit Schedule Item";
-
-
-  deleteButton.style.display =
-    "block";
-
-
-  fieldDate.value =
-    item.schedule_date;
-
-
-  fieldTime.value =
-    item.start_time
-    ?
-    item.start_time.slice(
-      0,
-      5
-    )
-    :
-    "";
-
-
-  fieldTimeLabel.value =
-    item.time_label ||
-    "";
-
-
-  fieldTitle.value =
-    item.title ||
-    "";
-
-
-  fieldLocation.value =
-    item.location_name ||
-    "";
-
-
-  fieldNotes.value =
-    item.notes ||
-    item.description ||
-    "";
-
-
-  fieldOptional.checked =
-    Boolean(
-      item.is_optional
-    );
-
-
-  if(item.restaurant_id){
-
-    setFormType(
-      "restaurant"
-    );
-
-
-    entitySearch.value =
-      item.restaurant?.name ||
-      "";
-
-  }
-
-
-  else if(item.place_id){
-
-    setFormType(
-      "place"
-    );
-
-
-    entitySearch.value =
-      item.place?.name ||
-      "";
-
-  }
-
-
-  else{
-
-    setFormType(
-      "custom"
-    );
-
-
-    entitySearch.value =
-      "";
-
-  }
-
-
-  updateSelectedEntity();
-
-
-  formMessage.className =
-    "form-message";
-
-
-  editSheet.classList.add(
-    "open"
-  );
-
-}
-
-
-
-/* =========================================================
-   ENTITY SEARCH
-========================================================= */
-
-entitySearch.addEventListener(
-  "focus",
-  () => {
-
-    if(
-      formType !== "custom" &&
-      entitySearch.value.trim()
-    ){
-
-      renderEntityResults(
-        entitySearch.value
-      );
-
-    }
-
-  }
-);
-
-
-entitySearch.addEventListener(
-  "input",
-  () => {
-
-    if(
-      formType === "custom"
-    ){
-
-      return;
-
-    }
-
-
-    if(
-      formType === "place"
-    ){
-
-      selectedPlaceId =
-        null;
-
-    }
-
-    else if(
-      formType === "restaurant"
-    ){
-
-      selectedRestaurantId =
-        null;
-
-    }
-
-
-    updateSelectedEntity();
-
-
-    renderEntityResults(
-      entitySearch.value
-    );
-
-  }
-);
-
-
-
-/* =========================================================
-   ENTITY RESULTS
-========================================================= */
-
-function renderEntityResults(
-  queryValue
-){
-
-  const query =
-    norm(
-      queryValue
-    );
-
-
-  if(!query){
-
-    entityResults.innerHTML =
-      "";
-
-
-    entityResults.classList.remove(
-      "show"
-    );
-
-
-    return;
-
-  }
-
-
-  const source =
-    formType === "restaurant"
-    ?
-    restaurants
-    :
-    places;
-
-
-  let matches =
-    source.filter(
-      item => {
-
-        const haystack =
-          norm(
-            [
-              item.name,
-              item.name_japanese,
-              item.country,
-              item.prefecture,
-              item.city,
-              item.area,
-              item.location,
-              item.address
-            ]
-            .join(" ")
-          );
-
-
-        return haystack.includes(
-          query
-        );
-
-      }
-    );
-
-
-  matches =
-    matches.slice(
-      0,
-      12
-    );
-
-
-  if(!matches.length){
-
-    entityResults.innerHTML = `
-
-      <div class="entity-empty">
-
-        No ${
-          formType === "restaurant"
-          ?
-          "restaurants"
-          :
-          "places"
-        } found.
-
-        <br><br>
-
-        ${
-          formType === "place"
-          ?
-          "Use “ADD NEW PLACE” below."
-          :
-          "Add it to your saved restaurants first."
-        }
-
-      </div>
-
-    `;
-
-
-    entityResults.classList.add(
-      "show"
-    );
-
-
-    return;
-
-  }
-
-
-  entityResults.innerHTML =
-    matches
-      .map(
-        item => {
-
-          const meta =
-            entityMeta(
-              item
-            );
-
-
-          return `
-
-            <button
-              class="entity-result"
-              type="button"
-              data-id="${Number(item.id)}"
-            >
-
-              <div class="entity-result-icon">
-
-                ${
-                  formType === "restaurant"
-                  ?
-                  "🍽️"
-                  :
-                  "📍"
-                }
-
-              </div>
-
-
-              <div class="entity-result-main">
-
-                <div class="entity-result-name">
-
-                  ${esc(item.name)}
-
-                </div>
-
-
-                ${
-                  item.name_japanese
-
-                  ?
-
-                  `
-                    <div class="entity-result-japanese">
-
-                      ${esc(item.name_japanese)}
-
-                    </div>
-                  `
-
-                  :
-
-                  ""
-                }
-
-
-                ${
-                  meta
-
-                  ?
-
-                  `
-                    <div class="entity-result-meta">
-
-                      ${esc(meta)}
-
-                    </div>
-                  `
-
-                  :
-
-                  ""
-                }
-
-              </div>
-
-
-              <div class="entity-result-arrow">
-                ＋
-              </div>
-
-            </button>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  entityResults.classList.add(
-    "show"
-  );
-
-
-  entityResults
-    .querySelectorAll(
-      "[data-id]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            chooseEntity(
-              Number(
-                button.dataset.id
-              )
-            );
-
-          };
-
-      }
-    );
-
-}
-
-
-
-/* =========================================================
-   CHOOSE ENTITY
-========================================================= */
-
-function chooseEntity(id){
-
-  const source =
-    formType === "restaurant"
-    ?
-    restaurants
-    :
-    places;
-
-
-  const item =
-    source.find(
-      row =>
-        Number(row.id) ===
-        Number(id)
-    );
-
-
-  if(!item){
-    return;
-  }
-
-
-  if(
-    formType === "restaurant"
-  ){
-
-    selectedRestaurantId =
-      item.id;
-
-
-    selectedPlaceId =
-      null;
-
-  }
-
-  else{
-
-    selectedPlaceId =
-      item.id;
-
-
-    selectedRestaurantId =
-      null;
-
-  }
-
-
-  entitySearch.value =
-    item.name || "";
-
-
-  fieldTitle.value =
-    item.name || "";
-
-
-  fieldLocation.value =
-    [
-      item.area,
-      item.city
-    ]
-    .filter(Boolean)
-    .join(", ");
-
-
-  entityResults.classList.remove(
-    "show"
-  );
-
-
-  updateSelectedEntity();
-
-}
-
-
-
-/* =========================================================
-   SELECTED ENTITY
-========================================================= */
-
-function updateSelectedEntity(){
-
-  let item =
-    null;
-
-
-  if(
-    formType === "place" &&
-    selectedPlaceId
-  ){
-
-    item =
-      places.find(
-        row =>
-          Number(row.id) ===
-          Number(selectedPlaceId)
-      );
-
-  }
-
-
-  else if(
-    formType === "restaurant" &&
-    selectedRestaurantId
-  ){
-
-    item =
-      restaurants.find(
-        row =>
-          Number(row.id) ===
-          Number(selectedRestaurantId)
-      );
-
-  }
-
-
-  if(!item){
-
-    selectedEntity.classList.remove(
-      "show"
-    );
-
-
-    return;
-
-  }
-
-
-  selectedEntityIcon.textContent =
-    formType === "restaurant"
-    ?
-    "🍽️"
-    :
-    "📍";
-
-
-  selectedEntityLabel.textContent =
-    formType === "restaurant"
-    ?
-    "SELECTED RESTAURANT"
-    :
-    "SELECTED PLACE";
-
-
-  selectedEntityName.textContent =
-    item.name ||
-    "";
-
-
-  selectedEntityMeta.textContent =
-    entityMeta(
-      item
-    );
-
-
-  selectedEntity.classList.add(
-    "show"
-  );
-
-}
-
-
-
-/* =========================================================
-   CHANGE ENTITY
-========================================================= */
-
-document.getElementById(
-  "changeEntityButton"
-).onclick =
-  () => {
-
-    if(
-      formType === "place"
-    ){
-
-      selectedPlaceId =
-        null;
-
-    }
-
-    else if(
-      formType === "restaurant"
-    ){
-
-      selectedRestaurantId =
-        null;
-
-    }
-
-
-    entitySearch.value =
-      "";
-
-
-    updateSelectedEntity();
-
-
-    renderEntityResults(
-      ""
-    );
-
-
-    entitySearch.focus();
-
-  };
-
-
-
-/* =========================================================
-   TIME
-========================================================= */
-
-fieldTime.addEventListener(
-  "input",
-  () => {
-
-    if(
-      fieldTime.value
-    ){
-
-      fieldTimeLabel.value =
-        "";
-
-    }
-
-  }
-);
-
-
-fieldTimeLabel.addEventListener(
-  "input",
-  () => {
-
-    if(
-      fieldTimeLabel.value.trim()
-    ){
-
-      fieldTime.value =
-        "";
-
-    }
-
-  }
-);
-
-
-
-/* =========================================================
-   SORT ORDER
-========================================================= */
-
-function nextSortOrder(date){
-
-  const rows =
-    groupedDays[
-      date
-    ] || [];
-
-
-  if(!rows.length){
-    return 10;
-  }
-
-
-  const max =
-    Math.max(
-      ...rows.map(
-        row =>
-          Number(
-            row.sort_order ||
-            0
-          )
-      )
-    );
-
-
-  return max + 10;
-
-}
-
-
-
-/* =========================================================
-   SAVE ITEM
-========================================================= */
-
-document.getElementById(
-  "editForm"
-).addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-
-    saveButton.disabled =
-      true;
-
-
-    saveButton.textContent =
-      "SAVING…";
-
-
-    formMessage.className =
-      "form-message";
-
-
-    try{
-
-      const date =
-        fieldDate.value;
-
-
-      const time =
-        fieldTime.value;
-
-
-      const timeLabel =
-        fieldTimeLabel
-          .value
-          .trim();
-
-
-      const title =
-        fieldTitle
-          .value
-          .trim();
-
-
-      const locationName =
-        fieldLocation
-          .value
-          .trim();
-
-
-      const notes =
-        fieldNotes
-          .value
-          .trim();
-
-
-      if(!date){
-
-        throw new Error(
-          "Please choose a date."
-        );
-
-      }
-
-
-      if(!title){
-
-        throw new Error(
-          "Please enter a title."
-        );
-
-      }
-
-
-      if(
-        formType === "place" &&
-        !selectedPlaceId
-      ){
-
-        throw new Error(
-          "Please choose a saved place."
-        );
-
-      }
-
-
-      if(
-        formType === "restaurant" &&
-        !selectedRestaurantId
-      ){
-
-        throw new Error(
-          "Please choose a saved restaurant."
-        );
-
-      }
-
-
-      const payload = {
-
-        trip_id:
-          TRIP_ID,
-
-        schedule_date:
-          date,
-
-        start_time:
-          time
-          ?
-          `${time}:00`
-          :
-          null,
-
-        time_label:
-          time
-          ?
-          null
-          :
-          (
-            timeLabel ||
-            null
-          ),
-
-        title:
-          title,
-
-        item_type:
-          formType === "restaurant"
-          ?
-          "restaurant"
-          :
-          formType === "place"
-          ?
-          "attraction"
-          :
-          "custom",
-
-        notes:
-          notes ||
-          null,
-
-        location_name:
-          locationName ||
-          null,
-
-        place_id:
-          formType === "place"
-          ?
-          selectedPlaceId
-          :
-          null,
-
-        restaurant_id:
-          formType === "restaurant"
-          ?
-          selectedRestaurantId
-          :
-          null,
-
-        is_optional:
-          fieldOptional.checked
-
-      };
-
-
-      if(
-        editingId === null
-      ){
-
-        payload.sort_order =
-          nextSortOrder(
-            date
-          );
-
-
-        const result =
-          await db
-            .from(
-              "schedule"
-            )
-            .insert(
-              payload
-            )
-            .select()
-            .single();
-
-
-        if(result.error){
-          throw result.error;
-        }
-
-      }
-
-      else{
-
-        const result =
-          await db
-            .from(
-              "schedule"
-            )
-            .update(
-              payload
-            )
-            .eq(
-              "id",
-              editingId
-            )
-            .eq(
-              "trip_id",
-              TRIP_ID
-            )
-            .select();
-
-
-        if(result.error){
-          throw result.error;
-        }
-
-
-        if(
-          !result.data ||
-          !result.data.length
-        ){
-
-          throw new Error(
-            "The item was not updated. Check your editing permission."
-          );
-
-        }
-
-      }
-
-
-      selectedDate =
-        date;
-
-
-      closeEditSheet();
-
-
-      await reloadSchedule();
-
-    }
-
-    catch(error){
-
-      console.error(
-        error
-      );
-
-
-      formMessage.textContent =
-        error.message ||
-        "Couldn't save schedule item.";
-
-
-      formMessage.className =
-        "form-message error";
-
-    }
-
-    finally{
-
-      saveButton.disabled =
-        false;
-
-
-      saveButton.textContent =
-        "SAVE";
-
-    }
-
-  }
-);
-
-
-
-/* =========================================================
-   DELETE ITEM
-========================================================= */
-
-deleteButton.onclick =
-  async () => {
-
-    if(
-      editingId === null
-    ){
-
-      return;
-
-    }
-
-
-    const item =
-      schedule.find(
-        row =>
-          Number(row.id) ===
-          Number(editingId)
-      );
-
-
-    if(!item){
-      return;
-    }
-
-
-    const okay =
-      confirm(
-        `Delete "${item.title}" from the schedule?`
-      );
-
-
-    if(!okay){
-      return;
-    }
-
-
-    deleteButton.disabled =
-      true;
-
-
-    try{
-
-      const result =
-        await db
-          .from(
-            "schedule"
-          )
-          .delete()
-          .eq(
-            "id",
-            editingId
-          )
-          .eq(
-            "trip_id",
-            TRIP_ID
-          );
-
-
-      if(result.error){
-        throw result.error;
-      }
-
-
-      closeEditSheet();
-
-
-      await reloadSchedule();
-
-    }
-
-    catch(error){
-
-      console.error(
-        error
-      );
-
-
-      formMessage.textContent =
-        error.message ||
-        "Couldn't delete item.";
-
-
-      formMessage.className =
-        "form-message error";
-
-    }
-
-    finally{
-
-      deleteButton.disabled =
-        false;
-
-    }
-
-  };
-
-
-
-/* =========================================================
-   RELOAD SCHEDULE
-========================================================= */
-
-async function reloadSchedule(){
-
-  const result =
-    await loadScheduleQuery();
-
-
-  if(result.error){
-    throw result.error;
-  }
-
-
-  schedule =
-    result.data || [];
-
-
-  buildDays();
-
-  renderDates();
-
-  renderDay();
-
-}
-
-
-
-/* =========================================================
-   START
-========================================================= */
-
-loadData();
-
-</script>
-
-
-
-<!-- Shared footer logic -->
-
-<script src="footer.js"></script>
-
-
-</body>
-
-</html>
