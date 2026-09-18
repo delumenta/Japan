@@ -665,13 +665,11 @@ main{
 
 /* =========================================================
    TIMELINE
+   Compact entry style from the original schedule
 ========================================================= */
 
 .timeline{
-  padding:
-    0
-    18px
-    7px;
+  padding:5px 11px 8px;
 }
 
 
@@ -681,51 +679,40 @@ main{
   display:grid;
 
   grid-template-columns:
-    69px
-    23px
+    56px
+    12px
     minmax(0,1fr)
     auto;
 
-  gap:6px;
+  gap:4px;
 
-  min-height:61px;
+  min-height:49px;
 
-  padding:
-    11px
-    0;
+  padding:8px 0;
 }
 
 
+/* no horizontal dividers — let the vertical route line do the work */
 .timeline-row:not(:last-child){
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.045);
+  border-bottom:0;
 }
 
 
-
-/* timeline line */
-
+/* thin route line */
 .timeline-row:not(:last-child)::after{
   content:"";
 
   position:absolute;
 
-  left:79px;
+  left:66px;
 
   top:27px;
-  bottom:-12px;
+  bottom:-9px;
 
   width:1px;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(225,105,103,.60),
-      rgba(225,105,103,.23)
-    );
+  background:#263139;
 }
-
 
 
 /* TIME */
@@ -733,14 +720,13 @@ main{
 .timeline-time{
   padding-top:1px;
 
-  color:#aeb7bd;
+  color:#a5bdcf;
 
-  font-size:8px;
-  font-weight:800;
+  font-size:7.5px;
+  font-weight:900;
 
-  line-height:1.35;
+  line-height:1.25;
 }
-
 
 
 /* MARKER */
@@ -757,21 +743,20 @@ main{
 
 
 .dot{
-  width:12px;
-  height:12px;
+  width:7px;
+  height:7px;
 
-  margin-top:0;
+  margin-top:3px;
 
-  border:2px solid #e36d6b;
+  border:1px solid rgba(70,24,28,.95);
 
   border-radius:50%;
 
-  background:#11191f;
+  background:var(--red-bright);
 
   box-shadow:
-    0 0 0 3px rgba(255,98,95,.065);
+    0 0 0 1px rgba(255,98,95,.16);
 }
-
 
 
 /* =========================================================
@@ -784,10 +769,10 @@ main{
 
 
 .item-title{
-  color:#f1efea;
+  color:#f5f3ef;
 
-  font-size:9.5px;
-  font-weight:800;
+  font-size:9px;
+  font-weight:900;
 
   line-height:1.35;
 }
@@ -795,7 +780,6 @@ main{
 
 .item-title a{
   color:inherit;
-
   text-decoration:none;
 }
 
@@ -803,24 +787,23 @@ main{
 .item-location{
   margin-top:2px;
 
-  color:#748089;
+  color:#77848d;
 
-  font-size:6.8px;
+  font-size:7px;
 
-  line-height:1.4;
+  line-height:1.35;
 }
 
 
 .item-note{
-  margin-top:3px;
+  margin-top:4px;
 
-  color:#7b868d;
+  color:#98a2a8;
 
-  font-size:6.8px;
+  font-size:7px;
 
   line-height:1.45;
 }
-
 
 
 /* =========================================================
@@ -1859,22 +1842,24 @@ gmp-place-autocomplete{
 
 
   .timeline{
-    padding-left:15px;
-    padding-right:15px;
+    padding-left:10px;
+    padding-right:10px;
   }
 
 
   .timeline-row{
     grid-template-columns:
-      64px
-      21px
+      52px
+      11px
       minmax(0,1fr)
       auto;
+
+    gap:4px;
   }
 
 
   .timeline-row:not(:last-child)::after{
-    left:74px;
+    left:61px;
   }
 
 }
@@ -4030,6 +4015,94 @@ function itemMap(item){
 }
 
 
+function itemIcon(item){
+
+  const type =
+    norm(item.item_type);
+
+
+  const title =
+    norm(item.title);
+
+
+  if(
+    item.restaurant_id ||
+    type.includes("food") ||
+    type.includes("restaurant") ||
+    title.includes("lunch") ||
+    title.includes("dinner") ||
+    title.includes("breakfast") ||
+    title.includes("snack")
+  ){
+    return "🍽️";
+  }
+
+
+  if(
+    type.includes("hotel") ||
+    title.includes("hotel") ||
+    title.includes("check-in") ||
+    title.includes("check in") ||
+    title.includes("ryokan")
+  ){
+    return "🏨";
+  }
+
+
+  if(
+    type.includes("transport") ||
+    title.includes("train") ||
+    title.includes("drive") ||
+    title.includes("travel") ||
+    title.includes("arrive") ||
+    title.includes("depart") ||
+    title.includes("head to") ||
+    title.includes("leave")
+  ){
+    return "🚆";
+  }
+
+
+  if(
+    title.includes("shrine") ||
+    title.includes("temple") ||
+    title.includes("taisha") ||
+    title.includes("pagoda")
+  ){
+    return "⛩️";
+  }
+
+
+  if(
+    title.includes("waterfall") ||
+    title.includes("falls")
+  ){
+    return "💧";
+  }
+
+
+  if(
+    title.includes("mount") ||
+    title.includes("mountain") ||
+    title.includes("highland") ||
+    title.includes("viewpoint")
+  ){
+    return "🏔️";
+  }
+
+
+  if(
+    title.includes("market")
+  ){
+    return "🛍️";
+  }
+
+
+  return "📍";
+
+}
+
+
 
 /* =========================================================
    DAY AREA / TITLE
@@ -4528,6 +4601,8 @@ function timelineHTML(item){
 
 
         <div class="item-title">
+
+          ${itemIcon(item)}
 
           ${
             map
