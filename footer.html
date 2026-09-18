@@ -22,13 +22,8 @@
 }
 
 body{
-  padding-bottom: calc(108px + env(safe-area-inset-bottom));
+  padding-bottom: calc(88px + env(safe-area-inset-bottom));
 }
-
-
-/* =========================================================
-   ARC SCRIM
-========================================================= */
 
 .arc-scrim{
   position:fixed;
@@ -44,18 +39,13 @@ body{
   display:block;
 }
 
-
-/* =========================================================
-   ARC NAV
-========================================================= */
-
 .arc-nav{
   position:fixed;
   z-index:200;
   left:50%;
   bottom:calc(16px + env(safe-area-inset-bottom));
-  width:320px;
-  height:210px;
+  width:300px;
+  height:190px;
   transform:translateX(-50%);
   pointer-events:none;
 }
@@ -66,18 +56,13 @@ body{
   font:inherit;
 }
 
-
-/* =========================================================
-   ARC ITEMS
-========================================================= */
-
 .arc-item{
   position:absolute;
   left:50%;
-  bottom:10px;
-  width:52px;
-  height:52px;
-  margin-left:-26px;
+  bottom:8px;
+  width:44px;
+  height:44px;
+  margin-left:-22px;
 
   display:flex;
   align-items:center;
@@ -89,7 +74,7 @@ body{
   color:var(--arc-ink);
   text-decoration:none;
 
-  box-shadow:0 12px 26px rgba(0,0,0,.32);
+  box-shadow:0 10px 22px rgba(0,0,0,.32);
 
   opacity:0;
   transform:translate(0, 8px) scale(.55);
@@ -104,23 +89,23 @@ body{
 
 .arc-item img{
   display:block;
-  width:22px;
-  height:22px;
+  width:20px;
+  height:20px;
   object-fit:contain;
 }
 
 #sharedNavHub img{
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
 }
 
 .arc-item .arc-label{
   position:absolute;
-  top:-18px;
+  top:-16px;
   left:50%;
   transform:translateX(-50%);
   color:var(--arc-muted);
-  font-size:7px;
+  font-size:6.5px;
   font-weight:800;
   letter-spacing:.08em;
   white-space:nowrap;
@@ -138,27 +123,27 @@ body{
 }
 
 .arc-nav.open .arc-item:nth-child(1){
-  transform:translate(-118px,-28px) scale(1);
+  transform:translate(-108px,-22px) scale(1);
   transition-delay:.02s;
 }
 
 .arc-nav.open .arc-item:nth-child(2){
-  transform:translate(-72px,-86px) scale(1);
+  transform:translate(-66px,-74px) scale(1);
   transition-delay:.07s;
 }
 
 .arc-nav.open .arc-item:nth-child(3){
-  transform:translate(0,-112px) scale(1);
+  transform:translate(0,-96px) scale(1);
   transition-delay:.12s;
 }
 
 .arc-nav.open .arc-item:nth-child(4){
-  transform:translate(72px,-86px) scale(1);
+  transform:translate(66px,-74px) scale(1);
   transition-delay:.17s;
 }
 
 .arc-nav.open .arc-item:nth-child(5){
-  transform:translate(118px,-28px) scale(1);
+  transform:translate(108px,-22px) scale(1);
   transition-delay:.22s;
 }
 
@@ -171,19 +156,14 @@ body{
   color:var(--arc-red-2);
 }
 
-
-/* =========================================================
-   FAB TOGGLE
-========================================================= */
-
 .arc-toggle{
   position:absolute;
   z-index:3;
   left:50%;
   bottom:0;
-  width:64px;
-  height:64px;
-  margin-left:-32px;
+  width:44px;
+  height:44px;
+  margin-left:-22px;
 
   border:0;
   border-radius:50%;
@@ -192,8 +172,8 @@ body{
 
   box-shadow:
     0 0 0 1px rgba(255,98,95,.35),
-    0 0 22px rgba(255,98,95,.28),
-    0 16px 32px rgba(0,0,0,.42);
+    0 0 16px rgba(255,98,95,.24),
+    0 10px 22px rgba(0,0,0,.42);
 
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
@@ -202,8 +182,8 @@ body{
 .arc-toggle .arc-plus{
   position:relative;
   display:block;
-  width:22px;
-  height:22px;
+  width:16px;
+  height:16px;
   margin:0 auto;
 }
 
@@ -220,13 +200,13 @@ body{
 }
 
 .arc-toggle .arc-plus::before{
-  width:22px;
-  height:2.5px;
+  width:16px;
+  height:2px;
 }
 
 .arc-toggle .arc-plus::after{
-  width:2.5px;
-  height:22px;
+  width:2px;
+  height:16px;
 }
 
 .arc-nav.open .arc-toggle{
@@ -234,19 +214,14 @@ body{
   color:#1a0c0c;
   box-shadow:
     0 0 0 1px rgba(255,98,95,.5),
-    0 0 28px rgba(255,98,95,.38),
-    0 16px 32px rgba(0,0,0,.42);
+    0 0 20px rgba(255,98,95,.34),
+    0 10px 22px rgba(0,0,0,.42);
 }
 
 .arc-nav.open .arc-toggle .arc-plus::before,
 .arc-nav.open .arc-toggle .arc-plus::after{
   transform:translate(-50%,-50%) rotate(45deg);
 }
-
-
-/* =========================================================
-   SHEET BACKDROP
-========================================================= */
 
 .footer-sheet-backdrop{
   position:fixed;
@@ -262,11 +237,6 @@ body{
 .footer-sheet-backdrop.open{
   display:flex;
 }
-
-
-/* =========================================================
-   SHEET
-========================================================= */
 
 .footer-sheet{
   width:100%;
@@ -313,11 +283,6 @@ body{
   cursor:pointer;
 }
 
-
-/* =========================================================
-   MORE LINKS
-========================================================= */
-
 .footer-more-link{
   width:100%;
   min-height:58px;
@@ -334,7 +299,6 @@ body{
   text-align:left;
   font:inherit;
   cursor:pointer;
-  transition:border-color .18s ease, background .18s ease;
 }
 
 .footer-more-link:hover{
@@ -394,11 +358,6 @@ body{
   opacity:.55;
   cursor:wait;
 }
-
-
-/* =========================================================
-   TRIP LIST
-========================================================= */
 
 .footer-trip-list{
   display:flex;
@@ -482,11 +441,6 @@ body{
   color:#ffc5c1;
 }
 
-
-/* =========================================================
-   DESKTOP / SMALL
-========================================================= */
-
 @media(min-width:700px){
   .footer-sheet{
     max-width:620px;
@@ -495,33 +449,27 @@ body{
 
 @media(max-width:390px){
   .arc-nav{
-    width:300px;
+    width:280px;
   }
 
   .arc-nav.open .arc-item:nth-child(1){
-    transform:translate(-104px,-24px) scale(1);
+    transform:translate(-96px,-18px) scale(1);
   }
 
   .arc-nav.open .arc-item:nth-child(5){
-    transform:translate(104px,-24px) scale(1);
+    transform:translate(96px,-18px) scale(1);
   }
 }
 </style>
 
 
 
-<!-- =========================================================
-     MORE SHEET
-========================================================= -->
-
 <div
   id="sharedMoreBackdrop"
   class="footer-sheet-backdrop"
 >
   <div class="footer-sheet">
-
     <div class="footer-sheet-handle"></div>
-
     <div class="footer-sheet-head">
       <div class="footer-sheet-title">More</div>
       <button id="sharedCloseMore" class="footer-sheet-close" type="button">✕</button>
@@ -582,41 +530,28 @@ body{
       </div>
       <div class="footer-more-arrow">→</div>
     </button>
-
   </div>
 </div>
 
 
-
-<!-- =========================================================
-     SWITCH TRIP SHEET
-========================================================= -->
 
 <div
   id="sharedTripBackdrop"
   class="footer-sheet-backdrop"
 >
   <div class="footer-sheet">
-
     <div class="footer-sheet-handle"></div>
-
     <div class="footer-sheet-head">
       <div class="footer-sheet-title">Switch Trip</div>
       <button id="sharedCloseTrips" class="footer-sheet-close" type="button">✕</button>
     </div>
-
     <div id="sharedTripList" class="footer-trip-list">
       <div class="footer-trip-message">Loading your trips…</div>
     </div>
-
   </div>
 </div>
 
 
-
-<!-- =========================================================
-     ARC NAV
-========================================================= -->
 
 <div
   id="arcScrim"
@@ -679,5 +614,4 @@ body{
 
 </nav>
 
-<!-- Hook for existing footer.js More binding. -->
 <button id="sharedNavMore" type="button" hidden aria-hidden="true"></button>
