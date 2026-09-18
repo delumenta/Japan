@@ -2291,6 +2291,47 @@ gmp-place-autocomplete{
   }
 }
 
+
+/* =========================================================
+   DATE STRIP — SLIGHTLY MORE COMPACT
+========================================================= */
+.date-strip{
+  gap:7px;
+}
+.date-chip{
+  width:82px;
+  min-width:82px;
+  height:92px;
+  border-radius:17px;
+}
+.date-chip .dow{
+  font-size:5.5px;
+}
+.date-chip .day{
+  font-size:20px;
+  margin-top:7px;
+}
+.date-chip .mon{
+  font-size:5.5px;
+  margin-top:5px;
+}
+
+@media(max-width:480px){
+  .date-strip{
+    gap:6px;
+  }
+  .date-chip{
+    width:74px;
+    min-width:74px;
+    height:86px;
+    border-radius:15px;
+  }
+  .date-chip .day{
+    font-size:18px;
+    margin-top:6px;
+  }
+}
+
 </style>
 
 </head>
