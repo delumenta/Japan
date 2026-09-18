@@ -5236,3 +5236,1522 @@ async function initGooglePlaceAutocomplete(){
                   null,
 
                 provider:
+                  "google",
+
+                provider_place_id:
+                  providerPlaceId,
+
+                updated_at:
+                  new Date().toISOString()
+
+              };
+
+
+              const created =
+                await db
+                  .from(
+                    "places"
+                  )
+                  .insert(
+                    payload
+                  )
+                  .select()
+                  .single();
+
+
+              if(
+                created.error
+              ){
+
+                if(
+                  created.error.code ===
+                  "23505"
+                ){
+
+                  const duplicate =
+                    await db
+                      .from(
+                        "places"
+                      )
+                      .select("*")
+                      .eq(
+                        "provider",
+                        "google"
+                      )
+                      .eq(
+                        "provider_place_id",
+                        providerPlaceId
+                      )
+                      .single();
+
+
+                  if(
+                    duplicate.error
+                  ){
+
+                    throw duplicate.error;
+
+                  }
+
+
+                  savedPlace =
+                    duplicate.data;
+
+                }
+
+
+                else{
+
+                  throw created.error;
+
+                }
+
+              }
+
+
+              else{
+
+                savedPlace =
+                  created.data;
+
+              }
+
+            }
+
+
+            const index =
+              places.findIndex(
+                row =>
+                  Number(row.id) ===
+                  Number(savedPlace.id)
+              );
+
+
+            if(
+              index >= 0
+            ){
+
+              places[index] =
+                savedPlace;
+
+            }
+
+
+            else{
+
+              places.push(
+                savedPlace
+              );
+
+
+              places.sort(
+                (a,b) =>
+                  String(
+                    a.name ||
+                    ""
+                  )
+                  .localeCompare(
+                    String(
+                      b.name ||
+                      ""
+                    )
+                  )
+              );
+
+            }
+
+
+            selectedPlaceId =
+              savedPlace.id;
+
+
+            selectedRestaurantId =
+              null;
+
+
+            entitySearch.value =
+              savedPlace.name ||
+              "";
+
+
+            fieldTitle.value =
+              savedPlace.name ||
+              "";
+
+
+            fieldLocation.value =
+              [
+                savedPlace.area,
+                savedPlace.city,
+                savedPlace.prefecture
+              ]
+              .filter(Boolean)
+              .join(", ")
+              ||
+              savedPlace.address
+              ||
+              "";
+
+
+            entityResults.classList.remove(
+              "show"
+            );
+
+
+            googleAddBox.classList.remove(
+              "show"
+            );
+
+
+            updateSelectedEntity();
+
+
+            setGooglePlaceStatus(
+              `✓ ${savedPlace.name} saved to Places.`,
+              "success"
+            );
+
+
+            formMessage.textContent =
+              "Google verified ✓ Place saved and selected.";
+
+
+            formMessage.className =
+              "form-message success";
+
+          }
+
+
+          catch(error){
+
+            console.error(
+              "Google Places selection:",
+              error
+            );
+
+
+            setGooglePlaceStatus(
+              "Google place error: " +
+              (
+                error.message ||
+                String(error)
+              ),
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    setGooglePlaceStatus(
+      "Search for a place and select the correct Google result."
+    );
+
+  }
+
+
+  catch(error){
+
+    console.error(
+      "Google Places init:",
+      error
+    );
+
+
+    setGooglePlaceStatus(
+      "Google Places error: " +
+      (
+        error.message ||
+        String(error)
+      ),
+      "error"
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   OPEN NEW ITEM
+========================================================= */
+
+function openNewItem(){
+
+  editingId =
+    null;
+
+
+  selectedPlaceId =
+    null;
+
+
+  selectedRestaurantId =
+    null;
+
+
+  sheetTitle.textContent =
+    "＋ Add Schedule Item";
+
+
+  deleteButton.style.display =
+    "none";
+
+
+  fieldDate.value =
+    selectedDate;
+
+
+  fieldTime.value =
+    "";
+
+
+  fieldTimeLabel.value =
+    "";
+
+
+  fieldTitle.value =
+    "";
+
+
+  fieldLocation.value =
+    "";
+
+
+  fieldNotes.value =
+    "";
+
+
+  fieldOptional.checked =
+    false;
+
+
+  entitySearch.value =
+    "";
+
+
+  googleAddBox.classList.remove(
+    "show"
+  );
+
+
+  setFormType(
+    "place"
+  );
+
+
+  updateSelectedEntity();
+
+
+  formMessage.className =
+    "form-message";
+
+
+  editSheet.classList.add(
+    "open"
+  );
+
+
+  renderEntityResults(
+    ""
+  );
+
+}
+
+
+
+/* =========================================================
+   OPEN EDIT ITEM
+========================================================= */
+
+function openEditItem(id){
+
+  const item =
+    schedule.find(
+      row =>
+        Number(row.id) ===
+        Number(id)
+    );
+
+
+  if(!item){
+    return;
+  }
+
+
+  editingId =
+    item.id;
+
+
+  selectedPlaceId =
+    item.place_id ||
+    null;
+
+
+  selectedRestaurantId =
+    item.restaurant_id ||
+    null;
+
+
+  sheetTitle.textContent =
+    "Edit Schedule Item";
+
+
+  deleteButton.style.display =
+    "block";
+
+
+  fieldDate.value =
+    item.schedule_date;
+
+
+  fieldTime.value =
+    item.start_time
+    ?
+    item.start_time.slice(
+      0,
+      5
+    )
+    :
+    "";
+
+
+  fieldTimeLabel.value =
+    item.time_label ||
+    "";
+
+
+  fieldTitle.value =
+    item.title ||
+    "";
+
+
+  fieldLocation.value =
+    item.location_name ||
+    "";
+
+
+  fieldNotes.value =
+    item.notes ||
+    item.description ||
+    "";
+
+
+  fieldOptional.checked =
+    Boolean(
+      item.is_optional
+    );
+
+
+  if(
+    item.restaurant_id
+  ){
+
+    setFormType(
+      "restaurant"
+    );
+
+
+    entitySearch.value =
+      item.restaurant?.name ||
+      "";
+
+  }
+
+
+  else if(
+    item.place_id
+  ){
+
+    setFormType(
+      "place"
+    );
+
+
+    entitySearch.value =
+      item.place?.name ||
+      "";
+
+  }
+
+
+  else{
+
+    setFormType(
+      "custom"
+    );
+
+
+    entitySearch.value =
+      "";
+
+  }
+
+
+  updateSelectedEntity();
+
+
+  formMessage.className =
+    "form-message";
+
+
+  editSheet.classList.add(
+    "open"
+  );
+
+}
+
+
+
+/* =========================================================
+   ENTITY SEARCH
+========================================================= */
+
+entitySearch.addEventListener(
+  "focus",
+  () => {
+
+    if(
+      formType !== "custom" &&
+      entitySearch.value.trim()
+    ){
+
+      renderEntityResults(
+        entitySearch.value
+      );
+
+    }
+
+  }
+);
+
+
+entitySearch.addEventListener(
+  "input",
+  () => {
+
+    if(
+      formType === "custom"
+    ){
+      return;
+    }
+
+
+    if(
+      formType === "place"
+    ){
+
+      selectedPlaceId =
+        null;
+
+    }
+
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      selectedRestaurantId =
+        null;
+
+    }
+
+
+    updateSelectedEntity();
+
+
+    renderEntityResults(
+      entitySearch.value
+    );
+
+  }
+);
+
+
+
+/* =========================================================
+   ENTITY RESULTS
+========================================================= */
+
+function renderEntityResults(
+  queryValue
+){
+
+  const query =
+    norm(
+      queryValue
+    );
+
+
+  if(!query){
+
+    entityResults.innerHTML =
+      "";
+
+
+    entityResults.classList.remove(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  const source =
+    formType === "restaurant"
+    ?
+    restaurants
+    :
+    places;
+
+
+  let matches =
+    source.filter(
+      item => {
+
+        const haystack =
+          norm(
+            [
+              item.name,
+              item.name_japanese,
+              item.country,
+              item.prefecture,
+              item.city,
+              item.area,
+              item.location,
+              item.address
+            ]
+            .join(" ")
+          );
+
+
+        return haystack.includes(
+          query
+        );
+
+      }
+    );
+
+
+  matches =
+    matches.slice(
+      0,
+      12
+    );
+
+
+  if(
+    !matches.length
+  ){
+
+    entityResults.innerHTML = `
+
+      <div class="entity-empty">
+
+        No ${
+          formType === "restaurant"
+          ?
+          "restaurants"
+          :
+          "places"
+        } found.
+
+        <br><br>
+
+        ${
+          formType === "place"
+          ?
+          "Use “ADD NEW PLACE” below."
+          :
+          "Add it to your saved restaurants first."
+        }
+
+      </div>
+
+    `;
+
+
+    entityResults.classList.add(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  entityResults.innerHTML =
+    matches
+      .map(
+        item => {
+
+          const meta =
+            entityMeta(
+              item
+            );
+
+
+          return `
+
+            <button
+              class="entity-result"
+              type="button"
+              data-id="${Number(item.id)}"
+            >
+
+              <div class="entity-result-icon">
+
+                ${
+                  formType === "restaurant"
+                  ?
+                  "🍽️"
+                  :
+                  "📍"
+                }
+
+              </div>
+
+
+              <div class="entity-result-main">
+
+                <div class="entity-result-name">
+
+                  ${esc(item.name)}
+
+                </div>
+
+
+                ${
+                  item.name_japanese
+
+                  ?
+
+                  `
+                    <div class="entity-result-japanese">
+                      ${esc(item.name_japanese)}
+                    </div>
+                  `
+
+                  :
+
+                  ""
+                }
+
+
+                ${
+                  meta
+
+                  ?
+
+                  `
+                    <div class="entity-result-meta">
+                      ${esc(meta)}
+                    </div>
+                  `
+
+                  :
+
+                  ""
+                }
+
+              </div>
+
+
+              <div class="entity-result-arrow">
+                ＋
+              </div>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  entityResults.classList.add(
+    "show"
+  );
+
+
+  entityResults
+    .querySelectorAll(
+      "[data-id]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            chooseEntity(
+              Number(
+                button.dataset.id
+              )
+            );
+
+          };
+
+      }
+    );
+
+}
+
+
+
+/* =========================================================
+   CHOOSE ENTITY
+========================================================= */
+
+function chooseEntity(id){
+
+  const source =
+    formType === "restaurant"
+    ?
+    restaurants
+    :
+    places;
+
+
+  const item =
+    source.find(
+      row =>
+        Number(row.id) ===
+        Number(id)
+    );
+
+
+  if(!item){
+    return;
+  }
+
+
+  if(
+    formType === "restaurant"
+  ){
+
+    selectedRestaurantId =
+      item.id;
+
+
+    selectedPlaceId =
+      null;
+
+  }
+
+
+  else{
+
+    selectedPlaceId =
+      item.id;
+
+
+    selectedRestaurantId =
+      null;
+
+  }
+
+
+  entitySearch.value =
+    item.name ||
+    "";
+
+
+  fieldTitle.value =
+    item.name ||
+    "";
+
+
+  fieldLocation.value =
+    [
+      item.area,
+      item.city
+    ]
+    .filter(Boolean)
+    .join(", ");
+
+
+  entityResults.classList.remove(
+    "show"
+  );
+
+
+  updateSelectedEntity();
+
+}
+
+
+
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
+
+function updateSelectedEntity(){
+
+  let item =
+    null;
+
+
+  if(
+    formType === "place" &&
+    selectedPlaceId
+  ){
+
+    item =
+      places.find(
+        row =>
+          Number(row.id) ===
+          Number(selectedPlaceId)
+      );
+
+  }
+
+
+  else if(
+    formType === "restaurant" &&
+    selectedRestaurantId
+  ){
+
+    item =
+      restaurants.find(
+        row =>
+          Number(row.id) ===
+          Number(selectedRestaurantId)
+      );
+
+  }
+
+
+  if(!item){
+
+    selectedEntity.classList.remove(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  selectedEntityIcon.textContent =
+    formType === "restaurant"
+    ?
+    "🍽️"
+    :
+    "📍";
+
+
+  selectedEntityLabel.textContent =
+    formType === "restaurant"
+    ?
+    "SELECTED RESTAURANT"
+    :
+    "SELECTED PLACE";
+
+
+  selectedEntityName.textContent =
+    item.name ||
+    "";
+
+
+  selectedEntityMeta.textContent =
+    entityMeta(
+      item
+    );
+
+
+  selectedEntity.classList.add(
+    "show"
+  );
+
+}
+
+
+
+/* =========================================================
+   CHANGE ENTITY
+========================================================= */
+
+document
+  .getElementById(
+    "changeEntityButton"
+  )
+  .onclick =
+    () => {
+
+      if(
+        formType === "place"
+      ){
+
+        selectedPlaceId =
+          null;
+
+      }
+
+
+      else if(
+        formType === "restaurant"
+      ){
+
+        selectedRestaurantId =
+          null;
+
+      }
+
+
+      entitySearch.value =
+        "";
+
+
+      updateSelectedEntity();
+
+
+      renderEntityResults(
+        ""
+      );
+
+
+      entitySearch.focus();
+
+    };
+
+
+
+/* =========================================================
+   TIME INPUT
+========================================================= */
+
+fieldTime.addEventListener(
+  "input",
+  () => {
+
+    if(
+      fieldTime.value
+    ){
+
+      fieldTimeLabel.value =
+        "";
+
+    }
+
+  }
+);
+
+
+fieldTimeLabel.addEventListener(
+  "input",
+  () => {
+
+    if(
+      fieldTimeLabel.value.trim()
+    ){
+
+      fieldTime.value =
+        "";
+
+    }
+
+  }
+);
+
+
+
+/* =========================================================
+   SORT ORDER
+========================================================= */
+
+function nextSortOrder(date){
+
+  const rows =
+    groupedDays[
+      date
+    ] ||
+    [];
+
+
+  if(
+    !rows.length
+  ){
+
+    return 10;
+
+  }
+
+
+  const max =
+    Math.max(
+      ...rows.map(
+        row =>
+          Number(
+            row.sort_order ||
+            0
+          )
+      )
+    );
+
+
+  return max + 10;
+
+}
+
+
+
+/* =========================================================
+   SAVE ITEM
+========================================================= */
+
+document
+  .getElementById(
+    "editForm"
+  )
+  .addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      saveButton.disabled =
+        true;
+
+
+      saveButton.textContent =
+        "SAVING…";
+
+
+      formMessage.className =
+        "form-message";
+
+
+      try{
+
+        const date =
+          fieldDate.value;
+
+
+        const time =
+          fieldTime.value;
+
+
+        const timeLabel =
+          fieldTimeLabel
+            .value
+            .trim();
+
+
+        const title =
+          fieldTitle
+            .value
+            .trim();
+
+
+        const locationName =
+          fieldLocation
+            .value
+            .trim();
+
+
+        const notes =
+          fieldNotes
+            .value
+            .trim();
+
+
+        if(!date){
+
+          throw new Error(
+            "Please choose a date."
+          );
+
+        }
+
+
+        if(!title){
+
+          throw new Error(
+            "Please enter a title."
+          );
+
+        }
+
+
+        if(
+          formType === "place" &&
+          !selectedPlaceId
+        ){
+
+          throw new Error(
+            "Please choose a saved place."
+          );
+
+        }
+
+
+        if(
+          formType === "restaurant" &&
+          !selectedRestaurantId
+        ){
+
+          throw new Error(
+            "Please choose a saved restaurant."
+          );
+
+        }
+
+
+        const payload = {
+
+          trip_id:
+            TRIP_ID,
+
+          schedule_date:
+            date,
+
+          start_time:
+            time
+            ?
+            `${time}:00`
+            :
+            null,
+
+          time_label:
+            time
+            ?
+            null
+            :
+            (
+              timeLabel ||
+              null
+            ),
+
+          title:
+            title,
+
+          item_type:
+            formType === "restaurant"
+            ?
+            "restaurant"
+            :
+            formType === "place"
+            ?
+            "attraction"
+            :
+            "custom",
+
+          notes:
+            notes ||
+            null,
+
+          location_name:
+            locationName ||
+            null,
+
+          place_id:
+            formType === "place"
+            ?
+            selectedPlaceId
+            :
+            null,
+
+          restaurant_id:
+            formType === "restaurant"
+            ?
+            selectedRestaurantId
+            :
+            null,
+
+          is_optional:
+            fieldOptional.checked
+
+        };
+
+
+        if(
+          editingId === null
+        ){
+
+          payload.sort_order =
+            nextSortOrder(
+              date
+            );
+
+
+          const result =
+            await db
+              .from(
+                "schedule"
+              )
+              .insert(
+                payload
+              )
+              .select()
+              .single();
+
+
+          if(
+            result.error
+          ){
+
+            throw result.error;
+
+          }
+
+        }
+
+
+        else{
+
+          const result =
+            await db
+              .from(
+                "schedule"
+              )
+              .update(
+                payload
+              )
+              .eq(
+                "id",
+                editingId
+              )
+              .eq(
+                "trip_id",
+                TRIP_ID
+              )
+              .select();
+
+
+          if(
+            result.error
+          ){
+
+            throw result.error;
+
+          }
+
+
+          if(
+            !result.data ||
+            !result.data.length
+          ){
+
+            throw new Error(
+              "The item was not updated. Check your editing permission."
+            );
+
+          }
+
+        }
+
+
+        selectedDate =
+          date;
+
+
+        closeEditSheet();
+
+
+        await reloadSchedule();
+
+      }
+
+
+      catch(error){
+
+        console.error(
+          error
+        );
+
+
+        formMessage.textContent =
+          error.message ||
+          "Couldn't save schedule item.";
+
+
+        formMessage.className =
+          "form-message error";
+
+      }
+
+
+      finally{
+
+        saveButton.disabled =
+          false;
+
+
+        saveButton.textContent =
+          "SAVE";
+
+      }
+
+    }
+  );
+
+
+
+/* =========================================================
+   DELETE ITEM
+========================================================= */
+
+deleteButton.onclick =
+  async () => {
+
+    if(
+      editingId === null
+    ){
+
+      return;
+
+    }
+
+
+    const item =
+      schedule.find(
+        row =>
+          Number(row.id) ===
+          Number(editingId)
+      );
+
+
+    if(!item){
+      return;
+    }
+
+
+    const okay =
+      confirm(
+        `Delete "${item.title}" from the schedule?`
+      );
+
+
+    if(!okay){
+      return;
+    }
+
+
+    deleteButton.disabled =
+      true;
+
+
+    try{
+
+      const result =
+        await db
+          .from(
+            "schedule"
+          )
+          .delete()
+          .eq(
+            "id",
+            editingId
+          )
+          .eq(
+            "trip_id",
+            TRIP_ID
+          );
+
+
+      if(
+        result.error
+      ){
+
+        throw result.error;
+
+      }
+
+
+      closeEditSheet();
+
+
+      await reloadSchedule();
+
+    }
+
+
+    catch(error){
+
+      console.error(
+        error
+      );
+
+
+      formMessage.textContent =
+        error.message ||
+        "Couldn't delete item.";
+
+
+      formMessage.className =
+        "form-message error";
+
+    }
+
+
+    finally{
+
+      deleteButton.disabled =
+        false;
+
+    }
+
+  };
+
+
+
+/* =========================================================
+   RELOAD
+========================================================= */
+
+async function reloadSchedule(){
+
+  const result =
+    await loadScheduleQuery();
+
+
+  if(
+    result.error
+  ){
+
+    throw result.error;
+
+  }
+
+
+  schedule =
+    result.data ||
+    [];
+
+
+  buildDays();
+
+  renderDates();
+
+  renderDay();
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadData();
+
+</script>
+
+
+
+<script src="footer.js"></script>
+
+
+</body>
+
+</html>
