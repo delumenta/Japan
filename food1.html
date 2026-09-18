@@ -171,7 +171,9 @@ header::after{
 }
 
 .trip-name{
-  margin:8px 0 0 80px;
+  /* Pull the trip name up so it sits directly under the word Food,
+     instead of waiting for the taller circular icon to finish. */
+  margin:-6px 0 0 80px;
   max-width:350px;
   overflow:hidden;
   color:#9ba4aa;
@@ -209,22 +211,22 @@ header::after{
 .main-tabs{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:4px;
-  margin-top:22px;
-  padding:4px;
+  gap:3px;
+  margin-top:14px;
+  padding:3px;
   border:1px solid #2b353d;
   border-radius:999px;
   background:rgba(5,10,14,.54);
 }
 
 .main-tab{
-  min-height:42px;
-  padding:8px 12px;
+  min-height:34px;
+  padding:5px 9px;
   border:1px solid transparent;
   border-radius:999px;
   background:transparent;
   color:#707b83;
-  font-size:9px;
+  font-size:7.5px;
   font-weight:900;
   letter-spacing:.045em;
   cursor:pointer;
@@ -1015,7 +1017,9 @@ gmp-place-autocomplete{width:100%;min-height:42px}
 
   .food-page-title span{font-size:38px}
 
-  .trip-name{margin-left:75px}
+  .trip-name{
+    margin:-5px 0 0 75px;
+  }
 
   .unified-filter-panel{
     margin-left:-17px;
@@ -1025,13 +1029,14 @@ gmp-place-autocomplete{width:100%;min-height:42px}
   }
 
   .main-tabs{
-    margin-top:18px;
+    margin-top:12px;
+    padding:3px;
   }
 
   .main-tab{
-    min-height:39px;
-    padding:7px 7px;
-    font-size:8px;
+    min-height:31px;
+    padding:4px 6px;
+    font-size:7px;
   }
 
   .status-row{
