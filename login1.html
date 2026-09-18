@@ -1,0 +1,1043 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#070c10">
+
+<title>Login · Japan Trip</title>
+
+<style>
+
+:root{
+  --bg:#070c10;
+  --panel:#10161c;
+  --panel2:#151c23;
+  --line:#29323b;
+  --text:#f5f5f3;
+  --muted:#aeb5bc;
+  --red:#c96f68;
+  --green:#67c587;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  min-height:100%;
+}
+
+body{
+  margin:0;
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:
+    calc(24px + env(safe-area-inset-top))
+    16px
+    calc(24px + env(safe-area-inset-bottom));
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      #17212a 0%,
+      transparent 42%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.wrap{
+  width:100%;
+  max-width:420px;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.brand{
+  margin-bottom:20px;
+}
+
+.eyebrow{
+  color:var(--red);
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+h1{
+  margin:7px 0 5px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:33px;
+  line-height:1.05;
+
+  letter-spacing:-.03em;
+}
+
+.subtitle{
+  color:var(--muted);
+
+  font-size:12px;
+  line-height:1.5;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.card{
+  padding:18px;
+
+  border:1px solid var(--line);
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151d23,
+      #0e1419
+    );
+
+  box-shadow:
+    0 15px 50px
+    rgba(0,0,0,.18);
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.field + .field{
+  margin-top:14px;
+}
+
+label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:#dce0e3;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.04em;
+}
+
+input{
+  width:100%;
+  min-height:49px;
+
+  padding:
+    0
+    13px;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  outline:none;
+
+  background:#0b1116;
+  color:#fff;
+
+  font-size:14px;
+
+  transition:
+    border-color .15s ease,
+    background .15s ease;
+}
+
+input:focus{
+  border-color:var(--red);
+
+  background:#0d1419;
+}
+
+input::placeholder{
+  color:#65727b;
+}
+
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+.password-wrap{
+  position:relative;
+}
+
+.password-wrap input{
+  padding-right:50px;
+}
+
+.eye{
+  position:absolute;
+
+  top:50%;
+  right:6px;
+
+  width:38px;
+  height:38px;
+
+  transform:
+    translateY(-50%);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:0;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  font-size:15px;
+
+  cursor:pointer;
+}
+
+
+/* =========================================
+   FORGOT
+========================================= */
+
+.forgot-row{
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-top:9px;
+}
+
+.forgot-row a{
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-size:10px;
+  font-weight:800;
+}
+
+.forgot-row a:active{
+  color:#fff;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.login-button{
+  width:100%;
+  min-height:49px;
+
+  margin-top:17px;
+
+  border:
+    1px solid
+    rgba(201,111,104,.45);
+
+  border-radius:12px;
+
+  background:
+    rgba(201,111,104,.13);
+
+  color:#f6dcda;
+
+  font-size:12px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.login-button:active{
+  background:
+    rgba(201,111,104,.20);
+}
+
+.login-button:disabled{
+  opacity:.5;
+  cursor:default;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message{
+  display:none;
+
+  margin-top:12px;
+
+  padding:11px 12px;
+
+  border-radius:11px;
+
+  font-size:11px;
+  line-height:1.45;
+}
+
+.message.error{
+  display:block;
+
+  color:#ffc7c3;
+
+  border:
+    1px solid
+    rgba(201,111,104,.35);
+
+  background:
+    rgba(201,111,104,.08);
+}
+
+.message.success{
+  display:block;
+
+  color:#c4ebd0;
+
+  border:
+    1px solid
+    rgba(103,197,135,.30);
+
+  background:
+    rgba(103,197,135,.08);
+}
+
+
+/* =========================================
+   SIGN UP
+========================================= */
+
+.signup{
+  margin-top:17px;
+
+  padding-top:16px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.07);
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+.signup button{
+  margin-left:3px;
+
+  padding:0;
+
+  border:0;
+
+  background:none;
+
+  color:#fff;
+
+  font-size:11px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+  margin-top:16px;
+
+  color:#65727b;
+
+  text-align:center;
+
+  font-size:9px;
+  line-height:1.5;
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media(max-width:360px){
+
+  body{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+
+  <!-- =====================================
+       BRAND
+  ====================================== -->
+
+  <div class="brand">
+
+    <div class="eyebrow">
+      JAPAN TRIP
+    </div>
+
+    <h1>
+      Welcome back.
+    </h1>
+
+    <div class="subtitle">
+      Sign in to open your trips, schedule,
+      restaurants and bookings.
+    </div>
+
+  </div>
+
+
+  <!-- =====================================
+       LOGIN CARD
+  ====================================== -->
+
+  <div class="card">
+
+    <form id="loginForm">
+
+
+      <!-- EMAIL -->
+
+      <div class="field">
+
+        <label for="email">
+          EMAIL ADDRESS
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        >
+
+      </div>
+
+
+      <!-- PASSWORD -->
+
+      <div class="field">
+
+        <label for="password">
+          PASSWORD
+        </label>
+
+
+        <div class="password-wrap">
+
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Your password"
+            required
+          >
+
+          <button
+            id="eyeButton"
+            class="eye"
+            type="button"
+            aria-label="Show password"
+          >
+            👁
+          </button>
+
+        </div>
+
+
+        <div class="forgot-row">
+
+          <a href="forgot-password.html">
+            Forgot password?
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <button
+        id="loginButton"
+        class="login-button"
+        type="submit"
+      >
+        SIGN IN
+      </button>
+
+
+      <!-- MESSAGE -->
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+
+    </form>
+
+
+    <!-- SIGN UP -->
+
+    <div class="signup">
+
+      Don't have an account?
+
+      <button
+        id="signupButton"
+        type="button"
+      >
+        Create one
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+    Your trips are linked to your account.
+  </div>
+
+
+</div>
+
+
+<!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="supabase.js"></script>
+
+
+<script>
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginForm =
+  document.getElementById(
+    "loginForm"
+  );
+
+const emailInput =
+  document.getElementById(
+    "email"
+  );
+
+const passwordInput =
+  document.getElementById(
+    "password"
+  );
+
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
+
+const signupButton =
+  document.getElementById(
+    "signupButton"
+  );
+
+const eyeButton =
+  document.getElementById(
+    "eyeButton"
+  );
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+  text,
+  type
+){
+
+  message.textContent =
+    text;
+
+  message.className =
+    "message " + type;
+
+}
+
+
+function clearMessage(){
+
+  message.textContent = "";
+
+  message.className =
+    "message";
+
+}
+
+
+/* =========================================
+   SHOW / HIDE PASSWORD
+========================================= */
+
+eyeButton.addEventListener(
+  "click",
+  () => {
+
+    const showing =
+      passwordInput.type === "text";
+
+
+    passwordInput.type =
+      showing
+        ? "password"
+        : "text";
+
+
+    eyeButton.textContent =
+      showing
+        ? "👁"
+        : "🙈";
+
+
+    eyeButton.setAttribute(
+      "aria-label",
+      showing
+        ? "Show password"
+        : "Hide password"
+    );
+
+  }
+);
+
+
+/* =========================================
+   ALREADY LOGGED IN?
+========================================= */
+
+async function checkSession(){
+
+  const {
+    data,
+    error
+  } =
+    await db.auth.getSession();
+
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+
+  if(data?.session){
+
+    /*
+      Already signed in.
+      Go straight to Home.
+    */
+
+    window.location.replace(
+      "index.html"
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   SIGN IN
+========================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    clearMessage();
+
+
+    const email =
+      emailInput.value
+        .trim();
+
+    const password =
+      passwordInput.value;
+
+
+    if(
+      !email ||
+      !password
+    ){
+
+      showMessage(
+        "Enter your email and password.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    loginButton.disabled =
+      true;
+
+    signupButton.disabled =
+      true;
+
+    loginButton.textContent =
+      "SIGNING IN…";
+
+
+    try{
+
+      const {
+        data,
+        error
+      } =
+        await db.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+
+      if(error){
+        throw error;
+      }
+
+
+      if(!data?.session){
+
+        throw new Error(
+          "Unable to start your session."
+        );
+
+      }
+
+
+      showMessage(
+        "Signed in. Opening your trip…",
+        "success"
+      );
+
+
+      window.location.replace(
+        "index.html"
+      );
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      /*
+        Keep the message simple.
+        We don't need to reveal whether
+        the email or password was wrong.
+      */
+
+      showMessage(
+        "Email or password is incorrect.",
+        "error"
+      );
+
+
+      loginButton.disabled =
+        false;
+
+      signupButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "SIGN IN";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   SIGN UP
+========================================= */
+
+signupButton.addEventListener(
+  "click",
+  async () => {
+
+    clearMessage();
+
+
+    const email =
+      emailInput.value
+        .trim();
+
+    const password =
+      passwordInput.value;
+
+
+    if(!email){
+
+      showMessage(
+        "Enter the email you want to use first.",
+        "error"
+      );
+
+      emailInput.focus();
+
+      return;
+
+    }
+
+
+    if(
+      !password ||
+      password.length < 8
+    ){
+
+      showMessage(
+        "Choose a password with at least 8 characters.",
+        "error"
+      );
+
+      passwordInput.focus();
+
+      return;
+
+    }
+
+
+    loginButton.disabled =
+      true;
+
+    signupButton.disabled =
+      true;
+
+    signupButton.textContent =
+      "CREATING…";
+
+
+    try{
+
+      const redirectTo =
+        new URL(
+          "login.html",
+          window.location.href
+        ).href;
+
+
+      const {
+        data,
+        error
+      } =
+        await db.auth
+          .signUp({
+            email,
+            password,
+
+            options:{
+              emailRedirectTo:
+                redirectTo
+            }
+          });
+
+
+      if(error){
+        throw error;
+      }
+
+
+      /*
+        If email confirmation is enabled,
+        Supabase normally returns the user
+        without an active session.
+      */
+
+      if(
+        data?.user &&
+        !data?.session
+      ){
+
+        showMessage(
+          "Account created. Check your email to confirm your account, then come back and sign in.",
+          "success"
+        );
+
+      }
+
+      else if(data?.session){
+
+        showMessage(
+          "Account created. Opening your trips…",
+          "success"
+        );
+
+
+        setTimeout(() => {
+
+          window.location.replace(
+            "index.html"
+          );
+
+        },700);
+
+      }
+
+      else{
+
+        showMessage(
+          "Account created. You can now sign in.",
+          "success"
+        );
+
+      }
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      showMessage(
+        error.message ||
+        "Unable to create your account.",
+        "error"
+      );
+
+    }
+
+    finally{
+
+      loginButton.disabled =
+        false;
+
+      signupButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "SIGN IN";
+
+      signupButton.textContent =
+        "Create one";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   RESET SUCCESS
+========================================= */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+if(
+  params.get("reset") ===
+  "success"
+){
+
+  showMessage(
+    "Password changed successfully. Sign in with your new password.",
+    "success"
+  );
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+checkSession();
+
+</script>
+
+</body>
+</html>
