@@ -496,6 +496,43 @@ header{
 
 
 
+
+/* =========================================================
+   PLAN MODE SWITCH
+========================================================= */
+
+.plan-mode-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+  margin:0 0 13px;
+  padding:3px;
+  border:1px solid #28343c;
+  border-radius:12px;
+  background:#080e12;
+}
+
+.plan-mode-btn{
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  border-radius:9px;
+  background:transparent;
+  color:#6f7b83;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.10em;
+  text-decoration:none;
+}
+
+.plan-mode-btn.active{
+  border:1px solid rgba(255,98,95,.24);
+  background:rgba(255,98,95,.065);
+  color:#efaaa6;
+}
+
 /* =========================================================
    MAIN
 ========================================================= */
@@ -1995,7 +2032,27 @@ gmp-place-autocomplete{
 
 <main id="main">
 
-  <div class="state">
+  <div class="plan-mode-switch" aria-label="Plan view">
+    <a
+      id="itineraryModeLink"
+      class="plan-mode-btn active"
+      href="schedule.html"
+      aria-current="page"
+    >
+      ITINERARY
+    </a>
+
+    <a
+      id="assistModeLink"
+      class="plan-mode-btn"
+      href="assist.html"
+    >
+      ASSIST
+    </a>
+  </div>
+
+  <div id="dayContent">
+    <div class="state">
 
     <strong>
       Loading plan…
@@ -2003,6 +2060,7 @@ gmp-place-autocomplete{
 
     Getting your itinerary from Supabase.
 
+    </div>
   </div>
 
 </main>
@@ -2470,6 +2528,21 @@ let selectedRestaurantId = null;
 const main =
   document.getElementById(
     "main"
+  );
+
+const dayContent =
+  document.getElementById(
+    "dayContent"
+  );
+
+const itineraryModeLink =
+  document.getElementById(
+    "itineraryModeLink"
+  );
+
+const assistModeLink =
+  document.getElementById(
+    "assistModeLink"
   );
 
 
@@ -3080,9 +3153,31 @@ async function resolveTrip(){
     `?trip=${TRIP_ID}${hash}`
   );
 
+  syncPlanModeLinks();
+
 }
 
 
+
+
+/* =========================================================
+   PLAN MODE LINKS
+========================================================= */
+
+function syncPlanModeLinks(){
+
+  const dateHash =
+    selectedDate
+    ? `#${selectedDate}`
+    : (window.location.hash || "");
+
+  itineraryModeLink.href =
+    `schedule.html?trip=${TRIP_ID}${dateHash}`;
+
+  assistModeLink.href =
+    `assist.html?trip=${TRIP_ID}${dateHash}`;
+
+}
 
 /* =========================================================
    LOAD DATA
@@ -3283,6 +3378,8 @@ async function loadData(){
 
     chooseDate();
 
+    syncPlanModeLinks();
+
     renderDates();
 
     renderDay();
@@ -3300,7 +3397,7 @@ async function loadData(){
       "Unable to load trip";
 
 
-    main.innerHTML = `
+    dayContent.innerHTML = `
 
       <div class="state">
 
@@ -3904,6 +4001,8 @@ function renderDates(){
             );
 
 
+            syncPlanModeLinks();
+
             renderDates();
 
             renderDay();
@@ -4441,7 +4540,7 @@ function renderDay(){
 
   if(!items.length){
 
-    main.innerHTML = `
+    dayContent.innerHTML = `
 
       <div class="state">
 
@@ -4460,7 +4559,7 @@ function renderDay(){
   }
 
 
-  main.innerHTML = `
+  dayContent.innerHTML = `
 
     <section class="day-card">
 
@@ -6800,6 +6899,8 @@ async function reloadSchedule(){
 
 
   buildDays();
+
+  syncPlanModeLinks();
 
   renderDates();
 
