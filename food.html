@@ -364,222 +364,6 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 }
 
 /* =========================================================
-   PLAN VISUAL — SAFE CSS-ONLY OVERRIDE
-   No Food HTML/JS structure changed.
-========================================================= */
-
-/* Plan-like framed app surface */
-body{
-  padding-top:14px;
-}
-
-header{
-  width:calc(100% - 24px);
-  max-width:720px;
-  margin:0 auto;
-  overflow:visible;
-  border:1px solid #273139;
-  border-bottom:0;
-  border-radius:27px 27px 0 0;
-  background:linear-gradient(180deg,#0a1116,#070d11);
-  box-shadow:0 24px 65px rgba(0,0,0,.24);
-}
-
-/* Plan's subtle Japanese watermark, without changing markup */
-header::before{
-  content:"食";
-  position:absolute;
-  z-index:0;
-  right:6px;
-  top:7px;
-  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
-  font-size:126px;
-  font-weight:700;
-  line-height:1;
-  color:var(--red);
-  opacity:.042;
-  pointer-events:none;
-  user-select:none;
-}
-
-.header-inner{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:none;
-  margin:0;
-  padding:26px 20px 0;
-}
-
-.title-row{
-  align-items:flex-start;
-  gap:12px;
-}
-
-.eyebrow{
-  margin-bottom:14px;
-  color:#df7775;
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.18em;
-}
-
-.food-page-title{
-  gap:15px;
-  align-items:center;
-}
-
-.food-page-title-icon{
-  width:65px;
-  height:65px;
-  flex:0 0 65px;
-  padding:10px;
-  border:1px solid rgba(255,98,95,.30);
-  border-radius:50%;
-  background:#0b1217;
-  object-fit:contain;
-  opacity:.88;
-}
-
-.food-page-title span{
-  color:#f7f4ee;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:41px;
-  font-weight:700;
-  letter-spacing:-.03em;
-}
-
-.trip-name{
-  margin:8px 0 0 80px;
-  max-width:350px;
-  color:#89949c;
-  font-size:9px;
-  font-weight:500;
-  line-height:1.4;
-}
-
-.add-btn{
-  min-height:29px;
-  padding:0 10px;
-  border:1px solid rgba(255,98,95,.32);
-  border-radius:9px;
-  background:rgba(255,98,95,.07);
-  color:#efaaa6;
-  font-size:7px;
-  font-weight:900;
-}
-
-/* Keep Food's own tabs and filters functional, just visually compact */
-.main-tabs{
-  margin-top:17px;
-}
-
-.unified-filter-panel{
-  margin-left:-20px;
-  margin-right:-20px;
-  padding-left:20px;
-  padding-right:20px;
-}
-
-/* Area + Food + Search + X stay in one row */
-.sticky-filter-bar{
-  display:grid;
-  grid-template-columns:minmax(0,.82fr) minmax(0,.82fr) minmax(0,1.36fr) 30px;
-  gap:4px;
-  align-items:center;
-}
-
-.filter-select-btn,
-.quick-filter-wrap,
-.clear-compact-filter{
-  min-height:32px;
-  height:32px;
-  border-radius:8px;
-}
-
-.filter-select-btn{
-  padding:5px 6px;
-  font-size:6.5px;
-}
-
-.quick-filter-wrap{
-  grid-column:auto;
-  grid-row:auto;
-  padding:0 6px;
-}
-
-.quick-filter-input{
-  font-size:6.5px;
-}
-
-.clear-compact-filter{
-  grid-column:auto;
-  grid-row:auto;
-  width:30px;
-  min-width:30px;
-}
-
-/* Continue the same framed surface around results */
-main{
-  width:calc(100% - 24px);
-  max-width:720px;
-  margin:0 auto 105px;
-  padding:14px 20px 22px;
-  border:1px solid #273139;
-  border-top:0;
-  border-radius:0 0 27px 27px;
-  background:linear-gradient(180deg,#0a1116,#070d11);
-}
-
-/* Keep modal sheets above the app frame */
-.sheet-backdrop,
-.more-backdrop{
-  z-index:150;
-}
-
-@media(max-width:430px){
-  body{padding-top:9px}
-
-  header,
-  main{
-    width:calc(100% - 18px);
-  }
-
-  .header-inner{
-    padding-left:17px;
-    padding-right:17px;
-  }
-
-  .unified-filter-panel{
-    margin-left:-17px;
-    margin-right:-17px;
-    padding-left:17px;
-    padding-right:17px;
-  }
-
-  .food-page-title-icon{
-    width:60px;
-    height:60px;
-    flex-basis:60px;
-    padding:9px;
-  }
-
-  .food-page-title span{
-    font-size:38px;
-  }
-
-  .trip-name{
-    margin-left:75px;
-  }
-
-  main{
-    padding-left:17px;
-    padding-right:17px;
-  }
-}
-
-
-/* =========================================================
    SAVE SPACE — HIDE MY FOOD / DISCOVER NAV ROW
    CSS ONLY: existing HTML + JavaScript stay untouched.
 ========================================================= */
@@ -705,12 +489,717 @@ main{
   background:rgba(228,189,105,.045) !important;
 }
 
+
+
+
+/* =========================================================
+   FINAL SCHEDULE-STYLE FOOD SHELL
+   Same Food structure + Schedule layout + photographic hero
+========================================================= */
+
+:root{
+  --food-hero-image:url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/food1.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZm9vZDEucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTczMzQwNSwiZXhwIjozMzMyNTczMzQwNX0.CGwvuSG1zOfvgqfiuDdrKfwMwKOwMAf9hYZQRK5zVgKzIqszkqff37cyCW_34OhorHx9z_mZJqmKg94LUIaBWA");
+}
+
+body{
+  padding-top:14px;
+}
+
+/* One continuous Schedule-style framed surface */
+.food-shell{
+  position:relative;
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto 105px;
+  overflow:hidden;
+  border:1px solid #273139;
+  border-radius:27px;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+  box-shadow:0 24px 65px rgba(0,0,0,.40);
+}
+
+/* Thin coral-red line across the top, like Schedule */
+.food-shell::before{
+  content:"";
+  position:absolute;
+  z-index:90;
+  left:20px;
+  right:20px;
+  top:-1px;
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    #ff625f 0%,
+    #ff827e 52%,
+    rgba(255,98,95,.68) 100%
+  );
+  box-shadow:0 0 14px rgba(255,98,95,.24);
+  pointer-events:none;
+}
+
+/* =========================================================
+   HERO / HEADER
+========================================================= */
+
+header{
+  position:relative;
+  z-index:40;
+  isolation:isolate;
+
+  width:100%;
+  max-width:none;
+  margin:0;
+
+  overflow:hidden;
+
+  border:0;
+  border-radius:26px 26px 0 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,5,8,.28) 0%,
+      rgba(4,8,11,.40) 33%,
+      rgba(5,10,14,.67) 66%,
+      rgba(7,13,17,.94) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.34) 0%,
+      rgba(0,0,0,.10) 47%,
+      rgba(0,0,0,.23) 100%
+    ),
+    var(--food-hero-image) center 52% / cover no-repeat;
+
+  box-shadow:none;
+}
+
+/* Large subtle 食 watermark */
+header::before{
+  content:"食";
+  position:absolute;
+  z-index:1;
+
+  right:10px;
+  top:7px;
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:126px;
+  font-weight:700;
+  line-height:1;
+
+  color:#ff625f;
+  opacity:.070;
+
+  text-shadow:0 0 28px rgba(255,98,95,.14);
+
+  pointer-events:none;
+  user-select:none;
+}
+
+/* Extra photographic vignette */
+header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+
+  background:
+    radial-gradient(
+      circle at 83% 12%,
+      rgba(255,98,95,.08),
+      transparent 29%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(2,6,9,.16),
+      transparent 44%,
+      rgba(2,6,9,.12)
+    );
+
+  pointer-events:none;
+}
+
+.header-inner{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  max-width:none;
+  margin:0;
+
+  padding:26px 20px 0;
+}
+
+.title-row{
+  position:relative;
+  z-index:3;
+
+  align-items:flex-start;
+  gap:12px;
+}
+
+.eyebrow{
+  margin-bottom:14px;
+
+  color:#ef7d79;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.18em;
+
+  text-shadow:0 1px 12px rgba(0,0,0,.70);
+}
+
+.food-page-title{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:0;
+}
+
+.food-page-title-icon{
+  width:65px;
+  height:65px;
+  flex:0 0 65px;
+
+  display:block;
+
+  padding:10px;
+
+  border:1px solid rgba(255,98,95,.34);
+  border-radius:50%;
+
+  background:rgba(7,13,17,.80);
+
+  object-fit:contain;
+  opacity:.92;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.012),
+    0 8px 24px rgba(0,0,0,.25);
+}
+
+.food-page-title span{
+  color:#f8f4ee;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:41px;
+  font-weight:700;
+  line-height:1;
+
+  letter-spacing:-.03em;
+
+  text-shadow:0 2px 18px rgba(0,0,0,.68);
+}
+
+.trip-name{
+  margin:8px 0 0 80px;
+
+  max-width:350px;
+
+  overflow:hidden;
+
+  color:#9ba4aa;
+
+  font-size:9px;
+  font-weight:500;
+  line-height:1.4;
+
+  text-overflow:ellipsis;
+  white-space:nowrap;
+
+  text-shadow:0 1px 10px rgba(0,0,0,.66);
+}
+
+.add-btn{
+  min-height:29px;
+
+  padding:0 10px;
+
+  border:1px solid rgba(255,98,95,.38);
+  border-radius:9px;
+
+  background:rgba(255,98,95,.09);
+
+  color:#ffb3ae;
+
+  font-size:7px;
+  font-weight:900;
+
+  box-shadow:
+    inset 0 0 16px rgba(255,98,95,.025),
+    0 3px 14px rgba(0,0,0,.18);
+
+  text-shadow:0 1px 8px rgba(0,0,0,.45);
+}
+
+/* =========================================================
+   FOOD CONTROLS OVER HERO
+========================================================= */
+
+.main-tabs{
+  margin-top:19px;
+  border-bottom-color:rgba(255,255,255,.085);
+}
+
+.main-tab{
+  color:#7e8990;
+}
+
+.main-tab.active{
+  color:#fff;
+}
+
+.main-tab.active::after{
+  background:#ff625f;
+  box-shadow:0 0 9px rgba(255,98,95,.34);
+}
+
+.unified-filter-panel{
+  margin-left:-20px;
+  margin-right:-20px;
+
+  padding:
+    8px
+    20px
+    9px;
+
+  border-bottom:1px solid rgba(255,255,255,.075);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.57),
+      rgba(7,12,16,.87)
+    );
+
+  backdrop-filter:blur(17px) saturate(118%);
+  -webkit-backdrop-filter:blur(17px) saturate(118%);
+}
+
+.chip,
+.filter-select-btn,
+.quick-filter-wrap,
+.clear-compact-filter{
+  background:rgba(10,17,22,.80);
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.chip.active,
+.filter-select-btn.active{
+  background:rgba(255,98,95,.105);
+}
+
+/* Keep Area + Food + Search + X on one compact line */
+.sticky-filter-bar{
+  display:grid;
+  grid-template-columns:
+    minmax(0,.82fr)
+    minmax(0,.82fr)
+    minmax(0,1.36fr)
+    30px;
+
+  align-items:center;
+
+  gap:4px;
+}
+
+.filter-select-btn,
+.quick-filter-wrap,
+.clear-compact-filter{
+  min-height:32px;
+  height:32px;
+  border-radius:8px;
+}
+
+.filter-select-btn{
+  padding:5px 6px;
+  font-size:6.5px;
+}
+
+.quick-filter-wrap{
+  grid-column:auto;
+  grid-row:auto;
+
+  padding:0 6px;
+}
+
+.quick-filter-input{
+  font-size:6.5px;
+}
+
+.clear-compact-filter{
+  grid-column:auto;
+  grid-row:auto;
+
+  width:30px;
+  min-width:30px;
+}
+
+/* =========================================================
+   RESULTS — CONTINUE SAME SCHEDULE SHELL
+========================================================= */
+
+main{
+  width:100%;
+  max-width:none;
+
+  margin:0;
+
+  padding:
+    7px
+    20px
+    22px !important;
+
+  border:0;
+  border-radius:0 0 26px 26px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #091015,
+      #070d11
+    );
+}
+
+/* Keep modal sheets above the shell */
+.sheet-backdrop,
+.more-backdrop{
+  z-index:150;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:430px){
+
+  body{
+    padding-top:9px;
+  }
+
+  .food-shell{
+    width:calc(100% - 18px);
+  }
+
+  .food-shell::before{
+    left:12px;
+    right:12px;
+  }
+
+  header{
+    background-position:center 50%;
+  }
+
+  .header-inner{
+    padding-left:17px;
+    padding-right:17px;
+  }
+
+  .unified-filter-panel{
+    margin-left:-17px;
+    margin-right:-17px;
+
+    padding-left:17px;
+    padding-right:17px;
+  }
+
+  .food-page-title-icon{
+    width:60px;
+    height:60px;
+    flex-basis:60px;
+
+    padding:9px;
+  }
+
+  .food-page-title span{
+    font-size:38px;
+  }
+
+  .trip-name{
+    margin-left:75px;
+  }
+
+  main{
+    padding-left:17px !important;
+    padding-right:17px !important;
+  }
+
+}
+
+
+/* =========================================================
+   SEAMLESS HERO BLEND
+   Removes the visible join between the photo header and body.
+========================================================= */
+
+/*
+  Put the food artwork on the whole outer shell rather than
+  ending it exactly at the bottom of the header.
+*/
+.food-shell{
+  background:
+    var(--food-hero-image)
+    center top / 100% 330px
+    no-repeat,
+    linear-gradient(180deg,#0a1116,#070d11);
+}
+
+/*
+  The header itself becomes transparent and only supplies
+  the dark overlay, so the same artwork continues naturally.
+*/
+header{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,5,8,.22) 0%,
+      rgba(4,8,11,.32) 36%,
+      rgba(5,10,14,.56) 70%,
+      rgba(7,13,17,.77) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.34) 0%,
+      rgba(0,0,0,.08) 47%,
+      rgba(0,0,0,.20) 100%
+    );
+}
+
+/*
+  Fade from the photographic hero into the dark food list
+  instead of using a hard edge.
+*/
+main{
+  position:relative;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,.78) 0px,
+      rgba(8,15,20,.92) 34px,
+      #091015 76px,
+      #070d11 210px
+    );
+}
+
+/*
+  Soft overlap hides the visible horizontal seam between
+  the header/filter area and the content surface.
+*/
+main::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:0;
+  right:0;
+  top:-26px;
+  height:56px;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.48) 42%,
+      rgba(7,13,17,.90) 78%,
+      #091015 100%
+    );
+}
+
+main > *{
+  position:relative;
+  z-index:1;
+}
+
+/*
+  Make the sticky filter panel blend into the same hero fade.
+*/
+.unified-filter-panel{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.48),
+      rgba(7,12,16,.80)
+    );
+}
+
+/*
+  Keep only the outside border of the Schedule-style shell.
+*/
+header,
+main{
+  border-top:0 !important;
+  border-bottom:0 !important;
+}
+
+/* Keep the coral top accent clean and aligned. */
+.food-shell::before{
+  left:18px;
+  right:18px;
+  top:0;
+  height:3px;
+}
+
+@media(max-width:430px){
+  .food-shell{
+    background-size:auto 300px;
+    background-position:center top;
+  }
+
+  .food-shell::before{
+    left:11px;
+    right:11px;
+  }
+
+  main::before{
+    top:-22px;
+    height:50px;
+  }
+}
+
+
+/* =========================================================
+   MATCH BOOKINGS HERO TREATMENT EXACTLY
+========================================================= */
+
+/*
+  Use the same composition as Bookings:
+  artwork is painted on the whole shell, not only the header.
+*/
+.food-shell{
+  background:
+    var(--food-hero-image)
+    center top / 100% 330px
+    no-repeat,
+    linear-gradient(180deg,#0a1116,#070d11);
+}
+
+/* Header is only the overlay layer */
+header{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,5,8,.22) 0%,
+      rgba(4,8,11,.32) 36%,
+      rgba(5,10,14,.56) 70%,
+      rgba(7,13,17,.77) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.34) 0%,
+      rgba(0,0,0,.08) 47%,
+      rgba(0,0,0,.20) 100%
+    ) !important;
+}
+
+/*
+  Let the lower part of the hero remain visible behind
+  the top of the Food content, exactly like Bookings.
+*/
+main{
+  position:relative;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,.78) 0px,
+      rgba(8,15,20,.92) 34px,
+      #091015 76px,
+      #070d11 210px
+    ) !important;
+}
+
+main::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:0;
+  right:0;
+  top:-26px;
+  height:56px;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.48) 42%,
+      rgba(7,13,17,.90) 78%,
+      #091015 100%
+    );
+}
+
+main > *{
+  position:relative;
+  z-index:1;
+}
+
+/*
+  Keep Food filters translucent instead of turning into
+  a solid band, so the photo remains visible behind them.
+*/
+.unified-filter-panel{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.42),
+      rgba(7,12,16,.72)
+    ) !important;
+  backdrop-filter:blur(13px) saturate(112%);
+  -webkit-backdrop-filter:blur(13px) saturate(112%);
+}
+
+/* Exact same top accent behavior */
+.food-shell::before{
+  left:18px;
+  right:18px;
+  top:0;
+  height:3px;
+}
+
+/* Do not draw an internal divider between hero and content */
+header,
+main{
+  border-top:0 !important;
+  border-bottom:0 !important;
+}
+
+@media(max-width:430px){
+  .food-shell{
+    background-size:auto 300px;
+    background-position:center top;
+  }
+
+  .food-shell::before{
+    left:11px;
+    right:11px;
+  }
+
+  main::before{
+    top:-22px;
+    height:50px;
+  }
+}
+
 </style>
 </head>
 
 
 <body>
 
+<div class="food-shell">
 
 <!-- =========================================================
      HEADER
@@ -1012,6 +1501,7 @@ main{
 
 </main>
 
+</div><!-- /food-shell -->
 
 
 <!-- =========================================================
