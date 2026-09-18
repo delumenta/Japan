@@ -1193,6 +1193,163 @@ main{
   }
 }
 
+
+/* =========================================================
+   FINAL RESTAURANT CARD DETAIL
+   Keep the existing Food page exactly as-is, but give each
+   restaurant card the vertical coral rail + horizontal action
+   divider shown in the reference.
+========================================================= */
+
+.restaurant-card{
+  position:relative !important;
+  overflow:hidden !important;
+
+  border:1px solid #2a353d !important;
+  border-radius:12px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(21,29,35,.98) 0%,
+      rgba(13,20,25,.99) 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 6px 18px rgba(0,0,0,.11) !important;
+}
+
+/* Vertical coral line on the left */
+.restaurant-card::before{
+  content:"" !important;
+
+  display:block !important;
+
+  position:absolute !important;
+  z-index:2 !important;
+
+  top:1px !important;
+  bottom:1px !important;
+  left:0 !important;
+
+  width:2px !important;
+  height:auto !important;
+
+  border-radius:12px 0 0 12px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.95) 0%,
+      rgba(255,98,95,.76) 60%,
+      rgba(255,98,95,.42) 100%
+    ) !important;
+
+  box-shadow:
+    0 0 9px rgba(255,98,95,.13) !important;
+
+  pointer-events:none !important;
+}
+
+/* Give the content a little breathing room from the rail */
+.card-top{
+  padding-left:3px !important;
+}
+
+/* Horizontal divider above the action buttons */
+.actions{
+  position:relative !important;
+
+  margin-top:7px !important;
+  padding-top:7px !important;
+
+  border-top:1px solid rgba(255,255,255,.075) !important;
+}
+
+/* Keep the divider subtle and clean */
+.actions::before{
+  content:"";
+  position:absolute;
+
+  top:-1px;
+  left:0;
+  right:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.015),
+      rgba(255,255,255,.055) 18%,
+      rgba(255,255,255,.055) 82%,
+      rgba(255,255,255,.015)
+    );
+
+  pointer-events:none;
+}
+
+/* Slight red edge glow at the top-left, matching the reference */
+.restaurant-card::after{
+  content:"";
+
+  position:absolute;
+  z-index:1;
+
+  top:0;
+  left:0;
+
+  width:115px;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,98,95,.55),
+      rgba(255,98,95,.16),
+      transparent
+    );
+
+  pointer-events:none;
+}
+
+/* Keep the icon treatment compact beside the vertical rail */
+.food-icon{
+  border-color:rgba(255,98,95,.25) !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,98,95,.09),
+      rgba(255,255,255,.025)
+    ) !important;
+
+  box-shadow:
+    inset 0 0 10px rgba(255,98,95,.025) !important;
+}
+
+/* Avoid any extra divider effect from plan/description content */
+.plan-box,
+.description{
+  border-top:0 !important;
+  border-bottom:0 !important;
+}
+
+/* Mobile: retain the same card language without making the rail heavy */
+@media(max-width:430px){
+
+  .restaurant-card::before{
+    width:2px !important;
+  }
+
+  .actions{
+    margin-top:6px !important;
+    padding-top:6px !important;
+  }
+
+}
+
 </style>
 </head>
 
