@@ -1560,166 +1560,387 @@ header{
 
 
 /* =========================================================
-   FOOD HERO — MATCH SCHEDULE FADING ONLY
-   Food layout / controls / cards stay unchanged.
+   FINAL HERO FADE — COPY PLAN / SCHEDULE TREATMENT
+   Food layout stays unchanged. This only changes the photo
+   treatment and the fade into the Food controls/results.
 ========================================================= */
 
-/* Same photo-on-shell treatment as Schedule */
+/*
+  IMPORTANT:
+  Plan/Schedule paints the photograph directly on HEADER.
+  Earlier Food versions painted it on .food-shell and then
+  stacked several extra vignette layers on top. That is why
+  the two pages did not look the same.
+*/
 .food-shell{
-  position:relative;
-  isolation:isolate;
-
-  background:
-    var(--food-hero-image)
-    center top / 100% 350px
-    no-repeat,
-    linear-gradient(180deg,#0a1116,#070d11) !important;
-
-  box-shadow:
-    inset 26px 0 42px -34px rgba(0,0,0,.72),
-    inset -26px 0 42px -34px rgba(0,0,0,.72),
-    0 24px 65px rgba(0,0,0,.40) !important;
-}
-
-/* Same Schedule hero overlay */
-header{
-  position:relative;
-  isolation:isolate;
-
   background:
     linear-gradient(
       180deg,
-      rgba(2,5,8,.18) 0%,
-      rgba(3,7,10,.24) 30%,
-      rgba(5,10,14,.47) 67%,
-      rgba(7,13,17,.72) 100%
-    ),
+      #0a1116,
+      #070d11
+    ) !important;
+}
+
+/* Use the exact Plan/Schedule overlay recipe */
+header{
+  position:relative !important;
+
+  background-image:
     linear-gradient(
       90deg,
-      rgba(0,0,0,.27) 0%,
-      rgba(0,0,0,.04) 44%,
-      rgba(0,0,0,.16) 76%,
-      rgba(0,0,0,.28) 100%
-    ) !important;
+      rgba(4,8,11,.74) 0%,
+      rgba(4,8,11,.50) 52%,
+      rgba(4,8,11,.35) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(4,8,11,.58) 0%,
+      rgba(4,8,11,.06) 58%
+    ),
+    var(--food-hero-image) !important;
+
+  background-size:cover !important;
+  background-position:center 48% !important;
+
+  /* dropdowns need to escape the header */
+  overflow:visible !important;
+
+  border-top:3px solid var(--red) !important;
+  border-bottom:0 !important;
 }
 
-/* Exact Schedule-style vignette + warm tint */
+/* Exact Plan/Schedule bottom fade */
 header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  pointer-events:none !important;
 
   background:
-    radial-gradient(
-      ellipse at 46% 42%,
-      rgba(0,0,0,0) 0%,
-      rgba(0,0,0,.02) 28%,
-      rgba(0,0,0,.13) 50%,
-      rgba(0,0,0,.34) 75%,
-      rgba(0,0,0,.58) 100%
-    ),
-    radial-gradient(
-      circle at 84% 8%,
-      rgba(145,28,24,.18) 0%,
-      rgba(112,23,20,.09) 23%,
-      transparent 56%
-    ),
     linear-gradient(
       180deg,
-      rgba(2,5,8,0) 0%,
-      rgba(4,9,12,.12) 58%,
-      rgba(7,13,17,.46) 82%,
-      rgba(7,13,17,.72) 100%
+      transparent 72%,
+      rgba(5,9,12,.55) 100%
     ) !important;
 }
 
-/* Keep Food header content above the vignette */
+/* The image already contains 食 */
+header::before{
+  display:none !important;
+  content:none !important;
+}
+
+/* Keep all Food content above the photo overlays */
 .header-inner{
-  position:relative;
-  z-index:2;
+  position:relative !important;
+  z-index:2 !important;
 }
 
-/* Same text legibility as Schedule */
-.eyebrow,
-.food-page-title span,
-.trip-name,
-.main-tab,
-.chip,
-.filter-select-btn,
-.quick-filter-input{
-  text-shadow:0 1px 10px rgba(0,0,0,.62);
-}
-
-/* Filters remain Food filters, but visually sit on the same fading hero */
+/*
+  Keep the Food filters visible over the photo without
+  introducing another strong black band.
+*/
 .unified-filter-panel{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,12,16,.34),
-      rgba(7,12,16,.66)
-    ) !important;
-
-  backdrop-filter:blur(13px) saturate(112%);
-  -webkit-backdrop-filter:blur(13px) saturate(112%);
-}
-
-/* Exact Schedule-like fade from hero into Food results */
-main{
-  position:relative;
+  position:relative !important;
+  z-index:500 !important;
 
   background:
     linear-gradient(
       180deg,
-      rgba(7,13,17,.72) 0px,
-      rgba(8,15,20,.90) 34px,
-      #091015 82px,
-      #070d11 220px
+      rgba(7,12,16,.16) 0%,
+      rgba(7,12,16,.34) 42%,
+      rgba(7,12,16,.60) 100%
     ) !important;
+
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+
+  border-bottom:0 !important;
+  box-shadow:none !important;
 }
 
-/* Soft overlap hides the header/result seam */
+/* Keep dropdown layering fix */
+.sticky-filter-bar{
+  position:relative !important;
+  z-index:510 !important;
+  overflow:visible !important;
+}
+
+.filter-select-wrap{
+  position:relative !important;
+  z-index:520 !important;
+  overflow:visible !important;
+}
+
+.filter-menu{
+  z-index:9999 !important;
+}
+
+/*
+  Remove older fake seam/fade layers.
+  Schedule does not use these.
+*/
 main::before{
+  display:none !important;
+  content:none !important;
+}
+
+main{
+  position:relative !important;
+  z-index:1 !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      #091015 0%,
+      #070d11 100%
+    ) !important;
+}
+
+/*
+  The earlier Food shell top pseudo-line would duplicate the
+  Schedule header border. Turn it off so the top accent is the
+  same single coral line as Plan.
+*/
+.food-shell::before{
+  display:none !important;
+}
+
+/* Preserve the rounded shell clipping while allowing menus
+   to visually overlay the result area inside the shell. */
+.food-shell{
+  overflow:hidden !important;
+}
+
+/* Soft transition around the tab/filter region only */
+.main-tabs{
+  border-bottom:0 !important;
+}
+
+.main-tabs::before{
   content:"";
   position:absolute;
-  z-index:0;
-
-  left:0;
-  right:0;
-  top:-28px;
-
-  height:60px;
-
+  left:24px;
+  right:24px;
+  bottom:0;
+  height:1px;
   pointer-events:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(38,48,57,0),
+      rgba(38,48,57,.17) 28%,
+      rgba(38,48,57,.28) 50%,
+      rgba(38,48,57,.17) 72%,
+      rgba(38,48,57,0)
+    ) !important;
+}
+
+/* Do not add another divider underneath the filter panel */
+.unified-filter-panel::after{
+  display:none !important;
+  content:none !important;
+}
+
+@media(max-width:430px){
+  header{
+    background-size:cover !important;
+    background-position:center 48% !important;
+  }
+}
+
+
+/* =========================================================
+   HERO → RESULTS SEAM FIX
+   Keep the Schedule-style hero, but softly bridge the final
+   filter row into the Food results so there is no hard cut.
+========================================================= */
+
+main{
+  position:relative !important;
+  isolation:isolate;
+  background:
+    linear-gradient(
+      180deg,
+      #091015 0%,
+      #070d11 100%
+    ) !important;
+}
+
+/* Soft overlap into the bottom of the header/filter area */
+main::before{
+  content:"" !important;
+  display:block !important;
+
+  position:absolute !important;
+  z-index:0 !important;
+
+  left:0 !important;
+  right:0 !important;
+  top:-34px !important;
+
+  height:52px !important;
+
+  pointer-events:none !important;
 
   background:
     linear-gradient(
       180deg,
       rgba(7,13,17,0) 0%,
-      rgba(7,13,17,.44) 42%,
-      rgba(7,13,17,.88) 80%,
+      rgba(7,13,17,.22) 28%,
+      rgba(7,13,17,.58) 58%,
+      rgba(8,15,20,.86) 82%,
       #091015 100%
     ) !important;
 }
 
+/* Keep Food content above the blending layer */
 main > *{
-  position:relative;
-  z-index:1;
+  position:relative !important;
+  z-index:1 !important;
+}
+
+/* Remove any remaining hard edge at the bottom of the filter block */
+.unified-filter-panel{
+  border-bottom:0 !important;
+  box-shadow:none !important;
+}
+
+/* Let the last part of the filter panel gently darken instead */
+.unified-filter-panel::after{
+  content:"" !important;
+  display:block !important;
+
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:-18px !important;
+
+  height:26px !important;
+
+  pointer-events:none !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.08) 0%,
+      rgba(7,12,16,.28) 42%,
+      rgba(7,13,17,.62) 72%,
+      rgba(7,13,17,0) 100%
+    ) !important;
+}
+
+/* Keep dropdowns above the fade layer */
+.filter-menu{
+  z-index:9999 !important;
 }
 
 @media(max-width:430px){
-  .food-shell{
-    background:
-      var(--food-hero-image)
-      center top / auto 330px
-      no-repeat,
-      linear-gradient(180deg,#0a1116,#070d11) !important;
+  main::before{
+    top:-30px !important;
+    height:48px !important;
+  }
+
+  .unified-filter-panel::after{
+    bottom:-16px !important;
+    height:23px !important;
+  }
+}
+
+
+/* =========================================================
+   STRONGER SOFT OVERLAY FADE
+   Same layout, just a deeper and longer fade into the Food body.
+========================================================= */
+
+/* Make the lower hero/filter area darken more decisively */
+.unified-filter-panel{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.24) 0%,
+      rgba(7,12,16,.46) 38%,
+      rgba(7,12,16,.72) 72%,
+      rgba(7,12,16,.90) 100%
+    ) !important;
+}
+
+/* Stronger bridge from filters into results */
+.unified-filter-panel::after{
+  content:"" !important;
+  display:block !important;
+
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:-30px !important;
+
+  height:44px !important;
+
+  pointer-events:none !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,12,16,.28) 0%,
+      rgba(7,12,16,.52) 30%,
+      rgba(7,13,17,.78) 58%,
+      rgba(8,15,20,.95) 82%,
+      #091015 100%
+    ) !important;
+}
+
+/* Extend the fade farther into the content so there is no visible cut */
+main::before{
+  content:"" !important;
+  display:block !important;
+
+  position:absolute !important;
+  z-index:0 !important;
+
+  left:0 !important;
+  right:0 !important;
+  top:-48px !important;
+
+  height:76px !important;
+
+  pointer-events:none !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.24) 18%,
+      rgba(7,13,17,.52) 42%,
+      rgba(7,13,17,.78) 66%,
+      rgba(8,15,20,.95) 86%,
+      #091015 100%
+    ) !important;
+}
+
+/* Slightly deepen the first part of the results surface too */
+main{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9,16,21,.98) 0%,
+      #081015 64px,
+      #070d11 190px,
+      #070d11 100%
+    ) !important;
+}
+
+@media(max-width:430px){
+  .unified-filter-panel::after{
+    bottom:-26px !important;
+    height:40px !important;
   }
 
   main::before{
-    top:-25px;
-    height:56px;
+    top:-42px !important;
+    height:68px !important;
   }
 }
 
