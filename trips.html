@@ -10,24 +10,39 @@
   content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#070c10">
+<meta name="theme-color" content="#05090c">
 
 <title>My Trips · Travel</title>
 
+
 <style>
 
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
-  --bg:#070c10;
-  --panel:#10161c;
-  --panel2:#151c23;
-  --line:#29323b;
-  --text:#f5f5f3;
-  --muted:#aeb5bc;
-  --muted2:#75828b;
-  --red:#c96f68;
-  --green:#67c587;
-  --blue:#5c9dff;
-  --gold:#e3b85c;
+  --bg:#05090c;
+
+  --surface:#0b1217;
+  --surface-2:#0f171d;
+  --surface-3:#141d24;
+
+  --line:#28323a;
+  --line-soft:rgba(255,255,255,.06);
+
+  --text:#f5f2ed;
+  --muted:#909aa1;
+  --muted-2:#69757d;
+
+  --red:#e96d6b;
+  --red-bright:#ff625f;
+  --red-soft:rgba(255,98,95,.08);
+  --red-line:rgba(255,98,95,.32);
+
+  --green:#79c995;
+  --gold:#e4bd69;
+  --blue:#78a9ef;
 }
 
 *{
@@ -43,18 +58,15 @@ body{
 
   min-height:100vh;
 
-  padding-bottom:
-    calc(90px + env(safe-area-inset-bottom));
+  color:var(--text);
 
   background:
     radial-gradient(
-      circle at 50% -10%,
-      #17212a 0%,
-      transparent 38%
+      circle at 50% -5%,
+      rgba(48,61,70,.20),
+      transparent 30%
     ),
-    var(--bg);
-
-  color:var(--text);
+    #030608;
 
   font-family:
     Inter,
@@ -64,16 +76,52 @@ body{
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+
+  -webkit-font-smoothing:antialiased;
 }
 
 button,
 input,
-textarea{
+textarea,
+select{
   font:inherit;
 }
 
 button{
+  -webkit-tap-highlight-color:transparent;
   cursor:pointer;
+}
+
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+
+.trips-shell{
+  width:calc(100% - 24px);
+
+  max-width:720px;
+
+  margin:
+    calc(14px + env(safe-area-inset-top))
+    auto
+    105px;
+
+  overflow:hidden;
+
+  border:1px solid #273139;
+
+  border-radius:27px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a1116,
+      #070d11
+    );
+
+  box-shadow:
+    0 24px 65px rgba(0,0,0,.40);
 }
 
 
@@ -82,55 +130,199 @@ button{
 ========================================================= */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:40;
+  position:relative;
 
-  padding:
-    calc(12px + env(safe-area-inset-top))
-    14px
-    11px;
-
-  border-bottom:1px solid var(--line);
+  overflow:hidden;
 
   background:
-    rgba(7,12,16,.96);
+    radial-gradient(
+      circle at 88% 0%,
+      rgba(255,98,95,.065),
+      transparent 27%
+    ),
+    linear-gradient(
+      145deg,
+      #10181e,
+      #081015 65%,
+      #070c10
+    );
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line-soft);
 }
 
 .header-inner{
-  max-width:760px;
-  margin:auto;
+  position:relative;
+  z-index:2;
+
+  padding:
+    26px
+    20px
+    20px;
+}
+
+
+/* =========================================================
+   WATERMARK
+========================================================= */
+
+.trips-kanji{
+  position:absolute;
+
+  z-index:0;
+
+  right:6px;
+  top:7px;
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:126px;
+  font-weight:700;
+
+  line-height:1;
+
+  color:var(--red-bright);
+
+  opacity:.042;
+
+  pointer-events:none;
+  user-select:none;
+}
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.title-row{
+  position:relative;
+
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:12px;
+}
+
+.title-row > div:first-child{
+  min-width:0;
 }
 
 .eyebrow{
-  color:var(--red);
+  margin-bottom:14px;
+
+  color:#df7775;
 
   font-size:8px;
   font-weight:900;
 
-  letter-spacing:.14em;
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
 }
 
-h1{
-  margin:3px 0 0;
+.trips-hero{
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+}
+
+.trips-icon-wrap{
+  width:65px;
+  height:65px;
+
+  flex:0 0 65px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(255,98,95,.30);
+
+  border-radius:50%;
+
+  background:#0b1217;
+
+  color:#f19b97;
+
+  font-size:29px;
+}
+
+.trips-page-title{
+  margin:0;
 
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:25px;
+  color:#f7f4ee;
+
+  font-size:41px;
+  font-weight:700;
+
+  line-height:1;
+
+  letter-spacing:-.03em;
 }
 
 .header-sub{
-  margin-top:3px;
+  margin-top:8px;
 
-  color:var(--muted);
+  max-width:350px;
 
-  font-size:8px;
+  color:#89949c;
+
+  font-size:9px;
+  font-weight:500;
+
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions{
+  position:absolute;
+
+  right:0;
+  top:0;
+
+  display:flex;
+
+  gap:5px;
+}
+
+.header-btn{
+  width:29px;
+  height:29px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  border:1px solid rgba(255,98,95,.32);
+
+  border-radius:9px;
+
+  background:rgba(255,98,95,.07);
+
+  color:#efaaa6;
+
+  font-size:12px;
+  font-weight:900;
 }
 
 
@@ -139,50 +331,25 @@ h1{
 ========================================================= */
 
 main{
-  max-width:760px;
-
-  margin:auto;
-
-  padding:
-    13px
-    13px
-    30px;
-}
-
-.create-trip{
   width:100%;
 
-  min-height:45px;
-
-  margin-bottom:18px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.34);
-
-  border-radius:12px;
-
-  background:
-    rgba(201,111,104,.09);
-
-  color:#efaaa5;
-
-  font-size:8px;
-  font-weight:900;
-}
-
-.create-trip:hover{
-  background:
-    rgba(201,111,104,.14);
+  padding:
+    14px
+    17px
+    24px;
 }
 
 
 /* =========================================================
-   SECTIONS
+   SECTION HEADERS
 ========================================================= */
 
 .section{
-  margin-bottom:22px;
+  margin-bottom:18px;
+}
+
+.section:last-child{
+  margin-bottom:0;
 }
 
 .section-head{
@@ -191,6 +358,8 @@ main{
   align-items:center;
   justify-content:space-between;
 
+  gap:10px;
+
   margin:
     0
     2px
@@ -198,18 +367,33 @@ main{
 }
 
 .section-label{
-  color:#91a5b3;
+  color:#98a5ad;
 
-  font-size:7px;
+  font-size:6.5px;
   font-weight:900;
 
   letter-spacing:.13em;
 }
 
 .section-count{
-  color:#687680;
+  min-width:20px;
 
-  font-size:7px;
+  padding:
+    2px
+    6px;
+
+  border:1px solid var(--line);
+
+  border-radius:999px;
+
+  background:#0f161c;
+
+  color:#738089;
+
+  font-size:6px;
+  font-weight:900;
+
+  text-align:center;
 }
 
 
@@ -220,49 +404,61 @@ main{
 .trip-list{
   display:grid;
 
-  gap:9px;
+  gap:8px;
 }
 
 .trip-card{
+  position:relative;
+
   overflow:hidden;
 
-  border:
-    1px solid
-    var(--line);
+  border:1px solid #28343c;
 
-  border-radius:16px;
+  border-radius:17px;
 
   background:
+    radial-gradient(
+      circle at 88% 0%,
+      rgba(255,255,255,.015),
+      transparent 30%
+    ),
     linear-gradient(
-      145deg,
-      #141c22,
-      #0e1419
+      150deg,
+      #111a20,
+      #0a1116
     );
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.14);
 }
 
 .trip-card.current{
   border-color:
-    rgba(201,111,104,.50);
+    rgba(255,98,95,.34);
 }
 
 .trip-card.shared-trip{
   border-color:
-    rgba(92,157,255,.18);
+    rgba(120,169,239,.18);
 }
 
 .trip-strip{
-  height:4px;
+  height:2px;
 
   background:
     linear-gradient(
       90deg,
-      var(--red),
-      #754541
+      var(--red-bright),
+      rgba(255,98,95,.16),
+      transparent 80%
     );
 }
 
 .trip-body{
-  padding:11px;
+  padding:
+    11px
+    11px
+    10px;
 }
 
 .trip-top{
@@ -274,25 +470,23 @@ main{
 }
 
 .country-icon{
-  flex:0 0 42px;
+  flex:0 0 38px;
 
-  width:42px;
-  height:42px;
+  width:38px;
+  height:38px;
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  border:
-    1px solid
-    var(--line);
+  border:1px solid var(--line);
 
-  border-radius:12px;
+  border-radius:11px;
 
-  background:#182129;
+  background:#131c22;
 
-  font-size:23px;
+  font-size:20px;
 }
 
 .trip-main{
@@ -317,55 +511,73 @@ main{
 }
 
 .badge{
+  display:inline-block;
+
   padding:
-    3px
-    6px;
+    2px
+    5px;
 
   border-radius:999px;
 
-  font-size:5.5px;
+  font-size:5px;
   font-weight:900;
 
   letter-spacing:.06em;
 }
 
 .badge.current{
-  background:
-    rgba(201,111,104,.10);
+  border:
+    1px solid
+    rgba(255,98,95,.20);
 
-  color:#e79b95;
+  background:
+    rgba(255,98,95,.055);
+
+  color:#e99e99;
 }
 
 .badge.owner{
-  background:
-    rgba(227,184,92,.10);
+  border:
+    1px solid
+    rgba(228,189,105,.18);
 
-  color:#e4c67c;
+  background:
+    rgba(228,189,105,.05);
+
+  color:#d8bb78;
 }
 
 .badge.editor{
-  background:
-    rgba(103,197,135,.10);
+  border:
+    1px solid
+    rgba(121,201,149,.18);
 
-  color:#ade2bd;
+  background:
+    rgba(121,201,149,.05);
+
+  color:#a7d9b6;
 }
 
 .badge.viewer{
-  background:
-    rgba(92,157,255,.10);
+  border:
+    1px solid
+    rgba(120,169,239,.18);
 
-  color:#a8caff;
+  background:
+    rgba(120,169,239,.05);
+
+  color:#a6bee3;
 }
 
 .badge.public{
   border:
     1px solid
-    rgba(103,197,135,.15);
+    rgba(121,201,149,.17);
 
   background:
-    rgba(103,197,135,.08);
+    rgba(121,201,149,.045);
 
-  color:#aee5bf;
+  color:#a4d6b4;
 }
 
 
@@ -376,31 +588,37 @@ main{
 .trip-name{
   overflow:hidden;
 
+  color:#f4f0e9;
+
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:17px;
+  font-size:16px;
+  font-weight:700;
+
+  line-height:1.1;
 
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
 .trip-country{
-  margin-top:2px;
+  margin-top:3px;
 
-  color:#89969f;
+  color:#738089;
 
-  font-size:7px;
+  font-size:6.5px;
 }
 
 .trip-dates{
   margin-top:5px;
 
-  color:#c0c7cc;
+  color:#a4b2bc;
 
   font-size:7px;
+  font-weight:800;
 }
 
 .trip-description{
@@ -408,7 +626,7 @@ main{
 
   color:#7c8991;
 
-  font-size:7px;
+  font-size:6.8px;
   line-height:1.45;
 }
 
@@ -421,39 +639,39 @@ main{
   display:grid;
 
   grid-template-columns:
-    1fr
+    minmax(0,1fr)
     auto
     auto;
 
-  gap:6px;
+  gap:5px;
 
-  margin-top:10px;
+  margin-top:9px;
 }
 
 .open-btn,
 .edit-btn,
 .share-btn{
-  min-height:36px;
+  min-height:32px;
 
   padding:
     5px
-    10px;
+    9px;
 
   border-radius:9px;
 
-  font-size:7px;
+  font-size:6.5px;
   font-weight:900;
 }
 
 .open-btn{
   border:
     1px solid
-    rgba(201,111,104,.34);
+    rgba(255,98,95,.27);
 
   background:
-    rgba(201,111,104,.08);
+    rgba(255,98,95,.06);
 
-  color:#edaaa4;
+  color:#efa8a3;
 }
 
 .edit-btn{
@@ -461,30 +679,30 @@ main{
     1px solid
     var(--line);
 
-  background:#151d23;
+  background:#10181e;
 
-  color:#cbd1d5;
+  color:#aab4ba;
 }
 
 .share-btn{
   border:
     1px solid
-    rgba(201,111,104,.30);
+    rgba(255,98,95,.22);
 
   background:
-    rgba(201,111,104,.06);
+    rgba(255,98,95,.04);
 
-  color:#e5a09a;
+  color:#d99b96;
 }
 
 .share-btn.shared-now{
   border-color:
-    rgba(103,197,135,.30);
+    rgba(121,201,149,.22);
 
   background:
-    rgba(103,197,135,.07);
+    rgba(121,201,149,.045);
 
-  color:#afe5bf;
+  color:#a4d6b4;
 }
 
 
@@ -494,59 +712,64 @@ main{
 
 .state{
   padding:
-    22px
+    26px
     14px;
 
   border:
     1px dashed
-    #35414a;
+    #303b43;
 
-  border-radius:14px;
+  border-radius:15px;
 
-  color:var(--muted);
+  background:
+    rgba(255,255,255,.012);
+
+  color:#77838b;
+
+  font-size:7px;
+
+  line-height:1.55;
 
   text-align:center;
-
-  font-size:8px;
-  line-height:1.55;
 }
 
 .state strong{
   display:block;
 
-  margin-bottom:4px;
+  margin-bottom:5px;
 
-  color:#fff;
+  color:#e8e7e3;
 
-  font-size:10px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:14px;
+
+  font-weight:700;
 }
 
 .page-error{
   display:none;
 
-  max-width:734px;
-
-  margin:
-    10px
-    auto
-    0;
+  margin-bottom:10px;
 
   padding:
-    9px
-    13px;
+    9px;
 
   border:
     1px solid
-    rgba(201,111,104,.30);
+    rgba(255,98,95,.22);
 
   border-radius:10px;
 
   background:
-    rgba(201,111,104,.07);
+    rgba(255,98,95,.055);
 
-  color:#ffc1bc;
+  color:#ffc0bc;
 
-  font-size:8px;
+  font-size:7px;
 }
 
 .page-error.show{
@@ -555,14 +778,15 @@ main{
 
 
 /* =========================================================
-   SHEETS
+   SHEET
 ========================================================= */
 
-.backdrop,
-.more-backdrop{
+.backdrop{
   position:fixed;
 
   inset:0;
+
+  z-index:150;
 
   display:none;
 
@@ -571,39 +795,39 @@ main{
   background:
     rgba(0,0,0,.72);
 
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(5px);
+
+  -webkit-backdrop-filter:blur(5px);
 }
 
-.backdrop{
-  z-index:120;
-}
-
-.more-backdrop{
-  z-index:170;
-}
-
-.backdrop.open,
-.more-backdrop.open{
+.backdrop.open{
   display:flex;
 }
 
-.sheet,
-.more-sheet{
+.sheet{
   width:100%;
 
-  max-height:90vh;
+  max-width:620px;
 
-  overflow:auto;
+  max-height:
+    calc(
+      92vh -
+      env(safe-area-inset-top)
+    );
+
+  margin:auto;
+
+  overflow-y:auto;
 
   padding:
     8px
     14px
-    calc(18px + env(safe-area-inset-bottom));
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
 
-  border:
-    1px solid
-    var(--line);
+  border:1px solid var(--line);
 
   border-radius:
     20px
@@ -611,23 +835,14 @@ main{
     0
     0;
 
-  background:#0d1318;
-}
+  background:#0c1217;
 
-.sheet{
-  max-width:600px;
-
-  margin:auto;
-}
-
-.more-sheet{
-  max-width:760px;
-
-  margin:auto;
+  box-shadow:
+    0 -20px 50px rgba(0,0,0,.35);
 }
 
 .handle{
-  width:38px;
+  width:36px;
   height:4px;
 
   margin:
@@ -637,7 +852,7 @@ main{
 
   border-radius:999px;
 
-  background:#39454d;
+  background:#35414a;
 }
 
 .sheet-head{
@@ -648,11 +863,10 @@ main{
 
   gap:10px;
 
-  margin-bottom:12px;
+  margin-bottom:13px;
 }
 
-.sheet-title,
-.more-title{
+.sheet-title{
   font-family:
     Georgia,
     "Times New Roman",
@@ -665,13 +879,11 @@ main{
   width:34px;
   height:34px;
 
-  border:
-    1px solid
-    var(--line);
+  border:1px solid var(--line);
 
   border-radius:9px;
 
-  background:#151c22;
+  background:#131b21;
 
   color:#fff;
 }
@@ -682,7 +894,7 @@ main{
 ========================================================= */
 
 .field{
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 
 .field label{
@@ -690,46 +902,46 @@ main{
 
   margin-bottom:4px;
 
-  color:#9da8af;
+  color:#8d989f;
 
-  font-size:7px;
+  font-size:6.5px;
   font-weight:900;
+
+  letter-spacing:.04em;
 }
 
 .field input,
 .field textarea{
   width:100%;
 
-  min-height:43px;
+  min-height:40px;
 
   padding:
-    9px
-    10px;
+    8px
+    9px;
 
-  border:
-    1px solid
-    var(--line);
+  border:1px solid var(--line);
 
   border-radius:9px;
 
-  outline:none;
+  outline:0;
 
-  background:#10171d;
+  background:#0f161c;
 
   color:#fff;
 
-  font-size:10px;
+  font-size:9px;
+}
+
+.field textarea{
+  min-height:72px;
+
+  resize:vertical;
 }
 
 .field input:focus,
 .field textarea:focus{
-  border-color:var(--red);
-}
-
-.field textarea{
-  min-height:76px;
-
-  resize:vertical;
+  border-color:var(--red-line);
 }
 
 .date-row{
@@ -739,7 +951,7 @@ main{
     1fr
     1fr;
 
-  gap:8px;
+  gap:9px;
 }
 
 .sheet-actions{
@@ -747,11 +959,11 @@ main{
 
   grid-template-columns:
     1fr
-    1fr;
+    2fr;
 
-  gap:7px;
+  gap:6px;
 
-  margin-top:12px;
+  margin-top:10px;
 }
 
 .cancel,
@@ -760,29 +972,27 @@ main{
 
   border-radius:10px;
 
-  font-size:8px;
+  font-size:7px;
   font-weight:900;
 }
 
 .cancel{
-  border:
-    1px solid
-    var(--line);
+  border:1px solid var(--line);
 
-  background:#151c22;
+  background:#11191f;
 
-  color:#cbd1d5;
+  color:#bbc3c8;
 }
 
 .save{
   border:
     1px solid
-    rgba(103,197,135,.30);
+    rgba(121,201,149,.24);
 
   background:
-    rgba(103,197,135,.09);
+    rgba(121,201,149,.07);
 
-  color:#afe5bf;
+  color:#a7dbb8;
 }
 
 
@@ -795,17 +1005,16 @@ main{
 
   margin-top:13px;
 
-  padding:
-    10px;
+  padding:10px;
 
   border:
     1px solid
-    rgba(103,197,135,.18);
+    rgba(121,201,149,.18);
 
   border-radius:11px;
 
   background:
-    rgba(103,197,135,.035);
+    rgba(121,201,149,.035);
 }
 
 .public-box.show{
@@ -813,7 +1022,7 @@ main{
 }
 
 .public-title{
-  color:#b2dfc0;
+  color:#a9d8b8;
 
   font-size:7px;
   font-weight:900;
@@ -822,7 +1031,7 @@ main{
 .public-text{
   margin-top:4px;
 
-  color:#7f8d85;
+  color:#74847b;
 
   font-size:6.5px;
   line-height:1.5;
@@ -853,23 +1062,23 @@ main{
 .view-public{
   border:
     1px solid
-    rgba(103,197,135,.25);
+    rgba(121,201,149,.23);
 
   background:
-    rgba(103,197,135,.07);
+    rgba(121,201,149,.06);
 
-  color:#afe5bf;
+  color:#a7dbb8;
 }
 
 .unshare{
   border:
     1px solid
-    rgba(201,111,104,.25);
+    rgba(255,98,95,.20);
 
   background:
-    rgba(201,111,104,.05);
+    rgba(255,98,95,.04);
 
-  color:#df938c;
+  color:#d98a83;
 }
 
 
@@ -880,7 +1089,7 @@ main{
 .message{
   display:none;
 
-  margin-top:9px;
+  margin-top:8px;
 
   padding:8px;
 
@@ -894,12 +1103,12 @@ main{
 
   border:
     1px solid
-    rgba(201,111,104,.25);
+    rgba(255,98,95,.20);
 
   background:
-    rgba(201,111,104,.07);
+    rgba(255,98,95,.055);
 
-  color:#ffc3bf;
+  color:#f3aaa6;
 }
 
 .message.success{
@@ -907,180 +1116,46 @@ main{
 
   border:
     1px solid
-    rgba(103,197,135,.25);
+    rgba(121,201,149,.20);
 
   background:
-    rgba(103,197,135,.07);
+    rgba(121,201,149,.055);
 
-  color:#b9ebc8;
+  color:#9dd8b2;
 }
 
 
 /* =========================================================
-   MORE
+   VERY SMALL PHONES
 ========================================================= */
 
-.more-title{
-  margin-bottom:12px;
-}
+@media(max-width:390px){
 
-.more-link{
-  min-height:57px;
+  .trips-shell{
+    width:calc(100% - 18px);
+  }
 
-  display:flex;
+  .header-inner{
+    padding-left:17px;
+    padding-right:17px;
+  }
 
-  align-items:center;
+  .trips-page-title{
+    font-size:38px;
+  }
 
-  gap:10px;
+  .trips-icon-wrap{
+    width:60px;
+    height:60px;
 
-  margin-bottom:6px;
+    flex-basis:60px;
 
-  padding:
-    9px
-    10px;
+    font-size:26px;
+  }
 
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:11px;
-
-  background:#11181e;
-
-  color:#fff;
-
-  text-decoration:none;
-}
-
-.more-link.active{
-  border-color:
-    rgba(201,111,104,.30);
-
-  background:
-    rgba(201,111,104,.07);
-}
-
-.more-icon{
-  width:31px;
-
-  font-size:18px;
-
-  text-align:center;
-}
-
-.more-main{
-  flex:1;
-}
-
-.more-name{
-  font-size:9px;
-  font-weight:900;
-}
-
-.more-sub{
-  margin-top:2px;
-
-  color:#7d8991;
-
-  font-size:6.5px;
-}
-
-
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-.bottom-nav{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:80;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
-  gap:3px;
-
-  padding:
-    6px
-    7px
-    calc(6px + env(safe-area-inset-bottom));
-
-  border-top:
-    1px solid
-    var(--line);
-
-  background:
-    rgba(7,12,16,.98);
-
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-}
-
-.bottom-nav a,
-.bottom-nav button{
-  min-height:46px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:2px;
-
-  border:0;
-  border-radius:10px;
-
-  background:transparent;
-
-  color:var(--muted);
-
-  text-decoration:none;
-
-  font-size:8px;
-  font-weight:800;
-}
-
-.nav-icon{
-  font-size:16px;
-}
-
-.bottom-nav .active{
-  color:#fff;
-
-  border:
-    1px solid
-    rgba(201,111,104,.22);
-
-  background:
-    rgba(201,111,104,.08);
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media(min-width:700px){
-
-  .bottom-nav{
-    left:50%;
-    right:auto;
-
-    width:min(
-      820px,
-      100%
-    );
-
-    transform:
-      translateX(-50%);
+  main{
+    padding-left:14px;
+    padding-right:14px;
   }
 
 }
@@ -1093,36 +1168,84 @@ main{
 <body>
 
 
+<div class="trips-shell">
+
+
 <!-- =========================================================
      HEADER
 ========================================================= -->
 
 <header>
 
+  <div class="trips-kanji">
+    旅
+  </div>
+
+
   <div class="header-inner">
 
-    <div class="eyebrow">
-      TRAVEL PLANNER
+
+    <div class="title-row">
+
+
+      <div>
+
+        <div class="eyebrow">
+          TRAVEL PLANNER
+        </div>
+
+
+        <div class="trips-hero">
+
+
+          <div
+            class="trips-icon-wrap"
+            aria-hidden="true"
+          >
+            🧳
+          </div>
+
+
+          <div>
+
+            <h1 class="trips-page-title">
+              My Trips
+            </h1>
+
+
+            <div class="header-sub">
+              Create, open and share your trips.
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="header-actions">
+
+        <button
+          id="createTripButton"
+          class="header-btn"
+          type="button"
+          aria-label="Create new trip"
+        >
+          ＋
+        </button>
+
+      </div>
+
+
     </div>
 
-    <h1>
-      🧳 My Trips
-    </h1>
-
-    <div class="header-sub">
-      Create, open and share your trips.
-    </div>
 
   </div>
 
 </header>
-
-
-
-<div
-  id="pageError"
-  class="page-error"
-></div>
 
 
 
@@ -1132,26 +1255,23 @@ main{
 
 <main>
 
-  <button
-    id="createTripButton"
-    class="create-trip"
-    type="button"
-  >
-    ＋ CREATE NEW TRIP
-  </button>
+
+  <div
+    id="pageError"
+    class="page-error"
+  ></div>
 
 
-  <!-- =====================================================
-       OWNED
-  ====================================================== -->
 
   <section class="section">
+
 
     <div class="section-head">
 
       <div class="section-label">
         MY TRIPS
       </div>
+
 
       <div
         id="ownedCount"
@@ -1174,20 +1294,20 @@ main{
 
     </div>
 
+
   </section>
 
 
-  <!-- =====================================================
-       SHARED
-  ====================================================== -->
 
   <section class="section">
+
 
     <div class="section-head">
 
       <div class="section-label">
         SHARED WITH ME
       </div>
+
 
       <div
         id="sharedCount"
@@ -1210,9 +1330,14 @@ main{
 
     </div>
 
+
   </section>
 
+
 </main>
+
+
+</div>
 
 
 
@@ -1226,6 +1351,7 @@ main{
 >
 
   <div class="sheet">
+
 
     <div class="handle"></div>
 
@@ -1251,6 +1377,7 @@ main{
     </div>
 
 
+
     <div class="field">
 
       <label>
@@ -1263,6 +1390,7 @@ main{
       >
 
     </div>
+
 
 
     <div class="field">
@@ -1279,7 +1407,9 @@ main{
     </div>
 
 
+
     <div class="date-row">
+
 
       <div class="field">
 
@@ -1308,7 +1438,9 @@ main{
 
       </div>
 
+
     </div>
+
 
 
     <div class="field">
@@ -1325,10 +1457,12 @@ main{
     </div>
 
 
+
     <div
       id="sheetMessage"
       class="message"
     ></div>
+
 
 
     <div class="sheet-actions">
@@ -1353,9 +1487,6 @@ main{
     </div>
 
 
-    <!-- ===================================================
-         PUBLIC STATUS
-    ==================================================== -->
 
     <div
       id="publicBox"
@@ -1365,6 +1496,7 @@ main{
       <div class="public-title">
         🌐 PUBLISHED TO PLACES
       </div>
+
 
       <div class="public-text">
         Other users can view this itinerary,
@@ -1395,110 +1527,6 @@ main{
 
     </div>
 
-  </div>
-
-</div>
-
-
-
-<!-- =========================================================
-     MORE
-========================================================= -->
-
-<div
-  id="moreBackdrop"
-  class="more-backdrop"
->
-
-  <div class="more-sheet">
-
-    <div class="handle"></div>
-
-
-    <div class="more-title">
-      More
-    </div>
-
-
-    <a
-      id="moreProfile"
-      class="more-link"
-    >
-
-      <div class="more-icon">
-        👤
-      </div>
-
-
-      <div class="more-main">
-
-        <div class="more-name">
-          Profile & Sharing
-        </div>
-
-        <div class="more-sub">
-          Account · trip members
-        </div>
-
-      </div>
-
-      →
-
-    </a>
-
-
-    <a
-      href="trips.html"
-      class="more-link active"
-    >
-
-      <div class="more-icon">
-        🧳
-      </div>
-
-
-      <div class="more-main">
-
-        <div class="more-name">
-          My Trips
-        </div>
-
-        <div class="more-sub">
-          Create · open · share
-        </div>
-
-      </div>
-
-      ✓
-
-    </a>
-
-
-    <a
-      href="places.html"
-      class="more-link"
-    >
-
-      <div class="more-icon">
-        🌐
-      </div>
-
-
-      <div class="more-main">
-
-        <div class="more-name">
-          Places
-        </div>
-
-        <div class="more-sub">
-          Shared itineraries
-        </div>
-
-      </div>
-
-      →
-
-    </a>
 
   </div>
 
@@ -1507,86 +1535,12 @@ main{
 
 
 <!-- =========================================================
-     BOTTOM NAV
+     FOOTER
 ========================================================= -->
 
-<nav class="bottom-nav">
-
-  <a id="navHome">
-
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    <span>
-      HOME
-    </span>
-
-  </a>
+<div id="footer"></div>
 
 
-  <a id="navPlan">
-
-    <span class="nav-icon">
-      📅
-    </span>
-
-    <span>
-      PLAN
-    </span>
-
-  </a>
-
-
-  <a id="navFood">
-
-    <span class="nav-icon">
-      🍽️
-    </span>
-
-    <span>
-      FOOD
-    </span>
-
-  </a>
-
-
-  <a id="navHub">
-
-    <span class="nav-icon">
-      ⭐
-    </span>
-
-    <span>
-      HUB
-    </span>
-
-  </a>
-
-
-  <button
-    id="navMore"
-    class="active"
-    type="button"
-  >
-
-    <span class="nav-icon">
-      ⋯
-    </span>
-
-    <span>
-      MORE
-    </span>
-
-  </button>
-
-</nav>
-
-
-
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1620,30 +1574,11 @@ function esc(value){
     value ?? ""
   )
 
-  .replaceAll(
-    "&",
-    "&amp;"
-  )
-
-  .replaceAll(
-    "<",
-    "&lt;"
-  )
-
-  .replaceAll(
-    ">",
-    "&gt;"
-  )
-
-  .replaceAll(
-    '"',
-    "&quot;"
-  )
-
-  .replaceAll(
-    "'",
-    "&#039;"
-  );
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 
 }
 
@@ -1920,10 +1855,6 @@ async function start(){
 
 async function loadTrips(){
 
-  /*
-    MY OWN TRIPS
-  */
-
   const ownedResult =
     await db
       .from("trips")
@@ -1956,10 +1887,6 @@ async function loadTrips(){
           "deleted"
       );
 
-
-  /*
-    MEMBERSHIPS
-  */
 
   const membershipResult =
     await db
@@ -2005,10 +1932,6 @@ async function loadTrips(){
 
   sharedTrips = [];
 
-
-  /*
-    SHARED TRIPS
-  */
 
   if(sharedIds.length){
 
@@ -2069,21 +1992,9 @@ async function loadTrips(){
   }
 
 
-  /*
-    PUBLICATION STATUS
-  */
-
   await loadPublications();
 
-
-  /*
-    RENDER
-  */
-
   renderTrips();
-
-
-  setupNavigation();
 
 }
 
@@ -2181,10 +2092,6 @@ function renderTrips(){
     );
 
 
-  /*
-    OWNED
-  */
-
   if(!ownedTrips.length){
 
     owned.innerHTML = `
@@ -2195,7 +2102,7 @@ function renderTrips(){
           No trips yet
         </strong>
 
-        Create your first trip above.
+        Use the ＋ button above to create your first trip.
 
       </div>
 
@@ -2219,10 +2126,6 @@ function renderTrips(){
 
   }
 
-
-  /*
-    SHARED
-  */
 
   if(!sharedTrips.length){
 
@@ -2347,7 +2250,9 @@ function tripCard(
 
       <div class="trip-body">
 
+
         <div class="trip-top">
+
 
           <div class="country-icon">
 
@@ -2360,7 +2265,9 @@ function tripCard(
 
           <div class="trip-main">
 
+
             <div class="badges">
+
 
               ${
                 isCurrent
@@ -2401,6 +2308,7 @@ function tripCard(
 
                 ""
               }
+
 
             </div>
 
@@ -2456,12 +2364,16 @@ function tripCard(
               ""
             }
 
+
           </div>
+
 
         </div>
 
 
+
         <div class="actions">
+
 
           <button
             class="open-btn"
@@ -2512,9 +2424,12 @@ function tripCard(
             ""
           }
 
+
         </div>
 
+
       </div>
+
 
     </article>
 
@@ -2568,12 +2483,6 @@ async function shareTrip(
     );
 
 
-  /*
-    Already published.
-
-    Open it directly in Places.
-  */
-
   if(
     publication &&
     publication.is_public
@@ -2622,11 +2531,6 @@ async function shareTrip(
       );
 
 
-    /*
-      After sharing:
-      immediately go to Places.
-    */
-
     location.href =
       publicationId
 
@@ -2663,7 +2567,7 @@ async function shareTrip(
 
 
 /* =========================================================
-   CREATE TRIP
+   CREATE / EDIT TRIP
 ========================================================= */
 
 const tripSheet =
@@ -2738,10 +2642,6 @@ function openCreateTrip(){
 
 }
 
-
-/* =========================================================
-   EDIT TRIP
-========================================================= */
 
 function openEditTrip(
   tripId
@@ -2852,10 +2752,6 @@ function openEditTrip(
 
 }
 
-
-/* =========================================================
-   CLOSE TRIP SHEET
-========================================================= */
 
 function closeTripSheet(){
 
@@ -3048,10 +2944,6 @@ document.getElementById(
       };
 
 
-      /*
-        EDIT
-      */
-
       if(editingTripId){
 
         const result =
@@ -3091,10 +2983,6 @@ document.getElementById(
 
       }
 
-
-      /*
-        CREATE
-      */
 
       else{
 
@@ -3325,128 +3213,16 @@ document.getElementById(
 
 
 /* =========================================================
-   NAVIGATION
-========================================================= */
-
-function setupNavigation(){
-
-  const id =
-    getCurrentTripId();
-
-
-  const suffix =
-    id
-    ?
-    `?trip=${id}`
-    :
-    "";
-
-
-  document.getElementById(
-    "navHome"
-  ).href =
-    `index.html${suffix}`;
-
-
-  document.getElementById(
-    "navPlan"
-  ).href =
-    id
-    ?
-    `schedule.html?trip=${id}`
-    :
-    "trips.html";
-
-
-  document.getElementById(
-    "navFood"
-  ).href =
-    id
-    ?
-    `food.html?trip=${id}`
-    :
-    "trips.html";
-
-
-  document.getElementById(
-    "navHub"
-  ).href =
-    id
-    ?
-    `bookings.html?trip=${id}`
-    :
-    "trips.html";
-
-
-  document.getElementById(
-    "moreProfile"
-  ).href =
-    id
-    ?
-    `profile.html?trip=${id}`
-    :
-    "profile.html";
-
-}
-
-
-/* =========================================================
-   MORE MENU
-========================================================= */
-
-const moreBackdrop =
-  document.getElementById(
-    "moreBackdrop"
-  );
-
-
-document.getElementById(
-  "navMore"
-).onclick =
-  () => {
-
-    moreBackdrop
-      .classList
-      .add(
-        "open"
-      );
-
-  };
-
-
-moreBackdrop.onclick =
-  event => {
-
-    if(
-      event.target ===
-      moreBackdrop
-    ){
-
-      moreBackdrop
-        .classList
-        .remove(
-          "open"
-        );
-
-    }
-
-  };
-
-
-/* =========================================================
-   INITIAL
-========================================================= */
-
-setupNavigation();
-
-
-/* =========================================================
    GO
 ========================================================= */
 
 start();
 
 </script>
+
+
+<script src="footer.js"></script>
+
 
 </body>
 
