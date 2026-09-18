@@ -89,7 +89,7 @@ a{
 
 main{
   width:100%;
-  max-width:760px;
+  max-width:920px;
 
   margin:auto;
 
@@ -104,46 +104,38 @@ main{
 
 .hero{
   position:relative;
-
-  min-height:420px;
-
+  min-height:390px;
   overflow:hidden;
-
   background:#0d1318;
 }
 
 .hero-image{
   position:absolute;
   inset:0;
-
-  background-position:center;
+  background-position:center 43%;
   background-size:cover;
-
-  transform:scale(1.012);
+  transform:scale(1.006);
 }
 
 .hero-image::after{
   content:"";
-
   position:absolute;
   inset:0;
-
   background:
-
     linear-gradient(
       to bottom,
-      rgba(4,8,11,.10) 0%,
-      rgba(4,8,11,.15) 24%,
-      rgba(4,8,11,.38) 55%,
-      rgba(4,8,11,.83) 84%,
+      rgba(4,8,11,.08) 0%,
+      rgba(4,8,11,.10) 34%,
+      rgba(4,8,11,.22) 58%,
+      rgba(4,8,11,.62) 82%,
       #070c10 100%
     ),
-
     linear-gradient(
       to right,
-      rgba(5,9,12,.30),
-      transparent 62%,
-      rgba(5,9,12,.12)
+      rgba(5,9,12,.34) 0%,
+      rgba(5,9,12,.12) 38%,
+      transparent 68%,
+      rgba(5,9,12,.08) 100%
     );
 }
 
@@ -151,7 +143,7 @@ main{
   position:relative;
   z-index:2;
 
-  min-height:470px;
+  min-height:390px;
 
   display:flex;
   flex-direction:column;
@@ -159,7 +151,7 @@ main{
   padding:
     calc(18px + env(safe-area-inset-top))
     16px
-    23px;
+    16px;
 }
 
 .hero-top{
@@ -358,11 +350,9 @@ main{
 .content{
   position:relative;
   z-index:3;
-
-  margin-top:-20px;
-
+  margin-top:-8px;
   padding:
-    12px
+    6px
     12px
     22px;
 }
@@ -1062,11 +1052,15 @@ main{
 @media(max-width:480px){
 
   .hero{
-    min-height:450px;
+    min-height:405px;
+  }
+
+  .hero-image{
+    background-position:57% 43%;
   }
 
   .hero-inner{
-    min-height:450px;
+    min-height:405px;
 
     padding-left:13px;
     padding-right:13px;
@@ -1320,7 +1314,7 @@ main{
 ========================================================= */
 
 const DEFAULT_HERO =
-  "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1600&q=88";
+  "https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Bavkground%20image.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQmF2a2dyb3VuZCBpbWFnZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NzIwNzY5LCJleHAiOjMzMzI1NzIwNzY5fQ.fyNIjD9vAXA26vNjxYbQJmz5myxaSZbkT0xmjJvcmV0hbbImJWEwjLYe_nS8qOOA3EgAcOsEnCkU5sa8K0EmPQ";
 
 
 
@@ -2566,17 +2560,11 @@ function renderHero(){
     to trips, this automatically uses it.
   */
 
-  const cover =
-
-    currentTrip.cover_image_url
-
-    ||
-
-    currentTrip.image_url
-
-    ||
-
-    DEFAULT_HERO;
+  /*
+    Homepage hero is fixed to the Kyoto autumn
+    background stored in Supabase Storage.
+  */
+  const cover = DEFAULT_HERO;
 
 
   document.getElementById(
