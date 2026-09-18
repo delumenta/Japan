@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
 
 <meta
@@ -9,267 +10,1878 @@
   content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#070c10">
+<meta name="theme-color" content="#05090c">
 
 <title>Plan · Travel</title>
 
+
 <style>
-/* Shared visual system with food.html */
+
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
-  --bg:#070c10;
-  --surface:#0d1318;
-  --surface-2:#11181e;
-  --surface-3:#151d24;
-  --line:#263039;
-  --line-soft:rgba(255,255,255,.065);
-  --text:#f5f3ef;
-  --muted:#929ca4;
-  --muted-2:#66727b;
-  --red:#ff625f;
-  --red-soft:rgba(255,98,95,.09);
-  --red-line:rgba(255,98,95,.30);
-  --blue:#78a9ef;
+  --bg:#05090c;
+
+  --surface:#0b1217;
+  --surface-2:#0f171d;
+  --surface-3:#141d24;
+
+  --line:#28323a;
+  --line-soft:rgba(255,255,255,.06);
+
+  --text:#f5f2ed;
+  --muted:#909aa1;
+  --muted-2:#69757d;
+
+  --red:#e96d6b;
+  --red-bright:#ff625f;
+  --red-soft:rgba(255,98,95,.08);
+  --red-line:rgba(255,98,95,.32);
+
   --green:#79c995;
   --gold:#e4bd69;
+  --blue:#78a9ef;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+
+*{
+  box-sizing:border-box;
+}
+
+
+html{
+  scroll-behavior:smooth;
+}
+
+
 body{
-  margin:0;min-height:100vh;color:var(--text);
-  background:radial-gradient(circle at 50% -8%,rgba(42,56,68,.30),transparent 28%),var(--bg);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  margin:0;
+
+  min-height:100vh;
+
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 50% -5%,
+      rgba(48,61,70,.20),
+      transparent 30%
+    ),
+    #030608;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   -webkit-font-smoothing:antialiased;
 }
-button,input,textarea,select{font:inherit}
-button{-webkit-tap-highlight-color:transparent}
 
-/* HEADER */
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+
+button{
+  -webkit-tap-highlight-color:transparent;
+}
+
+
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+
+.plan-shell{
+  width:calc(100% - 24px);
+
+  max-width:720px;
+
+  margin:
+    calc(14px + env(safe-area-inset-top))
+    auto
+    105px;
+
+  overflow:hidden;
+
+  border:1px solid #273139;
+
+  border-radius:27px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a1116,
+      #070d11
+    );
+
+  box-shadow:
+    0 24px 65px rgba(0,0,0,.40);
+}
+
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header{
-  position:sticky;top:0;z-index:40;
-  border-bottom:1px solid var(--line-soft);
-  background:rgba(7,12,16,.965);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 88% 0%,
+      rgba(255,98,95,.065),
+      transparent 27%
+    ),
+    linear-gradient(
+      145deg,
+      #10181e,
+      #081015 65%,
+      #070c10
+    );
 }
-.header-inner{width:100%;max-width:760px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 14px 0}
-.title-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
-.title-row>div:first-child{min-width:0}
-.eyebrow{margin-bottom:2px;color:var(--red);font-size:7px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
-.plan-page-title{display:flex;align-items:center;gap:9px;margin:0}
-.plan-page-title-icon{width:44px;height:44px;flex:0 0 44px;display:block;object-fit:contain}
-.plan-page-title span{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:700;line-height:1}
-.trip-name{margin:3px 0 0 53px;overflow:hidden;color:var(--muted);font-size:8px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
-.header-actions{display:flex;align-items:center;gap:5px}
+
+
+.header-inner{
+  position:relative;
+  z-index:2;
+
+  padding:
+    26px
+    20px
+    0;
+}
+
+
+
+/* =========================================================
+   JAPANESE WATERMARK
+========================================================= */
+
+.plan-kanji{
+  position:absolute;
+
+  z-index:0;
+
+  right:6px;
+  top:7px;
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:126px;
+  font-weight:700;
+
+  line-height:1;
+
+  color:var(--red-bright);
+
+  opacity:.042;
+
+  pointer-events:none;
+  user-select:none;
+}
+
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.title-row{
+  position:relative;
+
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:12px;
+}
+
+
+.title-row > div:first-child{
+  min-width:0;
+}
+
+
+.eyebrow{
+  margin-bottom:14px;
+
+  color:#df7775;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+}
+
+
+.plan-hero{
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+}
+
+
+.plan-icon-wrap{
+  width:65px;
+  height:65px;
+
+  flex:0 0 65px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(255,98,95,.30);
+
+  border-radius:50%;
+
+  /* clean dark circle — no red haze behind the logo */
+  background:#0b1217;
+}
+
+
+.plan-page-title-icon{
+  width:45px;
+  height:45px;
+
+  display:block;
+
+  object-fit:contain;
+  opacity:.88;
+}
+
+
+.plan-page-title{
+  margin:0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  line-height:1;
+}
+
+
+.plan-page-title span{
+  color:#f7f4ee;
+
+  font-size:41px;
+  font-weight:700;
+
+  letter-spacing:-.03em;
+}
+
+
+.trip-name{
+  margin-top:8px;
+
+  max-width:350px;
+
+  color:#89949c;
+
+  font-size:9px;
+  font-weight:500;
+
+  line-height:1.4;
+}
+
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions{
+  position:absolute;
+
+  right:0;
+  top:0;
+
+  display:flex;
+
+  gap:5px;
+}
+
+
 .edit-btn{
-  flex:0 0 auto;min-height:36px;padding:7px 11px;border:1px solid var(--red-line);border-radius:10px;
-  background:var(--red-soft);color:#f3b7b3;font-size:8px;font-weight:900;letter-spacing:.04em;cursor:pointer;
-}
-.edit-btn.active{border-color:rgba(121,201,149,.30);background:rgba(121,201,149,.07);color:#a7dbb8}
-.add-top-btn{border-color:rgba(121,201,149,.28);background:rgba(121,201,149,.06);color:#a7dbb8}
+  width:29px;
+  height:29px;
 
-/* DATE STRIP */
-.date-scroller{display:flex;gap:5px;margin-top:15px;padding:0 0 9px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.date-scroller::-webkit-scrollbar{display:none}
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  border:1px solid rgba(255,98,95,.24);
+
+  border-radius:9px;
+
+  background:
+    rgba(255,98,95,.045);
+
+  color:#efaaa6;
+
+  font-size:11px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+.edit-btn.active{
+  border-color:
+    rgba(121,201,149,.30);
+
+  background:
+    rgba(121,201,149,.06);
+
+  color:#9ed5b0;
+}
+
+
+.add-top-btn{
+  border-color:
+    rgba(255,98,95,.32);
+
+  background:
+    rgba(255,98,95,.07);
+}
+
+
+
+/* =========================================================
+   DATE STRIP
+========================================================= */
+
+.date-scroller{
+  display:flex;
+
+  gap:7px;
+
+  margin-top:24px;
+
+  padding:
+    0
+    0
+    17px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+
+  -webkit-overflow-scrolling:touch;
+}
+
+
+.date-scroller::-webkit-scrollbar{
+  display:none;
+}
+
+
 .date-btn{
-  flex:0 0 46px;min-height:47px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 2px;
-  border:1px solid var(--line);border-radius:10px;background:#0f161c;color:var(--muted);cursor:pointer;
+  flex:0 0 60px;
+
+  min-height:70px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:7px 3px;
+
+  border:1px solid #29343c;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #11191f,
+      #0b1217
+    );
+
+  color:var(--muted);
+
+  cursor:pointer;
 }
-.date-weekday{color:#65717a;font-size:5.5px;font-weight:900;letter-spacing:.03em}
-.date-number{margin:2px 0 1px;color:#f7f5f1;font-family:Georgia,"Times New Roman",serif;font-size:17px;font-weight:800;line-height:1}
-.date-month{color:#78848c;font-size:5.5px;font-weight:900}
-.date-btn.active{border-color:var(--red-line);background:var(--red-soft);box-shadow:0 0 10px rgba(255,98,95,.08)}
-.date-btn.active .date-weekday,.date-btn.active .date-month{color:#e0a4a0}
 
-/* MAIN / DAY */
-main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
-.day-head{margin:1px 1px 12px}
-.day-date{color:var(--red);font-size:7px;font-weight:900;letter-spacing:.12em}
-.day-title{margin-top:4px;font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:800}
-.day-summary{margin-top:3px;color:var(--muted-2);font-size:7px}
 
-/* TIMELINE */
+.date-weekday{
+  color:#747f86;
+
+  font-size:6px;
+  font-weight:800;
+}
+
+
+.date-number{
+  margin:
+    4px
+    0
+    4px;
+
+  color:#f0eee9;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:21px;
+  font-weight:700;
+
+  line-height:1;
+}
+
+
+.date-month{
+  color:#747f86;
+
+  font-size:6px;
+  font-weight:800;
+}
+
+
+.date-btn.active{
+  border-color:
+    rgba(255,98,95,.40);
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255,98,95,.10),
+      transparent 70%
+    ),
+    #151318;
+
+  box-shadow:
+    0 0 15px rgba(255,98,95,.03);
+}
+
+
+.date-btn.active .date-weekday,
+.date-btn.active .date-month{
+  color:#d99895;
+}
+
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+  width:100%;
+
+  padding:
+    0
+    17px
+    22px;
+}
+
+
+
+/* =========================================================
+   DAY CARD
+========================================================= */
+
+.day-card{
+  position:relative;
+
+  overflow:hidden;
+
+  border:1px solid #28343c;
+
+  border-radius:20px;
+
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(255,255,255,.016),
+      transparent 28%
+    ),
+    linear-gradient(
+      150deg,
+      #111a20,
+      #0a1116
+    );
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.18);
+}
+
+
+
+/* =========================================================
+   DAY HEADER
+========================================================= */
+
+.day-card-header{
+  position:relative;
+
+  min-height:103px;
+
+  padding:
+    17px
+    18px
+    15px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+
+.day-meta-row{
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:12px;
+}
+
+
+.day-number{
+  color:#dc7774;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.16em;
+
+  text-transform:uppercase;
+}
+
+
+.day-date-side{
+  color:#768188;
+
+  font-size:7px;
+
+  line-height:1.4;
+
+  text-align:right;
+
+  text-transform:uppercase;
+}
+
+
+.day-route-title{
+  position:relative;
+
+  z-index:2;
+
+  max-width:78%;
+
+  margin-top:8px;
+
+  color:#f4f0e9;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:24px;
+  font-weight:700;
+
+  line-height:1.05;
+
+  letter-spacing:-.02em;
+}
+
+
+.day-stamp{
+  position:absolute;
+
+  right:16px;
+  bottom:10px;
+
+  width:58px;
+  height:58px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1.5px solid
+    rgba(255,98,95,.13);
+
+  border-radius:50%;
+
+  color:
+    rgba(255,98,95,.18);
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+
+  font-size:19px;
+
+  transform:rotate(-7deg);
+
+  pointer-events:none;
+}
+
+
+
+/* =========================================================
+   TIMELINE
+   Compact entry style from the original schedule
+========================================================= */
+
 .timeline{
-  border:1px solid #252f37;border-radius:14px;padding:5px 11px;
-  background:linear-gradient(145deg,rgba(20,28,34,.97),rgba(12,18,23,.98));
-  box-shadow:0 6px 18px rgba(0,0,0,.13);
+  padding:5px 11px 8px;
 }
+
+
 .timeline-row{
-  position:relative;display:grid;grid-template-columns:64px 15px minmax(0,1fr) auto;gap:7px;min-height:49px;padding:8px 0;
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    56px
+    12px
+    minmax(0,1fr)
+    auto;
+
+  gap:4px;
+
+  min-height:49px;
+
+  padding:8px 0;
 }
+
+
+/* no horizontal dividers — let the vertical route line do the work */
+.timeline-row:not(:last-child){
+  border-bottom:0;
+}
+
+
+/* thin route line */
 .timeline-row:not(:last-child)::after{
-  content:"";position:absolute;left:71px;top:30px;bottom:-9px;width:1px;background:#263139;
+  content:"";
+
+  position:absolute;
+
+  left:66px;
+
+  top:27px;
+  bottom:-9px;
+
+  width:1px;
+
+  background:#263139;
 }
-.timeline-time{padding-top:1px;color:#a5bdcf;font-size:7.5px;font-weight:900;line-height:1.25}
-.marker{position:relative;z-index:2;display:flex;justify-content:center}
+
+
+/* TIME */
+
+.timeline-time{
+  padding-top:1px;
+
+  color:#a5bdcf;
+
+  font-size:7.5px;
+  font-weight:900;
+
+  line-height:1.25;
+}
+
+
+/* MARKER */
+
+.marker{
+  position:relative;
+
+  z-index:3;
+
+  display:flex;
+
+  justify-content:center;
+}
+
+
 .dot{
-  width:8px;height:8px;margin-top:3px;border:2px solid #151e25;border-radius:50%;background:var(--red);
-  box-shadow:0 0 0 1px rgba(255,98,95,.28);
+  width:7px;
+  height:7px;
+
+  margin-top:3px;
+
+  border:1px solid rgba(70,24,28,.95);
+
+  border-radius:50%;
+
+  background:var(--red-bright);
+
+  box-shadow:
+    0 0 0 1px rgba(255,98,95,.16);
 }
-.item-main{min-width:0}
-.item-title{color:#f5f3ef;font-size:9px;font-weight:900;line-height:1.35}
-.item-title a{color:inherit;text-decoration:none}
-.item-location{margin-top:2px;color:#77848d;font-size:7px}
-.item-note{margin-top:4px;color:#98a2a8;font-size:7px;line-height:1.45}
-.optional,.locked{
-  display:inline-block;margin-left:4px;padding:1px 4px;border-radius:999px;font-size:5.5px;font-weight:800;vertical-align:1px;
+
+
+/* =========================================================
+   TIMELINE TEXT
+========================================================= */
+
+.item-main{
+  min-width:0;
 }
-.optional{border:1px solid rgba(228,189,105,.20);background:rgba(228,189,105,.04);color:var(--gold)}
-.locked{border:1px solid rgba(121,201,149,.20);background:rgba(121,201,149,.04);color:#9dd5b0}
+
+
+.item-title{
+  color:#f5f3ef;
+
+  font-size:9px;
+  font-weight:900;
+
+  line-height:1.35;
+}
+
+
+.item-title a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+.item-location{
+  margin-top:2px;
+
+  color:#77848d;
+
+  font-size:7px;
+
+  line-height:1.35;
+}
+
+
+.item-note{
+  margin-top:4px;
+
+  color:#98a2a8;
+
+  font-size:7px;
+
+  line-height:1.45;
+}
+
+
+/* =========================================================
+   OPTIONAL / LOCKED
+========================================================= */
+
+.optional,
+.locked{
+  display:inline-block;
+
+  margin-left:4px;
+
+  padding:
+    1px
+    4px;
+
+  border-radius:999px;
+
+  font-size:5px;
+  font-weight:900;
+
+  vertical-align:1px;
+}
+
+
+.optional{
+  border:
+    1px solid
+    rgba(228,189,105,.22);
+
+  background:
+    rgba(228,189,105,.045);
+
+  color:var(--gold);
+}
+
+
+.locked{
+  border:
+    1px solid
+    rgba(121,201,149,.22);
+
+  background:
+    rgba(121,201,149,.045);
+
+  color:#a2d8b3;
+}
+
+
+
+/* =========================================================
+   EDIT ROW
+========================================================= */
+
 .row-edit{
-  display:none;width:28px;height:28px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;
-  background:#11181e;color:#bbc3c8;cursor:pointer;
-}
-.editing .row-edit{display:flex}
+  display:none;
 
-/* STATES */
+  width:26px;
+  height:26px;
+
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid var(--line);
+
+  border-radius:8px;
+
+  background:#11191f;
+
+  color:#bbc3c8;
+
+  cursor:pointer;
+}
+
+
+.editing .row-edit{
+  display:flex;
+}
+
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
 .state{
-  padding:34px 18px;border:1px dashed #303b43;border-radius:14px;background:rgba(255,255,255,.012);
-  color:#77838b;font-size:8px;line-height:1.6;text-align:center;
-}
-.state strong{display:block;margin-bottom:5px;color:#e8e7e3;font-family:Georgia,"Times New Roman",serif;font-size:14px;font-weight:700}
+  padding:
+    32px
+    18px;
 
-/* SHEETS */
-.sheet-backdrop,.more-backdrop,.trip-backdrop{
-  position:fixed;inset:0;display:none;align-items:flex-end;background:rgba(0,0,0,.72);
-  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-}
-.sheet-backdrop{z-index:100}.more-backdrop{z-index:150}.trip-backdrop{z-index:170}
-.sheet-backdrop.open,.more-backdrop.open,.trip-backdrop.open{display:flex}
-.sheet,.more-sheet,.trip-sheet{
-  width:100%;max-height:calc(92vh - env(safe-area-inset-top));overflow-y:auto;
-  padding:8px 14px calc(18px + env(safe-area-inset-bottom));border:1px solid var(--line);
-  border-radius:20px 20px 0 0;background:#0c1217;box-shadow:0 -20px 50px rgba(0,0,0,.35);
-}
-.more-sheet,.trip-sheet{max-width:760px;margin:auto}
-.sheet-handle{width:36px;height:4px;margin:2px auto 13px;border-radius:999px;background:#35414a}
-.sheet-head,.more-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
-.sheet-title,.more-title{font-family:Georgia,"Times New Roman",serif;font-size:19px}
-.close-btn,.more-close{
-  width:34px;height:34px;border:1px solid var(--line);border-radius:9px;background:#131b21;color:#fff;cursor:pointer;
+  border:
+    1px dashed
+    #303b43;
+
+  border-radius:16px;
+
+  background:
+    rgba(255,255,255,.012);
+
+  color:#77838b;
+
+  font-size:8px;
+
+  line-height:1.6;
+
+  text-align:center;
 }
 
-/* TYPE SELECTOR */
-.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:10px}
+
+.state strong{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#e8e7e3;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:15px;
+
+  font-weight:700;
+}
+
+
+
+/* =========================================================
+   SHEET
+========================================================= */
+
+.sheet-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  display:none;
+
+  align-items:flex-end;
+
+  background:
+    rgba(0,0,0,.72);
+
+  backdrop-filter:blur(5px);
+
+  -webkit-backdrop-filter:blur(5px);
+}
+
+
+.sheet-backdrop.open{
+  display:flex;
+}
+
+
+.sheet{
+  width:100%;
+
+  max-height:
+    calc(
+      92vh -
+      env(safe-area-inset-top)
+    );
+
+  overflow-y:auto;
+
+  padding:
+    8px
+    14px
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
+
+  border:1px solid var(--line);
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
+  background:#0c1217;
+
+  box-shadow:
+    0 -20px 50px rgba(0,0,0,.35);
+}
+
+
+.sheet-handle{
+  width:36px;
+  height:4px;
+
+  margin:
+    2px
+    auto
+    13px;
+
+  border-radius:999px;
+
+  background:#35414a;
+}
+
+
+.sheet-head{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:13px;
+}
+
+
+.sheet-title{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
+}
+
+
+.close-btn{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#131b21;
+
+  color:#fff;
+
+  cursor:pointer;
+}
+
+
+
+/* =========================================================
+   TYPE BUTTONS
+========================================================= */
+
+.type-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:5px;
+
+  margin-bottom:10px;
+}
+
+
 .type-btn{
-  min-height:35px;padding:6px;border:1px solid var(--line);border-radius:9px;background:#0f161c;
-  color:#87929a;font-size:7px;font-weight:900;cursor:pointer;
-}
-.type-btn.active{border-color:var(--red-line);background:var(--red-soft);color:#f0c0bc}
+  min-height:35px;
 
-/* ENTITY PICKER */
+  padding:6px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#0f161c;
+
+  color:#87929a;
+
+  font-size:7px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+.type-btn.active{
+  border-color:var(--red-line);
+
+  background:var(--red-soft);
+
+  color:#f0c0bc;
+}
+
+
+
+/* =========================================================
+   ENTITY PICKER
+========================================================= */
+
 .entity-picker{
-  grid-column:1/-1;padding:10px;border:1px solid rgba(120,169,239,.17);border-radius:11px;background:rgba(120,169,239,.03);
+  grid-column:1/-1;
+
+  padding:10px;
+
+  border:
+    1px solid
+    rgba(120,169,239,.17);
+
+  border-radius:11px;
+
+  background:
+    rgba(120,169,239,.03);
 }
-.entity-picker-title{margin-bottom:3px;color:#c5d6e5;font-size:7px;font-weight:900}
-.entity-picker-sub{margin-bottom:7px;color:#6f7c85;font-size:6.5px;line-height:1.4}
-.entity-search-wrap{position:relative}
+
+
+.entity-picker-title{
+  margin-bottom:3px;
+
+  color:#c5d6e5;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+
+.entity-picker-sub{
+  margin-bottom:7px;
+
+  color:#6f7c85;
+
+  font-size:6.5px;
+
+  line-height:1.4;
+}
+
+
+.entity-search-wrap{
+  position:relative;
+}
+
+
 .entity-search{
-  width:100%;min-height:40px;padding:8px 36px 8px 9px;border:1px solid var(--line);border-radius:9px;
-  outline:0;background:#0f161c;color:#fff;font-size:9px;
+  width:100%;
+
+  min-height:40px;
+
+  padding:
+    8px
+    36px
+    8px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  outline:0;
+
+  background:#0f161c;
+
+  color:#fff;
+
+  font-size:9px;
 }
-.entity-search:focus{border-color:rgba(120,169,239,.45)}
-.search-icon{position:absolute;right:11px;top:50%;transform:translateY(-50%);color:#65717a;pointer-events:none}
+
+
+.entity-search:focus{
+  border-color:
+    rgba(120,169,239,.45);
+}
+
+
+.search-icon{
+  position:absolute;
+
+  right:11px;
+  top:50%;
+
+  transform:
+    translateY(-50%);
+
+  color:#65717a;
+
+  pointer-events:none;
+}
+
+
 .entity-results{
-  display:none;margin-top:6px;overflow:hidden;border:1px solid var(--line);border-radius:9px;background:#0d1419;
+  display:none;
+
+  margin-top:6px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#0d1419;
 }
-.entity-results.show{display:block}
+
+
+.entity-results.show{
+  display:block;
+}
+
+
 .entity-result{
-  width:100%;display:flex;align-items:center;gap:8px;padding:9px;border:0;border-bottom:1px solid var(--line-soft);
-  background:transparent;color:#fff;text-align:left;cursor:pointer;
+  width:100%;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:9px;
+
+  border:0;
+
+  border-bottom:
+    1px solid
+    var(--line-soft);
+
+  background:transparent;
+
+  color:#fff;
+
+  text-align:left;
+
+  cursor:pointer;
 }
-.entity-result:last-child{border-bottom:0}
+
+
+.entity-result:last-child{
+  border-bottom:0;
+}
+
+
 .entity-result-icon{
-  flex:0 0 28px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#151d23;font-size:14px;
-}
-.entity-result-main{min-width:0;flex:1}
-.entity-result-name{font-size:8px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.entity-result-japanese{margin-top:1px;color:#89949b;font-size:7px}
-.entity-result-meta{margin-top:2px;color:#65717a;font-size:6.5px}
-.entity-result-arrow{color:#77858e;font-size:12px}
-.entity-empty{padding:14px 10px;color:#7d8992;text-align:center;font-size:8px;line-height:1.5}
+  flex:0 0 28px;
 
-/* SELECTED ENTITY */
+  width:28px;
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:#151d23;
+
+  font-size:14px;
+}
+
+
+.entity-result-main{
+  min-width:0;
+
+  flex:1;
+}
+
+
+.entity-result-name{
+  font-size:8px;
+  font-weight:900;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+}
+
+
+.entity-result-japanese{
+  margin-top:1px;
+
+  color:#89949b;
+
+  font-size:7px;
+}
+
+
+.entity-result-meta{
+  margin-top:2px;
+
+  color:#65717a;
+
+  font-size:6.5px;
+}
+
+
+.entity-result-arrow{
+  color:#77858e;
+
+  font-size:12px;
+}
+
+
+.entity-empty{
+  padding:
+    14px
+    10px;
+
+  color:#7d8992;
+
+  text-align:center;
+
+  font-size:8px;
+
+  line-height:1.5;
+}
+
+
+
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
+
 .selected-entity{
-  display:none;grid-column:1/-1;align-items:center;gap:9px;padding:9px 10px;border:1px solid rgba(121,201,149,.20);
-  border-radius:10px;background:rgba(121,201,149,.045);
+  display:none;
+
+  grid-column:1/-1;
+
+  align-items:center;
+
+  gap:9px;
+
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    rgba(121,201,149,.20);
+
+  border-radius:10px;
+
+  background:
+    rgba(121,201,149,.045);
 }
-.selected-entity.show{display:flex}
+
+
+.selected-entity.show{
+  display:flex;
+}
+
+
 .selected-icon{
-  flex:0 0 28px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;
-  border-radius:8px;background:rgba(121,201,149,.06);font-size:15px;
+  flex:0 0 28px;
+
+  width:28px;
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:
+    rgba(121,201,149,.06);
+
+  font-size:15px;
 }
-.selected-main{min-width:0;flex:1}
-.selected-label{color:#71847a;font-size:5.5px;font-weight:900;letter-spacing:.08em}
-.selected-name{margin-top:1px;color:#a9ddb9;font-size:8px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.selected-meta{margin-top:2px;color:#718078;font-size:6.5px}
+
+
+.selected-main{
+  min-width:0;
+
+  flex:1;
+}
+
+
+.selected-label{
+  color:#71847a;
+
+  font-size:5.5px;
+  font-weight:900;
+
+  letter-spacing:.08em;
+}
+
+
+.selected-name{
+  margin-top:1px;
+
+  color:#a9ddb9;
+
+  font-size:8px;
+  font-weight:900;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+}
+
+
+.selected-meta{
+  margin-top:2px;
+
+  color:#718078;
+
+  font-size:6.5px;
+}
+
+
 .change-entity{
-  min-height:28px;padding:5px 8px;border:1px solid rgba(121,201,149,.18);border-radius:8px;
-  background:rgba(121,201,149,.035);color:#96cda8;font-size:6.5px;font-weight:900;cursor:pointer;
+  min-height:28px;
+
+  padding:
+    5px
+    8px;
+
+  border:
+    1px solid
+    rgba(121,201,149,.18);
+
+  border-radius:8px;
+
+  background:
+    rgba(121,201,149,.035);
+
+  color:#96cda8;
+
+  font-size:6.5px;
+  font-weight:900;
+
+  cursor:pointer;
 }
+
+
+
+/* =========================================================
+   MASTER HELP
+========================================================= */
+
 .master-help{
-  display:none;grid-column:1/-1;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;
-  border:1px dashed #303b43;border-radius:9px;color:#77838b;font-size:7px;
+  display:none;
+
+  grid-column:1/-1;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:8px;
+
+  padding:
+    8px
+    9px;
+
+  border:
+    1px dashed
+    #303b43;
+
+  border-radius:9px;
+
+  color:#77838b;
+
+  font-size:7px;
 }
-.master-help.show{display:flex}
+
+
+.master-help.show{
+  display:flex;
+}
+
+
 .master-help button{
-  min-height:29px;padding:5px 8px;border:1px solid rgba(120,169,239,.20);border-radius:8px;
-  background:rgba(120,169,239,.04);color:#94b8e9;font-size:6.5px;font-weight:900;cursor:pointer;
+  min-height:29px;
+
+  padding:
+    5px
+    8px;
+
+  border:
+    1px solid
+    rgba(120,169,239,.20);
+
+  border-radius:8px;
+
+  background:
+    rgba(120,169,239,.04);
+
+  color:#94b8e9;
+
+  font-size:6.5px;
+  font-weight:900;
+
+  cursor:pointer;
 }
 
-/* GOOGLE AUTOFILL */
+
+
+/* =========================================================
+   GOOGLE PLACES
+========================================================= */
+
 .google-add-box{
-  display:none;grid-column:1/-1;margin-top:0;padding:10px;border:1px solid rgba(120,169,239,.17);
-  border-radius:11px;background:rgba(120,169,239,.03);
-}
-.google-add-box.show{display:block}
-.google-add-title{margin-bottom:3px;color:#9fbce4;font-size:7px;font-weight:900;letter-spacing:.05em}
-.google-add-sub{margin-bottom:7px;color:#6f7c85;font-size:6.5px;line-height:1.4}
-#googlePlaceSearch{width:100%}
-#googlePlaceSearch gmp-place-autocomplete,gmp-place-autocomplete{width:100%;min-height:40px;color-scheme:dark}
-.place-status{margin-top:6px;color:#6f7d86;font-size:7px;line-height:1.4}
-.place-status.success{color:#96d4ab}.place-status.error{color:#f2a4a0}
+  display:none;
 
-/* FORM */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.field.full{grid-column:1/-1}
-.field label{display:block;margin-bottom:4px;color:#8d989f;font-size:6.5px;font-weight:900;letter-spacing:.04em}
-.field input,.field textarea,.field select{
-  width:100%;min-height:40px;padding:8px 9px;border:1px solid var(--line);border-radius:9px;outline:0;background:#0f161c;color:#fff;font-size:9px;
+  grid-column:1/-1;
+
+  padding:10px;
+
+  border:
+    1px solid
+    rgba(120,169,239,.17);
+
+  border-radius:11px;
+
+  background:
+    rgba(120,169,239,.03);
 }
-.field textarea{min-height:72px;resize:vertical}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--red-line)}
+
+
+.google-add-box.show{
+  display:block;
+}
+
+
+.google-add-title{
+  margin-bottom:3px;
+
+  color:#9fbce4;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.05em;
+}
+
+
+.google-add-sub{
+  margin-bottom:7px;
+
+  color:#6f7c85;
+
+  font-size:6.5px;
+
+  line-height:1.4;
+}
+
+
+#googlePlaceSearch{
+  width:100%;
+}
+
+
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+  width:100%;
+
+  min-height:40px;
+
+  color-scheme:dark;
+}
+
+
+.place-status{
+  margin-top:6px;
+
+  color:#6f7d86;
+
+  font-size:7px;
+
+  line-height:1.4;
+}
+
+
+.place-status.success{
+  color:#96d4ab;
+}
+
+
+.place-status.error{
+  color:#f2a4a0;
+}
+
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:9px;
+}
+
+
+.field.full{
+  grid-column:1/-1;
+}
+
+
+.field label{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#8d989f;
+
+  font-size:6.5px;
+  font-weight:900;
+
+  letter-spacing:.04em;
+}
+
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+
+  min-height:40px;
+
+  padding:
+    8px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  outline:0;
+
+  background:#0f161c;
+
+  color:#fff;
+
+  font-size:9px;
+}
+
+
+.field textarea{
+  min-height:72px;
+
+  resize:vertical;
+}
+
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:var(--red-line);
+}
+
+
 .check-row{
-  display:flex;align-items:center;gap:7px;min-height:38px;margin-top:9px;padding:7px 9px;border:1px solid var(--line);
-  border-radius:9px;background:#10171d;color:#aab3b9;font-size:7px;font-weight:800;
-}
-.check-row input{width:14px;height:14px;accent-color:var(--red)}
-.sheet-actions{display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:10px}
-.delete-btn,.save-btn{min-height:42px;border-radius:10px;font-size:7px;font-weight:900;cursor:pointer}
-.delete-btn{border:1px solid rgba(255,98,95,.20);background:rgba(255,98,95,.04);color:#d98a83}
-.save-btn{border:1px solid rgba(121,201,149,.24);background:rgba(121,201,149,.07);color:#a7dbb8}
-.save-btn:disabled,.delete-btn:disabled{opacity:.5}
-.form-message{display:none;margin-top:8px;padding:8px;border-radius:8px;font-size:8px}
-.form-message.error{display:block;border:1px solid rgba(255,98,95,.20);background:rgba(255,98,95,.055);color:#f3aaa6}
-.form-message.success{display:block;border:1px solid rgba(121,201,149,.20);background:rgba(121,201,149,.055);color:#9dd8b2}
+  display:flex;
 
-@media(max-width:480px){
-  .header-inner{padding-left:12px;padding-right:12px}
-  main{padding-left:12px;padding-right:12px}
-  .plan-page-title-icon{width:40px;height:40px;flex-basis:40px}
-  .plan-page-title span{font-size:25px}
-  .trip-name{margin-left:49px}
-  .timeline-row{grid-template-columns:57px 14px minmax(0,1fr) auto;gap:6px}
-  .timeline-row:not(:last-child)::after{left:64px}
+  align-items:center;
+
+  gap:7px;
+
+  min-height:38px;
+
+  margin-top:9px;
+
+  padding:
+    7px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#10171d;
+
+  color:#aab3b9;
+
+  font-size:7px;
+  font-weight:800;
 }
+
+
+.check-row input{
+  width:14px;
+  height:14px;
+
+  accent-color:var(--red);
+}
+
+
+.sheet-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    2fr;
+
+  gap:6px;
+
+  margin-top:10px;
+}
+
+
+.delete-btn,
+.save-btn{
+  min-height:42px;
+
+  border-radius:10px;
+
+  font-size:7px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+.delete-btn{
+  border:
+    1px solid
+    rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.04);
+
+  color:#d98a83;
+}
+
+
+.save-btn{
+  border:
+    1px solid
+    rgba(121,201,149,.24);
+
+  background:
+    rgba(121,201,149,.07);
+
+  color:#a7dbb8;
+}
+
+
+.save-btn:disabled,
+.delete-btn:disabled{
+  opacity:.5;
+}
+
+
+.form-message{
+  display:none;
+
+  margin-top:8px;
+
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:8px;
+}
+
+
+.form-message.error{
+  display:block;
+
+  border:
+    1px solid
+    rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.055);
+
+  color:#f3aaa6;
+}
+
+
+.form-message.success{
+  display:block;
+
+  border:
+    1px solid
+    rgba(121,201,149,.20);
+
+  background:
+    rgba(121,201,149,.055);
+
+  color:#9dd8b2;
+}
+
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:390px){
+
+  .plan-shell{
+    width:calc(100% - 18px);
+  }
+
+
+  .header-inner{
+    padding-left:17px;
+    padding-right:17px;
+  }
+
+
+  .plan-page-title span{
+    font-size:38px;
+  }
+
+
+  .plan-icon-wrap{
+    width:60px;
+    height:60px;
+
+    flex-basis:60px;
+  }
+
+
+  .plan-page-title-icon{
+    width:42px;
+    height:42px;
+  }
+
+
+  .date-btn{
+    flex-basis:57px;
+  }
+
+
+  main{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+
+  .timeline{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+
+  .timeline-row{
+    grid-template-columns:
+      52px
+      11px
+      minmax(0,1fr)
+      auto;
+
+    gap:4px;
+  }
+
+
+  .timeline-row:not(:last-child)::after{
+    left:61px;
+  }
+
+}
+
+
 @media(min-width:700px){
-  .sheet{max-width:620px;margin:auto}
-  .timeline:hover{border-color:#303b43}
+
+  .sheet{
+    max-width:620px;
+
+    margin:auto;
+  }
+
 }
+
 </style>
 
 </head>
 
 
+
 <body>
+
+
+<div class="plan-shell">
 
 
 <!-- =========================================================
@@ -278,61 +1890,100 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 
 <header>
 
-<div class="header-inner">
-
-  <div class="title-row">
-
-    <div>
-
-      <div
-        id="tripEyebrow"
-        class="eyebrow"
-      >
-        TRIP PLAN
-      </div>
-
-      <h1 class="plan-page-title">
-        <img class="plan-page-title-icon" src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Plan.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvUGxhbi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI4MDk1LCJleHAiOjIxMDQ5ODgwOTV9.y5ce4vah9CX-CnpAFWVUXw7pHtNakfgezG6RlS8EJ3BzGYBm7SgdUOgum92WHo-jpLPb1kbuYdvneZJytrLobw" alt="" aria-hidden="true">
-        <span>Plan</span>
-      </h1>
-
-      <div
-        id="tripName"
-        class="trip-name"
-      >
-        Loading trip…
-      </div>
-
-    </div>
-
-
-    <div class="header-actions">
-      <button
-        id="addButton"
-        class="edit-btn add-top-btn"
-        type="button"
-      >
-        ＋ ADD
-      </button>
-
-      <button
-        id="editButton"
-        class="edit-btn"
-        type="button"
-      >
-        ✏️ EDIT
-      </button>
-    </div>
-
+  <div class="plan-kanji">
+    旅
   </div>
 
 
-  <div
-    id="dateScroller"
-    class="date-scroller"
-  ></div>
+  <div class="header-inner">
 
-</div>
+
+    <div class="title-row">
+
+
+      <div>
+
+        <div
+          id="tripEyebrow"
+          class="eyebrow"
+        >
+          JAPAN · AUTUMN 2026
+        </div>
+
+
+        <div class="plan-hero">
+
+
+          <div class="plan-icon-wrap">
+
+            <img
+              class="plan-page-title-icon"
+              src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/travelogo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvdHJhdmVsb2dvLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk2OTY3MTksImV4cCI6MzMzMjU2OTY3MTl9.m8_j9o90WZfMksafYPcKAE_AqeiQujFDL9_affNg8KXUMlYU_9jvmlUKDi9LBaQXqzdVqAK71Wvl9SpJ-MfQDw"
+              alt=""
+              aria-hidden="true"
+            >
+
+          </div>
+
+
+          <div>
+
+            <h1 class="plan-page-title">
+              <span>Plan</span>
+            </h1>
+
+
+            <div
+              id="tripName"
+              class="trip-name"
+            >
+              Loading trip…
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="header-actions">
+
+        <button
+          id="addButton"
+          class="edit-btn add-top-btn"
+          type="button"
+          aria-label="Add schedule item"
+        >
+          ＋
+        </button>
+
+
+        <button
+          id="editButton"
+          class="edit-btn"
+          type="button"
+          aria-label="Edit schedule"
+        >
+          ✎
+        </button>
+
+      </div>
+
+
+    </div>
+
+
+
+    <div
+      id="dateScroller"
+      class="date-scroller"
+    ></div>
+
+
+  </div>
 
 </header>
 
@@ -357,6 +2008,9 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 </main>
 
 
+</div>
+
+
 
 <!-- =========================================================
      EDIT SHEET
@@ -369,7 +2023,9 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 
   <div class="sheet">
 
+
     <div class="sheet-handle"></div>
+
 
     <div class="sheet-head">
 
@@ -380,6 +2036,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         Edit Schedule
       </div>
 
+
       <button
         id="closeSheet"
         class="close-btn"
@@ -389,6 +2046,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
       </button>
 
     </div>
+
 
 
     <div
@@ -404,6 +2062,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         📍 PLACE
       </button>
 
+
       <button
         class="type-btn"
         type="button"
@@ -411,6 +2070,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
       >
         🍽 FOOD
       </button>
+
 
       <button
         class="type-btn"
@@ -423,9 +2083,12 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
     </div>
 
 
+
     <form id="editForm">
 
+
       <div class="form-grid">
+
 
         <div
           id="entityPicker"
@@ -439,12 +2102,14 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
             📍 MY SAVED PLACES
           </div>
 
+
           <div
             id="entityPickerSub"
             class="entity-picker-sub"
           >
             Search your saved places.
           </div>
+
 
           <div class="entity-search-wrap">
 
@@ -456,11 +2121,13 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
               autocomplete="off"
             >
 
+
             <span class="search-icon">
               🔎
             </span>
 
           </div>
+
 
           <div
             id="entityResults"
@@ -468,6 +2135,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
           ></div>
 
         </div>
+
 
 
         <div
@@ -482,6 +2150,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
             📍
           </div>
 
+
           <div class="selected-main">
 
             <div
@@ -491,10 +2160,12 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
               SELECTED PLACE
             </div>
 
+
             <div
               id="selectedEntityName"
               class="selected-name"
             ></div>
+
 
             <div
               id="selectedEntityMeta"
@@ -502,6 +2173,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
             ></div>
 
           </div>
+
 
           <button
             id="changeEntityButton"
@@ -514,6 +2186,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         </div>
 
 
+
         <div
           id="masterHelp"
           class="master-help"
@@ -522,6 +2195,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
           <span id="masterHelpText">
             Can't find the place?
           </span>
+
 
           <button
             id="masterHelpButton"
@@ -532,19 +2206,25 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 
         </div>
 
+
+
         <div
           id="googleAddBox"
           class="google-add-box"
         >
+
           <div class="google-add-title">
             🔎 GOOGLE PLACES AUTOFILL
           </div>
+
 
           <div class="google-add-sub">
             Search Google only when the place is not already in your saved Places.
           </div>
 
+
           <div id="googlePlaceSearch"></div>
+
 
           <div
             id="googlePlaceStatus"
@@ -552,6 +2232,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
           >
             Search a place, then choose the correct Google result.
           </div>
+
         </div>
 
 
@@ -571,6 +2252,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         </div>
 
 
+
         <div class="field">
 
           <label>
@@ -585,6 +2267,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         </div>
 
 
+
         <div class="field full">
 
           <label>
@@ -597,6 +2280,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
           >
 
         </div>
+
 
 
         <div class="field full">
@@ -614,6 +2298,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         </div>
 
 
+
         <div class="field full">
 
           <label>
@@ -626,6 +2311,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
           >
 
         </div>
+
 
 
         <div class="field full">
@@ -641,7 +2327,9 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 
         </div>
 
+
       </div>
+
 
 
       <label class="check-row">
@@ -656,6 +2344,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
       </label>
 
 
+
       <div class="sheet-actions">
 
         <button
@@ -665,6 +2354,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
         >
           🗑 DELETE
         </button>
+
 
         <button
           id="saveButton"
@@ -677,12 +2367,15 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
       </div>
 
 
+
       <div
         id="formMessage"
         class="form-message"
       ></div>
 
+
     </form>
+
 
   </div>
 
@@ -691,7 +2384,7 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
 
 
 <!-- =========================================================
-     SHARED FOOTER
+     FOOTER
 ========================================================= -->
 
 <div id="footer"></div>
@@ -702,12 +2395,12 @@ main{width:100%;max-width:760px;margin:0 auto;padding:14px 14px 100px}
      SUPABASE
 ========================================================= -->
 
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
+
 <script src="google-maps.js"></script>
+
 
 
 <script>
@@ -769,119 +2462,218 @@ let selectedPlaceId = null;
 let selectedRestaurantId = null;
 
 
+
 /* =========================================================
    ELEMENTS
 ========================================================= */
 
 const main =
-  document.getElementById("main");
+  document.getElementById(
+    "main"
+  );
+
 
 const tripName =
-  document.getElementById("tripName");
+  document.getElementById(
+    "tripName"
+  );
+
 
 const tripEyebrow =
-  document.getElementById("tripEyebrow");
+  document.getElementById(
+    "tripEyebrow"
+  );
+
 
 const dateScroller =
-  document.getElementById("dateScroller");
+  document.getElementById(
+    "dateScroller"
+  );
+
 
 const addButton =
-  document.getElementById("addButton");
+  document.getElementById(
+    "addButton"
+  );
+
 
 const editButton =
-  document.getElementById("editButton");
+  document.getElementById(
+    "editButton"
+  );
+
 
 const editSheet =
-  document.getElementById("editSheet");
+  document.getElementById(
+    "editSheet"
+  );
+
 
 const sheetTitle =
-  document.getElementById("sheetTitle");
+  document.getElementById(
+    "sheetTitle"
+  );
+
 
 const typeGrid =
-  document.getElementById("typeGrid");
+  document.getElementById(
+    "typeGrid"
+  );
+
 
 const entityPicker =
-  document.getElementById("entityPicker");
+  document.getElementById(
+    "entityPicker"
+  );
+
 
 const entityPickerTitle =
-  document.getElementById("entityPickerTitle");
+  document.getElementById(
+    "entityPickerTitle"
+  );
+
 
 const entityPickerSub =
-  document.getElementById("entityPickerSub");
+  document.getElementById(
+    "entityPickerSub"
+  );
+
 
 const entitySearch =
-  document.getElementById("entitySearch");
+  document.getElementById(
+    "entitySearch"
+  );
+
 
 const entityResults =
-  document.getElementById("entityResults");
+  document.getElementById(
+    "entityResults"
+  );
+
 
 const selectedEntity =
-  document.getElementById("selectedEntity");
+  document.getElementById(
+    "selectedEntity"
+  );
+
 
 const selectedEntityIcon =
-  document.getElementById("selectedEntityIcon");
+  document.getElementById(
+    "selectedEntityIcon"
+  );
+
 
 const selectedEntityLabel =
-  document.getElementById("selectedEntityLabel");
+  document.getElementById(
+    "selectedEntityLabel"
+  );
+
 
 const selectedEntityName =
-  document.getElementById("selectedEntityName");
+  document.getElementById(
+    "selectedEntityName"
+  );
+
 
 const selectedEntityMeta =
-  document.getElementById("selectedEntityMeta");
+  document.getElementById(
+    "selectedEntityMeta"
+  );
+
 
 const masterHelp =
-  document.getElementById("masterHelp");
+  document.getElementById(
+    "masterHelp"
+  );
+
 
 const masterHelpText =
-  document.getElementById("masterHelpText");
+  document.getElementById(
+    "masterHelpText"
+  );
+
 
 const masterHelpButton =
-  document.getElementById("masterHelpButton");
+  document.getElementById(
+    "masterHelpButton"
+  );
+
 
 const googleAddBox =
-  document.getElementById("googleAddBox");
+  document.getElementById(
+    "googleAddBox"
+  );
+
 
 const fieldDate =
-  document.getElementById("fieldDate");
+  document.getElementById(
+    "fieldDate"
+  );
+
 
 const fieldTime =
-  document.getElementById("fieldTime");
+  document.getElementById(
+    "fieldTime"
+  );
+
 
 const fieldTimeLabel =
-  document.getElementById("fieldTimeLabel");
+  document.getElementById(
+    "fieldTimeLabel"
+  );
+
 
 const fieldTitle =
-  document.getElementById("fieldTitle");
+  document.getElementById(
+    "fieldTitle"
+  );
+
 
 const fieldLocation =
-  document.getElementById("fieldLocation");
+  document.getElementById(
+    "fieldLocation"
+  );
+
 
 const fieldNotes =
-  document.getElementById("fieldNotes");
+  document.getElementById(
+    "fieldNotes"
+  );
+
 
 const fieldOptional =
-  document.getElementById("fieldOptional");
+  document.getElementById(
+    "fieldOptional"
+  );
+
 
 const deleteButton =
-  document.getElementById("deleteButton");
+  document.getElementById(
+    "deleteButton"
+  );
+
 
 const saveButton =
-  document.getElementById("saveButton");
+  document.getElementById(
+    "saveButton"
+  );
+
 
 const formMessage =
-  document.getElementById("formMessage");
+  document.getElementById(
+    "formMessage"
+  );
+
+
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
 function text(value){
-
   return String(
     value ?? ""
   );
-
 }
 
 
@@ -890,9 +2682,13 @@ function esc(value){
   return text(value)
 
     .replaceAll("&","&amp;")
+
     .replaceAll("<","&lt;")
+
     .replaceAll(">","&gt;")
+
     .replaceAll('"',"&quot;")
+
     .replaceAll("'","&#039;");
 
 }
@@ -918,51 +2714,31 @@ function parseDate(value){
 
 function localDateString(){
 
-  const d = new Date();
+  const d =
+    new Date();
+
 
   return [
+
     d.getFullYear(),
-    String(d.getMonth()+1).padStart(2,"0"),
-    String(d.getDate()).padStart(2,"0")
+
+    String(
+      d.getMonth()+1
+    )
+    .padStart(
+      2,
+      "0"
+    ),
+
+    String(
+      d.getDate()
+    )
+    .padStart(
+      2,
+      "0"
+    )
+
   ].join("-");
-
-}
-
-
-function formatDate(value){
-
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"long"
-    }
-  )
-  .format(
-    parseDate(value)
-  )
-  .toUpperCase();
-
-}
-
-
-function shortTripDate(value){
-
-  if(!value){
-    return "";
-  }
-
-  return new Intl.DateTimeFormat(
-    "en-SG",
-    {
-      day:"numeric",
-      month:"short",
-      year:"numeric"
-    }
-  ).format(
-    parseDate(value)
-  );
 
 }
 
@@ -970,11 +2746,15 @@ function shortTripDate(value){
 function dateParts(value){
 
   const d =
-    parseDate(value);
+    parseDate(
+      value
+    );
+
 
   return {
 
     weekday:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -984,7 +2764,19 @@ function dateParts(value){
       .format(d)
       .toUpperCase(),
 
+    weekdayLong:
+
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          weekday:"long"
+        }
+      )
+      .format(d)
+      .toUpperCase(),
+
     day:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -994,6 +2786,7 @@ function dateParts(value){
       .format(d),
 
     month:
+
       new Intl.DateTimeFormat(
         "en-SG",
         {
@@ -1011,14 +2804,19 @@ function dateParts(value){
 function entityMeta(item){
 
   return [
+
     item.area,
+
     item.city,
+
     item.prefecture
+
   ]
   .filter(Boolean)
   .join(" · ");
 
 }
+
 
 
 /* =========================================================
@@ -1088,7 +2886,10 @@ async function getAccessibleTrips(){
       ...new Set(
         (memberResult.data || [])
           .map(
-            row => Number(row.trip_id)
+            row =>
+              Number(
+                row.trip_id
+              )
           )
           .filter(Boolean)
       )
@@ -1126,8 +2927,10 @@ async function getAccessibleTrips(){
         .map(
           row => ({
             ...row,
+
             access_type:
-              row.owner_id === currentUser.id
+              row.owner_id ===
+              currentUser.id
               ?
               "owner"
               :
@@ -1150,7 +2953,9 @@ async function getAccessibleTrips(){
     row => {
 
       const id =
-        Number(row.id);
+        Number(
+          row.id
+        );
 
 
       if(
@@ -1178,15 +2983,20 @@ async function getAccessibleTrips(){
       const ad =
         a.start_date || "";
 
+
       const bd =
         b.start_date || "";
 
-      return ad.localeCompare(bd);
+
+      return ad.localeCompare(
+        bd
+      );
 
     }
   );
 
 }
+
 
 
 /* =========================================================
@@ -1205,7 +3015,8 @@ async function resolveTrip(){
 
 
   currentUser =
-    authResult.data?.user || null;
+    authResult.data?.user ||
+    null;
 
 
   if(!currentUser){
@@ -1259,7 +3070,8 @@ async function resolveTrip(){
 
 
   const hash =
-    window.location.hash || "";
+    window.location.hash ||
+    "";
 
 
   history.replaceState(
@@ -1268,8 +3080,8 @@ async function resolveTrip(){
     `?trip=${TRIP_ID}${hash}`
   );
 
-
 }
+
 
 
 /* =========================================================
@@ -1312,29 +3124,72 @@ async function loadData(){
     }
 
 
-    tripName.textContent =
-      trip.name || "My Trip";
 
+    /* HEADER */
 
     tripEyebrow.textContent =
       trip.country
       ?
-      `${trip.country} TRIP`
+      `${trip.country.toUpperCase()} · AUTUMN 2026`
       :
-      "TRIP PLAN";
+      "TRIP · AUTUMN 2026";
+
+
+    if(
+      trip.start_date &&
+      trip.end_date
+    ){
+
+      const start =
+        parseDate(
+          trip.start_date
+        );
+
+
+      const end =
+        parseDate(
+          trip.end_date
+        );
+
+
+      const startDay =
+        start.getDate();
+
+
+      const endDay =
+        end.getDate();
+
+
+      const month =
+        new Intl.DateTimeFormat(
+          "en-SG",
+          {
+            month:"short"
+          }
+        )
+        .format(start);
+
+
+      tripName.textContent =
+        `${startDay}–${endDay} ${month} · ${trip.name || "My Trip"}`;
+
+    }
+
+    else{
+
+      tripName.textContent =
+        trip.name ||
+        "My Trip";
+
+    }
 
 
     document.title =
       `Plan · ${trip.name || "Travel"}`;
 
 
-    /*
-      Master lists.
 
-      We load them separately so the page
-      still uses your saved Places and
-      Restaurants database.
-    */
+    /* MASTER LISTS */
 
     let placesQuery =
       db
@@ -1359,11 +3214,6 @@ async function loadData(){
           }
         );
 
-
-    /*
-      If your trips table has country,
-      filter the master lists by country.
-    */
 
     if(trip.country){
 
@@ -1415,15 +3265,18 @@ async function loadData(){
 
 
     schedule =
-      scheduleResult.data || [];
+      scheduleResult.data ||
+      [];
 
 
     places =
-      placeResult.data || [];
+      placeResult.data ||
+      [];
 
 
     restaurants =
-      restaurantResult.data || [];
+      restaurantResult.data ||
+      [];
 
 
     buildDays();
@@ -1438,7 +3291,9 @@ async function loadData(){
 
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     tripName.textContent =
@@ -1465,6 +3320,7 @@ async function loadData(){
   }
 
 }
+
 
 
 /* =========================================================
@@ -1546,8 +3402,9 @@ function loadScheduleQuery(){
 }
 
 
+
 /* =========================================================
-   GROUP DAYS
+   SORT SCHEDULE
 ========================================================= */
 
 function timeToMinutes(value){
@@ -1556,63 +3413,131 @@ function timeToMinutes(value){
     return null;
   }
 
-  const parts = String(value).slice(0,5).split(":");
-  const hour = Number(parts[0]);
-  const minute = Number(parts[1]);
 
-  if(Number.isNaN(hour) || Number.isNaN(minute)){
+  const parts =
+    String(value)
+      .slice(0,5)
+      .split(":");
+
+
+  const hour =
+    Number(
+      parts[0]
+    );
+
+
+  const minute =
+    Number(
+      parts[1]
+    );
+
+
+  if(
+    Number.isNaN(hour) ||
+    Number.isNaN(minute)
+  ){
+
     return null;
+
   }
 
-  return (hour * 60) + minute;
+
+  return (
+    hour * 60
+  ) + minute;
+
 }
 
 
 function labelToMinutes(value){
 
-  const label = String(value || "").trim();
+  const label =
+    String(
+      value || ""
+    )
+    .trim();
+
 
   if(!label){
     return null;
   }
 
-  const match = label.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+
+  const match =
+    label.match(
+      /(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i
+    );
+
 
   if(!match){
     return null;
   }
 
-  let hour = Number(match[1]);
-  const minute = Number(match[2] || 0);
-  const suffix = match[3].toUpperCase();
+
+  let hour =
+    Number(
+      match[1]
+    );
+
+
+  const minute =
+    Number(
+      match[2] ||
+      0
+    );
+
+
+  const suffix =
+    match[3]
+      .toUpperCase();
+
 
   if(hour === 12){
     hour = 0;
   }
 
+
   if(suffix === "PM"){
     hour += 12;
   }
 
-  return (hour * 60) + minute;
+
+  return (
+    hour * 60
+  ) + minute;
+
 }
 
 
 function scheduleSortKey(item){
 
-  const exact = timeToMinutes(item.start_time);
+  const exact =
+    timeToMinutes(
+      item.start_time
+    );
+
 
   if(exact !== null){
     return exact;
   }
 
-  const flexible = labelToMinutes(item.time_label);
+
+  const flexible =
+    labelToMinutes(
+      item.time_label
+    );
+
 
   if(flexible !== null){
     return flexible;
   }
 
-  const label = norm(item.time_label);
+
+  const label =
+    norm(
+      item.time_label
+    );
+
 
   if(
     label.includes("afterward") ||
@@ -1622,43 +3547,82 @@ function scheduleSortKey(item){
     return 2000;
   }
 
-  if(label.includes("evening")){
+
+  if(
+    label.includes("evening")
+  ){
     return 18 * 60;
   }
 
-  if(label.includes("afternoon")){
+
+  if(
+    label.includes("afternoon")
+  ){
     return 15 * 60;
   }
 
-  if(label.includes("lunch")){
+
+  if(
+    label.includes("lunch")
+  ){
     return 12 * 60;
   }
 
-  if(label.includes("morning")){
+
+  if(
+    label.includes("morning")
+  ){
     return 8 * 60;
   }
 
+
   return 1900;
+
 }
 
 
-function compareScheduleItems(a,b){
+function compareScheduleItems(
+  a,
+  b
+){
 
-  const aKey = scheduleSortKey(a);
-  const bKey = scheduleSortKey(b);
+  const aKey =
+    scheduleSortKey(a);
+
+
+  const bKey =
+    scheduleSortKey(b);
+
 
   if(aKey !== bKey){
     return aKey - bKey;
   }
 
-  const aSort = Number(a.sort_order || 0);
-  const bSort = Number(b.sort_order || 0);
+
+  const aSort =
+    Number(
+      a.sort_order ||
+      0
+    );
+
+
+  const bSort =
+    Number(
+      b.sort_order ||
+      0
+    );
+
 
   if(aSort !== bSort){
     return aSort - bSort;
   }
 
-  return Number(a.id || 0) - Number(b.id || 0);
+
+  return (
+    Number(a.id || 0) -
+    Number(b.id || 0)
+  );
+
 }
 
 
@@ -1666,27 +3630,47 @@ function buildDays(){
 
   groupedDays = {};
 
+
   schedule.forEach(
     item => {
 
-      if(!groupedDays[item.schedule_date]){
-        groupedDays[item.schedule_date] = [];
+      if(
+        !groupedDays[
+          item.schedule_date
+        ]
+      ){
+
+        groupedDays[
+          item.schedule_date
+        ] = [];
+
       }
 
-      groupedDays[item.schedule_date].push(item);
+
+      groupedDays[
+        item.schedule_date
+      ]
+      .push(
+        item
+      );
 
     }
   );
 
-  /*
-    Sort each day by actual/flexible displayed time.
-    sort_order is only used when two items share the same time.
-  */
-  Object.values(groupedDays).forEach(
-    items => items.sort(compareScheduleItems)
-  );
+
+  Object
+    .values(
+      groupedDays
+    )
+    .forEach(
+      items =>
+        items.sort(
+          compareScheduleItems
+        )
+    );
 
 }
+
 
 
 /* =========================================================
@@ -1697,7 +3681,10 @@ function chooseDate(){
 
   const hash =
     window.location.hash
-      .replace("#","");
+      .replace(
+        "#",
+        ""
+      );
 
 
   if(
@@ -1759,10 +3746,11 @@ function chooseDate(){
 
 
   const dates =
-    Object.keys(
-      groupedDays
-    )
-    .sort();
+    Object
+      .keys(
+        groupedDays
+      )
+      .sort();
 
 
   selectedDate =
@@ -1770,6 +3758,7 @@ function chooseDate(){
     today;
 
 }
+
 
 
 /* =========================================================
@@ -1783,7 +3772,8 @@ function renderDates(){
     !trip.end_date
   ){
 
-    dateScroller.innerHTML = "";
+    dateScroller.innerHTML =
+      "";
 
     return;
 
@@ -1832,7 +3822,9 @@ function renderDates(){
     ].join("-");
 
 
-    dates.push(value);
+    dates.push(
+      value
+    );
 
 
     cursor.setDate(
@@ -1848,7 +3840,9 @@ function renderDates(){
         date => {
 
           const parts =
-            dateParts(date);
+            dateParts(
+              date
+            );
 
 
           return `
@@ -1941,6 +3935,7 @@ function renderDates(){
 }
 
 
+
 /* =========================================================
    ITEM HELPERS
 ========================================================= */
@@ -1948,9 +3943,7 @@ function renderDates(){
 function itemTime(item){
 
   if(item.time_label){
-
     return item.time_label;
-
   }
 
 
@@ -1962,11 +3955,14 @@ function itemTime(item){
 
 
     let hour =
-      Number(parts[0]);
+      Number(
+        parts[0]
+      );
 
 
     const minute =
-      parts[1] || "00";
+      parts[1] ||
+      "00";
 
 
     const suffix =
@@ -1978,7 +3974,8 @@ function itemTime(item){
 
 
     hour =
-      hour % 12 || 12;
+      hour % 12 ||
+      12;
 
 
     return `${hour}:${minute} ${suffix}`;
@@ -2031,7 +4028,8 @@ function itemIcon(item){
     type.includes("restaurant") ||
     title.includes("lunch") ||
     title.includes("dinner") ||
-    title.includes("breakfast")
+    title.includes("breakfast") ||
+    title.includes("snack")
   ){
     return "🍽️";
   }
@@ -2041,7 +4039,8 @@ function itemIcon(item){
     type.includes("hotel") ||
     title.includes("hotel") ||
     title.includes("check-in") ||
-    title.includes("check in")
+    title.includes("check in") ||
+    title.includes("ryokan")
   ){
     return "🏨";
   }
@@ -2055,7 +4054,7 @@ function itemIcon(item){
     title.includes("arrive") ||
     title.includes("depart") ||
     title.includes("head to") ||
-    title.includes("return")
+    title.includes("leave")
   ){
     return "🚆";
   }
@@ -2064,7 +4063,8 @@ function itemIcon(item){
   if(
     title.includes("shrine") ||
     title.includes("temple") ||
-    title.includes("taisha")
+    title.includes("taisha") ||
+    title.includes("pagoda")
   ){
     return "⛩️";
   }
@@ -2080,6 +4080,7 @@ function itemIcon(item){
 
   if(
     title.includes("mount") ||
+    title.includes("mountain") ||
     title.includes("highland") ||
     title.includes("viewpoint")
   ){
@@ -2099,23 +4100,30 @@ function itemIcon(item){
 }
 
 
+
 /* =========================================================
-   DYNAMIC DAY AREA
+   DAY AREA / TITLE
 ========================================================= */
 
-function dayArea(date){
+function meaningfulArea(item){
+
+  return (
+    item.place?.area ||
+    item.restaurant?.area ||
+    item.place?.city ||
+    item.restaurant?.city ||
+    null
+  );
+
+}
+
+
+function dayRouteTitle(date){
 
   const items =
-    groupedDays[date] || [];
+    groupedDays[date] ||
+    [];
 
-
-  /*
-    Try to determine the area from
-    the actual saved place / restaurant.
-
-    This means changing the itinerary
-    also changes the day heading.
-  */
 
   const areas = [];
 
@@ -2123,64 +4131,50 @@ function dayArea(date){
   items.forEach(
     item => {
 
-      const values = [
-
-        item.place?.city,
-        item.restaurant?.city,
-        item.place?.area,
-        item.restaurant?.area
-
-      ]
-      .filter(Boolean);
+      const type =
+        norm(
+          item.item_type
+        );
 
 
-      values.forEach(
-        value => {
-
-          if(
-            !areas.some(
-              existing =>
-                norm(existing) ===
-                norm(value)
-            )
-          ){
-
-            areas.push(value);
-
-          }
-
-        }
-      );
-
-    }
-  );
+      const title =
+        norm(
+          item.title
+        );
 
 
-  /*
-    Prefer city names.
-  */
+      const ignore =
+        type.includes("transport") ||
+        type.includes("hotel") ||
+        title.includes("arrive") ||
+        title.includes("depart") ||
+        title.includes("check-in") ||
+        title.includes("check in");
 
-  const cities = [];
+
+      if(ignore){
+        return;
+      }
 
 
-  items.forEach(
-    item => {
-
-      const city =
-        item.place?.city ||
-        item.restaurant?.city;
+      const area =
+        meaningfulArea(
+          item
+        );
 
 
       if(
-        city &&
-        !cities.some(
-          existing =>
-            norm(existing) ===
-            norm(city)
+        area &&
+        !areas.some(
+          current =>
+            norm(current) ===
+            norm(area)
         )
       ){
 
-        cities.push(city);
+        areas.push(
+          area
+        );
 
       }
 
@@ -2188,68 +4182,230 @@ function dayArea(date){
   );
 
 
-  if(cities.length === 1){
+  if(areas.length >= 2){
 
-    return `📍 ${cities[0]}`;
-
-  }
-
-
-  if(cities.length >= 2){
-
-    return `📍 ${cities[0]} → ${cities[cities.length - 1]}`;
+    return `${areas[0]} to ${areas[areas.length - 1]}`;
 
   }
 
 
   if(areas.length === 1){
 
-    return `📍 ${areas[0]}`;
+    return areas[0];
 
   }
 
 
-  if(areas.length >= 2){
+  const locations = [];
 
-    return `📍 ${areas[0]} → ${areas[areas.length - 1]}`;
+
+  items.forEach(
+    item => {
+
+      const value =
+        item.location_name;
+
+
+      if(
+        value &&
+        !locations.some(
+          existing =>
+            norm(existing) ===
+            norm(value)
+        )
+      ){
+
+        locations.push(
+          value
+        );
+
+      }
+
+    }
+  );
+
+
+  if(
+    locations.length >= 2
+  ){
+
+    return `${locations[0]} to ${locations[locations.length - 1]}`;
 
   }
 
 
-  /*
-    If the schedule rows themselves
-    have location_name, use that.
-  */
+  if(
+    locations.length === 1
+  ){
 
-  const locations =
-    items
-      .map(
-        item =>
-          item.location_name
-      )
-      .filter(Boolean);
-
-
-  if(locations.length){
-
-    return `📍 ${locations[0]}`;
+    return locations[0];
 
   }
 
 
-  /*
-    Final fallback.
-  */
+  if(items.length){
+
+    return items[0].title;
+
+  }
+
+
+  return "Trip Day";
+
+}
+
+
+
+/* =========================================================
+   DAY CITY
+========================================================= */
+
+function dayCity(date){
+
+  const items =
+    groupedDays[date] ||
+    [];
+
+
+  for(
+    const item of items
+  ){
+
+    const city =
+      item.place?.city ||
+      item.restaurant?.city;
+
+
+    if(city){
+      return city;
+    }
+
+  }
+
 
   return (
-    trip.country
-    ?
-    `📍 ${trip.country}`
-    :
-    "📍 Trip Day"
+    trip?.country ||
+    ""
   );
 
 }
+
+
+
+/* =========================================================
+   STAMP
+========================================================= */
+
+function cityStamp(city){
+
+  const value =
+    norm(
+      city
+    );
+
+
+  if(
+    value.includes("kyoto")
+  ){
+    return "京都";
+  }
+
+
+  if(
+    value.includes("osaka")
+  ){
+    return "大阪";
+  }
+
+
+  if(
+    value.includes("nara")
+  ){
+    return "奈良";
+  }
+
+
+  if(
+    value.includes("nagoya")
+  ){
+    return "名古屋";
+  }
+
+
+  if(
+    value.includes("wakayama")
+  ){
+    return "和歌山";
+  }
+
+
+  if(
+    value.includes("tanabe")
+  ){
+    return "田辺";
+  }
+
+
+  if(
+    value.includes("koya")
+  ){
+    return "高野";
+  }
+
+
+  if(
+    value.includes("nachi")
+  ){
+    return "那智";
+  }
+
+
+  return "旅";
+
+}
+
+
+
+/* =========================================================
+   DAY NUMBER
+========================================================= */
+
+function dayNumber(date){
+
+  if(
+    !trip?.start_date
+  ){
+    return 1;
+  }
+
+
+  const start =
+    parseDate(
+      trip.start_date
+    );
+
+
+  const current =
+    parseDate(
+      date
+    );
+
+
+  const diff =
+    Math.round(
+      (
+        current -
+        start
+      )
+      /
+      86400000
+    );
+
+
+  return diff + 1;
+
+}
+
 
 
 /* =========================================================
@@ -2261,7 +4417,20 @@ function renderDay(){
   const items =
     groupedDays[
       selectedDate
-    ] || [];
+    ] ||
+    [];
+
+
+  const parts =
+    dateParts(
+      selectedDate
+    );
+
+
+  const city =
+    dayCity(
+      selectedDate
+    );
 
 
   main.classList.toggle(
@@ -2270,85 +4439,118 @@ function renderDay(){
   );
 
 
+  if(!items.length){
+
+    main.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          Nothing planned yet
+        </strong>
+
+        Use ＋ above to add something to this day.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
   main.innerHTML = `
 
-    <div class="day-head">
+    <section class="day-card">
 
-      <div class="day-date">
 
-        ${esc(
-          formatDate(
-            selectedDate
-          )
-        )}
+      <div class="day-card-header">
+
+
+        <div class="day-meta-row">
+
+
+          <div class="day-number">
+
+            DAY
+            ${String(
+              dayNumber(
+                selectedDate
+              )
+            ).padStart(2,"0")}
+
+            ${
+              city
+              ?
+              ` · ${esc(city.toUpperCase())}`
+              :
+              ""
+            }
+
+          </div>
+
+
+          <div class="day-date-side">
+
+            ${esc(parts.weekdayLong)}
+
+            <br>
+
+            ${esc(parts.day)}
+            ${esc(parts.month)}
+
+          </div>
+
+
+        </div>
+
+
+        <div class="day-route-title">
+
+          ${esc(
+            dayRouteTitle(
+              selectedDate
+            )
+          )}
+
+        </div>
+
+
+        <div class="day-stamp">
+
+          ${esc(
+            cityStamp(
+              city
+            )
+          )}
+
+        </div>
+
 
       </div>
 
 
-      <div class="day-title">
 
-        ${esc(
-          dayArea(
-            selectedDate
-          )
-        )}
-
-      </div>
-
-
-      <div class="day-summary">
+      <div class="timeline">
 
         ${
-          items.length
-          ?
-          `${items.length} schedule item${items.length === 1 ? "" : "s"}`
-          :
-          "No schedule items yet"
+          items
+            .map(
+              timelineHTML
+            )
+            .join("")
         }
 
       </div>
 
-    </div>
 
-
-    ${
-      items.length
-
-      ?
-
-      `
-        <div class="timeline">
-
-          ${
-            items
-              .map(
-                timelineHTML
-              )
-              .join("")
-          }
-
-        </div>
-      `
-
-      :
-
-      `
-        <div class="state">
-
-          <strong>
-            Nothing planned yet
-          </strong>
-
-          Use ＋ ADD above to add something to this day.
-
-        </div>
-      `
-    }
-
+    </section>
 
   `;
 
 }
+
 
 
 /* =========================================================
@@ -2358,21 +4560,28 @@ function renderDay(){
 function timelineHTML(item){
 
   const map =
-    itemMap(item);
+    itemMap(
+      item
+    );
 
 
   const location =
-    itemLocation(item);
+    itemLocation(
+      item
+    );
 
 
   return `
 
     <div class="timeline-row">
 
+
       <div class="timeline-time">
 
         ${esc(
-          itemTime(item)
+          itemTime(
+            item
+          )
         )}
 
       </div>
@@ -2387,9 +4596,8 @@ function timelineHTML(item){
 
       <div class="item-main">
 
-        <div class="item-title">
 
-          ${itemIcon(item)}
+        <div class="item-title">
 
           ${
             map
@@ -2491,6 +4699,7 @@ function timelineHTML(item){
           ""
         }
 
+
       </div>
 
 
@@ -2500,8 +4709,9 @@ function timelineHTML(item){
         onclick="openEditItem(${Number(item.id)})"
         aria-label="Edit"
       >
-        ✏️
+        ✎
       </button>
+
 
     </div>
 
@@ -2510,8 +4720,9 @@ function timelineHTML(item){
 }
 
 
+
 /* =========================================================
-   ADD + EDIT
+   ADD / EDIT MODE
 ========================================================= */
 
 addButton.onclick =
@@ -2534,9 +4745,9 @@ editButton.onclick =
     editButton.textContent =
       editing
       ?
-      "✓ DONE"
+      "✓"
       :
-      "✏️ EDIT";
+      "✎";
 
 
     renderDay();
@@ -2544,14 +4755,17 @@ editButton.onclick =
   };
 
 
+
 /* =========================================================
    EDIT SHEET
 ========================================================= */
 
-document.getElementById(
-  "closeSheet"
-).onclick =
-  closeEditSheet;
+document
+  .getElementById(
+    "closeSheet"
+  )
+  .onclick =
+    closeEditSheet;
 
 
 editSheet.onclick =
@@ -2583,8 +4797,9 @@ function closeEditSheet(){
 }
 
 
+
 /* =========================================================
-   FORM TYPE
+   TYPE SELECTOR
 ========================================================= */
 
 typeGrid
@@ -2622,7 +4837,8 @@ function setFormType(type){
 
         button.classList.toggle(
           "active",
-          button.dataset.type === type
+          button.dataset.type ===
+          type
         );
 
       }
@@ -2633,15 +4849,22 @@ function setFormType(type){
     "show"
   );
 
+
   googleAddBox.classList.remove(
     "show"
   );
 
-  if(type === "custom"){
 
-    selectedPlaceId = null;
+  if(
+    type === "custom"
+  ){
 
-    selectedRestaurantId = null;
+    selectedPlaceId =
+      null;
+
+
+    selectedRestaurantId =
+      null;
 
 
     entityPicker.style.display =
@@ -2672,9 +4895,12 @@ function setFormType(type){
   );
 
 
-  if(type === "place"){
+  if(
+    type === "place"
+  ){
 
-    selectedRestaurantId = null;
+    selectedRestaurantId =
+      null;
 
 
     entityPickerTitle.textContent =
@@ -2705,7 +4931,8 @@ function setFormType(type){
 
   else{
 
-    selectedPlaceId = null;
+    selectedPlaceId =
+      null;
 
 
     entityPickerTitle.textContent =
@@ -2739,6 +4966,7 @@ function setFormType(type){
 }
 
 
+
 /* =========================================================
    MASTER HELP
 ========================================================= */
@@ -2746,19 +4974,23 @@ function setFormType(type){
 masterHelpButton.onclick =
   async () => {
 
-    if(formType === "place"){
+    if(
+      formType === "place"
+    ){
 
-      googleAddBox.classList.add("show");
+      googleAddBox.classList.add(
+        "show"
+      );
 
-      /*
-        Initialise once. This is the same Google Places
-        autocomplete flow used by food.html.
-      */
+
       await initGooglePlaceAutocomplete();
 
     }
 
-    else if(formType === "restaurant"){
+
+    else if(
+      formType === "restaurant"
+    ){
 
       location.href =
         `food.html?trip=${TRIP_ID}`;
@@ -2768,37 +5000,59 @@ masterHelpButton.onclick =
   };
 
 
+
 /* =========================================================
-   GOOGLE PLACES — SAME FLOW AS FOOD.HTML
+   GOOGLE PLACES
 ========================================================= */
 
-let googlePlaceAutocomplete = null;
+let googlePlaceAutocomplete =
+  null;
 
 
-function setGooglePlaceStatus(message,type=""){
+function setGooglePlaceStatus(
+  message,
+  type=""
+){
 
   const el =
-    document.getElementById("googlePlaceStatus");
+    document.getElementById(
+      "googlePlaceStatus"
+    );
 
-  if(!el) return;
 
-  el.textContent = message;
+  if(!el){
+    return;
+  }
+
+
+  el.textContent =
+    message;
+
+
   el.className =
-    `place-status ${type}`.trim();
+    `place-status ${type}`
+      .trim();
 
 }
 
 
-function addressPart(components,wantedTypes){
+function addressPart(
+  components,
+  wantedTypes
+){
 
   const item =
-    (components || []).find(
-      component =>
-        wantedTypes.some(
-          type =>
-            component.types?.includes(type)
-        )
-    );
+    (components || [])
+      .find(
+        component =>
+          wantedTypes.some(
+            type =>
+              component.types?.includes(
+                type
+              )
+          )
+      );
+
 
   return (
     item?.longText ||
@@ -2812,20 +5066,30 @@ function addressPart(components,wantedTypes){
 async function initGooglePlaceAutocomplete(){
 
   const host =
-    document.getElementById("googlePlaceSearch");
+    document.getElementById(
+      "googlePlaceSearch"
+    );
+
 
   if(!host){
     return;
   }
 
+
   if(
     googlePlaceAutocomplete &&
-    host.contains(googlePlaceAutocomplete)
+    host.contains(
+      googlePlaceAutocomplete
+    )
   ){
+
     return;
+
   }
 
-  googlePlaceAutocomplete = null;
+
+  googlePlaceAutocomplete =
+    null;
 
 
   try{
@@ -2842,13 +5106,17 @@ async function initGooglePlaceAutocomplete(){
       typeof window.getGooglePlaceDetails !== "function" ||
       typeof window.normalizeGooglePlace !== "function"
     ){
+
       throw new Error(
         "The Google Maps helper functions were not found."
       );
+
     }
 
 
     await window.loadGoogleMaps();
+
+
     await window.getGooglePlaces();
 
 
@@ -2859,321 +5127,392 @@ async function initGooglePlaceAutocomplete(){
           placeholder:
             `Search place${
               trip?.country
-              ? " in " + trip.country
-              : ""
+              ?
+              " in " +
+              trip.country
+              :
+              ""
             }...`
         }
       );
 
 
-    googlePlaceAutocomplete.addEventListener(
-      "gmp-select",
-      async event => {
+    googlePlaceAutocomplete
+      .addEventListener(
+        "gmp-select",
+        async event => {
 
-        try{
+          try{
 
-          setGooglePlaceStatus(
-            "Getting place details…"
-          );
-
-
-          const place =
-            await window.getGooglePlaceDetails(
-              event
+            setGooglePlaceStatus(
+              "Getting place details…"
             );
 
 
-          const data =
-            window.normalizeGooglePlace(
-              place
-            );
+            const place =
+              await window.getGooglePlaceDetails(
+                event
+              );
 
 
-          const components =
-            place.addressComponents || [];
+            const data =
+              window.normalizeGooglePlace(
+                place
+              );
 
 
-          const prefecture =
-            data.prefecture ||
-            addressPart(
-              components,
-              ["administrative_area_level_1"]
-            ) ||
-            null;
+            const components =
+              place.addressComponents ||
+              [];
 
 
-          const city =
-            data.city ||
-            addressPart(
-              components,
-              [
-                "locality",
-                "postal_town",
-                "administrative_area_level_2"
-              ]
-            ) ||
-            null;
+            const prefecture =
+              data.prefecture ||
+              addressPart(
+                components,
+                [
+                  "administrative_area_level_1"
+                ]
+              ) ||
+              null;
 
 
-          const area =
-            data.area ||
-            addressPart(
-              components,
-              [
-                "sublocality_level_1",
-                "sublocality",
-                "administrative_area_level_3"
-              ]
-            ) ||
-            null;
+            const city =
+              data.city ||
+              addressPart(
+                components,
+                [
+                  "locality",
+                  "postal_town",
+                  "administrative_area_level_2"
+                ]
+              ) ||
+              null;
 
 
-          const country =
-            data.country ||
-            addressPart(
-              components,
-              ["country"]
-            ) ||
-            trip?.country ||
-            null;
+            const area =
+              data.area ||
+              addressPart(
+                components,
+                [
+                  "sublocality_level_1",
+                  "sublocality",
+                  "administrative_area_level_3"
+                ]
+              ) ||
+              null;
 
 
-          const providerPlaceId =
-            data.provider_place_id ||
-            data.google_place_id ||
-            place.id ||
-            null;
+            const country =
+              data.country ||
+              addressPart(
+                components,
+                [
+                  "country"
+                ]
+              ) ||
+              trip?.country ||
+              null;
 
 
-          if(!providerPlaceId){
-            throw new Error(
-              "Google did not return a Place ID."
-            );
-          }
+            const providerPlaceId =
+              data.provider_place_id ||
+              data.google_place_id ||
+              place.id ||
+              null;
 
 
-          /*
-            Always check the Google provider ID first.
-            If this place already exists, reuse it.
-          */
-          const existing =
-            await db
-              .from("places")
-              .select("*")
-              .eq("provider","google")
-              .eq(
-                "provider_place_id",
-                providerPlaceId
-              )
-              .maybeSingle();
+            if(
+              !providerPlaceId
+            ){
+
+              throw new Error(
+                "Google did not return a Place ID."
+              );
+
+            }
 
 
-          if(existing.error){
-            throw existing.error;
-          }
-
-
-          let savedPlace =
-            existing.data || null;
-
-
-          if(!savedPlace){
-
-            const payload = {
-
-              name:
-                data.name ||
-                place.displayName ||
-                "Unnamed place",
-
-              country:
-                country,
-
-              prefecture:
-                prefecture,
-
-              city:
-                city,
-
-              area:
-                area,
-
-              address:
-                data.address ||
-                place.formattedAddress ||
-                null,
-
-              latitude:
-                data.latitude ?? null,
-
-              longitude:
-                data.longitude ?? null,
-
-              maps_url:
-                data.maps_url ||
-                place.googleMapsURI ||
-                null,
-
-              provider:
-                "google",
-
-              provider_place_id:
-                providerPlaceId,
-
-              updated_at:
-                new Date().toISOString()
-
-            };
-
-
-            const created =
+            const existing =
               await db
-                .from("places")
-                .insert(payload)
-                .select()
-                .single();
+                .from(
+                  "places"
+                )
+                .select("*")
+                .eq(
+                  "provider",
+                  "google"
+                )
+                .eq(
+                  "provider_place_id",
+                  providerPlaceId
+                )
+                .maybeSingle();
 
 
-            if(created.error){
+            if(
+              existing.error
+            ){
 
-              /*
-                Handles a simultaneous duplicate insert
-                when provider/provider_place_id is unique.
-              */
-              if(created.error.code === "23505"){
+              throw existing.error;
 
-                const duplicate =
-                  await db
-                    .from("places")
-                    .select("*")
-                    .eq("provider","google")
-                    .eq(
-                      "provider_place_id",
-                      providerPlaceId
-                    )
-                    .single();
+            }
 
-                if(duplicate.error){
-                  throw duplicate.error;
+
+            let savedPlace =
+              existing.data ||
+              null;
+
+
+            if(
+              !savedPlace
+            ){
+
+              const payload = {
+
+                name:
+                  data.name ||
+                  place.displayName ||
+                  "Unnamed place",
+
+                country:
+                  country,
+
+                prefecture:
+                  prefecture,
+
+                city:
+                  city,
+
+                area:
+                  area,
+
+                address:
+                  data.address ||
+                  place.formattedAddress ||
+                  null,
+
+                latitude:
+                  data.latitude ??
+                  null,
+
+                longitude:
+                  data.longitude ??
+                  null,
+
+                maps_url:
+                  data.maps_url ||
+                  place.googleMapsURI ||
+                  null,
+
+                provider:
+                  "google",
+
+                provider_place_id:
+                  providerPlaceId,
+
+                updated_at:
+                  new Date().toISOString()
+
+              };
+
+
+              const created =
+                await db
+                  .from(
+                    "places"
+                  )
+                  .insert(
+                    payload
+                  )
+                  .select()
+                  .single();
+
+
+              if(
+                created.error
+              ){
+
+                if(
+                  created.error.code ===
+                  "23505"
+                ){
+
+                  const duplicate =
+                    await db
+                      .from(
+                        "places"
+                      )
+                      .select("*")
+                      .eq(
+                        "provider",
+                        "google"
+                      )
+                      .eq(
+                        "provider_place_id",
+                        providerPlaceId
+                      )
+                      .single();
+
+
+                  if(
+                    duplicate.error
+                  ){
+
+                    throw duplicate.error;
+
+                  }
+
+
+                  savedPlace =
+                    duplicate.data;
+
                 }
 
-                savedPlace =
-                  duplicate.data;
+
+                else{
+
+                  throw created.error;
+
+                }
 
               }
+
+
               else{
-                throw created.error;
+
+                savedPlace =
+                  created.data;
+
               }
 
             }
-            else{
-              savedPlace =
-                created.data;
+
+
+            const index =
+              places.findIndex(
+                row =>
+                  Number(row.id) ===
+                  Number(savedPlace.id)
+              );
+
+
+            if(
+              index >= 0
+            ){
+
+              places[index] =
+                savedPlace;
+
             }
 
-          }
+
+            else{
+
+              places.push(
+                savedPlace
+              );
 
 
-          const index =
-            places.findIndex(
-              row =>
-                Number(row.id) ===
-                Number(savedPlace.id)
-            );
-
-
-          if(index >= 0){
-            places[index] = savedPlace;
-          }
-          else{
-            places.push(savedPlace);
-            places.sort(
-              (a,b) =>
-                String(a.name || "")
-                  .localeCompare(
-                    String(b.name || "")
+              places.sort(
+                (a,b) =>
+                  String(
+                    a.name ||
+                    ""
                   )
+                  .localeCompare(
+                    String(
+                      b.name ||
+                      ""
+                    )
+                  )
+              );
+
+            }
+
+
+            selectedPlaceId =
+              savedPlace.id;
+
+
+            selectedRestaurantId =
+              null;
+
+
+            entitySearch.value =
+              savedPlace.name ||
+              "";
+
+
+            fieldTitle.value =
+              savedPlace.name ||
+              "";
+
+
+            fieldLocation.value =
+              [
+                savedPlace.area,
+                savedPlace.city,
+                savedPlace.prefecture
+              ]
+              .filter(Boolean)
+              .join(", ")
+              ||
+              savedPlace.address
+              ||
+              "";
+
+
+            entityResults.classList.remove(
+              "show"
             );
+
+
+            googleAddBox.classList.remove(
+              "show"
+            );
+
+
+            updateSelectedEntity();
+
+
+            setGooglePlaceStatus(
+              `✓ ${savedPlace.name} saved to Places.`,
+              "success"
+            );
+
+
+            formMessage.textContent =
+              "Google verified ✓ Place saved and selected.";
+
+
+            formMessage.className =
+              "form-message success";
+
           }
 
 
-          /*
-            schedule.place_id uses our Supabase
-            public.places.id — never Google's ID.
-          */
-          selectedPlaceId =
-            savedPlace.id;
+          catch(error){
 
-          selectedRestaurantId =
-            null;
+            console.error(
+              "Google Places selection:",
+              error
+            );
 
 
-          entitySearch.value =
-            savedPlace.name || "";
+            setGooglePlaceStatus(
+              "Google place error: " +
+              (
+                error.message ||
+                String(error)
+              ),
+              "error"
+            );
 
-          fieldTitle.value =
-            savedPlace.name || "";
-
-          fieldLocation.value =
-            [
-              savedPlace.area,
-              savedPlace.city,
-              savedPlace.prefecture
-            ]
-            .filter(Boolean)
-            .join(", ")
-            ||
-            savedPlace.address
-            ||
-            "";
-
-
-          entityResults.classList.remove(
-            "show"
-          );
-
-          googleAddBox.classList.remove(
-            "show"
-          );
-
-
-          updateSelectedEntity();
-
-
-          setGooglePlaceStatus(
-            `✓ ${savedPlace.name} saved to Places.`,
-            "success"
-          );
-
-
-          formMessage.textContent =
-            "Google verified ✓ Place saved and selected.";
-
-          formMessage.className =
-            "form-message success";
+          }
 
         }
-
-        catch(error){
-
-          console.error(
-            "Google Places selection:",
-            error
-          );
-
-          setGooglePlaceStatus(
-            "Google place error: " +
-            (
-              error.message ||
-              String(error)
-            ),
-            "error"
-          );
-
-        }
-
-      }
-    );
+      );
 
 
     setGooglePlaceStatus(
@@ -3182,12 +5521,14 @@ async function initGooglePlaceAutocomplete(){
 
   }
 
+
   catch(error){
 
     console.error(
       "Google Places init:",
       error
     );
+
 
     setGooglePlaceStatus(
       "Google Places error: " +
@@ -3203,17 +5544,23 @@ async function initGooglePlaceAutocomplete(){
 }
 
 
+
 /* =========================================================
    OPEN NEW ITEM
 ========================================================= */
 
 function openNewItem(){
 
-  editingId = null;
+  editingId =
+    null;
 
-  selectedPlaceId = null;
 
-  selectedRestaurantId = null;
+  selectedPlaceId =
+    null;
+
+
+  selectedRestaurantId =
+    null;
 
 
   sheetTitle.textContent =
@@ -3228,21 +5575,37 @@ function openNewItem(){
     selectedDate;
 
 
-  fieldTime.value = "";
+  fieldTime.value =
+    "";
 
-  fieldTimeLabel.value = "";
 
-  fieldTitle.value = "";
+  fieldTimeLabel.value =
+    "";
 
-  fieldLocation.value = "";
 
-  fieldNotes.value = "";
+  fieldTitle.value =
+    "";
 
-  fieldOptional.checked = false;
 
-  entitySearch.value = "";
+  fieldLocation.value =
+    "";
 
-  googleAddBox.classList.remove("show");
+
+  fieldNotes.value =
+    "";
+
+
+  fieldOptional.checked =
+    false;
+
+
+  entitySearch.value =
+    "";
+
+
+  googleAddBox.classList.remove(
+    "show"
+  );
 
 
   setFormType(
@@ -3262,9 +5625,12 @@ function openNewItem(){
   );
 
 
-  renderEntityResults("");
+  renderEntityResults(
+    ""
+  );
 
 }
+
 
 
 /* =========================================================
@@ -3291,11 +5657,13 @@ function openEditItem(id){
 
 
   selectedPlaceId =
-    item.place_id || null;
+    item.place_id ||
+    null;
 
 
   selectedRestaurantId =
-    item.restaurant_id || null;
+    item.restaurant_id ||
+    null;
 
 
   sheetTitle.textContent =
@@ -3313,21 +5681,27 @@ function openEditItem(id){
   fieldTime.value =
     item.start_time
     ?
-    item.start_time.slice(0,5)
+    item.start_time.slice(
+      0,
+      5
+    )
     :
     "";
 
 
   fieldTimeLabel.value =
-    item.time_label || "";
+    item.time_label ||
+    "";
 
 
   fieldTitle.value =
-    item.title || "";
+    item.title ||
+    "";
 
 
   fieldLocation.value =
-    item.location_name || "";
+    item.location_name ||
+    "";
 
 
   fieldNotes.value =
@@ -3342,7 +5716,9 @@ function openEditItem(id){
     );
 
 
-  if(item.restaurant_id){
+  if(
+    item.restaurant_id
+  ){
 
     setFormType(
       "restaurant"
@@ -3350,12 +5726,15 @@ function openEditItem(id){
 
 
     entitySearch.value =
-      item.restaurant?.name || "";
+      item.restaurant?.name ||
+      "";
 
   }
 
 
-  else if(item.place_id){
+  else if(
+    item.place_id
+  ){
 
     setFormType(
       "place"
@@ -3363,7 +5742,8 @@ function openEditItem(id){
 
 
     entitySearch.value =
-      item.place?.name || "";
+      item.place?.name ||
+      "";
 
   }
 
@@ -3375,7 +5755,8 @@ function openEditItem(id){
     );
 
 
-    entitySearch.value = "";
+    entitySearch.value =
+      "";
 
   }
 
@@ -3394,6 +5775,7 @@ function openEditItem(id){
 }
 
 
+
 /* =========================================================
    ENTITY SEARCH
 ========================================================= */
@@ -3406,9 +5788,11 @@ entitySearch.addEventListener(
       formType !== "custom" &&
       entitySearch.value.trim()
     ){
+
       renderEntityResults(
         entitySearch.value
       );
+
     }
 
   }
@@ -3419,22 +5803,35 @@ entitySearch.addEventListener(
   "input",
   () => {
 
-    if(formType === "custom"){
+    if(
+      formType === "custom"
+    ){
       return;
     }
 
-    /*
-      If the user changes the typed text after selecting
-      a saved place, require them to select a result again.
-    */
-    if(formType === "place"){
-      selectedPlaceId = null;
-    }
-    else if(formType === "restaurant"){
-      selectedRestaurantId = null;
+
+    if(
+      formType === "place"
+    ){
+
+      selectedPlaceId =
+        null;
+
     }
 
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      selectedRestaurantId =
+        null;
+
+    }
+
+
     updateSelectedEntity();
+
 
     renderEntityResults(
       entitySearch.value
@@ -3444,24 +5841,32 @@ entitySearch.addEventListener(
 );
 
 
+
 /* =========================================================
    ENTITY RESULTS
 ========================================================= */
 
-function renderEntityResults(queryValue){
+function renderEntityResults(
+  queryValue
+){
 
   const query =
-    norm(queryValue);
+    norm(
+      queryValue
+    );
 
 
-  /*
-    Saved Places is type-to-search.
-    Do not dump the whole master list when the box is empty.
-  */
   if(!query){
 
-    entityResults.innerHTML = "";
-    entityResults.classList.remove("show");
+    entityResults.innerHTML =
+      "";
+
+
+    entityResults.classList.remove(
+      "show"
+    );
+
+
     return;
 
   }
@@ -3479,22 +5884,20 @@ function renderEntityResults(queryValue){
     source.filter(
       item => {
 
-        if(!query){
-          return true;
-        }
-
-
         const haystack =
-          norm([
-            item.name,
-            item.name_japanese,
-            item.country,
-            item.prefecture,
-            item.city,
-            item.area,
-            item.location,
-            item.address
-          ].join(" "));
+          norm(
+            [
+              item.name,
+              item.name_japanese,
+              item.country,
+              item.prefecture,
+              item.city,
+              item.area,
+              item.location,
+              item.address
+            ]
+            .join(" ")
+          );
 
 
         return haystack.includes(
@@ -3512,7 +5915,9 @@ function renderEntityResults(queryValue){
     );
 
 
-  if(!matches.length){
+  if(
+    !matches.length
+  ){
 
     entityResults.innerHTML = `
 
@@ -3530,8 +5935,10 @@ function renderEntityResults(queryValue){
 
         ${
           formType === "place"
-          ? "Use “ADD NEW PLACE” below."
-          : "Add it to your saved restaurants first."
+          ?
+          "Use “ADD NEW PLACE” below."
+          :
+          "Add it to your saved restaurants first."
         }
 
       </div>
@@ -3555,7 +5962,9 @@ function renderEntityResults(queryValue){
         item => {
 
           const meta =
-            entityMeta(item);
+            entityMeta(
+              item
+            );
 
 
           return `
@@ -3595,9 +6004,7 @@ function renderEntityResults(queryValue){
 
                   `
                     <div class="entity-result-japanese">
-
                       ${esc(item.name_japanese)}
-
                     </div>
                   `
 
@@ -3614,9 +6021,7 @@ function renderEntityResults(queryValue){
 
                   `
                     <div class="entity-result-meta">
-
                       ${esc(meta)}
-
                     </div>
                   `
 
@@ -3668,6 +6073,7 @@ function renderEntityResults(queryValue){
     );
 
 }
+
 
 
 /* =========================================================
@@ -3724,11 +6130,13 @@ function chooseEntity(id){
 
 
   entitySearch.value =
-    item.name || "";
+    item.name ||
+    "";
 
 
   fieldTitle.value =
-    item.name || "";
+    item.name ||
+    "";
 
 
   fieldLocation.value =
@@ -3750,13 +6158,15 @@ function chooseEntity(id){
 }
 
 
+
 /* =========================================================
    SELECTED ENTITY
 ========================================================= */
 
 function updateSelectedEntity(){
 
-  let item = null;
+  let item =
+    null;
 
 
   if(
@@ -3795,6 +6205,7 @@ function updateSelectedEntity(){
       "show"
     );
 
+
     return;
 
   }
@@ -3817,11 +6228,14 @@ function updateSelectedEntity(){
 
 
   selectedEntityName.textContent =
-    item.name || "";
+    item.name ||
+    "";
 
 
   selectedEntityMeta.textContent =
-    entityMeta(item);
+    entityMeta(
+      item
+    );
 
 
   selectedEntity.classList.add(
@@ -3831,58 +6245,70 @@ function updateSelectedEntity(){
 }
 
 
+
 /* =========================================================
    CHANGE ENTITY
 ========================================================= */
 
-document.getElementById(
-  "changeEntityButton"
-).onclick =
-  () => {
+document
+  .getElementById(
+    "changeEntityButton"
+  )
+  .onclick =
+    () => {
 
-    if(
-      formType === "place"
-    ){
+      if(
+        formType === "place"
+      ){
 
-      selectedPlaceId = null;
+        selectedPlaceId =
+          null;
 
-    }
-
-
-    else if(
-      formType === "restaurant"
-    ){
-
-      selectedRestaurantId = null;
-
-    }
+      }
 
 
-    entitySearch.value = "";
+      else if(
+        formType === "restaurant"
+      ){
+
+        selectedRestaurantId =
+          null;
+
+      }
 
 
-    updateSelectedEntity();
+      entitySearch.value =
+        "";
 
 
-    renderEntityResults("");
+      updateSelectedEntity();
 
 
-    entitySearch.focus();
+      renderEntityResults(
+        ""
+      );
 
-  };
+
+      entitySearch.focus();
+
+    };
+
 
 
 /* =========================================================
-   TIME
+   TIME INPUT
 ========================================================= */
 
 fieldTime.addEventListener(
   "input",
   () => {
 
-    if(fieldTime.value){
+    if(
+      fieldTime.value
+    ){
 
-      fieldTimeLabel.value = "";
+      fieldTimeLabel.value =
+        "";
 
     }
 
@@ -3898,12 +6324,14 @@ fieldTimeLabel.addEventListener(
       fieldTimeLabel.value.trim()
     ){
 
-      fieldTime.value = "";
+      fieldTime.value =
+        "";
 
     }
 
   }
 );
+
 
 
 /* =========================================================
@@ -3913,11 +6341,18 @@ fieldTimeLabel.addEventListener(
 function nextSortOrder(date){
 
   const rows =
-    groupedDays[date] || [];
+    groupedDays[
+      date
+    ] ||
+    [];
 
 
-  if(!rows.length){
+  if(
+    !rows.length
+  ){
+
     return 10;
+
   }
 
 
@@ -3926,7 +6361,8 @@ function nextSortOrder(date){
       ...rows.map(
         row =>
           Number(
-            row.sort_order || 0
+            row.sort_order ||
+            0
           )
       )
     );
@@ -3937,266 +6373,298 @@ function nextSortOrder(date){
 }
 
 
+
 /* =========================================================
    SAVE ITEM
 ========================================================= */
 
-document.getElementById(
-  "editForm"
-).addEventListener(
-  "submit",
-  async event => {
+document
+  .getElementById(
+    "editForm"
+  )
+  .addEventListener(
+    "submit",
+    async event => {
 
-    event.preventDefault();
-
-
-    saveButton.disabled = true;
-
-    saveButton.textContent =
-      "SAVING…";
+      event.preventDefault();
 
 
-    formMessage.className =
-      "form-message";
+      saveButton.disabled =
+        true;
 
 
-    try{
-
-      const date =
-        fieldDate.value;
+      saveButton.textContent =
+        "SAVING…";
 
 
-      const time =
-        fieldTime.value;
+      formMessage.className =
+        "form-message";
 
 
-      const timeLabel =
-        fieldTimeLabel.value.trim();
+      try{
+
+        const date =
+          fieldDate.value;
 
 
-      const title =
-        fieldTitle.value.trim();
+        const time =
+          fieldTime.value;
 
 
-      const locationName =
-        fieldLocation.value.trim();
+        const timeLabel =
+          fieldTimeLabel
+            .value
+            .trim();
 
 
-      const notes =
-        fieldNotes.value.trim();
+        const title =
+          fieldTitle
+            .value
+            .trim();
 
 
-      if(!date){
-
-        throw new Error(
-          "Please choose a date."
-        );
-
-      }
+        const locationName =
+          fieldLocation
+            .value
+            .trim();
 
 
-      if(!title){
-
-        throw new Error(
-          "Please enter a title."
-        );
-
-      }
+        const notes =
+          fieldNotes
+            .value
+            .trim();
 
 
-      if(
-        formType === "place" &&
-        !selectedPlaceId
-      ){
+        if(!date){
 
-        throw new Error(
-          "Please choose a saved place."
-        );
-
-      }
-
-
-      if(
-        formType === "restaurant" &&
-        !selectedRestaurantId
-      ){
-
-        throw new Error(
-          "Please choose a saved restaurant."
-        );
-
-      }
-
-
-      const payload = {
-
-        trip_id:
-          TRIP_ID,
-
-        schedule_date:
-          date,
-
-        start_time:
-          time
-          ?
-          `${time}:00`
-          :
-          null,
-
-        time_label:
-          time
-          ?
-          null
-          :
-          (
-            timeLabel ||
-            null
-          ),
-
-        title:
-          title,
-
-        item_type:
-          formType === "restaurant"
-          ?
-          "restaurant"
-          :
-          formType === "place"
-          ?
-          "attraction"
-          :
-          "custom",
-
-        notes:
-          notes || null,
-
-        location_name:
-          locationName || null,
-
-        place_id:
-          formType === "place"
-          ?
-          selectedPlaceId
-          :
-          null,
-
-        restaurant_id:
-          formType === "restaurant"
-          ?
-          selectedRestaurantId
-          :
-          null,
-
-        is_optional:
-          fieldOptional.checked
-
-      };
-
-
-      if(
-        editingId === null
-      ){
-
-        payload.sort_order =
-          nextSortOrder(
-            date
+          throw new Error(
+            "Please choose a date."
           );
 
-
-        const result =
-          await db
-            .from("schedule")
-            .insert(
-              payload
-            )
-            .select()
-            .single();
-
-
-        if(result.error){
-          throw result.error;
         }
 
-      }
 
+        if(!title){
 
-      else{
+          throw new Error(
+            "Please enter a title."
+          );
 
-        const result =
-          await db
-            .from("schedule")
-            .update(
-              payload
-            )
-            .eq(
-              "id",
-              editingId
-            )
-            .eq(
-              "trip_id",
-              TRIP_ID
-            )
-            .select();
-
-
-        if(result.error){
-          throw result.error;
         }
 
 
         if(
-          !result.data ||
-          !result.data.length
+          formType === "place" &&
+          !selectedPlaceId
         ){
 
           throw new Error(
-            "The item was not updated. Check your editing permission."
+            "Please choose a saved place."
           );
 
         }
 
+
+        if(
+          formType === "restaurant" &&
+          !selectedRestaurantId
+        ){
+
+          throw new Error(
+            "Please choose a saved restaurant."
+          );
+
+        }
+
+
+        const payload = {
+
+          trip_id:
+            TRIP_ID,
+
+          schedule_date:
+            date,
+
+          start_time:
+            time
+            ?
+            `${time}:00`
+            :
+            null,
+
+          time_label:
+            time
+            ?
+            null
+            :
+            (
+              timeLabel ||
+              null
+            ),
+
+          title:
+            title,
+
+          item_type:
+            formType === "restaurant"
+            ?
+            "restaurant"
+            :
+            formType === "place"
+            ?
+            "attraction"
+            :
+            "custom",
+
+          notes:
+            notes ||
+            null,
+
+          location_name:
+            locationName ||
+            null,
+
+          place_id:
+            formType === "place"
+            ?
+            selectedPlaceId
+            :
+            null,
+
+          restaurant_id:
+            formType === "restaurant"
+            ?
+            selectedRestaurantId
+            :
+            null,
+
+          is_optional:
+            fieldOptional.checked
+
+        };
+
+
+        if(
+          editingId === null
+        ){
+
+          payload.sort_order =
+            nextSortOrder(
+              date
+            );
+
+
+          const result =
+            await db
+              .from(
+                "schedule"
+              )
+              .insert(
+                payload
+              )
+              .select()
+              .single();
+
+
+          if(
+            result.error
+          ){
+
+            throw result.error;
+
+          }
+
+        }
+
+
+        else{
+
+          const result =
+            await db
+              .from(
+                "schedule"
+              )
+              .update(
+                payload
+              )
+              .eq(
+                "id",
+                editingId
+              )
+              .eq(
+                "trip_id",
+                TRIP_ID
+              )
+              .select();
+
+
+          if(
+            result.error
+          ){
+
+            throw result.error;
+
+          }
+
+
+          if(
+            !result.data ||
+            !result.data.length
+          ){
+
+            throw new Error(
+              "The item was not updated. Check your editing permission."
+            );
+
+          }
+
+        }
+
+
+        selectedDate =
+          date;
+
+
+        closeEditSheet();
+
+
+        await reloadSchedule();
+
       }
 
 
-      selectedDate =
-        date;
+      catch(error){
+
+        console.error(
+          error
+        );
 
 
-      closeEditSheet();
+        formMessage.textContent =
+          error.message ||
+          "Couldn't save schedule item.";
 
 
-      await reloadSchedule();
+        formMessage.className =
+          "form-message error";
 
-    }
-
-
-    catch(error){
-
-      console.error(error);
+      }
 
 
-      formMessage.textContent =
-        error.message ||
-        "Couldn't save schedule item.";
+      finally{
+
+        saveButton.disabled =
+          false;
 
 
-      formMessage.className =
-        "form-message error";
+        saveButton.textContent =
+          "SAVE";
 
-    }
-
-
-    finally{
-
-      saveButton.disabled = false;
-
-      saveButton.textContent =
-        "SAVE";
+      }
 
     }
+  );
 
-  }
-);
 
 
 /* =========================================================
@@ -4209,7 +6677,9 @@ deleteButton.onclick =
     if(
       editingId === null
     ){
+
       return;
+
     }
 
 
@@ -4245,7 +6715,9 @@ deleteButton.onclick =
 
       const result =
         await db
-          .from("schedule")
+          .from(
+            "schedule"
+          )
           .delete()
           .eq(
             "id",
@@ -4257,8 +6729,12 @@ deleteButton.onclick =
           );
 
 
-      if(result.error){
+      if(
+        result.error
+      ){
+
         throw result.error;
+
       }
 
 
@@ -4272,7 +6748,9 @@ deleteButton.onclick =
 
     catch(error){
 
-      console.error(error);
+      console.error(
+        error
+      );
 
 
       formMessage.textContent =
@@ -4296,8 +6774,9 @@ deleteButton.onclick =
   };
 
 
+
 /* =========================================================
-   RELOAD SCHEDULE
+   RELOAD
 ========================================================= */
 
 async function reloadSchedule(){
@@ -4306,13 +6785,18 @@ async function reloadSchedule(){
     await loadScheduleQuery();
 
 
-  if(result.error){
+  if(
+    result.error
+  ){
+
     throw result.error;
+
   }
 
 
   schedule =
-    result.data || [];
+    result.data ||
+    [];
 
 
   buildDays();
@@ -4324,6 +6808,7 @@ async function reloadSchedule(){
 }
 
 
+
 /* =========================================================
    START
 ========================================================= */
@@ -4332,8 +6817,11 @@ loadData();
 
 </script>
 
-<!-- Shared footer logic -->
+
+
 <script src="footer.js"></script>
 
+
 </body>
+
 </html>
