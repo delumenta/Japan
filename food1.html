@@ -282,52 +282,61 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
 
 </style>
 
-<style id="requested-food-controls-fix">
-/* Keep the existing Food hero/cards. Only reshape the three control rows. */
+<style id="food-controls-authoritative">
+#cityChips{display:none!important}
+
+/* Row 1: a single segmented pill box */
 .main-tabs{
-  display:grid !important;
-  grid-template-columns:1fr 1fr !important;
-  gap:4px !important;
-  margin:18px 0 8px !important;
-  padding:4px !important;
-  border:1px solid rgba(255,255,255,.11) !important;
-  border-radius:999px !important;
-  background:rgba(7,12,16,.66) !important;
-  backdrop-filter:blur(10px) !important;
-  -webkit-backdrop-filter:blur(10px) !important;
-  overflow:hidden !important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:4px!important;
+  margin:18px 0 9px!important;
+  padding:4px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:999px!important;
+  background:rgba(7,12,16,.48)!important;
+  overflow:hidden!important;
 }
-.main-tabs::before{display:none !important}
+.main-tabs::before{display:none!important;content:none!important}
 .main-tab{
-  min-height:34px !important;
-  padding:7px 10px !important;
-  border:0 !important;
-  border-radius:999px !important;
-  background:transparent !important;
-  color:#7f8990 !important;
-  font-size:7.5px !important;
-  font-weight:900 !important;
-  letter-spacing:.04em !important;
+  min-height:34px!important;
+  padding:7px 10px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  color:#7f8990!important;
 }
-.main-tab::after{display:none !important}
+.main-tab::after{display:none!important;content:none!important}
 .main-tab.active{
-  color:#fff !important;
-  background:linear-gradient(180deg,rgba(255,98,95,.20),rgba(255,98,95,.10)) !important;
-  box-shadow:inset 0 0 0 1px rgba(255,98,95,.38),0 0 14px rgba(255,98,95,.08) !important;
+  color:#fff!important;
+  background:linear-gradient(180deg,rgba(255,98,95,.20),rgba(255,98,95,.10))!important;
+  box-shadow:inset 0 0 0 1px rgba(255,98,95,.36),0 0 14px rgba(255,98,95,.08)!important;
 }
-#cityChips{display:none !important}
-.unified-filter-panel{padding-top:0 !important}
-#myFilters,#discoverStatusRow{margin:0 0 7px !important}
+
+/* Row 2 */
+#myFilters,#discoverStatusRow{margin:0 0 7px!important}
+
+/* Row 3: City | Area | Food | Search */
 .sticky-filter-bar{
-  grid-template-columns:minmax(0,.78fr) minmax(0,.95fr) minmax(0,.95fr) minmax(0,1.35fr) !important;
-  gap:4px !important;
+  display:grid!important;
+  grid-template-columns:minmax(0,.78fr) minmax(0,.90fr) minmax(0,.90fr) minmax(0,1.28fr)!important;
+  gap:4px!important;
+  align-items:center!important;
 }
-.clear-compact-filter{display:none !important}
+.filter-select-btn,.quick-filter-wrap{height:32px!important;min-height:32px!important}
+.quick-filter-wrap{grid-column:auto!important;grid-row:auto!important}
+#clearCompactFilters,.clear-compact-filter{display:none!important}
+
+/* Retired rows must never reappear */
+#discoverAreaRow,#discoverControls,#browseChips{display:none!important}
+
 @media(max-width:430px){
-  .main-tabs{margin-top:16px !important}
   .sticky-filter-bar{
-    grid-template-columns:minmax(0,.78fr) minmax(0,.92fr) minmax(0,.92fr) minmax(0,1.25fr) !important;
+    grid-template-columns:minmax(0,.76fr) minmax(0,.87fr) minmax(0,.87fr) minmax(0,1.20fr)!important;
   }
+  .filter-select-btn{padding:5px!important;font-size:6.1px!important}
+  .quick-filter-wrap{padding:0 5px!important}
+  .quick-filter-input{font-size:6.1px!important}
 }
 </style>
 
@@ -542,11 +551,11 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
       class="quick-filter-input"
       type="search"
       autocomplete="off"
-      placeholder="Area / food / category..."
+      placeholder="Search..."
       aria-label="Quick filter by restaurant, area, food or category"
     />
   </div>
-<button id="clearCompactFilters" type="button" hidden></button>
+
 </div>
 </div>
 
@@ -1579,7 +1588,9 @@ function isScheduled(r){
 function isTop(r){
 
   if(
-    r.is_tabelog_top100 === true
+    r.is_tabelog_top100 === true ||
+    r.is_top100 === true ||
+    r.tabelog_top100 === true
   ){
     return true;
   }
@@ -1969,40 +1980,12 @@ document
             );
 
 
-          if(
-            activeTab === "mine"
-          ){
-
-            myFilters.style.display =
-              "flex";
-
-
-            discoverControls
-              .classList.remove(
-                "show"
-              );
-
-
-            searchInput.placeholder =
-              "Search your restaurants...";
-
-          }
-
-          else{
-
-            myFilters.style.display =
-              "none";
-
-
-            discoverControls
-              .classList.add(
-                "show"
-              );
-
-
-            searchInput.placeholder =
-              "Search master restaurant list...";
-
+          if(activeTab === "mine"){
+            myFilters.style.display = "flex";
+            discoverStatusRow.style.display = "none";
+          } else {
+            myFilters.style.display = "none";
+            discoverStatusRow.style.display = "flex";
           }
 
 
@@ -4717,6 +4700,10 @@ function foodFilterBaseSource(){
       source = source.filter(isTop);
     }
 
+    if(discoverStatusFilter === "top100"){
+      source = source.filter(isTop);
+    }
+
     if(discoverStatusFilter === "eaten"){
       source = source.filter(isEaten);
     }
@@ -4855,6 +4842,10 @@ function discoverAreaSource(){
     source = source.filter(hasTabelog);
   }
 
+
+  if(discoverStatusFilter === "top100"){
+    source = source.filter(isTop);
+  }
 
   if(discoverStatusFilter === "eaten"){
     source = source.filter(isEaten);
@@ -5120,6 +5111,10 @@ function compactAreaSource(){
 
     if(discoverStatusFilter === "tabelog"){
       source = source.filter(hasTabelog);
+    }
+
+    if(discoverStatusFilter === "top100"){
+      source = source.filter(isTop);
     }
 
     if(discoverStatusFilter === "top100"){
@@ -5437,16 +5432,6 @@ function renderCompactFilters(){
       }
     );
 
-
-  clearCompactFilters.classList.toggle(
-    "active",
-    Boolean(
-      sideAreaFilter ||
-      foodGroupFilter ||
-      quickFilterTerm
-    )
-  );
-
 }
 
 
@@ -5510,18 +5495,6 @@ foodFilterButton.onclick =
   };
 
 
-clearCompactFilters.onclick =
-  () => {
-
-    sideAreaFilter = "";
-    foodGroupFilter = "";
-    quickFilterTerm = "";
-    quickFilterInput.value = "";
-
-    closeCompactMenus();
-    render();
-
-  };
 
 
 document.addEventListener(
