@@ -486,149 +486,543 @@ async function getWeatherForDay(date,anchor){
 
 
 async function findNearbyGoogle(kind="places"){
-  const items=groupedDays[selectedDate]||[];
-  const anchor=anchorItem(items);
+
+  const items =
+    groupedDays[selectedDate] ||
+    [];
+
+  const anchor =
+    anchorItem(items);
+
 
   if(!anchor){
-    alert("Assist could not find a location for this itinerary stop.");
-    return;
-  }
 
-  const c=coordsOf(anchor);
-
-  if(!c){
-    alert("This itinerary stop does not have latitude / longitude yet.");
-    return;
-  }
-
-  if(typeof window.loadGoogleMaps!=="function"){
-    alert("google-maps.js is not available.");
-    return;
-  }
-
-  try{
-    await window.loadGoogleMaps();
-
-    const maps=window.google?.maps;
-
-    if(!maps?.places){
-      throw new Error("Google Places is not available.");
-    }
-
-    /*
-      Use Places Nearby Search around the ITINERARY stop, not the user's GPS.
-      When wet weather is active, indoor-friendly categories are requested first.
-    */
-    const rain=window.__assistWeatherStatus==="rain";
-
-    let requests=[];
-
-    if(kind==="food"){
-      requests=[
-        {type:"restaurant", keyword:"restaurant"},
-        {type:"cafe", keyword:"cafe"}
-      ];
-    }else if(rain){
-      requests=[
-        {keyword:"museum"},
-        {keyword:"aquarium"},
-        {keyword:"shopping mall"},
-        {keyword:"indoor attraction"}
-      ];
-    }else{
-      requests=[
-        {keyword:"tourist attraction"},
-        {keyword:"museum"},
-        {keyword:"things to do"}
-      ];
-    }
-
-    const host=document.createElement("div");
-    const service=new maps.places.PlacesService(host);
-
-    const searchOne=req=>new Promise(resolve=>{
-      service.nearbySearch({
-        location:new maps.LatLng(c.lat,c.lng),
-        radius:3000,
-        ...req
-      },(results,status)=>{
-        if(status===maps.places.PlacesServiceStatus.OK){
-          resolve(results||[]);
-        }else{
-          resolve([]);
-        }
-      });
-    });
-
-    const batches=await Promise.all(requests.map(searchOne));
-    const dedupe=new Map();
-
-    batches.flat().forEach(r=>{
-      if(!r?.place_id)return;
-      if(!dedupe.has(r.place_id))dedupe.set(r.place_id,r);
-    });
-
-    let results=[...dedupe.values()]
-      .map(r=>({
-        id:r.place_id,
-        name:r.name,
-        area:r.vicinity||"",
-        latitude:r.geometry?.location?.lat?.(),
-        longitude:r.geometry?.location?.lng?.(),
-        rating:r.rating,
-        user_ratings_total:r.user_ratings_total,
-        open_now:r.opening_hours?.open_now,
-        _distance:
-          Number.isFinite(r.geometry?.location?.lat?.()) &&
-          Number.isFinite(r.geometry?.location?.lng?.())
-          ? haversine(c,{
-              lat:r.geometry.location.lat(),
-              lng:r.geometry.location.lng()
-            })
-          : 999
-      }))
-      .sort((a,b)=>{
-        const ar=Number(a.rating||0), br=Number(b.rating||0);
-        if(br!==ar)return br-ar;
-        return a._distance-b._distance;
-      })
-      .slice(0,6);
-
-    const target=document.getElementById(
-      kind==="food" ? "foodDiscoveryResults" : "placeDiscoveryResults"
+    alert(
+      "Assist could not find a location for this itinerary stop."
     );
 
-    if(!target)return;
+    return;
 
-    if(!results.length){
-      target.innerHTML=`<div class="state"><strong>No nearby results found</strong>Try again later or open Google Maps from your itinerary stop.</div>`;
-      return;
+  }
+
+
+  const c =
+    coordsOf(anchor);
+
+
+  if(!c){
+
+    alert(
+      "This itinerary stop does not have latitude / longitude yet."
+    );
+
+    return;
+
+  }
+
+
+  const target =
+    document.getElementById(
+      kind === "food"
+      ? "foodDiscoveryResults"
+      : "placeDiscoveryResults"
+    );
+
+
+  if(!target){
+    return;
+  }
+
+
+  target.innerHTML = `
+
+    <div class="state">
+
+      <strong>
+        Finding nearby places…
+      </strong>
+
+      Searching around
+      ${esc(
+        itemLocation(anchor) ||
+        anchor.title ||
+        "this stop"
+      )}.
+
+    </div>
+
+  `;
+
+
+  try{
+
+    if(
+      typeof window.getGooglePlaces !==
+      "function"
+    ){
+
+      throw new Error(
+        "Google Places helper is not available."
+      );
+
     }
 
-    target.innerHTML=results.map(r=>{
-      const url=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name)}&query_place_id=${encodeURIComponent(r.id)}`;
-      const meta=[
-        distanceLabel(r._distance),
-        r.rating ? `★ ${Number(r.rating).toFixed(1)}` : null,
-        r.open_now===true ? "Open now" : r.open_now===false ? "Closed now" : null
-      ].filter(Boolean).join(" · ");
 
-      return `<div class="suggestion">
-        <div class="suggestion-icon">${kind==="food"?"🍽️":rain?"🏛️":"📍"}</div>
-        <div>
-          <div class="suggestion-name">${esc(r.name)}</div>
-          <div class="suggestion-meta">${esc(meta)}</div>
-          <a class="map-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">OPEN MAP ↗</a>
+    /*
+      IMPORTANT:
+      google-maps.js uses the NEW Google Places API.
+
+      It exposes:
+      window.getGooglePlaces()
+
+      which returns the Places library containing:
+      Place.searchNearby()
+
+      We deliberately do NOT use the old
+      google.maps.places.PlacesService API here.
+    */
+
+    const library =
+      await window.getGooglePlaces();
+
+
+    const Place =
+      library?.Place;
+
+
+    if(
+      !Place ||
+      typeof Place.searchNearby !==
+      "function"
+    ){
+
+      throw new Error(
+        "Google Nearby Search is not available."
+      );
+
+    }
+
+
+    const rain =
+      window.__assistWeatherStatus ===
+      "rain";
+
+
+    let includedPrimaryTypes;
+
+
+    if(kind === "food"){
+
+      includedPrimaryTypes = [
+        "restaurant",
+        "cafe"
+      ];
+
+    }
+
+    else if(rain){
+
+      /*
+        Wet-weather mode:
+        indoor-friendly categories come first.
+      */
+
+      includedPrimaryTypes = [
+        "museum",
+        "art_gallery",
+        "aquarium",
+        "shopping_mall",
+        "movie_theater",
+        "bowling_alley"
+      ];
+
+    }
+
+    else{
+
+      includedPrimaryTypes = [
+        "tourist_attraction",
+        "museum",
+        "art_gallery",
+        "aquarium",
+        "shopping_mall",
+        "park"
+      ];
+
+    }
+
+
+    const response =
+      await Place.searchNearby({
+
+        fields:[
+          "id",
+          "displayName",
+          "formattedAddress",
+          "location",
+          "googleMapsURI",
+          "rating",
+          "userRatingCount",
+          "regularOpeningHours",
+          "primaryType"
+        ],
+
+        locationRestriction:{
+          center:{
+            lat:c.lat,
+            lng:c.lng
+          },
+          radius:3000
+        },
+
+        includedPrimaryTypes,
+
+        maxResultCount:12,
+
+        rankPreference:
+          "DISTANCE"
+
+      });
+
+
+    let results =
+      (
+        response?.places ||
+        []
+      )
+
+      .map(place=>{
+
+        const placeLat =
+
+          typeof place.location?.lat ===
+          "function"
+
+          ?
+
+          place.location.lat()
+
+          :
+
+          Number(
+            place.location?.lat
+          );
+
+
+        const placeLng =
+
+          typeof place.location?.lng ===
+          "function"
+
+          ?
+
+          place.location.lng()
+
+          :
+
+          Number(
+            place.location?.lng
+          );
+
+
+        return {
+
+          id:
+            place.id,
+
+          name:
+            place.displayName ||
+            (
+              kind === "food"
+              ? "Restaurant"
+              : "Nearby place"
+            ),
+
+          area:
+            place.formattedAddress ||
+            "",
+
+          latitude:
+            placeLat,
+
+          longitude:
+            placeLng,
+
+          rating:
+            place.rating,
+
+          userRatingCount:
+            place.userRatingCount,
+
+          openNow:
+            place.regularOpeningHours
+              ?.openNow,
+
+          primaryType:
+            place.primaryType ||
+            "",
+
+          map:
+            place.googleMapsURI ||
+            (
+              Number.isFinite(placeLat) &&
+              Number.isFinite(placeLng)
+
+              ?
+
+              `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                `${placeLat},${placeLng}`
+              )}`
+
+              :
+
+              null
+            ),
+
+          _distance:
+
+            Number.isFinite(placeLat) &&
+            Number.isFinite(placeLng)
+
+            ?
+
+            haversine(
+              c,
+              {
+                lat:placeLat,
+                lng:placeLng
+              }
+            )
+
+            :
+
+            999
+
+        };
+
+      })
+
+      .filter(
+        row =>
+          row.name
+      );
+
+
+    /*
+      In rain mode, keep the indoor-friendly Google
+      result order. Otherwise distance is the main
+      useful ordering for Assist.
+    */
+
+    results =
+      results
+        .sort(
+          (a,b) =>
+            a._distance -
+            b._distance
+        )
+        .slice(
+          0,
+          8
+        );
+
+
+    if(!results.length){
+
+      target.innerHTML = `
+
+        <div class="state">
+
+          <strong>
+            No nearby results found
+          </strong>
+
+          Google did not return suitable
+          ${rain && kind !== "food"
+            ? "indoor places"
+            : "places"}
+          within about 3 km of this stop.
+
         </div>
-        <div class="suggestion-tag">${kind==="food"?"NEARBY":rain?"WET WEATHER":"DISCOVER"}</div>
-      </div>`;
-    }).join("");
 
-  }catch(error){
-    console.error("Nearby discovery:",error);
-    alert("Couldn't load nearby places: "+(error.message||String(error)));
+      `;
+
+      return;
+
+    }
+
+
+    target.innerHTML =
+      results
+        .map(row=>{
+
+          const meta =
+            [
+
+              distanceLabel(
+                row._distance
+              ),
+
+              row.rating
+              ?
+              `★ ${Number(
+                row.rating
+              ).toFixed(1)}`
+              :
+              null,
+
+              row.userRatingCount
+              ?
+              `${Number(
+                row.userRatingCount
+              ).toLocaleString()} reviews`
+              :
+              null
+
+            ]
+            .filter(Boolean)
+            .join(" · ");
+
+
+          const tag =
+
+            kind === "food"
+
+            ?
+
+            "NEARBY"
+
+            :
+
+            rain
+
+            ?
+
+            "INDOOR"
+
+            :
+
+            "DISCOVER";
+
+
+          const icon =
+
+            kind === "food"
+
+            ?
+
+            "🍽️"
+
+            :
+
+            rain
+
+            ?
+
+            "🏛️"
+
+            :
+
+            "📍";
+
+
+          return `
+
+            <div class="suggestion">
+
+              <div class="suggestion-icon">
+                ${icon}
+              </div>
+
+
+              <div>
+
+                <div class="suggestion-name">
+                  ${esc(row.name)}
+                </div>
+
+
+                <div class="suggestion-meta">
+                  ${esc(meta)}
+                </div>
+
+
+                ${
+                  row.area
+                  ?
+                  `
+                    <div class="suggestion-meta">
+                      ${esc(row.area)}
+                    </div>
+                  `
+                  :
+                  ""
+                }
+
+
+                ${
+                  row.map
+                  ?
+                  `
+                    <a
+                      class="map-link"
+                      href="${esc(row.map)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      OPEN MAP ↗
+                    </a>
+                  `
+                  :
+                  ""
+                }
+
+              </div>
+
+
+              <div class="suggestion-tag">
+                ${tag}
+              </div>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+
   }
+
+  catch(error){
+
+    console.error(
+      "Assist nearby discovery:",
+      error
+    );
+
+
+    target.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          Couldn't load nearby places
+        </strong>
+
+        ${esc(
+          error.message ||
+          "Google Nearby Search failed."
+        )}
+
+      </div>
+
+    `;
+
+  }
+
 }
+
 
 function suggestionHTML(row,icon,tag){
   const link=mapsLink(row);
