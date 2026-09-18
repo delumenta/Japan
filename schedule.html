@@ -2095,13 +2095,26 @@ gmp-place-autocomplete{
 .assist-send:disabled{opacity:.45}
 
 .assist-starters{
-  display:grid;grid-template-columns:1fr;gap:7px;padding:10px 10px 0
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:7px;
+  padding:10px 10px 0;
 }
 .assist-starters.hidden{display:none}
 .assist-starter{
-  width:100%;display:flex;align-items:center;gap:9px;text-align:left;
-  padding:10px 11px;border:1px solid #29363e;border-radius:11px;
-  background:#0e171c;color:#dfe5e8;cursor:pointer
+  width:100%;
+  min-width:0;
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-align:left;
+  padding:9px 9px;
+  border:1px solid #29363e;
+  border-radius:11px;
+  background:#0e171c;
+  color:#dfe5e8;
+  cursor:pointer;
 }
 .assist-starter:hover{border-color:rgba(120,169,239,.32);background:#101b21}
 .assist-starter-icon{
@@ -2109,8 +2122,8 @@ gmp-place-autocomplete{
   border:1px solid rgba(120,169,239,.16);border-radius:8px;background:rgba(120,169,239,.045);
   color:#9ab9df;font-size:11px
 }
-.assist-starter-text{font-size:7.5px;font-weight:800}
-.assist-starter-sub{margin-top:2px;color:#687781;font-size:5.7px;font-weight:600}
+.assist-starter-text{display:block;font-size:6.6px;font-weight:900;line-height:1.3}
+.assist-starter-sub{display:block;margin-top:3px;color:#687781;font-size:5.2px;font-weight:600;line-height:1.35}
 .assist-action-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .assist-action-btn{
   padding:6px 8px;border:1px solid rgba(120,169,239,.25);border-radius:8px;
@@ -2140,6 +2153,142 @@ gmp-place-autocomplete{
   .assist-launch-sub{display:none}
   .assist-launch-mode{min-width:46px;padding:0 5px;font-size:5.1px}
   .assist-launch-icon{width:30px;height:30px;flex-basis:30px}
+}
+
+
+@media(max-width:700px){
+  .assist-starters{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .assist-starters::-webkit-scrollbar{display:none}
+  .assist-starter{
+    flex:0 0 185px;
+    min-height:68px;
+  }
+}
+
+
+/* =========================================================
+   ASSIST — COMPACT FINAL OVERRIDES
+========================================================= */
+.assist-mode-area{
+  gap:7px;
+  padding:8px 10px 0;
+}
+.assist-mode-switch{
+  flex:0 0 145px;
+  gap:2px;
+  padding:2px;
+  border-radius:9px;
+}
+.assist-mode-btn{
+  min-height:25px;
+  padding:0 7px;
+  border-radius:7px;
+  font-size:5.6px;
+  letter-spacing:.07em;
+}
+.assist-mode-context{
+  font-size:5.6px;
+  line-height:1.3;
+}
+.assist-mode-context strong{
+  font-size:5.8px;
+}
+.assist-starter{
+  min-height:48px;
+  gap:7px;
+  padding:7px 8px;
+  border-radius:10px;
+}
+.assist-starter-icon{
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  border-radius:7px;
+  font-size:10px;
+}
+.assist-starter-text{
+  font-size:6.2px;
+  line-height:1.25;
+}
+.assist-starter-sub{
+  display:none !important;
+}
+@media(max-width:480px){
+  .assist-mode-switch{flex-basis:125px}
+  .assist-mode-context{font-size:5.1px}
+}
+@media(max-width:700px){
+  .assist-starter{
+    flex:0 0 150px;
+    min-height:46px;
+  }
+}
+
+
+/* =========================================================
+   ASSIST — MODE SWITCH BESIDE TITLE
+========================================================= */
+.assist-panel-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.assist-panel-heading{
+  flex:1;
+  min-width:0;
+}
+.assist-header-actions{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.assist-mode-switch-header{
+  flex:0 0 auto !important;
+  width:142px;
+  margin:0;
+  padding:2px;
+  border-radius:9px;
+}
+.assist-mode-switch-header .assist-mode-btn{
+  min-height:25px;
+  padding:0 7px;
+  font-size:5.5px;
+}
+.assist-mode-context-header{
+  margin-top:2px;
+  padding:0;
+  border:0;
+  background:transparent;
+  font-size:5.2px;
+  line-height:1.25;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:480px){
+  .assist-panel-head{gap:6px}
+  .assist-header-actions{gap:5px}
+  .assist-mode-switch-header{width:108px}
+  .assist-mode-switch-header .assist-mode-btn{
+    min-height:23px;
+    padding:0 4px;
+    font-size:4.7px;
+    letter-spacing:.035em;
+  }
+  .assist-mode-context-header{display:none}
+  .assist-close{
+    width:27px;
+    height:27px;
+    flex-basis:27px;
+  }
 }
 
 </style>
@@ -2284,18 +2433,19 @@ gmp-place-autocomplete{
 
   <section id="assistPanel" class="assist-panel" aria-hidden="true">
     <div class="assist-panel-head">
-      <div>
+      <div class="assist-panel-heading">
         <div class="assist-panel-title">Travel Assist</div>
         <div id="assistStatus" class="assist-panel-sub">Ask anything about this trip.</div>
+        <div id="assistModeContext" class="assist-mode-context assist-mode-context-header">Planning your trip.</div>
       </div>
-      <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
-    </div>
-    <div class="assist-mode-area">
-      <div class="assist-mode-switch" role="tablist" aria-label="Travel Assist mode">
-        <button id="assistPlanningMode" class="assist-mode-btn active" type="button">PLANNING</button>
-        <button id="assistLiveMode" class="assist-mode-btn" type="button">LIVE</button>
+
+      <div class="assist-header-actions">
+        <div class="assist-mode-switch assist-mode-switch-header" role="tablist" aria-label="Travel Assist mode">
+          <button id="assistPlanningMode" class="assist-mode-btn active" type="button">PLANNING</button>
+          <button id="assistLiveMode" class="assist-mode-btn" type="button">LIVE</button>
+        </div>
+        <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
       </div>
-      <div id="assistModeContext" class="assist-mode-context"><strong>Planning mode</strong> · Preparing this trip before departure.</div>
     </div>
     <div id="assistStarters" class="assist-starters"></div>
     <div id="assistMessages" class="assist-messages">
@@ -7220,7 +7370,7 @@ function renderAssistMode(){
     else if(trip?.end_date&&localDateString()>trip.end_date)detail="Reviewing a completed trip.";
     assistModeContext.innerHTML=`<strong>Planning mode</strong> · ${esc(detail)}`;
   }
-  assistStarters.innerHTML=getAssistStarters().map((item,index)=>`<button class="assist-starter" type="button" data-assist-index="${index}"><span class="assist-starter-icon">${esc(item.icon)}</span><span><span class="assist-starter-text">${esc(item.title)}</span><span class="assist-starter-sub">${esc(item.sub)}</span></span></button>`).join("");
+  assistStarters.innerHTML=getAssistStarters().map((item,index)=>`<button class="assist-starter" type="button" data-assist-index="${index}"><span class="assist-starter-icon">${esc(item.icon)}</span><span><span class="assist-starter-text">${esc(item.title)}</span></span></button>`).join("");
   assistStarters.classList.remove("hidden");
   assistStarters.querySelectorAll("[data-assist-index]").forEach(button=>{button.onclick=()=>{const item=getAssistStarters()[Number(button.dataset.assistIndex)];if(item)askAssist(item.prompt)}});
   assistStatus.textContent=assistMode==="live"?(preview?"Live Preview uses the itinerary day selected above.":"Live mode is focused on the active trip day."):"Planning mode is focused on preparing and improving your trip.";
