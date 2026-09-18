@@ -1989,7 +1989,10 @@ gmp-place-autocomplete{
 .assist-send:disabled{opacity:.45}
 
 .assist-starters{
-  display:grid;grid-template-columns:1fr;gap:7px;padding:10px 10px 0
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:7px;
+  padding:10px 10px 0;
 }
 .assist-starters.hidden{display:none}
 .assist-starter{
