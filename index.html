@@ -14,11 +14,9 @@
 
 <title>My Trip</title>
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="google-maps.js"></script>
-
 
 <style>
 
@@ -90,7 +88,6 @@ a{
 main{
   width:100%;
   max-width:920px;
-
   margin:auto;
 
   padding-bottom:
@@ -112,8 +109,10 @@ main{
 .hero-image{
   position:absolute;
   inset:0;
+
   background-position:center 43%;
   background-size:cover;
+
   transform:scale(1.006);
 }
 
@@ -121,6 +120,7 @@ main{
   content:"";
   position:absolute;
   inset:0;
+
   background:
     linear-gradient(
       to bottom,
@@ -158,7 +158,6 @@ main{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
-
   gap:18px;
 }
 
@@ -173,7 +172,6 @@ main{
   font-weight:900;
 
   letter-spacing:.17em;
-
   text-transform:uppercase;
 
   text-shadow:
@@ -227,7 +225,7 @@ main{
 
 
 /* =========================================================
-   JAPANESE DECORATION
+   COUNTRY DECORATION
 ========================================================= */
 
 .hero-japanese{
@@ -256,7 +254,6 @@ main{
     serif;
 
   font-size:25px;
-
   letter-spacing:.12em;
 }
 
@@ -283,17 +280,12 @@ main{
   min-height:29px;
 
   margin-top:13px;
-
   padding:0 10px;
 
-  border:
-    1px solid
-    rgba(255,255,255,.14);
-
+  border:1px solid rgba(255,255,255,.14);
   border-radius:999px;
 
-  background:
-    rgba(5,9,12,.48);
+  background:rgba(5,9,12,.48);
 
   color:#f0cbc8;
 
@@ -319,7 +311,6 @@ main{
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
-
   gap:12px;
 }
 
@@ -338,8 +329,7 @@ main{
 
   margin-bottom:4px;
 
-  background:
-    rgba(255,255,255,.28);
+  background:rgba(255,255,255,.28);
 }
 
 
@@ -350,339 +340,22 @@ main{
 .content{
   position:relative;
   z-index:3;
+
   margin-top:-8px;
+
   padding:
     6px
     12px
     22px;
 }
-/* =========================================================
-   SECTION HEADER
-========================================================= */
-
-.section-head{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-
-  gap:10px;
-
-  margin:
-    10px
-    2px
-    7px;
-}
-
-.section-left{
-  min-width:0;
-}
-
-.section-label{
-  color:#91a5b3;
-
-  font-size:6.5px;
-  font-weight:900;
-
-  letter-spacing:.14em;
-}
-
-.section-title{
-  margin-top:3px;
-
-  font:
-    700
-    18px/1.05
-    Georgia,
-    "Times New Roman",
-    serif;
-}
-
-.section-date{
-  flex:0 0 auto;
-
-  color:#66737c;
-
-  font-size:6px;
-
-  text-align:right;
-}
 
 
 /* =========================================================
-   PLACES CARD
-========================================================= */
-
-.place-group{
-  margin-bottom:8px;
-
-  overflow:hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,.11);
-
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(17,24,30,.96),
-      rgba(10,16,21,.98)
-    );
-
-  box-shadow:
-    0 10px 26px
-    rgba(0,0,0,.14);
-}
-
-
-/* =========================================================
-   AREA HEADER
-========================================================= */
-
-.place-group-head{
-  width:100%;
-
-  min-height:54px;
-
-  display:flex;
-  align-items:center;
-
-  gap:9px;
-
-  padding:
-    9px
-    11px;
-
-  border:0;
-
-  background:transparent;
-
-  color:inherit;
-
-  text-align:left;
-
-  cursor:pointer;
-}
-
-.place-group-icon{
-  flex:0 0 24px;
-
-  width:24px;
-  height:24px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  color:#df938d;
-
-  font-size:11px;
-}
-
-.place-group-main{
-  flex:1;
-  min-width:0;
-}
-
-.place-group-name{
-  color:#f3f3f1;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:14px;
-  font-weight:700;
-}
-
-.place-group-meta{
-  margin-top:3px;
-
-  color:#74818a;
-
-  font-size:6px;
-}
-
-.place-group-chevron{
-  flex:0 0 20px;
-
-  color:#7b8890;
-
-  font-size:10px;
-
-  text-align:center;
-
-  transition:.18s;
-}
-
-.place-group.open
-.place-group-chevron{
-  transform:rotate(180deg);
-}
-
-
-/* =========================================================
-   PLACE ROWS
-========================================================= */
-
-.place-list{
-  display:none;
-
-  padding:
-    0
-    11px
-    7px;
-}
-
-.place-group.open
-.place-list{
-  display:block;
-}
-
-.place-row{
-  display:grid;
-
-  grid-template-columns:
-    8px
-    69px
-    minmax(0,1fr)
-    20px;
-
-  gap:7px;
-
-  align-items:center;
-
-  min-height:50px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.055);
-}
-
-.place-dot{
-  width:6px;
-  height:6px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.74);
-
-  border-radius:50%;
-
-  background:
-    rgba(201,111,104,.11);
-}
-
-.place-time{
-  color:#9aa8b1;
-
-  font-size:6px;
-  font-weight:900;
-
-  line-height:1.3;
-}
-
-.place-main{
-  min-width:0;
-}
-
-.place-name{
-  color:#f0f2f1;
-
-  font-size:7.8px;
-  font-weight:900;
-
-  line-height:1.3;
-}
-
-.place-note{
-  margin-top:3px;
-
-  overflow:hidden;
-
-  color:#687680;
-
-  font-size:5.9px;
-  line-height:1.35;
-
-  display:-webkit-box;
-
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-}
-
-
-/* =========================================================
-   SMALL MAP BUTTON
-========================================================= */
-
-.map-link{
-  width:20px;
-  height:20px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border:0;
-
-  background:transparent;
-
-  color:#84ace3;
-
-  text-decoration:none;
-
-  font-size:9px;
-
-  opacity:.72;
-}
-
-.map-link:active{
-  opacity:1;
-}
-
-
-/* =========================================================
-   FULL PLAN
-========================================================= */
-
-.full-plan{
-  min-height:36px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  margin-top:7px;
-
-  border:
-    1px solid
-    rgba(201,111,104,.26);
-
-  border-radius:10px;
-
-  background:
-    rgba(201,111,104,.055);
-
-  color:#ecc0bd;
-
-  text-decoration:none;
-
-  font-size:6.5px;
-  font-weight:900;
-
-  letter-spacing:.04em;
-}
-
-
-/* =========================================================
-   DATE SECTION
+   TRIP DAYS
 ========================================================= */
 
 .date-section{
-  margin-top:14px;
+  margin-top:10px;
 }
 
 .date-section-label{
@@ -701,12 +374,14 @@ main{
 
 .date-scroll{
   display:flex;
-
   gap:6px;
 
   overflow-x:auto;
 
-  padding-bottom:3px;
+  padding:
+    1px
+    1px
+    4px;
 
   scrollbar-width:none;
 
@@ -718,24 +393,27 @@ main{
 }
 
 .date-btn{
+  position:relative;
+
   flex:0 0 54px;
 
   height:55px;
 
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:13px;
 
-  background:
-    #0f161c;
+  background:#0f161c;
 
   color:#76838c;
 
   cursor:pointer;
 
   scroll-snap-align:start;
+
+  transition:
+    border-color .18s,
+    background .18s,
+    transform .18s;
 }
 
 .date-btn .num{
@@ -758,20 +436,525 @@ main{
 
   font-size:5.5px;
   font-weight:900;
+
+  letter-spacing:.04em;
 }
 
 .date-btn.active{
-  border-color:
-    rgba(201,111,104,.52);
+  border-color:rgba(201,111,104,.52);
 
   background:
-    rgba(201,111,104,.11);
+    linear-gradient(
+      145deg,
+      rgba(201,111,104,.16),
+      rgba(201,111,104,.07)
+    );
 
   color:#f0b9b4;
+
+  box-shadow:
+    0 5px 18px
+    rgba(0,0,0,.18);
+}
+
+.date-btn.active::after{
+  content:"";
+
+  position:absolute;
+
+  left:50%;
+  bottom:5px;
+
+  width:3px;
+  height:3px;
+
+  border-radius:50%;
+
+  background:#dc837c;
+
+  transform:translateX(-50%);
 }
 
 .date-btn.active .num{
   color:#f3cbc8;
+}
+
+
+/* =========================================================
+   JOURNEY HEADER
+========================================================= */
+
+.journey-section{
+  margin-top:15px;
+}
+
+.journey-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin:
+    0
+    2px
+    8px;
+}
+
+.journey-heading{
+  min-width:0;
+}
+
+.journey-eyebrow{
+  margin-bottom:3px;
+
+  color:#91a5b3;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:.14em;
+}
+
+.journey-title{
+  color:#f4f3ef;
+
+  font:
+    700
+    20px/1.05
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  letter-spacing:-.015em;
+}
+
+.journey-date{
+  margin-top:4px;
+
+  color:#6f7b84;
+
+  font-size:6.3px;
+  line-height:1.4;
+}
+
+.full-plan{
+  flex:0 0 auto;
+
+  display:flex;
+  align-items:center;
+
+  min-height:28px;
+
+  padding:0 9px;
+
+  border:1px solid rgba(201,111,104,.22);
+  border-radius:999px;
+
+  background:rgba(201,111,104,.045);
+
+  color:#dca39e;
+
+  text-decoration:none;
+
+  font-size:5.8px;
+  font-weight:900;
+
+  letter-spacing:.04em;
+}
+
+.full-plan span{
+  margin-left:5px;
+
+  font-size:10px;
+  line-height:1;
+}
+
+
+/* =========================================================
+   JOURNEY CARD
+========================================================= */
+
+.journey-card{
+  position:relative;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17,24,30,.97),
+      rgba(9,14,19,.99)
+    );
+
+  box-shadow:
+    0 12px 32px
+    rgba(0,0,0,.18);
+}
+
+
+/*
+  Continuous itinerary line.
+
+  Area dots and individual place dots
+  sit directly on top of this line.
+*/
+
+.journey-card.has-groups::before{
+  content:"";
+
+  position:absolute;
+
+  top:26px;
+  bottom:26px;
+  left:21px;
+
+  width:1px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(201,111,104,.75),
+      rgba(201,111,104,.38) 30%,
+      rgba(111,125,135,.28) 72%,
+      rgba(111,125,135,.06)
+    );
+
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   AREA GROUP
+========================================================= */
+
+.place-group{
+  position:relative;
+  z-index:1;
+
+  margin:0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
+}
+
+.place-group:last-child{
+  border-bottom:0;
+}
+
+.place-group-head{
+  width:100%;
+
+  min-height:65px;
+
+  display:grid;
+
+  grid-template-columns:
+    18px
+    57px
+    minmax(0,1fr)
+    18px;
+
+  gap:7px;
+
+  align-items:center;
+
+  padding:
+    10px
+    10px
+    10px
+    13px;
+
+  border:0;
+
+  background:transparent;
+
+  color:inherit;
+
+  text-align:left;
+
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   AREA TIMELINE MARKER
+========================================================= */
+
+.area-marker{
+  position:relative;
+
+  width:18px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.area-dot{
+  position:relative;
+  z-index:2;
+
+  width:9px;
+  height:9px;
+
+  border:2px solid #d07a73;
+  border-radius:50%;
+
+  background:#10161c;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(201,111,104,.08);
+}
+
+.place-group.open .area-dot{
+  background:#c96f68;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(201,111,104,.09);
+}
+
+
+/* =========================================================
+   AREA HEADER CONTENT
+========================================================= */
+
+.place-group-start{
+  color:#b5bec4;
+
+  font-size:6.4px;
+  font-weight:900;
+
+  line-height:1.25;
+
+  white-space:nowrap;
+}
+
+.place-group-main{
+  min-width:0;
+}
+
+.place-group-name{
+  color:#f4f3ef;
+
+  font:
+    700
+    14px/1.12
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  letter-spacing:-.01em;
+}
+
+.place-group-meta{
+  margin-top:4px;
+
+  color:#707d85;
+
+  font-size:5.8px;
+  line-height:1.35;
+}
+
+.place-group-chevron{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:18px;
+  height:18px;
+
+  color:#7b8890;
+
+  font-size:11px;
+
+  transition:transform .18s;
+}
+
+.place-group.open
+.place-group-chevron{
+  transform:rotate(180deg);
+}
+
+
+/* =========================================================
+   EXPANDED PLACE LIST
+========================================================= */
+
+.place-list{
+  display:none;
+
+  padding:
+    0
+    10px
+    8px
+    13px;
+}
+
+.place-group.open
+.place-list{
+  display:block;
+}
+
+.place-row{
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    18px
+    57px
+    minmax(0,1fr)
+    20px;
+
+  gap:7px;
+
+  align-items:center;
+
+  min-height:53px;
+
+  padding:
+    5px
+    0;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.045);
+}
+
+.place-marker{
+  width:18px;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.place-dot{
+  position:relative;
+  z-index:2;
+
+  width:6px;
+  height:6px;
+
+  border:1px solid rgba(201,111,104,.78);
+  border-radius:50%;
+
+  background:#10161c;
+}
+
+.place-time{
+  color:#929fa8;
+
+  font-size:5.9px;
+  font-weight:900;
+
+  line-height:1.35;
+}
+
+.place-main{
+  min-width:0;
+}
+
+.place-name{
+  color:#eef0ef;
+
+  font-size:7.7px;
+  font-weight:900;
+
+  line-height:1.35;
+}
+
+.place-note{
+  margin-top:3px;
+
+  overflow:hidden;
+
+  color:#66737c;
+
+  font-size:5.8px;
+  line-height:1.4;
+
+  display:-webkit-box;
+
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+
+
+/* =========================================================
+   MAP BUTTON
+========================================================= */
+
+.map-link{
+  width:20px;
+  height:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:0;
+
+  background:transparent;
+
+  color:#84ace3;
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  opacity:.66;
+}
+
+.map-link:active{
+  opacity:1;
+}
+
+
+/* =========================================================
+   EMPTY JOURNEY
+========================================================= */
+
+.journey-empty{
+  padding:
+    24px
+    16px;
+
+  text-align:center;
+}
+
+.journey-empty-title{
+  color:#b5bec3;
+
+  font:
+    700
+    12px/1.2
+    Georgia,
+    "Times New Roman",
+    serif;
+}
+
+.journey-empty-sub{
+  max-width:260px;
+
+  margin:
+    5px
+    auto
+    0;
+
+  color:#66737c;
+
+  font-size:6px;
+  line-height:1.55;
 }
 
 
@@ -798,10 +981,7 @@ main{
     9px
     10px;
 
-  border:
-    1px solid
-    rgba(103,197,135,.36);
-
+  border:1px solid rgba(103,197,135,.36);
   border-radius:12px;
 
   background:
@@ -819,7 +999,6 @@ main{
 .food-left{
   display:flex;
   align-items:center;
-
   gap:9px;
 
   text-align:left;
@@ -833,14 +1012,10 @@ main{
   align-items:center;
   justify-content:center;
 
-  border:
-    1px solid
-    rgba(103,197,135,.16);
-
+  border:1px solid rgba(103,197,135,.16);
   border-radius:8px;
 
-  background:
-    rgba(103,197,135,.05);
+  background:rgba(103,197,135,.05);
 
   font-size:13px;
 }
@@ -884,17 +1059,12 @@ main{
   display:none;
 
   margin-top:6px;
-
   padding:8px;
 
-  border:
-    1px solid
-    rgba(103,197,135,.19);
-
+  border:1px solid rgba(103,197,135,.19);
   border-radius:11px;
 
-  background:
-    rgba(103,197,135,.02);
+  background:rgba(103,197,135,.02);
 }
 
 .nearby-panel.show{
@@ -998,10 +1168,7 @@ main{
 
   margin-top:7px;
 
-  border:
-    1px solid
-    rgba(103,197,135,.20);
-
+  border:1px solid rgba(103,197,135,.20);
   border-radius:8px;
 
   color:#a9e8bb;
@@ -1031,12 +1198,11 @@ main{
 }
 
 .error-card{
+  margin:10px 0;
+
   padding:12px;
 
-  border:
-    1px solid
-    rgba(201,111,104,.34);
-
+  border:1px solid rgba(201,111,104,.34);
   border-radius:11px;
 
   color:#ffc5c1;
@@ -1079,12 +1245,25 @@ main{
     font-size:29px;
   }
 
+  .journey-title{
+    font-size:18px;
+  }
+
+  .place-group-head,
   .place-row{
+
     grid-template-columns:
-      8px
-      61px
+      18px
+      50px
       minmax(0,1fr)
-      19px;
+      18px;
+
+    gap:5px;
+  }
+
+  .full-plan{
+    padding:0 7px;
+    font-size:5.3px;
   }
 
 }
@@ -1092,7 +1271,6 @@ main{
 </style>
 
 </head>
-
 
 
 <body>
@@ -1211,58 +1389,7 @@ main{
 
 
     <!-- ===================================================
-         PLACES
-    ==================================================== -->
-
-    <div class="section-head">
-
-
-      <div class="section-left">
-
-        <div class="section-label">
-          PLACES
-        </div>
-
-        <div
-          id="placesTitle"
-          class="section-title"
-        >
-          Today's Places
-        </div>
-
-      </div>
-
-
-      <div
-        id="placesDate"
-        class="section-date"
-      ></div>
-
-
-    </div>
-
-
-    <div id="placeGroups">
-
-      <div class="empty">
-        Loading places…
-      </div>
-
-    </div>
-
-
-    <a
-      id="fullPlan"
-      class="full-plan"
-      href="schedule.html"
-    >
-      OPEN FULL PLAN →
-    </a>
-
-
-
-    <!-- ===================================================
-         DATE SELECTOR
+         TRIP DAYS
     ==================================================== -->
 
     <div class="date-section">
@@ -1277,6 +1404,69 @@ main{
       ></div>
 
     </div>
+
+
+
+    <!-- ===================================================
+         JOURNEY
+    ==================================================== -->
+
+    <section class="journey-section">
+
+
+      <div class="journey-head">
+
+
+        <div class="journey-heading">
+
+          <div
+            id="journeyEyebrow"
+            class="journey-eyebrow"
+          >
+            YOUR ITINERARY
+          </div>
+
+          <div
+            id="journeyTitle"
+            class="journey-title"
+          >
+            Today's Journey
+          </div>
+
+          <div
+            id="journeyDate"
+            class="journey-date"
+          ></div>
+
+        </div>
+
+
+        <a
+          id="fullPlan"
+          class="full-plan"
+          href="schedule.html"
+        >
+          VIEW FULL PLAN
+          <span>›</span>
+        </a>
+
+
+      </div>
+
+
+      <div
+        id="placeGroups"
+        class="journey-card"
+      >
+
+        <div class="empty">
+          Loading journey…
+        </div>
+
+      </div>
+
+
+    </section>
 
 
 
@@ -1298,7 +1488,7 @@ main{
 
 
 <!-- =========================================================
-     KEEP YOUR EXISTING FOOTER
+     EXISTING FOOTER
 ========================================================= -->
 
 <div id="footer"></div>
@@ -1344,7 +1534,6 @@ let TRIP_ID =
 
 
 let currentUser = null;
-
 let currentTrip = null;
 
 let scheduleRows = [];
@@ -1359,7 +1548,6 @@ let selectedDate = null;
 let openAreas = {};
 
 let nearbyLoaded = false;
-
 let nearbyLoading = false;
 
 
@@ -1453,6 +1641,22 @@ function shortDate(value){
 }
 
 
+function fullDate(value){
+
+  return parseDate(value)
+    .toLocaleDateString(
+      "en-SG",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+}
+
+
 function weekday(
   value,
   long = false
@@ -1471,6 +1675,21 @@ function weekday(
       }
     )
     .toUpperCase();
+
+}
+
+
+function titleCase(value){
+
+  const text =
+    txt(value)
+      .toLowerCase();
+
+  return text
+    .charAt(0)
+    .toUpperCase()
+    +
+    text.slice(1);
 
 }
 
@@ -1522,7 +1741,7 @@ function countryIcon(country){
 
 
 /* =========================================================
-   JAPANESE HERO
+   COUNTRY HERO
 ========================================================= */
 
 function japaneseTitle(country){
@@ -1953,11 +2172,6 @@ function mapsHref(row){
 ========================================================= */
 
 function isHomePlace(row){
-
-  /*
-    Home Places only shows rows linked
-    to your master Places database.
-  */
 
   if(!row.place_id){
 
@@ -2410,7 +2624,7 @@ async function loadData(){
 
 
 /* =========================================================
-   CHOOSE DATE
+   CHOOSE INITIAL DATE
 ========================================================= */
 
 function chooseInitialDate(){
@@ -2552,19 +2766,8 @@ function renderHero(){
     "";
 
 
-  /*
-    If you later add either:
-    cover_image_url
-    image_url
-
-    to trips, this automatically uses it.
-  */
-
-  /*
-    Homepage hero is fixed to the Kyoto autumn
-    background stored in Supabase Storage.
-  */
-  const cover = DEFAULT_HERO;
+  const cover =
+    DEFAULT_HERO;
 
 
   document.getElementById(
@@ -2583,14 +2786,12 @@ function renderHero(){
   document.getElementById(
     "heroJapanese"
   ).textContent =
-
     japanese.main;
 
 
   document.getElementById(
     "heroJapaneseSub"
   ).textContent =
-
     japanese.sub;
 
 
@@ -2788,11 +2989,12 @@ function groupPlaces(rows){
 
 
         /*
-          Consecutive same areas stay
-          inside the same visual block.
+          Consecutive places in the same area
+          are grouped together.
 
-          If itinerary later returns to
-          the area, a new block appears.
+          If the itinerary later returns to
+          the same area, it becomes a new
+          journey block.
         */
 
         if(
@@ -2879,7 +3081,6 @@ function areaTime(rows){
 
   }
 
-
   else{
 
     end =
@@ -2904,6 +3105,43 @@ function areaTime(rows){
 
 
   return start;
+
+}
+
+
+function areaStartTime(rows){
+
+  const firstTimed =
+    rows.find(
+      row =>
+        row.start_time
+    );
+
+
+  if(firstTimed){
+
+    return formatClock(
+      firstTimed.start_time
+    );
+
+  }
+
+
+  const labelled =
+    rows.find(
+      row =>
+        row.time_label
+    );
+
+
+  if(labelled){
+
+    return labelled.time_label;
+
+  }
+
+
+  return "Flexible";
 
 }
 
@@ -2968,7 +3206,11 @@ function renderPlaceRow(row){
     <div class="place-row">
 
 
-      <div class="place-dot"></div>
+      <div class="place-marker">
+
+        <div class="place-dot"></div>
+
+      </div>
 
 
       <div class="place-time">
@@ -3027,6 +3269,7 @@ function renderPlaceRow(row){
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open in Google Maps"
+            onclick="event.stopPropagation()"
           >
             📍
           </a>
@@ -3087,15 +3330,30 @@ function renderPlaceGroup(
         class="place-group-head"
         type="button"
         data-area="${index}"
+        aria-expanded="${open ? "true" : "false"}"
       >
 
 
-        <div class="place-group-icon">
-          📍
+        <div class="area-marker">
+
+          <div class="area-dot"></div>
+
+        </div>
+
+
+        <div class="place-group-start">
+
+          ${esc(
+            areaStartTime(
+              group.rows
+            )
+          )}
+
         </div>
 
 
         <div class="place-group-main">
+
 
           <div class="place-group-name">
 
@@ -3127,6 +3385,7 @@ function renderPlaceGroup(
             }
 
           </div>
+
 
         </div>
 
@@ -3161,7 +3420,7 @@ function renderPlaceGroup(
 
 
 /* =========================================================
-   RENDER PLACES
+   RENDER JOURNEY
 ========================================================= */
 
 function renderPlaces(){
@@ -3178,13 +3437,13 @@ function renderPlaces(){
 
   const title =
     document.getElementById(
-      "placesTitle"
+      "journeyTitle"
     );
 
 
   const date =
     document.getElementById(
-      "placesDate"
+      "journeyDate"
     );
 
 
@@ -3196,61 +3455,68 @@ function renderPlaces(){
 
   if(selectedDate){
 
-    const parsed =
-      parseDate(
-        selectedDate
+    const today =
+      isoDate(
+        new Date()
       );
 
 
-    title.textContent =
+    if(
+      selectedDate === today
+    ){
 
-      selectedDate ===
-      isoDate(
-        new Date()
-      )
+      title.textContent =
+        "Today's Journey";
 
-      ?
+    }
 
-      "Today's Places"
+    else{
 
-      :
+      const day =
+        titleCase(
+          weekday(
+            selectedDate,
+            true
+          )
+        );
 
-      `${weekday(
-        selectedDate,
-        true
-      )}`;
+
+      title.textContent =
+        `${day}'s Journey`;
+
+    }
 
 
-    date.innerHTML =
-
-      `${parsed.getDate()} ` +
-
-      `${parsed.toLocaleDateString(
-        "en-SG",
-        {
-          month:"short"
-        }
-      ).toUpperCase()}` +
-
-      `<br>` +
-
-      `${parsed.getFullYear()}`;
+    date.textContent =
+      fullDate(
+        selectedDate
+      );
 
   }
 
 
   if(!groups.length){
 
+    holder.classList
+      .remove(
+        "has-groups"
+      );
+
+
     holder.innerHTML = `
 
-      <div class="empty">
+      <div class="journey-empty">
 
-        No linked Places for this day.
+        <div class="journey-empty-title">
+          Nothing here yet
+        </div>
 
-        <br>
+        <div class="journey-empty-sub">
 
-        Open Full Plan to see
-        the complete itinerary.
+          No linked places are available for this day.
+          Open the full plan to see the complete itinerary.
+
+        </div>
 
       </div>
 
@@ -3260,6 +3526,12 @@ function renderPlaces(){
     return;
 
   }
+
+
+  holder.classList
+    .add(
+      "has-groups"
+    );
 
 
   holder.innerHTML =
@@ -3316,6 +3588,16 @@ function renderPlaces(){
                 next
               );
 
+
+            button.setAttribute(
+              "aria-expanded",
+              next
+              ?
+              "true"
+              :
+              "false"
+            );
+
           };
 
       }
@@ -3335,6 +3617,21 @@ function renderDates(){
     document.getElementById(
       "dateScroll"
     );
+
+
+  if(!dayDates.length){
+
+    holder.innerHTML = `
+
+      <div class="empty">
+        No trip days available.
+      </div>
+
+    `;
+
+    return;
+
+  }
 
 
   holder.innerHTML =
@@ -4374,9 +4671,9 @@ async function loadNearbyFood(){
 
 function renderPage(){
 
-  renderPlaces();
-
   renderDates();
+
+  renderPlaces();
 
   renderFullPlan();
 
