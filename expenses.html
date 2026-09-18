@@ -146,6 +146,184 @@ main{width:100%;max-width:760px;margin:auto;padding:14px 14px 100px}
   .header-inner,main{padding-left:12px;padding-right:12px}
   h1{font-size:25px}.grid2{grid-template-columns:1fr 1fr}
 }
+
+/* =========================================================
+   PLAN-MATCHED EXPENSES — SAFE VISUAL OVERRIDE
+   Existing HTML / Supabase / receipt logic remains intact.
+========================================================= */
+body{padding-top:14px}
+
+header{
+  position:relative;
+  top:auto;
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto;
+  overflow:hidden;
+  border:1px solid #273139;
+  border-bottom:0;
+  border-radius:27px 27px 0 0;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(255,98,95,.055),transparent 34%),
+    linear-gradient(180deg,#0a1116,#070d11);
+  box-shadow:0 24px 65px rgba(0,0,0,.24);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+header::before{
+  content:"費";
+  position:absolute;
+  z-index:0;
+  right:6px;
+  top:7px;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+  font-size:126px;
+  font-weight:700;
+  line-height:1;
+  color:var(--red);
+  opacity:.042;
+  pointer-events:none;
+}
+.header-inner{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:26px 20px 18px;
+}
+.title-row{align-items:flex-start;gap:12px}
+.eyebrow{
+  margin-bottom:14px;
+  color:#df7775;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+h1{
+  margin:0;
+  color:#f7f4ee;
+  font-size:41px;
+  font-weight:700;
+  letter-spacing:-.03em;
+}
+.trip-name{
+  margin-top:8px;
+  max-width:350px;
+  color:#89949c;
+  font-size:9px;
+  font-weight:500;
+}
+.add-btn{
+  min-height:29px;
+  padding:0 10px;
+  border-radius:9px;
+  font-size:7px;
+}
+
+/* Same framed surface as Plan / Food / Bookings */
+main{
+  width:calc(100% - 24px);
+  max-width:720px;
+  margin:0 auto 105px;
+  padding:10px 17px 22px;
+  border:1px solid #273139;
+  border-top:0;
+  border-radius:0 0 27px 27px;
+  background:linear-gradient(180deg,#0a1116,#070d11);
+}
+
+/* Compact spending summary */
+.summary{
+  padding:9px;
+  border-radius:11px;
+}
+.summary-label{font-size:6px}
+.summary-total{
+  margin-top:3px;
+  font-size:23px;
+}
+.summary-sub{
+  margin-top:2px;
+  font-size:6.5px;
+}
+.stats{
+  gap:5px;
+  margin-top:7px;
+}
+.stat{
+  padding:6px;
+  border-radius:7px;
+}
+.stat-k{font-size:5.5px}
+.stat-v{
+  margin-top:2px;
+  font-size:8px;
+}
+
+/* Compact category chips */
+.filters{
+  gap:4px;
+  margin:7px 0 8px;
+}
+.chip{
+  min-height:25px;
+  padding:0 7px;
+  border-radius:8px;
+  font-size:6.2px;
+}
+
+/* Compact history heading */
+.section-head{
+  margin:8px 1px 5px;
+  padding-bottom:4px;
+}
+.section-title{font-size:7px}
+.section-count{font-size:6px}
+.date-group{margin-bottom:8px}
+.date-label{
+  margin:6px 2px 4px;
+  font-size:6px;
+}
+
+/* Compact expense rows */
+.expense{
+  gap:7px;
+  min-height:46px;
+  margin-bottom:4px;
+  padding:6px 8px;
+  border-radius:9px;
+}
+.exp-icon{
+  width:29px;
+  height:29px;
+  flex-basis:29px;
+  border-radius:7px;
+  font-size:13px;
+}
+.exp-title{font-size:7.5px}
+.exp-meta{
+  margin-top:2px;
+  font-size:5.8px;
+}
+.exp-amount{font-size:7.8px}
+.receipt-mark{
+  margin-top:2px;
+  font-size:5.5px;
+}
+.empty{padding:20px 12px}
+
+/* Expense sheet stays unchanged functionally */
+.backdrop{z-index:150}
+
+@media(max-width:480px){
+  body{padding-top:9px}
+  header,main{width:calc(100% - 18px)}
+  .header-inner{padding:22px 17px 15px}
+  h1{font-size:38px}
+  main{padding-left:14px;padding-right:14px}
+}
+
 </style>
 </head>
 <body>
