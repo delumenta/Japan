@@ -1988,6 +1988,46 @@ gmp-place-autocomplete{
 }
 .assist-send:disabled{opacity:.45}
 
+.assist-starters{
+  display:grid;grid-template-columns:1fr;gap:7px;padding:10px 10px 0
+}
+.assist-starters.hidden{display:none}
+.assist-starter{
+  width:100%;display:flex;align-items:center;gap:9px;text-align:left;
+  padding:10px 11px;border:1px solid #29363e;border-radius:11px;
+  background:#0e171c;color:#dfe5e8;cursor:pointer
+}
+.assist-starter:hover{border-color:rgba(120,169,239,.32);background:#101b21}
+.assist-starter-icon{
+  width:26px;height:26px;flex:0 0 26px;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(120,169,239,.16);border-radius:8px;background:rgba(120,169,239,.045);
+  color:#9ab9df;font-size:11px
+}
+.assist-starter-text{font-size:7.5px;font-weight:800}
+.assist-starter-sub{margin-top:2px;color:#687781;font-size:5.7px;font-weight:600}
+.assist-action-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.assist-action-btn{
+  padding:6px 8px;border:1px solid rgba(120,169,239,.25);border-radius:8px;
+  background:rgba(120,169,239,.055);color:#a9c5e9;font-size:5.8px;font-weight:900;cursor:pointer
+}
+.assist-action-btn.confirm{
+  border-color:rgba(121,201,149,.28);background:rgba(121,201,149,.06);color:#9bd7af
+}
+.assist-action-btn:disabled{opacity:.45;cursor:default}
+.assist-action-btn.danger{
+  border-color:rgba(255,98,95,.28);background:rgba(255,98,95,.055);color:#ff8a87
+}
+.assist-action-btn.neutral{
+  border-color:#2b363e;background:#10171c;color:#9aa6ae
+}
+.assist-action-btn.confirm-danger{
+  border-color:rgba(255,98,95,.34);background:rgba(255,98,95,.075);color:#ff9a97
+}
+.assist-confirm{
+  margin-top:7px;padding:8px;border:1px solid rgba(121,201,149,.18);
+  border-radius:9px;background:rgba(121,201,149,.035);color:#aeb9b3;font-size:6.3px;line-height:1.45
+}
+
 </style>
 
 </head>
@@ -2132,15 +2172,22 @@ gmp-place-autocomplete{
       </div>
       <button id="assistClose" class="assist-close" type="button" aria-label="Close Assist">✕</button>
     </div>
-    <div class="assist-suggestions">
-      <button class="assist-chip" type="button" data-assist="What bookings do I have?">BOOKINGS</button>
-      <button class="assist-chip" type="button" data-assist="What is my plan for this day?">THIS DAY</button>
-      <button class="assist-chip" type="button" data-assist="How much have I spent?">SPENDING</button>
-      <button class="assist-chip" type="button" data-assist="Is this day too tiring?">PACING</button>
-      <button class="assist-chip" type="button" data-assist="Where should I eat around my plan for this day?">FOOD</button>
+    <div id="assistStarters" class="assist-starters">
+      <button class="assist-starter" type="button" data-assist="What places are nearby?">
+        <span class="assist-starter-icon">⌖</span>
+        <span><span class="assist-starter-text">What places are nearby?</span><span class="assist-starter-sub">Uses the day you're viewing and your Places catalogue.</span></span>
+      </button>
+      <button class="assist-starter" type="button" data-assist="What bookings do I have?">
+        <span class="assist-starter-icon">▣</span>
+        <span><span class="assist-starter-text">What bookings do I have?</span><span class="assist-starter-sub">Checks the bookings saved to this trip.</span></span>
+      </button>
+      <button class="assist-starter" type="button" data-assist="What food is near me?">
+        <span class="assist-starter-icon">♨</span>
+        <span><span class="assist-starter-text">What food is near me?</span><span class="assist-starter-sub">Checks saved food plus your full restaurant catalogue.</span></span>
+      </button>
     </div>
     <div id="assistMessages" class="assist-messages">
-      <div id="assistWelcome" class="assist-welcome"><strong>How can I help?</strong>I know which trip and day you're viewing, so you can ask naturally — for example, “What have I booked?” or “Is this day too packed?”</div>
+      <div id="assistWelcome" class="assist-welcome"><strong>How can I help?</strong>Pick a question above or type your own. Assist knows which trip and itinerary day you're viewing.</div>
     </div>
     <div class="assist-compose">
       <textarea id="assistInput" class="assist-input" rows="1" placeholder="Ask about your trip…"></textarea>
@@ -6997,6 +7044,7 @@ const assistMessages=document.getElementById("assistMessages");
 const assistInput=document.getElementById("assistInput");
 const assistSend=document.getElementById("assistSend");
 const assistStatus=document.getElementById("assistStatus");
+const assistStarters=document.getElementById("assistStarters");
 let assistBusy=false;
 let assistThreadId=null;
 
@@ -7012,6 +7060,7 @@ assistClose.onclick=()=>setAssistOpen(false);
 
 function assistMessage(role,message,source=""){
   document.getElementById("assistWelcome")?.remove();
+  if(role==="user") assistStarters?.classList.add("hidden");
   const row=document.createElement("div"); row.className=`assist-msg ${role}`;
   const bubble=document.createElement("div"); bubble.className="assist-bubble"; bubble.textContent=message;
   if(source){
@@ -7024,6 +7073,204 @@ function assistMessage(role,message,source=""){
   return row;
 }
 
+function addAssistActions(row,data){
+  const bubble=row?.querySelector(".assist-bubble");
+  if(!bubble)return;
+
+  const actions=Array.isArray(data?.actions)
+    ? data.actions
+    : (data?.action ? [data.action] : []);
+
+  if(!actions.length)return;
+
+  const wrap=document.createElement("div");
+  wrap.className="assist-action-row";
+  bubble.appendChild(wrap);
+
+  const renderActions=()=>{
+    wrap.innerHTML="";
+
+    for(const action of actions){
+      const kind=text(action?.kind||action?.type||"").toLowerCase();
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="assist-action-btn";
+      if(kind.includes("remove")||kind.includes("delete"))button.classList.add("danger");
+      button.textContent=text(action?.label||action?.title||defaultAssistActionLabel(kind)).toUpperCase();
+
+      button.onclick=async()=>{
+        if(kind==="map"&&action?.url){
+          window.open(action.url,"_blank","noopener");
+          return;
+        }
+
+        // If the backend gives us an existing master place/restaurant without a
+        // proposal yet, use the normal schedule editor as the confirmation UI.
+        if((kind==="add_schedule"||kind==="schedule_add") &&
+           !action?.proposal_id &&
+           (action?.place_id||action?.restaurant_id)){
+          openNewItem();
+          fieldDate.value=action.schedule_date||selectedDate||fieldDate.value;
+          if(action.start_time)fieldTime.value=String(action.start_time).slice(0,5);
+          if(action.title)fieldTitle.value=action.title;
+          if(action.location_name)fieldLocation.value=action.location_name;
+
+          if(action.restaurant_id){
+            setFormType("restaurant");
+            selectedRestaurantId=Number(action.restaurant_id);
+            selectedPlaceId=null;
+            entitySearch.value=action.title||"";
+          }else{
+            setFormType("place");
+            selectedPlaceId=Number(action.place_id);
+            selectedRestaurantId=null;
+            entitySearch.value=action.title||"";
+          }
+          updateSelectedEntity();
+          return;
+        }
+
+        // All writes from Assist go through a proposal. The HTML only renders
+        // confirmation; the Edge Function owns the actual database operation.
+        if(action?.proposal_id){
+          showAssistConfirmation(wrap,action,renderActions);
+          return;
+        }
+
+        // MOVE can also open the existing editor if the backend returned a
+        // concrete schedule row but has not created a proposal.
+        if((kind==="move_schedule"||kind==="update_schedule") && action?.schedule_id){
+          const item=items.find(x=>Number(x.id)===Number(action.schedule_id));
+          if(item){
+            openEditItem(item);
+            if(action.schedule_date)fieldDate.value=action.schedule_date;
+            if(action.start_time)fieldTime.value=String(action.start_time).slice(0,5);
+          }
+          return;
+        }
+      };
+
+      wrap.appendChild(button);
+    }
+  };
+
+  renderActions();
+}
+
+function defaultAssistActionLabel(kind){
+  if(kind==="add_schedule"||kind==="schedule_add")return "ADD TO SCHEDULE";
+  if(kind==="move_schedule"||kind==="update_schedule")return "MOVE";
+  if(kind==="remove_schedule"||kind==="delete_schedule")return "REMOVE FROM PLAN";
+  if(kind==="save_restaurant")return "SAVE FOOD";
+  if(kind==="add_booking")return "ADD BOOKING";
+  if(kind==="add_expense")return "ADD EXPENSE";
+  if(kind==="map")return "MAP";
+  return "CONFIRM";
+}
+
+function assistActionVerb(kind){
+  if(kind.includes("remove")||kind.includes("delete"))return "REMOVE";
+  if(kind.includes("move")||kind.includes("update"))return "MOVE";
+  if(kind==="save_restaurant")return "SAVE";
+  if(kind==="add_booking")return "ADD BOOKING";
+  if(kind==="add_expense")return "ADD EXPENSE";
+  return "ADD";
+}
+
+function assistConfirmationSummary(action){
+  if(action?.confirmation_text)return text(action.confirmation_text);
+
+  const bits=[];
+  if(action?.title)bits.push(text(action.title));
+
+  const date=text(action?.schedule_date||action?.date||"");
+  const from=text(action?.from_time||"");
+  const to=text(action?.to_time||action?.start_time||"");
+
+  if(date)bits.push(formatDisplayDate(date));
+  if(from&&to)bits.push(`${formatTime(from)} → ${formatTime(to)}`);
+  else if(to)bits.push(formatTime(to));
+
+  if(action?.amount){
+    bits.push(`${text(action.currency||"")} ${Number(action.amount).toLocaleString()}`.trim());
+  }
+  return bits.join(" · ")||"Confirm this change?";
+}
+
+function showAssistConfirmation(wrap,action,onCancel){
+  wrap.innerHTML="";
+  const kind=text(action?.kind||action?.type||"").toLowerCase();
+
+  const box=document.createElement("div");
+  box.className="assist-confirm";
+  box.style.width="100%";
+
+  const summary=document.createElement("div");
+  summary.textContent=assistConfirmationSummary(action);
+  box.appendChild(summary);
+
+  const buttons=document.createElement("div");
+  buttons.className="assist-action-row";
+
+  const confirm=document.createElement("button");
+  confirm.type="button";
+  confirm.className="assist-action-btn confirm";
+  if(kind.includes("remove")||kind.includes("delete")){
+    confirm.classList.remove("confirm");
+    confirm.classList.add("confirm-danger");
+  }
+  confirm.textContent=`CONFIRM ${assistActionVerb(kind)}`;
+
+  const cancel=document.createElement("button");
+  cancel.type="button";
+  cancel.className="assist-action-btn neutral";
+  cancel.textContent="CANCEL";
+  cancel.onclick=()=>onCancel();
+
+  confirm.onclick=async()=>{
+    confirm.disabled=true;
+    cancel.disabled=true;
+    confirm.textContent="WORKING…";
+
+    try{
+      const sessionResult=await db.auth.getSession();
+      const token=sessionResult.data?.session?.access_token;
+      if(!token)throw new Error("Your session expired.");
+
+      const {data:applied,error}=await db.functions.invoke("travel-assist",{
+        body:{
+          action:"apply",
+          trip_id:TRIP_ID,
+          proposal_id:action.proposal_id,
+          selected_date:selectedDate||null
+        },
+        headers:{Authorization:`Bearer ${token}`}
+      });
+
+      if(error)throw new Error(await invokeErrorText(error));
+      if(applied?.error)throw new Error(applied.error);
+
+      box.innerHTML="";
+      const done=document.createElement("div");
+      done.style.fontWeight="900";
+      done.style.color="var(--green)";
+      done.textContent=text(applied?.message||action?.success_message||"✓ Done");
+      box.appendChild(done);
+
+      await loadData();
+    }catch(error){
+      confirm.disabled=false;
+      cancel.disabled=false;
+      confirm.textContent=`CONFIRM ${assistActionVerb(kind)}`;
+      assistMessage("assistant",error.message||"I couldn't make that change yet.");
+    }
+  };
+
+  buttons.appendChild(confirm);
+  buttons.appendChild(cancel);
+  box.appendChild(buttons);
+  wrap.appendChild(box);
+}
 async function invokeErrorText(error){
   let msg=error?.message||"Travel Assist request failed.";
   try{
@@ -7042,10 +7289,6 @@ async function askAssist(forced=null){
   if(!message)return;
   if(!TRIP_ID){assistStatus.textContent="No trip selected.";return}
 
-  if(message==="What is my plan for this day?"&&selectedDate) message=`What is my schedule on ${selectedDate}?`;
-  if(message==="Is this day too tiring?"&&selectedDate) message=`Is my schedule on ${selectedDate} too tiring?`;
-  if(message==="Where should I eat around my plan for this day?"&&selectedDate) message=`Where should I eat around my schedule on ${selectedDate}?`;
-
   setAssistOpen(true);
   assistBusy=true; assistSend.disabled=true; assistInput.disabled=true; assistInput.value="";
   assistMessage("user",message);
@@ -7058,7 +7301,20 @@ async function askAssist(forced=null){
     const token=sessionResult.data?.session?.access_token;
     if(!token)throw new Error("Your session expired. Please sign in again.");
 
-    const body={action:"chat",trip_id:TRIP_ID,message};
+    const body={
+      action:"chat",
+      trip_id:TRIP_ID,
+      message,
+      selected_date:selectedDate||null,
+      entry_point:"schedule",
+      context:{
+        selected_date:selectedDate||null,
+        page:"schedule",
+        selected_day_item_ids:items
+          .filter(x=>x.schedule_date===selectedDate)
+          .map(x=>x.id)
+      }
+    };
     if(assistThreadId)body.thread_id=assistThreadId;
 
     const {data,error}=await db.functions.invoke("travel-assist",{
@@ -7073,8 +7329,9 @@ async function askAssist(forced=null){
     if(data?.thread_id)assistThreadId=data.thread_id;
 
     waiting.remove();
-    assistMessage("assistant",reply,data?.source||"");
-    assistStatus.textContent=data?.ai_used?"AI helped with this answer.":"Answered from your trip.";
+    const answerRow=assistMessage("assistant",reply,data?.source||"");
+    addAssistActions(answerRow,data);
+    assistStatus.textContent=data?.ai_used?"Assist used your trip data to work this out.":"Answered from your trip data.";
   }catch(error){
     console.error("travel-assist",error);
     waiting.remove();
