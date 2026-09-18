@@ -158,6 +158,32 @@ main{width:100%;padding:0 17px 22px}
   display:inline-block;margin-top:4px;color:#b8c9dd;font-size:6px;font-weight:800;text-decoration:none;
 }
 
+
+.find-nearby{
+  width:100%;
+  min-height:44px;
+  margin-top:8px;
+  border:1px solid rgba(120,169,239,.24);
+  border-radius:11px;
+  background:rgba(120,169,239,.055);
+  color:#b8cdec;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.08em;
+  cursor:pointer;
+}
+.find-nearby.rain{
+  border-color:rgba(120,169,239,.34);
+  background:linear-gradient(145deg,rgba(120,169,239,.09),rgba(120,169,239,.035));
+  color:#c6d9f2;
+}
+.discovery-note{
+  margin-top:6px;
+  color:#697780;
+  font-size:6.5px;
+  line-height:1.45;
+}
+
 .state{
   padding:32px 18px;border:1px dashed #303b43;border-radius:16px;background:rgba(255,255,255,.012);
   color:#77838b;font-size:8px;line-height:1.6;text-align:center;
@@ -458,6 +484,152 @@ async function getWeatherForDay(date,anchor){
   };
 }
 
+
+async function findNearbyGoogle(kind="places"){
+  const items=groupedDays[selectedDate]||[];
+  const anchor=anchorItem(items);
+
+  if(!anchor){
+    alert("Assist could not find a location for this itinerary stop.");
+    return;
+  }
+
+  const c=coordsOf(anchor);
+
+  if(!c){
+    alert("This itinerary stop does not have latitude / longitude yet.");
+    return;
+  }
+
+  if(typeof window.loadGoogleMaps!=="function"){
+    alert("google-maps.js is not available.");
+    return;
+  }
+
+  try{
+    await window.loadGoogleMaps();
+
+    const maps=window.google?.maps;
+
+    if(!maps?.places){
+      throw new Error("Google Places is not available.");
+    }
+
+    /*
+      Use Places Nearby Search around the ITINERARY stop, not the user's GPS.
+      When wet weather is active, indoor-friendly categories are requested first.
+    */
+    const rain=window.__assistWeatherStatus==="rain";
+
+    let requests=[];
+
+    if(kind==="food"){
+      requests=[
+        {type:"restaurant", keyword:"restaurant"},
+        {type:"cafe", keyword:"cafe"}
+      ];
+    }else if(rain){
+      requests=[
+        {keyword:"museum"},
+        {keyword:"aquarium"},
+        {keyword:"shopping mall"},
+        {keyword:"indoor attraction"}
+      ];
+    }else{
+      requests=[
+        {keyword:"tourist attraction"},
+        {keyword:"museum"},
+        {keyword:"things to do"}
+      ];
+    }
+
+    const host=document.createElement("div");
+    const service=new maps.places.PlacesService(host);
+
+    const searchOne=req=>new Promise(resolve=>{
+      service.nearbySearch({
+        location:new maps.LatLng(c.lat,c.lng),
+        radius:3000,
+        ...req
+      },(results,status)=>{
+        if(status===maps.places.PlacesServiceStatus.OK){
+          resolve(results||[]);
+        }else{
+          resolve([]);
+        }
+      });
+    });
+
+    const batches=await Promise.all(requests.map(searchOne));
+    const dedupe=new Map();
+
+    batches.flat().forEach(r=>{
+      if(!r?.place_id)return;
+      if(!dedupe.has(r.place_id))dedupe.set(r.place_id,r);
+    });
+
+    let results=[...dedupe.values()]
+      .map(r=>({
+        id:r.place_id,
+        name:r.name,
+        area:r.vicinity||"",
+        latitude:r.geometry?.location?.lat?.(),
+        longitude:r.geometry?.location?.lng?.(),
+        rating:r.rating,
+        user_ratings_total:r.user_ratings_total,
+        open_now:r.opening_hours?.open_now,
+        _distance:
+          Number.isFinite(r.geometry?.location?.lat?.()) &&
+          Number.isFinite(r.geometry?.location?.lng?.())
+          ? haversine(c,{
+              lat:r.geometry.location.lat(),
+              lng:r.geometry.location.lng()
+            })
+          : 999
+      }))
+      .sort((a,b)=>{
+        const ar=Number(a.rating||0), br=Number(b.rating||0);
+        if(br!==ar)return br-ar;
+        return a._distance-b._distance;
+      })
+      .slice(0,6);
+
+    const target=document.getElementById(
+      kind==="food" ? "foodDiscoveryResults" : "placeDiscoveryResults"
+    );
+
+    if(!target)return;
+
+    if(!results.length){
+      target.innerHTML=`<div class="state"><strong>No nearby results found</strong>Try again later or open Google Maps from your itinerary stop.</div>`;
+      return;
+    }
+
+    target.innerHTML=results.map(r=>{
+      const url=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name)}&query_place_id=${encodeURIComponent(r.id)}`;
+      const meta=[
+        distanceLabel(r._distance),
+        r.rating ? `★ ${Number(r.rating).toFixed(1)}` : null,
+        r.open_now===true ? "Open now" : r.open_now===false ? "Closed now" : null
+      ].filter(Boolean).join(" · ");
+
+      return `<div class="suggestion">
+        <div class="suggestion-icon">${kind==="food"?"🍽️":rain?"🏛️":"📍"}</div>
+        <div>
+          <div class="suggestion-name">${esc(r.name)}</div>
+          <div class="suggestion-meta">${esc(meta)}</div>
+          <a class="map-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">OPEN MAP ↗</a>
+        </div>
+        <div class="suggestion-tag">${kind==="food"?"NEARBY":rain?"WET WEATHER":"DISCOVER"}</div>
+      </div>`;
+    }).join("");
+
+  }catch(error){
+    console.error("Nearby discovery:",error);
+    alert("Couldn't load nearby places: "+(error.message||String(error)));
+  }
+}
+
 function suggestionHTML(row,icon,tag){
   const link=mapsLink(row);
   return `<div class="suggestion">
@@ -480,6 +652,7 @@ async function renderAssist(){
   const p=dateParts(selectedDate),city=dayCity(selectedDate),anchor=anchorItem(items);
   const weather=await getWeatherForDay(selectedDate,anchor);
   const rain=weather.status==="rain";
+  window.__assistWeatherStatus=weather.status;
   const affected=rain?items.filter(x=>!isTransport(x)&&isOutdoor(x)):[];
   const indoor=anchor?nearbyRows(places,anchor,isLikelyIndoorPlace,3):[];
   const food=anchor?nearbyRows(restaurants,anchor,()=>true,3):[];
@@ -525,19 +698,43 @@ async function renderAssist(){
             <div class="alert-copy">Instead of automatically changing your plan, Assist is showing indoor options around ${esc(itemLocation(anchor)||anchor?.title||"your route")}.</div>
           </div>`:""}
 
-        <div class="section-label" style="margin-top:13px">${rain?"BETTER IN THE RAIN":"EXPLORE AROUND HERE"}</div>
-        <div class="suggestion-grid">
-          ${indoor.length
-            ? indoor.map(r=>suggestionHTML(r,"🏛️",rain?"INDOOR":"NEARBY")).join("")
-            : `<div class="state"><strong>No nearby saved indoor places yet</strong>Add more places to your master Places list and Assist will surface them here.</div>`}
-        </div>
+        <div class="section-label" style="margin-top:13px">${rain?"WET WEATHER PLACES":"EXPLORE AROUND HERE"}</div>
 
-        <div class="section-label" style="margin-top:13px">YOUR FOOD PICKS NEARBY</div>
-        <div class="suggestion-grid">
-          ${food.length
-            ? food.map(r=>suggestionHTML(r,"🍽️","YOUR PICK")).join("")
-            : `<div class="state"><strong>No saved food nearby</strong>Your saved restaurants around this stop will appear here.</div>`}
+        ${rain ? `
+          <div class="alert rain">
+            <div class="alert-kicker">INDOOR FIRST</div>
+            <div class="alert-title">Find places that work better in the rain</div>
+            <div class="alert-copy">Assist will search around ${esc(itemLocation(anchor)||anchor?.title||"this itinerary stop")} and prioritise museums, aquariums, shopping and other indoor-friendly places.</div>
+          </div>
+        ` : ""}
+
+        ${indoor.length ? `
+          <div class="section-label" style="margin-top:10px">YOUR SAVED PLACES</div>
+          <div class="suggestion-grid">
+            ${indoor.map(r=>suggestionHTML(r,"🏛️",rain?"INDOOR":"YOUR PLACE")).join("")}
+          </div>
+        ` : ""}
+
+        <button class="find-nearby ${rain?"rain":""}" type="button" onclick="findNearbyGoogle('places')">
+          ${rain?"☔ FIND INDOOR PLACES NEARBY":"📍 FIND NEARBY PLACES"}
+        </button>
+        <div class="discovery-note">
+          Searches around your itinerary location — not your current GPS position.
         </div>
+        <div id="placeDiscoveryResults" class="suggestion-grid" style="margin-top:7px"></div>
+
+        <div class="section-label" style="margin-top:13px">FOOD AROUND HERE</div>
+
+        ${food.length ? `
+          <div class="suggestion-grid">
+            ${food.map(r=>suggestionHTML(r,"🍽️","YOUR PICK")).join("")}
+          </div>
+        ` : ""}
+
+        <button class="find-nearby" type="button" onclick="findNearbyGoogle('food')">
+          🍽 FIND MORE FOOD NEARBY
+        </button>
+        <div id="foodDiscoveryResults" class="suggestion-grid" style="margin-top:7px"></div>
       </div>
     </section>`;
 }
