@@ -1,867 +1,728 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#030709">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#05090c">
+
 <title>Sign in · Travel</title>
 
 <style>
+
 :root{
-  --bg:#030709;
-  --shell:#071015;
-  --panel:#0a1217;
-  --line:#293740;
-  --text:#f5f1e9;
-  --muted:#93a1aa;
+  --bg:#05090c;
+  --panel:#0d151b;
+  --panel2:#101920;
+  --line:#2b3942;
+  --text:#f5f2ed;
+  --muted:#8f9ca5;
   --red:#ff625f;
   --green:#67c587;
-  --serif:Georgia,"Times New Roman",serif;
+
+  --serif:
+    Georgia,
+    "Times New Roman",
+    serif;
 }
-*{box-sizing:border-box}
-html,body{min-height:100%}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  min-height:100%;
+}
+
 body{
   margin:0;
+
   min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:28px;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(32,45,54,.18),transparent 35%),
-    var(--bg);
-  color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
-button,input{font:inherit}
 
-.login-shell{
-  position:relative;
-  isolation:isolate;
-  width:min(1180px,100%);
-  min-height:min(720px,calc(100vh - 56px));
-  overflow:hidden;
-  display:grid;
-  grid-template-columns:minmax(0,1.35fr) minmax(390px,.65fr);
-  border:1px solid #27343d;
-  border-radius:34px;
-  background:var(--shell);
-  box-shadow:0 35px 100px rgba(0,0,0,.5);
-}
-.login-shell::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-3;
-  background:url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/244e17e1-70ca-45c9-a3c7-c893a56e70c7.jpg?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvMjQ0ZTE3ZTEtNzBjYS00NWM5LWEzYzctYzg5M2E1NmU3MGM3LmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODk3MjMxODMsImV4cCI6MzMzMjU3MjMxODN9.y8iKSm_UiONEu05o3uq2fSJbG5-vmgOm5udOX-C2Zjt6vNmF_w015sJnEuP3y64vbWapYX8le1eof2bdKBhYug") center 48% / cover no-repeat;
-}
-.login-shell::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-2;
-  background:
-    linear-gradient(90deg,
-      rgba(3,7,9,.28) 0%,
-      rgba(3,7,9,.34) 37%,
-      rgba(3,7,9,.63) 59%,
-      rgba(3,7,9,.94) 76%,
-      #071015 100%),
-    linear-gradient(0deg,
-      rgba(3,7,9,.88) 0%,
-      rgba(3,7,9,.26) 38%,
-      rgba(3,7,9,.12) 70%,
-      rgba(3,7,9,.32) 100%);
-}
-.accent{
-  position:absolute;
-  z-index:5;
-  left:26px; right:26px; top:0;
-  height:4px;
-  border-radius:0 0 5px 5px;
-  background:var(--red);
-}
-
-.hero{
-  position:relative;
-  min-height:650px;
-  padding:54px 68px 52px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-.hero::after{
-  content:"旅";
-  position:absolute;
-  right:-22px;
-  top:28px;
-  color:rgba(255,98,95,.055);
-  font:700 175px/1 "Yu Mincho","Noto Serif JP",var(--serif);
-  pointer-events:none;
-}
-.logo{
-  width:96px;
-  height:96px;
-  display:grid;
-  place-items:center;
-  margin-bottom:24px;
-  border:1px solid rgba(255,98,95,.38);
-  border-radius:50%;
-  background:rgba(4,9,12,.58);
-  backdrop-filter:blur(7px);
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
-}
-.logo img{width:70px;height:70px;object-fit:contain}
-.hero h1{
-  margin:0;
-  max-width:420px;
-  font:700 clamp(54px,5.7vw,76px)/.92 var(--serif);
-  letter-spacing:-.048em;
-  text-shadow:0 4px 24px rgba(0,0,0,.55);
-}
-.hero h1 span{color:var(--red)}
-.hero-sub{
-  margin-top:16px;
-  color:#b5c0c6;
-  font-size:16px;
-  letter-spacing:-.01em;
-}
-.hero-rule{
-  width:34px;
-  height:2px;
-  margin:28px 0 22px;
-  background:var(--red);
-}
-.hero-tags{
-  color:#9aa8b1;
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.28em;
-}
-
-.auth-side{
-  position:relative;
   display:flex;
   align-items:center;
-  padding:52px 48px 52px 10px;
+  justify-content:center;
+
+  padding:
+    calc(28px + env(safe-area-inset-top))
+    16px
+    calc(28px + env(safe-area-inset-bottom));
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing:antialiased;
+
+  background-image:
+
+    linear-gradient(
+      180deg,
+      rgba(3,7,9,.28) 0%,
+      rgba(3,7,9,.36) 42%,
+      rgba(3,7,9,.76) 100%
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(3,7,9,.30) 0%,
+      rgba(3,7,9,.08) 50%,
+      rgba(3,7,9,.30) 100%
+    ),
+
+    url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Login.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvTG9naW4ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTc0NDE4OSwiZXhwIjozMTcxNDk3NDQxODl9.X7moDFBcRY_zc43Mn23R5gv4BDFcyV9r6fxCmFgiUM8pVmaYHRkzyvgI3KkNlea7qzAM8VcgHrc2MhAo6U4cZg");
+
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
-.auth-side::before{
+
+
+/* =========================================
+   BACKGROUND VIGNETTE
+========================================= */
+
+body::after{
   content:"";
-  position:absolute;
+
+  position:fixed;
   inset:0;
-  z-index:-1;
-  background:linear-gradient(90deg,transparent,rgba(7,16,21,.68) 20%,#071015 72%);
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,0) 28%,
+      rgba(0,0,0,.13) 67%,
+      rgba(0,0,0,.40) 100%
+    );
 }
-.auth-card{
+
+
+button,
+input{
+  font:inherit;
+}
+
+
+/* =========================================
+   LOGIN WRAPPER
+========================================= */
+
+.login-wrap{
+  position:relative;
+  z-index:1;
+
   width:100%;
-  max-width:410px;
-  margin:auto;
-  padding:38px 34px 30px;
-  border:1px solid rgba(73,91,103,.68);
-  border-radius:22px;
-  background:linear-gradient(145deg,rgba(13,22,28,.92),rgba(7,13,17,.95));
-  backdrop-filter:blur(14px);
-  box-shadow:0 24px 70px rgba(0,0,0,.28);
+  max-width:370px;
 }
-.auth-title{
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.card{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:
+    24px
+    22px
+    21px;
+
+  border:
+    1px solid
+    rgba(73,90,101,.74);
+
+  border-radius:19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17,27,34,.96),
+      rgba(9,16,21,.97)
+    );
+
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.42),
+    0 2px 8px rgba(0,0,0,.24);
+
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
+}
+
+
+/* coral line */
+
+.card::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:17px;
+  right:17px;
+
+  height:3px;
+
+  border-radius:
+    0
+    0
+    4px
+    4px;
+
+  background:var(--red);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header{
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  margin-bottom:13px;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.logo{
+  width:52px;
+  height:52px;
+
+  flex:
+    0
+    0
+    52px;
+
+  display:grid;
+  place-items:center;
+
+  border:
+    1px solid
+    rgba(255,98,95,.34);
+
+  border-radius:50%;
+
+  background:
+    rgba(5,10,13,.50);
+}
+
+.logo img{
+  width:42px;
+  height:42px;
+
+  display:block;
+
+  object-fit:contain;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.title-block{
+  min-width:0;
+}
+
+h1{
   margin:0;
-  font-size:14px;
-  font-weight:950;
-  letter-spacing:.28em;
+
+  font-family:var(--serif);
+
+  font-size:29px;
+  line-height:1;
+
+  letter-spacing:-.035em;
+
+  white-space:nowrap;
 }
-.auth-sub{
-  margin:9px 0 29px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.55;
+
+h1 span{
+  color:var(--red);
 }
-.field + .field{margin-top:18px}
+
+
+/* =========================================
+   SUBTITLE
+========================================= */
+
+.subtitle{
+  margin:
+    0
+    0
+    18px;
+
+  color:#9ba8b0;
+
+  font-size:10px;
+  line-height:1.5;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider{
+  height:1px;
+
+  margin:
+    0
+    -4px
+    17px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.09) 8%,
+      rgba(255,255,255,.09) 92%,
+      transparent
+    );
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.field + .field{
+  margin-top:12px;
+}
+
 label{
   display:block;
-  margin-bottom:8px;
-  color:#a8b5bd;
-  font-size:9px;
+
+  margin-bottom:6px;
+
+  color:#a9b6be;
+
+  font-size:7px;
   font-weight:900;
+
   letter-spacing:.13em;
 }
+
 input{
   width:100%;
-  min-height:54px;
-  padding:0 15px;
-  border:1px solid #2b3943;
-  border-radius:13px;
+
+  min-height:51px;
+
+  padding:
+    0
+    13px;
+
+  border:
+    1px solid
+    #2a3943;
+
+  border-radius:11px;
+
   outline:none;
-  background:rgba(5,11,15,.8);
+
+  background:
+    rgba(4,10,14,.73);
+
   color:#fff;
-  font-size:14px;
-  transition:.16s ease;
+
+  font-size:12px;
+
+  transition:
+    border-color .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
 }
-input::placeholder{color:#5f6d77}
+
+input::placeholder{
+  color:#61717b;
+}
+
 input:focus{
-  border-color:rgba(255,98,95,.72);
-  background:#091116;
-  box-shadow:0 0 0 3px rgba(255,98,95,.065);
+  border-color:
+    rgba(255,98,95,.58);
+
+  background:#081116;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(255,98,95,.055);
 }
-.password-wrap{position:relative}
-.password-wrap input{padding-right:52px}
+
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+.password-wrap{
+  position:relative;
+}
+
+.password-wrap input{
+  padding-right:48px;
+}
+
 .eye{
   position:absolute;
+
   top:50%;
-  right:7px;
-  transform:translateY(-50%);
-  width:38px;height:38px;
-  display:grid;place-items:center;
+  right:5px;
+
+  width:38px;
+  height:38px;
+
+  transform:
+    translateY(-50%);
+
+  display:grid;
+  place-items:center;
+
   border:0;
+
   background:transparent;
-  color:#8d9aa3;
+
+  color:#829099;
+
+  font-size:13px;
+
   cursor:pointer;
 }
-.forgot-row{display:flex;justify-content:flex-end;margin-top:10px}
-.forgot-row a{
-  color:#9aa7af;
-  text-decoration:none;
-  font-size:10px;
-  font-weight:700;
+
+
+/* =========================================
+   FORGOT PASSWORD
+========================================= */
+
+.forgot-row{
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-top:7px;
 }
-.forgot-row a:hover{color:#fff}
+
+.forgot-row a{
+  color:#9ba7ae;
+
+  text-decoration:none;
+
+  font-size:8px;
+  font-weight:750;
+}
+
+.forgot-row a:hover{
+  color:#fff;
+}
+
+
+/* =========================================
+   SIGN IN BUTTON
+========================================= */
 
 .login-button{
   width:100%;
-  min-height:54px;
-  margin-top:23px;
-  border:1px solid rgba(255,98,95,.82);
-  border-radius:13px;
-  background:linear-gradient(180deg,rgba(255,98,95,.25),rgba(255,98,95,.15));
-  color:#ffd6d3;
-  font-size:11px;
-  font-weight:950;
-  letter-spacing:.13em;
-  cursor:pointer;
-}
-.login-button:hover{background:rgba(255,98,95,.23)}
-.login-button:disabled{opacity:.5;cursor:default}
 
-.message{
-  display:none;
-  margin-top:12px;
-  padding:11px 12px;
+  min-height:47px;
+
+  margin-top:15px;
+
+  border:
+    1px solid
+    rgba(255,98,95,.72);
+
   border-radius:11px;
-  font-size:11px;
-  line-height:1.45;
-}
-.message.error{
-  display:block;
-  color:#ffc7c3;
-  border:1px solid rgba(255,98,95,.35);
-  background:rgba(255,98,95,.08);
-}
-.message.success{
-  display:block;
-  color:#c4ebd0;
-  border:1px solid rgba(103,197,135,.30);
-  background:rgba(103,197,135,.08);
-}
-.signup{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  margin-top:22px;
-  padding-top:20px;
-  border-top:1px solid rgba(255,255,255,.07);
-  color:#8c99a2;
-  font-size:11px;
-}
-.signup button{
-  padding:0;
-  border:0;
-  background:none;
-  color:#ff7c78;
-  font-size:11px;
-  font-weight:900;
-  cursor:pointer;
-}
-.footer{
-  margin-top:18px;
-  color:#56646d;
-  text-align:center;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.23),
+      rgba(255,98,95,.14)
+    );
+
+  color:#ffe0dd;
+
   font-size:9px;
+  font-weight:950;
+
+  letter-spacing:.15em;
+
+  cursor:pointer;
+
+  transition:
+    background .15s ease,
+    transform .08s ease;
 }
 
-@media(max-width:820px){
-  body{display:block;padding:0}
-  .login-shell{
-    width:100%;
-    min-height:100vh;
-    display:block;
-    border:0;
-    border-radius:0;
-  }
-  .login-shell::before{
-    background-size:auto 510px;
-    background-position:53% top;
-    background-repeat:no-repeat;
-  }
-  .login-shell::after{
-    background:
-      linear-gradient(180deg,rgba(3,7,9,.20) 0%,rgba(3,7,9,.28) 235px,#071015 475px,#071015 100%),
-      linear-gradient(90deg,rgba(3,7,9,.55),rgba(3,7,9,.12));
-  }
-  .accent{left:18px;right:18px}
-  .hero{
-    min-height:400px;
-    padding:54px 28px 36px;
-    justify-content:flex-end;
-  }
-  .hero::after{font-size:120px;right:-12px;top:26px}
-  .logo{width:72px;height:72px;margin-bottom:18px}
-  .logo img{width:52px;height:52px}
-  .hero h1{font-size:48px}
-  .hero-sub{font-size:13px;margin-top:11px}
-  .hero-rule{margin:20px 0 17px}
-  .hero-tags{font-size:8px}
-  .auth-side{
-    margin-top:-14px;
-    padding:0 15px 30px;
-  }
-  .auth-side::before{display:none}
-  .auth-card{
-    max-width:450px;
-    padding:28px 21px 23px;
-    border-radius:20px;
-  }
+.login-button:hover{
+  background:
+    rgba(255,98,95,.23);
 }
-@media(max-width:370px){
-  .hero{padding-left:21px;padding-right:21px;min-height:380px}
-  .hero h1{font-size:43px}
-  .auth-side{padding-left:11px;padding-right:11px}
-  .auth-card{padding-left:17px;padding-right:17px}
+
+.login-button:active{
+  transform:
+    translateY(1px);
 }
-</style>
-</head>
 
-<body>
-<section class="login-shell">
-  <div class="accent"></div>
+.login-button:disabled{
+  opacity:.5;
 
-  <div class="hero">
-    <div class="logo">
-      <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg" alt="Travel logo">
-    </div>
-
-    <h1>Welcome<br>back<span>.</span></h1>
-    <div class="hero-sub">Your journeys are waiting.</div>
-    <div class="hero-rule"></div>
-    <div class="hero-tags">PLAN · EXPLORE · REMEMBER</div>
-  </div>
-
-  <div class="auth-side">
-    <div>
-      <div class="auth-card">
-        <div class="auth-title">SIGN IN</div>
-        <div class="auth-sub">Access your trips, schedule, restaurants and bookings.</div>
-
-        <form id="loginForm">
-          <div class="field">
-            <label for="email">EMAIL</label>
-            <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-          </div>
-
-          <div class="field">
-            <label for="password">PASSWORD</label>
-            <div class="password-wrap">
-              <input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-              <button id="eyeButton" class="eye" type="button" aria-label="Show password">◉</button>
-            </div>
-            <div class="forgot-row">
-              <a href="forgot-password.html">Forgot password?</a>
-            </div>
-          </div>
-
-          <button id="loginButton" class="login-button" type="submit">SIGN IN →</button>
-          <div id="message" class="message"></div>
-        </form>
-
-        <div class="signup">
-          <span>New here?</span>
-          <button id="signupButton" type="button">Create an account</button>
-        </div>
-      </div>
-
-      <div class="footer">Your trips are securely linked to your account.</div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================
-     SUPABASE
-========================================= -->
-
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-<script src="supabase.js"></script>
-
-
-<script>
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const loginForm =
-  document.getElementById(
-    "loginForm"
-  );
-
-const emailInput =
-  document.getElementById(
-    "email"
-  );
-
-const passwordInput =
-  document.getElementById(
-    "password"
-  );
-
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-const signupButton =
-  document.getElementById(
-    "signupButton"
-  );
-
-const eyeButton =
-  document.getElementById(
-    "eyeButton"
-  );
-
-const message =
-  document.getElementById(
-    "message"
-  );
+  cursor:default;
+}
 
 
 /* =========================================
    MESSAGE
 ========================================= */
 
-function showMessage(
-  text,
-  type
-){
+.message{
+  display:none;
 
-  message.textContent =
-    text;
+  margin-top:11px;
 
-  message.className =
-    "message " + type;
+  padding:
+    10px
+    11px;
 
+  border-radius:10px;
+
+  font-size:9px;
+  line-height:1.45;
 }
 
+.message.error{
+  display:block;
 
-function clearMessage(){
+  color:#ffc7c3;
 
-  message.textContent = "";
+  border:
+    1px solid
+    rgba(255,98,95,.32);
 
-  message.className =
-    "message";
-
+  background:
+    rgba(255,98,95,.07);
 }
 
+.message.success{
+  display:block;
 
-/* =========================================
-   SHOW / HIDE PASSWORD
-========================================= */
+  color:#c4ebd0;
 
-eyeButton.addEventListener(
-  "click",
-  () => {
+  border:
+    1px solid
+    rgba(103,197,135,.28);
 
-    const showing =
-      passwordInput.type === "text";
-
-
-    passwordInput.type =
-      showing
-        ? "password"
-        : "text";
-
-
-    eyeButton.textContent =
-      showing
-        ? "👁"
-        : "🙈";
-
-
-    eyeButton.setAttribute(
-      "aria-label",
-      showing
-        ? "Show password"
-        : "Hide password"
-    );
-
-  }
-);
-
-
-/* =========================================
-   ALREADY LOGGED IN?
-========================================= */
-
-async function checkSession(){
-
-  const {
-    data,
-    error
-  } =
-    await db.auth.getSession();
-
-
-  if(error){
-    console.error(error);
-    return;
-  }
-
-
-  if(data?.session){
-
-    /*
-      Already signed in.
-      Go straight to Home.
-    */
-
-    window.location.replace(
-      "index.html"
-    );
-
-  }
-
+  background:
+    rgba(103,197,135,.07);
 }
-
-
-/* =========================================
-   SIGN IN
-========================================= */
-
-loginForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    clearMessage();
-
-
-    const email =
-      emailInput.value
-        .trim();
-
-    const password =
-      passwordInput.value;
-
-
-    if(
-      !email ||
-      !password
-    ){
-
-      showMessage(
-        "Enter your email and password.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    loginButton.disabled =
-      true;
-
-    signupButton.disabled =
-      true;
-
-    loginButton.textContent =
-      "SIGNING IN…";
-
-
-    try{
-
-      const {
-        data,
-        error
-      } =
-        await db.auth
-          .signInWithPassword({
-            email,
-            password
-          });
-
-
-      if(error){
-        throw error;
-      }
-
-
-      if(!data?.session){
-
-        throw new Error(
-          "Unable to start your session."
-        );
-
-      }
-
-
-      showMessage(
-        "Signed in. Opening your trip…",
-        "success"
-      );
-
-
-      window.location.replace(
-        "index.html"
-      );
-
-    }
-
-    catch(error){
-
-      console.error(error);
-
-
-      /*
-        Keep the message simple.
-        We don't need to reveal whether
-        the email or password was wrong.
-      */
-
-      showMessage(
-        "Email or password is incorrect.",
-        "error"
-      );
-
-
-      loginButton.disabled =
-        false;
-
-      signupButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "SIGN IN";
-
-    }
-
-  }
-);
 
 
 /* =========================================
    SIGN UP
 ========================================= */
 
-signupButton.addEventListener(
-  "click",
-  async () => {
+.signup{
+  display:flex;
 
-    clearMessage();
+  justify-content:center;
+  align-items:center;
 
+  gap:4px;
 
-    const email =
-      emailInput.value
-        .trim();
+  margin-top:16px;
 
-    const password =
-      passwordInput.value;
+  padding-top:16px;
 
+  border-top:
+    1px solid
+    rgba(255,255,255,.07);
 
-    if(!email){
+  color:#8b98a0;
 
-      showMessage(
-        "Enter the email you want to use first.",
-        "error"
-      );
+  font-size:9px;
+}
 
-      emailInput.focus();
+.signup button{
+  padding:0;
 
-      return;
+  border:0;
 
-    }
+  background:none;
 
+  color:#fff;
 
-    if(
-      !password ||
-      password.length < 8
-    ){
+  font-size:9px;
+  font-weight:900;
 
-      showMessage(
-        "Choose a password with at least 8 characters.",
-        "error"
-      );
+  cursor:pointer;
+}
 
-      passwordInput.focus();
-
-      return;
-
-    }
-
-
-    loginButton.disabled =
-      true;
-
-    signupButton.disabled =
-      true;
-
-    signupButton.textContent =
-      "CREATING…";
-
-
-    try{
-
-      const redirectTo =
-        new URL(
-          "login.html",
-          window.location.href
-        ).href;
-
-
-      const {
-        data,
-        error
-      } =
-        await db.auth
-          .signUp({
-            email,
-            password,
-
-            options:{
-              emailRedirectTo:
-                redirectTo
-            }
-          });
-
-
-      if(error){
-        throw error;
-      }
-
-
-      /*
-        If email confirmation is enabled,
-        Supabase normally returns the user
-        without an active session.
-      */
-
-      if(
-        data?.user &&
-        !data?.session
-      ){
-
-        showMessage(
-          "Account created. Check your email to confirm your account, then come back and sign in.",
-          "success"
-        );
-
-      }
-
-      else if(data?.session){
-
-        showMessage(
-          "Account created. Opening your trips…",
-          "success"
-        );
-
-
-        setTimeout(() => {
-
-          window.location.replace(
-            "index.html"
-          );
-
-        },700);
-
-      }
-
-      else{
-
-        showMessage(
-          "Account created. You can now sign in.",
-          "success"
-        );
-
-      }
-
-    }
-
-    catch(error){
-
-      console.error(error);
-
-
-      showMessage(
-        error.message ||
-        "Unable to create your account.",
-        "error"
-      );
-
-    }
-
-    finally{
-
-      loginButton.disabled =
-        false;
-
-      signupButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "SIGN IN";
-
-      signupButton.textContent =
-        "Create one";
-
-    }
-
-  }
-);
-
-
-/* =========================================
-   RESET SUCCESS
-========================================= */
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
-
-
-if(
-  params.get("reset") ===
-  "success"
-){
-
-  showMessage(
-    "Password changed successfully. Sign in with your new password.",
-    "success"
-  );
-
+.signup button:hover{
+  color:#ff8b87;
 }
 
 
 /* =========================================
-   START
+   FOOTER
 ========================================= */
 
-checkSession();
+.footer{
+  margin-top:13px;
 
-</script>
+  color:
+    rgba(139,153,162,.62);
+
+  text-align:center;
+
+  font-size:7px;
+  font-weight:700;
+
+  letter-spacing:.14em;
+
+  text-transform:uppercase;
+
+  text-shadow:
+    0
+    2px
+    7px
+    rgba(0,0,0,.9);
+}
 
 
-</body>
-</html>
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:480px){
+
+  body{
+    align-items:center;
+
+    padding-left:13px;
+    padding-right:13px;
+
+    background-attachment:scroll;
+
+    background-position:
+      center
+      center;
+  }
+
+  .login-wrap{
+    max-width:355px;
+  }
+
+  .card{
+    padding:
+      22px
+      18px
+      19px;
+  }
+
+  .logo{
+    width:48px;
+    height:48px;
+
+    flex-basis:48px;
+  }
+
+  .logo img{
+    width:39px;
+    height:39px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+
+}
+
+
+@media(max-width:350px){
+
+  h1{
+    font-size:25px;
+  }
+
+  .header{
+    gap:11px;
+  }
+
+  .card{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="login-wrap">
+
+
+  <!-- LOGIN CARD -->
+
+  <div class="card">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+      <div class="logo">
+
+        <img
+          src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
+          alt="Travel logo"
+        >
+
+      </div>
+
+
+      <div class="title-block">
+
+        <h1>
+          Welcome back<span>.</span>
+        </h1>
+
+      </div>
+
+    </div>
+
+
+    <!-- SUBTITLE -->
+
+    <
