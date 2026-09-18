@@ -103,6 +103,11 @@ body{
   height:22px;
 }
 
+#sharedNavHub img{
+  width:28px;
+  height:28px;
+}
+
 .arc-item .arc-label,
 .arc-more-item .arc-label{
   position:absolute;
@@ -126,12 +131,11 @@ body{
 .arc-nav.open .arc-item .arc-label{ opacity:1; }
 
 /* main ring */
-.arc-nav.open .arc-item:nth-child(1){ transform:translate(-118px,-18px) scale(1); transition-delay:.02s; }
-.arc-nav.open .arc-item:nth-child(2){ transform:translate(-78px,-68px) scale(1); transition-delay:.06s; }
-.arc-nav.open .arc-item:nth-child(3){ transform:translate(-28px,-100px) scale(1); transition-delay:.10s; }
-.arc-nav.open .arc-item:nth-child(4){ transform:translate(28px,-100px) scale(1); transition-delay:.14s; }
-.arc-nav.open .arc-item:nth-child(5){ transform:translate(78px,-68px) scale(1); transition-delay:.18s; }
-.arc-nav.open .arc-item:nth-child(6){ transform:translate(118px,-18px) scale(1); transition-delay:.22s; }
+.arc-nav.open .arc-item:nth-child(1){ transform:translate(-108px,-22px) scale(1); transition-delay:.02s; }
+.arc-nav.open .arc-item:nth-child(2){ transform:translate(-66px,-74px) scale(1); transition-delay:.07s; }
+.arc-nav.open .arc-item:nth-child(3){ transform:translate(0,-96px) scale(1); transition-delay:.12s; }
+.arc-nav.open .arc-item:nth-child(4){ transform:translate(66px,-74px) scale(1); transition-delay:.17s; }
+.arc-nav.open .arc-item:nth-child(5){ transform:translate(108px,-22px) scale(1); transition-delay:.22s; }
 
 /* second ring — only after More is pressed */
 .arc-nav.more-open .arc-more-item{
@@ -141,11 +145,12 @@ body{
 
 .arc-nav.more-open .arc-more-item .arc-label{ opacity:1; }
 
-.arc-nav.more-open .arc-more-item:nth-child(7){ transform:translate(-148px,-70px) scale(1); transition-delay:.04s; }
-.arc-nav.more-open .arc-more-item:nth-child(8){ transform:translate(-90px,-128px) scale(1); transition-delay:.08s; }
-.arc-nav.more-open .arc-more-item:nth-child(9){ transform:translate(0,-154px) scale(1); transition-delay:.12s; }
-.arc-nav.more-open .arc-more-item:nth-child(10){ transform:translate(90px,-128px) scale(1); transition-delay:.16s; }
-.arc-nav.more-open .arc-more-item:nth-child(11){ transform:translate(148px,-70px) scale(1); transition-delay:.20s; }
+.arc-nav.more-open .arc-more-item:nth-child(6){ transform:translate(-150px,-52px) scale(1); transition-delay:.04s; }
+.arc-nav.more-open .arc-more-item:nth-child(7){ transform:translate(-100px,-112px) scale(1); transition-delay:.08s; }
+.arc-nav.more-open .arc-more-item:nth-child(8){ transform:translate(-38px,-150px) scale(1); transition-delay:.12s; }
+.arc-nav.more-open .arc-more-item:nth-child(9){ transform:translate(38px,-150px) scale(1); transition-delay:.16s; }
+.arc-nav.more-open .arc-more-item:nth-child(10){ transform:translate(100px,-112px) scale(1); transition-delay:.20s; }
+.arc-nav.more-open .arc-more-item:nth-child(11){ transform:translate(150px,-52px) scale(1); transition-delay:.24s; }
 
 .arc-nav.more-open .arc-item{
   opacity:.42;
@@ -375,10 +380,10 @@ body{
 
 @media(max-width:390px){
   .arc-nav{ width:330px; }
-  .arc-nav.open .arc-item:nth-child(1){ transform:translate(-104px,-14px) scale(1); }
-  .arc-nav.open .arc-item:nth-child(6){ transform:translate(104px,-14px) scale(1); }
-  .arc-nav.more-open .arc-more-item:nth-child(7){ transform:translate(-132px,-62px) scale(1); }
-  .arc-nav.more-open .arc-more-item:nth-child(11){ transform:translate(132px,-62px) scale(1); }
+  .arc-nav.open .arc-item:nth-child(1){ transform:translate(-96px,-18px) scale(1); }
+  .arc-nav.open .arc-item:nth-child(5){ transform:translate(96px,-18px) scale(1); }
+  .arc-nav.more-open .arc-more-item:nth-child(6){ transform:translate(-132px,-46px) scale(1); }
+  .arc-nav.more-open .arc-more-item:nth-child(11){ transform:translate(132px,-46px) scale(1); }
 }
 </style>
 
@@ -484,11 +489,6 @@ body{
     <span class="arc-label">FOOD</span>
   </a>
 
-  <a id="sharedNavHub" class="arc-item">
-    <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/bookingfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvYm9va2luZ2Zvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMDc4LCJleHAiOjQ5NDMyMzIwNzh9.AnZhB83lYYXO-5q5ADhzDQ_SzLNjtJHlwyOyPac-XdZ7zG4INt4wTp_S9VhoVoxz6KbtIrCZaUY1MxRm6G3BVA" alt="">
-    <span class="arc-label">BOOKING</span>
-  </a>
-
   <a id="sharedNavExpenses" class="arc-item">
     <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/expensesfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZXhwZW5zZXNmb290ZXIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTY0MjQwMCwiZXhwIjozMzMyNTY0MjQwMH0.2N_yNGsFpk3jtyT5yNEeMxf6T6iW38taHMwkcalrL6erpYf81ELyq_ah1kIcerGMKL6BQmIOVWuMRsCRuVDb4A" alt="">
     <span class="arc-label">EXPENSES</span>
@@ -503,6 +503,11 @@ body{
     <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/morefooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvbW9yZWZvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMTc1LCJleHAiOjQ5NDMyMzIxNzV9.O6Lx5IOJjw8nXT5tGcTXIhHlWLfWDMzx8bKePRYd-uPgHlsiaeOWPw6QR6VgkghuSHMMrDiJxEZjEnUpNNsarQ" alt="">
     <span class="arc-label">MORE</span>
   </button>
+
+  <a id="sharedNavHub" class="arc-more-item">
+    <img src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/bookingfooter.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvYm9va2luZ2Zvb3Rlci5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjMyMDc4LCJleHAiOjQ5NDMyMzIwNzh9.AnZhB83lYYXO-5q5ADhzDQ_SzLNjtJHlwyOyPac-XdZ7zG4INt4wTp_S9VhoVoxz6KbtIrCZaUY1MxRm6G3BVA" alt="">
+    <span class="arc-label">BOOKING</span>
+  </a>
 
   <button class="arc-more-item" type="button" onclick="document.getElementById('sharedProfileLink').click()">
     <span style="font-size:18px;line-height:1">👤</span>
