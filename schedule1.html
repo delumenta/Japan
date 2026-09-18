@@ -10,65 +10,70 @@
   content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#070c10">
+<meta name="theme-color" content="#05090c">
 
-<title>Japan Trip Schedule</title>
+<title>Plan · Travel</title>
 
 
 <style>
 
-/* =========================================
-   COLORS
-========================================= */
+/* =========================================================
+   ROOT
+========================================================= */
 
 :root{
 
-  --bg:#070c10;
+  --bg:#05090c;
 
-  --panel:#10161c;
-  --panel-light:#151c23;
-  --panel-active:#172027;
+  --surface:#0b1217;
+  --surface-2:#0f171d;
+  --surface-3:#141d24;
 
-  --line:#29323b;
-  --line-soft:rgba(255,255,255,.07);
+  --line:#28323a;
+  --line-soft:rgba(255,255,255,.065);
 
-  --text:#f5f5f3;
-  --muted:#aeb5bc;
-  --muted-blue:#91a5b3;
+  --text:#f5f2ed;
+  --muted:#919ba2;
+  --muted-2:#69757d;
 
-  --red:#c96f68;
-  --blue:#5c9dff;
-  --green:#67c587;
-  --orange:#f4a34d;
+  --red:#e96d6b;
+  --red-bright:#ff625f;
+  --red-soft:rgba(255,98,95,.08);
+  --red-line:rgba(255,98,95,.32);
 
+  --green:#79c995;
+  --gold:#e4bd69;
+  --blue:#78a9ef;
 }
 
-
-/* =========================================
-   GLOBAL
-========================================= */
 
 *{
   box-sizing:border-box;
 }
 
+
 html{
   scroll-behavior:smooth;
 }
+
 
 body{
 
   margin:0;
 
-  background:
-    radial-gradient(
-      circle at 50% -20%,
-      #17202a 0%,
-      transparent 38%
-    ),
-    var(--bg);
+  min-height:100vh;
 
   color:var(--text);
+
+  background:
+
+    radial-gradient(
+      circle at 50% -5%,
+      rgba(48,61,70,.20),
+      transparent 30%
+    ),
+
+    #030608;
 
   font-family:
     Inter,
@@ -79,503 +84,820 @@ body{
     "Segoe UI",
     sans-serif;
 
-  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
 
 }
 
 
-/* =========================================
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+
+button{
+  -webkit-tap-highlight-color:transparent;
+}
+
+
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+
+.plan-shell{
+
+  width:calc(100% - 28px);
+
+  max-width:720px;
+
+  margin:
+    calc(16px + env(safe-area-inset-top))
+    auto
+    110px;
+
+  border:1px solid #273139;
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a1116,
+      #070d11
+    );
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.44);
+
+}
+
+
+
+/* =========================================================
    HEADER
-========================================= */
+========================================================= */
 
 header{
 
-  position:sticky;
-  top:0;
-  z-index:30;
+  position:relative;
 
-  background:rgba(7,12,16,.94);
+  overflow:hidden;
 
-  border-bottom:1px solid var(--line);
+  background:
 
-  padding:13px 12px 12px;
+    radial-gradient(
+      circle at 88% 0%,
+      rgba(255,98,95,.07),
+      transparent 28%
+    ),
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+    linear-gradient(
+      145deg,
+      #10181e 0%,
+      #081015 65%,
+      #070c10 100%
+    );
 
 }
 
-.header-top{
 
-  max-width:820px;
+.header-inner{
 
-  margin:0 auto 12px;
+  position:relative;
+
+  z-index:2;
+
+  padding:
+    31px
+    22px
+    0;
+
+}
+
+
+
+/* Faint Japanese watermark */
+
+.plan-kanji{
+
+  position:absolute;
+
+  z-index:0;
+
+  right:23px;
+  top:7px;
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:155px;
+
+  font-weight:700;
+
+  line-height:1;
+
+  color:var(--red-bright);
+
+  opacity:.045;
+
+  pointer-events:none;
+
+  user-select:none;
+
+}
+
+
+
+/* =========================================================
+   HEADER HERO
+========================================================= */
+
+.title-row{
+
+  position:relative;
 
   display:flex;
-  align-items:center;
 
-  gap:11px;
+  align-items:flex-start;
 
-}
+  justify-content:space-between;
 
-.home-button{
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  min-height:39px;
-
-  padding:7px 11px;
-
-  border:1px solid var(--line);
-
-  border-radius:11px;
-
-  background:#121a20;
-
-  color:var(--muted);
-
-  text-decoration:none;
-
-  font-size:12px;
-  font-weight:750;
-
-  white-space:nowrap;
+  gap:14px;
 
 }
 
-.home-button:active{
 
-  border-color:var(--red);
-  color:#fff;
-
-}
-
-.header-title{
+.title-row > div:first-child{
   min-width:0;
 }
 
-.header-title h1{
+
+.eyebrow{
+
+  margin-bottom:17px;
+
+  color:#df7775;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+}
+
+
+.plan-hero{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:18px;
+
+}
+
+
+.plan-icon-wrap{
+
+  width:78px;
+
+  height:78px;
+
+  flex:0 0 78px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border:1px solid rgba(255,98,95,.37);
+
+  border-radius:50%;
+
+  background:
+
+    radial-gradient(
+      circle,
+      rgba(255,98,95,.10),
+      rgba(255,98,95,.025)
+    );
+
+}
+
+
+.plan-page-title-icon{
+
+  width:54px;
+
+  height:54px;
+
+  display:block;
+
+  object-fit:contain;
+
+}
+
+
+.plan-page-title{
 
   margin:0;
-
-  color:#fff;
 
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:24px;
-
-  letter-spacing:-.025em;
-
-}
-
-.header-title div{
-
-  margin-top:2px;
-
-  color:var(--muted);
-
-  font-size:11px;
+  line-height:1;
 
 }
 
 
-/* =========================================
-   TRIP FILTER
-========================================= */
+.plan-page-title span{
 
-.trip-filter{
+  color:#f7f4ee;
 
-  max-width:820px;
+  font-size:49px;
 
-  margin:auto;
+  font-weight:700;
 
-  display:grid;
+  letter-spacing:-.035em;
 
-  grid-template-columns:
-    .65fr
-    1fr
-    1.3fr
-    1fr;
+}
+
+
+.trip-name{
+
+  margin-top:10px;
+
+  max-width:360px;
+
+  color:#89949c;
+
+  font-size:13px;
+
+  line-height:1.4;
+
+}
+
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions{
+
+  position:absolute;
+
+  right:0;
+  top:0;
+
+  display:flex;
 
   gap:6px;
 
 }
 
-.trip-filter button{
 
-  appearance:none;
+.edit-btn{
 
-  min-height:40px;
+  width:34px;
 
-  border:1px solid #26333d;
-
-  border-radius:11px;
-
-  background:#121a20;
-
-  color:#cdd4d9;
-
-  padding:7px 5px;
-
-  font-size:11px;
-
-  font-weight:800;
-
-  cursor:pointer;
-
-}
-
-.trip-filter button.active{
-
-  color:#fff;
-
-  border-color:var(--red);
-
-  background:rgba(201,111,104,.10);
-
-}
-
-
-/* =========================================
-   PAGE
-========================================= */
-
-main{
-
-  max-width:820px;
-
-  margin:auto;
-
-  padding:
-    15px
-    12px
-    105px;
-
-}
-
-
-/* =========================================
-   DATE SCROLLER
-========================================= */
-
-.date-section{
-  margin-bottom:18px;
-}
-
-.section-label{
-
-  color:var(--red);
-
-  font-size:10px;
-
-  font-weight:850;
-
-  letter-spacing:.13em;
-
-  text-transform:uppercase;
-
-  margin:
-    2px
-    2px
-    9px;
-
-}
-
-.date-scroll{
+  height:34px;
 
   display:flex;
 
-  gap:9px;
+  align-items:center;
 
-  overflow-x:auto;
+  justify-content:center;
 
-  padding:
-    2px
-    2px
-    10px;
+  padding:0;
 
-  scrollbar-width:none;
+  border:1px solid rgba(255,98,95,.25);
 
-  scroll-snap-type:x proximity;
-
-}
-
-.date-scroll::-webkit-scrollbar{
-  display:none;
-}
-
-
-/* =========================================
-   DATE CARDS
-========================================= */
-
-.day-card{
-
-  appearance:none;
-
-  flex:0 0 150px;
-
-  min-height:118px;
-
-  text-align:left;
-
-  border:1px solid var(--line);
-
-  border-radius:17px;
+  border-radius:11px;
 
   background:
-    linear-gradient(
-      145deg,
-      #151d23,
-      #0e1419
-    );
+    rgba(255,98,95,.045);
 
-  padding:13px;
-
-  color:var(--text);
-
-  cursor:pointer;
-
-  scroll-snap-align:start;
-
-}
-
-.day-card.active{
-
-  border-color:var(--red);
-
-  background:
-    linear-gradient(
-      145deg,
-      #1d2024,
-      #141719
-    );
-
-}
-
-.day-number{
-
-  color:var(--red);
+  color:#efaaa6;
 
   font-size:12px;
 
-  font-weight:850;
+  font-weight:900;
 
-}
-
-.day-area{
-
-  margin-top:4px;
-
-  color:var(--muted-blue);
-
-  font-size:10px;
-
-  text-transform:uppercase;
-
-  font-weight:750;
-
-}
-
-.day-summary{
-
-  margin-top:8px;
-
-  color:#fff;
-
-  font-size:13px;
-
-  font-weight:750;
-
-  line-height:1.25;
-
-}
-
-.day-level{
-
-  margin-top:9px;
-
-  color:var(--muted);
-
-  font-size:10px;
-
-  font-weight:700;
+  cursor:pointer;
 
 }
 
 
-/* =========================================
-   DAY CONTENT
-========================================= */
+.edit-btn.active{
 
-.day-content{
+  border-color:rgba(121,201,149,.30);
+
+  background:rgba(121,201,149,.06);
+
+  color:#9ed5b0;
+
+}
+
+
+.add-top-btn{
+
+  border-color:rgba(255,98,95,.33);
+
+  background:rgba(255,98,95,.07);
+
+}
+
+
+
+/* =========================================================
+   DATE STRIP
+========================================================= */
+
+.date-scroller{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-top:31px;
+
+  padding:
+    0
+    0
+    22px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+
+  -webkit-overflow-scrolling:touch;
+
+}
+
+
+.date-scroller::-webkit-scrollbar{
   display:none;
 }
 
-.day-content.active{
-  display:block;
-}
 
+.date-btn{
 
-/* =========================================
-   DAY HERO
-========================================= */
+  flex:0 0 83px;
 
-.day-hero{
+  min-height:101px;
 
-  margin-bottom:16px;
+  display:flex;
 
-  padding:
-    18px
-    16px;
+  flex-direction:column;
 
-  border:1px solid var(--line);
+  align-items:center;
 
-  border-radius:20px;
+  justify-content:center;
+
+  padding:10px 5px;
+
+  border:1px solid #29343c;
+
+  border-radius:19px;
 
   background:
     linear-gradient(
       145deg,
-      #171f25,
-      #0e1419
+      #11191f,
+      #0b1217
     );
+
+  color:var(--muted);
+
+  cursor:pointer;
 
 }
 
-.day-date{
 
-  color:var(--red);
+.date-weekday{
+
+  color:#747f86;
 
   font-size:10px;
 
-  font-weight:850;
-
-  text-transform:uppercase;
-
-  letter-spacing:.13em;
+  font-weight:500;
 
 }
 
-.day-hero h2{
+
+.date-number{
 
   margin:
-    7px
+    8px
     0
-    5px;
+    7px;
 
-  color:#fff;
+  color:#f0eee9;
 
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-size:28px;
-
-  line-height:1.08;
-
-}
-
-.day-route{
-
-  color:var(--muted);
-
-  font-size:13px;
-
-}
-
-.stats{
-
-  display:flex;
-
-  flex-wrap:wrap;
-
-  gap:7px;
-
-  margin-top:14px;
-
-}
-
-.stat{
-
-  border:1px solid var(--line);
-
-  background:rgba(255,255,255,.035);
-
-  border-radius:999px;
-
-  padding:6px 9px;
-
-  color:#cbd2d7;
-
-  font-size:10px;
+  font-size:29px;
 
   font-weight:700;
 
+  line-height:1;
+
 }
 
 
-/* =========================================
-   SCHEDULE
-========================================= */
+.date-month{
 
-.schedule-title{
+  color:#747f86;
 
-  color:var(--red);
+  font-size:9px;
+
+  font-weight:600;
+
+}
+
+
+.date-btn.active{
+
+  border-color:rgba(255,98,95,.40);
+
+  background:
+
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255,98,95,.10),
+      transparent 75%
+    ),
+
+    #151318;
+
+  box-shadow:
+    0 0 20px rgba(255,98,95,.035);
+
+}
+
+
+.date-btn.active .date-weekday,
+.date-btn.active .date-month{
+
+  color:#d99895;
+
+}
+
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+
+  width:100%;
+
+  padding:
+    0
+    21px
+    27px;
+
+}
+
+
+
+/* =========================================================
+   DAY CARD
+========================================================= */
+
+.day-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border:1px solid #28343c;
+
+  border-radius:23px;
+
+  background:
+
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(255,255,255,.018),
+      transparent 28%
+    ),
+
+    linear-gradient(
+      150deg,
+      #111a20,
+      #0a1116
+    );
+
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.20);
+
+}
+
+
+
+/* =========================================================
+   DAY CARD HEADER
+========================================================= */
+
+.day-card-header{
+
+  position:relative;
+
+  min-height:148px;
+
+  padding:
+    24px
+    25px
+    22px;
+
+  border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+
+.day-meta-row{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  justify-content:space-between;
+
+  gap:18px;
+
+}
+
+
+.day-number{
+
+  color:#dc7774;
 
   font-size:10px;
 
-  font-weight:850;
+  font-weight:900;
 
-  letter-spacing:.13em;
+  letter-spacing:.17em;
 
   text-transform:uppercase;
 
-  margin:
-    21px
-    2px
-    10px;
+}
+
+
+.day-date-side{
+
+  color:#768188;
+
+  font-size:9px;
+
+  line-height:1.45;
+
+  text-align:right;
+
+  text-transform:uppercase;
 
 }
+
+
+.day-route-title{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:80%;
+
+  margin-top:11px;
+
+  color:#f4f0e9;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:31px;
+
+  font-weight:700;
+
+  line-height:1.05;
+
+  letter-spacing:-.025em;
+
+}
+
+
+.day-stamp{
+
+  position:absolute;
+
+  right:18px;
+
+  bottom:15px;
+
+  width:78px;
+
+  height:78px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border:2px solid rgba(255,98,95,.13);
+
+  border-radius:50%;
+
+  color:rgba(255,98,95,.20);
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+
+  font-size:25px;
+
+  transform:rotate(-7deg);
+
+  pointer-events:none;
+
+}
+
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
 
 .timeline{
-  position:relative;
+
+  padding:
+    3px
+    23px
+    12px;
+
 }
 
-.schedule-item{
+
+.timeline-row{
+
+  position:relative;
 
   display:grid;
 
   grid-template-columns:
     92px
-    1fr;
+    31px
+    minmax(0,1fr)
+    auto;
 
-  gap:12px;
+  gap:9px;
+
+  min-height:104px;
 
   padding:
-    15px
+    24px
     0;
 
+}
+
+
+.timeline-row:not(:last-child){
+
   border-bottom:
-    1px solid var(--line-soft);
+    1px solid
+    rgba(255,255,255,.052);
 
 }
 
-.schedule-item:last-child{
-  border-bottom:0;
+
+
+/* timeline vertical line */
+
+.timeline-row:not(:last-child)::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:107px;
+
+  top:46px;
+
+  bottom:-25px;
+
+  width:1px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(225,105,103,.72),
+      rgba(225,105,103,.28)
+    );
+
 }
 
-.schedule-time{
 
-  color:var(--muted-blue);
 
-  font-size:11px;
+/* TIME */
+
+.timeline-time{
+
+  padding-top:1px;
+
+  color:#aab2b7;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  line-height:1.25;
+
+}
+
+
+
+/* DOT */
+
+.marker{
+
+  position:relative;
+
+  z-index:3;
+
+  display:flex;
+
+  justify-content:center;
+
+}
+
+
+.dot{
+
+  position:relative;
+
+  width:19px;
+
+  height:19px;
+
+  margin-top:-1px;
+
+  border:
+    3px solid
+    #e36d6b;
+
+  border-radius:50%;
+
+  background:#11191f;
+
+  box-shadow:
+
+    0 0 0 5px
+    rgba(255,98,95,.075),
+
+    inset 0 0 0 2px
+    #10181e;
+
+}
+
+
+
+/* CONTENT */
+
+.item-main{
+
+  min-width:0;
+
+}
+
+
+.item-title{
+
+  color:#f1efea;
+
+  font-size:14px;
 
   font-weight:800;
 
@@ -583,319 +905,1328 @@ main{
 
 }
 
-.schedule-main{
-  min-width:0;
+
+.item-title a{
+
+  color:inherit;
+
+  text-decoration:none;
+
 }
 
-.schedule-place{
+
+.item-location{
+
+  margin-top:5px;
+
+  color:#76828a;
+
+  font-size:10px;
+
+}
+
+
+.item-note{
+
+  margin-top:6px;
+
+  color:#737f87;
+
+  font-size:10px;
+
+  line-height:1.45;
+
+}
+
+
+
+/* =========================================================
+   OPTIONAL / LOCKED
+========================================================= */
+
+.optional,
+.locked{
+
+  display:inline-block;
+
+  margin-left:5px;
+
+  padding:
+    2px
+    5px;
+
+  border-radius:999px;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  vertical-align:2px;
+
+}
+
+
+.optional{
+
+  border:1px solid rgba(228,189,105,.22);
+
+  background:rgba(228,189,105,.045);
+
+  color:var(--gold);
+
+}
+
+
+.locked{
+
+  border:1px solid rgba(121,201,149,.22);
+
+  background:rgba(121,201,149,.045);
+
+  color:#a2d8b3;
+
+}
+
+
+
+/* =========================================================
+   EDIT ROW BUTTON
+========================================================= */
+
+.row-edit{
+
+  display:none;
+
+  width:30px;
+
+  height:30px;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#11191f;
+
+  color:#bbc3c8;
+
+  cursor:pointer;
+
+}
+
+
+.editing .row-edit{
+  display:flex;
+}
+
+
+
+/* =========================================================
+   EMPTY / LOADING STATE
+========================================================= */
+
+.state{
+
+  padding:
+    38px
+    20px;
+
+  border:1px dashed #303b43;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.012);
+
+  color:#77838b;
+
+  font-size:10px;
+
+  line-height:1.6;
+
+  text-align:center;
+
+}
+
+
+.state strong{
+
+  display:block;
+
+  margin-bottom:6px;
+
+  color:#e8e7e3;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:17px;
+
+  font-weight:700;
+
+}
+
+
+
+/* =========================================================
+   SHEETS
+========================================================= */
+
+.sheet-backdrop{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  display:none;
+
+  align-items:flex-end;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(5px);
+
+  -webkit-backdrop-filter:blur(5px);
+
+}
+
+
+.sheet-backdrop.open{
+  display:flex;
+}
+
+
+.sheet{
+
+  width:100%;
+
+  max-height:
+    calc(92vh - env(safe-area-inset-top));
+
+  overflow-y:auto;
+
+  padding:
+    8px
+    14px
+    calc(18px + env(safe-area-inset-bottom));
+
+  border:1px solid var(--line);
+
+  border-radius:
+    22px
+    22px
+    0
+    0;
+
+  background:#0c1217;
+
+  box-shadow:
+    0 -20px 50px rgba(0,0,0,.35);
+
+}
+
+
+.sheet-handle{
+
+  width:36px;
+
+  height:4px;
+
+  margin:
+    2px
+    auto
+    13px;
+
+  border-radius:999px;
+
+  background:#35414a;
+
+}
+
+
+.sheet-head{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:13px;
+
+}
+
+
+.sheet-title{
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
+
+}
+
+
+.close-btn{
+
+  width:34px;
+
+  height:34px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#131b21;
 
   color:#fff;
 
-  font-size:15px;
-
-  font-weight:800;
+  cursor:pointer;
 
 }
 
-.schedule-note{
 
-  margin-top:4px;
 
-  color:var(--muted);
+/* =========================================================
+   TYPE SELECTOR
+========================================================= */
+
+.type-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:5px;
+
+  margin-bottom:10px;
+
+}
+
+
+.type-btn{
+
+  min-height:35px;
+
+  padding:6px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#0f161c;
+
+  color:#87929a;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+}
+
+
+.type-btn.active{
+
+  border-color:var(--red-line);
+
+  background:var(--red-soft);
+
+  color:#f0c0bc;
+
+}
+
+
+
+/* =========================================================
+   ENTITY PICKER
+========================================================= */
+
+.entity-picker{
+
+  grid-column:1/-1;
+
+  padding:10px;
+
+  border:1px solid rgba(120,169,239,.17);
+
+  border-radius:11px;
+
+  background:rgba(120,169,239,.03);
+
+}
+
+
+.entity-picker-title{
+
+  margin-bottom:3px;
+
+  color:#c5d6e5;
+
+  font-size:7px;
+
+  font-weight:900;
+
+}
+
+
+.entity-picker-sub{
+
+  margin-bottom:7px;
+
+  color:#6f7c85;
+
+  font-size:6.5px;
+
+  line-height:1.4;
+
+}
+
+
+.entity-search-wrap{
+  position:relative;
+}
+
+
+.entity-search{
+
+  width:100%;
+
+  min-height:40px;
+
+  padding:
+    8px
+    36px
+    8px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  outline:0;
+
+  background:#0f161c;
+
+  color:#fff;
+
+  font-size:9px;
+
+}
+
+
+.entity-search:focus{
+
+  border-color:
+    rgba(120,169,239,.45);
+
+}
+
+
+.search-icon{
+
+  position:absolute;
+
+  right:11px;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:#65717a;
+
+  pointer-events:none;
+
+}
+
+
+.entity-results{
+
+  display:none;
+
+  margin-top:6px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#0d1419;
+
+}
+
+
+.entity-results.show{
+  display:block;
+}
+
+
+.entity-result{
+
+  width:100%;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:9px;
+
+  border:0;
+
+  border-bottom:
+    1px solid
+    var(--line-soft);
+
+  background:transparent;
+
+  color:#fff;
+
+  text-align:left;
+
+  cursor:pointer;
+
+}
+
+
+.entity-result:last-child{
+  border-bottom:0;
+}
+
+
+.entity-result-icon{
+
+  flex:0 0 28px;
+
+  width:28px;
+
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:#151d23;
+
+  font-size:14px;
+
+}
+
+
+.entity-result-main{
+
+  min-width:0;
+
+  flex:1;
+
+}
+
+
+.entity-result-name{
+
+  font-size:8px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+}
+
+
+.entity-result-japanese{
+
+  margin-top:1px;
+
+  color:#89949b;
+
+  font-size:7px;
+
+}
+
+
+.entity-result-meta{
+
+  margin-top:2px;
+
+  color:#65717a;
+
+  font-size:6.5px;
+
+}
+
+
+.entity-result-arrow{
+
+  color:#77858e;
 
   font-size:12px;
+
+}
+
+
+.entity-empty{
+
+  padding:
+    14px
+    10px;
+
+  color:#7d8992;
+
+  text-align:center;
+
+  font-size:8px;
 
   line-height:1.5;
 
 }
 
 
-/* =========================================
-   BUTTONS
-========================================= */
 
-.actions{
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
 
-  display:flex;
+.selected-entity{
 
-  flex-wrap:wrap;
+  display:none;
 
-  gap:7px;
-
-  margin-top:9px;
-
-}
-
-.action{
-
-  display:inline-flex;
+  grid-column:1/-1;
 
   align-items:center;
-  justify-content:center;
 
-  min-height:35px;
+  gap:9px;
 
-  padding:7px 10px;
+  padding:
+    9px
+    10px;
+
+  border:
+    1px solid
+    rgba(121,201,149,.20);
 
   border-radius:10px;
 
+  background:
+    rgba(121,201,149,.045);
+
+}
+
+
+.selected-entity.show{
+  display:flex;
+}
+
+
+.selected-icon{
+
+  flex:0 0 28px;
+
+  width:28px;
+
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:
+    rgba(121,201,149,.06);
+
+  font-size:15px;
+
+}
+
+
+.selected-main{
+
+  min-width:0;
+
+  flex:1;
+
+}
+
+
+.selected-label{
+
+  color:#71847a;
+
+  font-size:5.5px;
+
+  font-weight:900;
+
+  letter-spacing:.08em;
+
+}
+
+
+.selected-name{
+
+  margin-top:1px;
+
+  color:#a9ddb9;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+}
+
+
+.selected-meta{
+
+  margin-top:2px;
+
+  color:#718078;
+
+  font-size:6.5px;
+
+}
+
+
+.change-entity{
+
+  min-height:28px;
+
+  padding:
+    5px
+    8px;
+
   border:
-    1px solid rgba(201,111,104,.26);
+    1px solid
+    rgba(121,201,149,.18);
+
+  border-radius:8px;
 
   background:
-    rgba(201,111,104,.08);
+    rgba(121,201,149,.035);
 
-  color:var(--red);
+  color:#96cda8;
 
-  text-decoration:none;
+  font-size:6.5px;
 
-  font-size:10px;
+  font-weight:900;
 
-  font-weight:800;
-
-}
-
-.action.food{
-
-  color:var(--blue);
-
-  border-color:
-    rgba(92,157,255,.25);
-
-  background:
-    rgba(92,157,255,.08);
+  cursor:pointer;
 
 }
 
 
-/* =========================================
-   OPTIONAL / HIGHLIGHT
-========================================= */
 
-.highlight{
+/* =========================================================
+   MASTER HELP
+========================================================= */
 
-  margin-top:16px;
+.master-help{
 
-  padding:14px;
+  display:none;
+
+  grid-column:1/-1;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:8px;
+
+  padding:
+    8px
+    9px;
+
+  border:1px dashed #303b43;
+
+  border-radius:9px;
+
+  color:#77838b;
+
+  font-size:7px;
+
+}
+
+
+.master-help.show{
+  display:flex;
+}
+
+
+.master-help button{
+
+  min-height:29px;
+
+  padding:
+    5px
+    8px;
 
   border:
-    1px solid rgba(244,163,77,.24);
+    1px solid
+    rgba(120,169,239,.20);
+
+  border-radius:8px;
 
   background:
-    rgba(244,163,77,.07);
+    rgba(120,169,239,.04);
 
-  border-radius:15px;
+  color:#94b8e9;
 
-  color:#d9dde0;
+  font-size:6.5px;
 
-  font-size:12px;
+  font-weight:900;
 
-  line-height:1.55;
-
-}
-
-.highlight strong{
-  color:var(--orange);
-}
-
-.optional-stop{
-
-  margin-top:13px;
-
-  padding-top:13px;
-
-  border-top:
-    1px solid rgba(255,255,255,.07);
-
-}
-
-.optional-stop:first-of-type{
-  border-top:0;
-}
-
-.optional-name{
-
-  color:#fff;
-
-  font-size:13px;
-
-  font-weight:800;
-
-}
-
-.optional-note{
-
-  margin-top:3px;
-
-  color:var(--muted);
-
-  font-size:11px;
+  cursor:pointer;
 
 }
 
 
-/* =========================================
-   FLEXIBLE DAY
-========================================= */
 
-.flex-day{
+/* =========================================================
+   GOOGLE AUTOFILL
+========================================================= */
 
-  padding:22px 16px;
+.google-add-box{
 
-  border:1px dashed #34414b;
+  display:none;
 
-  border-radius:18px;
+  grid-column:1/-1;
 
-  text-align:center;
+  padding:10px;
 
-  color:var(--muted);
+  border:
+    1px solid
+    rgba(120,169,239,.17);
 
-}
+  border-radius:11px;
 
-.flex-icon{
-
-  font-size:28px;
-
-  margin-bottom:8px;
+  background:
+    rgba(120,169,239,.03);
 
 }
 
-.flex-day strong{
+
+.google-add-box.show{
+  display:block;
+}
+
+
+.google-add-title{
+
+  margin-bottom:3px;
+
+  color:#9fbce4;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.05em;
+
+}
+
+
+.google-add-sub{
+
+  margin-bottom:7px;
+
+  color:#6f7c85;
+
+  font-size:6.5px;
+
+  line-height:1.4;
+
+}
+
+
+#googlePlaceSearch{
+  width:100%;
+}
+
+
+#googlePlaceSearch gmp-place-autocomplete,
+gmp-place-autocomplete{
+
+  width:100%;
+
+  min-height:40px;
+
+  color-scheme:dark;
+
+}
+
+
+.place-status{
+
+  margin-top:6px;
+
+  color:#6f7d86;
+
+  font-size:7px;
+
+  line-height:1.4;
+
+}
+
+
+.place-status.success{
+  color:#96d4ab;
+}
+
+
+.place-status.error{
+  color:#f2a4a0;
+}
+
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:9px;
+
+}
+
+
+.field.full{
+  grid-column:1/-1;
+}
+
+
+.field label{
 
   display:block;
 
+  margin-bottom:4px;
+
+  color:#8d989f;
+
+  font-size:6.5px;
+
+  font-weight:900;
+
+  letter-spacing:.04em;
+
+}
+
+
+.field input,
+.field textarea,
+.field select{
+
+  width:100%;
+
+  min-height:40px;
+
+  padding:
+    8px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  outline:0;
+
+  background:#0f161c;
+
   color:#fff;
 
-  margin-bottom:5px;
-
-}
-
-
-
-/* =========================================
-   BOTTOM NAV
-========================================= */
-
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:50;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
-  background:rgba(7,12,16,.96);
-  border-top:1px solid var(--line);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-}
-
-.bottom-nav a{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  min-height:47px;
-  color:var(--muted);
-  text-decoration:none;
   font-size:9px;
+
+}
+
+
+.field textarea{
+
+  min-height:72px;
+
+  resize:vertical;
+
+}
+
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+
+  border-color:var(--red-line);
+
+}
+
+
+.check-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  min-height:38px;
+
+  margin-top:9px;
+
+  padding:
+    7px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#10171d;
+
+  color:#aab3b9;
+
+  font-size:7px;
+
   font-weight:800;
-  letter-spacing:.02em;
-  border-radius:11px;
-}
 
-.bottom-nav .nav-icon{
-  font-size:17px;
-  line-height:1;
-}
-
-.bottom-nav a.active{
-  color:#fff;
-  background:rgba(201,111,104,.10);
-  border:1px solid rgba(201,111,104,.25);
-}
-
-@media(min-width:700px){
-  .bottom-nav{
-    left:50%;
-    right:auto;
-    width:min(820px,100%);
-    transform:translateX(-50%);
-    border-left:1px solid var(--line);
-    border-right:1px solid var(--line);
-    border-radius:16px 16px 0 0;
-  }
 }
 
 
-/* =========================================
+.check-row input{
+
+  width:14px;
+
+  height:14px;
+
+  accent-color:var(--red);
+
+}
+
+
+.sheet-actions{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    2fr;
+
+  gap:6px;
+
+  margin-top:10px;
+
+}
+
+
+.delete-btn,
+.save-btn{
+
+  min-height:42px;
+
+  border-radius:10px;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+}
+
+
+.delete-btn{
+
+  border:
+    1px solid
+    rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.04);
+
+  color:#d98a83;
+
+}
+
+
+.save-btn{
+
+  border:
+    1px solid
+    rgba(121,201,149,.24);
+
+  background:
+    rgba(121,201,149,.07);
+
+  color:#a7dbb8;
+
+}
+
+
+.save-btn:disabled,
+.delete-btn:disabled{
+  opacity:.5;
+}
+
+
+.form-message{
+
+  display:none;
+
+  margin-top:8px;
+
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:8px;
+
+}
+
+
+.form-message.error{
+
+  display:block;
+
+  border:
+    1px solid
+    rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.055);
+
+  color:#f3aaa6;
+
+}
+
+
+.form-message.success{
+
+  display:block;
+
+  border:
+    1px solid
+    rgba(121,201,149,.20);
+
+  background:
+    rgba(121,201,149,.055);
+
+  color:#9dd8b2;
+
+}
+
+
+
+/* =========================================================
    MOBILE
-========================================= */
+========================================================= */
 
 @media(max-width:480px){
 
-  .header-title h1{
-    font-size:21px;
+  .plan-shell{
+
+    width:calc(100% - 24px);
+
+    border-radius:27px;
+
   }
 
-  .trip-filter{
+
+  .header-inner{
+
+    padding-left:20px;
+
+    padding-right:20px;
+
+  }
+
+
+  .plan-kanji{
+
+    right:7px;
+
+    top:11px;
+
+    font-size:128px;
+
+  }
+
+
+  .plan-icon-wrap{
+
+    width:68px;
+
+    height:68px;
+
+    flex-basis:68px;
+
+  }
+
+
+  .plan-page-title-icon{
+
+    width:47px;
+
+    height:47px;
+
+  }
+
+
+  .plan-page-title span{
+
+    font-size:43px;
+
+  }
+
+
+  .trip-name{
+
+    font-size:11px;
+
+  }
+
+
+  .header-actions{
+
+    top:-3px;
+
+  }
+
+
+  .edit-btn{
+
+    width:31px;
+
+    height:31px;
+
+  }
+
+
+  .date-btn{
+
+    flex-basis:77px;
+
+    min-height:96px;
+
+  }
+
+
+  main{
+
+    padding-left:18px;
+
+    padding-right:18px;
+
+  }
+
+
+  .day-card-header{
+
+    padding:
+      22px
+      21px
+      20px;
+
+  }
+
+
+  .day-route-title{
+
+    font-size:29px;
+
+  }
+
+
+  .timeline{
+
+    padding:
+      3px
+      20px
+      11px;
+
+  }
+
+
+  .timeline-row{
+
     grid-template-columns:
-      .55fr
-      1fr
-      1.25fr
-      .9fr;
-  }
+      83px
+      29px
+      minmax(0,1fr)
+      auto;
 
-  .trip-filter button{
-    font-size:10px;
-  }
-
-  .day-card{
-    flex-basis:142px;
-  }
-
-  .schedule-item{
-
-    grid-template-columns:
-      75px
-      1fr;
-
-    gap:10px;
+    gap:7px;
 
   }
 
-  .day-hero h2{
-    font-size:25px;
+
+  .timeline-row:not(:last-child)::after{
+
+    left:97px;
+
   }
 
-  .action{
-    min-height:38px;
+
+  .timeline-time{
+
+    font-size:11px;
+
+  }
+
+
+  .item-title{
+
+    font-size:13px;
+
+  }
+
+
+  .item-note,
+  .item-location{
+
+    font-size:9px;
+
   }
 
 }
 
 
-/* =========================================
-   DESKTOP
-========================================= */
-
 @media(min-width:700px){
 
-  main{
-    padding-top:20px;
-  }
+  .sheet{
 
-  .day-card{
-    flex-basis:165px;
-  }
+    max-width:620px;
 
-  .schedule-item{
-
-    grid-template-columns:
-      120px
-      1fr;
+    margin:auto;
 
   }
 
@@ -909,1835 +2240,4682 @@ main{
 
 <body>
 
+
+<div class="plan-shell">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
-  <div class="header-top">
-    <a href="index.html" class="home-button">← Home</a>
-    <div class="header-title">
-      <h1>📅 Japan Trip Schedule</h1>
-      <div>18–30 October 2026</div>
-    </div>
+
+  <div class="plan-kanji">
+    旅
   </div>
 
-  <div class="trip-filter">
-    <button class="trip-btn active" data-trip="all">ALL</button>
-    <button class="trip-btn" data-trip="kyoto">⛩️ KYOTO</button>
-    <button class="trip-btn" data-trip="road">🚗 ROAD TRIP</button>
-    <button class="trip-btn" data-trip="osaka">🌃 OSAKA</button>
+
+  <div class="header-inner">
+
+    <div class="title-row">
+
+
+      <div>
+
+        <div
+          id="tripEyebrow"
+          class="eyebrow"
+        >
+          JAPAN · AUTUMN 2026
+        </div>
+
+
+        <div class="plan-hero">
+
+
+          <div class="plan-icon-wrap">
+
+            <img
+              class="plan-page-title-icon"
+              src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Plan.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvUGxhbi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NjI4MDk1LCJleHAiOjIxMDQ5ODgwOTV9.y5ce4vah9CX-CnpAFWVUXw7pHtNakfgezG6RlS8EJ3BzGYBm7SgdUOgum92WHo-jpLPb1kbuYdvneZJytrLobw"
+              alt=""
+              aria-hidden="true"
+            >
+
+          </div>
+
+
+          <div>
+
+            <h1 class="plan-page-title">
+              <span>
+                Plan
+              </span>
+            </h1>
+
+
+            <div
+              id="tripName"
+              class="trip-name"
+            >
+              Loading trip…
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="header-actions">
+
+        <button
+          id="addButton"
+          class="edit-btn add-top-btn"
+          type="button"
+          aria-label="Add schedule item"
+        >
+          ＋
+        </button>
+
+
+        <button
+          id="editButton"
+          class="edit-btn"
+          type="button"
+          aria-label="Edit schedule"
+        >
+          ✎
+        </button>
+
+      </div>
+
+
+    </div>
+
+
+    <div
+      id="dateScroller"
+      class="date-scroller"
+    ></div>
+
   </div>
+
 </header>
 
-<main>
-  <section class="date-section">
-    <div class="section-label" id="dateLabel">All Trip Dates</div>
-    <div class="date-scroll" id="dateScroll">
-      
-    <button class="day-card active" data-day="18" data-trip="kyoto">
-      <div class="day-number">18 OCT</div>
-      <div class="day-area">Kyoto</div>
-      <div class="day-summary">Arrival + Higashiyama</div>
-      <div class="day-level">🟠 Moderate · 5/10</div>
-    </button>
-    <button class="day-card" data-day="19" data-trip="kyoto">
-      <div class="day-number">19 OCT</div>
-      <div class="day-area">Kyoto</div>
-      <div class="day-summary">Fushimi + Arashiyama</div>
-      <div class="day-level">🟠 Moderate+ · 6.5/10</div>
-    </button>
-    <button class="day-card" data-day="20" data-trip="kyoto">
-      <div class="day-number">20 OCT</div>
-      <div class="day-area">Kyoto</div>
-      <div class="day-summary">Kifune Lanterns + Setsu</div>
-      <div class="day-level">🟠 Moderate · 5.5/10</div>
-    </button>
-    <button class="day-card" data-day="21" data-trip="kyoto">
-      <div class="day-number">21 OCT</div>
-      <div class="day-area">Kyoto</div>
-      <div class="day-summary">Ine Day Trip</div>
-      <div class="day-level">🟠 Moderate · 5.5/10</div>
-    </button>
-    <button class="day-card" data-day="22" data-trip="kyoto">
-      <div class="day-number">22 OCT</div>
-      <div class="day-area">Kyoto</div>
-      <div class="day-summary">Nanzen-ji + teamLab</div>
-      <div class="day-level">🟡 Moderate · 5/10</div>
-    </button>
-    <button class="day-card" data-day="23" data-trip="road">
-      <div class="day-number">23 OCT</div>
-      <div class="day-area">Road Trip</div>
-      <div class="day-summary">Soni → Dorogawa</div>
-      <div class="day-level">🟡 Easy–Moderate · 4/10</div>
-    </button>
-    <button class="day-card" data-day="24" data-trip="road">
-      <div class="day-number">24 OCT</div>
-      <div class="day-area">Road Trip</div>
-      <div class="day-summary">Skyline → Gomadanzan → Ryujin</div>
-      <div class="day-level">🟠 Moderate · 5/10</div>
-    </button>
-    <button class="day-card" data-day="25" data-trip="road">
-      <div class="day-number">25 OCT</div>
-      <div class="day-area">Road Trip</div>
-      <div class="day-summary">Kumano → Nachikatsuura</div>
-      <div class="day-level">🟠 Moderate · 5/10</div>
-    </button>
-    <button class="day-card" data-day="26" data-trip="road">
-      <div class="day-number">26 OCT</div>
-      <div class="day-area">Road Trip</div>
-      <div class="day-summary">Nachi + Kamikura → Osaka</div>
-      <div class="day-level">🟠 Moderate+ · 6/10</div>
-    </button>
-    <button class="day-card" data-day="27" data-trip="osaka">
-      <div class="day-number">27 OCT</div>
-      <div class="day-area">Osaka</div>
-      <div class="day-summary">Namba + MIRACLE WORLD</div>
-      <div class="day-level">🟠 Moderate · 5/10</div>
-    </button>
-    <button class="day-card" data-day="28" data-trip="osaka">
-      <div class="day-number">28 OCT</div>
-      <div class="day-area">Osaka Base</div>
-      <div class="day-summary">Mentai + Pokémon Observatory</div>
-      <div class="day-level">🔴 Long Day · 7/10</div>
-    </button>
-    <button class="day-card" data-day="29" data-trip="osaka">
-      <div class="day-number">29 OCT</div>
-      <div class="day-area">Osaka</div>
-      <div class="day-summary">Nara + Wakakusa Sunset</div>
-      <div class="day-level">🟠 Moderate · 6/10</div>
-    </button>
-    <button class="day-card" data-day="30" data-trip="osaka">
-      <div class="day-number">30 OCT</div>
-      <div class="day-area">Osaka</div>
-      <div class="day-summary">Fly Home · 6 PM</div>
-      <div class="day-level">✈️ Departure</div>
-    </button>
-    </div>
-  </section>
 
-  
-<section class="day-content active" id="day-18">
-<div class="note">🏨 Stay: Hotel Century Kyoto · 18–21 Oct</div>
-  <div class="day-hero">
-    <div class="day-date">18 OCTOBER · KYOTO</div>
-    <h2>🏮 Arrival + Higashiyama + Gion</h2>
-    <div class="day-route">Arrival → Hotel → Kiyomizu → Sannenzaka / Ninenzaka → Gion → Pontocho → Kyoto Station</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🧳 Arrival day</span><span class="stat">🌃 Kyoto Station night view</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~1:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Arrive Kyoto</div>
-        <div class="schedule-note">Head to the hotel and leave luggage.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~3:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Hotel Check-in</div>
-        <div class="schedule-note">Check in, freshen up and keep luggage sorted.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">3:15–3:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍜 Late Lunch / Snack</div>
-        <div class="schedule-note">Keep it fairly quick so you still have time for Higashiyama.</div>
-        <div class="actions"><a href="kyotofood.html?area=Downtown" class="action food">🍽️ Kyoto Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚕 Head to Higashiyama</div>
-        <div class="schedule-note">Taxi or train toward Kiyomizu-dera.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">4:30–5:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kiyomizu-dera Area</div>
-        <div class="schedule-note">Main temple area and views before dusk.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:15–6:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏘️ Sannenzaka → Ninenzaka → Yasaka Pagoda</div>
-        <div class="schedule-note">Walk downhill through the historic streets and stop for photos.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Yasaka+Pagoda+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">6:15–7:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏮 Yasaka Shrine → Gion</div>
-        <div class="schedule-note">Hanamikoji and Gion Shirakawa as the streets light up.</div>
-        <div class="actions"><a href="kyotofood.html?location=Gion" class="action food">🍽️ Gion Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">7:15–8:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍽️ Pontocho Dinner</div>
-        <div class="schedule-note">Dinner around Pontocho / Kawaramachi, then a short Kamo River stroll.</div>
-        <div class="actions"><a href="kyotofood.html?location=Pontocho" class="action food">🍽️ Pontocho Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Head to Kyoto Station</div>
-        <div class="schedule-note">Finish the first night with the station views.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">9:15–10:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">✨ Kyoto Station Grand Staircase + Skyway</div>
-        <div class="schedule-note">Grand Staircase illumination, Skyway and elevated night views.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kyoto+Station" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Return Hotel</div>
-        <div class="schedule-note">Easy end to the arrival day.</div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>⭐ Priority:</strong> Kyoto Station at night stays in the plan. If arrival or check-in runs late, shorten Higashiyama rather than dropping the station.</div>
-</section>
 
-<section class="day-content" id="day-19">
-  <div class="day-hero">
-    <div class="day-date">19 OCTOBER · KYOTO</div>
-    <h2>⛩️ Fushimi Inari + Arashiyama</h2>
-    <div class="day-route">Fushimi Inari → Arashiyama → Takara Sushi → Bamboo Grove → Old Saga → Evening Lighting</div>
-    <div class="stats"><span class="stat">🟠 Moderate+ · 6.5/10</span><span class="stat">🚶 Full sightseeing day</span><span class="stat">🍣 Takara Sushi target</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~6:45 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Hotel</div>
-        <div class="schedule-note">Early start for Fushimi Inari.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:15 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Arrive Fushimi Inari</div>
-        <div class="schedule-note">Start before the main crowds.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">7:15–9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Fushimi Inari / Senbon Torii</div>
-        <div class="schedule-note">Walk the torii route partway up; no need to summit.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">9:30–10:15 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍙 Descend + Snack</div>
-        <div class="schedule-note">Quick break; Nezameya takeaway is optional.</div>
-        <div class="actions"><a href="kyotofood.html?location=Fushimi%20Inari" class="action food">🍽️ Fushimi Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:15 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Fushimi → Arashiyama</div>
-        <div class="schedule-note">Travel across Kyoto.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~11:20 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🎋 Arrive Arashiyama</div>
-        <div class="schedule-note">Head toward the lunch area.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">11:30 AM–12:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍣 Takara Sushi</div>
-        <div class="schedule-note">Primary lunch target. Tiny counter, so keep the time flexible if there is a short queue.</div>
-        <div class="actions"><a href="kyotofood.html?area=Arashiyama" class="action food">🍽️ Arashiyama Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:20–12:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌉 Togetsukyo Bridge + River</div>
-        <div class="schedule-note">River and mountain views.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:50–1:20 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🎋 Arashiyama Bamboo Grove</div>
-        <div class="schedule-note">Walk through the grove after lunch.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:20–1:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌄 Kameyama Park Viewpoint</div>
-        <div class="schedule-note">Hozu River viewpoint.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏘️ Saga-Toriimoto</div>
-        <div class="schedule-note">Quieter preserved street in Old Saga.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Saga+Toriimoto+Preserved+Street+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">2:30–3:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🪨 Adashino Nenbutsu-ji</div>
-        <div class="schedule-note">Atmospheric temple and small bamboo path.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Adashino+Nenbutsuji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">3:15–4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🗿 Otagi Nenbutsu-ji · Optional</div>
-        <div class="schedule-note">Do this if energy and timing are good; otherwise turn back earlier.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Otagi+Nenbutsuji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">4:00–5:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">☕ Central Arashiyama / Café / Shopping</div>
-        <div class="schedule-note">Return toward the central area and rest.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:00 PM onward</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🎋✨ Arashiyama Evening Lighting</div>
-        <div class="schedule-note">Stay into the evening for the lighting / illumination atmosphere.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00–7:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Arashiyama</div>
-        <div class="schedule-note">Head back toward central Kyoto.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍽️ Dinner / Hotel</div>
-        <div class="schedule-note">Flexible dinner depending on where you finish.</div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>🌿 Optional:</strong> Tenryu-ji only if you are ahead of time. Takara Sushi, Bamboo Grove and the evening lighting take priority.</div>
-</section>
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
-<section class="day-content" id="day-20">
-  <div class="day-hero">
-    <div class="day-date">20 OCTOBER · KYOTO</div>
-    <h2>🏮 Disaster Center + Rurikō-in + Kifune + Setsu</h2>
-    <div class="day-route">Disaster Prevention Center → Rurikō-in if practical → Kibune → Kifune Lanterns → Setsu</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 5.5/10</span><span class="stat">🏮 Kifune after dark</span><span class="stat">🔒 Setsu · 7:45 PM</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~8:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍳 Breakfast + Easy Start</div>
-        <div class="schedule-note">No need for another dawn start.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:15 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Hotel</div>
-        <div class="schedule-note">Head to Kyoto City Disaster Prevention Center.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:00 AM–12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚒 Kyoto City Disaster Prevention Center</div>
-        <div class="schedule-note">Disaster-prevention exhibits and experiences.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kyoto+City+Disaster+Prevention+Center" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:00–1:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍜 Lunch</div>
-        <div class="schedule-note">Keep lunch practical before travelling north.</div>
-        <div class="actions"><a href="kyotofood.html" class="action food">🍽️ Kyoto Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Head North</div>
-        <div class="schedule-note">Travel toward Yase / Rurikō-in.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:00–3:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍁 Rurikō-in · If Practical</div>
-        <div class="schedule-note">Do it only if the opening / entry timing works smoothly. Skip rather than compromising Kifune.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Rurikoin+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~3:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Travel Toward Kibune</div>
-        <div class="schedule-note">Continue north.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌲 Kibune Village</div>
-        <div class="schedule-note">River, village streets and bridges before sunset.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kibune+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">4:00–4:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌊 Kibune Walk</div>
-        <div class="schedule-note">Relaxed photos along the river.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kifune Shrine</div>
-        <div class="schedule-note">Reach the shrine before sunset.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kifune+Shrine+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~5:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌅 Sunset</div>
-        <div class="schedule-note">Stay in position as the lanterns become more visible.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:20–5:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🔵 Blue Hour</div>
-        <div class="schedule-note">Lantern staircase starts looking much better.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:45–6:20 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏮 Kifune Lantern Staircase · Dark</div>
-        <div class="schedule-note">Main photo window after proper darkness.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~6:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚕 Taxi / Uber Pickup</div>
-        <div class="schedule-note">Leave Kifune; Kokusaikaikan is the preferred transfer point.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚇 Kokusaikaikan → Downtown</div>
-        <div class="schedule-note">Karasuma Line toward Karasuma Oike.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">7:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🔒 Setsu · BOOKED for 2</div>
-        <div class="schedule-note">Dinner at お出汁と日本酒 せつ. Wife: no beef.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Odashi+to+Nihonshu+Setsu+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:30 PM+</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Return Hotel</div>
-        <div class="schedule-note">Easy end after dinner.</div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>⭐ Priority:</strong> Kifune lanterns after dark + the 7:45 PM Setsu booking. Rurikō-in is the part to drop if the day starts running late.</div>
-</section>
+<main id="main">
 
-<section class="day-content" id="day-21">
-<div class="note">🏨 Hotel change: Hotel Century Kyoto → Hotel Granvia Kyoto · Granvia stay 21–23 Oct</div>
-  <div class="day-hero">
-    <div class="day-date">21 OCTOBER · KYOTO</div>
-    <h2>🌊 Ine Day Trip</h2>
-    <div class="day-route">Kyoto → Ine → Funaya Village → Kyoto</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 5.5/10</span><span class="stat">🚶 ~4–6 km</span><span class="stat">🚌 Long travel day</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Kyoto</div>
-        <div class="schedule-note">Long journey north toward Ine.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:30–11:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌊 Arrive Ine</div>
-        <div class="schedule-note">Begin around the waterfront and funaya area.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Ine+Kyoto+Japan" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">11:00 AM–12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏘️ Ine Funaya</div>
-        <div class="schedule-note">Boathouses, waterfront, village streets and harbour views.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🐟 Lunch in Ine</div>
-        <div class="schedule-note">Keep flexible depending on transport timing.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:30–3:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌊 Continue Ine</div>
-        <div class="schedule-note">Viewpoints / boat if wanted / relaxed village time.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~3:30–4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚌 Begin Return Journey</div>
-        <div class="schedule-note">Start heading back toward Kyoto.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌃 Return Kyoto</div>
-        <div class="schedule-note">Dinner near Kyoto Station.</div>
-        <div class="actions"><a href="kyotofood.html?area=Kyoto%20Station" class="action food">🍽️ Kyoto Station Food</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>🚌 Transport:</strong> Keep the exact trains and buses flexible until the October timetable is locked.</div>
-</section>
+  <div class="state">
 
-<section class="day-content" id="day-22">
-  <div class="day-hero">
-    <div class="day-date">22 OCTOBER · KYOTO</div>
-    <h2>🧱 Nanzen-ji + Kodaiji + Mom + teamLab</h2>
-    <div class="day-route">Suirokaku → Nanzen-ji → Keage → Philosopher's Path → Kodaiji → Mom → teamLab</div>
-    <div class="stats"><span class="stat">🟡 Moderate · 5/10</span><span class="stat">🚶 Temple morning</span><span class="stat">✨ teamLab evening</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Hotel</div>
-        <div class="schedule-note">Head toward Nanzen-ji.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">8:15–8:45 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🧱 Suirokaku Aqueduct</div>
-        <div class="schedule-note">Quiet morning photos.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Suirokaku+Aqueduct+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">8:45–9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Nanzen-ji</div>
-        <div class="schedule-note">Temple grounds and main areas.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Nanzenji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">9:30–10:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌿 Keage Incline</div>
-        <div class="schedule-note">Short walk and photos.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Keage+Incline+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:00–10:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚶 Philosopher's Path · Optional</div>
-        <div class="schedule-note">Short section only; skip if you prefer a slower morning.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚕 Taxi to Kodaiji</div>
-        <div class="schedule-note">Move back toward Higashiyama.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">11:00 AM–12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kodaiji</div>
-        <div class="schedule-note">Temple visit.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kodaiji+Kyoto" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:00–12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏘️ Nene-no-Michi</div>
-        <div class="schedule-note">Short atmospheric walk.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:30–1:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">☕ Free Time / Travel</div>
-        <div class="schedule-note">Coffee, rest or travel toward Mom.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">👩 Meet Mom + Lunch</div>
-        <div class="schedule-note">Lunch together.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">2:00–5:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">👩 Mom / Shopping / Café</div>
-        <div class="schedule-note">Keep the afternoon relaxed.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~5:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Head Toward teamLab</div>
-        <div class="schedule-note">Travel to the venue.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">✨ teamLab Biovortex</div>
-        <div class="schedule-note">Evening immersive-art visit.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">Afterward</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍽️ Dinner / Hotel</div>
-        <div class="schedule-note">Flexible dinner after teamLab.</div>
-        
-      </div>
-    </div>
-  </div>
-  
-</section>
+    <strong>
+      Loading plan…
+    </strong>
 
-<section class="day-content" id="day-23">
-<div class="note">🏨 Check out Hotel Granvia Kyoto · then road trip → Kadojin, Dorogawa Onsen (23–24 Oct)</div>
-  <div class="day-hero">
-    <div class="day-date">23 OCTOBER · ROAD TRIP</div>
-    <h2>🌾 Kyoto → Soni Highlands → Dorogawa</h2>
-    <div class="day-route">Kyoto → Soni Highlands → Dorogawa Onsen</div>
-    <div class="stats"><span class="stat">🟡 Easy–Moderate · 4/10</span><span class="stat">🚗 Road trip begins</span><span class="stat">♨️ Ryokan evening</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍳 Breakfast + Pack</div>
-        <div class="schedule-note">Relaxed start in Kyoto.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Check Out</div>
-        <div class="schedule-note">Collect luggage.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Pick Up Car + Leave Kyoto</div>
-        <div class="schedule-note">Start the road trip.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍜 Lunch En Route</div>
-        <div class="schedule-note">Nara / route-dependent stop.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌾 Arrive Soni Highlands</div>
-        <div class="schedule-note">Main scenic stop of the afternoon.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Soni+Highlands+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:30–4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌾 Soni Highlands</div>
-        <div class="schedule-note">Walk, photos and scenery.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Leave Soni</div>
-        <div class="schedule-note">Drive to Dorogawa.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~5:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">♨️ Arrive Dorogawa Onsen</div>
-        <div class="schedule-note">Check in to the ryokan.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Dorogawa+Onsen+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:30 PM+</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍱 Ryokan Dinner + Onsen</div>
-        <div class="schedule-note">Private onsen / yukata walk around town afterward.</div>
-        
-      </div>
-    </div>
-  </div>
-  
-</section>
+    Getting your itinerary from Supabase.
 
-<section class="day-content" id="day-24">
-  <div class="day-hero">
-    <div class="day-date">24 OCTOBER · ROAD TRIP</div>
-    <h2>🏔️ Koya-Ryujin Skyline + Mt. Gomadanzan</h2>
-    <div class="day-route">Dorogawa → Koya-Ryujin Skyline → Mt. Gomadanzan → Ryujin Onsen</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🚗 Scenic mountain drive</span><span class="stat">♨️ Kamigoten</span></div>
   </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~7:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍳 Ryokan Breakfast</div>
-        <div class="schedule-note">Slow morning.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">8:30–9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">♨️ Dorogawa Morning</div>
-        <div class="schedule-note">Onsen / short town walk.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Check Out + Leave Dorogawa</div>
-        <div class="schedule-note">Head toward the mountain route.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:00 AM–12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏔️ Mountain Drive</div>
-        <div class="schedule-note">Travel toward the Koya-Ryujin route.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍜 Lunch</div>
-        <div class="schedule-note">Stop before or around the scenic-drive section.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Enter Koya-Ryujin Skyline</div>
-        <div class="schedule-note">Begin the scenic ridge drive.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:00–2:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏔️ Skyline + Photo Stops</div>
-        <div class="schedule-note">Take the drive slowly and stop at viewpoints.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛰️ Mt. Gomadanzan / Gomasan Sky Tower</div>
-        <div class="schedule-note">Main viewpoint stop.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Gomasan+Sky+Tower+Wakayama" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">2:30–3:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌄 Gomadanzan Area</div>
-        <div class="schedule-note">Viewpoint / short exploration.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~3:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Continue to Ryujin</div>
-        <div class="schedule-note">Descend toward Ryujin Onsen.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">♨️ Arrive Kamigoten · Ryujin Onsen (24–25 Oct)</div>
-        <div class="schedule-note">Check in and settle down.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kamigoten+Ryujin+Onsen" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:00 PM+</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍱 Onsen + Ryokan Dinner</div>
-        <div class="schedule-note">Relax for the evening.</div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>📌 Correction:</strong> 24 Oct is the Koya-Ryujin Skyline + Mt. Gomadanzan day. No Koyasan sightseeing block is scheduled here.</div>
-</section>
-
-<section class="day-content" id="day-25">
-  <div class="day-hero">
-    <div class="day-date">25 OCTOBER · ROAD TRIP</div>
-    <h2>⛩️ Ryujin → Kumano Hongu → Nachikatsuura</h2>
-    <div class="day-route">Ryujin → Scenic Drive → Kumano Hongu Taisha → Oyunohara → Nachikatsuura</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🚗 Scenic drive</span><span class="stat">⛩️ Kumano</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~7:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍳 Breakfast</div>
-        <div class="schedule-note">Breakfast at Kamigoten.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">8:30–9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">♨️ Morning Soak</div>
-        <div class="schedule-note">Relax before driving.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Check Out</div>
-        <div class="schedule-note">Leave Ryujin.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:00–11:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌲 Scenic Drive Toward Kumano</div>
-        <div class="schedule-note">Enjoy the road south.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~11:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍜 Lunch</div>
-        <div class="schedule-note">Lunch around the route / Hongu area.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kumano Hongu Taisha</div>
-        <div class="schedule-note">Main shrine visit.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kumano+Hongu+Taisha" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:30–1:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Shrine Grounds</div>
-        <div class="schedule-note">Explore without rushing.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:40–2:20 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Oyunohara Giant Torii</div>
-        <div class="schedule-note">Short nearby stop.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Oyunohara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Leave for Nachikatsuura</div>
-        <div class="schedule-note">Continue east.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌊 Arrive Nachikatsuura</div>
-        <div class="schedule-note">Check into Kamenoi Hotel.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Kamenoi Hotel Nachi Katsuura (25–26 Oct)</div>
-        <div class="schedule-note">Relax / waterfront.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">Evening</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍱 Dinner + Onsen</div>
-        <div class="schedule-note">Hotel evening.</div>
-        
-      </div>
-    </div>
-  </div>
-  
-</section>
-
-<section class="day-content" id="day-26">
-  <div class="day-hero">
-    <div class="day-date">26 OCTOBER · ROAD TRIP</div>
-    <h2>🌊 Nachi + Kamikura Jinja → Osaka</h2>
-    <div class="day-route">Nachi Falls → Kumano Nachi Taisha → Seiganto-ji Pagoda → Kamikura Jinja if time → Osaka</div>
-    <div class="stats"><span class="stat">🟠 Moderate+ · 6/10</span><span class="stat">🌊 Early Nachi</span><span class="stat">⛩️ Kamikura optional</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~6:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌅 Wake + Breakfast</div>
-        <div class="schedule-note">Early start for quieter Nachi.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Leave Hotel</div>
-        <div class="schedule-note">Drive toward Nachi.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌊 Nachi Falls</div>
-        <div class="schedule-note">Main waterfall stop.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Nachi+Falls+Wakayama" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">8:00–8:45 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌊 Falls</div>
-        <div class="schedule-note">Photos and short exploration.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kumano Nachi Taisha</div>
-        <div class="schedule-note">Continue up to the shrine.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kumano+Nachi+Taisha" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">9:00–10:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Shrine Visit</div>
-        <div class="schedule-note">Explore the shrine area.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:00–10:45 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏯 Seiganto-ji + Pagoda</div>
-        <div class="schedule-note">Classic pagoda + Nachi Falls view.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Seigantoji+Pagoda+Nachi" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~11:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Leave Nachi</div>
-        <div class="schedule-note">Head back toward Kii-Katsuura.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">11:30 AM–12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🐟 Kii-Katsuura Lunch</div>
-        <div class="schedule-note">Market / tuna lunch if convenient.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Drive Toward Shingu</div>
-        <div class="schedule-note">Kamikura stop if timing and energy are good.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:30–2:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kamikura Jinja · IF TIME</div>
-        <div class="schedule-note">Steep stone steps. Skip if tired or if you are behind schedule.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kamikura+Shrine+Shingu" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚗 Begin Drive to Osaka</div>
-        <div class="schedule-note">Long return drive.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~6:00–7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌃 Arrive Osaka / Return Car</div>
-        <div class="schedule-note">Then head to Hotel Hankyu International (26–30 Oct).</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Osaka Check-in</div>
-        <div class="schedule-note">Easy dinner afterward.</div>
-        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>⚠️ Kamikura:</strong> Optional because the approach is steep and you still have the long drive to Osaka.</div>
-</section>
-
-<section class="day-content" id="day-27">
-  <div class="day-hero">
-    <div class="day-date">27 OCTOBER · OSAKA</div>
-    <h2>🎮 Namba + MIRACLE WORLD + Hozenji</h2>
-    <div class="day-route">ROUND1 Spo-Cha → Kuromon → Namba Yasaka → OURLOG → MIRACLE WORLD → Hozenji → Dotonbori</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 5/10</span><span class="stat">🎮 Activity day</span><span class="stat">🌃 Namba evening</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍳 Breakfast</div>
-        <div class="schedule-note">Easy Osaka morning.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Head to Namba</div>
-        <div class="schedule-note">Start with the activity block.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">9:30 AM–12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🎳 ROUND1 Stadium Sennichimae / Spo-Cha</div>
-        <div class="schedule-note">Arcade, sports and activities.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=ROUND1+Stadium+Sennichimae+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:15–1:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🐟 Kuromon Market</div>
-        <div class="schedule-note">Lunch and snacks.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Kuromon+Market+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:45–2:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🦁 Namba Yasaka Shrine</div>
-        <div class="schedule-note">Quick lion-head shrine stop.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Namba+Yasaka+Shrine+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">2:30–3:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">☕ OURLOG Coffee</div>
-        <div class="schedule-note">Wife priority stop.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=OURLOG+Coffee+Namba+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">3:30–5:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">✨ MIRACLE WORLD Osaka</div>
-        <div class="schedule-note">Immersive / digital-art activity.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=MIRACLE+WORLD+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:15–6:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏮 Hozenji Yokocho + Hozenji</div>
-        <div class="schedule-note">Atmospheric alley and temple together with MIRACLE WORLD.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Hozenji+Yokocho+Osaka" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">6:00 PM onward</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌃 Dotonbori + Namba</div>
-        <div class="schedule-note">Lights, walking and shopping.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍽️ Dinner</div>
-        <div class="schedule-note">Choose from the Osaka food list.</div>
-        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">After Dinner</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🛍️ Shinsaibashi / Dotonbori</div>
-        <div class="schedule-note">Optional shopping if you still have energy.</div>
-        
-      </div>
-    </div>
-  </div>
-  
-</section>
-
-<section class="day-content" id="day-28">
-  <div class="day-hero">
-    <div class="day-date">28 OCTOBER · OSAKA BASE</div>
-    <h2>🐟 Mentai Park + Pokémon Observatory</h2>
-    <div class="day-route">Osaka → Nagoya / Tokoname → Mentai Park → Toyohashi → Pokémon Observatory → Osaka</div>
-    <div class="stats"><span class="stat">🔴 Long Day · 7/10</span><span class="stat">🚄 Shinkansen</span><span class="stat">🔭 Pokémon Observatory</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~7:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Hotel</div>
-        <div class="schedule-note">Head to Shin-Osaka.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~8:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚄 Shin-Osaka → Nagoya</div>
-        <div class="schedule-note">Reserved Shinkansen.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Arrive Nagoya</div>
-        <div class="schedule-note">Transfer to Meitetsu.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~9:40 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Nagoya → Tokoname</div>
-        <div class="schedule-note">Use a service that actually stops at Tokoname.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:25 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚕 Tokoname → Mentai Park</div>
-        <div class="schedule-note">Short taxi.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:30 AM–12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🐟 Mentai Park Tokoname + Lunch</div>
-        <div class="schedule-note">Factory/shop visit plus early lunch.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Mentai+Park+Tokoname" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚕 Taxi to Tokoname Station</div>
-        <div class="schedule-note">Continue toward Toyohashi.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Tokoname → Toyohashi</div>
-        <div class="schedule-note">Travel via Jingū-mae; no need to backtrack to Nagoya.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:40 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Arrive Toyohashi</div>
-        <div class="schedule-note">Transfer to JR for Futagawa.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:50 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Toyohashi → Futagawa</div>
-        <div class="schedule-note">Short local ride.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚶 Futagawa → Non Hoi Park East Gate</div>
-        <div class="schedule-note">Use the East Gate route.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">2:15–4:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🔭 Pokémon Observatory</div>
-        <div class="schedule-note">Special exhibition at Toyohashi Museum of Natural History.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Toyohashi+Museum+of+Natural+History" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~4:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Futagawa → Toyohashi</div>
-        <div class="schedule-note">Begin return.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~5:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚄 Toyohashi → Shin-Osaka</div>
-        <div class="schedule-note">Hikari / Kodama service.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌃 Back in Osaka</div>
-        <div class="schedule-note">Dinner near hotel or Namba.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍽️ Dinner</div>
-        <div class="schedule-note">Flexible Osaka dinner.</div>
-        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>🚄 Tickets:</strong> Keep the exact 28 Oct train times flexible until you book them. The plan is two one-way Shinkansen journeys rather than a Nagoya round trip.</div>
-</section>
-
-<section class="day-content" id="day-29">
-  <div class="day-hero">
-    <div class="day-date">29 OCTOBER · OSAKA</div>
-    <h2>🦌 Nara + Mt. Wakakusa Sunset</h2>
-    <div class="day-route">Osaka → Nara Park → Todaiji / Kasuga → Mt. Wakakusa Sunset → Osaka</div>
-    <div class="stats"><span class="stat">🟠 Moderate · 6/10</span><span class="stat">🦌 Nara</span><span class="stat">🌄 Wakakusa sunset</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~9:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Osaka</div>
-        <div class="schedule-note">Travel to Nara.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~10:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🦌 Arrive Nara</div>
-        <div class="schedule-note">Start around Nara Park.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">10:30–11:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🦌 Nara Park</div>
-        <div class="schedule-note">Deer and park walk.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Nara+Park" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">11:30 AM–12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Todaiji / Surrounding Area</div>
-        <div class="schedule-note">Main temple or nearby sightseeing.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Todaiji+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">12:30–1:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍜 Lunch</div>
-        <div class="schedule-note">Lunch in central Nara.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">1:30–3:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">⛩️ Kasuga Taisha / Naramachi · Flexible</div>
-        <div class="schedule-note">Choose based on energy and interest.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~3:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚶 Head Toward Mt. Wakakusa</div>
-        <div class="schedule-note">Do not overfill the afternoon.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">3:45–5:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌄 Mt. Wakakusa</div>
-        <div class="schedule-note">Climb / viewpoint and wait for sunset.</div>
-        <div class="actions"><a href="https://www.google.com/maps/search/?api=1&query=Mount+Wakakusa+Nara" target="_blank" rel="noopener noreferrer" class="action">📍 Maps</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~5:15 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌅 Sunset + City View</div>
-        <div class="schedule-note">Main goal of the day.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~5:45 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚶 Descend</div>
-        <div class="schedule-note">Head back toward the station.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~6:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave Nara</div>
-        <div class="schedule-note">Return to Osaka.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~7:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🌃 Osaka + Dinner</div>
-        <div class="schedule-note">Dinner in Osaka.</div>
-        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>🌄 Priority:</strong> Protect the Mt. Wakakusa sunset window. Drop an afternoon sight if needed rather than arriving late.</div>
-</section>
-
-<section class="day-content" id="day-30">
-  <div class="day-hero">
-    <div class="day-date">30 OCTOBER · OSAKA</div>
-    <h2>✈️ Final Morning + Fly Home</h2>
-    <div class="day-route">Easy Osaka Morning → Final Lunch → Collect Luggage → Airport → 6:00 PM Flight</div>
-    <div class="stats"><span class="stat">✈️ Departure day</span><span class="stat">🛍️ Easy morning</span><span class="stat">🕕 Flight · 6:00 PM</span></div>
-  </div>
-  <div class="schedule-title">Today's Schedule</div>
-  <div class="timeline">
-    
-    <div class="schedule-item">
-      <div class="schedule-time">~8:00 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍳 Breakfast</div>
-        <div class="schedule-note">Relaxed final morning.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">9:00–11:30 AM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🛍️ Last-minute Shopping / Easy Osaka</div>
-        <div class="schedule-note">Stay fairly close to the hotel; no major sightseeing commitment.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">11:30 AM–12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🍽️ Final Lunch</div>
-        <div class="schedule-note">One last Osaka meal.</div>
-        <div class="actions"><a href="osakafood.html" class="action food">🍽️ Osaka Food</a></div>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~12:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🏨 Return Hotel + Collect Luggage</div>
-        <div class="schedule-note">Final packing and check-out.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~1:30 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🚆 Leave for Airport</div>
-        <div class="schedule-note">Keep a generous departure buffer.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">~2:30–3:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🛫 Arrive Airport</div>
-        <div class="schedule-note">Check-in, security and airport shopping.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">3:00–5:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">🧳 Airport Time</div>
-        <div class="schedule-note">Relax before boarding.</div>
-        
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">6:00 PM</div>
-      <div class="schedule-main">
-        <div class="schedule-place">✈️ Fly Home</div>
-        <div class="schedule-note">End of trip.</div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="highlight"><strong>✈️ Departure:</strong> 30 Oct is no longer a full Osaka sightseeing day. The trip ends with the 6:00 PM flight, so 31 Oct has been removed.</div>
-</section>
 
 </main>
 
 
-<nav class="bottom-nav" aria-label="Main navigation">
-  <a href="index.html">
-    <span class="nav-icon">🏠</span>
-    <span>HOME</span>
-  </a>
-  <a href="schedule.html" class="active" aria-current="page">
-    <span class="nav-icon">📅</span>
-    <span>SCHEDULE</span>
-  </a>
-  <a href="bookings.html">
-    <span class="nav-icon">⭐</span>
-    <span>HUB</span>
-  </a>
-  <a href="kyotofood.html">
-    <span class="nav-icon">⛩️</span>
-    <span>KYOTO FOOD</span>
-  </a>
-  <a href="osakafood.html">
-    <span class="nav-icon">🌃</span>
-    <span>OSAKA FOOD</span>
-  </a>
-</nav>
+</div>
+
+
+
+<!-- =========================================================
+     EDIT SHEET
+========================================================= -->
+
+<div
+  id="editSheet"
+  class="sheet-backdrop"
+>
+
+  <div class="sheet">
+
+    <div class="sheet-handle"></div>
+
+
+    <div class="sheet-head">
+
+      <div
+        id="sheetTitle"
+        class="sheet-title"
+      >
+        Edit Schedule
+      </div>
+
+
+      <button
+        id="closeSheet"
+        class="close-btn"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+
+    <div
+      id="typeGrid"
+      class="type-grid"
+    >
+
+      <button
+        class="type-btn active"
+        type="button"
+        data-type="place"
+      >
+        📍 PLACE
+      </button>
+
+
+      <button
+        class="type-btn"
+        type="button"
+        data-type="restaurant"
+      >
+        🍽 FOOD
+      </button>
+
+
+      <button
+        class="type-btn"
+        type="button"
+        data-type="custom"
+      >
+        ✏️ CUSTOM
+      </button>
+
+    </div>
+
+
+
+    <form id="editForm">
+
+
+      <div class="form-grid">
+
+
+        <div
+          id="entityPicker"
+          class="entity-picker"
+        >
+
+          <div
+            id="entityPickerTitle"
+            class="entity-picker-title"
+          >
+            📍 MY SAVED PLACES
+          </div>
+
+
+          <div
+            id="entityPickerSub"
+            class="entity-picker-sub"
+          >
+            Search your saved places.
+          </div>
+
+
+          <div class="entity-search-wrap">
+
+            <input
+              id="entitySearch"
+              class="entity-search"
+              type="search"
+              placeholder="Search places..."
+              autocomplete="off"
+            >
+
+
+            <span class="search-icon">
+              🔎
+            </span>
+
+          </div>
+
+
+          <div
+            id="entityResults"
+            class="entity-results"
+          ></div>
+
+        </div>
+
+
+
+        <div
+          id="selectedEntity"
+          class="selected-entity"
+        >
+
+          <div
+            id="selectedEntityIcon"
+            class="selected-icon"
+          >
+            📍
+          </div>
+
+
+          <div class="selected-main">
+
+            <div
+              id="selectedEntityLabel"
+              class="selected-label"
+            >
+              SELECTED PLACE
+            </div>
+
+
+            <div
+              id="selectedEntityName"
+              class="selected-name"
+            ></div>
+
+
+            <div
+              id="selectedEntityMeta"
+              class="selected-meta"
+            ></div>
+
+          </div>
+
+
+          <button
+            id="changeEntityButton"
+            class="change-entity"
+            type="button"
+          >
+            CHANGE
+          </button>
+
+        </div>
+
+
+
+        <div
+          id="masterHelp"
+          class="master-help"
+        >
+
+          <span id="masterHelpText">
+            Can't find the place?
+          </span>
+
+
+          <button
+            id="masterHelpButton"
+            type="button"
+          >
+            ＋ ADD NEW PLACE
+          </button>
+
+        </div>
+
+
+
+        <div
+          id="googleAddBox"
+          class="google-add-box"
+        >
+
+          <div class="google-add-title">
+            🔎 GOOGLE PLACES AUTOFILL
+          </div>
+
+
+          <div class="google-add-sub">
+            Search Google only when the place is not already in your saved Places.
+          </div>
+
+
+          <div id="googlePlaceSearch"></div>
+
+
+          <div
+            id="googlePlaceStatus"
+            class="place-status"
+          >
+            Search a place, then choose the correct Google result.
+          </div>
+
+        </div>
+
+
+
+        <div class="field">
+
+          <label>
+            DATE
+          </label>
+
+          <input
+            id="fieldDate"
+            type="date"
+            required
+          >
+
+        </div>
+
+
+
+        <div class="field">
+
+          <label>
+            TIME
+          </label>
+
+          <input
+            id="fieldTime"
+            type="time"
+          >
+
+        </div>
+
+
+
+        <div class="field full">
+
+          <label>
+            FLEXIBLE TIME LABEL
+          </label>
+
+          <input
+            id="fieldTimeLabel"
+            placeholder="e.g. Morning, ~3 PM, After lunch"
+          >
+
+        </div>
+
+
+
+        <div class="field full">
+
+          <label>
+            TITLE
+          </label>
+
+          <input
+            id="fieldTitle"
+            required
+            placeholder="Schedule item"
+          >
+
+        </div>
+
+
+
+        <div class="field full">
+
+          <label>
+            LOCATION
+          </label>
+
+          <input
+            id="fieldLocation"
+            placeholder="Optional location"
+          >
+
+        </div>
+
+
+
+        <div class="field full">
+
+          <label>
+            NOTES
+          </label>
+
+          <textarea
+            id="fieldNotes"
+            placeholder="Optional notes"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+
+      <label class="check-row">
+
+        <input
+          id="fieldOptional"
+          type="checkbox"
+        >
+
+        OPTIONAL
+
+      </label>
+
+
+
+      <div class="sheet-actions">
+
+        <button
+          id="deleteButton"
+          class="delete-btn"
+          type="button"
+        >
+          🗑 DELETE
+        </button>
+
+
+        <button
+          id="saveButton"
+          class="save-btn"
+          type="submit"
+        >
+          SAVE
+        </button>
+
+      </div>
+
+
+
+      <div
+        id="formMessage"
+        class="form-message"
+      ></div>
+
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SHARED FOOTER
+========================================================= -->
+
+<div id="footer"></div>
+
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="supabase.js"></script>
+
+<script src="google-maps.js"></script>
+
+
 
 <script>
 
-/* =========================================
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const requestedTripId =
+  Number(
+    params.get("trip")
+  ) || null;
+
+
+const savedTripId =
+  Number(
+    localStorage.getItem(
+      "current_trip_id"
+    )
+  ) || null;
+
+
+let TRIP_ID =
+  requestedTripId ||
+  savedTripId ||
+  null;
+
+
+let currentUser = null;
+
+let trip = null;
+
+let accessibleTrips = [];
+
+let schedule = [];
+
+let places = [];
+
+let restaurants = [];
+
+let groupedDays = {};
+
+let selectedDate = null;
+
+let editing = false;
+
+let editingId = null;
+
+let formType = "place";
+
+let selectedPlaceId = null;
+
+let selectedRestaurantId = null;
+
+
+
+/* =========================================================
    ELEMENTS
-========================================= */
+========================================================= */
 
-const tripButtons =
-  document.querySelectorAll(".trip-btn");
-
-const dayCards =
-  document.querySelectorAll(".day-card");
-
-const dayContents =
-  document.querySelectorAll(".day-content");
-
-const dateLabel =
-  document.getElementById("dateLabel");
-
-const dateScroll =
-  document.getElementById("dateScroll");
+const main =
+  document.getElementById("main");
 
 
-/* =========================================
-   SHOW DAY
-========================================= */
-
-function showDay(day){
-
-  dayContents.forEach(content => {
-
-    content.classList.remove("active");
-
-  });
+const tripName =
+  document.getElementById("tripName");
 
 
-  dayCards.forEach(card => {
-
-    card.classList.remove("active");
-
-  });
+const tripEyebrow =
+  document.getElementById("tripEyebrow");
 
 
-  const selectedContent =
-    document.getElementById("day-" + day);
+const dateScroller =
+  document.getElementById("dateScroller");
 
 
-  const selectedCard =
-    document.querySelector(
-      '.day-card[data-day="' + day + '"]'
-    );
+const addButton =
+  document.getElementById("addButton");
 
 
-  if(selectedContent){
-
-    selectedContent.classList.add("active");
-
-  }
+const editButton =
+  document.getElementById("editButton");
 
 
-  if(selectedCard){
-
-    selectedCard.classList.add("active");
-
-
-    selectedCard.scrollIntoView({
-
-      behavior:"smooth",
-
-      block:"nearest",
-
-      inline:"center"
-
-    });
-
-  }
+const editSheet =
+  document.getElementById("editSheet");
 
 
-  history.replaceState(
-    null,
-    "",
-    "#day-" + day
+const sheetTitle =
+  document.getElementById("sheetTitle");
+
+
+const typeGrid =
+  document.getElementById("typeGrid");
+
+
+const entityPicker =
+  document.getElementById("entityPicker");
+
+
+const entityPickerTitle =
+  document.getElementById("entityPickerTitle");
+
+
+const entityPickerSub =
+  document.getElementById("entityPickerSub");
+
+
+const entitySearch =
+  document.getElementById("entitySearch");
+
+
+const entityResults =
+  document.getElementById("entityResults");
+
+
+const selectedEntity =
+  document.getElementById("selectedEntity");
+
+
+const selectedEntityIcon =
+  document.getElementById("selectedEntityIcon");
+
+
+const selectedEntityLabel =
+  document.getElementById("selectedEntityLabel");
+
+
+const selectedEntityName =
+  document.getElementById("selectedEntityName");
+
+
+const selectedEntityMeta =
+  document.getElementById("selectedEntityMeta");
+
+
+const masterHelp =
+  document.getElementById("masterHelp");
+
+
+const masterHelpText =
+  document.getElementById("masterHelpText");
+
+
+const masterHelpButton =
+  document.getElementById("masterHelpButton");
+
+
+const googleAddBox =
+  document.getElementById("googleAddBox");
+
+
+const fieldDate =
+  document.getElementById("fieldDate");
+
+
+const fieldTime =
+  document.getElementById("fieldTime");
+
+
+const fieldTimeLabel =
+  document.getElementById("fieldTimeLabel");
+
+
+const fieldTitle =
+  document.getElementById("fieldTitle");
+
+
+const fieldLocation =
+  document.getElementById("fieldLocation");
+
+
+const fieldNotes =
+  document.getElementById("fieldNotes");
+
+
+const fieldOptional =
+  document.getElementById("fieldOptional");
+
+
+const deleteButton =
+  document.getElementById("deleteButton");
+
+
+const saveButton =
+  document.getElementById("saveButton");
+
+
+const formMessage =
+  document.getElementById("formMessage");
+
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function text(value){
+
+  return String(
+    value ?? ""
   );
 
 }
 
 
-/* =========================================
-   DAY CARD CLICK
-========================================= */
+function esc(value){
 
-dayCards.forEach(card => {
+  return text(value)
 
-  card.addEventListener(
-    "click",
-    () => {
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
-      showDay(
-        card.dataset.day
+}
+
+
+function norm(value){
+
+  return text(value)
+    .trim()
+    .toLowerCase();
+
+}
+
+
+function parseDate(value){
+
+  return new Date(
+    value + "T12:00:00"
+  );
+
+}
+
+
+function localDateString(){
+
+  const d =
+    new Date();
+
+
+  return [
+
+    d.getFullYear(),
+
+    String(
+      d.getMonth()+1
+    )
+    .padStart(
+      2,
+      "0"
+    ),
+
+    String(
+      d.getDate()
+    )
+    .padStart(
+      2,
+      "0"
+    )
+
+  ].join("-");
+
+}
+
+
+function formatDate(value){
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long"
+    }
+  )
+  .format(
+    parseDate(value)
+  )
+  .toUpperCase();
+
+}
+
+
+function shortTripDate(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  return new Intl.DateTimeFormat(
+    "en-SG",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  )
+  .format(
+    parseDate(value)
+  );
+
+}
+
+
+function dateParts(value){
+
+  const d =
+    parseDate(value);
+
+
+  return {
+
+    weekday:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          weekday:"short"
+        }
+      )
+      .format(d)
+      .toUpperCase(),
+
+    weekdayLong:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          weekday:"long"
+        }
+      )
+      .format(d)
+      .toUpperCase(),
+
+    day:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          day:"numeric"
+        }
+      )
+      .format(d),
+
+    month:
+      new Intl.DateTimeFormat(
+        "en-SG",
+        {
+          month:"short"
+        }
+      )
+      .format(d)
+      .toUpperCase()
+
+  };
+
+}
+
+
+function entityMeta(item){
+
+  return [
+
+    item.area,
+
+    item.city,
+
+    item.prefecture
+
+  ]
+  .filter(Boolean)
+  .join(" · ");
+
+}
+
+
+
+/* =========================================================
+   ACCESSIBLE TRIPS
+========================================================= */
+
+async function getAccessibleTrips(){
+
+  if(!currentUser){
+    return [];
+  }
+
+
+  const [
+    ownResult,
+    memberResult
+  ] =
+    await Promise.all([
+
+      db
+        .from("trips")
+        .select("*")
+        .eq(
+          "owner_id",
+          currentUser.id
+        )
+        .order(
+          "start_date",
+          {
+            ascending:true
+          }
+        ),
+
+      db
+        .from("trip_members")
+        .select("trip_id")
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+
+    ]);
+
+
+  if(ownResult.error){
+    throw ownResult.error;
+  }
+
+
+  if(memberResult.error){
+    throw memberResult.error;
+  }
+
+
+  const ownTrips =
+    (ownResult.data || [])
+      .map(
+        row => ({
+          ...row,
+          access_type:"owner"
+        })
+      );
+
+
+  const sharedIds =
+    [
+      ...new Set(
+        (memberResult.data || [])
+          .map(
+            row =>
+              Number(
+                row.trip_id
+              )
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  let sharedTrips = [];
+
+
+  if(sharedIds.length){
+
+    const sharedResult =
+      await db
+        .from("trips")
+        .select("*")
+        .in(
+          "id",
+          sharedIds
+        )
+        .order(
+          "start_date",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(sharedResult.error){
+      throw sharedResult.error;
+    }
+
+
+    sharedTrips =
+      (sharedResult.data || [])
+        .map(
+          row => ({
+            ...row,
+            access_type:
+              row.owner_id === currentUser.id
+              ?
+              "owner"
+              :
+              "shared"
+          })
+        );
+
+  }
+
+
+  const map =
+    new Map();
+
+
+  [
+    ...ownTrips,
+    ...sharedTrips
+  ]
+  .forEach(
+    row => {
+
+      const id =
+        Number(row.id);
+
+
+      if(
+        !map.has(id) ||
+        row.access_type === "owner"
+      ){
+
+        map.set(
+          id,
+          row
+        );
+
+      }
+
+    }
+  );
+
+
+  return [
+    ...map.values()
+  ]
+  .sort(
+    (a,b) => {
+
+      const ad =
+        a.start_date || "";
+
+
+      const bd =
+        b.start_date || "";
+
+
+      return ad.localeCompare(bd);
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   RESOLVE CURRENT TRIP
+========================================================= */
+
+async function resolveTrip(){
+
+  const authResult =
+    await db.auth.getUser();
+
+
+  if(authResult.error){
+    throw authResult.error;
+  }
+
+
+  currentUser =
+    authResult.data?.user || null;
+
+
+  if(!currentUser){
+
+    throw new Error(
+      "Please sign in to view your trips."
+    );
+
+  }
+
+
+  accessibleTrips =
+    await getAccessibleTrips();
+
+
+  if(!accessibleTrips.length){
+
+    throw new Error(
+      "You do not have any accessible trips yet."
+    );
+
+  }
+
+
+  let resolved =
+    accessibleTrips.find(
+      row =>
+        Number(row.id) ===
+        Number(TRIP_ID)
+    );
+
+
+  if(!resolved){
+
+    resolved =
+      accessibleTrips[0];
+
+  }
+
+
+  TRIP_ID =
+    Number(
+      resolved.id
+    );
+
+
+  localStorage.setItem(
+    "current_trip_id",
+    String(TRIP_ID)
+  );
+
+
+  const hash =
+    window.location.hash || "";
+
+
+  history.replaceState(
+    null,
+    "",
+    `?trip=${TRIP_ID}${hash}`
+  );
+
+}
+
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadData(){
+
+  try{
+
+    await resolveTrip();
+
+
+    const tripResult =
+      await db
+        .from("trips")
+        .select("*")
+        .eq(
+          "id",
+          TRIP_ID
+        )
+        .single();
+
+
+    if(tripResult.error){
+      throw tripResult.error;
+    }
+
+
+    trip =
+      tripResult.data;
+
+
+    if(!trip){
+
+      throw new Error(
+        "Trip not found."
+      );
+
+    }
+
+
+    /*
+      Header
+    */
+
+    tripEyebrow.textContent =
+      trip.country
+      ?
+      `${trip.country.toUpperCase()} · AUTUMN 2026`
+      :
+      "TRIP · AUTUMN 2026";
+
+
+    if(
+      trip.start_date &&
+      trip.end_date
+    ){
+
+      const start =
+        parseDate(
+          trip.start_date
+        );
+
+
+      const end =
+        parseDate(
+          trip.end_date
+        );
+
+
+      const startDay =
+        start.getDate();
+
+
+      const endDay =
+        end.getDate();
+
+
+      const month =
+        new Intl.DateTimeFormat(
+          "en-SG",
+          {
+            month:"short"
+          }
+        )
+        .format(start);
+
+
+      tripName.textContent =
+        `${startDay}–${endDay} ${month} · ${trip.name || "My Trip"}`;
+
+    }
+
+    else{
+
+      tripName.textContent =
+        trip.name ||
+        "My Trip";
+
+    }
+
+
+    document.title =
+      `Plan · ${trip.name || "Travel"}`;
+
+
+
+    let placesQuery =
+      db
+        .from("places")
+        .select("*")
+        .order(
+          "name",
+          {
+            ascending:true
+          }
+        );
+
+
+    let restaurantsQuery =
+      db
+        .from("restaurants")
+        .select("*")
+        .order(
+          "name",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(trip.country){
+
+      placesQuery =
+        placesQuery.ilike(
+          "country",
+          trip.country
+        );
+
+
+      restaurantsQuery =
+        restaurantsQuery.ilike(
+          "country",
+          trip.country
+        );
+
+    }
+
+
+    const [
+      scheduleResult,
+      placeResult,
+      restaurantResult
+    ] =
+      await Promise.all([
+
+        loadScheduleQuery(),
+
+        placesQuery,
+
+        restaurantsQuery
+
+      ]);
+
+
+    if(scheduleResult.error){
+      throw scheduleResult.error;
+    }
+
+
+    if(placeResult.error){
+      throw placeResult.error;
+    }
+
+
+    if(restaurantResult.error){
+      throw restaurantResult.error;
+    }
+
+
+    schedule =
+      scheduleResult.data || [];
+
+
+    places =
+      placeResult.data || [];
+
+
+    restaurants =
+      restaurantResult.data || [];
+
+
+    buildDays();
+
+    chooseDate();
+
+    renderDates();
+
+    renderDay();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    tripName.textContent =
+      "Unable to load trip";
+
+
+    main.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          Couldn't load Plan
+        </strong>
+
+        ${esc(
+          error.message ||
+          "Unknown database error."
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SCHEDULE QUERY
+========================================================= */
+
+function loadScheduleQuery(){
+
+  return db
+    .from("schedule")
+    .select(`
+      id,
+      trip_id,
+      schedule_date,
+      start_time,
+      end_time,
+      time_label,
+      sort_order,
+      title,
+      item_type,
+      description,
+      notes,
+      restaurant_id,
+      place_id,
+      location_name,
+      address,
+      latitude,
+      longitude,
+      maps_url,
+      is_optional,
+      is_locked,
+
+      place:places(
+        id,
+        name,
+        name_japanese,
+        country,
+        prefecture,
+        city,
+        area,
+        address,
+        latitude,
+        longitude,
+        maps_url
+      ),
+
+      restaurant:restaurants(
+        id,
+        name,
+        name_japanese,
+        country,
+        prefecture,
+        city,
+        area,
+        location,
+        address,
+        latitude,
+        longitude,
+        maps_url
+      )
+    `)
+    .eq(
+      "trip_id",
+      TRIP_ID
+    )
+    .order(
+      "schedule_date",
+      {
+        ascending:true
+      }
+    )
+    .order(
+      "sort_order",
+      {
+        ascending:true
+      }
+    );
+
+}
+
+
+
+/* =========================================================
+   GROUP DAYS
+========================================================= */
+
+function timeToMinutes(value){
+
+  if(!value){
+    return null;
+  }
+
+
+  const parts =
+    String(value)
+      .slice(0,5)
+      .split(":");
+
+
+  const hour =
+    Number(
+      parts[0]
+    );
+
+
+  const minute =
+    Number(
+      parts[1]
+    );
+
+
+  if(
+    Number.isNaN(hour) ||
+    Number.isNaN(minute)
+  ){
+
+    return null;
+
+  }
+
+
+  return (
+    hour * 60
+  ) + minute;
+
+}
+
+
+function labelToMinutes(value){
+
+  const label =
+    String(
+      value || ""
+    )
+    .trim();
+
+
+  if(!label){
+    return null;
+  }
+
+
+  const match =
+    label.match(
+      /(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i
+    );
+
+
+  if(!match){
+    return null;
+  }
+
+
+  let hour =
+    Number(
+      match[1]
+    );
+
+
+  const minute =
+    Number(
+      match[2] || 0
+    );
+
+
+  const suffix =
+    match[3]
+      .toUpperCase();
+
+
+  if(hour === 12){
+    hour = 0;
+  }
+
+
+  if(suffix === "PM"){
+    hour += 12;
+  }
+
+
+  return (
+    hour * 60
+  ) + minute;
+
+}
+
+
+function scheduleSortKey(item){
+
+  const exact =
+    timeToMinutes(
+      item.start_time
+    );
+
+
+  if(exact !== null){
+    return exact;
+  }
+
+
+  const flexible =
+    labelToMinutes(
+      item.time_label
+    );
+
+
+  if(flexible !== null){
+    return flexible;
+  }
+
+
+  const label =
+    norm(
+      item.time_label
+    );
+
+
+  if(
+    label.includes("afterward") ||
+    label.includes("afterwards") ||
+    label.startsWith("after ")
+  ){
+
+    return 2000;
+
+  }
+
+
+  if(label.includes("evening")){
+    return 18 * 60;
+  }
+
+
+  if(label.includes("afternoon")){
+    return 15 * 60;
+  }
+
+
+  if(label.includes("lunch")){
+    return 12 * 60;
+  }
+
+
+  if(label.includes("morning")){
+    return 8 * 60;
+  }
+
+
+  return 1900;
+
+}
+
+
+function compareScheduleItems(a,b){
+
+  const aKey =
+    scheduleSortKey(a);
+
+
+  const bKey =
+    scheduleSortKey(b);
+
+
+  if(aKey !== bKey){
+    return aKey - bKey;
+  }
+
+
+  const aSort =
+    Number(
+      a.sort_order || 0
+    );
+
+
+  const bSort =
+    Number(
+      b.sort_order || 0
+    );
+
+
+  if(aSort !== bSort){
+    return aSort - bSort;
+  }
+
+
+  return (
+    Number(a.id || 0) -
+    Number(b.id || 0)
+  );
+
+}
+
+
+function buildDays(){
+
+  groupedDays = {};
+
+
+  schedule.forEach(
+    item => {
+
+      if(
+        !groupedDays[
+          item.schedule_date
+        ]
+      ){
+
+        groupedDays[
+          item.schedule_date
+        ] = [];
+
+      }
+
+
+      groupedDays[
+        item.schedule_date
+      ]
+      .push(
+        item
       );
 
     }
   );
 
-});
 
-
-/* =========================================
-   FILTER TRIP
-========================================= */
-
-function setTripFilter(filter){
-
-  tripButtons.forEach(button => {
-
-    button.classList.toggle(
-
-      "active",
-
-      button.dataset.trip === filter
-
+  Object
+    .values(
+      groupedDays
+    )
+    .forEach(
+      items =>
+        items.sort(
+          compareScheduleItems
+        )
     );
 
-  });
+}
 
 
-  dayCards.forEach(card => {
 
-    const show =
+/* =========================================================
+   CHOOSE DATE
+========================================================= */
 
-      filter === "all"
+function chooseDate(){
 
-      ||
-
-      card.dataset.trip === filter;
-
-
-    card.style.display =
-      show
-        ? "block"
-        : "none";
-
-  });
+  const hash =
+    window.location.hash
+      .replace(
+        "#",
+        ""
+      );
 
 
-  if(filter === "kyoto"){
+  if(
+    hash &&
+    trip.start_date &&
+    trip.end_date &&
+    hash >= trip.start_date &&
+    hash <= trip.end_date
+  ){
 
-    dateLabel.textContent =
-      "Kyoto · 18–22 October";
+    selectedDate =
+      hash;
 
-    showDay("18");
-
-  }
-
-
-  else if(filter === "road"){
-
-    dateLabel.textContent =
-      "Road Trip · 23–26 October";
-
-    showDay("23");
+    return;
 
   }
 
 
-  else if(filter === "osaka"){
+  const today =
+    localDateString();
 
-    dateLabel.textContent =
-      "Osaka · 27–30 October";
 
-    showDay("27");
+  if(
+    trip.start_date &&
+    trip.end_date &&
+    today >= trip.start_date &&
+    today <= trip.end_date
+  ){
+
+    selectedDate =
+      today;
+
+    return;
+
+  }
+
+
+  if(
+    trip.start_date &&
+    today < trip.start_date
+  ){
+
+    selectedDate =
+      trip.start_date;
+
+    return;
+
+  }
+
+
+  if(trip.end_date){
+
+    selectedDate =
+      trip.end_date;
+
+    return;
+
+  }
+
+
+  const dates =
+    Object
+      .keys(
+        groupedDays
+      )
+      .sort();
+
+
+  selectedDate =
+    dates[0] ||
+    today;
+
+}
+
+
+
+/* =========================================================
+   DATE SCROLLER
+========================================================= */
+
+function renderDates(){
+
+  if(
+    !trip.start_date ||
+    !trip.end_date
+  ){
+
+    dateScroller.innerHTML = "";
+
+    return;
+
+  }
+
+
+  const dates = [];
+
+
+  let cursor =
+    parseDate(
+      trip.start_date
+    );
+
+
+  const end =
+    parseDate(
+      trip.end_date
+    );
+
+
+  while(
+    cursor <= end
+  ){
+
+    const value = [
+
+      cursor.getFullYear(),
+
+      String(
+        cursor.getMonth()+1
+      )
+      .padStart(
+        2,
+        "0"
+      ),
+
+      String(
+        cursor.getDate()
+      )
+      .padStart(
+        2,
+        "0"
+      )
+
+    ].join("-");
+
+
+    dates.push(
+      value
+    );
+
+
+    cursor.setDate(
+      cursor.getDate()+1
+    );
+
+  }
+
+
+  dateScroller.innerHTML =
+    dates
+      .map(
+        date => {
+
+          const parts =
+            dateParts(
+              date
+            );
+
+
+          return `
+
+            <button
+              class="
+                date-btn
+                ${
+                  date === selectedDate
+                  ?
+                  "active"
+                  :
+                  ""
+                }
+              "
+              type="button"
+              data-date="${date}"
+            >
+
+              <span class="date-weekday">
+                ${esc(parts.weekday)}
+              </span>
+
+              <span class="date-number">
+                ${esc(parts.day)}
+              </span>
+
+              <span class="date-month">
+                ${esc(parts.month)}
+              </span>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  dateScroller
+    .querySelectorAll(
+      ".date-btn"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            selectedDate =
+              button.dataset.date;
+
+
+            history.replaceState(
+              null,
+              "",
+              `?trip=${TRIP_ID}#${selectedDate}`
+            );
+
+
+            renderDates();
+
+            renderDay();
+
+          };
+
+      }
+    );
+
+
+  requestAnimationFrame(
+    () => {
+
+      const active =
+        dateScroller.querySelector(
+          ".date-btn.active"
+        );
+
+
+      active?.scrollIntoView({
+        behavior:"smooth",
+        block:"nearest",
+        inline:"center"
+      });
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   ITEM HELPERS
+========================================================= */
+
+function itemTime(item){
+
+  if(item.time_label){
+
+    return item.time_label;
+
+  }
+
+
+  if(item.start_time){
+
+    const parts =
+      item.start_time
+        .split(":");
+
+
+    let hour =
+      Number(
+        parts[0]
+      );
+
+
+    const minute =
+      parts[1] || "00";
+
+
+    const suffix =
+      hour >= 12
+      ?
+      "PM"
+      :
+      "AM";
+
+
+    hour =
+      hour % 12 || 12;
+
+
+    return `${hour}:${minute} ${suffix}`;
+
+  }
+
+
+  return "Flexible";
+
+}
+
+
+function itemLocation(item){
+
+  return (
+    item.restaurant?.name ||
+    item.place?.name ||
+    item.location_name ||
+    ""
+  );
+
+}
+
+
+function itemMap(item){
+
+  return (
+    item.restaurant?.maps_url ||
+    item.place?.maps_url ||
+    item.maps_url ||
+    null
+  );
+
+}
+
+
+
+/* =========================================================
+   DAY ROUTE TITLE
+========================================================= */
+
+function meaningfulArea(item){
+
+  return (
+    item.place?.area ||
+    item.restaurant?.area ||
+    item.place?.city ||
+    item.restaurant?.city ||
+    null
+  );
+
+}
+
+
+function dayRouteTitle(date){
+
+  const items =
+    groupedDays[date] || [];
+
+
+  const areas = [];
+
+
+  items.forEach(
+    item => {
+
+      const type =
+        norm(
+          item.item_type
+        );
+
+
+      const title =
+        norm(
+          item.title
+        );
+
+
+      /*
+        Ignore pure transport/hotel rows when
+        choosing the visual route title.
+      */
+
+      const ignore =
+        type.includes("transport") ||
+        type.includes("hotel") ||
+        title.includes("arrive") ||
+        title.includes("depart") ||
+        title.includes("check-in") ||
+        title.includes("check in");
+
+
+      if(ignore){
+        return;
+      }
+
+
+      const area =
+        meaningfulArea(
+          item
+        );
+
+
+      if(
+        area &&
+        !areas.some(
+          current =>
+            norm(current) ===
+            norm(area)
+        )
+      ){
+
+        areas.push(
+          area
+        );
+
+      }
+
+    }
+  );
+
+
+  if(areas.length >= 2){
+
+    return `${areas[0]} to ${areas[areas.length - 1]}`;
+
+  }
+
+
+  if(areas.length === 1){
+
+    return areas[0];
+
+  }
+
+
+  /*
+    Fallback to location names.
+  */
+
+  const locations = [];
+
+
+  items.forEach(
+    item => {
+
+      const value =
+        item.location_name;
+
+
+      if(
+        value &&
+        !locations.some(
+          existing =>
+            norm(existing) ===
+            norm(value)
+        )
+      ){
+
+        locations.push(
+          value
+        );
+
+      }
+
+    }
+  );
+
+
+  if(locations.length >= 2){
+
+    return `${locations[0]} to ${locations[locations.length - 1]}`;
+
+  }
+
+
+  if(locations.length === 1){
+
+    return locations[0];
+
+  }
+
+
+  /*
+    Final fallback.
+  */
+
+  if(items.length){
+
+    return items[0].title;
+
+  }
+
+
+  return "Trip Day";
+
+}
+
+
+
+/* =========================================================
+   DAY CITY
+========================================================= */
+
+function dayCity(date){
+
+  const items =
+    groupedDays[date] || [];
+
+
+  for(
+    const item
+    of items
+  ){
+
+    const city =
+      item.place?.city ||
+      item.restaurant?.city;
+
+
+    if(city){
+      return city;
+    }
+
+  }
+
+
+  return trip?.country || "";
+
+}
+
+
+
+/* =========================================================
+   JAPANESE STAMP
+========================================================= */
+
+function cityStamp(city){
+
+  const value =
+    norm(
+      city
+    );
+
+
+  if(value.includes("kyoto")){
+    return "京都";
+  }
+
+
+  if(value.includes("osaka")){
+    return "大阪";
+  }
+
+
+  if(value.includes("nara")){
+    return "奈良";
+  }
+
+
+  if(value.includes("nagoya")){
+    return "名古屋";
+  }
+
+
+  if(value.includes("wakayama")){
+    return "和歌山";
+  }
+
+
+  if(value.includes("koya")){
+    return "高野";
+  }
+
+
+  if(value.includes("nachi")){
+    return "那智";
+  }
+
+
+  return "旅";
+
+}
+
+
+
+/* =========================================================
+   DAY NUMBER
+========================================================= */
+
+function dayNumber(date){
+
+  if(!trip?.start_date){
+    return 1;
+  }
+
+
+  const start =
+    parseDate(
+      trip.start_date
+    );
+
+
+  const current =
+    parseDate(
+      date
+    );
+
+
+  const diff =
+    Math.round(
+      (
+        current -
+        start
+      )
+      /
+      86400000
+    );
+
+
+  return diff + 1;
+
+}
+
+
+
+/* =========================================================
+   RENDER DAY
+========================================================= */
+
+function renderDay(){
+
+  const items =
+    groupedDays[
+      selectedDate
+    ] || [];
+
+
+  const parts =
+    dateParts(
+      selectedDate
+    );
+
+
+  const city =
+    dayCity(
+      selectedDate
+    );
+
+
+  main.classList.toggle(
+    "editing",
+    editing
+  );
+
+
+  if(!items.length){
+
+    main.innerHTML = `
+
+      <div class="state">
+
+        <strong>
+          Nothing planned yet
+        </strong>
+
+        Use ＋ above to add something to this day.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  main.innerHTML = `
+
+    <section class="day-card">
+
+
+      <div class="day-card-header">
+
+
+        <div class="day-meta-row">
+
+
+          <div class="day-number">
+
+            DAY
+            ${String(
+              dayNumber(
+                selectedDate
+              )
+            ).padStart(2,"0")}
+
+            ${
+              city
+              ?
+              ` · ${esc(city.toUpperCase())}`
+              :
+              ""
+            }
+
+          </div>
+
+
+          <div class="day-date-side">
+
+            ${esc(parts.weekdayLong)}
+
+            <br>
+
+            ${esc(parts.day)}
+            ${esc(parts.month)}
+
+          </div>
+
+
+        </div>
+
+
+        <div class="day-route-title">
+
+          ${esc(
+            dayRouteTitle(
+              selectedDate
+            )
+          )}
+
+        </div>
+
+
+        <div class="day-stamp">
+
+          ${esc(
+            cityStamp(
+              city
+            )
+          )}
+
+        </div>
+
+
+      </div>
+
+
+      <div class="timeline">
+
+        ${
+          items
+            .map(
+              timelineHTML
+            )
+            .join("")
+        }
+
+      </div>
+
+
+    </section>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   TIMELINE HTML
+========================================================= */
+
+function timelineHTML(item){
+
+  const map =
+    itemMap(
+      item
+    );
+
+
+  const location =
+    itemLocation(
+      item
+    );
+
+
+  return `
+
+    <div class="timeline-row">
+
+
+      <div class="timeline-time">
+
+        ${esc(
+          itemTime(
+            item
+          )
+        )}
+
+      </div>
+
+
+      <div class="marker">
+
+        <span class="dot"></span>
+
+      </div>
+
+
+      <div class="item-main">
+
+
+        <div class="item-title">
+
+          ${
+            map
+
+            ?
+
+            `
+              <a
+                href="${esc(map)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ${esc(item.title)}
+              </a>
+            `
+
+            :
+
+            esc(item.title)
+          }
+
+
+          ${
+            item.is_optional
+
+            ?
+
+            `
+              <span class="optional">
+                OPTIONAL
+              </span>
+            `
+
+            :
+
+            ""
+          }
+
+
+          ${
+            item.is_locked
+
+            ?
+
+            `
+              <span class="locked">
+                LOCKED
+              </span>
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+
+        ${
+          location &&
+          norm(location) !==
+          norm(item.title)
+
+          ?
+
+          `
+            <div class="item-location">
+
+              ${esc(location)}
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+        ${
+          item.notes ||
+          item.description
+
+          ?
+
+          `
+            <div class="item-note">
+
+              ${esc(
+                item.notes ||
+                item.description
+              )}
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+      </div>
+
+
+      <button
+        class="row-edit"
+        type="button"
+        onclick="openEditItem(${Number(item.id)})"
+        aria-label="Edit"
+      >
+        ✎
+      </button>
+
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   ADD + EDIT
+========================================================= */
+
+addButton.onclick =
+  openNewItem;
+
+
+editButton.onclick =
+  () => {
+
+    editing =
+      !editing;
+
+
+    editButton.classList.toggle(
+      "active",
+      editing
+    );
+
+
+    editButton.textContent =
+      editing
+      ?
+      "✓"
+      :
+      "✎";
+
+
+    renderDay();
+
+  };
+
+
+
+/* =========================================================
+   EDIT SHEET
+========================================================= */
+
+document.getElementById(
+  "closeSheet"
+).onclick =
+  closeEditSheet;
+
+
+editSheet.onclick =
+  event => {
+
+    if(
+      event.target ===
+      editSheet
+    ){
+
+      closeEditSheet();
+
+    }
+
+  };
+
+
+function closeEditSheet(){
+
+  editSheet.classList.remove(
+    "open"
+  );
+
+
+  entityResults.classList.remove(
+    "show"
+  );
+
+}
+
+
+
+/* =========================================================
+   FORM TYPE
+========================================================= */
+
+typeGrid
+  .querySelectorAll(
+    "[data-type]"
+  )
+  .forEach(
+    button => {
+
+      button.onclick =
+        () => {
+
+          setFormType(
+            button.dataset.type
+          );
+
+        };
+
+    }
+  );
+
+
+function setFormType(type){
+
+  formType =
+    type;
+
+
+  typeGrid
+    .querySelectorAll(
+      "[data-type]"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.type === type
+        );
+
+      }
+    );
+
+
+  entityResults.classList.remove(
+    "show"
+  );
+
+
+  googleAddBox.classList.remove(
+    "show"
+  );
+
+
+  if(type === "custom"){
+
+    selectedPlaceId = null;
+
+    selectedRestaurantId = null;
+
+
+    entityPicker.style.display =
+      "none";
+
+
+    selectedEntity.classList.remove(
+      "show"
+    );
+
+
+    masterHelp.classList.remove(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  entityPicker.style.display =
+    "block";
+
+
+  masterHelp.classList.add(
+    "show"
+  );
+
+
+  if(type === "place"){
+
+    selectedRestaurantId = null;
+
+
+    entityPickerTitle.textContent =
+      "📍 MY SAVED PLACES";
+
+
+    entityPickerSub.textContent =
+      trip?.country
+      ?
+      `Showing saved places for ${trip.country}.`
+      :
+      "Search your saved places.";
+
+
+    entitySearch.placeholder =
+      "Search places...";
+
+
+    masterHelpText.textContent =
+      "Can't find the place?";
+
+
+    masterHelpButton.textContent =
+      "＋ ADD NEW PLACE";
 
   }
 
 
   else{
 
-    dateLabel.textContent =
-      "All Trip Dates";
+    selectedPlaceId = null;
+
+
+    entityPickerTitle.textContent =
+      "🍽 CHOOSE FROM SAVED RESTAURANTS";
+
+
+    entityPickerSub.textContent =
+      trip?.country
+      ?
+      `Showing restaurants for ${trip.country}.`
+      :
+      "Search your saved restaurants.";
+
+
+    entitySearch.placeholder =
+      "Search restaurants...";
+
+
+    masterHelpText.textContent =
+      "Can't find the restaurant?";
+
+
+    masterHelpButton.textContent =
+      "＋ ADD RESTAURANT";
 
   }
 
 
-  dateScroll.scrollLeft = 0;
+  updateSelectedEntity();
 
 }
 
 
-/* =========================================
-   FILTER BUTTON CLICK
-========================================= */
 
-tripButtons.forEach(button => {
+/* =========================================================
+   MASTER HELP
+========================================================= */
 
-  button.addEventListener(
-    "click",
-    () => {
+masterHelpButton.onclick =
+  async () => {
 
-      setTripFilter(
-        button.dataset.trip
+    if(formType === "place"){
+
+      googleAddBox.classList.add(
+        "show"
       );
 
+
+      await initGooglePlaceAutocomplete();
+
     }
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      location.href =
+        `food.html?trip=${TRIP_ID}`;
+
+    }
+
+  };
+
+
+
+/* =========================================================
+   GOOGLE PLACES
+========================================================= */
+
+let googlePlaceAutocomplete = null;
+
+
+function setGooglePlaceStatus(
+  message,
+  type=""
+){
+
+  const el =
+    document.getElementById(
+      "googlePlaceStatus"
+    );
+
+
+  if(!el){
+    return;
+  }
+
+
+  el.textContent =
+    message;
+
+
+  el.className =
+    `place-status ${type}`
+      .trim();
+
+}
+
+
+function addressPart(
+  components,
+  wantedTypes
+){
+
+  const item =
+    (components || [])
+      .find(
+        component =>
+          wantedTypes.some(
+            type =>
+              component.types?.includes(
+                type
+              )
+          )
+      );
+
+
+  return (
+    item?.longText ||
+    item?.shortText ||
+    ""
   );
 
-});
+}
 
 
-/* =========================================
-   OPEN HASH DATE
-========================================= */
+async function initGooglePlaceAutocomplete(){
 
-const hash =
-  window.location.hash;
+  const host =
+    document.getElementById(
+      "googlePlaceSearch"
+    );
 
 
-if(hash.startsWith("#day-")){
-
-  const day =
-    hash.replace("#day-","");
+  if(!host){
+    return;
+  }
 
 
   if(
-    document.getElementById(
-      "day-" + day
+    googlePlaceAutocomplete &&
+    host.contains(
+      googlePlaceAutocomplete
     )
   ){
 
-    showDay(day);
+    return;
+
+  }
+
+
+  googlePlaceAutocomplete =
+    null;
+
+
+  try{
+
+    setGooglePlaceStatus(
+      "Loading Google Places…"
+    );
+
+
+    if(
+      typeof window.loadGoogleMaps !== "function" ||
+      typeof window.getGooglePlaces !== "function" ||
+      typeof window.createGooglePlaceAutocomplete !== "function" ||
+      typeof window.getGooglePlaceDetails !== "function" ||
+      typeof window.normalizeGooglePlace !== "function"
+    ){
+
+      throw new Error(
+        "The Google Maps helper functions were not found."
+      );
+
+    }
+
+
+    await window.loadGoogleMaps();
+
+    await window.getGooglePlaces();
+
+
+    googlePlaceAutocomplete =
+      await window.createGooglePlaceAutocomplete(
+        host,
+        {
+          placeholder:
+            `Search place${
+              trip?.country
+              ?
+              " in " + trip.country
+              :
+              ""
+            }...`
+        }
+      );
+
+
+    googlePlaceAutocomplete
+      .addEventListener(
+        "gmp-select",
+        async event => {
+
+          try{
+
+            setGooglePlaceStatus(
+              "Getting place details…"
+            );
+
+
+            const place =
+              await window.getGooglePlaceDetails(
+                event
+              );
+
+
+            const data =
+              window.normalizeGooglePlace(
+                place
+              );
+
+
+            const components =
+              place.addressComponents || [];
+
+
+            const prefecture =
+              data.prefecture ||
+              addressPart(
+                components,
+                [
+                  "administrative_area_level_1"
+                ]
+              ) ||
+              null;
+
+
+            const city =
+              data.city ||
+              addressPart(
+                components,
+                [
+                  "locality",
+                  "postal_town",
+                  "administrative_area_level_2"
+                ]
+              ) ||
+              null;
+
+
+            const area =
+              data.area ||
+              addressPart(
+                components,
+                [
+                  "sublocality_level_1",
+                  "sublocality",
+                  "administrative_area_level_3"
+                ]
+              ) ||
+              null;
+
+
+            const country =
+              data.country ||
+              addressPart(
+                components,
+                [
+                  "country"
+                ]
+              ) ||
+              trip?.country ||
+              null;
+
+
+            const providerPlaceId =
+              data.provider_place_id ||
+              data.google_place_id ||
+              place.id ||
+              null;
+
+
+            if(!providerPlaceId){
+
+              throw new Error(
+                "Google did not return a Place ID."
+              );
+
+            }
+
+
+            const existing =
+              await db
+                .from(
+                  "places"
+                )
+                .select("*")
+                .eq(
+                  "provider",
+                  "google"
+                )
+                .eq(
+                  "provider_place_id",
+                  providerPlaceId
+                )
+                .maybeSingle();
+
+
+            if(existing.error){
+              throw existing.error;
+            }
+
+
+            let savedPlace =
+              existing.data || null;
+
+
+            if(!savedPlace){
+
+              const payload = {
+
+                name:
+                  data.name ||
+                  place.displayName ||
+                  "Unnamed place",
+
+                country:
+                  country,
+
+                prefecture:
+                  prefecture,
+
+                city:
+                  city,
+
+                area:
+                  area,
+
+                address:
+                  data.address ||
+                  place.formattedAddress ||
+                  null,
+
+                latitude:
+                  data.latitude ??
+                  null,
+
+                longitude:
+                  data.longitude ??
+                  null,
+
+                maps_url:
+                  data.maps_url ||
+                  place.googleMapsURI ||
+                  null,
+
+                provider:
+                  "google",
+
+                provider_place_id:
+                  providerPlaceId,
+
+                updated_at:
+                  new Date()
+                    .toISOString()
+
+              };
+
+
+              const created =
+                await db
+                  .from(
+                    "places"
+                  )
+                  .insert(
+                    payload
+                  )
+                  .select()
+                  .single();
+
+
+              if(created.error){
+
+                if(
+                  created.error.code ===
+                  "23505"
+                ){
+
+                  const duplicate =
+                    await db
+                      .from(
+                        "places"
+                      )
+                      .select("*")
+                      .eq(
+                        "provider",
+                        "google"
+                      )
+                      .eq(
+                        "provider_place_id",
+                        providerPlaceId
+                      )
+                      .single();
+
+
+                  if(
+                    duplicate.error
+                  ){
+
+                    throw duplicate.error;
+
+                  }
+
+
+                  savedPlace =
+                    duplicate.data;
+
+                }
+
+                else{
+
+                  throw created.error;
+
+                }
+
+              }
+
+              else{
+
+                savedPlace =
+                  created.data;
+
+              }
+
+            }
+
+
+            const index =
+              places.findIndex(
+                row =>
+                  Number(row.id) ===
+                  Number(savedPlace.id)
+              );
+
+
+            if(index >= 0){
+
+              places[index] =
+                savedPlace;
+
+            }
+
+            else{
+
+              places.push(
+                savedPlace
+              );
+
+
+              places.sort(
+                (a,b) =>
+                  String(
+                    a.name || ""
+                  )
+                  .localeCompare(
+                    String(
+                      b.name || ""
+                    )
+                  )
+              );
+
+            }
+
+
+            selectedPlaceId =
+              savedPlace.id;
+
+
+            selectedRestaurantId =
+              null;
+
+
+            entitySearch.value =
+              savedPlace.name || "";
+
+
+            fieldTitle.value =
+              savedPlace.name || "";
+
+
+            fieldLocation.value =
+              [
+                savedPlace.area,
+                savedPlace.city,
+                savedPlace.prefecture
+              ]
+              .filter(Boolean)
+              .join(", ")
+              ||
+              savedPlace.address
+              ||
+              "";
+
+
+            entityResults.classList.remove(
+              "show"
+            );
+
+
+            googleAddBox.classList.remove(
+              "show"
+            );
+
+
+            updateSelectedEntity();
+
+
+            setGooglePlaceStatus(
+              `✓ ${savedPlace.name} saved to Places.`,
+              "success"
+            );
+
+
+            formMessage.textContent =
+              "Google verified ✓ Place saved and selected.";
+
+
+            formMessage.className =
+              "form-message success";
+
+          }
+
+          catch(error){
+
+            console.error(
+              "Google Places selection:",
+              error
+            );
+
+
+            setGooglePlaceStatus(
+              "Google place error: " +
+              (
+                error.message ||
+                String(error)
+              ),
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    setGooglePlaceStatus(
+      "Search for a place and select the correct Google result."
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Google Places init:",
+      error
+    );
+
+
+    setGooglePlaceStatus(
+      "Google Places error: " +
+      (
+        error.message ||
+        String(error)
+      ),
+      "error"
+    );
 
   }
 
 }
 
+
+
+/* =========================================================
+   OPEN NEW ITEM
+========================================================= */
+
+function openNewItem(){
+
+  editingId = null;
+
+  selectedPlaceId = null;
+
+  selectedRestaurantId = null;
+
+
+  sheetTitle.textContent =
+    "＋ Add Schedule Item";
+
+
+  deleteButton.style.display =
+    "none";
+
+
+  fieldDate.value =
+    selectedDate;
+
+
+  fieldTime.value = "";
+
+  fieldTimeLabel.value = "";
+
+  fieldTitle.value = "";
+
+  fieldLocation.value = "";
+
+  fieldNotes.value = "";
+
+  fieldOptional.checked = false;
+
+  entitySearch.value = "";
+
+
+  googleAddBox.classList.remove(
+    "show"
+  );
+
+
+  setFormType(
+    "place"
+  );
+
+
+  updateSelectedEntity();
+
+
+  formMessage.className =
+    "form-message";
+
+
+  editSheet.classList.add(
+    "open"
+  );
+
+
+  renderEntityResults("");
+
+}
+
+
+
+/* =========================================================
+   OPEN EDIT ITEM
+========================================================= */
+
+function openEditItem(id){
+
+  const item =
+    schedule.find(
+      row =>
+        Number(row.id) ===
+        Number(id)
+    );
+
+
+  if(!item){
+    return;
+  }
+
+
+  editingId =
+    item.id;
+
+
+  selectedPlaceId =
+    item.place_id ||
+    null;
+
+
+  selectedRestaurantId =
+    item.restaurant_id ||
+    null;
+
+
+  sheetTitle.textContent =
+    "Edit Schedule Item";
+
+
+  deleteButton.style.display =
+    "block";
+
+
+  fieldDate.value =
+    item.schedule_date;
+
+
+  fieldTime.value =
+    item.start_time
+    ?
+    item.start_time.slice(
+      0,
+      5
+    )
+    :
+    "";
+
+
+  fieldTimeLabel.value =
+    item.time_label ||
+    "";
+
+
+  fieldTitle.value =
+    item.title ||
+    "";
+
+
+  fieldLocation.value =
+    item.location_name ||
+    "";
+
+
+  fieldNotes.value =
+    item.notes ||
+    item.description ||
+    "";
+
+
+  fieldOptional.checked =
+    Boolean(
+      item.is_optional
+    );
+
+
+  if(item.restaurant_id){
+
+    setFormType(
+      "restaurant"
+    );
+
+
+    entitySearch.value =
+      item.restaurant?.name ||
+      "";
+
+  }
+
+
+  else if(item.place_id){
+
+    setFormType(
+      "place"
+    );
+
+
+    entitySearch.value =
+      item.place?.name ||
+      "";
+
+  }
+
+
+  else{
+
+    setFormType(
+      "custom"
+    );
+
+
+    entitySearch.value =
+      "";
+
+  }
+
+
+  updateSelectedEntity();
+
+
+  formMessage.className =
+    "form-message";
+
+
+  editSheet.classList.add(
+    "open"
+  );
+
+}
+
+
+
+/* =========================================================
+   ENTITY SEARCH
+========================================================= */
+
+entitySearch.addEventListener(
+  "focus",
+  () => {
+
+    if(
+      formType !== "custom" &&
+      entitySearch.value.trim()
+    ){
+
+      renderEntityResults(
+        entitySearch.value
+      );
+
+    }
+
+  }
+);
+
+
+entitySearch.addEventListener(
+  "input",
+  () => {
+
+    if(
+      formType === "custom"
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      formType === "place"
+    ){
+
+      selectedPlaceId =
+        null;
+
+    }
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      selectedRestaurantId =
+        null;
+
+    }
+
+
+    updateSelectedEntity();
+
+
+    renderEntityResults(
+      entitySearch.value
+    );
+
+  }
+);
+
+
+
+/* =========================================================
+   ENTITY RESULTS
+========================================================= */
+
+function renderEntityResults(
+  queryValue
+){
+
+  const query =
+    norm(
+      queryValue
+    );
+
+
+  if(!query){
+
+    entityResults.innerHTML =
+      "";
+
+
+    entityResults.classList.remove(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  const source =
+    formType === "restaurant"
+    ?
+    restaurants
+    :
+    places;
+
+
+  let matches =
+    source.filter(
+      item => {
+
+        const haystack =
+          norm(
+            [
+              item.name,
+              item.name_japanese,
+              item.country,
+              item.prefecture,
+              item.city,
+              item.area,
+              item.location,
+              item.address
+            ]
+            .join(" ")
+          );
+
+
+        return haystack.includes(
+          query
+        );
+
+      }
+    );
+
+
+  matches =
+    matches.slice(
+      0,
+      12
+    );
+
+
+  if(!matches.length){
+
+    entityResults.innerHTML = `
+
+      <div class="entity-empty">
+
+        No ${
+          formType === "restaurant"
+          ?
+          "restaurants"
+          :
+          "places"
+        } found.
+
+        <br><br>
+
+        ${
+          formType === "place"
+          ?
+          "Use “ADD NEW PLACE” below."
+          :
+          "Add it to your saved restaurants first."
+        }
+
+      </div>
+
+    `;
+
+
+    entityResults.classList.add(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  entityResults.innerHTML =
+    matches
+      .map(
+        item => {
+
+          const meta =
+            entityMeta(
+              item
+            );
+
+
+          return `
+
+            <button
+              class="entity-result"
+              type="button"
+              data-id="${Number(item.id)}"
+            >
+
+              <div class="entity-result-icon">
+
+                ${
+                  formType === "restaurant"
+                  ?
+                  "🍽️"
+                  :
+                  "📍"
+                }
+
+              </div>
+
+
+              <div class="entity-result-main">
+
+                <div class="entity-result-name">
+
+                  ${esc(item.name)}
+
+                </div>
+
+
+                ${
+                  item.name_japanese
+
+                  ?
+
+                  `
+                    <div class="entity-result-japanese">
+
+                      ${esc(item.name_japanese)}
+
+                    </div>
+                  `
+
+                  :
+
+                  ""
+                }
+
+
+                ${
+                  meta
+
+                  ?
+
+                  `
+                    <div class="entity-result-meta">
+
+                      ${esc(meta)}
+
+                    </div>
+                  `
+
+                  :
+
+                  ""
+                }
+
+              </div>
+
+
+              <div class="entity-result-arrow">
+                ＋
+              </div>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  entityResults.classList.add(
+    "show"
+  );
+
+
+  entityResults
+    .querySelectorAll(
+      "[data-id]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            chooseEntity(
+              Number(
+                button.dataset.id
+              )
+            );
+
+          };
+
+      }
+    );
+
+}
+
+
+
+/* =========================================================
+   CHOOSE ENTITY
+========================================================= */
+
+function chooseEntity(id){
+
+  const source =
+    formType === "restaurant"
+    ?
+    restaurants
+    :
+    places;
+
+
+  const item =
+    source.find(
+      row =>
+        Number(row.id) ===
+        Number(id)
+    );
+
+
+  if(!item){
+    return;
+  }
+
+
+  if(
+    formType === "restaurant"
+  ){
+
+    selectedRestaurantId =
+      item.id;
+
+
+    selectedPlaceId =
+      null;
+
+  }
+
+  else{
+
+    selectedPlaceId =
+      item.id;
+
+
+    selectedRestaurantId =
+      null;
+
+  }
+
+
+  entitySearch.value =
+    item.name || "";
+
+
+  fieldTitle.value =
+    item.name || "";
+
+
+  fieldLocation.value =
+    [
+      item.area,
+      item.city
+    ]
+    .filter(Boolean)
+    .join(", ");
+
+
+  entityResults.classList.remove(
+    "show"
+  );
+
+
+  updateSelectedEntity();
+
+}
+
+
+
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
+
+function updateSelectedEntity(){
+
+  let item =
+    null;
+
+
+  if(
+    formType === "place" &&
+    selectedPlaceId
+  ){
+
+    item =
+      places.find(
+        row =>
+          Number(row.id) ===
+          Number(selectedPlaceId)
+      );
+
+  }
+
+
+  else if(
+    formType === "restaurant" &&
+    selectedRestaurantId
+  ){
+
+    item =
+      restaurants.find(
+        row =>
+          Number(row.id) ===
+          Number(selectedRestaurantId)
+      );
+
+  }
+
+
+  if(!item){
+
+    selectedEntity.classList.remove(
+      "show"
+    );
+
+
+    return;
+
+  }
+
+
+  selectedEntityIcon.textContent =
+    formType === "restaurant"
+    ?
+    "🍽️"
+    :
+    "📍";
+
+
+  selectedEntityLabel.textContent =
+    formType === "restaurant"
+    ?
+    "SELECTED RESTAURANT"
+    :
+    "SELECTED PLACE";
+
+
+  selectedEntityName.textContent =
+    item.name ||
+    "";
+
+
+  selectedEntityMeta.textContent =
+    entityMeta(
+      item
+    );
+
+
+  selectedEntity.classList.add(
+    "show"
+  );
+
+}
+
+
+
+/* =========================================================
+   CHANGE ENTITY
+========================================================= */
+
+document.getElementById(
+  "changeEntityButton"
+).onclick =
+  () => {
+
+    if(
+      formType === "place"
+    ){
+
+      selectedPlaceId =
+        null;
+
+    }
+
+    else if(
+      formType === "restaurant"
+    ){
+
+      selectedRestaurantId =
+        null;
+
+    }
+
+
+    entitySearch.value =
+      "";
+
+
+    updateSelectedEntity();
+
+
+    renderEntityResults(
+      ""
+    );
+
+
+    entitySearch.focus();
+
+  };
+
+
+
+/* =========================================================
+   TIME
+========================================================= */
+
+fieldTime.addEventListener(
+  "input",
+  () => {
+
+    if(
+      fieldTime.value
+    ){
+
+      fieldTimeLabel.value =
+        "";
+
+    }
+
+  }
+);
+
+
+fieldTimeLabel.addEventListener(
+  "input",
+  () => {
+
+    if(
+      fieldTimeLabel.value.trim()
+    ){
+
+      fieldTime.value =
+        "";
+
+    }
+
+  }
+);
+
+
+
+/* =========================================================
+   SORT ORDER
+========================================================= */
+
+function nextSortOrder(date){
+
+  const rows =
+    groupedDays[
+      date
+    ] || [];
+
+
+  if(!rows.length){
+    return 10;
+  }
+
+
+  const max =
+    Math.max(
+      ...rows.map(
+        row =>
+          Number(
+            row.sort_order ||
+            0
+          )
+      )
+    );
+
+
+  return max + 10;
+
+}
+
+
+
+/* =========================================================
+   SAVE ITEM
+========================================================= */
+
+document.getElementById(
+  "editForm"
+).addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+
+    saveButton.disabled =
+      true;
+
+
+    saveButton.textContent =
+      "SAVING…";
+
+
+    formMessage.className =
+      "form-message";
+
+
+    try{
+
+      const date =
+        fieldDate.value;
+
+
+      const time =
+        fieldTime.value;
+
+
+      const timeLabel =
+        fieldTimeLabel
+          .value
+          .trim();
+
+
+      const title =
+        fieldTitle
+          .value
+          .trim();
+
+
+      const locationName =
+        fieldLocation
+          .value
+          .trim();
+
+
+      const notes =
+        fieldNotes
+          .value
+          .trim();
+
+
+      if(!date){
+
+        throw new Error(
+          "Please choose a date."
+        );
+
+      }
+
+
+      if(!title){
+
+        throw new Error(
+          "Please enter a title."
+        );
+
+      }
+
+
+      if(
+        formType === "place" &&
+        !selectedPlaceId
+      ){
+
+        throw new Error(
+          "Please choose a saved place."
+        );
+
+      }
+
+
+      if(
+        formType === "restaurant" &&
+        !selectedRestaurantId
+      ){
+
+        throw new Error(
+          "Please choose a saved restaurant."
+        );
+
+      }
+
+
+      const payload = {
+
+        trip_id:
+          TRIP_ID,
+
+        schedule_date:
+          date,
+
+        start_time:
+          time
+          ?
+          `${time}:00`
+          :
+          null,
+
+        time_label:
+          time
+          ?
+          null
+          :
+          (
+            timeLabel ||
+            null
+          ),
+
+        title:
+          title,
+
+        item_type:
+          formType === "restaurant"
+          ?
+          "restaurant"
+          :
+          formType === "place"
+          ?
+          "attraction"
+          :
+          "custom",
+
+        notes:
+          notes ||
+          null,
+
+        location_name:
+          locationName ||
+          null,
+
+        place_id:
+          formType === "place"
+          ?
+          selectedPlaceId
+          :
+          null,
+
+        restaurant_id:
+          formType === "restaurant"
+          ?
+          selectedRestaurantId
+          :
+          null,
+
+        is_optional:
+          fieldOptional.checked
+
+      };
+
+
+      if(
+        editingId === null
+      ){
+
+        payload.sort_order =
+          nextSortOrder(
+            date
+          );
+
+
+        const result =
+          await db
+            .from(
+              "schedule"
+            )
+            .insert(
+              payload
+            )
+            .select()
+            .single();
+
+
+        if(result.error){
+          throw result.error;
+        }
+
+      }
+
+      else{
+
+        const result =
+          await db
+            .from(
+              "schedule"
+            )
+            .update(
+              payload
+            )
+            .eq(
+              "id",
+              editingId
+            )
+            .eq(
+              "trip_id",
+              TRIP_ID
+            )
+            .select();
+
+
+        if(result.error){
+          throw result.error;
+        }
+
+
+        if(
+          !result.data ||
+          !result.data.length
+        ){
+
+          throw new Error(
+            "The item was not updated. Check your editing permission."
+          );
+
+        }
+
+      }
+
+
+      selectedDate =
+        date;
+
+
+      closeEditSheet();
+
+
+      await reloadSchedule();
+
+    }
+
+    catch(error){
+
+      console.error(
+        error
+      );
+
+
+      formMessage.textContent =
+        error.message ||
+        "Couldn't save schedule item.";
+
+
+      formMessage.className =
+        "form-message error";
+
+    }
+
+    finally{
+
+      saveButton.disabled =
+        false;
+
+
+      saveButton.textContent =
+        "SAVE";
+
+    }
+
+  }
+);
+
+
+
+/* =========================================================
+   DELETE ITEM
+========================================================= */
+
+deleteButton.onclick =
+  async () => {
+
+    if(
+      editingId === null
+    ){
+
+      return;
+
+    }
+
+
+    const item =
+      schedule.find(
+        row =>
+          Number(row.id) ===
+          Number(editingId)
+      );
+
+
+    if(!item){
+      return;
+    }
+
+
+    const okay =
+      confirm(
+        `Delete "${item.title}" from the schedule?`
+      );
+
+
+    if(!okay){
+      return;
+    }
+
+
+    deleteButton.disabled =
+      true;
+
+
+    try{
+
+      const result =
+        await db
+          .from(
+            "schedule"
+          )
+          .delete()
+          .eq(
+            "id",
+            editingId
+          )
+          .eq(
+            "trip_id",
+            TRIP_ID
+          );
+
+
+      if(result.error){
+        throw result.error;
+      }
+
+
+      closeEditSheet();
+
+
+      await reloadSchedule();
+
+    }
+
+    catch(error){
+
+      console.error(
+        error
+      );
+
+
+      formMessage.textContent =
+        error.message ||
+        "Couldn't delete item.";
+
+
+      formMessage.className =
+        "form-message error";
+
+    }
+
+    finally{
+
+      deleteButton.disabled =
+        false;
+
+    }
+
+  };
+
+
+
+/* =========================================================
+   RELOAD SCHEDULE
+========================================================= */
+
+async function reloadSchedule(){
+
+  const result =
+    await loadScheduleQuery();
+
+
+  if(result.error){
+    throw result.error;
+  }
+
+
+  schedule =
+    result.data || [];
+
+
+  buildDays();
+
+  renderDates();
+
+  renderDay();
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadData();
+
 </script>
 
+
+
+<!-- Shared footer logic -->
+
+<script src="footer.js"></script>
+
+
 </body>
+
 </html>
