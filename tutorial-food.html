@@ -1,74 +1,42 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#05090c">
-
 <title>Food Guide · Travel</title>
 
-
 <style>
-
 :root{
   --bg:#030608;
   --line:#29343c;
   --line-soft:rgba(255,255,255,.065);
-
   --text:#f5f2ed;
-
   --red:#ff625f;
   --red-soft:rgba(255,98,95,.09);
   --red-line:rgba(255,98,95,.34);
 }
 
+*{box-sizing:border-box}
 
-*{
-  box-sizing:border-box;
-}
-
-
-html,
-body{
+html,body{
   margin:0;
   min-height:100%;
 }
 
-
 body{
   min-height:100svh;
-
   overflow:hidden;
-
   color:var(--text);
-
   background:#030608;
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-font-smoothing:antialiased;
 }
-
 
 button{
   font:inherit;
   -webkit-tap-highlight-color:transparent;
 }
-
 
 /* =========================================================
    STAGE
@@ -76,47 +44,30 @@ button{
 
 .tutorial-page{
   min-height:100svh;
-
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
-
 .tutorial-shell{
   position:relative;
-
   width:min(100vw,720px);
   height:100svh;
-
   overflow:hidden;
-
   background:#070d11;
 }
 
-
-/*
-  The screenshot is rendered with object-fit:cover.
-  JavaScript maps the tutorial spotlight from the ORIGINAL
-  screenshot coordinates so the highlights stay aligned.
-*/
 .screen-image{
   position:absolute;
-
   inset:0;
-
   width:100%;
   height:100%;
-
   display:block;
-
   object-fit:cover;
   object-position:center center;
-
   user-select:none;
   pointer-events:none;
 }
-
 
 /* =========================================================
    SKIP
@@ -124,38 +75,22 @@ button{
 
 .skip-btn{
   position:absolute;
-
   z-index:60;
-
   top:18px;
   right:14px;
-
   min-height:30px;
-
   padding:0 10px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.11);
-
+  border:1px solid rgba(255,255,255,.11);
   border-radius:9px;
-
-  background:
-    rgba(10,17,22,.92);
-
+  background:rgba(10,17,22,.92);
   color:#aab3b9;
-
   font-size:6.5px;
   font-weight:900;
-
   letter-spacing:.06em;
-
   cursor:pointer;
-
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
 }
-
 
 /* =========================================================
    SPOTLIGHT
@@ -163,28 +98,15 @@ button{
 
 .focus-ring{
   position:absolute;
-
   z-index:25;
-
-  border:
-    1.5px solid
-    rgba(255,115,111,.98);
-
+  border:1.5px solid rgba(255,115,111,.98);
   border-radius:16px;
 
   box-shadow:
-    0 0 0 9999px
-    rgba(1,4,6,.72),
-
-    inset
-    0 0 0 1px
-    rgba(255,255,255,.025),
-
-    0 0 0 4px
-    rgba(255,98,95,.07),
-
-    0 0 24px
-    rgba(255,98,95,.28);
+    0 0 0 9999px rgba(1,4,6,.72),
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    0 0 0 4px rgba(255,98,95,.07),
+    0 0 24px rgba(255,98,95,.28);
 
   pointer-events:none;
 
@@ -196,78 +118,42 @@ button{
     border-radius .22s ease;
 }
 
-
 .tap-hint{
   position:absolute;
-
   z-index:30;
-
   width:22px;
   height:22px;
-
-  border:
-    1px solid
-    rgba(255,98,95,.78);
-
+  border:1px solid rgba(255,98,95,.78);
   border-radius:50%;
-
-  background:
-    rgba(20,8,10,.78);
+  background:rgba(20,8,10,.78);
 
   box-shadow:
-    0 0 0 4px
-    rgba(255,98,95,.07),
+    0 0 0 4px rgba(255,98,95,.07),
+    0 0 18px rgba(255,98,95,.25);
 
-    0 0 18px
-    rgba(255,98,95,.25);
-
-  transform:
-    translate(-50%,-50%);
-
+  transform:translate(-50%,-50%);
   pointer-events:none;
-
-  animation:
-    tapPulse
-    1.35s
-    ease-in-out
-    infinite;
+  animation:tapPulse 1.35s ease-in-out infinite;
 }
-
 
 .tap-hint::after{
   content:"";
-
   position:absolute;
-
   inset:6px;
-
   border-radius:50%;
-
   background:#ff7b77;
 }
 
-
 @keyframes tapPulse{
-
-  0%,
-  100%{
-    transform:
-      translate(-50%,-50%)
-      scale(.90);
-
+  0%,100%{
+    transform:translate(-50%,-50%) scale(.90);
     opacity:.82;
   }
-
   50%{
-    transform:
-      translate(-50%,-50%)
-      scale(1.12);
-
+    transform:translate(-50%,-50%) scale(1.12);
     opacity:1;
   }
-
 }
-
 
 /* =========================================================
    GUIDE CARD
@@ -275,23 +161,12 @@ button{
 
 .guide-card{
   position:absolute;
-
   z-index:50;
-
   left:14px;
   right:14px;
-
-  padding:
-    11px
-    13px
-    10px;
-
+  padding:11px 13px 10px;
   overflow:hidden;
-
-  border:
-    1px solid
-    #2b3740;
-
+  border:1px solid #2b3740;
   border-radius:17px;
 
   background:
@@ -306,251 +181,137 @@ button{
       rgba(9,16,21,.985)
     );
 
-  box-shadow:
-    0 18px 48px
-    rgba(0,0,0,.50);
+  box-shadow:0 18px 48px rgba(0,0,0,.50);
 
-  backdrop-filter:
-    blur(16px)
-    saturate(115%);
-
-  -webkit-backdrop-filter:
-    blur(16px)
-    saturate(115%);
+  backdrop-filter:blur(16px) saturate(115%);
+  -webkit-backdrop-filter:blur(16px) saturate(115%);
 }
-
 
 .guide-card::before{
   content:"";
-
   position:absolute;
-
   left:0;
   top:0;
   bottom:0;
-
   width:2px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ff746f,
-      rgba(255,98,95,.40)
-    );
+  background:linear-gradient(180deg,#ff746f,rgba(255,98,95,.40));
 }
-
 
 .guide-card::after{
   content:"";
-
   position:absolute;
-
   left:0;
   right:0;
   top:0;
-
   height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,98,95,.46),
-      rgba(255,98,95,.11),
-      transparent 75%
-    );
+  background:linear-gradient(
+    90deg,
+    rgba(255,98,95,.46),
+    rgba(255,98,95,.11),
+    transparent 75%
+  );
 }
-
-
-/* =========================================================
-   GUIDE CONTENT
-========================================================= */
 
 .guide-number{
   color:#df7775;
-
   font-size:6px;
   font-weight:900;
-
   letter-spacing:.12em;
 }
 
-
 .guide-title{
-  margin:
-    5px
-    0
-    0;
-
+  margin:5px 0 0;
   color:#f6f2ec;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family:Georgia,"Times New Roman",serif;
   font-size:17px;
   font-weight:700;
-
   line-height:1.08;
-
   letter-spacing:-.02em;
 }
 
-
 .guide-text{
-  margin:
-    6px
-    0
-    0;
-
+  margin:6px 0 0;
   color:#949fa6;
-
   font-size:7px;
-
   line-height:1.55;
 }
 
-
-/* =========================================================
-   GUIDE ACTIONS
-========================================================= */
-
 .guide-actions{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
   gap:10px;
-
   margin-top:10px;
-
   padding-top:8px;
-
-  border-top:
-    1px solid
-    var(--line-soft);
+  border-top:1px solid var(--line-soft);
 }
-
 
 .progress-dots{
   display:flex;
-
   align-items:center;
-
   gap:5px;
 }
-
 
 .progress-dot{
   width:5px;
   height:5px;
-
   border-radius:999px;
-
   background:#39454d;
 }
 
-
 .progress-dot.active{
   width:17px;
-
   background:var(--red);
-
-  box-shadow:
-    0 0 9px
-    rgba(255,98,95,.20);
+  box-shadow:0 0 9px rgba(255,98,95,.20);
 }
-
 
 .guide-buttons{
   display:flex;
-
   align-items:center;
-
   gap:5px;
 }
 
-
 .guide-btn{
   min-height:29px;
-
   padding:0 10px;
-
-  border:
-    1px solid
-    #2b363e;
-
+  border:1px solid #2b363e;
   border-radius:8px;
-
   background:#10181d;
-
   color:#9ca7ad;
-
   font-size:6.3px;
   font-weight:900;
-
   letter-spacing:.05em;
-
   cursor:pointer;
 }
 
-
 .guide-btn.primary{
-  border-color:
-    var(--red-line);
-
-  background:
-    var(--red-soft);
-
+  border-color:var(--red-line);
+  background:var(--red-soft);
   color:#ffb0ab;
 }
 
+.guide-btn:active{transform:scale(.96)}
+.guide-btn[hidden]{display:none}
 
-.guide-btn:active{
-  transform:
-    scale(.96);
-}
-
-
-.guide-btn[hidden]{
-  display:none;
-}
-
+/* =========================================================
+   DESKTOP
+========================================================= */
 
 @media(min-width:700px){
-
   .tutorial-shell{
     max-width:720px;
-
-    border-left:
-      1px solid
-      #273139;
-
-    border-right:
-      1px solid
-      #273139;
+    border-left:1px solid #273139;
+    border-right:1px solid #273139;
   }
-
 }
-
 </style>
-
 </head>
-
-
 
 <body>
 
-
 <div class="tutorial-page">
 
-
-  <div
-    id="tutorialStage"
-    class="tutorial-shell"
-  >
-
+  <div id="tutorialStage" class="tutorial-shell">
 
     <img
       id="screenImage"
@@ -558,7 +319,6 @@ button{
       src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/file_0000000066d48207bc2e0215839fd085.jpg?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZmlsZV8wMDAwMDAwMDY2ZDQ4MjA3YmMyZTAyMTU4MzlmZDA4NS5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5ODEzMTE2LCJleHAiOjMzMzI1ODEzMTE2fQ.kFBzRlgfz6OIB_n_DQ1XgX6mAuy9u0-YV5z6c0YbRm8jsUAJmnJAFvNE3D6974hATyqiQVCAUMEECHBb7_j1RQ"
       alt="Food page tutorial"
     >
-
 
     <button
       id="skipBtn"
@@ -568,18 +328,8 @@ button{
       SKIP
     </button>
 
-
-    <div
-      id="focusRing"
-      class="focus-ring"
-    ></div>
-
-
-    <div
-      id="tapHint"
-      class="tap-hint"
-    ></div>
-
+    <div id="focusRing" class="focus-ring"></div>
+    <div id="tapHint" class="tap-hint"></div>
 
     <section
       id="guideCard"
@@ -587,36 +337,29 @@ button{
       aria-live="polite"
     >
 
-
       <div
         id="guideNumber"
         class="guide-number"
       ></div>
-
 
       <h1
         id="guideTitle"
         class="guide-title"
       ></h1>
 
-
       <p
         id="guideText"
         class="guide-text"
       ></p>
 
-
       <div class="guide-actions">
-
 
         <div
           id="progressDots"
           class="progress-dots"
         ></div>
 
-
         <div class="guide-buttons">
-
 
           <button
             id="backBtn"
@@ -626,7 +369,6 @@ button{
             BACK
           </button>
 
-
           <button
             id="nextBtn"
             class="guide-btn primary"
@@ -635,179 +377,136 @@ button{
             NEXT →
           </button>
 
-
         </div>
-
 
       </div>
 
-
     </section>
-
 
   </div>
 
-
 </div>
-
 
 
 <script>
 
 /* =========================================================
-   ORIGINAL FOOD SCREENSHOT SIZE
-========================================================= */
+   FOOD GUIDE
 
-const SOURCE_WIDTH =
-  709;
-
-
-const SOURCE_HEIGHT =
-  1536;
-
-
-
-/* =========================================================
-   FOOD TUTORIAL STEPS
+   Coordinates below are NORMALIZED TO THE ACTUAL SUPABASE
+   FOOD IMAGE — not the original full phone screenshot.
 ========================================================= */
 
 const tutorialSteps = [
 
-
   {
-    title:
-      "My Food or Discover",
-
-    text:
-      "Use My Food for your saved restaurants. Open Discover when you want to browse more.",
+    title:"My Food or Discover",
+    text:"Use My Food for saved restaurants. Open Discover to browse more.",
 
     rect:{
-      x:109,
-      y:466,
-      w:487,
-      h:78,
+      x:.150,
+      y:.232,
+      w:.700,
+      h:.060,
       radius:18
     },
 
     tap:{
-      x:492,
-      y:494
+      x:.700,
+      y:.260
     },
 
-    card:
-      "bottom"
+    card:"bottom"
   },
 
 
   {
-    title:
-      "Filter your food",
-
-    text:
-      "Narrow the list by city, Picks, Flexible, Scheduled, area, food type or search.",
+    title:"Filter your food",
+    text:"Filter by city, Picks, Flexible, Scheduled, area, food type or search.",
 
     rect:{
-      x:47,
-      y:545,
-      w:614,
-      h:190,
+      x:.065,
+      y:.292,
+      w:.870,
+      h:.150,
       radius:18
     },
 
     tap:{
-      x:276,
-      y:701
+      x:.390,
+      y:.402
     },
 
-    card:
-      "bottom"
+    card:"bottom"
   },
 
 
   {
-    title:
-      "Your restaurant cards",
-
-    text:
-      "Each restaurant shows its area, cuisine, price and useful actions such as Map, Pick, Flex and Eaten.",
+    title:"Your restaurant cards",
+    text:"See the area, cuisine, price and actions such as Map, Pick, Flex and Eaten.",
 
     rect:{
-      x:48,
-      y:792,
-      w:614,
-      h:202,
+      x:.065,
+      y:.485,
+      w:.870,
+      h:.160,
       radius:18
     },
 
     tap:{
-      x:103,
-      y:955
+      x:.150,
+      y:.605
     },
 
-    card:
-      "top"
+    card:"top"
   },
 
 
   {
-    title:
-      "Add a restaurant",
-
-    text:
-      "Use + ADD when you want to save a restaurant that is not already in your list.",
+    title:"Add a restaurant",
+    text:"Use + ADD to save a restaurant that is not already in your list.",
 
     rect:{
-      x:573,
-      y:229,
-      w:90,
-      h:58,
+      x:.815,
+      y:.040,
+      w:.120,
+      h:.055,
       radius:13
     },
 
     tap:{
-      x:618,
-      y:258
+      x:.875,
+      y:.067
     },
 
-    card:
-      "bottom"
+    card:"bottom"
   },
 
 
   {
-    title:
-      "Quick navigation",
-
-    text:
-      "Use the centre menu to open Home, Trips, Plan, Food and More.",
+    title:"Quick navigation",
+    text:"Use the centre menu to open Home, Trips, Plan, Food and More.",
 
     rect:{
-      x:309,
-      y:1332,
-      w:91,
-      h:92,
+      x:.435,
+      y:.905,
+      w:.130,
+      h:.075,
       radius:48
     },
 
     tap:{
-      x:354,
-      y:1378
+      x:.500,
+      y:.942
     },
 
-    card:
-      "top"
+    card:"top"
   }
 
 ];
 
 
-
-/* =========================================================
-   STATE / ELEMENTS
-========================================================= */
-
-let currentStep =
-  0;
+let currentStep = 0;
 
 
 const stage =
@@ -882,9 +581,8 @@ const skipBtn =
   );
 
 
-
 /* =========================================================
-   OBJECT-FIT:COVER MAPPING
+   MAP SOURCE-IMAGE RATIOS THROUGH OBJECT-FIT:COVER
 ========================================================= */
 
 function imageMetrics(){
@@ -898,15 +596,19 @@ function imageMetrics(){
 
 
   const sourceWidth =
-    screenImage.naturalWidth
-    ||
-    SOURCE_WIDTH;
+    screenImage.naturalWidth;
 
 
   const sourceHeight =
-    screenImage.naturalHeight
-    ||
-    SOURCE_HEIGHT;
+    screenImage.naturalHeight;
+
+
+  if(
+    !sourceWidth ||
+    !sourceHeight
+  ){
+    return null;
+  }
 
 
   const scale =
@@ -927,7 +629,8 @@ function imageMetrics(){
 
 
   return{
-
+    sourceWidth,
+    sourceHeight,
     scale,
 
     offsetX:
@@ -943,69 +646,103 @@ function imageMetrics(){
         renderedHeight
       )
       / 2
-
   };
 
 }
 
 
-function mapRect(rect){
+function mapNormalizedRect(rect){
 
   const metrics =
     imageMetrics();
+
+
+  if(!metrics){
+    return null;
+  }
+
+
+  const sourceX =
+    rect.x *
+    metrics.sourceWidth;
+
+
+  const sourceY =
+    rect.y *
+    metrics.sourceHeight;
+
+
+  const sourceW =
+    rect.w *
+    metrics.sourceWidth;
+
+
+  const sourceH =
+    rect.h *
+    metrics.sourceHeight;
 
 
   return{
 
     left:
       metrics.offsetX +
-      rect.x *
+      sourceX *
       metrics.scale,
 
     top:
       metrics.offsetY +
-      rect.y *
+      sourceY *
       metrics.scale,
 
     width:
-      rect.w *
+      sourceW *
       metrics.scale,
 
     height:
-      rect.h *
+      sourceH *
       metrics.scale,
 
     radius:
       rect.radius *
       metrics.scale
-
   };
 
 }
 
 
-function mapPoint(point){
+function mapNormalizedPoint(point){
 
   const metrics =
     imageMetrics();
+
+
+  if(!metrics){
+    return null;
+  }
 
 
   return{
 
     x:
       metrics.offsetX +
-      point.x *
+      (
+        point.x *
+        metrics.sourceWidth
+      )
+      *
       metrics.scale,
 
     y:
       metrics.offsetY +
-      point.y *
+      (
+        point.y *
+        metrics.sourceHeight
+      )
+      *
       metrics.scale
-
   };
 
 }
-
 
 
 /* =========================================================
@@ -1036,14 +773,11 @@ function renderDots(){
 }
 
 
-
 /* =========================================================
-   GUIDE CARD POSITION
+   CARD POSITION
 ========================================================= */
 
-function positionGuideCard(
-  position
-){
+function positionGuideCard(position){
 
   guideCard.style.top =
     "";
@@ -1073,9 +807,8 @@ function positionGuideCard(
 }
 
 
-
 /* =========================================================
-   RENDER STEP
+   RENDER
 ========================================================= */
 
 function renderStep(){
@@ -1087,15 +820,23 @@ function renderStep(){
 
 
   const rect =
-    mapRect(
+    mapNormalizedRect(
       step.rect
     );
 
 
   const point =
-    mapPoint(
+    mapNormalizedPoint(
       step.tap
     );
+
+
+  if(
+    !rect ||
+    !point
+  ){
+    return;
+  }
 
 
   focusRing.style.left =
@@ -1161,13 +902,9 @@ function renderStep(){
   nextBtn.textContent =
     currentStep ===
     tutorialSteps.length - 1
-
     ?
-
     "DONE ✓"
-
     :
-
     "NEXT →";
 
 
@@ -1179,7 +916,6 @@ function renderStep(){
   renderDots();
 
 }
-
 
 
 /* =========================================================
@@ -1246,7 +982,6 @@ function finishTutorial(){
 }
 
 
-
 /* =========================================================
    BUTTONS
 ========================================================= */
@@ -1293,9 +1028,8 @@ skipBtn.onclick =
   finishTutorial;
 
 
-
 /* =========================================================
-   RESIZE / LOAD
+   LOAD / RESIZE
 ========================================================= */
 
 screenImage.addEventListener(
@@ -1323,7 +1057,6 @@ window.addEventListener(
 );
 
 
-
 /* =========================================================
    START
 ========================================================= */
@@ -1338,7 +1071,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
