@@ -1439,218 +1439,54 @@ main{
 
 
 /* =========================================================
-   GENERATED MOCKUP STYLE — FINAL OVERRIDES
-   Keeps the existing Supabase logic, sheets and footer.
+   FINAL TRIPS HERO TUNING
+   Keep the existing trip cards exactly as they are.
 ========================================================= */
 
-body{
-  padding-top:9px;
-}
-
-.trips-shell{
-  width:calc(100% - 18px);
-  max-width:720px;
-
-  border-color:#32404a;
-  border-radius:28px;
-
-  background:#071015;
-
-  box-shadow:
-    0 24px 70px rgba(0,0,0,.48);
-}
-
-
-/* ---------------------------------------------------------
-   CINEMATIC HERO
---------------------------------------------------------- */
-
+/* Softer / lower-opacity darkening on the LEFT so the
+   background image remains more visible behind the logo/title. */
 header{
-  min-height:300px;
-
-  border-top:3px solid var(--red-bright);
-  border-radius:27px 27px 0 0;
-
   background-image:
     linear-gradient(
       90deg,
-      rgba(3,7,10,.72) 0%,
-      rgba(3,7,10,.44) 38%,
-      rgba(3,7,10,.12) 70%,
-      rgba(3,7,10,.16) 100%
+      rgba(4,8,11,.44) 0%,
+      rgba(4,8,11,.34) 30%,
+      rgba(4,8,11,.18) 62%,
+      rgba(4,8,11,.08) 100%
     ),
     linear-gradient(
       0deg,
-      rgba(4,9,12,.78) 0%,
-      rgba(4,9,12,.20) 38%,
-      rgba(4,9,12,.02) 70%
+      rgba(5,9,12,.70) 0%,
+      rgba(5,9,12,.22) 38%,
+      rgba(5,9,12,.03) 72%
     ),
-    var(--trips-hero-image);
-
-  background-size:cover;
-  background-position:center 48%;
+    var(--trips-hero-image) !important;
 }
 
+/* Keep only a very soft left vignette. */
 header::after{
   background:
     radial-gradient(
-      ellipse at 0% 42%,
-      rgba(0,0,0,.42) 0%,
-      rgba(0,0,0,.18) 38%,
-      transparent 65%
+      ellipse at 0% 46%,
+      rgba(0,0,0,.16) 0%,
+      rgba(0,0,0,.08) 34%,
+      transparent 62%
     ),
     linear-gradient(
       180deg,
-      rgba(0,0,0,.04) 0%,
-      transparent 55%,
-      rgba(6,12,16,.28) 76%,
-      rgba(6,12,16,.88) 100%
-    );
+      transparent 69%,
+      rgba(5,9,12,.26) 84%,
+      rgba(5,9,12,.66) 100%
+    ) !important;
 }
 
-.header-inner{
-  padding:
-    25px
-    24px
-    24px;
-}
-
-.title-row{
-  min-height:145px;
-}
-
-.eyebrow{
-  margin-bottom:17px;
-
-  color:#ff827e;
-
-  font-size:8px;
-  letter-spacing:.23em;
-
-  text-shadow:
-    0 2px 12px rgba(0,0,0,.78);
-}
-
-.trips-hero{
-  gap:16px;
-}
-
-.trips-icon-wrap{
-  width:72px;
-  height:72px;
-  flex-basis:72px;
-
-  padding:10px;
-
-  border-color:rgba(255,98,95,.50);
-  background:rgba(4,9,13,.70);
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.02),
-    0 0 22px rgba(255,98,95,.08),
-    0 10px 30px rgba(0,0,0,.34);
-}
-
-.trips-page-title{
-  font-size:46px;
-
-  text-shadow:
-    0 3px 22px rgba(0,0,0,.78);
-}
-
-.header-sub{
-  margin-top:8px;
-
-  max-width:315px;
-
-  color:#bec6ca;
-
-  font-size:10px;
-
-  text-shadow:
-    0 2px 12px rgba(0,0,0,.80);
-}
-
-.header-actions{
-  top:0;
-  right:0;
-}
-
-.header-btn{
-  min-height:45px;
-
-  padding:0 16px;
-
-  border-color:rgba(255,98,95,.60);
-  border-radius:12px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,98,95,.15),
-      rgba(255,98,95,.075)
-    );
-
-  color:#ffc0bc;
-
-  font-size:8px;
-
-  box-shadow:
-    inset 0 0 20px rgba(255,98,95,.04),
-    0 0 18px rgba(255,98,95,.08),
-    0 6px 20px rgba(0,0,0,.24);
-}
-
-
-/* ---------------------------------------------------------
-   HERO DECOR
---------------------------------------------------------- */
-
-.hero-decor{
+/* Very faint Japanese "Trips / Travel" watermark, like Bookings. */
+.trips-kanji{
   position:absolute;
+  z-index:1;
 
-  z-index:2;
-
-  left:24px;
-  right:24px;
-  bottom:35px;
-
-  pointer-events:none;
-}
-
-.hero-motto{
-  color:#a7b1b7;
-
-  font-size:6.5px;
-  font-weight:800;
-
-  letter-spacing:.42em;
-  line-height:2.3;
-
-  text-shadow:
-    0 2px 10px rgba(0,0,0,.8);
-}
-
-.hero-motto span{
-  display:block;
-
-  width:29px;
-  height:2px;
-
-  margin-bottom:8px;
-
-  border-radius:999px;
-
-  background:var(--red-bright);
-}
-
-.hero-jp{
-  position:absolute;
-
-  right:5px;
-  bottom:-2px;
-
-  color:rgba(232,213,202,.42);
+  right:18px;
+  top:72px;
 
   font-family:
     "Yu Mincho",
@@ -1659,744 +1495,38 @@ header::after{
     Georgia,
     serif;
 
-  font-size:18px;
-  line-height:1.12;
+  font-size:76px;
+  font-weight:700;
+  line-height:1;
 
-  text-align:center;
+  letter-spacing:-.08em;
+
+  color:#ff625f;
+
+  opacity:.035;
+
+  text-shadow:
+    0 0 28px rgba(255,98,95,.055);
+
+  pointer-events:none;
+  user-select:none;
 }
 
-.hero-jp small{
-  display:block;
-
-  width:86px;
-
-  margin-top:8px;
-  margin-left:-29px;
-
-  color:rgba(200,208,212,.46);
-
-  font-family:
-    Inter,
-    sans-serif;
-
-  font-size:5px;
-  font-weight:800;
-
-  letter-spacing:.34em;
-
-  line-height:1.5;
-}
-
-.hero-fade{
-  bottom:-10px;
-  height:44px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,13,17,0),
-      rgba(7,13,17,.40) 42%,
-      #071015 100%
-    );
-}
-
-
-/* ---------------------------------------------------------
-   CONTENT SURFACE
---------------------------------------------------------- */
-
-main{
-  margin-top:0;
-
-  padding:
-    24px
-    20px
-    100px;
-
-  border-top:
-    1px solid
-    rgba(94,112,124,.30);
-
-  border-radius:
-    36px
-    36px
-    0
-    0;
-
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(29,45,55,.22),
-      transparent 25%
-    ),
-    linear-gradient(
-      180deg,
-      #081116,
-      #060d11
-    );
-}
-
-.section{
-  margin-bottom:28px;
-}
-
-.section-head{
-  margin:
-    0
-    2px
-    13px;
-}
-
-.section-label{
+/* Make sure real header content remains above the watermark. */
+.header-inner{
   position:relative;
-
-  padding-bottom:10px;
-
-  color:#c4cbd0;
-
-  font-size:9px;
-  letter-spacing:.22em;
+  z-index:3;
 }
 
-.section-label::after{
-  content:"";
+@media(max-width:430px){
+  .trips-kanji{
+    right:11px;
+    top:68px;
 
-  position:absolute;
+    font-size:64px;
 
-  left:0;
-  bottom:0;
-
-  width:36px;
-  height:2px;
-
-  border-radius:999px;
-
-  background:var(--red-bright);
-}
-
-.section-count{
-  min-width:52px;
-
-  padding:
-    7px
-    12px;
-
-  border-color:#31404a;
-  border-radius:17px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #101921,
-      #0b1218
-    );
-
-  color:#d4d9dc;
-
-  font-size:8px;
-}
-
-
-/* ---------------------------------------------------------
-   TRIP CARDS
---------------------------------------------------------- */
-
-.trip-list{
-  gap:14px;
-}
-
-.trip-card{
-  border:
-    1px solid
-    rgba(255,98,95,.32);
-
-  border-radius:20px;
-
-  background:
-    radial-gradient(
-      circle at 0% 50%,
-      rgba(255,98,95,.055),
-      transparent 28%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(17,27,34,.99),
-      rgba(8,16,21,.99)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025),
-    0 10px 24px rgba(0,0,0,.18);
-}
-
-.trip-card::before{
-  top:14px;
-  bottom:14px;
-
-  width:4px;
-
-  border-radius:999px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ff625f,
-      rgba(255,98,95,.55)
-    );
-
-  box-shadow:
-    0 0 12px rgba(255,98,95,.24);
-}
-
-.trip-card::after{
-  width:180px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,98,95,.36),
-      transparent
-    );
-}
-
-.trip-card.shared-trip{
-  border-color:
-    rgba(120,169,239,.28);
-}
-
-.trip-card.shared-trip::before{
-  background:
-    linear-gradient(
-      180deg,
-      #78a9ef,
-      rgba(120,169,239,.42)
-    );
-}
-
-.trip-body{
-  padding:
-    14px
-    14px
-    13px;
-}
-
-.trip-layout{
-  position:relative;
-
-  display:grid;
-
-  grid-template-columns:
-    112px
-    minmax(0,1fr)
-    16px;
-
-  gap:15px;
-
-  align-items:center;
-}
-
-.trip-media{
-  position:relative;
-
-  width:112px;
-  height:132px;
-
-  overflow:hidden;
-
-  border:
-    1px solid
-    rgba(255,98,95,.22);
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,98,95,.09),
-      rgba(255,255,255,.025)
-    );
-
-  box-shadow:
-    0 8px 22px rgba(0,0,0,.26);
-}
-
-.trip-cover{
-  width:100%;
-  height:100%;
-
-  display:block;
-
-  object-fit:cover;
-}
-
-.trip-media-fallback{
-  width:100%;
-  height:100%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(255,98,95,.12),
-      transparent 40%
-    ),
-    linear-gradient(
-      145deg,
-      #151c25,
-      #0c1319
-    );
-
-  font-size:44px;
-}
-
-.trip-flag{
-  position:absolute;
-
-  left:8px;
-  bottom:8px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  min-width:30px;
-  height:24px;
-
-  padding:0 6px;
-
-  border-radius:6px;
-
-  background:#f3f5f6;
-
-  font-size:17px;
-
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.28);
-}
-
-.trip-main{
-  min-width:0;
-}
-
-.badges{
-  gap:5px;
-  margin-bottom:7px;
-}
-
-.badge{
-  padding:
-    4px
-    8px;
-
-  border-radius:999px;
-
-  font-size:6.5px;
-  letter-spacing:.05em;
-}
-
-.trip-name{
-  font-size:21px;
-  line-height:1.08;
-
-  white-space:normal;
-}
-
-.trip-country{
-  display:flex;
-  align-items:center;
-
-  gap:5px;
-
-  margin-top:7px;
-
-  color:#a8b2b8;
-
-  font-size:9px;
-}
-
-.trip-country span{
-  color:var(--red-bright);
-}
-
-.trip-dates{
-  display:flex;
-  align-items:center;
-
-  gap:5px;
-
-  margin-top:7px;
-
-  color:#b6c0c6;
-
-  font-size:8.5px;
-}
-
-.trip-dates span{
-  color:var(--red-bright);
-}
-
-.trip-description{
-  margin-top:7px;
-
-  color:#8f9ba2;
-
-  font-size:8px;
-  line-height:1.45;
-}
-
-.trip-arrow{
-  color:#b7c2c8;
-
-  font-size:30px;
-  font-weight:300;
-}
-
-.actions{
-  grid-template-columns:
-    minmax(0,1.8fr)
-    minmax(80px,.72fr)
-    minmax(96px,.9fr);
-
-  gap:8px;
-
-  margin-top:13px;
-  padding-top:0;
-
-  border-top:0;
-}
-
-.open-btn,
-.edit-btn,
-.share-btn,
-.shared-by{
-  min-height:45px;
-
-  border-radius:11px;
-
-  font-size:8px;
-  font-weight:900;
-}
-
-.open-btn{
-  border-color:
-    rgba(255,98,95,.48);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,98,95,.12),
-      rgba(255,98,95,.035)
-    );
-
-  color:#ff8984;
-}
-
-.edit-btn{
-  border:
-    1px solid
-    #2b3943;
-
-  background:
-    linear-gradient(
-      180deg,
-      #101a21,
-      #0c141a
-    );
-
-  color:#b8c4ca;
-}
-
-.share-btn{
-  border-color:
-    rgba(255,98,95,.38);
-
-  color:#ff8984;
-}
-
-.share-btn.shared-now{
-  border-color:
-    rgba(121,201,149,.36);
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(121,201,149,.09),
-      rgba(121,201,149,.025)
-    );
-
-  color:#8ce0aa;
-}
-
-.shared-by{
-  grid-column:
-    2 / 4;
-
-  border:
-    1px solid
-    #2c3a44;
-
-  background:#0c151b;
-
-  color:#71818c;
-}
-
-
-/* ---------------------------------------------------------
-   EMPTY / ERROR STATES
---------------------------------------------------------- */
-
-.state{
-  padding:
-    32px
-    18px;
-
-  border-radius:17px;
-
-  background:#0b1318;
-}
-
-
-/* ---------------------------------------------------------
-   MOBILE TUNING
---------------------------------------------------------- */
-
-@media(max-width:520px){
-
-  header{
-    min-height:245px;
-
-    background-position:center 47%;
+    opacity:.03;
   }
-
-  .header-inner{
-    padding:
-      20px
-      17px
-      18px;
-  }
-
-  .title-row{
-    min-height:122px;
-  }
-
-  .eyebrow{
-    margin-bottom:12px;
-    font-size:7px;
-  }
-
-  .trips-hero{
-    gap:11px;
-  }
-
-  .trips-icon-wrap{
-    width:58px;
-    height:58px;
-    flex-basis:58px;
-    padding:8px;
-  }
-
-  .trips-page-title{
-    font-size:35px;
-  }
-
-  .header-sub{
-    max-width:215px;
-    font-size:7.7px;
-  }
-
-  .header-btn{
-    min-height:35px;
-    padding:0 10px;
-    font-size:6.5px;
-  }
-
-  .hero-decor{
-    left:17px;
-    right:17px;
-    bottom:26px;
-  }
-
-  .hero-motto{
-    font-size:5px;
-    letter-spacing:.32em;
-    line-height:2.05;
-  }
-
-  .hero-jp{
-    display:none;
-  }
-
-  main{
-    padding:
-      20px
-      14px
-      102px;
-
-    border-radius:
-      27px
-      27px
-      0
-      0;
-  }
-
-  .section-label{
-    font-size:7.5px;
-  }
-
-  .section-count{
-    min-width:40px;
-    padding:5px 9px;
-    font-size:6.5px;
-  }
-
-  .trip-card{
-    border-radius:15px;
-  }
-
-  .trip-body{
-    padding:
-      11px
-      11px
-      10px;
-  }
-
-  .trip-layout{
-    grid-template-columns:
-      76px
-      minmax(0,1fr)
-      10px;
-
-    gap:10px;
-  }
-
-  .trip-media{
-    width:76px;
-    height:94px;
-
-    border-radius:10px;
-  }
-
-  .trip-media-fallback{
-    font-size:31px;
-  }
-
-  .trip-flag{
-    left:5px;
-    bottom:5px;
-
-    min-width:24px;
-    height:19px;
-
-    padding:0 4px;
-
-    font-size:13px;
-  }
-
-  .badges{
-    gap:3px;
-    margin-bottom:5px;
-  }
-
-  .badge{
-    padding:
-      2px
-      5px;
-
-    font-size:5px;
-  }
-
-  .trip-name{
-    font-size:15px;
-  }
-
-  .trip-country{
-    margin-top:4px;
-
-    font-size:6.8px;
-  }
-
-  .trip-dates{
-    margin-top:4px;
-
-    font-size:6.8px;
-  }
-
-  .trip-description{
-    margin-top:5px;
-
-    font-size:6.6px;
-  }
-
-  .trip-arrow{
-    font-size:21px;
-  }
-
-  .actions{
-    grid-template-columns:
-      minmax(0,1.7fr)
-      minmax(56px,.65fr)
-      minmax(70px,.8fr);
-
-    gap:5px;
-
-    margin-top:9px;
-  }
-
-  .open-btn,
-  .edit-btn,
-  .share-btn,
-  .shared-by{
-    min-height:34px;
-
-    padding:
-      4px
-      6px;
-
-    border-radius:8px;
-
-    font-size:6.2px;
-  }
-
-}
-
-
-@media(max-width:360px){
-
-  .hero-motto{
-    display:none;
-  }
-
-  .trip-layout{
-    grid-template-columns:
-      68px
-      minmax(0,1fr)
-      8px;
-  }
-
-  .trip-media{
-    width:68px;
-    height:88px;
-  }
-
-  .trip-name{
-    font-size:14px;
-  }
-
-  .actions{
-    grid-template-columns:
-      minmax(0,1fr)
-      auto;
-  }
-
-  .share-btn,
-  .shared-by{
-    grid-column:
-      1 / -1;
-  }
-
 }
 
 
@@ -2416,6 +1546,11 @@ main{
 ========================================================= -->
 
 <header>
+
+
+  <div class="trips-kanji" aria-hidden="true">
+    旅行
+  </div>
 
 
   <div class="header-inner">
@@ -2492,19 +1627,6 @@ main{
 
   </div>
 
-
-  <div class="hero-decor" aria-hidden="true">
-    <div class="hero-motto">
-      <span></span>
-      MORE PLACES<br>
-      BRIGHTER STORIES
-    </div>
-
-    <div class="hero-jp">
-      旅<br>の<br>記<br>憶
-      <small>TRAVEL LIVES ON</small>
-    </div>
-  </div>
 
   <div class="hero-fade"></div>
 
@@ -3751,27 +2873,40 @@ function tripCard(
   role
 ){
 
+
   const isCurrent =
+
     Number(
       getCurrentTripId()
     )
+
     ===
+
     Number(
       trip.id
     );
 
 
   const isShared =
-    role !== "owner";
+    role
+    !==
+    "owner";
 
 
   const publication =
-    role === "owner"
+
+    role
+    ===
+    "owner"
+
     ?
+
     publicationForTrip(
       trip.id
     )
+
     :
+
     null;
 
 
@@ -3790,47 +2925,43 @@ function tripCard(
 
 
   if(
-    role === "editor"
+    role
+    ===
+    "editor"
   ){
+
 
     roleClass =
       "editor";
 
+
     roleLabel =
       "EDITOR";
 
+
   }
 
+
   else if(
-    role !== "owner"
+    role
+    !==
+    "owner"
   ){
+
 
     roleClass =
       "viewer";
 
+
     roleLabel =
       "VIEWER";
+
 
   }
 
 
-  const coverURL =
-    trip.cover_image_url
-    ||
-    trip.image_url
-    ||
-    trip.photo_url
-    ||
-    "";
-
-
-  const flag =
-    countryEmoji(
-      trip.country
-    );
-
-
   return `
+
 
     <article
       class="
@@ -3840,69 +2971,72 @@ function tripCard(
       "
     >
 
+
       <div class="trip-body">
 
-        <div class="trip-layout">
 
-          <div class="trip-media">
+        <div class="trip-top">
 
-            ${
-              coverURL
-              ?
-              `
-                <img
-                  class="trip-cover"
-                  src="${esc(coverURL)}"
-                  alt=""
-                  loading="lazy"
-                >
 
-                <span class="trip-flag">
-                  ${flag}
-                </span>
-              `
-              :
-              `
-                <div class="trip-media-fallback">
-                  ${flag}
-                </div>
-              `
-            }
+          <div class="country-icon">
+
+            ${countryEmoji(
+              trip.country
+            )}
 
           </div>
 
 
           <div class="trip-main">
 
+
             <div class="badges">
+
 
               ${
                 isCurrent
+
                 ?
+
                 `
+
                   <span class="badge current">
                     CURRENT
                   </span>
+
                 `
+
                 :
+
                 ""
               }
 
-              <span class="badge ${roleClass}">
+
+              <span
+                class="badge ${roleClass}"
+              >
                 ${roleLabel}
               </span>
 
+
               ${
                 isPublic
+
                 ?
+
                 `
+
                   <span class="badge public">
                     🌐 SHARED
                   </span>
+
                 `
+
                 :
+
                 ""
               }
+
 
             </div>
 
@@ -3920,8 +3054,6 @@ function tripCard(
 
             <div class="trip-country">
 
-              <span>📍</span>
-
               ${esc(
                 trip.country
                 ||
@@ -3933,8 +3065,7 @@ function tripCard(
 
             <div class="trip-dates">
 
-              <span>📅</span>
-
+              📅
               ${esc(
                 tripDates(
                   trip
@@ -3946,29 +3077,36 @@ function tripCard(
 
             ${
               trip.description
+
               ?
+
               `
+
                 <div class="trip-description">
+
                   ${esc(
                     trip.description
                   )}
+
                 </div>
+
               `
+
               :
+
               ""
             }
 
+
           </div>
 
-
-          <div class="trip-arrow" aria-hidden="true">
-            ›
-          </div>
 
         </div>
 
 
+
         <div class="actions">
+
 
           <button
             class="open-btn"
@@ -3980,9 +3118,14 @@ function tripCard(
 
 
           ${
-            role === "owner"
+            role
+            ===
+            "owner"
+
             ?
+
             `
+
               <button
                 class="edit-btn"
                 type="button"
@@ -4000,6 +3143,7 @@ function tripCard(
                 type="button"
                 onclick="shareTrip(${Number(trip.id)})"
               >
+
                 ${
                   isPublic
                   ?
@@ -4007,27 +3151,28 @@ function tripCard(
                   :
                   "↗ SHARE"
                 }
+
               </button>
+
             `
+
             :
-            `
-              <button
-                class="shared-by"
-                type="button"
-                disabled
-              >
-                ↗ SHARED WITH YOU
-              </button>
-            `
+
+            ""
           }
+
 
         </div>
 
+
       </div>
+
 
     </article>
 
+
   `;
+
 
 }
 
