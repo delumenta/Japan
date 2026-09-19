@@ -1530,6 +1530,423 @@ header::after{
 }
 
 
+
+
+/* =========================================================
+   FINAL MY TRIPS HEADER
+   Matches the cinematic reference while leaving trip cards
+   and all Supabase logic untouched.
+========================================================= */
+
+header{
+  min-height:315px !important;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(3,7,10,.54) 0%,
+      rgba(3,7,10,.37) 30%,
+      rgba(3,7,10,.14) 64%,
+      rgba(3,7,10,.08) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(4,9,12,.78) 0%,
+      rgba(4,9,12,.30) 36%,
+      rgba(4,9,12,.02) 70%
+    ),
+    var(--trips-hero-image) !important;
+
+  background-size:cover !important;
+  background-position:center 47% !important;
+}
+
+
+/* Softer cinematic vignette.
+   Left remains visible instead of becoming a black block. */
+header::after{
+  background:
+    radial-gradient(
+      ellipse at 0% 45%,
+      rgba(0,0,0,.22) 0%,
+      rgba(0,0,0,.09) 38%,
+      transparent 64%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02) 0%,
+      transparent 55%,
+      rgba(5,10,14,.30) 75%,
+      rgba(5,10,14,.86) 100%
+    ) !important;
+}
+
+
+/* Old watermark is no longer used. */
+.trips-kanji{
+  display:none !important;
+}
+
+
+/* Header content */
+.header-inner{
+  position:relative !important;
+  z-index:4 !important;
+
+  padding:
+    25px
+    24px
+    22px !important;
+}
+
+.title-row{
+  position:relative !important;
+
+  min-height:145px !important;
+}
+
+.eyebrow{
+  margin-bottom:16px !important;
+
+  color:#ff8580 !important;
+
+  font-size:8px !important;
+  letter-spacing:.23em !important;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.78) !important;
+}
+
+.trips-hero{
+  gap:17px !important;
+}
+
+.trips-icon-wrap{
+  width:76px !important;
+  height:76px !important;
+
+  flex-basis:76px !important;
+
+  padding:10px !important;
+
+  border-color:
+    rgba(255,98,95,.48) !important;
+
+  background:
+    rgba(4,9,13,.72) !important;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.018),
+    0 0 22px rgba(255,98,95,.08),
+    0 10px 30px rgba(0,0,0,.32) !important;
+}
+
+.trips-page-title{
+  font-size:47px !important;
+
+  text-shadow:
+    0 3px 22px rgba(0,0,0,.80) !important;
+}
+
+.header-sub{
+  margin-top:9px !important;
+
+  max-width:330px !important;
+
+  color:#c1c8cc !important;
+
+  font-size:10px !important;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.82) !important;
+}
+
+
+/* Add Trip button */
+.header-actions{
+  top:0 !important;
+  right:0 !important;
+}
+
+.header-btn{
+  min-height:48px !important;
+
+  padding:
+    0
+    18px !important;
+
+  border:
+    1px solid
+    rgba(255,98,95,.58) !important;
+
+  border-radius:13px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.14),
+      rgba(255,98,95,.065)
+    ) !important;
+
+  color:#ffc0bc !important;
+
+  font-size:8px !important;
+
+  box-shadow:
+    inset 0 0 20px rgba(255,98,95,.035),
+    0 0 18px rgba(255,98,95,.07),
+    0 6px 20px rgba(0,0,0,.24) !important;
+}
+
+
+/* =========================================================
+   LOWER HERO DECORATION
+========================================================= */
+
+.trips-hero-copy{
+  position:absolute;
+
+  z-index:3;
+
+  left:24px;
+  right:24px;
+  bottom:26px;
+
+  pointer-events:none;
+}
+
+
+/* "MORE PLACES / BRIGHTER STORIES" */
+.trips-hero-motto{
+  color:
+    rgba(215,220,223,.63);
+
+  font-size:6px;
+  font-weight:800;
+
+  letter-spacing:.40em;
+  line-height:2.3;
+
+  text-shadow:
+    0 2px 11px rgba(0,0,0,.85);
+}
+
+.motto-line{
+  display:block;
+
+  width:34px;
+  height:2px;
+
+  margin-bottom:9px;
+
+  border-radius:999px;
+
+  background:#ff625f;
+
+  box-shadow:
+    0 0 9px rgba(255,98,95,.20);
+}
+
+
+/* Vertical Japanese "travel memories" */
+.trips-hero-memory{
+  position:absolute;
+
+  right:3px;
+  bottom:-1px;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  gap:10px;
+}
+
+.memory-jp{
+  color:
+    rgba(231,208,196,.36);
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:20px;
+  font-weight:500;
+
+  line-height:1.05;
+
+  text-align:center;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.62);
+}
+
+.memory-en{
+  padding-bottom:1px;
+
+  color:
+    rgba(207,214,217,.42);
+
+  font-size:5px;
+  font-weight:850;
+
+  letter-spacing:.34em;
+  line-height:1.85;
+
+  text-align:left;
+
+  white-space:nowrap;
+}
+
+
+/* Short clean blend into the cards */
+.hero-fade{
+  bottom:-13px !important;
+
+  height:46px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.28) 34%,
+      rgba(7,13,17,.72) 72%,
+      #091015 100%
+    ) !important;
+}
+
+
+/* =========================================================
+   PHONE SIZE
+========================================================= */
+
+@media(max-width:430px){
+
+  header{
+    min-height:255px !important;
+
+    background-position:
+      center 47% !important;
+  }
+
+  .header-inner{
+    padding:
+      19px
+      17px
+      18px !important;
+  }
+
+  .title-row{
+    min-height:119px !important;
+  }
+
+  .eyebrow{
+    margin-bottom:12px !important;
+
+    font-size:7px !important;
+  }
+
+  .trips-hero{
+    gap:11px !important;
+  }
+
+  .trips-icon-wrap{
+    width:60px !important;
+    height:60px !important;
+
+    flex-basis:60px !important;
+
+    padding:8px !important;
+  }
+
+  .trips-page-title{
+    font-size:36px !important;
+  }
+
+  .header-sub{
+    margin-top:6px !important;
+
+    max-width:220px !important;
+
+    font-size:7.8px !important;
+  }
+
+  .header-btn{
+    min-height:36px !important;
+
+    padding:
+      0
+      10px !important;
+
+    border-radius:10px !important;
+
+    font-size:6.5px !important;
+  }
+
+
+  .trips-hero-copy{
+    left:17px;
+    right:17px;
+    bottom:20px;
+  }
+
+  .trips-hero-motto{
+    font-size:4.8px;
+
+    letter-spacing:.30em;
+    line-height:2.15;
+  }
+
+  .motto-line{
+    width:26px;
+    height:1.5px;
+
+    margin-bottom:7px;
+  }
+
+  .trips-hero-memory{
+    right:1px;
+    bottom:-1px;
+
+    gap:7px;
+  }
+
+  .memory-jp{
+    font-size:15px;
+
+    opacity:.82;
+  }
+
+  .memory-en{
+    font-size:3.7px;
+
+    letter-spacing:.25em;
+  }
+
+}
+
+
+/* Tiny phones: keep the composition clean. */
+@media(max-width:360px){
+
+  .trips-hero-motto{
+    display:none;
+  }
+
+  .memory-jp{
+    font-size:14px;
+  }
+
+  .memory-en{
+    display:none;
+  }
+
+}
+
+
 </style>
 
 </head>
@@ -1546,13 +1963,6 @@ header::after{
 ========================================================= -->
 
 <header>
-
-
-  <div class="trips-kanji" aria-hidden="true">
-    旅行
-  </div>
-
-
   <div class="header-inner">
 
 
@@ -1624,6 +2034,37 @@ header::after{
 
     </div>
 
+
+  </div>
+
+
+  <div class="trips-hero-copy" aria-hidden="true">
+
+    <div class="trips-hero-motto">
+      <span class="motto-line"></span>
+
+      <div>
+        MORE PLACES
+      </div>
+
+      <div>
+        BRIGHTER STORIES
+      </div>
+    </div>
+
+
+    <div class="trips-hero-memory">
+
+      <div class="memory-jp">
+        旅<br>の<br>記<br>憶
+      </div>
+
+      <div class="memory-en">
+        TRAVEL<br>
+        LIVES ON
+      </div>
+
+    </div>
 
   </div>
 
