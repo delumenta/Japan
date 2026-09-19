@@ -1947,6 +1947,351 @@ header::after{
 }
 
 
+
+
+/* =========================================================
+   FINAL COMPACT REFERENCE HEADER
+   Match the reference composition:
+   title up top, decorative copy lower down, then MY TRIPS
+   immediately below without the large empty gap.
+========================================================= */
+
+header{
+  min-height:258px !important;
+}
+
+.header-inner{
+  padding:
+    20px
+    18px
+    14px !important;
+}
+
+.title-row{
+  min-height:auto !important;
+}
+
+.trips-hero{
+  margin-top:0 !important;
+}
+
+.trips-hero-copy{
+  left:18px !important;
+  right:18px !important;
+  bottom:16px !important;
+}
+
+.trips-hero-motto{
+  font-size:5.2px !important;
+  letter-spacing:.34em !important;
+  line-height:2.15 !important;
+}
+
+.motto-line{
+  width:29px !important;
+  margin-bottom:7px !important;
+}
+
+.trips-hero-memory{
+  right:0 !important;
+  bottom:0 !important;
+}
+
+.memory-jp{
+  font-size:16px !important;
+  opacity:.78 !important;
+}
+
+.memory-en{
+  font-size:3.9px !important;
+  letter-spacing:.27em !important;
+  line-height:1.75 !important;
+}
+
+.hero-fade{
+  bottom:-9px !important;
+  height:28px !important;
+}
+
+
+/* Pull the Trips section up into the hero, like the reference. */
+main{
+  margin-top:-1px !important;
+
+  padding:
+    15px
+    14px
+    102px !important;
+
+  border-top:
+    1px solid
+    rgba(83,103,116,.24) !important;
+
+  border-radius:
+    27px
+    27px
+    0
+    0 !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      #081116 0%,
+      #071015 80px,
+      #060d11 100%
+    ) !important;
+}
+
+.section-head{
+  margin-top:0 !important;
+}
+
+
+/* =========================================================
+   MOBILE — MAIN TARGET
+========================================================= */
+
+@media(max-width:430px){
+
+  header{
+    min-height:220px !important;
+    background-position:center 47% !important;
+  }
+
+  .header-inner{
+    padding:
+      16px
+      16px
+      10px !important;
+  }
+
+  .eyebrow{
+    margin-bottom:10px !important;
+    font-size:6.8px !important;
+  }
+
+  .trips-hero{
+    gap:10px !important;
+  }
+
+  .trips-icon-wrap{
+    width:56px !important;
+    height:56px !important;
+    flex-basis:56px !important;
+    padding:8px !important;
+  }
+
+  .trips-page-title{
+    font-size:34px !important;
+  }
+
+  .header-sub{
+    max-width:205px !important;
+    margin-top:5px !important;
+    font-size:7.4px !important;
+  }
+
+  .header-btn{
+    min-height:34px !important;
+    padding:0 9px !important;
+    font-size:6.2px !important;
+  }
+
+  .trips-hero-copy{
+    left:16px !important;
+    right:16px !important;
+    bottom:12px !important;
+  }
+
+  .trips-hero-motto{
+    font-size:4.3px !important;
+    letter-spacing:.30em !important;
+    line-height:2.05 !important;
+  }
+
+  .motto-line{
+    width:25px !important;
+    height:1.5px !important;
+    margin-bottom:6px !important;
+  }
+
+  .memory-jp{
+    font-size:14px !important;
+  }
+
+  .memory-en{
+    font-size:3.4px !important;
+    letter-spacing:.23em !important;
+  }
+
+  .hero-fade{
+    bottom:-7px !important;
+    height:24px !important;
+  }
+
+  main{
+    padding:
+      13px
+      14px
+      102px !important;
+
+    border-radius:
+      24px
+      24px
+      0
+      0 !important;
+  }
+
+}
+
+
+/* Short phones: trim just a little more. */
+@media(max-width:430px) and (max-height:820px){
+
+  header{
+    min-height:210px !important;
+  }
+
+  .trips-hero-copy{
+    bottom:10px !important;
+  }
+
+}
+
+
+
+
+/* =========================================================
+   INSET CORAL TOP ACCENT
+   Match the Plan / Bookings top line:
+   short inset line with rounded ends instead of a full-width border.
+========================================================= */
+
+/* Remove the old full-width header border. */
+header{
+  border-top:0 !important;
+}
+
+/* Draw the coral accent inside the rounded shell. */
+.trips-shell::before{
+  content:"";
+
+  position:absolute;
+  z-index:120;
+
+  top:0;
+  left:18px;
+  right:18px;
+
+  height:3px;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff625f 0%,
+      #ff7b77 48%,
+      #ff625f 100%
+    );
+
+  box-shadow:
+    0 0 12px rgba(255,98,95,.24);
+
+  pointer-events:none;
+}
+
+@media(max-width:430px){
+  .trips-shell::before{
+    left:11px;
+    right:11px;
+
+    height:3px;
+  }
+}
+
+
+
+
+/* =========================================================
+   ADD TRIP BUTTON — MATCH BOOKINGS
+========================================================= */
+
+.header-actions{
+  top:2px !important;
+  right:0 !important;
+}
+
+.header-btn{
+  min-width:96px !important;
+  min-height:52px !important;
+
+  padding:
+    0
+    16px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  border:
+    1px solid
+    rgba(255,98,95,.46) !important;
+
+  border-radius:14px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.12) 0%,
+      rgba(255,98,95,.055) 100%
+    ) !important;
+
+  color:#ffc0bc !important;
+
+  font-size:8px !important;
+  font-weight:900 !important;
+
+  letter-spacing:.02em !important;
+
+  box-shadow:
+    inset 0 0 18px rgba(255,98,95,.035),
+    0 0 16px rgba(255,98,95,.08),
+    0 6px 18px rgba(0,0,0,.22) !important;
+
+  text-shadow:
+    0 1px 8px rgba(0,0,0,.48) !important;
+}
+
+.header-btn:active{
+  transform:scale(.96) !important;
+}
+
+
+/* Mobile target */
+@media(max-width:430px){
+
+  .header-actions{
+    top:1px !important;
+    right:0 !important;
+  }
+
+  .header-btn{
+    min-width:82px !important;
+    min-height:46px !important;
+
+    padding:
+      0
+      12px !important;
+
+    border-radius:13px !important;
+
+    font-size:7px !important;
+  }
+
+}
+
+
 </style>
 
 </head>
