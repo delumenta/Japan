@@ -2214,77 +2214,81 @@ header{
 
 
 /* =========================================================
-   ADD TRIP BUTTON — MATCH BOOKINGS
+   FINAL ADD TRIP BUTTON
+   Match Food page button dimensions exactly.
 ========================================================= */
 
 .header-actions{
-  top:2px !important;
+  top:0 !important;
   right:0 !important;
 }
 
 .header-btn{
-  min-width:96px !important;
-  min-height:52px !important;
+  flex:0 0 auto !important;
+
+  min-width:0 !important;
+  width:auto !important;
+
+  min-height:29px !important;
+  height:auto !important;
 
   padding:
     0
-    16px !important;
-
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
+    10px !important;
 
   border:
     1px solid
-    rgba(255,98,95,.46) !important;
+    rgba(255,98,95,.38) !important;
 
-  border-radius:14px !important;
+  border-radius:9px !important;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(255,98,95,.12) 0%,
-      rgba(255,98,95,.055) 100%
-    ) !important;
+    rgba(255,98,95,.09) !important;
 
-  color:#ffc0bc !important;
+  color:#ffb3ae !important;
 
-  font-size:8px !important;
+  font-size:7px !important;
   font-weight:900 !important;
 
-  letter-spacing:.02em !important;
+  letter-spacing:.04em !important;
 
   box-shadow:
-    inset 0 0 18px rgba(255,98,95,.035),
-    0 0 16px rgba(255,98,95,.08),
-    0 6px 18px rgba(0,0,0,.22) !important;
+    inset
+    0 0 16px
+    rgba(255,98,95,.025),
 
-  text-shadow:
-    0 1px 8px rgba(0,0,0,.48) !important;
+    0 3px 14px
+    rgba(0,0,0,.18) !important;
+
+  text-shadow:none !important;
+
+  white-space:nowrap !important;
 }
 
 .header-btn:active{
-  transform:scale(.96) !important;
+  transform:scale(.95) !important;
 }
 
 
-/* Mobile target */
+/* Keep the same compact sizing on phones too. */
 @media(max-width:430px){
 
   .header-actions{
-    top:1px !important;
+    top:0 !important;
     right:0 !important;
   }
 
   .header-btn{
-    min-width:82px !important;
-    min-height:46px !important;
+    min-width:0 !important;
+    width:auto !important;
+
+    min-height:29px !important;
 
     padding:
       0
-      12px !important;
+      10px !important;
 
-    border-radius:13px !important;
+    border-radius:9px !important;
 
     font-size:7px !important;
   }
