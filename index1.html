@@ -14,6 +14,7 @@
 
 <title>My Trip</title>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="google-maps.js"></script>
@@ -31,10 +32,8 @@
 
   --panel:#10161c;
   --panel2:#151c23;
-  --panel3:#182128;
 
   --line:#29323b;
-  --line-soft:rgba(255,255,255,.06);
 
   --text:#f5f5f3;
 
@@ -42,13 +41,17 @@
   --muted2:#7f8b93;
 
   --red:#c96f68;
-  --red-bright:#ff6b67;
+  --red-bright:#ff6966;
 
   --red-soft:rgba(201,111,104,.10);
   --red-line:rgba(201,111,104,.38);
 
   --blue:#5c9dff;
   --green:#67c587;
+
+
+  --travel-logo:
+    url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg");
 
 }
 
@@ -94,8 +97,7 @@ body{
     "Segoe UI",
     sans-serif;
 
-  -webkit-font-smoothing:
-    antialiased;
+  -webkit-font-smoothing:antialiased;
 
 }
 
@@ -103,22 +105,24 @@ body{
 button,
 input,
 textarea{
+
   font:inherit;
+
 }
 
 
 button{
-  -webkit-tap-highlight-color:transparent;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
 }
 
 
 a{
+
   color:inherit;
-}
 
-
-[hidden]{
-  display:none !important;
 }
 
 
@@ -139,13 +143,24 @@ main{
 }
 
 
+
 /* =========================================================
-   NORMAL HOME
+   NORMAL APP
 ========================================================= */
 
-#tripHome{
-  display:block;
+#normalTripView{
+
+  display:none;
+
 }
+
+
+#normalTripView.show{
+
+  display:block;
+
+}
+
 
 
 /* =========================================================
@@ -191,23 +206,37 @@ main{
 
   inset:0;
 
+
   background:
 
     linear-gradient(
+
       to bottom,
+
       rgba(4,8,11,.08) 0%,
+
       rgba(4,8,11,.10) 34%,
+
       rgba(4,8,11,.22) 58%,
+
       rgba(4,8,11,.62) 82%,
+
       #070c10 100%
+
     ),
 
     linear-gradient(
+
       to right,
+
       rgba(5,9,12,.34) 0%,
+
       rgba(5,9,12,.12) 38%,
+
       transparent 68%,
+
       rgba(5,9,12,.08) 100%
+
     );
 
 }
@@ -224,6 +253,7 @@ main{
   display:flex;
 
   flex-direction:column;
+
 
   padding:
 
@@ -248,16 +278,18 @@ main{
   justify-content:
     space-between;
 
-  gap:18px;
+  gap:14px;
 
 }
 
 
 .hero-copy{
 
+  flex:1;
+
   min-width:0;
 
-  flex:1;
+  padding-right:4px;
 
 }
 
@@ -274,6 +306,7 @@ main{
 
   text-transform:uppercase;
 
+
   text-shadow:
 
     0 2px 12px
@@ -282,11 +315,12 @@ main{
 }
 
 
+
 /* =========================================================
-   SWITCHABLE TRIP TITLE
+   CLICKABLE TRIP TITLE
 ========================================================= */
 
-.trip-title-button{
+.trip-switch-trigger{
 
   max-width:100%;
 
@@ -294,25 +328,17 @@ main{
 
   align-items:center;
 
-  gap:6px;
+  gap:7px;
 
-  margin:
-    5px
-    0
-    0;
+  margin-top:7px;
 
-  padding:
-    2px
-    4px
-    3px
-    0;
+  padding:0;
 
-  border:1px solid transparent;
+  border:0;
 
-  border-radius:9px;
+  outline:0;
 
-  background:
-    transparent;
+  background:transparent;
 
   color:inherit;
 
@@ -323,39 +349,40 @@ main{
 }
 
 
-.trip-title-button:active{
-
-  border-color:
-    rgba(201,111,104,.38);
-
-  background:
-    rgba(201,111,104,.08);
-
-}
-
-
 .hero-title{
-
-  min-width:0;
 
   margin:0;
 
-  overflow:hidden;
 
-  color:#f7f5ef;
+  color:#fff;
+
 
   font:
+
     700
-    36px/1
+
+    clamp(
+      27px,
+      8vw,
+      36px
+    )
+
+    /1.02
+
     Georgia,
     "Times New Roman",
     serif;
 
+
   letter-spacing:-.035em;
 
-  text-overflow:ellipsis;
 
-  white-space:nowrap;
+  white-space:normal;
+
+  overflow:visible;
+
+  text-overflow:clip;
+
 
   text-shadow:
 
@@ -369,21 +396,29 @@ main{
 
   flex:0 0 auto;
 
-  margin-top:3px;
+  margin-top:2px;
 
-  color:#e5b4af;
+  color:rgba(255,255,255,.58);
 
   font-size:15px;
 
   line-height:1;
 
-  text-shadow:
+}
 
-    0 2px 10px
-    rgba(0,0,0,.85);
+
+.trip-switch-trigger:active
+.trip-switch-chevron{
+
+  color:#ffaaa6;
 
 }
 
+
+
+/* =========================================================
+   HERO DETAILS
+========================================================= */
 
 .hero-route{
 
@@ -397,6 +432,7 @@ main{
   font-size:8px;
 
   line-height:1.45;
+
 
   text-shadow:
 
@@ -415,6 +451,7 @@ main{
 
   font-size:7px;
 
+
   text-shadow:
 
     0 2px 10px
@@ -423,13 +460,14 @@ main{
 }
 
 
+
 /* =========================================================
    COUNTRY DECORATION
 ========================================================= */
 
 .hero-japanese{
 
-  flex:0 0 auto;
+  flex:0 0 56px;
 
   display:flex;
 
@@ -439,8 +477,10 @@ main{
 
   margin-top:3px;
 
+
   color:
     rgba(255,255,255,.66);
+
 
   text-shadow:
 
@@ -455,12 +495,13 @@ main{
   writing-mode:
     vertical-rl;
 
+
   font-family:
     "Yu Mincho",
     "Hiragino Mincho ProN",
-    "Noto Serif JP",
     Georgia,
     serif;
+
 
   font-size:25px;
 
@@ -473,8 +514,10 @@ main{
 
   margin-top:8px;
 
+
   color:
     rgba(255,255,255,.40);
+
 
   font-size:5px;
 
@@ -483,6 +526,7 @@ main{
   letter-spacing:.20em;
 
 }
+
 
 
 /* =========================================================
@@ -495,24 +539,32 @@ main{
 
   align-items:center;
 
+
   min-height:29px;
 
+
   margin-top:13px;
+
 
   padding:
     0
     10px;
 
+
   border:
     1px solid
     rgba(255,255,255,.14);
 
+
   border-radius:999px;
+
 
   background:
     rgba(5,9,12,.48);
 
+
   color:#f0cbc8;
+
 
   font-size:7px;
 
@@ -520,8 +572,10 @@ main{
 
   letter-spacing:.06em;
 
+
   backdrop-filter:
     blur(10px);
+
 
   -webkit-backdrop-filter:
     blur(10px);
@@ -530,8 +584,11 @@ main{
 
 
 .hero-spacer{
+
   flex:1;
+
 }
+
 
 
 /* =========================================================
@@ -544,8 +601,7 @@ main{
 
   align-items:flex-end;
 
-  justify-content:
-    space-between;
+  justify-content:space-between;
 
   gap:12px;
 
@@ -556,6 +612,7 @@ main{
 
   color:
     rgba(230,233,234,.58);
+
 
   font-size:6px;
 
@@ -572,12 +629,15 @@ main{
 
   height:1px;
 
+
   margin-bottom:4px;
+
 
   background:
     rgba(255,255,255,.28);
 
 }
+
 
 
 /* =========================================================
@@ -590,14 +650,20 @@ main{
 
   z-index:3;
 
+
   margin-top:-8px;
 
+
   padding:
+
     6px
+
     12px
+
     22px;
 
 }
+
 
 
 /* =========================================================
@@ -605,7 +671,9 @@ main{
 ========================================================= */
 
 .date-section{
+
   margin-top:10px;
+
 }
 
 
@@ -616,7 +684,9 @@ main{
     2px
     7px;
 
+
   color:#91a5b3;
+
 
   font-size:6.5px;
 
@@ -633,14 +703,18 @@ main{
 
   gap:6px;
 
+
   overflow-x:auto;
+
 
   padding:
     1px
     1px
     4px;
 
+
   scrollbar-width:none;
+
 
   scroll-snap-type:
     x proximity;
@@ -649,7 +723,9 @@ main{
 
 
 .date-scroll::-webkit-scrollbar{
+
   display:none;
+
 }
 
 
@@ -657,24 +733,33 @@ main{
 
   position:relative;
 
+
   flex:
     0 0 54px;
 
+
   height:55px;
+
 
   border:
     1px solid
     var(--line);
 
+
   border-radius:13px;
+
 
   background:#0f161c;
 
+
   color:#76838c;
+
 
   cursor:pointer;
 
+
   scroll-snap-align:start;
+
 
   transition:
     border-color .18s,
@@ -688,11 +773,15 @@ main{
 
   display:block;
 
+
   color:#ebeded;
 
+
   font:
+
     700
     16px/1
+
     Georgia,
     "Times New Roman",
     serif;
@@ -704,7 +793,9 @@ main{
 
   display:block;
 
+
   margin-top:5px;
+
 
   font-size:5.5px;
 
@@ -720,15 +811,22 @@ main{
   border-color:
     rgba(201,111,104,.52);
 
+
   background:
 
     linear-gradient(
+
       145deg,
+
       rgba(201,111,104,.16),
+
       rgba(201,111,104,.07)
+
     );
 
+
   color:#f0b9b4;
+
 
   box-shadow:
 
@@ -742,19 +840,25 @@ main{
 
   content:"";
 
+
   position:absolute;
+
 
   left:50%;
 
   bottom:5px;
 
+
   width:3px;
 
   height:3px;
 
+
   border-radius:50%;
 
+
   background:#dc837c;
+
 
   transform:
     translateX(-50%);
@@ -763,8 +867,11 @@ main{
 
 
 .date-btn.active .num{
+
   color:#f3cbc8;
+
 }
+
 
 
 /* =========================================================
@@ -772,7 +879,9 @@ main{
 ========================================================= */
 
 .journey-section{
+
   margin-top:15px;
+
 }
 
 
@@ -780,12 +889,14 @@ main{
 
   display:flex;
 
+
   align-items:flex-end;
 
-  justify-content:
-    space-between;
+  justify-content:space-between;
+
 
   gap:12px;
+
 
   margin:
     0
@@ -796,7 +907,9 @@ main{
 
 
 .journey-heading{
+
   min-width:0;
+
 }
 
 
@@ -804,7 +917,9 @@ main{
 
   margin-bottom:3px;
 
+
   color:#91a5b3;
+
 
   font-size:6px;
 
@@ -819,12 +934,16 @@ main{
 
   color:#f4f3ef;
 
+
   font:
+
     700
     20px/1.05
+
     Georgia,
     "Times New Roman",
     serif;
+
 
   letter-spacing:-.015em;
 
@@ -835,7 +954,9 @@ main{
 
   margin-top:4px;
 
+
   color:#6f7b84;
+
 
   font-size:6.3px;
 
@@ -846,30 +967,41 @@ main{
 
 .full-plan{
 
-  flex:0 0 auto;
+  flex:
+    0 0 auto;
+
 
   display:flex;
 
+
   align-items:center;
 
+
   min-height:28px;
+
 
   padding:
     0
     9px;
 
+
   border:
     1px solid
     rgba(201,111,104,.22);
 
+
   border-radius:999px;
+
 
   background:
     rgba(201,111,104,.045);
 
+
   color:#dca39e;
 
+
   text-decoration:none;
+
 
   font-size:5.8px;
 
@@ -884,11 +1016,13 @@ main{
 
   margin-left:5px;
 
+
   font-size:10px;
 
   line-height:1;
 
 }
+
 
 
 /* =========================================================
@@ -899,21 +1033,30 @@ main{
 
   position:relative;
 
+
   overflow:hidden;
+
 
   border:
     1px solid
     rgba(255,255,255,.10);
 
+
   border-radius:17px;
+
 
   background:
 
     linear-gradient(
+
       145deg,
+
       rgba(17,24,30,.97),
+
       rgba(9,14,19,.99)
+
     );
+
 
   box-shadow:
 
@@ -927,7 +1070,9 @@ main{
 
   content:"";
 
+
   position:absolute;
+
 
   top:26px;
 
@@ -935,21 +1080,31 @@ main{
 
   left:21px;
 
+
   width:1px;
+
 
   background:
 
     linear-gradient(
+
       to bottom,
+
       rgba(201,111,104,.75),
+
       rgba(201,111,104,.38) 30%,
+
       rgba(111,125,135,.28) 72%,
+
       rgba(111,125,135,.06)
+
     );
+
 
   pointer-events:none;
 
 }
+
 
 
 /* =========================================================
@@ -962,7 +1117,9 @@ main{
 
   z-index:1;
 
+
   margin:0;
+
 
   border-bottom:
     1px solid
@@ -972,7 +1129,9 @@ main{
 
 
 .place-group:last-child{
+
   border-bottom:0;
+
 }
 
 
@@ -980,9 +1139,12 @@ main{
 
   width:100%;
 
+
   min-height:65px;
 
+
   display:grid;
+
 
   grid-template-columns:
     18px
@@ -990,9 +1152,12 @@ main{
     minmax(0,1fr)
     18px;
 
+
   gap:7px;
 
+
   align-items:center;
+
 
   padding:
     10px
@@ -1000,32 +1165,41 @@ main{
     10px
     13px;
 
+
   border:0;
+
 
   background:transparent;
 
+
   color:inherit;
 
+
   text-align:left;
+
 
   cursor:pointer;
 
 }
 
 
+
 /* =========================================================
-   AREA TIMELINE MARKER
+   TIMELINE
 ========================================================= */
 
 .area-marker{
 
   position:relative;
 
+
   width:18px;
 
   height:30px;
 
+
   display:flex;
+
 
   align-items:center;
 
@@ -1040,17 +1214,22 @@ main{
 
   z-index:2;
 
+
   width:9px;
 
   height:9px;
+
 
   border:
     2px solid
     #d07a73;
 
+
   border-radius:50%;
 
+
   background:#10161c;
+
 
   box-shadow:
 
@@ -1065,6 +1244,7 @@ main{
 
   background:#c96f68;
 
+
   box-shadow:
 
     0 0 0 4px
@@ -1073,19 +1253,23 @@ main{
 }
 
 
+
 /* =========================================================
-   AREA HEADER
+   AREA CONTENT
 ========================================================= */
 
 .place-group-start{
 
   color:#b5bec4;
 
+
   font-size:6.4px;
 
   font-weight:900;
 
+
   line-height:1.25;
+
 
   white-space:nowrap;
 
@@ -1093,7 +1277,9 @@ main{
 
 
 .place-group-main{
+
   min-width:0;
+
 }
 
 
@@ -1101,12 +1287,16 @@ main{
 
   color:#f4f3ef;
 
+
   font:
+
     700
     14px/1.12
+
     Georgia,
     "Times New Roman",
     serif;
+
 
   letter-spacing:-.01em;
 
@@ -1117,7 +1307,9 @@ main{
 
   margin-top:4px;
 
+
   color:#707d85;
+
 
   font-size:5.8px;
 
@@ -1130,17 +1322,22 @@ main{
 
   display:flex;
 
+
   align-items:center;
 
   justify-content:center;
+
 
   width:18px;
 
   height:18px;
 
+
   color:#7b8890;
 
+
   font-size:11px;
+
 
   transition:
     transform .18s;
@@ -1157,13 +1354,15 @@ main{
 }
 
 
+
 /* =========================================================
-   PLACE LIST
+   EXPANDED PLACE LIST
 ========================================================= */
 
 .place-list{
 
   display:none;
+
 
   padding:
     0
@@ -1176,7 +1375,9 @@ main{
 
 .place-group.open
 .place-list{
+
   display:block;
+
 }
 
 
@@ -1184,7 +1385,9 @@ main{
 
   position:relative;
 
+
   display:grid;
+
 
   grid-template-columns:
     18px
@@ -1192,15 +1395,20 @@ main{
     minmax(0,1fr)
     20px;
 
+
   gap:7px;
+
 
   align-items:center;
 
+
   min-height:53px;
+
 
   padding:
     5px
     0;
+
 
   border-top:
     1px solid
@@ -1215,7 +1423,9 @@ main{
 
   height:100%;
 
+
   display:flex;
+
 
   align-items:center;
 
@@ -1230,15 +1440,19 @@ main{
 
   z-index:2;
 
+
   width:6px;
 
   height:6px;
+
 
   border:
     1px solid
     rgba(201,111,104,.78);
 
+
   border-radius:50%;
+
 
   background:#10161c;
 
@@ -1249,9 +1463,11 @@ main{
 
   color:#929fa8;
 
+
   font-size:5.9px;
 
   font-weight:900;
+
 
   line-height:1.35;
 
@@ -1259,7 +1475,9 @@ main{
 
 
 .place-main{
+
   min-width:0;
+
 }
 
 
@@ -1267,9 +1485,11 @@ main{
 
   color:#eef0ef;
 
+
   font-size:7.7px;
 
   font-weight:900;
+
 
   line-height:1.35;
 
@@ -1280,21 +1500,27 @@ main{
 
   margin-top:3px;
 
+
   overflow:hidden;
 
+
   color:#66737c;
+
 
   font-size:5.8px;
 
   line-height:1.4;
 
+
   display:-webkit-box;
+
 
   -webkit-line-clamp:2;
 
   -webkit-box-orient:vertical;
 
 }
+
 
 
 /* =========================================================
@@ -1307,30 +1533,34 @@ main{
 
   height:20px;
 
+
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   border:0;
+
 
   background:transparent;
 
+
   color:#84ace3;
+
 
   text-decoration:none;
 
+
   font-size:9px;
+
 
   opacity:.66;
 
 }
 
-
-.map-link:active{
-  opacity:1;
-}
 
 
 /* =========================================================
@@ -1343,6 +1573,7 @@ main{
     24px
     16px;
 
+
   text-align:center;
 
 }
@@ -1352,9 +1583,12 @@ main{
 
   color:#b5bec3;
 
+
   font:
+
     700
     12px/1.2
+
     Georgia,
     "Times New Roman",
     serif;
@@ -1366,12 +1600,15 @@ main{
 
   max-width:260px;
 
+
   margin:
     5px
     auto
     0;
 
+
   color:#66737c;
+
 
   font-size:6px;
 
@@ -1380,12 +1617,15 @@ main{
 }
 
 
+
 /* =========================================================
    FOOD FINDER
 ========================================================= */
 
 .food-section{
+
   margin-top:15px;
+
 }
 
 
@@ -1393,36 +1633,49 @@ main{
 
   width:100%;
 
+
   min-height:52px;
+
 
   display:flex;
 
+
   align-items:center;
 
-  justify-content:
-    space-between;
+  justify-content:space-between;
+
 
   gap:9px;
+
 
   padding:
     9px
     10px;
 
+
   border:
     1px solid
     rgba(103,197,135,.36);
 
+
   border-radius:12px;
+
 
   background:
 
     linear-gradient(
+
       135deg,
+
       rgba(103,197,135,.09),
+
       rgba(103,197,135,.02)
+
     );
 
+
   color:#d7f5df;
+
 
   cursor:pointer;
 
@@ -1433,9 +1686,12 @@ main{
 
   display:flex;
 
+
   align-items:center;
 
+
   gap:9px;
+
 
   text-align:left;
 
@@ -1448,20 +1704,26 @@ main{
 
   height:28px;
 
+
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   border:
     1px solid
     rgba(103,197,135,.16);
 
+
   border-radius:8px;
+
 
   background:
     rgba(103,197,135,.05);
+
 
   font-size:13px;
 
@@ -1472,9 +1734,11 @@ main{
 
   color:#9de6b2;
 
+
   font-size:7.5px;
 
   font-weight:900;
+
 
   letter-spacing:.03em;
 
@@ -1485,7 +1749,9 @@ main{
 
   margin-top:2px;
 
+
   color:#77aa86;
+
 
   font-size:5.8px;
 
@@ -1496,7 +1762,9 @@ main{
 
   color:var(--green);
 
+
   font-size:12px;
+
 
   transition:.18s;
 
@@ -1512,6 +1780,7 @@ main{
 }
 
 
+
 /* =========================================================
    FOOD PANEL
 ========================================================= */
@@ -1520,15 +1789,20 @@ main{
 
   display:none;
 
+
   margin-top:6px;
 
+
   padding:8px;
+
 
   border:
     1px solid
     rgba(103,197,135,.19);
 
+
   border-radius:11px;
+
 
   background:
     rgba(103,197,135,.02);
@@ -1537,7 +1811,9 @@ main{
 
 
 .nearby-panel.show{
+
   display:block;
+
 }
 
 
@@ -1545,7 +1821,9 @@ main{
 
   color:#88aa93;
 
+
   font-size:6.5px;
+
 
   line-height:1.5;
 
@@ -1553,17 +1831,23 @@ main{
 
 
 .nearby-status.error{
+
   color:#ffc5c1;
+
 }
 
 
 .nearby-section{
+
   margin-top:8px;
+
 }
 
 
 .nearby-section:first-child{
+
   margin-top:0;
+
 }
 
 
@@ -1571,11 +1855,14 @@ main{
 
   padding-bottom:4px;
 
+
   color:#9de6b2;
+
 
   font-size:6.5px;
 
   font-weight:900;
+
 
   letter-spacing:.08em;
 
@@ -1586,15 +1873,20 @@ main{
 
   min-height:40px;
 
+
   display:flex;
+
 
   align-items:center;
 
+
   gap:7px;
+
 
   padding:
     5px
     2px;
+
 
   border-top:
     1px solid
@@ -1616,6 +1908,7 @@ main{
 
   color:#eef2ef;
 
+
   font-size:7.5px;
 
   font-weight:900;
@@ -1627,7 +1920,9 @@ main{
 
   margin-top:2px;
 
+
   color:#718c79;
+
 
   font-size:5.8px;
 
@@ -1639,23 +1934,31 @@ main{
   flex:
     0 0 21px;
 
+
   width:21px;
 
   height:21px;
 
+
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   border:0;
+
 
   background:transparent;
 
+
   text-decoration:none;
 
+
   font-size:9px;
+
 
   opacity:.72;
 
@@ -1666,29 +1969,38 @@ main{
 
   min-height:32px;
 
+
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   margin-top:7px;
+
 
   border:
     1px solid
     rgba(103,197,135,.20);
 
+
   border-radius:8px;
+
 
   color:#a9e8bb;
 
+
   text-decoration:none;
+
 
   font-size:6.5px;
 
   font-weight:900;
 
 }
+
 
 
 /* =========================================================
@@ -1701,9 +2013,12 @@ main{
     18px
     10px;
 
+
   color:#75828a;
 
+
   text-align:center;
+
 
   font-size:7px;
 
@@ -1718,38 +2033,59 @@ main{
     10px
     0;
 
+
   padding:12px;
+
 
   border:
     1px solid
     rgba(201,111,104,.34);
 
+
   border-radius:11px;
 
+
   color:#ffc5c1;
+
 
   font-size:8px;
 
 }
 
 
+
 /* =========================================================
-   FIRST TRIP SCREEN
+   FIRST TRIP VIEW
 ========================================================= */
 
-.first-trip-state{
+.first-trip-view{
 
   position:relative;
 
+
+  display:none;
+
+
   min-height:
     calc(
-      100vh -
+      100svh -
       env(safe-area-inset-bottom)
     );
 
+
   overflow:hidden;
 
+
   background:#070c10;
+
+}
+
+
+.first-trip-view.show{
+
+  display:flex;
+
+  flex-direction:column;
 
 }
 
@@ -1760,30 +2096,60 @@ main{
 
   inset:0;
 
-  background-image:
 
-    linear-gradient(
-      180deg,
-      rgba(5,9,12,.24) 0%,
-      rgba(5,9,12,.35) 35%,
-      rgba(5,9,12,.76) 68%,
-      #070c10 95%
-    ),
+  background-position:
+    56% center;
 
-    linear-gradient(
-      90deg,
-      rgba(5,9,12,.25),
-      rgba(5,9,12,.02),
-      rgba(5,9,12,.25)
-    ),
-
-    var(--first-trip-image);
 
   background-size:
     cover;
 
-  background-position:
-    center 43%;
+
+  transform:
+    scale(1.01);
+
+}
+
+
+.first-trip-bg::after{
+
+  content:"";
+
+
+  position:absolute;
+
+  inset:0;
+
+
+  background:
+
+    linear-gradient(
+
+      180deg,
+
+      rgba(4,7,10,.12) 0%,
+
+      rgba(4,7,10,.20) 35%,
+
+      rgba(5,9,12,.36) 58%,
+
+      rgba(5,9,12,.75) 80%,
+
+      #070c10 100%
+
+    ),
+
+    linear-gradient(
+
+      90deg,
+
+      rgba(4,8,11,.28),
+
+      rgba(4,8,11,.05) 58%,
+
+      rgba(4,8,11,.14)
+
+    );
 
 }
 
@@ -1794,51 +2160,51 @@ main{
 
   z-index:2;
 
-  min-height:
-    calc(
-      100vh -
-      85px
-    );
+
+  flex:1;
+
 
   display:flex;
 
   flex-direction:column;
 
-  align-items:center;
 
   padding:
 
     calc(
-      22px +
+      28px +
       env(safe-area-inset-top)
     )
 
-    22px
+    24px
 
-    120px;
-
-  text-align:center;
+    calc(
+      100px +
+      env(safe-area-inset-bottom)
+    );
 
 }
 
 
-.first-brand{
 
-  width:100%;
+/* =========================================================
+   FIRST TRIP WATERMARK
+========================================================= */
 
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:flex-start;
+.first-trip-mark{
 
   color:
-    rgba(255,255,255,.60);
+    rgba(255,255,255,.50);
+
+
+  text-shadow:
+    0 3px 16px
+    rgba(0,0,0,.74);
 
 }
 
 
-.first-brand-main{
+.first-trip-mark-main{
 
   font-family:
     "Yu Mincho",
@@ -1846,354 +2212,470 @@ main{
     Georgia,
     serif;
 
-  font-size:41px;
 
-  font-weight:400;
+  font-size:41px;
 
   line-height:1;
 
 }
 
 
-.first-brand-sub{
+.first-trip-mark-sub{
 
-  margin-top:4px;
+  margin:
+    6px
+    0
+    0
+    3px;
 
-  padding-left:3px;
 
   color:
-    rgba(255,255,255,.43);
+    rgba(255,255,255,.42);
+
 
   font-size:6px;
 
   font-weight:900;
 
-  letter-spacing:.24em;
+
+  letter-spacing:.22em;
 
 }
 
 
-.first-spacer{
+
+/* =========================================================
+   FIRST TRIP CENTER
+========================================================= */
+
+.first-trip-center{
+
   flex:1;
-  min-height:80px;
-}
 
-
-.first-map-circle{
-
-  width:92px;
-
-  height:92px;
 
   display:flex;
+
+  flex-direction:column;
+
 
   align-items:center;
 
   justify-content:center;
 
+
+  text-align:center;
+
+
+  padding-bottom:34px;
+
+}
+
+
+.first-trip-logo-wrap{
+
+  width:98px;
+
+  height:98px;
+
+
+  display:flex;
+
+
+  align-items:center;
+
+  justify-content:center;
+
+
+  margin:
+    0
+    auto
+    22px;
+
+
+  padding:14px;
+
+
   border:
     1px solid
-    rgba(255,116,110,.55);
+    rgba(255,98,95,.45);
+
 
   border-radius:50%;
 
+
   background:
-    rgba(8,13,17,.42);
+    rgba(22,12,14,.64);
+
 
   box-shadow:
 
     0 0 0 1px
-    rgba(255,98,95,.05),
+    rgba(255,255,255,.015),
 
-    0 0 26px
-    rgba(255,98,95,.11);
+    0 0 28px
+    rgba(255,98,95,.12),
 
-  backdrop-filter:
-    blur(9px);
-
-  -webkit-backdrop-filter:
-    blur(9px);
+    0 15px 38px
+    rgba(0,0,0,.30);
 
 }
 
 
-.first-map-circle svg{
+.first-trip-logo{
 
-  width:43px;
+  width:100%;
 
-  height:43px;
+  height:100%;
 
-  stroke:#ee938d;
+
+  display:block;
+
+
+  object-fit:contain;
 
 }
 
 
-.first-eyebrow{
+.first-trip-eyebrow{
 
-  margin-top:20px;
+  color:#e59a94;
 
-  color:#e8928c;
 
   font-size:8px;
 
   font-weight:900;
 
+
   letter-spacing:.18em;
+
+
+  text-transform:uppercase;
 
 }
 
 
-.first-title{
+.first-trip-title{
 
-  max-width:310px;
+  max-width:340px;
+
 
   margin:
-    8px
+    9px
     auto
     0;
 
-  color:#f4f1eb;
+
+  color:#fff;
+
 
   font:
+
     700
-    32px/1.03
+    37px/1.04
+
     Georgia,
     "Times New Roman",
     serif;
 
-  letter-spacing:-.02em;
+
+  letter-spacing:-.025em;
+
+
+  text-shadow:
+
+    0 3px 18px
+    rgba(0,0,0,.72);
 
 }
 
 
-.first-text{
+.first-trip-text{
 
-  max-width:290px;
+  max-width:300px;
+
 
   margin:
-    14px
+    15px
     auto
     0;
 
-  color:#909ba2;
+
+  color:
+    rgba(226,230,232,.68);
+
 
   font-size:9px;
 
   line-height:1.55;
 
+
+  text-shadow:
+
+    0 2px 10px
+    rgba(0,0,0,.72);
+
 }
 
 
-.first-actions{
+.first-trip-actions{
 
   width:100%;
 
-  max-width:330px;
+  max-width:350px;
+
 
   display:grid;
 
-  gap:9px;
 
-  margin-top:22px;
+  gap:10px;
+
+
+  margin-top:23px;
 
 }
 
 
-.first-create-btn,
-.first-view-btn{
+.first-trip-primary,
+.first-trip-secondary{
 
   width:100%;
 
-  min-height:49px;
+
+  min-height:48px;
+
+
+  display:flex;
+
+
+  align-items:center;
+
+  justify-content:center;
+
 
   border-radius:999px;
+
 
   font-size:8px;
 
   font-weight:900;
 
-  letter-spacing:.05em;
+
+  letter-spacing:.04em;
+
+
+  text-decoration:none;
+
+
+  cursor:pointer;
 
 }
 
 
-.first-create-btn{
+.first-trip-primary{
 
   border:
     1px solid
-    rgba(255,115,109,.65);
+    rgba(255,105,102,.90);
+
 
   background:
 
     linear-gradient(
+
       135deg,
-      #ff716d,
+
+      #ff746f,
+
       #ff625f
+
     );
 
-  color:#1e0e0e;
+
+  color:#210b0a;
+
 
   box-shadow:
 
-    0 12px 34px
-    rgba(255,98,95,.18);
+    0 9px 28px
+    rgba(255,98,95,.17);
 
 }
 
 
-.first-view-btn{
+.first-trip-secondary{
 
   border:
     1px solid
-    rgba(255,255,255,.20);
+    rgba(255,255,255,.19);
+
 
   background:
-    rgba(6,11,15,.42);
+    rgba(5,9,12,.55);
 
-  color:#e2aaa6;
+
+  color:#e8aaa5;
+
 
   backdrop-filter:
-    blur(8px);
+    blur(9px);
+
 
   -webkit-backdrop-filter:
-    blur(8px);
+    blur(9px);
 
 }
 
 
+
 /* =========================================================
-   SHEET BACKDROP
+   BOTTOM SHEETS
 ========================================================= */
 
-.sheet-backdrop{
+.bottom-backdrop{
 
   position:fixed;
 
+
   inset:0;
 
-  z-index:400;
 
-  visibility:hidden;
+  z-index:500;
 
-  opacity:0;
+
+  display:none;
+
+
+  align-items:flex-end;
+
 
   background:
-    rgba(0,0,0,.64);
+    rgba(0,0,0,.66);
+
 
   backdrop-filter:
     blur(5px);
 
+
   -webkit-backdrop-filter:
     blur(5px);
 
-  transition:
-    opacity .25s,
-    visibility .25s;
-
 }
 
 
-.sheet-backdrop.open{
+.bottom-backdrop.open{
 
-  visibility:visible;
-
-  opacity:1;
+  display:flex;
 
 }
 
-
-/* =========================================================
-   BOTTOM SHEET
-========================================================= */
 
 .bottom-sheet{
 
-  position:absolute;
-
-  left:50%;
-
-  bottom:0;
-
   width:100%;
+
 
   max-width:620px;
 
+
   max-height:
     calc(
-      88vh -
+      90svh -
       env(safe-area-inset-top)
     );
 
+
+  margin:
+    auto
+    auto
+    0;
+
+
   overflow-y:auto;
 
-  padding:
-
-    8px
-
-    14px
-
-    calc(
-      20px +
-      env(safe-area-inset-bottom)
-    );
 
   border:
     1px solid
-    #2b363e;
+    #2a343c;
+
 
   border-radius:
-    24px
-    24px
+    22px
+    22px
     0
     0;
+
 
   background:
 
     linear-gradient(
+
       180deg,
+
       #121a20,
+
       #0c1217
+
     );
+
+
+  color:#fff;
+
 
   box-shadow:
 
-    0 -24px 70px
+    0 -22px 60px
     rgba(0,0,0,.46);
 
-  transform:
-    translate(-50%,105%);
 
-  transition:
-    transform
-    .38s
-    cubic-bezier(.2,.85,.2,1);
+  animation:
+    sheetUp
+    .25s
+    ease-out;
 
 }
 
 
-.sheet-backdrop.open
-.bottom-sheet{
+@keyframes sheetUp{
 
-  transform:
-    translate(-50%,0);
+  from{
+
+    transform:
+      translateY(30px);
+
+    opacity:0;
+
+  }
+
+
+  to{
+
+    transform:
+      translateY(0);
+
+    opacity:1;
+
+  }
 
 }
 
 
 .sheet-handle{
 
-  width:38px;
+  width:42px;
 
   height:4px;
 
+
   margin:
-    2px
+    10px
     auto
-    15px;
+    13px;
+
 
   border-radius:999px;
 
-  background:#4b5861;
+
+  background:#53606a;
 
 }
 
@@ -2202,25 +2684,35 @@ main{
 
   display:flex;
 
+
   align-items:center;
 
-  justify-content:
-    space-between;
+  justify-content:space-between;
+
 
   gap:10px;
 
-  margin-bottom:12px;
+
+  padding:
+    0
+    17px
+    13px;
+
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
 
 }
 
 
 .sheet-title{
 
-  color:#f4f1ec;
-
   font:
+
     700
     20px/1.1
+
     Georgia,
     "Times New Roman",
     serif;
@@ -2230,29 +2722,29 @@ main{
 
 .sheet-close{
 
-  width:34px;
+  width:32px;
 
-  height:34px;
+  height:32px;
 
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
 
   border:
     1px solid
     var(--line);
 
-  border-radius:10px;
 
-  background:#151d23;
+  border-radius:9px;
 
-  color:#c1c8cc;
+
+  background:#151c22;
+
+
+  color:#fff;
+
 
   cursor:pointer;
 
 }
+
 
 
 /* =========================================================
@@ -2261,33 +2753,37 @@ main{
 
 .switch-trip-list{
 
-  display:grid;
-
-  gap:2px;
+  padding:
+    4px
+    0;
 
 }
 
 
-.switch-trip-row{
+.switch-trip-item{
 
   width:100%;
 
-  min-height:79px;
 
   display:grid;
+
 
   grid-template-columns:
     54px
     minmax(0,1fr)
     30px;
 
+
   gap:11px;
+
 
   align-items:center;
 
+
   padding:
-    10px
-    8px;
+    12px
+    17px;
+
 
   border:0;
 
@@ -2295,98 +2791,95 @@ main{
     1px solid
     rgba(255,255,255,.055);
 
-  background:
-    transparent;
 
-  color:inherit;
+  background:transparent;
+
+
+  color:#fff;
+
 
   text-align:left;
+
 
   cursor:pointer;
 
 }
 
 
-.switch-trip-row.current{
+.switch-trip-item.current{
 
   background:
-    rgba(255,255,255,.025);
+    rgba(255,98,95,.035);
 
 }
 
 
-.switch-thumb{
+.switch-trip-icon{
 
   width:54px;
 
   height:54px;
 
+
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   overflow:hidden;
+
 
   border:
     1px solid
-    rgba(255,255,255,.10);
+    rgba(255,255,255,.09);
+
 
   border-radius:11px;
 
-  background:
 
-    linear-gradient(
-      145deg,
-      #1a232a,
-      #10161c
-    );
+  background:#151d23;
 
-  background-size:
-    cover;
 
-  background-position:
-    center;
-
-  font-size:24px;
+  font-size:25px;
 
 }
 
 
 .switch-trip-main{
+
   min-width:0;
+
 }
 
 
 .switch-trip-name{
 
-  overflow:hidden;
+  color:#f2f1ed;
 
-  color:#f2f1ee;
 
-  font-size:9px;
+  font-size:11px;
 
   font-weight:900;
-
-  line-height:1.3;
-
-  text-overflow:ellipsis;
-
-  white-space:nowrap;
 
 }
 
 
 .switch-trip-route{
 
-  margin-top:3px;
+  margin-top:4px;
+
 
   overflow:hidden;
 
-  color:#7f8b92;
 
-  font-size:6.5px;
+  color:#7f8b93;
+
+
+  font-size:7px;
+
 
   text-overflow:ellipsis;
 
@@ -2395,107 +2888,109 @@ main{
 }
 
 
-.switch-trip-date{
+.switch-trip-dates{
 
   margin-top:4px;
 
-  color:#738087;
 
-  font-size:6.3px;
+  color:#68747d;
+
+
+  font-size:6.5px;
 
 }
 
 
-.switch-trip-check{
+.switch-trip-select{
 
-  width:22px;
+  width:20px;
 
-  height:22px;
+  height:20px;
+
 
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   border:
     1px solid
-    #4b565e;
+    #46515a;
+
 
   border-radius:50%;
 
+
   color:transparent;
+
 
   font-size:11px;
 
 }
 
 
-.switch-trip-row.current
-.switch-trip-check{
+.switch-trip-item.current
+.switch-trip-select{
 
   border-color:
-    #e68881;
+    #ff817c;
 
-  background:#e68881;
 
-  color:#241011;
+  background:
+    #ff817c;
+
+
+  color:#28100e;
 
 }
 
 
-/* =========================================================
-   SWITCHER ACTIONS
-========================================================= */
-
 .switch-actions{
 
-  margin-top:8px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.06);
+  padding:
+    5px
+    17px
+    calc(
+      17px +
+      env(safe-area-inset-bottom)
+    );
 
 }
 
 
 .switch-action{
 
-  width:100%;
+  min-height:48px;
 
-  min-height:52px;
 
-  display:grid;
+  display:flex;
 
-  grid-template-columns:
-    32px
-    minmax(0,1fr)
-    18px;
-
-  gap:9px;
 
   align-items:center;
 
-  padding:
-    5px
-    6px;
 
-  border:0;
+  gap:11px;
+
 
   border-bottom:
     1px solid
     rgba(255,255,255,.055);
 
-  background:
-    transparent;
 
-  color:#dce0e1;
+  color:#e6e8e8;
+
 
   text-decoration:none;
 
-  text-align:left;
+}
 
-  cursor:pointer;
+
+.switch-action:last-child{
+
+  border-bottom:0;
 
 }
 
@@ -2506,28 +3001,38 @@ main{
 
   height:28px;
 
+
   display:flex;
+
 
   align-items:center;
 
   justify-content:center;
 
+
   border:
     1px solid
-    var(--line);
+    rgba(255,255,255,.08);
+
 
   border-radius:8px;
 
-  background:#151d23;
 
-  font-size:12px;
+  background:
+    rgba(255,255,255,.025);
+
+
+  font-size:13px;
 
 }
 
 
 .switch-action-main{
 
-  font-size:8px;
+  flex:1;
+
+
+  font-size:9px;
 
   font-weight:800;
 
@@ -2536,96 +3041,124 @@ main{
 
 .switch-action-arrow{
 
-  color:#7e8a92;
+  color:#65727b;
 
-  font-size:16px;
+  font-size:15px;
 
 }
+
 
 
 /* =========================================================
-   CREATE TRIP SHEET
+   CREATE FIRST TRIP FORM
 ========================================================= */
 
-.trip-form-field{
+.create-trip-form{
 
-  margin-top:10px;
+  padding:
+    15px
+    17px
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
 
 }
 
 
-.trip-form-field label{
+.create-field{
+
+  margin-bottom:10px;
+
+}
+
+
+.create-field label{
 
   display:block;
 
+
   margin-bottom:5px;
 
-  color:#9ca7ae;
 
-  font-size:6.5px;
+  color:#a1abb2;
+
+
+  font-size:7px;
 
   font-weight:900;
 
-  letter-spacing:.07em;
+
+  letter-spacing:.05em;
 
 }
 
 
-.trip-form-field input,
-.trip-form-field textarea{
+.create-field input,
+.create-field textarea{
 
   width:100%;
 
-  min-height:44px;
+
+  min-height:46px;
+
 
   padding:
-    9px
-    10px;
+    10px
+    11px;
+
 
   border:
     1px solid
-    var(--line);
+    #2c3740;
+
 
   border-radius:11px;
 
+
   outline:0;
 
-  background:#121a20;
 
-  color:#f4f4f1;
+  background:#11191f;
 
-  font-size:9px;
+
+  color:#fff;
+
+
+  font-size:10px;
 
 }
 
 
-.trip-form-field textarea{
+.create-field textarea{
 
-  min-height:69px;
+  min-height:70px;
 
   resize:vertical;
 
 }
 
 
-.trip-form-field input:focus,
-.trip-form-field textarea:focus{
+.create-field input:focus,
+.create-field textarea:focus{
 
   border-color:
-    rgba(201,111,104,.52);
+    rgba(255,98,95,.40);
 
 }
 
 
-.trip-form-dates{
+.create-date-row{
 
   display:grid;
+
 
   grid-template-columns:
     1fr
     1fr;
 
-  gap:8px;
+
+  gap:9px;
 
 }
 
@@ -2634,31 +3167,41 @@ main{
 
   width:100%;
 
+
   min-height:48px;
 
-  margin-top:15px;
+
+  margin-top:7px;
+
 
   border:
     1px solid
-    rgba(255,98,95,.62);
+    rgba(255,98,95,.82);
+
 
   border-radius:11px;
+
 
   background:
 
     linear-gradient(
+
       135deg,
-      #ff716d,
+
+      #ff756f,
+
       #ff625f
+
     );
 
-  color:#211011;
+
+  color:#220b0a;
+
 
   font-size:8px;
 
   font-weight:900;
 
-  letter-spacing:.05em;
 
   cursor:pointer;
 
@@ -2667,60 +3210,69 @@ main{
 
 .create-trip-submit:disabled{
 
-  opacity:.55;
-
-  cursor:wait;
+  opacity:.5;
 
 }
 
 
-.trip-form-message{
+.create-message{
 
   display:none;
 
+
   margin-top:9px;
+
 
   padding:9px;
 
-  border-radius:9px;
 
-  font-size:7.5px;
+  border-radius:8px;
+
+
+  font-size:7px;
 
   line-height:1.5;
 
 }
 
 
-.trip-form-message.error{
+.create-message.error{
 
   display:block;
 
+
   border:
     1px solid
-    rgba(255,98,95,.23);
+    rgba(255,98,95,.22);
+
 
   background:
-    rgba(255,98,95,.06);
+    rgba(255,98,95,.055);
 
-  color:#f5aaa6;
+
+  color:#f5aaa5;
 
 }
 
 
-.trip-form-message.success{
+.create-message.success{
 
   display:block;
+
 
   border:
     1px solid
     rgba(103,197,135,.22);
 
-  background:
-    rgba(103,197,135,.05);
 
-  color:#a9dbb7;
+  background:
+    rgba(103,197,135,.055);
+
+
+  color:#a7ddb7;
 
 }
+
 
 
 /* =========================================================
@@ -2730,19 +3282,24 @@ main{
 @media(max-width:480px){
 
   .hero{
+
     min-height:405px;
+
   }
 
 
   .hero-image{
+
     background-position:
       57% 43%;
+
   }
 
 
   .hero-inner{
 
     min-height:405px;
+
 
     padding-left:13px;
 
@@ -2752,30 +3309,60 @@ main{
 
 
   .hero-title{
-    font-size:33px;
+
+    font-size:
+      clamp(
+        26px,
+        8.7vw,
+        33px
+      );
+
+  }
+
+
+  .hero-japanese{
+
+    flex-basis:48px;
+
+  }
+
+
+  .hero-japanese-main{
+
+    font-size:24px;
+
   }
 
 
   .first-trip-inner{
 
-    padding-left:20px;
+    padding-left:24px;
 
-    padding-right:20px;
+    padding-right:24px;
 
   }
 
 }
 
 
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
 @media(max-width:360px){
 
   .hero-title{
-    font-size:29px;
+
+    font-size:27px;
+
   }
 
 
   .journey-title{
+
     font-size:18px;
+
   }
 
 
@@ -2788,6 +3375,7 @@ main{
       minmax(0,1fr)
       18px;
 
+
     gap:5px;
 
   }
@@ -2799,18 +3387,16 @@ main{
       0
       7px;
 
+
     font-size:5.3px;
 
   }
 
 
-  .first-title{
-    font-size:29px;
-  }
+  .first-trip-title{
 
+    font-size:33px;
 
-  .trip-form-dates{
-    grid-template-columns:1fr;
   }
 
 }
@@ -2823,14 +3409,120 @@ main{
 <body>
 
 
-<main id="appMain">
+<main>
 
 
 <!-- =========================================================
-     NORMAL HOME
+     FIRST-TIME / NO TRIPS VIEW
 ========================================================= -->
 
-<div id="tripHome">
+<section
+  id="firstTripView"
+  class="first-trip-view"
+>
+
+
+  <div
+    id="firstTripBackground"
+    class="first-trip-bg"
+  ></div>
+
+
+  <div class="first-trip-inner">
+
+
+    <div class="first-trip-mark">
+
+
+      <div class="first-trip-mark-main">
+        旅
+      </div>
+
+
+      <div class="first-trip-mark-sub">
+        JOURNEY
+      </div>
+
+
+    </div>
+
+
+
+    <div class="first-trip-center">
+
+
+      <div class="first-trip-logo-wrap">
+
+
+        <img
+          class="first-trip-logo"
+          src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
+          alt=""
+        >
+
+
+      </div>
+
+
+      <div class="first-trip-eyebrow">
+        START YOUR JOURNEY
+      </div>
+
+
+      <div class="first-trip-title">
+        Create your<br>
+        first trip
+      </div>
+
+
+      <div class="first-trip-text">
+
+        You don’t have any trips yet.<br>
+
+        Start planning your itinerary,
+        food, bookings and places.
+
+      </div>
+
+
+      <div class="first-trip-actions">
+
+
+        <button
+          id="openFirstTripCreate"
+          class="first-trip-primary"
+          type="button"
+        >
+          ＋ CREATE FIRST TRIP
+        </button>
+
+
+        <a
+          class="first-trip-secondary"
+          href="trips.html"
+        >
+          VIEW TRIPS →
+        </a>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     NORMAL TRIP VIEW
+========================================================= -->
+
+<div id="normalTripView">
 
 
   <!-- =====================================================
@@ -2863,14 +3555,18 @@ main{
           </div>
 
 
-          <!-- Tap this to switch trips -->
+
+          <!-- =============================================
+               TAP TITLE TO SWITCH TRIP
+          ============================================== -->
 
           <button
-            id="tripSwitchButton"
-            class="trip-title-button"
+            id="tripSwitchTrigger"
+            class="trip-switch-trigger"
             type="button"
             aria-label="Switch trip"
           >
+
 
             <h1
               id="tripName"
@@ -2887,7 +3583,9 @@ main{
               ⌄
             </span>
 
+
           </button>
+
 
 
           <div
@@ -2915,6 +3613,7 @@ main{
         </div>
 
 
+
         <div class="hero-japanese">
 
 
@@ -2940,7 +3639,9 @@ main{
       </div>
 
 
+
       <div class="hero-spacer"></div>
+
 
 
       <div class="hero-bottom">
@@ -3027,22 +3728,19 @@ main{
         </div>
 
 
+
         <a
           id="fullPlan"
           class="full-plan"
           href="schedule.html"
         >
-
           VIEW FULL PLAN
-
-          <span>
-            ›
-          </span>
-
+          <span>›</span>
         </a>
 
 
       </div>
+
 
 
       <div
@@ -3050,9 +3748,11 @@ main{
         class="journey-card"
       >
 
+
         <div class="empty">
           Loading journey…
         </div>
+
 
       </div>
 
@@ -3075,149 +3775,17 @@ main{
 </div>
 
 
-
-<!-- =========================================================
-     FIRST-TIME / NO TRIPS
-========================================================= -->
-
-<section
-  id="firstTripState"
-  class="first-trip-state"
-  hidden
->
-
-
-  <div
-    id="firstTripBg"
-    class="first-trip-bg"
-  ></div>
-
-
-  <div class="first-trip-inner">
-
-
-    <div class="first-brand">
-
-
-      <div class="first-brand-main">
-        旅
-      </div>
-
-
-      <div class="first-brand-sub">
-        JOURNEY
-      </div>
-
-
-    </div>
-
-
-    <div class="first-spacer"></div>
-
-
-    <div class="first-map-circle">
-
-
-      <svg
-        viewBox="0 0 48 48"
-        fill="none"
-        aria-hidden="true"
-      >
-
-        <path
-          d="M5 10L17 6L31 11L43 7V38L31 42L17 37L5 41V10Z"
-          stroke-width="2.2"
-          stroke-linejoin="round"
-        ></path>
-
-        <path
-          d="M17 6V37"
-          stroke-width="2.2"
-        ></path>
-
-        <path
-          d="M31 11V42"
-          stroke-width="2.2"
-        ></path>
-
-      </svg>
-
-
-    </div>
-
-
-    <div class="first-eyebrow">
-      START YOUR JOURNEY
-    </div>
-
-
-    <div class="first-title">
-      Create your<br>
-      first trip
-    </div>
-
-
-    <div class="first-text">
-
-      You don’t have any trips yet.
-
-      <br>
-
-      Start planning your itinerary,
-      food, bookings and places.
-
-    </div>
-
-
-    <div class="first-actions">
-
-
-      <button
-        id="createFirstTrip"
-        class="first-create-btn"
-        type="button"
-      >
-        ＋ CREATE FIRST TRIP
-      </button>
-
-
-      <button
-        id="viewTripsFirst"
-        class="first-view-btn"
-        type="button"
-      >
-        VIEW TRIPS →
-      </button>
-
-
-    </div>
-
-
-  </div>
-
-
-</section>
-
-
 </main>
 
 
 
 <!-- =========================================================
-     SHARED FOOTER
-========================================================= -->
-
-<div id="footer"></div>
-
-
-
-<!-- =========================================================
-     SWITCH TRIP SHEET
+     TRIP SWITCHER
 ========================================================= -->
 
 <div
-  id="tripSwitcherBackdrop"
-  class="sheet-backdrop"
+  id="switchTripBackdrop"
+  class="bottom-backdrop"
 >
 
 
@@ -3236,10 +3804,9 @@ main{
 
 
       <button
-        id="closeTripSwitcher"
+        id="closeSwitchTrip"
         class="sheet-close"
         type="button"
-        aria-label="Close trip switcher"
       >
         ✕
       </button>
@@ -3248,10 +3815,12 @@ main{
     </div>
 
 
+
     <div
       id="switchTripList"
       class="switch-trip-list"
     ></div>
+
 
 
     <div class="switch-actions">
@@ -3279,6 +3848,7 @@ main{
 
 
       </a>
+
 
 
       <a
@@ -3320,8 +3890,8 @@ main{
 ========================================================= -->
 
 <div
-  id="createTripBackdrop"
-  class="sheet-backdrop"
+  id="firstTripCreateBackdrop"
+  class="bottom-backdrop"
 >
 
 
@@ -3340,10 +3910,9 @@ main{
 
 
       <button
-        id="closeCreateTrip"
+        id="closeFirstTripCreate"
         class="sheet-close"
         type="button"
-        aria-label="Close create trip"
       >
         ✕
       </button>
@@ -3352,83 +3921,103 @@ main{
     </div>
 
 
-    <form id="createTripForm">
+
+    <form
+      id="firstTripForm"
+      class="create-trip-form"
+    >
 
 
-      <div class="trip-form-field">
+      <div class="create-field">
+
 
         <label>
-          TRIP NAME
+          TRIP NAME *
         </label>
+
 
         <input
           id="firstTripName"
           required
-          autocomplete="off"
           placeholder="e.g. Japan Autumn 2026"
         >
+
 
       </div>
 
 
-      <div class="trip-form-field">
+
+      <div class="create-field">
+
 
         <label>
-          COUNTRY
+          COUNTRY *
         </label>
+
 
         <input
           id="firstTripCountry"
           required
-          autocomplete="off"
           placeholder="e.g. Japan"
         >
 
+
       </div>
 
 
-      <div class="trip-form-field">
+
+      <div class="create-field">
+
 
         <label>
-          ROUTE / DESTINATIONS
+          DESTINATIONS / ROUTE
         </label>
+
 
         <input
           id="firstTripDescription"
-          autocomplete="off"
           placeholder="e.g. Kyoto → Mountains → Osaka"
         >
+
 
       </div>
 
 
-      <div class="trip-form-dates">
+
+      <div class="create-date-row">
 
 
-        <div class="trip-form-field">
+        <div class="create-field">
+
 
           <label>
             START DATE
           </label>
+
 
           <input
             id="firstTripStart"
             type="date"
           >
 
+
         </div>
 
 
-        <div class="trip-form-field">
+
+        <div class="create-field">
+
 
           <label>
             END DATE
           </label>
 
+
           <input
             id="firstTripEnd"
             type="date"
           >
+
 
         </div>
 
@@ -3436,19 +4025,21 @@ main{
       </div>
 
 
-      <div
-        id="createTripMessage"
-        class="trip-form-message"
-      ></div>
-
 
       <button
-        id="createTripSubmit"
+        id="firstTripSave"
         class="create-trip-submit"
         type="submit"
       >
         CREATE TRIP
       </button>
+
+
+
+      <div
+        id="firstTripMessage"
+        class="create-message"
+      ></div>
 
 
     </form>
@@ -3462,8 +4053,10 @@ main{
 
 
 <!-- =========================================================
-     SHARED FOOTER SCRIPT
+     SHARED FOOTER
 ========================================================= -->
+
+<div id="footer"></div>
 
 <script src="footer.js"></script>
 
@@ -3472,17 +4065,23 @@ main{
 <script>
 
 /* =========================================================
-   FALLBACK COVER
+   IMAGES
 ========================================================= */
 
 const DEFAULT_HERO =
   "https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Bavkground%20image.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQmF2a2dyb3VuZCBpbWFnZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NzIwNzY5LCJleHAiOjMzMzI1NzIwNzY5fQ.fyNIjD9vAXA26vNjxYbQJmz5myxaSZbkT0xmjJvcmV0hbbImJWEwjLYe_nS8qOOA3EgAcOsEnCkU5sa8K0EmPQ";
 
 
-document.documentElement.style.setProperty(
-  "--first-trip-image",
-  `url("${DEFAULT_HERO}")`
-);
+/*
+  Later, when index-tutorial.html exists,
+  change this to:
+
+  const FIRST_TRIP_DESTINATION =
+    "index-tutorial.html";
+*/
+
+const FIRST_TRIP_DESTINATION =
+  "index.html";
 
 
 
@@ -3568,7 +4167,6 @@ function txt(value){
 }
 
 
-
 function esc(value){
 
   return txt(value)
@@ -3601,7 +4199,6 @@ function esc(value){
 }
 
 
-
 function isoDate(date){
 
   return (
@@ -3631,23 +4228,22 @@ function isoDate(date){
 }
 
 
-
 function parseDate(value){
 
   return new Date(
-    value
-    +
+    value +
     "T12:00:00"
   );
 
 }
 
 
-
 function shortDate(value){
 
   if(!value){
+
     return "";
+
   }
 
 
@@ -3666,13 +4262,7 @@ function shortDate(value){
 }
 
 
-
 function fullDate(value){
-
-  if(!value){
-    return "";
-  }
-
 
   return parseDate(
     value
@@ -3690,10 +4280,9 @@ function fullDate(value){
 }
 
 
-
 function weekday(
   value,
-  long = false
+  long=false
 ){
 
   return parseDate(
@@ -3715,26 +4304,21 @@ function weekday(
 }
 
 
-
 function titleCase(value){
 
-  const string =
-    txt(
-      value
-    )
-    .toLowerCase();
+  const text =
+    txt(value)
+      .toLowerCase();
 
 
   return (
 
-    string
-      .charAt(0)
+    text.charAt(0)
       .toUpperCase()
 
     +
 
-    string
-      .slice(1)
+    text.slice(1)
 
   );
 
@@ -3749,59 +4333,101 @@ function titleCase(value){
 function countryIcon(country){
 
   const value =
-    txt(
-      country
+    txt(country)
+      .toLowerCase();
+
+
+  if(
+    value.includes(
+      "japan"
     )
-    .trim()
-    .toLowerCase();
+  ){
+    return "🇯🇵";
+  }
 
 
-  const map = {
-
-    japan:"🇯🇵",
-
-    taiwan:"🇹🇼",
-
-    singapore:"🇸🇬",
-
-    malaysia:"🇲🇾",
-
-    indonesia:"🇮🇩",
-
-    thailand:"🇹🇭",
-
-    vietnam:"🇻🇳",
-
-    china:"🇨🇳",
-
-    korea:"🇰🇷",
-
-    "south korea":"🇰🇷",
-
-    france:"🇫🇷",
-
-    italy:"🇮🇹",
-
-    spain:"🇪🇸",
-
-    australia:"🇦🇺",
-
-    usa:"🇺🇸",
-
-    "united states":"🇺🇸",
-
-    uk:"🇬🇧",
-
-    "united kingdom":"🇬🇧"
-
-  };
+  if(
+    value.includes(
+      "singapore"
+    )
+  ){
+    return "🇸🇬";
+  }
 
 
-  return (
-    map[value]
-    ||
-    "✈️"
-  );
+  if(
+    value.includes(
+      "taiwan"
+    )
+  ){
+    return "🇹🇼";
+  }
+
+
+  if(
+    value.includes(
+      "korea"
+    )
+  ){
+    return "🇰🇷";
+  }
+
+
+  if(
+    value.includes(
+      "china"
+    )
+  ){
+    return "🇨🇳";
+  }
+
+
+  if(
+    value.includes(
+      "thailand"
+    )
+  ){
+    return "🇹🇭";
+  }
+
+
+  if(
+    value.includes(
+      "malaysia"
+    )
+  ){
+    return "🇲🇾";
+  }
+
+
+  if(
+    value.includes(
+      "indonesia"
+    )
+  ){
+    return "🇮🇩";
+  }
+
+
+  if(
+    value.includes(
+      "italy"
+    )
+  ){
+    return "🇮🇹";
+  }
+
+
+  if(
+    value.includes(
+      "france"
+    )
+  ){
+    return "🇫🇷";
+  }
+
+
+  return "✈️";
 
 }
 
@@ -3810,10 +4436,8 @@ function countryIcon(country){
 function countryDecoration(country){
 
   const value =
-    txt(
-      country
-    )
-    .toLowerCase();
+    txt(country)
+      .toLowerCase();
 
 
   if(
@@ -3837,7 +4461,7 @@ function countryDecoration(country){
   ){
 
     return {
-      main:"台灣",
+      main:"臺灣",
       sub:"TAIWAN"
     };
 
@@ -3851,22 +4475,8 @@ function countryDecoration(country){
   ){
 
     return {
-      main:"中国",
+      main:"中國",
       sub:"CHINA"
-    };
-
-  }
-
-
-  if(
-    value.includes(
-      "korea"
-    )
-  ){
-
-    return {
-      main:"한국",
-      sub:"KOREA"
     };
 
   }
@@ -3882,459 +4492,7 @@ function countryDecoration(country){
 
 
 /* =========================================================
-   TRIP IMAGE
-========================================================= */
-
-function tripCover(trip){
-
-  return (
-
-    trip?.cover_image_url
-
-    ||
-
-    trip?.cover_url
-
-    ||
-
-    trip?.hero_image_url
-
-    ||
-
-    trip?.image_url
-
-    ||
-
-    ""
-
-  );
-
-}
-
-
-
-/* =========================================================
-   AUTH + ACCESSIBLE TRIPS
-========================================================= */
-
-async function getAccessibleTrips(){
-
-
-  const ownResult =
-    await db
-
-      .from(
-        "trips"
-      )
-
-      .select(
-        "*"
-      )
-
-      .eq(
-        "owner_id",
-        currentUser.id
-      );
-
-
-  if(
-    ownResult.error
-  ){
-
-    throw ownResult.error;
-
-  }
-
-
-  const memberResult =
-    await db
-
-      .from(
-        "trip_members"
-      )
-
-      .select(`
-        trip_id,
-        role
-      `)
-
-      .eq(
-        "user_id",
-        currentUser.id
-      );
-
-
-  if(
-    memberResult.error
-  ){
-
-    throw memberResult.error;
-
-  }
-
-
-  const tripsMap =
-    new Map();
-
-
-  (
-    ownResult.data
-    ||
-    []
-  )
-
-  .filter(
-    trip =>
-      trip.status
-      !==
-      "deleted"
-  )
-
-  .forEach(
-    trip => {
-
-
-      tripsMap.set(
-
-        Number(
-          trip.id
-        ),
-
-        {
-          ...trip,
-          __role:"owner"
-        }
-
-      );
-
-
-    }
-  );
-
-
-  const memberships =
-    memberResult.data
-    ||
-    [];
-
-
-  const sharedIds = [
-
-    ...new Set(
-
-      memberships
-
-        .map(
-          item =>
-            Number(
-              item.trip_id
-            )
-        )
-
-        .filter(
-          Boolean
-        )
-
-    )
-
-  ];
-
-
-  if(
-    sharedIds.length
-  ){
-
-
-    const sharedResult =
-      await db
-
-        .from(
-          "trips"
-        )
-
-        .select(
-          "*"
-        )
-
-        .in(
-          "id",
-          sharedIds
-        );
-
-
-    if(
-      sharedResult.error
-    ){
-
-      throw sharedResult.error;
-
-    }
-
-
-    (
-      sharedResult.data
-      ||
-      []
-    )
-
-    .filter(
-      trip =>
-        trip.status
-        !==
-        "deleted"
-    )
-
-    .forEach(
-      trip => {
-
-
-        if(
-          tripsMap.has(
-            Number(
-              trip.id
-            )
-          )
-        ){
-
-          return;
-
-        }
-
-
-        const membership =
-          memberships
-            .find(
-              item =>
-                Number(
-                  item.trip_id
-                )
-                ===
-                Number(
-                  trip.id
-                )
-            );
-
-
-        tripsMap.set(
-
-          Number(
-            trip.id
-          ),
-
-          {
-            ...trip,
-            __role:
-              membership?.role
-              ||
-              "viewer"
-          }
-
-        );
-
-
-      }
-    );
-
-
-  }
-
-
-  return [
-
-    ...tripsMap.values()
-
-  ]
-
-  .sort(
-    (a,b) =>
-
-      txt(
-        a.start_date
-      )
-
-      .localeCompare(
-        txt(
-          b.start_date
-        )
-      )
-  );
-
-}
-
-
-
-/* =========================================================
-   RESOLVE CURRENT TRIP
-========================================================= */
-
-async function resolveTrip(){
-
-
-  const authResult =
-    await db.auth
-      .getUser();
-
-
-  if(
-    authResult.error
-  ){
-
-    throw authResult.error;
-
-  }
-
-
-  currentUser =
-    authResult
-      .data
-      ?.user
-    ||
-    null;
-
-
-  if(
-    !currentUser
-  ){
-
-
-    location.href =
-      "login.html";
-
-
-    return false;
-
-  }
-
-
-  accessibleTrips =
-    await getAccessibleTrips();
-
-
-  /*
-    IMPORTANT:
-    zero trips is NOT an error.
-    It opens the first-trip screen.
-  */
-
-  if(
-    !accessibleTrips.length
-  ){
-
-
-    TRIP_ID =
-      null;
-
-
-    localStorage.removeItem(
-      "current_trip_id"
-    );
-
-
-    return false;
-
-  }
-
-
-  let resolved =
-    accessibleTrips.find(
-      trip =>
-        Number(
-          trip.id
-        )
-        ===
-        Number(
-          TRIP_ID
-        )
-    );
-
-
-  if(
-    !resolved
-  ){
-
-
-    resolved =
-      accessibleTrips[0];
-
-
-  }
-
-
-  TRIP_ID =
-    Number(
-      resolved.id
-    );
-
-
-  localStorage.setItem(
-    "current_trip_id",
-    String(
-      TRIP_ID
-    )
-  );
-
-
-  history.replaceState(
-    null,
-    "",
-    `index.html?trip=${TRIP_ID}`
-  );
-
-
-  return true;
-
-}
-
-
-
-/* =========================================================
-   FIRST TRIP STATE
-========================================================= */
-
-function showFirstTripState(){
-
-
-  document.getElementById(
-    "tripHome"
-  ).hidden =
-    true;
-
-
-  document.getElementById(
-    "firstTripState"
-  ).hidden =
-    false;
-
-
-  document.title =
-    "Start Your Journey";
-
-
-}
-
-
-
-function showTripHome(){
-
-
-  document.getElementById(
-    "tripHome"
-  ).hidden =
-    false;
-
-
-  document.getElementById(
-    "firstTripState"
-  ).hidden =
-    true;
-
-
-}
-
-
-
-/* =========================================================
-   TIME SORTING
+   TIME
 ========================================================= */
 
 function timeValue(row){
@@ -4365,24 +4523,24 @@ function timeValue(row){
 
   const minute =
     Number(
-      parts[1]
-      ||
-      0
+      parts[1] || 0
     );
 
 
   const second =
     Number(
-      parts[2]
-      ||
-      0
+      parts[2] || 0
     );
 
 
   if(
-    !Number.isFinite(hour)
+    !Number.isFinite(
+      hour
+    )
     ||
-    !Number.isFinite(minute)
+    !Number.isFinite(
+      minute
+    )
   ){
 
     return null;
@@ -4414,11 +4572,15 @@ function compareRows(
 ){
 
   const timeA =
-    timeValue(a);
+    timeValue(
+      a
+    );
 
 
   const timeB =
-    timeValue(b);
+    timeValue(
+      b
+    );
 
 
   if(
@@ -4461,17 +4623,13 @@ function compareRows(
 
   const orderA =
     Number(
-      a.sort_order
-      ||
-      0
+      a.sort_order || 0
     );
 
 
   const orderB =
     Number(
-      b.sort_order
-      ||
-      0
+      b.sort_order || 0
     );
 
 
@@ -4490,17 +4648,13 @@ function compareRows(
   return (
 
     Number(
-      a.id
-      ||
-      0
+      a.id || 0
     )
 
     -
 
     Number(
-      b.id
-      ||
-      0
+      b.id || 0
     )
 
   );
@@ -4508,10 +4662,6 @@ function compareRows(
 }
 
 
-
-/* =========================================================
-   DISPLAY TIME
-========================================================= */
 
 function formatClock(value){
 
@@ -4540,9 +4690,7 @@ function formatClock(value){
 
 
   const minute =
-    parts[1]
-    ||
-    "00";
+    parts[1] || "00";
 
 
   if(
@@ -4557,10 +4705,15 @@ function formatClock(value){
 
 
   const suffix =
+
     hour >= 12
+
     ?
+
     "PM"
+
     :
+
     "AM";
 
 
@@ -4640,7 +4793,7 @@ function timeText(row){
 
 
 /* =========================================================
-   PLACE
+   PLACE HELPERS
 ========================================================= */
 
 function rowPlace(row){
@@ -4758,9 +4911,13 @@ function mapsHref(row){
 
 
   if(
-    Number.isFinite(lat)
+    Number.isFinite(
+      lat
+    )
     &&
-    Number.isFinite(lng)
+    Number.isFinite(
+      lng
+    )
     &&
     !(
       lat === 0
@@ -4865,54 +5022,56 @@ function isHomePlace(row){
 
 
 /* =========================================================
-   LOAD DATA
+   AUTH
 ========================================================= */
 
-async function loadData(){
+async function resolveUser(){
 
-
-  const hasTrip =
-    await resolveTrip();
+  const result =
+    await db.auth
+      .getUser();
 
 
   if(
-    !hasTrip
+    result.error
   ){
 
-
-    showFirstTripState();
-
-
-    return;
+    throw result.error;
 
   }
 
 
-  showTripHome();
-
-
-  placeMap =
-    new Map();
-
-
-  scheduleRows =
-    [];
-
-
-  dayDates =
-    [];
-
-
-  selectedDate =
+  currentUser =
+    result.data?.user
+    ||
     null;
 
 
-  /* -----------------------------------------------
-     TRIP
-  ----------------------------------------------- */
+  if(
+    !currentUser
+  ){
+
+    location.href =
+      "login.html";
 
 
-  const tripResult =
+    throw new Error(
+      "Please sign in."
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   ACCESSIBLE TRIPS
+========================================================= */
+
+async function getAccessibleTrips(){
+
+  const ownResult =
     await db
 
       .from(
@@ -4924,29 +5083,341 @@ async function loadData(){
       )
 
       .eq(
-        "id",
-        TRIP_ID
-      )
-
-      .single();
+        "owner_id",
+        currentUser.id
+      );
 
 
   if(
-    tripResult.error
+    ownResult.error
   ){
 
-    throw tripResult.error;
+    throw ownResult.error;
 
   }
 
 
+  const memberResult =
+    await db
+
+      .from(
+        "trip_members"
+      )
+
+      .select(`
+        trip_id,
+        role
+      `)
+
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+  if(
+    memberResult.error
+  ){
+
+    throw memberResult.error;
+
+  }
+
+
+  const tripsMap =
+    new Map();
+
+
+  (
+    ownResult.data
+    ||
+    []
+  )
+  .filter(
+    trip =>
+      trip.status !==
+      "deleted"
+  )
+  .forEach(
+    item => {
+
+
+      tripsMap.set(
+        Number(
+          item.id
+        ),
+        item
+      );
+
+
+    }
+  );
+
+
+  const sharedIds = [
+
+    ...new Set(
+
+      (
+        memberResult.data
+        ||
+        []
+      )
+
+      .map(
+        row =>
+          Number(
+            row.trip_id
+          )
+      )
+
+      .filter(
+        Boolean
+      )
+
+    )
+
+  ];
+
+
+  if(
+    sharedIds.length
+  ){
+
+    const sharedResult =
+      await db
+
+        .from(
+          "trips"
+        )
+
+        .select(
+          "*"
+        )
+
+        .in(
+          "id",
+          sharedIds
+        );
+
+
+    if(
+      sharedResult.error
+    ){
+
+      throw sharedResult.error;
+
+    }
+
+
+    (
+      sharedResult.data
+      ||
+      []
+    )
+    .filter(
+      trip =>
+        trip.status !==
+        "deleted"
+    )
+    .forEach(
+      item => {
+
+
+        tripsMap.set(
+          Number(
+            item.id
+          ),
+          item
+        );
+
+
+      }
+    );
+
+  }
+
+
+  return [
+
+    ...tripsMap.values()
+
+  ]
+  .sort(
+    (a,b) =>
+
+      txt(
+        a.start_date
+      )
+      .localeCompare(
+        txt(
+          b.start_date
+        )
+      )
+  );
+
+}
+
+
+
+/* =========================================================
+   NO TRIP STATE
+========================================================= */
+
+function showFirstTripView(){
+
+  document
+    .getElementById(
+      "normalTripView"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "firstTripView"
+    )
+    .classList
+    .add(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "firstTripBackground"
+    )
+    .style
+    .backgroundImage =
+      `url("${DEFAULT_HERO}")`;
+
+
+  document.title =
+    "Start Your Journey";
+
+}
+
+
+
+/* =========================================================
+   NORMAL TRIP STATE
+========================================================= */
+
+function showNormalTripView(){
+
+  document
+    .getElementById(
+      "firstTripView"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "normalTripView"
+    )
+    .classList
+    .add(
+      "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   RESOLVE CURRENT TRIP
+========================================================= */
+
+function resolveCurrentTrip(){
+
+  if(
+    !accessibleTrips.length
+  ){
+
+    return false;
+
+  }
+
+
+  let resolved =
+    accessibleTrips.find(
+      item =>
+
+        Number(
+          item.id
+        )
+
+        ===
+
+        Number(
+          TRIP_ID
+        )
+    );
+
+
+  if(
+    !resolved
+  ){
+
+    resolved =
+      accessibleTrips[0];
+
+  }
+
+
+  TRIP_ID =
+    Number(
+      resolved.id
+    );
+
+
   currentTrip =
-    tripResult.data;
+    resolved;
 
 
-  /* -----------------------------------------------
-     SCHEDULE
-  ----------------------------------------------- */
+  localStorage.setItem(
+
+    "current_trip_id",
+
+    String(
+      TRIP_ID
+    )
+
+  );
+
+
+  history.replaceState(
+
+    null,
+
+    "",
+
+    `index.html?trip=${TRIP_ID}`
+
+  );
+
+
+  return true;
+
+}
+
+
+
+/* =========================================================
+   LOAD TRIP DATA
+========================================================= */
+
+async function loadCurrentTripData(){
+
+  placeMap =
+    new Map();
 
 
   const scheduleResult =
@@ -4995,11 +5466,6 @@ async function loadData(){
     [];
 
 
-  /* -----------------------------------------------
-     PLACES
-  ----------------------------------------------- */
-
-
   const placeIds = [
 
     ...new Set(
@@ -5025,7 +5491,6 @@ async function loadData(){
   if(
     placeIds.length
   ){
-
 
     const placeResult =
       await db
@@ -5056,61 +5521,35 @@ async function loadData(){
       !placeResult.error
     ){
 
-
       (
         placeResult.data
         ||
         []
       )
-
       .forEach(
         place => {
 
 
           placeMap.set(
+
             Number(
               place.id
             ),
+
             place
+
           );
 
 
         }
       );
 
-
     }
-
 
   }
 
 
-  buildDayDates();
-
-
-  chooseInitialDate();
-
-
-  renderHero();
-
-
-  renderPage();
-
-
-  renderTripSwitcher();
-
-}
-
-
-
-/* =========================================================
-   BUILD ALL TRIP DATES
-========================================================= */
-
-function buildDayDates(){
-
-
-  const scheduleDates = [
+  dayDates = [
 
     ...new Set(
 
@@ -5127,103 +5566,25 @@ function buildDayDates(){
 
     )
 
-  ];
+  ]
+  .sort();
 
 
-  /*
-    If trip start/end dates exist,
-    show the whole trip range even
-    before itinerary items are added.
-  */
-
-  if(
-    currentTrip?.start_date
-    &&
-    currentTrip?.end_date
-  ){
+  chooseInitialDate();
 
 
-    const start =
-      parseDate(
-        currentTrip.start_date
-      );
+  renderHero();
 
+  renderPage();
 
-    const end =
-      parseDate(
-        currentTrip.end_date
-      );
-
-
-    const diff =
-      Math.floor(
-        (
-          end -
-          start
-        )
-        /
-        86400000
-      );
-
-
-    if(
-      diff >= 0
-      &&
-      diff <= 60
-    ){
-
-
-      dayDates =
-        [];
-
-
-      for(
-        let i = 0;
-        i <= diff;
-        i++
-      ){
-
-
-        const date =
-          new Date(
-            start
-          );
-
-
-        date.setDate(
-          start.getDate()
-          +
-          i
-        );
-
-
-        dayDates.push(
-          isoDate(
-            date
-          )
-        );
-
-
-      }
-
-
-      return;
-
-    }
-
-
-  }
-
-
-  dayDates =
-    scheduleDates.sort();
+  renderTripSwitcher();
 
 }
 
 
 
 /* =========================================================
-   CHOOSE INITIAL DATE
+   INITIAL DATE
 ========================================================= */
 
 function chooseInitialDate(){
@@ -5232,9 +5593,8 @@ function chooseInitialDate(){
     !dayDates.length
   ){
 
-
     selectedDate =
-      currentTrip?.start_date
+      currentTrip.start_date
       ||
       null;
 
@@ -5256,7 +5616,6 @@ function chooseInitialDate(){
     )
   ){
 
-
     selectedDate =
       today;
 
@@ -5270,7 +5629,6 @@ function chooseInitialDate(){
     today <
     dayDates[0]
   ){
-
 
     selectedDate =
       dayDates[0];
@@ -5287,7 +5645,6 @@ function chooseInitialDate(){
       dayDates.length - 1
     ]
   ){
-
 
     selectedDate =
       dayDates[
@@ -5316,7 +5673,7 @@ function chooseInitialDate(){
 
 
 /* =========================================================
-   HERO
+   HERO RENDER
 ========================================================= */
 
 function renderHero(){
@@ -5327,79 +5684,92 @@ function renderHero(){
     "Trip";
 
 
-  document.getElementById(
-    "tripEyebrow"
-  ).textContent =
-
-    `${countryIcon(
-      country
-    )} `
-
-    +
-
-    country.toUpperCase();
-
-
-  document.getElementById(
-    "tripName"
-  ).textContent =
-
-    currentTrip.name
-
-    ||
-
-    "My Trip";
-
-
-  document.getElementById(
-    "tripRoute"
-  ).textContent =
-
-    currentTrip.description
-
-    ||
-
-    country;
-
-
-  document.getElementById(
-    "tripDates"
-  ).textContent =
-
-    (
-      currentTrip.start_date
-      &&
-      currentTrip.end_date
+  document
+    .getElementById(
+      "tripEyebrow"
     )
+    .textContent =
 
-    ?
+      `${countryIcon(
+        country
+      )} `
 
-    `${shortDate(
-      currentTrip.start_date
-    )} – ${shortDate(
-      currentTrip.end_date
-    )}`
+      +
 
-    :
+      country.toUpperCase();
 
-    "";
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .textContent =
+
+      currentTrip.name
+
+      ||
+
+      "My Trip";
+
+
+  document
+    .getElementById(
+      "tripRoute"
+    )
+    .textContent =
+
+      currentTrip.description
+
+      ||
+
+      country;
+
+
+  document
+    .getElementById(
+      "tripDates"
+    )
+    .textContent =
+
+      (
+        currentTrip.start_date
+        &&
+        currentTrip.end_date
+      )
+
+      ?
+
+      `${shortDate(
+        currentTrip.start_date
+      )} – ${shortDate(
+        currentTrip.end_date
+      )}`
+
+      :
+
+      "";
 
 
   const cover =
-    tripCover(
-      currentTrip
-    )
+
+    currentTrip.cover_url
+
+    ||
+
+    currentTrip.hero_url
 
     ||
 
     DEFAULT_HERO;
 
 
-  document.getElementById(
-    "heroImage"
-  ).style.backgroundImage =
-
-    `url("${cover}")`;
+  document
+    .getElementById(
+      "heroImage"
+    )
+    .style
+    .backgroundImage =
+      `url("${cover}")`;
 
 
   const decoration =
@@ -5408,38 +5778,24 @@ function renderHero(){
     );
 
 
-  document.getElementById(
-    "heroJapanese"
-  ).textContent =
-    decoration.main;
+  document
+    .getElementById(
+      "heroJapanese"
+    )
+    .textContent =
+      decoration.main;
 
 
-  document.getElementById(
-    "heroJapaneseSub"
-  ).textContent =
-    decoration.sub;
-
-
-  renderCountdown();
-
-
-  document.title =
-
-    `${
-      currentTrip.name
-      ||
-      "My Trip"
-    } · Travel`;
-
-}
+  document
+    .getElementById(
+      "heroJapaneseSub"
+    )
+    .textContent =
+      decoration.sub;
 
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
-
-function renderCountdown(){
+  /* COUNTDOWN */
 
   let countdown =
     "TRIP";
@@ -5450,7 +5806,6 @@ function renderCountdown(){
     &&
     currentTrip.end_date
   ){
-
 
     const today =
       isoDate(
@@ -5470,7 +5825,6 @@ function renderCountdown(){
       today <
       start
     ){
-
 
       const days =
 
@@ -5519,7 +5873,6 @@ function renderCountdown(){
     else if(
       today <= end
     ){
-
 
       const day =
 
@@ -5583,28 +5936,672 @@ function renderCountdown(){
 
     else{
 
-
       countdown =
         "TRIP COMPLETE";
 
-
     }
-
 
   }
 
 
-  document.getElementById(
-    "tripCountdown"
-  ).textContent =
-    countdown;
+  document
+    .getElementById(
+      "tripCountdown"
+    )
+    .textContent =
+      countdown;
+
+
+  document.title =
+
+    `${
+      currentTrip.name
+      ||
+      "My Trip"
+    } · Travel`;
 
 }
 
 
 
 /* =========================================================
-   SELECTED DAY
+   TRIP SWITCHER
+========================================================= */
+
+function renderTripSwitcher(){
+
+  const holder =
+    document.getElementById(
+      "switchTripList"
+    );
+
+
+  holder.innerHTML =
+
+    accessibleTrips
+
+      .map(
+        trip => {
+
+
+          const isCurrent =
+
+            Number(
+              trip.id
+            )
+
+            ===
+
+            Number(
+              TRIP_ID
+            );
+
+
+          return `
+
+            <button
+              class="
+                switch-trip-item
+                ${
+                  isCurrent
+                  ?
+                  "current"
+                  :
+                  ""
+                }
+              "
+              type="button"
+              data-switch-trip="${Number(trip.id)}"
+            >
+
+
+              <div class="switch-trip-icon">
+
+                ${countryIcon(
+                  trip.country
+                )}
+
+              </div>
+
+
+              <div class="switch-trip-main">
+
+
+                <div class="switch-trip-name">
+
+                  ${esc(
+                    trip.name
+                    ||
+                    "Unnamed Trip"
+                  )}
+
+                </div>
+
+
+                <div class="switch-trip-route">
+
+                  ${esc(
+                    trip.description
+                    ||
+                    trip.country
+                    ||
+                    ""
+                  )}
+
+                </div>
+
+
+                <div class="switch-trip-dates">
+
+                  ${
+                    trip.start_date
+                    ?
+                    esc(
+                      shortDate(
+                        trip.start_date
+                      )
+                    )
+                    :
+                    ""
+                  }
+
+                  ${
+                    trip.start_date
+                    &&
+                    trip.end_date
+                    ?
+                    " – "
+                    :
+                    ""
+                  }
+
+                  ${
+                    trip.end_date
+                    ?
+                    esc(
+                      shortDate(
+                        trip.end_date
+                      )
+                    )
+                    :
+                    ""
+                  }
+
+                </div>
+
+
+              </div>
+
+
+              <div class="switch-trip-select">
+
+                ${isCurrent ? "✓" : ""}
+
+              </div>
+
+
+            </button>
+
+          `;
+
+
+        }
+      )
+
+      .join(
+        ""
+      );
+
+
+  holder
+    .querySelectorAll(
+      "[data-switch-trip]"
+    )
+    .forEach(
+      button => {
+
+
+        button.onclick =
+          () => {
+
+
+            const id =
+              Number(
+                button.dataset.switchTrip
+              );
+
+
+            if(
+              !id
+            ){
+
+              return;
+
+            }
+
+
+            localStorage.setItem(
+
+              "current_trip_id",
+
+              String(
+                id
+              )
+
+            );
+
+
+            location.href =
+              `index.html?trip=${id}`;
+
+
+          };
+
+
+      }
+    );
+
+}
+
+
+
+const switchTripBackdrop =
+  document.getElementById(
+    "switchTripBackdrop"
+  );
+
+
+document
+  .getElementById(
+    "tripSwitchTrigger"
+  )
+  .onclick =
+    () => {
+
+
+      renderTripSwitcher();
+
+
+      switchTripBackdrop
+        .classList
+        .add(
+          "open"
+        );
+
+
+    };
+
+
+document
+  .getElementById(
+    "closeSwitchTrip"
+  )
+  .onclick =
+    () => {
+
+
+      switchTripBackdrop
+        .classList
+        .remove(
+          "open"
+        );
+
+
+    };
+
+
+switchTripBackdrop.onclick =
+  event => {
+
+
+    if(
+      event.target
+      ===
+      switchTripBackdrop
+    ){
+
+
+      switchTripBackdrop
+        .classList
+        .remove(
+          "open"
+        );
+
+
+    }
+
+
+  };
+
+
+
+/* =========================================================
+   FIRST TRIP SHEET
+========================================================= */
+
+const firstTripCreateBackdrop =
+  document.getElementById(
+    "firstTripCreateBackdrop"
+  );
+
+
+document
+  .getElementById(
+    "openFirstTripCreate"
+  )
+  .onclick =
+    () => {
+
+
+      firstTripCreateBackdrop
+        .classList
+        .add(
+          "open"
+        );
+
+
+    };
+
+
+document
+  .getElementById(
+    "closeFirstTripCreate"
+  )
+  .onclick =
+    () => {
+
+
+      firstTripCreateBackdrop
+        .classList
+        .remove(
+          "open"
+        );
+
+
+    };
+
+
+firstTripCreateBackdrop.onclick =
+  event => {
+
+
+    if(
+      event.target
+      ===
+      firstTripCreateBackdrop
+    ){
+
+
+      firstTripCreateBackdrop
+        .classList
+        .remove(
+          "open"
+        );
+
+
+    }
+
+
+  };
+
+
+
+/* =========================================================
+   CREATE FIRST TRIP
+========================================================= */
+
+document
+  .getElementById(
+    "firstTripForm"
+  )
+  .addEventListener(
+    "submit",
+    async event => {
+
+
+      event.preventDefault();
+
+
+      const button =
+        document.getElementById(
+          "firstTripSave"
+        );
+
+
+      const message =
+        document.getElementById(
+          "firstTripMessage"
+        );
+
+
+      message.className =
+        "create-message";
+
+
+      const name =
+        document
+          .getElementById(
+            "firstTripName"
+          )
+          .value
+          .trim();
+
+
+      const country =
+        document
+          .getElementById(
+            "firstTripCountry"
+          )
+          .value
+          .trim();
+
+
+      const description =
+        document
+          .getElementById(
+            "firstTripDescription"
+          )
+          .value
+          .trim();
+
+
+      const startDate =
+        document
+          .getElementById(
+            "firstTripStart"
+          )
+          .value;
+
+
+      const endDate =
+        document
+          .getElementById(
+            "firstTripEnd"
+          )
+          .value;
+
+
+      if(
+        !name
+      ){
+
+        message.textContent =
+          "Please enter a trip name.";
+
+
+        message.className =
+          "create-message error";
+
+
+        return;
+
+      }
+
+
+      if(
+        !country
+      ){
+
+        message.textContent =
+          "Please enter a country.";
+
+
+        message.className =
+          "create-message error";
+
+
+        return;
+
+      }
+
+
+      if(
+        startDate
+        &&
+        endDate
+        &&
+        endDate < startDate
+      ){
+
+        message.textContent =
+          "End date cannot be before the start date.";
+
+
+        message.className =
+          "create-message error";
+
+
+        return;
+
+      }
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+        "CREATING…";
+
+
+      try{
+
+
+        const result =
+          await db
+
+            .from(
+              "trips"
+            )
+
+            .insert({
+
+
+              name:
+                name,
+
+
+              country:
+                country,
+
+
+              start_date:
+                startDate
+                ||
+                null,
+
+
+              end_date:
+                endDate
+                ||
+                null,
+
+
+              description:
+                description
+                ||
+                null,
+
+
+              owner_id:
+                currentUser.id,
+
+
+              status:
+                "active"
+
+
+            })
+
+            .select()
+
+            .single();
+
+
+        if(
+          result.error
+        ){
+
+          throw result.error;
+
+        }
+
+
+        const newTrip =
+          result.data;
+
+
+        localStorage.setItem(
+
+          "current_trip_id",
+
+          String(
+            newTrip.id
+          )
+
+        );
+
+
+        message.textContent =
+          "Trip created ✓";
+
+
+        message.className =
+          "create-message success";
+
+
+        /*
+          CURRENT FLOW:
+
+          index.html?trip=...
+
+          LATER, after we create index-tutorial.html,
+          simply change FIRST_TRIP_DESTINATION above.
+        */
+
+
+        setTimeout(
+          () => {
+
+
+            location.href =
+
+              `${FIRST_TRIP_DESTINATION}?trip=${Number(
+                newTrip.id
+              )}&first=1`;
+
+
+          },
+          450
+        );
+
+
+      }
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+
+          error.message
+
+          ||
+
+          "Could not create your trip.";
+
+
+        message.className =
+          "create-message error";
+
+
+      }
+
+      finally{
+
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+          "CREATE TRIP";
+
+
+      }
+
+
+    }
+  );
+
+
+
+/* =========================================================
+   SELECTED ROWS
 ========================================================= */
 
 function selectedRows(){
@@ -5668,7 +6665,6 @@ function groupPlaces(rows){
           area
         ){
 
-
           currentGroup = {
 
             name:
@@ -5683,7 +6679,6 @@ function groupPlaces(rows){
           groups.push(
             currentGroup
           );
-
 
         }
 
@@ -5742,18 +6737,9 @@ function areaTime(rows){
 
 
   const end =
-
-    last.end_time
-
-    ?
-
     formatClock(
       last.end_time
-    )
-
-    :
-
-    formatClock(
+      ||
       last.start_time
     );
 
@@ -5949,9 +6935,7 @@ function renderPlaceRow(row){
 
           <a
             class="map-link"
-            href="${esc(
-              mapUrl
-            )}"
+            href="${esc(mapUrl)}"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open in Google Maps"
@@ -5964,7 +6948,7 @@ function renderPlaceRow(row){
 
         :
 
-        `<span></span>`
+        "<span></span>"
       }
 
 
@@ -6061,16 +7045,10 @@ function renderPlaceGroup(
             ${group.rows.length}
 
             ${
-              group.rows.length
-              ===
-              1
-
+              group.rows.length === 1
               ?
-
               "place"
-
               :
-
               "places"
             }
 
@@ -6092,11 +7070,9 @@ function renderPlaceGroup(
 
         ${
           group.rows
-
             .map(
               renderPlaceRow
             )
-
             .join(
               ""
             )
@@ -6114,7 +7090,7 @@ function renderPlaceGroup(
 
 
 /* =========================================================
-   RENDER JOURNEY
+   RENDER PLACES
 ========================================================= */
 
 function renderPlaces(){
@@ -6151,7 +7127,6 @@ function renderPlaces(){
     selectedDate
   ){
 
-
     const today =
       isoDate(
         new Date()
@@ -6159,20 +7134,15 @@ function renderPlaces(){
 
 
     if(
-      selectedDate
-      ===
-      today
+      selectedDate === today
     ){
-
 
       title.textContent =
         "Today's Journey";
 
-
     }
 
     else{
-
 
       const day =
         titleCase(
@@ -6186,7 +7156,6 @@ function renderPlaces(){
       title.textContent =
         `${day}'s Journey`;
 
-
     }
 
 
@@ -6195,14 +7164,12 @@ function renderPlaces(){
         selectedDate
       );
 
-
   }
 
 
   if(
     !groups.length
   ){
-
 
     holder
       .classList
@@ -6217,17 +7184,14 @@ function renderPlaces(){
 
 
         <div class="journey-empty-title">
-
           Nothing here yet
-
         </div>
 
 
         <div class="journey-empty-sub">
 
-          This day does not have any linked places yet.
-
-          Open the full plan to start building the itinerary.
+          No linked places are available for this day.
+          Open the full plan to see the complete itinerary.
 
         </div>
 
@@ -6310,15 +7274,17 @@ function renderPlaces(){
               );
 
 
-            button
-              .setAttribute(
-                "aria-expanded",
-                next
-                ?
-                "true"
-                :
-                "false"
-              );
+            button.setAttribute(
+
+              "aria-expanded",
+
+              next
+              ?
+              "true"
+              :
+              "false"
+
+            );
 
 
           };
@@ -6332,7 +7298,7 @@ function renderPlaces(){
 
 
 /* =========================================================
-   DATE SELECTOR
+   DATES
 ========================================================= */
 
 function renderDates(){
@@ -6347,11 +7313,10 @@ function renderDates(){
     !dayDates.length
   ){
 
-
     holder.innerHTML = `
 
       <div class="empty">
-        Trip dates have not been set.
+        No trip days available.
       </div>
 
     `;
@@ -6369,7 +7334,6 @@ function renderDates(){
       .map(
         date => `
 
-
           <button
             class="
               date-btn
@@ -6382,32 +7346,29 @@ function renderDates(){
               }
             "
             type="button"
-            data-date="${esc(
-              date
-            )}"
+            data-date="${esc(date)}"
           >
-
 
             <span class="num">
 
-              ${parseDate(
-                date
-              ).getDate()}
+              ${
+                parseDate(
+                  date
+                )
+                .getDate()
+              }
 
             </span>
 
 
             <span class="dow">
 
-              ${weekday(
-                date
-              )}
+              ${weekday(date)}
 
             </span>
 
 
           </button>
-
 
         `
       )
@@ -6484,11 +7445,12 @@ function renderDates(){
 
 function renderFullPlan(){
 
-  document.getElementById(
-    "fullPlan"
-  ).href =
-
-    `schedule.html?trip=${TRIP_ID}`;
+  document
+    .getElementById(
+      "fullPlan"
+    )
+    .href =
+      `schedule.html?trip=${TRIP_ID}`;
 
 }
 
@@ -6500,73 +7462,75 @@ function renderFullPlan(){
 
 function renderFoodFinder(){
 
-  document.getElementById(
-    "foodFinder"
-  ).innerHTML = `
+  document
+    .getElementById(
+      "foodFinder"
+    )
+    .innerHTML = `
 
 
-    <button
-      id="foodNearbyButton"
-      class="food-nearby"
-      type="button"
-    >
+      <button
+        id="foodNearbyButton"
+        class="food-nearby"
+        type="button"
+      >
 
 
-      <div class="food-left">
+        <div class="food-left">
 
 
-        <div class="food-icon">
-          🍴
-        </div>
-
-
-        <div>
-
-
-          <div class="food-title">
-            FOOD FINDER
+          <div class="food-icon">
+            🍴
           </div>
 
 
-          <div class="food-sub">
-            Your picks + restaurants around you
+          <div>
+
+
+            <div class="food-title">
+              FOOD FINDER
+            </div>
+
+
+            <div class="food-sub">
+              Your picks + restaurants around you
+            </div>
+
+
           </div>
 
 
         </div>
 
 
-      </div>
+        <div class="food-arrow">
+          ⌄
+        </div>
 
 
-      <div class="food-arrow">
-        ⌄
-      </div>
-
-
-    </button>
-
-
-    <div
-      id="foodNearbyPanel"
-      class="nearby-panel"
-    >
+      </button>
 
 
       <div
-        id="foodNearbyStatus"
-        class="nearby-status"
+        id="foodNearbyPanel"
+        class="nearby-panel"
       >
-        Ready to find food around you.
+
+
+        <div
+          id="foodNearbyStatus"
+          class="nearby-status"
+        >
+          Ready to find food around you.
+        </div>
+
+
+        <div id="foodNearbyResults"></div>
+
+
       </div>
 
-
-      <div id="foodNearbyResults"></div>
-
-
-    </div>
-
-  `;
+    `;
 
 
   bindFoodFinder();
@@ -6640,9 +7604,7 @@ function bindFoodFinder(){
         !nearbyLoading
       ){
 
-
         await loadNearbyFood();
-
 
       }
 
@@ -6735,7 +7697,7 @@ function distanceM(
       ),
 
       Math.sqrt(
-        1 - a
+        1-a
       )
 
     )
@@ -6749,8 +7711,7 @@ function distanceM(
 function distanceLabel(distance){
 
   if(
-    distance <
-    1000
+    distance < 1000
   ){
 
     return (
@@ -6758,8 +7719,7 @@ function distanceLabel(distance){
       `${Math.max(
         10,
         Math.round(
-          distance /
-          10
+          distance / 10
         ) * 10
       )} m`
 
@@ -6771,8 +7731,7 @@ function distanceLabel(distance){
   return (
 
     `${(
-      distance /
-      1000
+      distance / 1000
     ).toFixed(1)} km`
 
   );
@@ -6810,7 +7769,7 @@ function googleMapLink(
 
 
 /* =========================================================
-   FOOD RESULT
+   FOOD ITEM
 ========================================================= */
 
 function renderFoodItem(item){
@@ -6881,9 +7840,7 @@ function renderFoodItem(item){
 
           <a
             class="nearby-map"
-            href="${esc(
-              item.map
-            )}"
+            href="${esc(item.map)}"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open map"
@@ -6908,7 +7865,7 @@ function renderFoodItem(item){
 
 
 /* =========================================================
-   LOAD FOOD NEARBY
+   LOAD NEARBY FOOD
 ========================================================= */
 
 async function loadNearbyFood(){
@@ -6949,7 +7906,6 @@ async function loadNearbyFood(){
 
 
     const position =
-
       await new Promise(
         (
           resolve,
@@ -6961,7 +7917,6 @@ async function loadNearbyFood(){
             !navigator.geolocation
           ){
 
-
             reject(
               new Error(
                 "Location is not available on this device."
@@ -6970,7 +7925,6 @@ async function loadNearbyFood(){
 
 
             return;
-
 
           }
 
@@ -6983,9 +7937,16 @@ async function loadNearbyFood(){
               reject,
 
               {
-                enableHighAccuracy:true,
-                timeout:12000,
-                maximumAge:60000
+
+                enableHighAccuracy:
+                  true,
+
+                timeout:
+                  12000,
+
+                maximumAge:
+                  60000
+
               }
 
             );
@@ -7003,10 +7964,8 @@ async function loadNearbyFood(){
       position.coords.longitude;
 
 
-    /* -----------------------------------------------
-       SAVED PICKS
-    ----------------------------------------------- */
 
+    /* SAVED FOOD */
 
     let picks =
       [];
@@ -7032,7 +7991,6 @@ async function loadNearbyFood(){
     if(
       !tripRestaurantResult.error
     ){
-
 
       const ids = [
 
@@ -7064,7 +8022,6 @@ async function loadNearbyFood(){
         ids.length
       ){
 
-
         const restaurantResult =
           await db
 
@@ -7085,7 +8042,6 @@ async function loadNearbyFood(){
         if(
           !restaurantResult.error
         ){
-
 
           picks =
 
@@ -7131,12 +8087,10 @@ async function loadNearbyFood(){
 
                 return {
 
-
                   ...restaurant,
 
 
                   distance:
-
                     distanceM(
 
                       lat,
@@ -7149,7 +8103,6 @@ async function loadNearbyFood(){
 
 
                   map:
-
                     googleMapLink(
 
                       restaurantLat,
@@ -7158,7 +8111,6 @@ async function loadNearbyFood(){
                       restaurant.maps_url
 
                     )
-
 
                 };
 
@@ -7175,25 +8127,19 @@ async function loadNearbyFood(){
 
             .sort(
               (a,b) =>
-                a.distance
-                -
+                a.distance -
                 b.distance
             );
 
-
         }
 
-
       }
-
 
     }
 
 
-    /* -----------------------------------------------
-       GOOGLE NEARBY
-    ----------------------------------------------- */
 
+    /* GOOGLE FOOD */
 
     let nearby =
       [];
@@ -7219,7 +8165,6 @@ async function loadNearbyFood(){
         "function"
       ){
 
-
         const response =
           await Place
             .searchNearby({
@@ -7243,7 +8188,8 @@ async function loadNearbyFood(){
                   lng
                 },
 
-                radius:1800
+                radius:
+                  1800
 
               },
 
@@ -7281,7 +8227,9 @@ async function loadNearbyFood(){
 
               const placeLat =
 
-                typeof place.location?.lat
+                typeof place
+                  .location
+                  ?.lat
                 ===
                 "function"
 
@@ -7296,7 +8244,9 @@ async function loadNearbyFood(){
 
               const placeLng =
 
-                typeof place.location?.lng
+                typeof place
+                  .location
+                  ?.lng
                 ===
                 "function"
 
@@ -7313,20 +8263,14 @@ async function loadNearbyFood(){
 
 
                 name:
-
                   place.displayName
-
                   ||
-
                   "Restaurant",
 
 
                 area:
-
                   place.formattedAddress
-
                   ||
-
                   "",
 
 
@@ -7377,11 +8321,10 @@ async function loadNearbyFood(){
             }
           );
 
-
       }
 
-
     }
+
 
     catch(error){
 
@@ -7395,10 +8338,8 @@ async function loadNearbyFood(){
     }
 
 
-    /* -----------------------------------------------
-       RENDER
-    ----------------------------------------------- */
 
+    /* RENDER */
 
     status.style.display =
       "none";
@@ -7546,7 +8487,7 @@ async function loadNearbyFood(){
 
 
 /* =========================================================
-   RENDER PAGE
+   RENDER NORMAL PAGE
 ========================================================= */
 
 function renderPage(){
@@ -7564,780 +8505,107 @@ function renderPage(){
 
 
 /* =========================================================
-   TRIP SWITCHER
-========================================================= */
-
-const tripSwitcherBackdrop =
-  document.getElementById(
-    "tripSwitcherBackdrop"
-  );
-
-
-const switchTripList =
-  document.getElementById(
-    "switchTripList"
-  );
-
-
-
-function renderTripSwitcher(){
-
-  if(
-    !accessibleTrips.length
-  ){
-
-
-    switchTripList.innerHTML = `
-
-      <div class="empty">
-        No trips available.
-      </div>
-
-    `;
-
-
-    return;
-
-  }
-
-
-  switchTripList.innerHTML =
-
-    accessibleTrips
-
-      .map(
-        trip => {
-
-
-          const current =
-            Number(
-              trip.id
-            )
-            ===
-            Number(
-              TRIP_ID
-            );
-
-
-          const cover =
-            tripCover(
-              trip
-            );
-
-
-          const thumbStyle =
-            cover
-            ?
-            `style="background-image:url('${esc(cover)}')"`
-            :
-            "";
-
-
-          return `
-
-
-            <button
-              class="
-                switch-trip-row
-                ${current ? "current" : ""}
-              "
-              type="button"
-              data-switch-trip="${Number(
-                trip.id
-              )}"
-            >
-
-
-              <div
-                class="switch-thumb"
-                ${thumbStyle}
-              >
-
-                ${
-                  cover
-
-                  ?
-
-                  ""
-
-                  :
-
-                  countryIcon(
-                    trip.country
-                  )
-                }
-
-              </div>
-
-
-              <div class="switch-trip-main">
-
-
-                <div class="switch-trip-name">
-
-                  ${esc(
-                    trip.name
-                    ||
-                    "Unnamed Trip"
-                  )}
-
-                </div>
-
-
-                <div class="switch-trip-route">
-
-                  ${esc(
-                    trip.description
-                    ||
-                    trip.country
-                    ||
-                    "Trip"
-                  )}
-
-                </div>
-
-
-                <div class="switch-trip-date">
-
-                  ${
-                    trip.start_date
-                    &&
-                    trip.end_date
-
-                    ?
-
-                    `${esc(
-                      shortDate(
-                        trip.start_date
-                      )
-                    )} – ${esc(
-                      shortDate(
-                        trip.end_date
-                      )
-                    )}`
-
-                    :
-
-                    "Dates not set"
-                  }
-
-                </div>
-
-
-              </div>
-
-
-              <div class="switch-trip-check">
-
-                ${current ? "✓" : ""}
-
-              </div>
-
-
-            </button>
-
-
-          `;
-
-
-        }
-      )
-
-      .join(
-        ""
-      );
-
-
-  switchTripList
-    .querySelectorAll(
-      "[data-switch-trip]"
-    )
-    .forEach(
-      button => {
-
-
-        button.onclick =
-          () => {
-
-
-            const id =
-              Number(
-                button.dataset.switchTrip
-              );
-
-
-            if(
-              !id
-            ){
-
-              return;
-
-            }
-
-
-            localStorage.setItem(
-              "current_trip_id",
-              String(
-                id
-              )
-            );
-
-
-            location.href =
-              `index.html?trip=${id}`;
-
-
-          };
-
-
-      }
-    );
-
-}
-
-
-
-function openTripSwitcher(){
-
-  renderTripSwitcher();
-
-
-  tripSwitcherBackdrop
-    .classList
-    .add(
-      "open"
-    );
-
-
-}
-
-
-
-function closeTripSwitcher(){
-
-  tripSwitcherBackdrop
-    .classList
-    .remove(
-      "open"
-    );
-
-}
-
-
-
-document.getElementById(
-  "tripSwitchButton"
-).onclick =
-  openTripSwitcher;
-
-
-
-document.getElementById(
-  "closeTripSwitcher"
-).onclick =
-  closeTripSwitcher;
-
-
-
-tripSwitcherBackdrop.onclick =
-  event => {
-
-
-    if(
-      event.target
-      ===
-      tripSwitcherBackdrop
-    ){
-
-
-      closeTripSwitcher();
-
-
-    }
-
-
-  };
-
-
-
-/* =========================================================
-   CREATE FIRST TRIP
-========================================================= */
-
-const createTripBackdrop =
-  document.getElementById(
-    "createTripBackdrop"
-  );
-
-
-const createTripForm =
-  document.getElementById(
-    "createTripForm"
-  );
-
-
-const createTripMessage =
-  document.getElementById(
-    "createTripMessage"
-  );
-
-
-
-function openCreateTripSheet(){
-
-  createTripMessage.className =
-    "trip-form-message";
-
-
-  createTripMessage.textContent =
-    "";
-
-
-  createTripBackdrop
-    .classList
-    .add(
-      "open"
-    );
-
-}
-
-
-
-function closeCreateTripSheet(){
-
-  createTripBackdrop
-    .classList
-    .remove(
-      "open"
-    );
-
-}
-
-
-
-document.getElementById(
-  "createFirstTrip"
-).onclick =
-  openCreateTripSheet;
-
-
-
-document.getElementById(
-  "closeCreateTrip"
-).onclick =
-  closeCreateTripSheet;
-
-
-
-document.getElementById(
-  "viewTripsFirst"
-).onclick =
-  () => {
-
-
-    location.href =
-      "trips.html";
-
-
-  };
-
-
-
-createTripBackdrop.onclick =
-  event => {
-
-
-    if(
-      event.target
-      ===
-      createTripBackdrop
-    ){
-
-
-      closeCreateTripSheet();
-
-
-    }
-
-
-  };
-
-
-
-/* =========================================================
-   SAVE FIRST TRIP
-
-   After creation:
-   index-tutorial.html
-========================================================= */
-
-createTripForm
-  .addEventListener(
-
-    "submit",
-
-    async event => {
-
-
-      event.preventDefault();
-
-
-      if(
-        !currentUser
-      ){
-
-
-        location.href =
-          "login.html";
-
-
-        return;
-
-
-      }
-
-
-      const button =
-        document.getElementById(
-          "createTripSubmit"
-        );
-
-
-      const name =
-        document.getElementById(
-          "firstTripName"
-        )
-        .value
-        .trim();
-
-
-      const country =
-        document.getElementById(
-          "firstTripCountry"
-        )
-        .value
-        .trim();
-
-
-      const description =
-        document.getElementById(
-          "firstTripDescription"
-        )
-        .value
-        .trim();
-
-
-      const startDate =
-        document.getElementById(
-          "firstTripStart"
-        )
-        .value;
-
-
-      const endDate =
-        document.getElementById(
-          "firstTripEnd"
-        )
-        .value;
-
-
-      createTripMessage.className =
-        "trip-form-message";
-
-
-      if(
-        !name
-      ){
-
-
-        createTripMessage.textContent =
-          "Please enter a trip name.";
-
-
-        createTripMessage.className =
-          "trip-form-message error";
-
-
-        return;
-
-
-      }
-
-
-      if(
-        !country
-      ){
-
-
-        createTripMessage.textContent =
-          "Please enter a country.";
-
-
-        createTripMessage.className =
-          "trip-form-message error";
-
-
-        return;
-
-
-      }
-
-
-      if(
-        startDate
-        &&
-        endDate
-        &&
-        endDate < startDate
-      ){
-
-
-        createTripMessage.textContent =
-          "End date cannot be before start date.";
-
-
-        createTripMessage.className =
-          "trip-form-message error";
-
-
-        return;
-
-
-      }
-
-
-      button.disabled =
-        true;
-
-
-      button.textContent =
-        "CREATING…";
-
-
-      try{
-
-
-        const result =
-          await db
-
-            .from(
-              "trips"
-            )
-
-            .insert({
-
-
-              name:
-                name,
-
-
-              country:
-                country,
-
-
-              description:
-                description
-                ||
-                null,
-
-
-              start_date:
-                startDate
-                ||
-                null,
-
-
-              end_date:
-                endDate
-                ||
-                null,
-
-
-              owner_id:
-                currentUser.id,
-
-
-              status:
-                "active"
-
-
-            })
-
-            .select()
-
-            .single();
-
-
-        if(
-          result.error
-        ){
-
-
-          throw result.error;
-
-
-        }
-
-
-        const newTrip =
-          result.data;
-
-
-        localStorage.setItem(
-          "current_trip_id",
-          String(
-            newTrip.id
-          )
-        );
-
-
-        /*
-          New user sees ONLY the Home tutorial.
-
-          Other tutorials can later be opened
-          from + → MORE → GUIDES.
-        */
-
-        location.href =
-
-          `index-tutorial.html?trip=${Number(
-            newTrip.id
-          )}&first=1`;
-
-
-      }
-
-      catch(error){
-
-
-        console.error(
-          "Create first trip:",
-          error
-        );
-
-
-        createTripMessage.textContent =
-
-          error.message
-
-          ||
-
-          "Could not create your trip.";
-
-
-        createTripMessage.className =
-          "trip-form-message error";
-
-
-      }
-
-      finally{
-
-
-        button.disabled =
-          false;
-
-
-        button.textContent =
-          "CREATE TRIP";
-
-
-      }
-
-
-    }
-
-  );
-
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-
-    if(
-      event.key
-      !==
-      "Escape"
-    ){
-
-      return;
-
-    }
-
-
-    closeTripSwitcher();
-
-    closeCreateTripSheet();
-
-
-  }
-);
-
-
-
-/* =========================================================
    START
 ========================================================= */
 
-loadData()
+async function start(){
 
-  .catch(
-    error => {
+  try{
 
 
-      console.error(
-        "Homepage:",
-        error
+    await resolveUser();
+
+
+    accessibleTrips =
+      await getAccessibleTrips();
+
+
+    /*
+      IMPORTANT:
+
+      Zero trips is NOT an error.
+
+      Show the first-trip landing state.
+    */
+
+    if(
+      !accessibleTrips.length
+    ){
+
+
+      localStorage.removeItem(
+        "current_trip_id"
       );
 
 
-      /*
-        Authentication errors are still real errors.
-
-        Zero trips does not reach here anymore.
-      */
+      showFirstTripView();
 
 
-      const holder =
-        document.getElementById(
-          "placeGroups"
-        );
-
-
-      if(
-        holder
-      ){
-
-
-        holder.innerHTML = `
-
-          <div class="error-card">
-
-            ${esc(
-              error.message
-              ||
-              "Could not load your trip."
-            )}
-
-          </div>
-
-        `;
-
-
-      }
+      return;
 
 
     }
-  );
+
+
+    resolveCurrentTrip();
+
+
+    showNormalTripView();
+
+
+    await loadCurrentTripData();
+
+
+  }
+
+  catch(error){
+
+
+    console.error(
+      "Homepage:",
+      error
+    );
+
+
+    const holder =
+      document.getElementById(
+        "placeGroups"
+      );
+
+
+    if(
+      holder
+    ){
+
+
+      holder.innerHTML = `
+
+        <div class="error-card">
+
+          ${esc(
+            error.message
+            ||
+            "Could not load trip."
+          )}
+
+        </div>
+
+      `;
+
+
+    }
+
+
+  }
+
+}
+
+
+start();
 
 </script>
 
 
 </body>
+
 </html>
