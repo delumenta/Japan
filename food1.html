@@ -1249,6 +1249,58 @@ main{
 }
 
 
+
+/* =========================================================
+   DELETE TRIP
+========================================================= */
+
+.delete-trip-box{
+  display:none;
+
+  margin-top:16px;
+
+  padding-top:12px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.delete-trip-box.show{
+  display:block;
+}
+
+.delete-trip-button{
+  width:100%;
+
+  min-height:40px;
+
+  border:
+    1px solid
+    rgba(255,98,95,.24);
+
+  border-radius:9px;
+
+  background:
+    rgba(255,98,95,.045);
+
+  color:#dc8883;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.05em;
+}
+
+.delete-trip-button:active{
+  transform:scale(.985);
+}
+
+.delete-trip-button:disabled{
+  opacity:.45;
+  cursor:default;
+}
+
 /* =========================================================
    MOBILE
 ========================================================= */
@@ -1791,6 +1843,27 @@ main{
 
       </div>
 
+
+    </div>
+
+
+    <!-- =====================================================
+         DELETE TRIP
+         Only shown while editing an owned trip.
+    ====================================================== -->
+
+    <div
+      id="deleteTripBox"
+      class="delete-trip-box"
+    >
+
+      <button
+        id="deleteTripButton"
+        class="delete-trip-button"
+        type="button"
+      >
+        🗑 DELETE TRIP
+      </button>
 
     </div>
 
@@ -3264,6 +3337,16 @@ function openCreateTrip(){
     );
 
 
+  document
+    .getElementById(
+      "deleteTripBox"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
   tripSheet
     .classList
     .add(
@@ -3406,6 +3489,16 @@ function openEditTrip(
         publication?.is_public
       )
 
+    );
+
+
+  document
+    .getElementById(
+      "deleteTripBox"
+    )
+    .classList
+    .add(
+      "show"
     );
 
 
@@ -4016,6 +4109,221 @@ document
 
         message.className =
           "message error";
+
+
+      }
+
+
+    };
+
+
+
+/* =========================================================
+   DELETE TRIP
+   Soft-delete: the row stays in Supabase with status="deleted".
+========================================================= */
+
+document
+  .getElementById(
+    "deleteTripButton"
+  )
+  .onclick =
+    async () => {
+
+
+      if(
+        !editingTripId
+      ){
+
+        return;
+
+      }
+
+
+      const trip =
+        ownedTrips.find(
+          item =>
+
+            Number(
+              item.id
+            )
+
+            ===
+
+            Number(
+              editingTripId
+            )
+        );
+
+
+      if(
+        !trip
+      ){
+
+        return;
+
+      }
+
+
+      const okay =
+        confirm(
+          `Delete "${trip.name || "this trip"}"?\n\nThis will remove it from My Trips.`
+        );
+
+
+      if(
+        !okay
+      ){
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById(
+          "deleteTripButton"
+        );
+
+
+      const message =
+        document.getElementById(
+          "sheetMessage"
+        );
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+        "DELETING…";
+
+
+      message.className =
+        "message";
+
+
+      try{
+
+
+        const result =
+          await db
+
+            .from(
+              "trips"
+            )
+
+            .update({
+              status:"deleted"
+            })
+
+            .eq(
+              "id",
+              editingTripId
+            )
+
+            .eq(
+              "owner_id",
+              currentUser.id
+            )
+
+            .select();
+
+
+        if(
+          result.error
+        ){
+
+          throw result.error;
+
+        }
+
+
+        if(
+          !result.data
+          ||
+          !result.data.length
+        ){
+
+          throw new Error(
+            "Trip was not deleted."
+          );
+
+        }
+
+
+        if(
+          Number(
+            localStorage.getItem(
+              "current_trip_id"
+            )
+          )
+
+          ===
+
+          Number(
+            editingTripId
+          )
+        ){
+
+          localStorage.removeItem(
+            "current_trip_id"
+          );
+
+        }
+
+
+        message.textContent =
+          "Trip deleted ✓";
+
+
+        message.className =
+          "message success";
+
+
+        await loadTrips();
+
+
+        setTimeout(
+          closeTripSheet,
+          350
+        );
+
+
+      }
+
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          error.message
+          ||
+          "Couldn't delete trip.";
+
+
+        message.className =
+          "message error";
+
+
+      }
+
+
+      finally{
+
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+          "🗑 DELETE TRIP";
 
 
       }
