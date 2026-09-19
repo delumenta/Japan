@@ -1,1175 +1,5304 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#05090c">
-<title>Assist · Travel</title>
+
+<title>My Trips · Travel</title>
+
 
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
-  --bg:#05090c; --surface:#0b1217; --surface-2:#0f171d; --surface-3:#141d24;
-  --line:#28323a; --line-soft:rgba(255,255,255,.06);
-  --text:#f5f2ed; --muted:#909aa1; --muted-2:#69757d;
-  --red:#e96d6b; --red-bright:#ff625f; --red-soft:rgba(255,98,95,.08);
-  --red-line:rgba(255,98,95,.32); --green:#79c995; --gold:#e4bd69; --blue:#78a9ef;
+  --bg:#05090c;
+
+  --surface:#0b1217;
+  --surface-2:#0f171d;
+  --surface-3:#141d24;
+
+  --line:#28323a;
+  --line-soft:rgba(255,255,255,.06);
+
+  --text:#f5f2ed;
+  --muted:#909aa1;
+  --muted-2:#69757d;
+
+  --red:#e96d6b;
+  --red-bright:#ff625f;
+  --red-soft:rgba(255,98,95,.08);
+  --red-line:rgba(255,98,95,.32);
+
+  --green:#79c995;
+  --gold:#e4bd69;
+  --blue:#78a9ef;
+
+  --trips-hero-image:
+    url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/file_000000007b6c8211976e7acf0494ed12.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZmlsZV8wMDAwMDAwMDdiNmM4MjExOTc2ZTdhY2YwNDk0ZWQxMi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5ODI1Mzg3LCJleHAiOjQ3NDgyOTgyNTM4N30.jREu3eAdzELhfjipJApbChxtSwp3QQvPJvJ102Tt9nFm1uuHTcMFKoVp4iVJQnGJ76mRoUYV-dcEKCyriBMt9w");
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  margin:0; min-height:100vh; color:var(--text);
-  background:radial-gradient(circle at 50% -5%,rgba(48,61,70,.20),transparent 30%),#030608;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  margin:0;
+  min-height:100vh;
+  padding-top:14px;
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 50% -5%,
+      rgba(48,61,70,.20),
+      transparent 30%
+    ),
+    #030608;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   -webkit-font-smoothing:antialiased;
 }
-button{font:inherit;-webkit-tap-highlight-color:transparent}
-.plan-shell{
-  width:calc(100% - 24px); max-width:720px;
-  margin:calc(14px + env(safe-area-inset-top)) auto 105px;
-  overflow:hidden; border:1px solid #273139; border-radius:27px;
-  background:linear-gradient(180deg,#0a1116,#070d11);
-  box-shadow:0 24px 65px rgba(0,0,0,.40);
-}
-header{
-  position:relative; overflow:hidden;
-  background:radial-gradient(circle at 88% 0%,rgba(255,98,95,.065),transparent 27%),
-             linear-gradient(145deg,#10181e,#081015 65%,#070c10);
-}
-.header-inner{position:relative;z-index:2;padding:26px 20px 0}
-.plan-kanji{
-  position:absolute;z-index:0;right:6px;top:7px;
-  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
-  font-size:126px;font-weight:700;line-height:1;color:var(--red-bright);opacity:.042;
-  pointer-events:none;user-select:none;
-}
-.eyebrow{margin-bottom:14px;color:#df7775;font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
-.plan-hero{display:flex;align-items:center;gap:15px}
-.plan-icon-wrap{
-  width:65px;height:65px;flex:0 0 65px;display:flex;align-items:center;justify-content:center;
-  border:1px solid rgba(255,98,95,.30);border-radius:50%;background:#0b1217;
-}
-.plan-page-title-icon{width:45px;height:45px;display:block;object-fit:contain;opacity:.88}
-.plan-page-title{margin:0;font-family:Georgia,"Times New Roman",serif;line-height:1}
-.plan-page-title span{color:#f7f4ee;font-size:41px;font-weight:700;letter-spacing:-.03em}
-.trip-name{margin-top:8px;max-width:350px;color:#89949c;font-size:9px;font-weight:500;line-height:1.4}
 
-/* The two pages deliberately share one "Plan" identity. */
-.mode-switch{
-  display:grid;grid-template-columns:1fr 1fr;gap:3px;
-  margin:0 0 13px;padding:3px;border:1px solid #28343c;border-radius:12px;background:#080e12;
-}
-.mode-btn{
-  min-height:34px;border:0;border-radius:8px;background:transparent;color:#69757d;
-  font-size:7px;font-weight:900;letter-spacing:.12em;cursor:pointer;
-}
-.mode-btn.active{
-  color:#f3cfcb;background:rgba(255,98,95,.075);
-  box-shadow:inset 0 0 0 1px rgba(255,98,95,.18);
+button,
+input,
+textarea,
+select{
+  font:inherit;
 }
 
-.date-scroller{
-  display:flex;gap:7px;margin-top:24px;padding:0 0 17px;overflow-x:auto;
-  scrollbar-width:none;-webkit-overflow-scrolling:touch;
-}
-.date-scroller::-webkit-scrollbar{display:none}
-.date-btn{
-  flex:0 0 60px;min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:7px 3px;border:1px solid #29343c;border-radius:13px;
-  background:linear-gradient(145deg,#11191f,#0b1217);color:var(--muted);cursor:pointer;
-}
-.date-weekday,.date-month{color:#747f86;font-size:6px;font-weight:800}
-.date-number{margin:4px 0;color:#f0eee9;font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:700;line-height:1}
-.date-btn.active{
-  border-color:rgba(255,98,95,.40);
-  background:radial-gradient(circle at 50% 0%,rgba(255,98,95,.10),transparent 70%),#151318;
-}
-.date-btn.active .date-weekday,.date-btn.active .date-month{color:#d99895}
-
-main{width:100%;padding:0 17px 22px}
-.assist-card{
-  overflow:hidden;border:1px solid #28343c;border-radius:20px;
-  background:radial-gradient(circle at 85% 0%,rgba(255,255,255,.016),transparent 28%),
-             linear-gradient(150deg,#111a20,#0a1116);
-  box-shadow:0 12px 30px rgba(0,0,0,.18);
-}
-.day-head{position:relative;padding:17px 18px 15px;border-bottom:1px solid rgba(255,255,255,.06)}
-.day-meta{display:flex;justify-content:space-between;gap:12px}
-.day-number{color:#dc7774;font-size:7px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
-.day-date{color:#768188;font-size:7px;line-height:1.4;text-align:right;text-transform:uppercase}
-.day-title{
-  max-width:78%;margin-top:8px;color:#f4f0e9;font-family:Georgia,"Times New Roman",serif;
-  font-size:24px;font-weight:700;line-height:1.05;letter-spacing:-.02em;
-}
-.day-sub{margin-top:6px;color:#7d8991;font-size:7px;line-height:1.45}
-
-.assist-body{padding:11px}
-.section-label{
-  margin:4px 2px 7px;color:#71808a;font-size:6px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;
-}
-.weather-card{
-  padding:12px;border:1px solid rgba(120,169,239,.16);border-radius:14px;
-  background:linear-gradient(145deg,rgba(120,169,239,.055),rgba(255,255,255,.012));
-}
-.weather-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.weather-main{display:flex;align-items:center;gap:9px}
-.weather-icon{font-size:22px}
-.weather-title{font-family:Georgia,"Times New Roman",serif;font-size:15px;font-weight:700}
-.weather-meta{margin-top:2px;color:#83909a;font-size:7px}
-.weather-badge{
-  padding:4px 7px;border:1px solid rgba(121,201,149,.20);border-radius:999px;
-  background:rgba(121,201,149,.045);color:#9bd3ad;font-size:5.5px;font-weight:900;white-space:nowrap;
-}
-.weather-badge.rain{
-  border-color:rgba(120,169,239,.24);background:rgba(120,169,239,.055);color:#a8c5ec;
-}
-.weather-note{margin-top:9px;padding-top:9px;border-top:1px solid var(--line-soft);color:#9ca7ae;font-size:7px;line-height:1.55}
-
-.plan-list{border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.012)}
-.plan-row{display:grid;grid-template-columns:52px 9px minmax(0,1fr);gap:6px;padding:9px 10px;border-bottom:1px solid var(--line-soft)}
-.plan-row:last-child{border-bottom:0}
-.plan-time{color:#a5bdcf;font-size:7px;font-weight:900}
-.plan-dot{width:6px;height:6px;margin-top:2px;border-radius:50%;background:var(--red-bright)}
-.plan-title{font-size:8px;font-weight:900;line-height:1.35}
-.plan-loc{margin-top:2px;color:#74818a;font-size:6.5px;line-height:1.4}
-
-.alert{
-  margin-top:10px;padding:11px 12px;border:1px solid rgba(228,189,105,.20);border-radius:14px;
-  background:rgba(228,189,105,.04);
-}
-.alert.rain{border-color:rgba(120,169,239,.20);background:rgba(120,169,239,.04)}
-.alert-kicker{color:var(--gold);font-size:6px;font-weight:900;letter-spacing:.13em}
-.alert.rain .alert-kicker{color:#9dbce5}
-.alert-title{margin-top:5px;font-family:Georgia,"Times New Roman",serif;font-size:14px;font-weight:700}
-.alert-copy{margin-top:5px;color:#929da4;font-size:7px;line-height:1.55}
-
-.suggestion-grid{display:grid;gap:7px}
-.suggestion{
-  display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:9px;
-  padding:9px;border:1px solid #263139;border-radius:12px;background:#0d151a;
-}
-.suggestion-icon{
-  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
-  border-radius:10px;background:#151e24;font-size:16px;
-}
-.suggestion-name{font-size:8px;font-weight:900;line-height:1.3}
-.suggestion-meta{margin-top:3px;color:#74818a;font-size:6.5px;line-height:1.4}
-.suggestion-tag{color:#91afd5;font-size:5.5px;font-weight:900;white-space:nowrap}
-.map-link{
-  display:inline-block;margin-top:4px;color:#b8c9dd;font-size:6px;font-weight:800;text-decoration:none;
-}
-
-
-.find-nearby{
-  width:100%;
-  min-height:44px;
-  margin-top:8px;
-  border:1px solid rgba(120,169,239,.24);
-  border-radius:11px;
-  background:rgba(120,169,239,.055);
-  color:#b8cdec;
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:.08em;
+button{
+  -webkit-tap-highlight-color:transparent;
   cursor:pointer;
 }
-.find-nearby.rain{
-  border-color:rgba(120,169,239,.34);
-  background:linear-gradient(145deg,rgba(120,169,239,.09),rgba(120,169,239,.035));
-  color:#c6d9f2;
+
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+
+.trips-shell{
+  position:relative;
+
+  width:calc(100% - 24px);
+  max-width:720px;
+
+  margin:
+    0
+    auto
+    105px;
+
+  overflow:hidden;
+
+  border:1px solid #273139;
+  border-radius:27px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a1116,
+      #070d11
+    );
+
+  box-shadow:
+    0 24px 65px rgba(0,0,0,.40);
 }
-.discovery-note{
+
+
+/* =========================================================
+   HERO HEADER
+========================================================= */
+
+header{
+  position:relative;
+  z-index:50;
+  isolation:isolate;
+
+  min-height:154px;
+
+  overflow:visible;
+
+  border-top:3px solid var(--red-bright);
+  border-bottom:0;
+
+  border-radius:26px 26px 0 0;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(4,8,11,.76) 0%,
+      rgba(4,8,11,.53) 32%,
+      rgba(4,8,11,.20) 64%,
+      rgba(4,8,11,.08) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(5,9,12,.74) 0%,
+      rgba(5,9,12,.24) 38%,
+      rgba(5,9,12,.03) 72%
+    ),
+    var(--trips-hero-image);
+
+  background-size:cover;
+  background-position:center 46%;
+}
+
+header::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  z-index:0;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at 0% 45%,
+      rgba(0,0,0,.28) 0%,
+      rgba(0,0,0,.12) 34%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 69%,
+      rgba(5,9,12,.26) 84%,
+      rgba(5,9,12,.66) 100%
+    );
+}
+
+.header-inner{
+  position:relative;
+  z-index:2;
+
+  padding:
+    19px
+    20px
+    22px;
+}
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.title-row{
+  position:relative;
+
+  display:block;
+
+  min-height:104px;
+}
+
+.title-row > div:first-child{
+  min-width:0;
+}
+
+.eyebrow{
+  margin-bottom:10px;
+
+  color:#ef7d79;
+
+  font-size:7.5px;
+  font-weight:900;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  text-shadow:
+    0 1px 12px rgba(0,0,0,.72);
+}
+
+.trips-hero{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.trips-icon-wrap{
+  width:54px;
+  height:54px;
+
+  flex:0 0 54px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:8px;
+
+  border:1px solid rgba(255,98,95,.34);
+  border-radius:50%;
+
+  background:rgba(7,13,17,.78);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.012),
+    0 7px 20px rgba(0,0,0,.23);
+
+  overflow:hidden;
+}
+
+.trips-page-logo{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:contain;
+}
+
+.trips-page-title{
+  margin:0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  color:#f8f4ee;
+
+  font-size:34px;
+  font-weight:700;
+
+  line-height:1;
+
+  letter-spacing:-.03em;
+
+  text-shadow:
+    0 2px 18px rgba(0,0,0,.70);
+}
+
+.header-sub{
   margin-top:6px;
-  color:#697780;
+
+  max-width:250px;
+
+  color:#9aa4aa;
+
+  font-size:8px;
+  font-weight:500;
+
+  line-height:1.35;
+
+  text-shadow:
+    0 1px 10px rgba(0,0,0,.68);
+}
+
+
+/* =========================================================
+   HEADER ACTION
+========================================================= */
+
+.header-actions{
+  position:absolute;
+
+  top:0;
+  right:0;
+
+  z-index:5;
+
+  flex:0 0 auto;
+}
+
+.header-btn{
+  min-height:32px;
+
+  padding:
+    0
+    10px;
+
+  border:1px solid rgba(255,98,95,.38);
+  border-radius:9px;
+
+  background:rgba(255,98,95,.09);
+
+  color:#ffb3ae;
+
+  font-size:6.7px;
+  font-weight:900;
+
+  letter-spacing:.04em;
+
+  box-shadow:
+    inset 0 0 16px rgba(255,98,95,.025),
+    0 3px 14px rgba(0,0,0,.18);
+
+  text-shadow:
+    0 1px 8px rgba(0,0,0,.45);
+}
+
+.header-btn:active{
+  transform:scale(.96);
+}
+
+
+/* =========================================================
+   HERO → CONTENT FADE
+========================================================= */
+
+.hero-fade{
+  position:absolute;
+
+  z-index:1;
+
+  left:0;
+  right:0;
+  bottom:-18px;
+
+  height:36px;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.28) 32%,
+      rgba(8,15,20,.76) 72%,
+      #091015 100%
+    );
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+
+  padding:
+    12px
+    17px
+    92px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9,16,21,.98) 0%,
+      #081015 52px,
+      #070d11 150px,
+      #070d11 100%
+    );
+}
+
+
+/* =========================================================
+   SECTION HEADERS
+========================================================= */
+
+.section{
+  margin-bottom:20px;
+}
+
+.section:last-child{
+  margin-bottom:0;
+}
+
+.section-head{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin:
+    0
+    2px
+    9px;
+}
+
+.section-label{
+  color:#9ba7ae;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.13em;
+}
+
+.section-count{
+  min-width:24px;
+
+  padding:
+    3px
+    7px;
+
+  border:1px solid var(--line);
+  border-radius:999px;
+
+  background:#0f161c;
+
+  color:#7d8991;
+
   font-size:6.5px;
+  font-weight:900;
+
+  text-align:center;
+}
+
+
+/* =========================================================
+   TRIP LIST
+========================================================= */
+
+.trip-list{
+  display:grid;
+
+  gap:9px;
+}
+
+.trip-card{
+  position:relative;
+
+  overflow:hidden;
+
+  border:1px solid #2a353d;
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(21,29,35,.98) 0%,
+      rgba(13,20,25,.99) 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 6px 18px rgba(0,0,0,.11);
+}
+
+.trip-card::before{
+  content:"";
+
+  position:absolute;
+  z-index:2;
+
+  top:1px;
+  bottom:1px;
+  left:0;
+
+  width:2px;
+
+  border-radius:
+    12px
+    0
+    0
+    12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.95) 0%,
+      rgba(255,98,95,.76) 60%,
+      rgba(255,98,95,.42) 100%
+    );
+
+  box-shadow:
+    0 0 9px rgba(255,98,95,.13);
+
+  pointer-events:none;
+}
+
+.trip-card::after{
+  content:"";
+
+  position:absolute;
+  z-index:1;
+
+  top:0;
+  left:0;
+
+  width:115px;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,98,95,.55),
+      rgba(255,98,95,.16),
+      transparent
+    );
+
+  pointer-events:none;
+}
+
+.trip-card.current{
+  border-color:
+    rgba(255,98,95,.34);
+}
+
+.trip-card.shared-trip::before{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(120,169,239,.92) 0%,
+      rgba(120,169,239,.62) 60%,
+      rgba(120,169,239,.30) 100%
+    );
+
+  box-shadow:
+    0 0 9px rgba(120,169,239,.13);
+}
+
+.trip-card.shared-trip{
+  border-color:
+    rgba(120,169,239,.18);
+}
+
+.trip-strip{
+  display:none;
+}
+
+.trip-body{
+  padding:
+    12px
+    12px
+    10px;
+}
+
+.trip-top{
+  display:flex;
+
+  align-items:flex-start;
+
+  gap:10px;
+}
+
+.country-icon{
+  width:46px;
+  height:46px;
+
+  flex:0 0 46px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(255,98,95,.18);
+  border-radius:11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,98,95,.08),
+      rgba(255,255,255,.025)
+    );
+
+  font-size:22px;
+}
+
+.trip-main{
+  flex:1;
+
+  min-width:0;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badges{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:4px;
+
+  margin-bottom:5px;
+}
+
+.badge{
+  display:inline-block;
+
+  padding:
+    2px
+    5px;
+
+  border-radius:999px;
+
+  font-size:5.5px;
+  font-weight:900;
+
+  letter-spacing:.06em;
+}
+
+.badge.current{
+  border:
+    1px solid rgba(255,98,95,.22);
+
+  background:
+    rgba(255,98,95,.06);
+
+  color:#efa5a0;
+}
+
+.badge.owner{
+  border:
+    1px solid rgba(228,189,105,.18);
+
+  background:
+    rgba(228,189,105,.05);
+
+  color:#d8bb78;
+}
+
+.badge.editor{
+  border:
+    1px solid rgba(121,201,149,.18);
+
+  background:
+    rgba(121,201,149,.05);
+
+  color:#a7d9b6;
+}
+
+.badge.viewer{
+  border:
+    1px solid rgba(120,169,239,.18);
+
+  background:
+    rgba(120,169,239,.05);
+
+  color:#a6bee3;
+}
+
+.badge.public{
+  border:
+    1px solid rgba(121,201,149,.17);
+
+  background:
+    rgba(121,201,149,.045);
+
+  color:#a4d6b4;
+}
+
+
+/* =========================================================
+   TRIP TEXT
+========================================================= */
+
+.trip-name{
+  overflow:hidden;
+
+  color:#f6f2eb;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:16px;
+  font-weight:700;
+
+  line-height:1.15;
+
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.trip-country{
+  margin-top:3px;
+
+  color:#7c878e;
+
+  font-size:7px;
+}
+
+.trip-dates{
+  margin-top:6px;
+
+  color:#aab5bc;
+
+  font-size:7.5px;
+  font-weight:800;
+}
+
+.trip-description{
+  margin-top:6px;
+
+  color:#849097;
+
+  font-size:7.2px;
+
   line-height:1.45;
 }
 
-.state{
-  padding:32px 18px;border:1px dashed #303b43;border-radius:16px;background:rgba(255,255,255,.012);
-  color:#77838b;font-size:8px;line-height:1.6;text-align:center;
-}
-.state strong{display:block;margin-bottom:5px;color:#e8e7e3;font-family:Georgia,"Times New Roman",serif;font-size:15px}
 
-@media(max-width:390px){
-  .plan-shell{width:calc(100% - 18px)}
-  .header-inner{padding-left:17px;padding-right:17px}
-  .plan-page-title span{font-size:38px}
-  .plan-icon-wrap{width:60px;height:60px;flex-basis:60px}
-  .plan-page-title-icon{width:42px;height:42px}
-  .date-btn{flex-basis:57px}
-  main{padding-left:14px;padding-right:14px}
+/* =========================================================
+   CARD ACTIONS
+========================================================= */
+
+.actions{
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    auto
+    auto;
+
+  gap:5px;
+
+  margin-top:9px;
+
+  padding-top:8px;
+
+  border-top:
+    1px solid rgba(255,255,255,.075);
 }
+
+.open-btn,
+.edit-btn,
+.share-btn{
+  min-height:31px;
+
+  padding:
+    5px
+    9px;
+
+  border-radius:8px;
+
+  font-size:6.8px;
+  font-weight:900;
+}
+
+.open-btn{
+  border:
+    1px solid rgba(255,98,95,.22);
+
+  background:
+    rgba(255,98,95,.05);
+
+  color:#e99b96;
+}
+
+.edit-btn{
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  background:
+    rgba(255,255,255,.025);
+
+  color:#8e9aa1;
+}
+
+.share-btn{
+  border:
+    1px solid rgba(255,98,95,.18);
+
+  background:
+    rgba(255,98,95,.035);
+
+  color:#d58a85;
+}
+
+.share-btn.shared-now{
+  border-color:
+    rgba(121,201,149,.20);
+
+  background:
+    rgba(121,201,149,.045);
+
+  color:#9fd2af;
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+.state{
+  padding:
+    26px
+    14px;
+
+  border:
+    1px dashed #303b43;
+
+  border-radius:14px;
+
+  background:
+    rgba(255,255,255,.012);
+
+  color:#77838b;
+
+  font-size:7px;
+
+  line-height:1.55;
+
+  text-align:center;
+}
+
+.state strong{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#e8e7e3;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:14px;
+
+  font-weight:700;
+}
+
+.page-error{
+  display:none;
+
+  margin-bottom:10px;
+
+  padding:9px;
+
+  border:
+    1px solid rgba(255,98,95,.22);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,98,95,.055);
+
+  color:#ffc0bc;
+
+  font-size:7px;
+}
+
+.page-error.show{
+  display:block;
+}
+
+
+/* =========================================================
+   SHEET
+========================================================= */
+
+.backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:150;
+
+  display:none;
+
+  align-items:flex-end;
+
+  background:
+    rgba(0,0,0,.72);
+
+  backdrop-filter:blur(5px);
+
+  -webkit-backdrop-filter:blur(5px);
+}
+
+.backdrop.open{
+  display:flex;
+}
+
+.sheet{
+  width:100%;
+
+  max-width:620px;
+
+  max-height:
+    calc(
+      92vh -
+      env(safe-area-inset-top)
+    );
+
+  margin:
+    auto
+    auto
+    0;
+
+  overflow-y:auto;
+
+  padding:
+    8px
+    14px
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
+
+  border:1px solid var(--line);
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
+  background:#0c1217;
+
+  box-shadow:
+    0 -20px 50px rgba(0,0,0,.35);
+}
+
+.handle{
+  width:36px;
+  height:4px;
+
+  margin:
+    2px
+    auto
+    13px;
+
+  border-radius:999px;
+
+  background:#35414a;
+}
+
+.sheet-head{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:13px;
+}
+
+.sheet-title{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:19px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  background:#131b21;
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field{
+  margin-bottom:9px;
+}
+
+.field label{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#8d989f;
+
+  font-size:6.5px;
+  font-weight:900;
+
+  letter-spacing:.04em;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+
+  min-height:40px;
+
+  padding:
+    8px
+    9px;
+
+  border:1px solid var(--line);
+
+  border-radius:9px;
+
+  outline:0;
+
+  background:#0f161c;
+
+  color:#fff;
+
+  font-size:9px;
+}
+
+.field textarea{
+  min-height:72px;
+
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--red-line);
+}
+
+.date-row{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:9px;
+}
+
+.sheet-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    2fr;
+
+  gap:6px;
+
+  margin-top:10px;
+}
+
+.cancel,
+.save{
+  min-height:42px;
+
+  border-radius:10px;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.cancel{
+  border:1px solid var(--line);
+
+  background:#11191f;
+
+  color:#bbc3c8;
+}
+
+.save{
+  border:
+    1px solid rgba(121,201,149,.24);
+
+  background:
+    rgba(121,201,149,.07);
+
+  color:#a7dbb8;
+}
+
+
+/* =========================================================
+   PUBLICATION SETTINGS
+========================================================= */
+
+.public-box{
+  display:none;
+
+  margin-top:13px;
+
+  padding:10px;
+
+  border:
+    1px solid rgba(121,201,149,.18);
+
+  border-radius:11px;
+
+  background:
+    rgba(121,201,149,.035);
+}
+
+.public-box.show{
+  display:block;
+}
+
+.public-title{
+  color:#a9d8b8;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.public-text{
+  margin-top:4px;
+
+  color:#74847b;
+
+  font-size:6.5px;
+  line-height:1.5;
+}
+
+.public-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:6px;
+
+  margin-top:9px;
+}
+
+.view-public,
+.unshare{
+  min-height:38px;
+
+  border-radius:9px;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.view-public{
+  border:
+    1px solid rgba(121,201,149,.23);
+
+  background:
+    rgba(121,201,149,.06);
+
+  color:#a7dbb8;
+}
+
+.unshare{
+  border:
+    1px solid rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.04);
+
+  color:#d98a83;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message{
+  display:none;
+
+  margin-top:8px;
+
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:7px;
+}
+
+.message.error{
+  display:block;
+
+  border:
+    1px solid rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.055);
+
+  color:#f3aaa6;
+}
+
+.message.success{
+  display:block;
+
+  border:
+    1px solid rgba(121,201,149,.20);
+
+  background:
+    rgba(121,201,149,.055);
+
+  color:#9dd8b2;
+}
+
+
+
+/* =========================================================
+   DELETE TRIP
+========================================================= */
+
+.delete-trip-box{
+  display:none;
+
+  margin-top:16px;
+
+  padding-top:12px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.delete-trip-box.show{
+  display:block;
+}
+
+.delete-trip-button{
+  width:100%;
+
+  min-height:40px;
+
+  border:
+    1px solid
+    rgba(255,98,95,.24);
+
+  border-radius:9px;
+
+  background:
+    rgba(255,98,95,.045);
+
+  color:#dc8883;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.05em;
+}
+
+.delete-trip-button:active{
+  transform:scale(.985);
+}
+
+.delete-trip-button:disabled{
+  opacity:.45;
+  cursor:default;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:430px){
+
+  body{
+    padding-top:9px;
+  }
+
+  .trips-shell{
+    width:calc(100% - 18px);
+  }
+
+  header{
+    min-height:148px;
+    background-position:center 46%;
+  }
+
+  .header-inner{
+    padding:
+      17px
+      17px
+      20px;
+  }
+
+  .title-row{
+    min-height:100px;
+  }
+
+  .eyebrow{
+    margin-bottom:9px;
+    font-size:7px;
+  }
+
+  .trips-icon-wrap{
+    width:52px;
+    height:52px;
+
+    flex-basis:52px;
+
+    padding:8px;
+  }
+
+  .trips-page-title{
+    font-size:33px;
+  }
+
+  .header-sub{
+    max-width:210px;
+    margin-top:5px;
+    font-size:7.6px;
+  }
+
+  .header-actions{
+    top:0;
+    right:0;
+  }
+
+  .header-btn{
+    min-height:31px;
+
+    padding:
+      0
+      9px;
+
+    font-size:6.4px;
+  }
+
+  .hero-fade{
+    bottom:-16px;
+    height:32px;
+  }
+
+  main{
+    padding:
+      12px
+      14px
+      96px;
+  }
+
+  .trip-body{
+    padding:
+      11px
+      11px
+      10px;
+  }
+
+  .country-icon{
+    width:44px;
+    height:44px;
+    flex-basis:44px;
+  }
+
+  .trip-name{
+    font-size:15px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+  .trips-page-title{
+    font-size:34px;
+  }
+
+  .trips-icon-wrap{
+    width:56px;
+    height:56px;
+
+    flex-basis:56px;
+  }
+
+  .header-btn{
+    font-size:6px;
+  }
+
+  .actions{
+    grid-template-columns:
+      minmax(0,1fr)
+      auto;
+  }
+
+  .share-btn{
+    grid-column:
+      1 / -1;
+  }
+
+}
+
+
+
+/* =========================================================
+   GENERATED MOCKUP STYLE — FINAL OVERRIDES
+   Keeps the existing Supabase logic, sheets and footer.
+========================================================= */
+
+body{
+  padding-top:9px;
+}
+
+.trips-shell{
+  width:calc(100% - 18px);
+  max-width:720px;
+
+  border-color:#32404a;
+  border-radius:28px;
+
+  background:#071015;
+
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.48);
+}
+
+
+/* ---------------------------------------------------------
+   CINEMATIC HERO
+--------------------------------------------------------- */
+
+header{
+  min-height:300px;
+
+  border-top:3px solid var(--red-bright);
+  border-radius:27px 27px 0 0;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(3,7,10,.72) 0%,
+      rgba(3,7,10,.44) 38%,
+      rgba(3,7,10,.12) 70%,
+      rgba(3,7,10,.16) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(4,9,12,.78) 0%,
+      rgba(4,9,12,.20) 38%,
+      rgba(4,9,12,.02) 70%
+    ),
+    var(--trips-hero-image);
+
+  background-size:cover;
+  background-position:center 48%;
+}
+
+header::after{
+  background:
+    radial-gradient(
+      ellipse at 0% 42%,
+      rgba(0,0,0,.42) 0%,
+      rgba(0,0,0,.18) 38%,
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.04) 0%,
+      transparent 55%,
+      rgba(6,12,16,.28) 76%,
+      rgba(6,12,16,.88) 100%
+    );
+}
+
+.header-inner{
+  padding:
+    25px
+    24px
+    24px;
+}
+
+.title-row{
+  min-height:145px;
+}
+
+.eyebrow{
+  margin-bottom:17px;
+
+  color:#ff827e;
+
+  font-size:8px;
+  letter-spacing:.23em;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.78);
+}
+
+.trips-hero{
+  gap:16px;
+}
+
+.trips-icon-wrap{
+  width:72px;
+  height:72px;
+  flex-basis:72px;
+
+  padding:10px;
+
+  border-color:rgba(255,98,95,.50);
+  background:rgba(4,9,13,.70);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.02),
+    0 0 22px rgba(255,98,95,.08),
+    0 10px 30px rgba(0,0,0,.34);
+}
+
+.trips-page-title{
+  font-size:46px;
+
+  text-shadow:
+    0 3px 22px rgba(0,0,0,.78);
+}
+
+.header-sub{
+  margin-top:8px;
+
+  max-width:315px;
+
+  color:#bec6ca;
+
+  font-size:10px;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.80);
+}
+
+.header-actions{
+  top:0;
+  right:0;
+}
+
+.header-btn{
+  min-height:45px;
+
+  padding:0 16px;
+
+  border-color:rgba(255,98,95,.60);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.15),
+      rgba(255,98,95,.075)
+    );
+
+  color:#ffc0bc;
+
+  font-size:8px;
+
+  box-shadow:
+    inset 0 0 20px rgba(255,98,95,.04),
+    0 0 18px rgba(255,98,95,.08),
+    0 6px 20px rgba(0,0,0,.24);
+}
+
+
+/* ---------------------------------------------------------
+   HERO DECOR
+--------------------------------------------------------- */
+
+.hero-decor{
+  position:absolute;
+
+  z-index:2;
+
+  left:24px;
+  right:24px;
+  bottom:35px;
+
+  pointer-events:none;
+}
+
+.hero-motto{
+  color:#a7b1b7;
+
+  font-size:6.5px;
+  font-weight:800;
+
+  letter-spacing:.42em;
+  line-height:2.3;
+
+  text-shadow:
+    0 2px 10px rgba(0,0,0,.8);
+}
+
+.hero-motto span{
+  display:block;
+
+  width:29px;
+  height:2px;
+
+  margin-bottom:8px;
+
+  border-radius:999px;
+
+  background:var(--red-bright);
+}
+
+.hero-jp{
+  position:absolute;
+
+  right:5px;
+  bottom:-2px;
+
+  color:rgba(232,213,202,.42);
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    Georgia,
+    serif;
+
+  font-size:18px;
+  line-height:1.12;
+
+  text-align:center;
+}
+
+.hero-jp small{
+  display:block;
+
+  width:86px;
+
+  margin-top:8px;
+  margin-left:-29px;
+
+  color:rgba(200,208,212,.46);
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:5px;
+  font-weight:800;
+
+  letter-spacing:.34em;
+
+  line-height:1.5;
+}
+
+.hero-fade{
+  bottom:-10px;
+  height:44px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0),
+      rgba(7,13,17,.40) 42%,
+      #071015 100%
+    );
+}
+
+
+/* ---------------------------------------------------------
+   CONTENT SURFACE
+--------------------------------------------------------- */
+
+main{
+  margin-top:0;
+
+  padding:
+    24px
+    20px
+    100px;
+
+  border-top:
+    1px solid
+    rgba(94,112,124,.30);
+
+  border-radius:
+    36px
+    36px
+    0
+    0;
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(29,45,55,.22),
+      transparent 25%
+    ),
+    linear-gradient(
+      180deg,
+      #081116,
+      #060d11
+    );
+}
+
+.section{
+  margin-bottom:28px;
+}
+
+.section-head{
+  margin:
+    0
+    2px
+    13px;
+}
+
+.section-label{
+  position:relative;
+
+  padding-bottom:10px;
+
+  color:#c4cbd0;
+
+  font-size:9px;
+  letter-spacing:.22em;
+}
+
+.section-label::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:0;
+
+  width:36px;
+  height:2px;
+
+  border-radius:999px;
+
+  background:var(--red-bright);
+}
+
+.section-count{
+  min-width:52px;
+
+  padding:
+    7px
+    12px;
+
+  border-color:#31404a;
+  border-radius:17px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101921,
+      #0b1218
+    );
+
+  color:#d4d9dc;
+
+  font-size:8px;
+}
+
+
+/* ---------------------------------------------------------
+   TRIP CARDS
+--------------------------------------------------------- */
+
+.trip-list{
+  gap:14px;
+}
+
+.trip-card{
+  border:
+    1px solid
+    rgba(255,98,95,.32);
+
+  border-radius:20px;
+
+  background:
+    radial-gradient(
+      circle at 0% 50%,
+      rgba(255,98,95,.055),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(17,27,34,.99),
+      rgba(8,16,21,.99)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 24px rgba(0,0,0,.18);
+}
+
+.trip-card::before{
+  top:14px;
+  bottom:14px;
+
+  width:4px;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff625f,
+      rgba(255,98,95,.55)
+    );
+
+  box-shadow:
+    0 0 12px rgba(255,98,95,.24);
+}
+
+.trip-card::after{
+  width:180px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,98,95,.36),
+      transparent
+    );
+}
+
+.trip-card.shared-trip{
+  border-color:
+    rgba(120,169,239,.28);
+}
+
+.trip-card.shared-trip::before{
+  background:
+    linear-gradient(
+      180deg,
+      #78a9ef,
+      rgba(120,169,239,.42)
+    );
+}
+
+.trip-body{
+  padding:
+    14px
+    14px
+    13px;
+}
+
+.trip-layout{
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    112px
+    minmax(0,1fr)
+    16px;
+
+  gap:15px;
+
+  align-items:center;
+}
+
+.trip-media{
+  position:relative;
+
+  width:112px;
+  height:132px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(255,98,95,.22);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,98,95,.09),
+      rgba(255,255,255,.025)
+    );
+
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.26);
+}
+
+.trip-cover{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+}
+
+.trip-media-fallback{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255,98,95,.12),
+      transparent 40%
+    ),
+    linear-gradient(
+      145deg,
+      #151c25,
+      #0c1319
+    );
+
+  font-size:44px;
+}
+
+.trip-flag{
+  position:absolute;
+
+  left:8px;
+  bottom:8px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:30px;
+  height:24px;
+
+  padding:0 6px;
+
+  border-radius:6px;
+
+  background:#f3f5f6;
+
+  font-size:17px;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.28);
+}
+
+.trip-main{
+  min-width:0;
+}
+
+.badges{
+  gap:5px;
+  margin-bottom:7px;
+}
+
+.badge{
+  padding:
+    4px
+    8px;
+
+  border-radius:999px;
+
+  font-size:6.5px;
+  letter-spacing:.05em;
+}
+
+.trip-name{
+  font-size:21px;
+  line-height:1.08;
+
+  white-space:normal;
+}
+
+.trip-country{
+  display:flex;
+  align-items:center;
+
+  gap:5px;
+
+  margin-top:7px;
+
+  color:#a8b2b8;
+
+  font-size:9px;
+}
+
+.trip-country span{
+  color:var(--red-bright);
+}
+
+.trip-dates{
+  display:flex;
+  align-items:center;
+
+  gap:5px;
+
+  margin-top:7px;
+
+  color:#b6c0c6;
+
+  font-size:8.5px;
+}
+
+.trip-dates span{
+  color:var(--red-bright);
+}
+
+.trip-description{
+  margin-top:7px;
+
+  color:#8f9ba2;
+
+  font-size:8px;
+  line-height:1.45;
+}
+
+.trip-arrow{
+  color:#b7c2c8;
+
+  font-size:30px;
+  font-weight:300;
+}
+
+.actions{
+  grid-template-columns:
+    minmax(0,1.8fr)
+    minmax(80px,.72fr)
+    minmax(96px,.9fr);
+
+  gap:8px;
+
+  margin-top:13px;
+  padding-top:0;
+
+  border-top:0;
+}
+
+.open-btn,
+.edit-btn,
+.share-btn,
+.shared-by{
+  min-height:45px;
+
+  border-radius:11px;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.open-btn{
+  border-color:
+    rgba(255,98,95,.48);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,98,95,.12),
+      rgba(255,98,95,.035)
+    );
+
+  color:#ff8984;
+}
+
+.edit-btn{
+  border:
+    1px solid
+    #2b3943;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101a21,
+      #0c141a
+    );
+
+  color:#b8c4ca;
+}
+
+.share-btn{
+  border-color:
+    rgba(255,98,95,.38);
+
+  color:#ff8984;
+}
+
+.share-btn.shared-now{
+  border-color:
+    rgba(121,201,149,.36);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(121,201,149,.09),
+      rgba(121,201,149,.025)
+    );
+
+  color:#8ce0aa;
+}
+
+.shared-by{
+  grid-column:
+    2 / 4;
+
+  border:
+    1px solid
+    #2c3a44;
+
+  background:#0c151b;
+
+  color:#71818c;
+}
+
+
+/* ---------------------------------------------------------
+   EMPTY / ERROR STATES
+--------------------------------------------------------- */
+
+.state{
+  padding:
+    32px
+    18px;
+
+  border-radius:17px;
+
+  background:#0b1318;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE TUNING
+--------------------------------------------------------- */
+
+@media(max-width:520px){
+
+  header{
+    min-height:245px;
+
+    background-position:center 47%;
+  }
+
+  .header-inner{
+    padding:
+      20px
+      17px
+      18px;
+  }
+
+  .title-row{
+    min-height:122px;
+  }
+
+  .eyebrow{
+    margin-bottom:12px;
+    font-size:7px;
+  }
+
+  .trips-hero{
+    gap:11px;
+  }
+
+  .trips-icon-wrap{
+    width:58px;
+    height:58px;
+    flex-basis:58px;
+    padding:8px;
+  }
+
+  .trips-page-title{
+    font-size:35px;
+  }
+
+  .header-sub{
+    max-width:215px;
+    font-size:7.7px;
+  }
+
+  .header-btn{
+    min-height:35px;
+    padding:0 10px;
+    font-size:6.5px;
+  }
+
+  .hero-decor{
+    left:17px;
+    right:17px;
+    bottom:26px;
+  }
+
+  .hero-motto{
+    font-size:5px;
+    letter-spacing:.32em;
+    line-height:2.05;
+  }
+
+  .hero-jp{
+    display:none;
+  }
+
+  main{
+    padding:
+      20px
+      14px
+      102px;
+
+    border-radius:
+      27px
+      27px
+      0
+      0;
+  }
+
+  .section-label{
+    font-size:7.5px;
+  }
+
+  .section-count{
+    min-width:40px;
+    padding:5px 9px;
+    font-size:6.5px;
+  }
+
+  .trip-card{
+    border-radius:15px;
+  }
+
+  .trip-body{
+    padding:
+      11px
+      11px
+      10px;
+  }
+
+  .trip-layout{
+    grid-template-columns:
+      76px
+      minmax(0,1fr)
+      10px;
+
+    gap:10px;
+  }
+
+  .trip-media{
+    width:76px;
+    height:94px;
+
+    border-radius:10px;
+  }
+
+  .trip-media-fallback{
+    font-size:31px;
+  }
+
+  .trip-flag{
+    left:5px;
+    bottom:5px;
+
+    min-width:24px;
+    height:19px;
+
+    padding:0 4px;
+
+    font-size:13px;
+  }
+
+  .badges{
+    gap:3px;
+    margin-bottom:5px;
+  }
+
+  .badge{
+    padding:
+      2px
+      5px;
+
+    font-size:5px;
+  }
+
+  .trip-name{
+    font-size:15px;
+  }
+
+  .trip-country{
+    margin-top:4px;
+
+    font-size:6.8px;
+  }
+
+  .trip-dates{
+    margin-top:4px;
+
+    font-size:6.8px;
+  }
+
+  .trip-description{
+    margin-top:5px;
+
+    font-size:6.6px;
+  }
+
+  .trip-arrow{
+    font-size:21px;
+  }
+
+  .actions{
+    grid-template-columns:
+      minmax(0,1.7fr)
+      minmax(56px,.65fr)
+      minmax(70px,.8fr);
+
+    gap:5px;
+
+    margin-top:9px;
+  }
+
+  .open-btn,
+  .edit-btn,
+  .share-btn,
+  .shared-by{
+    min-height:34px;
+
+    padding:
+      4px
+      6px;
+
+    border-radius:8px;
+
+    font-size:6.2px;
+  }
+
+}
+
+
+@media(max-width:360px){
+
+  .hero-motto{
+    display:none;
+  }
+
+  .trip-layout{
+    grid-template-columns:
+      68px
+      minmax(0,1fr)
+      8px;
+  }
+
+  .trip-media{
+    width:68px;
+    height:88px;
+  }
+
+  .trip-name{
+    font-size:14px;
+  }
+
+  .actions{
+    grid-template-columns:
+      minmax(0,1fr)
+      auto;
+  }
+
+  .share-btn,
+  .shared-by{
+    grid-column:
+      1 / -1;
+  }
+
+}
+
+
 </style>
+
 </head>
 
-<body>
-<div class="plan-shell">
-<header>
-  <div class="plan-kanji">旅</div>
-  <div class="header-inner">
-    <div id="tripEyebrow" class="eyebrow">TRIP · ASSIST</div>
 
-    <div class="plan-hero">
-      <div class="plan-icon-wrap">
-        <img
-          class="plan-page-title-icon"
-          src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
-          alt=""
-          aria-hidden="true"
-        >
-      </div>
+<body>
+
+
+<div class="trips-shell">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+
+  <div class="header-inner">
+
+
+    <div class="title-row">
+
+
       <div>
-        <h1 class="plan-page-title"><span>Plan</span></h1>
-        <div id="tripName" class="trip-name">Loading trip…</div>
+
+
+        <div class="eyebrow">
+          TRAVEL PLANNER
+        </div>
+
+
+        <div class="trips-hero">
+
+
+          <div
+            class="trips-icon-wrap"
+            aria-hidden="true"
+          >
+
+            <img
+              class="trips-page-logo"
+              src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
+              alt=""
+            >
+
+          </div>
+
+
+          <div>
+
+
+            <h1 class="trips-page-title">
+              My Trips
+            </h1>
+
+
+            <div class="header-sub">
+              Create, open and share your trips.
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
       </div>
+
+
+      <div class="header-actions">
+
+
+        <button
+          id="createTripButton"
+          class="header-btn"
+          type="button"
+          aria-label="Create new trip"
+        >
+          ＋ ADD TRIP
+        </button>
+
+
+      </div>
+
+
     </div>
 
-    <div id="dateScroller" class="date-scroller"></div>
 
-    <div class="mode-switch" aria-label="Plan mode">
-      <button id="itineraryMode" class="mode-btn" type="button">ITINERARY</button>
-      <button class="mode-btn active" type="button" aria-current="page">ASSIST</button>
+  </div>
+
+
+  <div class="hero-decor" aria-hidden="true">
+    <div class="hero-motto">
+      <span></span>
+      MORE PLACES<br>
+      BRIGHTER STORIES
+    </div>
+
+    <div class="hero-jp">
+      旅<br>の<br>記<br>憶
+      <small>TRAVEL LIVES ON</small>
     </div>
   </div>
+
+  <div class="hero-fade"></div>
+
+
 </header>
 
-<main id="main">
-  <div class="state"><strong>Loading Assist…</strong>Looking at your itinerary and nearby saved places.</div>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+  <div
+    id="pageError"
+    class="page-error"
+  ></div>
+
+
+
+  <section class="section">
+
+
+    <div class="section-head">
+
+
+      <div class="section-label">
+        MY TRIPS
+      </div>
+
+
+      <div
+        id="ownedCount"
+        class="section-count"
+      >
+        0
+      </div>
+
+
+    </div>
+
+
+    <div
+      id="ownedTrips"
+      class="trip-list"
+    >
+
+
+      <div class="state">
+        Loading your trips…
+      </div>
+
+
+    </div>
+
+
+  </section>
+
+
+
+  <section class="section">
+
+
+    <div class="section-head">
+
+
+      <div class="section-label">
+        SHARED WITH ME
+      </div>
+
+
+      <div
+        id="sharedCount"
+        class="section-count"
+      >
+        0
+      </div>
+
+
+    </div>
+
+
+    <div
+      id="sharedTrips"
+      class="trip-list"
+    >
+
+
+      <div class="state">
+        Loading shared trips…
+      </div>
+
+
+    </div>
+
+
+  </section>
+
+
 </main>
+
+
 </div>
+
+
+
+<!-- =========================================================
+     CREATE / EDIT TRIP
+========================================================= -->
+
+<div
+  id="tripSheet"
+  class="backdrop"
+>
+
+
+  <div class="sheet">
+
+
+    <div class="handle"></div>
+
+
+    <div class="sheet-head">
+
+
+      <div
+        id="sheetTitle"
+        class="sheet-title"
+      >
+        Create Trip
+      </div>
+
+
+      <button
+        id="closeTripSheet"
+        class="close"
+        type="button"
+      >
+        ✕
+      </button>
+
+
+    </div>
+
+
+
+    <div class="field">
+
+
+      <label>
+        TRIP NAME
+      </label>
+
+
+      <input
+        id="tripName"
+        placeholder="e.g. Japan Autumn 2026"
+      >
+
+
+    </div>
+
+
+
+    <div class="field">
+
+
+      <label>
+        COUNTRY
+      </label>
+
+
+      <input
+        id="tripCountry"
+        placeholder="e.g. Japan"
+      >
+
+
+    </div>
+
+
+
+    <div class="date-row">
+
+
+      <div class="field">
+
+
+        <label>
+          START DATE
+        </label>
+
+
+        <input
+          id="tripStart"
+          type="date"
+        >
+
+
+      </div>
+
+
+      <div class="field">
+
+
+        <label>
+          END DATE
+        </label>
+
+
+        <input
+          id="tripEnd"
+          type="date"
+        >
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="field">
+
+
+      <label>
+        DESCRIPTION
+      </label>
+
+
+      <textarea
+        id="tripDescription"
+        placeholder="Optional trip description..."
+      ></textarea>
+
+
+    </div>
+
+
+
+    <div
+      id="sheetMessage"
+      class="message"
+    ></div>
+
+
+
+    <div class="sheet-actions">
+
+
+      <button
+        id="cancelTrip"
+        class="cancel"
+        type="button"
+      >
+        CANCEL
+      </button>
+
+
+      <button
+        id="saveTrip"
+        class="save"
+        type="button"
+      >
+        CREATE TRIP
+      </button>
+
+
+    </div>
+
+
+
+    <div
+      id="publicBox"
+      class="public-box"
+    >
+
+
+      <div class="public-title">
+        🌐 PUBLISHED TO PLACES
+      </div>
+
+
+      <div class="public-text">
+        Other users can view this itinerary,
+        like it and copy it into their own trips.
+      </div>
+
+
+      <div class="public-actions">
+
+
+        <button
+          id="viewPublic"
+          class="view-public"
+          type="button"
+        >
+          VIEW IN PLACES
+        </button>
+
+
+        <button
+          id="unshareTrip"
+          class="unshare"
+          type="button"
+        >
+          STOP SHARING
+        </button>
+
+
+      </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         DELETE TRIP
+         Only shown while editing an owned trip.
+    ====================================================== -->
+
+    <div
+      id="deleteTripBox"
+      class="delete-trip-box"
+    >
+
+      <button
+        id="deleteTripButton"
+        class="delete-trip-button"
+        type="button"
+      >
+        🗑 DELETE TRIP
+      </button>
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <div id="footer"></div>
 
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase.js"></script>
-<script src="google-maps.js"></script>
+
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const requestedTripId = Number(params.get("trip")) || null;
-const savedTripId = Number(localStorage.getItem("current_trip_id")) || null;
-let TRIP_ID = requestedTripId || savedTripId || null;
 
-let currentUser=null, trip=null, accessibleTrips=[], schedule=[], places=[], restaurants=[];
-let groupedDays={}, selectedDate=null;
+/* =========================================================
+   STATE
+========================================================= */
 
-const main=document.getElementById("main");
-const tripName=document.getElementById("tripName");
-const tripEyebrow=document.getElementById("tripEyebrow");
-const dateScroller=document.getElementById("dateScroller");
+let currentUser =
+  null;
 
-function text(v){return String(v ?? "")}
-function esc(v){return text(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function norm(v){return text(v).trim().toLowerCase()}
-function parseDate(v){return new Date(v+"T12:00:00")}
-function localDateString(){
-  const d=new Date();
-  return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+
+let ownedTrips =
+  [];
+
+
+let sharedTrips =
+  [];
+
+
+let publications =
+  [];
+
+
+let editingTripId =
+  null;
+
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function esc(value){
+
+
+  return String(
+    value ?? ""
+  )
+
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
+
+
 }
-function dateParts(v){
-  const d=parseDate(v);
-  return {
-    weekday:new Intl.DateTimeFormat("en-SG",{weekday:"short"}).format(d).toUpperCase(),
-    weekdayLong:new Intl.DateTimeFormat("en-SG",{weekday:"long"}).format(d).toUpperCase(),
-    day:new Intl.DateTimeFormat("en-SG",{day:"numeric"}).format(d),
-    month:new Intl.DateTimeFormat("en-SG",{month:"short"}).format(d).toUpperCase()
+
+
+
+function countryEmoji(country){
+
+
+  const value =
+    String(
+      country
+      ||
+      ""
+    )
+
+    .trim()
+
+    .toLowerCase();
+
+
+  const map = {
+
+
+    japan:"🇯🇵",
+
+    singapore:"🇸🇬",
+
+    malaysia:"🇲🇾",
+
+    indonesia:"🇮🇩",
+
+    thailand:"🇹🇭",
+
+    vietnam:"🇻🇳",
+
+    taiwan:"🇹🇼",
+
+    china:"🇨🇳",
+
+    korea:"🇰🇷",
+
+    "south korea":"🇰🇷",
+
+    france:"🇫🇷",
+
+    italy:"🇮🇹",
+
+    spain:"🇪🇸",
+
+    uk:"🇬🇧",
+
+    "united kingdom":"🇬🇧",
+
+    usa:"🇺🇸",
+
+    "united states":"🇺🇸"
+
+
   };
+
+
+  return (
+    map[value]
+    ||
+    "✈️"
+  );
+
+
 }
-function timeToMinutes(v){
-  if(!v)return null;
-  const p=String(v).slice(0,5).split(":");
-  const h=Number(p[0]),m=Number(p[1]);
-  return Number.isNaN(h)||Number.isNaN(m)?null:h*60+m;
-}
-function labelToMinutes(v){
-  const m=String(v||"").match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
-  if(!m)return null;
-  let h=Number(m[1]); const min=Number(m[2]||0); const s=m[3].toUpperCase();
-  if(h===12)h=0; if(s==="PM")h+=12; return h*60+min;
-}
-function scheduleSortKey(item){
-  const exact=timeToMinutes(item.start_time); if(exact!==null)return exact;
-  const flex=labelToMinutes(item.time_label); if(flex!==null)return flex;
-  const l=norm(item.time_label);
-  if(l.includes("morning"))return 480;
-  if(l.includes("lunch"))return 720;
-  if(l.includes("afternoon"))return 900;
-  if(l.includes("evening"))return 1080;
-  if(l.includes("after"))return 2000;
-  return 1900;
-}
-function compareScheduleItems(a,b){
-  const x=scheduleSortKey(a),y=scheduleSortKey(b);
-  if(x!==y)return x-y;
-  return Number(a.sort_order||0)-Number(b.sort_order||0) || Number(a.id||0)-Number(b.id||0);
-}
-function itemTime(item){
-  if(item.time_label)return item.time_label;
-  if(!item.start_time)return "Flexible";
-  const p=item.start_time.split(":"); let h=Number(p[0]); const min=p[1]||"00";
-  const suffix=h>=12?"PM":"AM"; h=h%12||12; return `${h}:${min} ${suffix}`;
-}
-function itemLocation(item){return item.restaurant?.name||item.place?.name||item.location_name||""}
-function coordsOf(item){
-  const lat=Number(item.place?.latitude ?? item.restaurant?.latitude ?? item.latitude);
-  const lng=Number(item.place?.longitude ?? item.restaurant?.longitude ?? item.longitude);
-  return Number.isFinite(lat)&&Number.isFinite(lng)?{lat,lng}:null;
-}
-function haversine(a,b){
-  const R=6371, rad=x=>x*Math.PI/180;
-  const dLat=rad(b.lat-a.lat), dLng=rad(b.lng-a.lng);
-  const q=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLng/2)**2;
-  return R*2*Math.atan2(Math.sqrt(q),Math.sqrt(1-q));
-}
-function mapsLink(row){
-  return row.maps_url || (row.latitude&&row.longitude ? `https://www.google.com/maps/search/?api=1&query=${row.latitude},${row.longitude}` : null);
-}
-function dayNumber(date){
-  if(!trip?.start_date)return 1;
-  return Math.round((parseDate(date)-parseDate(trip.start_date))/86400000)+1;
-}
-function dayCity(date){
-  for(const item of groupedDays[date]||[]){
-    const c=item.place?.city||item.restaurant?.city;
-    if(c)return c;
+
+
+
+function prettyDate(value){
+
+
+  if(
+    !value
+  ){
+
+    return "";
+
   }
-  return trip?.country||"";
-}
-function meaningfulArea(item){
-  return item.place?.area||item.restaurant?.area||item.place?.city||item.restaurant?.city||null;
-}
-function dayRouteTitle(date){
-  const areas=[];
-  for(const item of groupedDays[date]||[]){
-    const t=norm(item.item_type),title=norm(item.title);
-    if(t.includes("transport")||t.includes("hotel")||title.includes("arrive")||title.includes("depart")||title.includes("check-in"))continue;
-    const area=meaningfulArea(item);
-    if(area&&!areas.some(x=>norm(x)===norm(area)))areas.push(area);
-  }
-  if(areas.length>=2)return `${areas[0]} to ${areas.at(-1)}`;
-  if(areas.length===1)return areas[0];
-  return groupedDays[date]?.[0]?.title||"Trip Day";
-}
-
-async function getAccessibleTrips(){
-  const [ownResult,memberResult]=await Promise.all([
-    db.from("trips").select("*").eq("owner_id",currentUser.id).order("start_date",{ascending:true}),
-    db.from("trip_members").select("trip_id").eq("user_id",currentUser.id)
-  ]);
-  if(ownResult.error)throw ownResult.error;
-  if(memberResult.error)throw memberResult.error;
-  const own=(ownResult.data||[]).map(r=>({...r,access_type:"owner"}));
-  const ids=[...new Set((memberResult.data||[]).map(r=>Number(r.trip_id)).filter(Boolean))];
-  let shared=[];
-  if(ids.length){
-    const r=await db.from("trips").select("*").in("id",ids).order("start_date",{ascending:true});
-    if(r.error)throw r.error;
-    shared=(r.data||[]).map(x=>({...x,access_type:x.owner_id===currentUser.id?"owner":"shared"}));
-  }
-  const map=new Map();
-  [...own,...shared].forEach(r=>{const id=Number(r.id);if(!map.has(id)||r.access_type==="owner")map.set(id,r)});
-  return [...map.values()].sort((a,b)=>(a.start_date||"").localeCompare(b.start_date||""));
-}
-
-async function resolveTrip(){
-  const auth=await db.auth.getUser();
-  if(auth.error)throw auth.error;
-  currentUser=auth.data?.user||null;
-  if(!currentUser)throw new Error("Please sign in to view your trips.");
-  accessibleTrips=await getAccessibleTrips();
-  if(!accessibleTrips.length)throw new Error("You do not have any accessible trips yet.");
-  let resolved=accessibleTrips.find(r=>Number(r.id)===Number(TRIP_ID))||accessibleTrips[0];
-  TRIP_ID=Number(resolved.id);
-  localStorage.setItem("current_trip_id",String(TRIP_ID));
-  history.replaceState(null,"",`?trip=${TRIP_ID}${window.location.hash||""}`);
-}
-
-function loadScheduleQuery(){
-  return db.from("schedule").select(`
-    id,trip_id,schedule_date,start_time,end_time,time_label,sort_order,title,item_type,
-    description,notes,restaurant_id,place_id,location_name,address,latitude,longitude,
-    maps_url,is_optional,is_locked,
-    place:places(id,name,name_japanese,country,prefecture,city,area,address,latitude,longitude,maps_url,place_type),
-    restaurant:restaurants(id,name,name_japanese,country,prefecture,city,area,location,address,latitude,longitude,maps_url)
-  `).eq("trip_id",TRIP_ID).order("schedule_date",{ascending:true}).order("sort_order",{ascending:true});
-}
-
-function buildDays(){
-  groupedDays={};
-  schedule.forEach(item=>(groupedDays[item.schedule_date]??=[]).push(item));
-  Object.values(groupedDays).forEach(items=>items.sort(compareScheduleItems));
-}
-function chooseDate(){
-  const hash=window.location.hash.replace("#","");
-  if(hash&&trip.start_date&&trip.end_date&&hash>=trip.start_date&&hash<=trip.end_date){selectedDate=hash;return}
-  const today=localDateString();
-  if(trip.start_date&&trip.end_date&&today>=trip.start_date&&today<=trip.end_date){selectedDate=today;return}
-  if(trip.start_date&&today<trip.start_date){selectedDate=trip.start_date;return}
-  selectedDate=trip.end_date||Object.keys(groupedDays).sort()[0]||today;
-}
-function renderDates(){
-  if(!trip.start_date||!trip.end_date){dateScroller.innerHTML="";return}
-  const dates=[]; let cursor=parseDate(trip.start_date),end=parseDate(trip.end_date);
-  while(cursor<=end){
-    dates.push([cursor.getFullYear(),String(cursor.getMonth()+1).padStart(2,"0"),String(cursor.getDate()).padStart(2,"0")].join("-"));
-    cursor.setDate(cursor.getDate()+1);
-  }
-  dateScroller.innerHTML=dates.map(date=>{
-    const p=dateParts(date);
-    return `<button class="date-btn ${date===selectedDate?"active":""}" type="button" data-date="${date}">
-      <span class="date-weekday">${esc(p.weekday)}</span><span class="date-number">${esc(p.day)}</span><span class="date-month">${esc(p.month)}</span>
-    </button>`;
-  }).join("");
-  dateScroller.querySelectorAll(".date-btn").forEach(btn=>btn.onclick=()=>{
-    selectedDate=btn.dataset.date;
-    history.replaceState(null,"",`?trip=${TRIP_ID}#${selectedDate}`);
-    renderDates(); renderAssist();
-  });
-  requestAnimationFrame(()=>dateScroller.querySelector(".date-btn.active")?.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"}));
-}
-
-function isTransport(item){
-  const t=norm(item.item_type),x=norm(item.title);
-  return t.includes("transport")||x.includes("train")||x.includes("drive")||x.includes("travel")||x.includes("head to")||x.includes("depart");
-}
-function isOutdoor(item){
-  const s=norm([item.item_type,item.title,item.description,item.notes,item.place?.place_type].join(" "));
-  const outdoor=["shrine","temple","garden","park","mount","highland","waterfall","falls","bamboo","walk","street","outdoor","viewpoint","beach","market"];
-  const indoor=["museum","aquarium","mall","shopping centre","shopping center","indoor","restaurant","cafe","hotel"];
-  if(indoor.some(x=>s.includes(x)))return false;
-  return outdoor.some(x=>s.includes(x));
-}
-function isLikelyIndoorPlace(row){
-  const s=norm([row.place_type,row.name,row.area].join(" "));
-  return ["museum","aquarium","gallery","mall","shopping","market","indoor","tower","centre","center"].some(x=>s.includes(x));
-}
-function anchorItem(items){
-  const withCoords=items.filter(x=>!isTransport(x)&&coordsOf(x));
-  if(!withCoords.length)return items.find(x=>coordsOf(x))||null;
-
-  /* Before the trip, use the first meaningful stop. During the selected day,
-     choose the closest scheduled stop to the current clock time. */
-  if(selectedDate!==localDateString())return withCoords[0];
-  const now=new Date().getHours()*60+new Date().getMinutes();
-  return withCoords.reduce((best,item)=>{
-    const k=scheduleSortKey(item);
-    return Math.abs(k-now)<Math.abs(scheduleSortKey(best)-now)?item:best;
-  },withCoords[0]);
-}
-function nearbyRows(source,anchor,filter=()=>true,limit=3){
-  const c=coordsOf(anchor); if(!c)return [];
-  return source.filter(r=>Number.isFinite(Number(r.latitude))&&Number.isFinite(Number(r.longitude))&&filter(r))
-    .map(r=>({...r,_distance:haversine(c,{lat:Number(r.latitude),lng:Number(r.longitude)})}))
-    .filter(r=>r._distance<=8)
-    .sort((a,b)=>a._distance-b._distance).slice(0,limit);
-}
-function distanceLabel(km){return km<1?`${Math.round(km*1000)} m away`:`${km.toFixed(1)} km away`}
-
-/*
-  WEATHER ADAPTER
-  ------------------------------------------------------------
-  Assist is fully usable now for itinerary + nearby suggestions.
-  To make weather LIVE, replace this function with your chosen weather API.
-  Expected shape:
-  { status:"rain"|"clear"|"unknown", icon:"🌧", title:"Rain expected",
-    meta:"Arashiyama · 2–5 PM", note:"Outdoor plans may be affected." }
-*/
-async function getWeatherForDay(date,anchor){
-  return {
-    status:"unknown",
-    icon:"☁️",
-    title:"Weather check",
-    meta:`${meaningfulArea(anchor)||dayCity(date)||trip?.country||"Trip area"}`,
-    note:"Live weather is ready to connect. Until a weather provider is added, Assist will not invent weather conditions."
-  };
-}
 
 
-async function findNearbyGoogle(kind="places"){
-
-  const items =
-    groupedDays[selectedDate] ||
-    [];
-
-  const anchor =
-    anchorItem(items);
-
-
-  if(!anchor){
-
-    alert(
-      "Assist could not find a location for this itinerary stop."
+  const date =
+    new Date(
+      value
+      +
+      "T12:00:00"
     );
 
-    return;
 
-  }
-
-
-  const c =
-    coordsOf(anchor);
-
-
-  if(!c){
-
-    alert(
-      "This itinerary stop does not have latitude / longitude yet."
+  return date
+    .toLocaleDateString(
+      "en-SG",
+      {
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+      }
     );
 
-    return;
+
+}
+
+
+
+function tripDates(trip){
+
+
+  if(
+    trip.start_date
+    &&
+    trip.end_date
+  ){
+
+
+    return (
+
+      prettyDate(
+        trip.start_date
+      )
+
+      +
+
+      " – "
+
+      +
+
+      prettyDate(
+        trip.end_date
+      )
+
+    );
+
 
   }
 
 
-  const target =
+  if(
+    trip.start_date
+  ){
+
+
+    return (
+
+      "From "
+
+      +
+
+      prettyDate(
+        trip.start_date
+      )
+
+    );
+
+
+  }
+
+
+  return "Dates not set";
+
+
+}
+
+
+
+function getCurrentTripId(){
+
+
+  return (
+
+    Number(
+      localStorage.getItem(
+        "current_trip_id"
+      )
+    )
+
+    ||
+
+    null
+
+  );
+
+
+}
+
+
+
+function normalizeMemberRole(role){
+
+
+  return (
+
+    role
+    ===
+    "editor"
+
+    ?
+
+    "editor"
+
+    :
+
+    "viewer"
+
+  );
+
+
+}
+
+
+
+function publicationForTrip(
+  tripId
+){
+
+
+  return (
+
+    publications.find(
+      item =>
+
+        Number(
+          item.trip_id
+        )
+
+        ===
+
+        Number(
+          tripId
+        )
+    )
+
+    ||
+
+    null
+
+  );
+
+
+}
+
+
+
+function showError(message){
+
+
+  const box =
     document.getElementById(
-      kind === "food"
-      ? "foodDiscoveryResults"
-      : "placeDiscoveryResults"
+      "pageError"
     );
 
 
-  if(!target){
-    return;
-  }
+  box.textContent =
+    message;
 
 
-  target.innerHTML = `
+  box
+    .classList
+    .add(
+      "show"
+    );
 
-    <div class="state">
 
-      <strong>
-        Finding nearby places…
-      </strong>
+}
 
-      Searching around
-      ${esc(
-        itemLocation(anchor) ||
-        anchor.title ||
-        "this stop"
-      )}.
 
-    </div>
 
-  `;
+function clearError(){
+
+
+  document
+    .getElementById(
+      "pageError"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function start(){
 
 
   try{
 
-    if(
-      typeof window.getGooglePlaces !==
-      "function"
-    ){
 
-      throw new Error(
-        "Google Places helper is not available."
-      );
-
-    }
+    clearError();
 
 
-    /*
-      IMPORTANT:
-      google-maps.js uses the NEW Google Places API.
-
-      It exposes:
-      window.getGooglePlaces()
-
-      which returns the Places library containing:
-      Place.searchNearby()
-
-      We deliberately do NOT use the old
-      google.maps.places.PlacesService API here.
-    */
-
-    const library =
-      await window.getGooglePlaces();
-
-
-    const Place =
-      library?.Place;
+    const auth =
+      await db.auth
+        .getUser();
 
 
     if(
-      !Place ||
-      typeof Place.searchNearby !==
-      "function"
+      auth.error
     ){
 
-      throw new Error(
-        "Google Nearby Search is not available."
-      );
+
+      throw auth.error;
+
 
     }
 
 
-    const rain =
-      window.__assistWeatherStatus ===
-      "rain";
+    currentUser =
+      auth.data.user;
 
 
-    let includedPrimaryTypes;
+    if(
+      !currentUser
+    ){
 
 
-    if(kind === "food"){
+      location.href =
+        "login.html";
 
-      includedPrimaryTypes = [
-        "restaurant",
-        "cafe"
-      ];
-
-    }
-
-    else if(rain){
-
-      /*
-        Wet-weather mode:
-        indoor-friendly categories come first.
-      */
-
-      includedPrimaryTypes = [
-        "museum",
-        "art_gallery",
-        "aquarium",
-        "shopping_mall",
-        "movie_theater",
-        "bowling_alley"
-      ];
-
-    }
-
-    else{
-
-      includedPrimaryTypes = [
-        "tourist_attraction",
-        "museum",
-        "art_gallery",
-        "aquarium",
-        "shopping_mall",
-        "park"
-      ];
-
-    }
-
-
-    const response =
-      await Place.searchNearby({
-
-        fields:[
-          "id",
-          "displayName",
-          "formattedAddress",
-          "location",
-          "googleMapsURI",
-          "rating",
-          "userRatingCount",
-          "regularOpeningHours",
-          "primaryType"
-        ],
-
-        locationRestriction:{
-          center:{
-            lat:c.lat,
-            lng:c.lng
-          },
-          radius:3000
-        },
-
-        includedPrimaryTypes,
-
-        maxResultCount:12,
-
-        rankPreference:
-          "DISTANCE"
-
-      });
-
-
-    let results =
-      (
-        response?.places ||
-        []
-      )
-
-      .map(place=>{
-
-        const placeLat =
-
-          typeof place.location?.lat ===
-          "function"
-
-          ?
-
-          place.location.lat()
-
-          :
-
-          Number(
-            place.location?.lat
-          );
-
-
-        const placeLng =
-
-          typeof place.location?.lng ===
-          "function"
-
-          ?
-
-          place.location.lng()
-
-          :
-
-          Number(
-            place.location?.lng
-          );
-
-
-        return {
-
-          id:
-            place.id,
-
-          name:
-            place.displayName ||
-            (
-              kind === "food"
-              ? "Restaurant"
-              : "Nearby place"
-            ),
-
-          area:
-            place.formattedAddress ||
-            "",
-
-          latitude:
-            placeLat,
-
-          longitude:
-            placeLng,
-
-          rating:
-            place.rating,
-
-          userRatingCount:
-            place.userRatingCount,
-
-          openNow:
-            place.regularOpeningHours
-              ?.openNow,
-
-          primaryType:
-            place.primaryType ||
-            "",
-
-          map:
-            place.googleMapsURI ||
-            (
-              Number.isFinite(placeLat) &&
-              Number.isFinite(placeLng)
-
-              ?
-
-              `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                `${placeLat},${placeLng}`
-              )}`
-
-              :
-
-              null
-            ),
-
-          _distance:
-
-            Number.isFinite(placeLat) &&
-            Number.isFinite(placeLng)
-
-            ?
-
-            haversine(
-              c,
-              {
-                lat:placeLat,
-                lng:placeLng
-              }
-            )
-
-            :
-
-            999
-
-        };
-
-      })
-
-      .filter(
-        row =>
-          row.name
-      );
-
-
-    /*
-      In rain mode, keep the indoor-friendly Google
-      result order. Otherwise distance is the main
-      useful ordering for Assist.
-    */
-
-    results =
-      results
-        .sort(
-          (a,b) =>
-            a._distance -
-            b._distance
-        )
-        .slice(
-          0,
-          8
-        );
-
-
-    if(!results.length){
-
-      target.innerHTML = `
-
-        <div class="state">
-
-          <strong>
-            No nearby results found
-          </strong>
-
-          Google did not return suitable
-          ${rain && kind !== "food"
-            ? "indoor places"
-            : "places"}
-          within about 3 km of this stop.
-
-        </div>
-
-      `;
 
       return;
 
+
     }
 
 
-    target.innerHTML =
-      results
-        .map(row=>{
-
-          const meta =
-            [
-
-              distanceLabel(
-                row._distance
-              ),
-
-              row.rating
-              ?
-              `★ ${Number(
-                row.rating
-              ).toFixed(1)}`
-              :
-              null,
-
-              row.userRatingCount
-              ?
-              `${Number(
-                row.userRatingCount
-              ).toLocaleString()} reviews`
-              :
-              null
-
-            ]
-            .filter(Boolean)
-            .join(" · ");
-
-
-          const tag =
-
-            kind === "food"
-
-            ?
-
-            "NEARBY"
-
-            :
-
-            rain
-
-            ?
-
-            "INDOOR"
-
-            :
-
-            "DISCOVER";
-
-
-          const icon =
-
-            kind === "food"
-
-            ?
-
-            "🍽️"
-
-            :
-
-            rain
-
-            ?
-
-            "🏛️"
-
-            :
-
-            "📍";
-
-
-          return `
-
-            <div class="suggestion">
-
-              <div class="suggestion-icon">
-                ${icon}
-              </div>
-
-
-              <div>
-
-                <div class="suggestion-name">
-                  ${esc(row.name)}
-                </div>
-
-
-                <div class="suggestion-meta">
-                  ${esc(meta)}
-                </div>
-
-
-                ${
-                  row.area
-                  ?
-                  `
-                    <div class="suggestion-meta">
-                      ${esc(row.area)}
-                    </div>
-                  `
-                  :
-                  ""
-                }
-
-
-                ${
-                  row.map
-                  ?
-                  `
-                    <a
-                      class="map-link"
-                      href="${esc(row.map)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      OPEN MAP ↗
-                    </a>
-                  `
-                  :
-                  ""
-                }
-
-              </div>
-
-
-              <div class="suggestion-tag">
-                ${tag}
-              </div>
-
-            </div>
-
-          `;
-
-        })
-        .join("");
+    await loadTrips();
 
 
   }
 
+
   catch(error){
 
+
     console.error(
-      "Assist nearby discovery:",
       error
     );
 
 
-    target.innerHTML = `
+    showError(
+      error.message
+      ||
+      "Could not load your trips."
+    );
+
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   LOAD TRIPS
+========================================================= */
+
+async function loadTrips(){
+
+
+  const ownedResult =
+    await db
+
+      .from(
+        "trips"
+      )
+
+      .select(
+        "*"
+      )
+
+      .eq(
+        "owner_id",
+        currentUser.id
+      )
+
+      .order(
+        "start_date",
+        {
+          ascending:false,
+          nullsFirst:false
+        }
+      );
+
+
+  if(
+    ownedResult.error
+  ){
+
+
+    throw ownedResult.error;
+
+
+  }
+
+
+  ownedTrips =
+    (
+      ownedResult.data
+      ||
+      []
+    )
+
+    .filter(
+      trip =>
+        trip.status
+        !==
+        "deleted"
+    );
+
+
+  const membershipResult =
+    await db
+
+      .from(
+        "trip_members"
+      )
+
+      .select(`
+        id,
+        trip_id,
+        user_id,
+        role,
+        created_at
+      `)
+
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+  if(
+    membershipResult.error
+  ){
+
+
+    throw membershipResult.error;
+
+
+  }
+
+
+  const memberships =
+    membershipResult.data
+    ||
+    [];
+
+
+  const sharedIds = [
+
+    ...new Set(
+
+      memberships
+
+        .map(
+          item =>
+            Number(
+              item.trip_id
+            )
+        )
+
+        .filter(
+          Boolean
+        )
+
+    )
+
+  ];
+
+
+  sharedTrips =
+    [];
+
+
+  if(
+    sharedIds.length
+  ){
+
+
+    const sharedResult =
+      await db
+
+        .from(
+          "trips"
+        )
+
+        .select(
+          "*"
+        )
+
+        .in(
+          "id",
+          sharedIds
+        );
+
+
+    if(
+      sharedResult.error
+    ){
+
+
+      throw sharedResult.error;
+
+
+    }
+
+
+    sharedTrips =
+      (
+        sharedResult.data
+        ||
+        []
+      )
+
+      .filter(
+        trip =>
+          trip.status
+          !==
+          "deleted"
+      )
+
+      .map(
+        trip => {
+
+
+          const membership =
+            memberships.find(
+              item =>
+
+                Number(
+                  item.trip_id
+                )
+
+                ===
+
+                Number(
+                  trip.id
+                )
+            );
+
+
+          return {
+
+
+            ...trip,
+
+
+            membership_role:
+              normalizeMemberRole(
+                membership?.role
+              )
+
+
+          };
+
+
+        }
+      );
+
+
+  }
+
+
+  await loadPublications();
+
+
+  renderTrips();
+
+
+}
+
+
+
+/* =========================================================
+   PUBLICATION STATUS
+========================================================= */
+
+async function loadPublications(){
+
+
+  publications =
+    [];
+
+
+  const ids =
+    ownedTrips
+
+      .map(
+        trip =>
+          Number(
+            trip.id
+          )
+      )
+
+      .filter(
+        Boolean
+      );
+
+
+  if(
+    !ids.length
+  ){
+
+
+    return;
+
+
+  }
+
+
+  const result =
+    await db
+
+      .from(
+        "trip_publications"
+      )
+
+      .select(`
+        id,
+        trip_id,
+        is_public,
+        allow_copy,
+        created_at,
+        updated_at
+      `)
+
+      .in(
+        "trip_id",
+        ids
+      );
+
+
+  if(
+    result.error
+  ){
+
+
+    throw result.error;
+
+
+  }
+
+
+  publications =
+    result.data
+    ||
+    [];
+
+
+}
+
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderTrips(){
+
+
+  document
+    .getElementById(
+      "ownedCount"
+    )
+    .textContent =
+      String(
+        ownedTrips.length
+      );
+
+
+  document
+    .getElementById(
+      "sharedCount"
+    )
+    .textContent =
+      String(
+        sharedTrips.length
+      );
+
+
+  const owned =
+    document.getElementById(
+      "ownedTrips"
+    );
+
+
+  const shared =
+    document.getElementById(
+      "sharedTrips"
+    );
+
+
+  if(
+    !ownedTrips.length
+  ){
+
+
+    owned.innerHTML = `
+
 
       <div class="state">
 
+
         <strong>
-          Couldn't load nearby places
+          No trips yet
         </strong>
 
-        ${esc(
-          error.message ||
-          "Google Nearby Search failed."
-        )}
+
+        Use the ＋ ADD TRIP button above
+        to create your first trip.
+
 
       </div>
+
 
     `;
 
+
   }
 
-}
+
+  else{
 
 
-function suggestionHTML(row,icon,tag){
-  const link=mapsLink(row);
-  return `<div class="suggestion">
-    <div class="suggestion-icon">${icon}</div>
-    <div>
-      <div class="suggestion-name">${esc(row.name)}</div>
-      <div class="suggestion-meta">${esc([row.area||row.city,distanceLabel(row._distance)].filter(Boolean).join(" · "))}</div>
-      ${link?`<a class="map-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">OPEN MAP ↗</a>`:""}
-    </div>
-    <div class="suggestion-tag">${esc(tag)}</div>
-  </div>`;
-}
+    owned.innerHTML =
 
-async function renderAssist(){
-  const items=groupedDays[selectedDate]||[];
-  if(!items.length){
-    main.innerHTML=`<div class="state"><strong>Nothing planned yet</strong>Assist needs at least one itinerary stop for this day.</div>`;
-    return;
+      ownedTrips
+
+        .map(
+          trip =>
+            tripCard(
+              trip,
+              "owner"
+            )
+        )
+
+        .join(
+          ""
+        );
+
+
   }
-  const p=dateParts(selectedDate),city=dayCity(selectedDate),anchor=anchorItem(items);
-  const weather=await getWeatherForDay(selectedDate,anchor);
-  const rain=weather.status==="rain";
-  window.__assistWeatherStatus=weather.status;
-  const affected=rain?items.filter(x=>!isTransport(x)&&isOutdoor(x)):[];
-  const indoor=anchor?nearbyRows(places,anchor,isLikelyIndoorPlace,3):[];
-  const food=anchor?nearbyRows(restaurants,anchor,()=>true,3):[];
 
-  main.innerHTML=`
-    <section class="assist-card">
-      <div class="day-head">
-        <div class="day-meta">
-          <div class="day-number">DAY ${String(dayNumber(selectedDate)).padStart(2,"0")}${city?` · ${esc(city.toUpperCase())}`:""}</div>
-          <div class="day-date">${esc(p.weekdayLong)}<br>${esc(p.day)} ${esc(p.month)}</div>
-        </div>
-        <div class="day-title">${esc(dayRouteTitle(selectedDate))}</div>
-        <div class="day-sub">Assist checks this day's plan and surfaces useful alternatives around your itinerary.</div>
+
+  if(
+    !sharedTrips.length
+  ){
+
+
+    shared.innerHTML = `
+
+
+      <div class="state">
+
+
+        <strong>
+          Nothing shared with you
+        </strong>
+
+
+        Trips where you are a Viewer
+        or Editor will appear here.
+
+
       </div>
 
-      <div class="assist-body">
-        <div class="section-label">CONDITIONS</div>
-        <div class="weather-card">
-          <div class="weather-top">
-            <div class="weather-main">
-              <div class="weather-icon">${weather.icon}</div>
-              <div><div class="weather-title">${esc(weather.title)}</div><div class="weather-meta">${esc(weather.meta)}</div></div>
+
+    `;
+
+
+  }
+
+
+  else{
+
+
+    shared.innerHTML =
+
+      sharedTrips
+
+        .map(
+          trip =>
+            tripCard(
+              trip,
+              trip.membership_role
+            )
+        )
+
+        .join(
+          ""
+        );
+
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   TRIP CARD
+========================================================= */
+
+function tripCard(
+  trip,
+  role
+){
+
+  const isCurrent =
+    Number(
+      getCurrentTripId()
+    )
+    ===
+    Number(
+      trip.id
+    );
+
+
+  const isShared =
+    role !== "owner";
+
+
+  const publication =
+    role === "owner"
+    ?
+    publicationForTrip(
+      trip.id
+    )
+    :
+    null;
+
+
+  const isPublic =
+    Boolean(
+      publication?.is_public
+    );
+
+
+  let roleClass =
+    "owner";
+
+
+  let roleLabel =
+    "OWNER";
+
+
+  if(
+    role === "editor"
+  ){
+
+    roleClass =
+      "editor";
+
+    roleLabel =
+      "EDITOR";
+
+  }
+
+  else if(
+    role !== "owner"
+  ){
+
+    roleClass =
+      "viewer";
+
+    roleLabel =
+      "VIEWER";
+
+  }
+
+
+  const coverURL =
+    trip.cover_image_url
+    ||
+    trip.image_url
+    ||
+    trip.photo_url
+    ||
+    "";
+
+
+  const flag =
+    countryEmoji(
+      trip.country
+    );
+
+
+  return `
+
+    <article
+      class="
+        trip-card
+        ${isCurrent ? "current" : ""}
+        ${isShared ? "shared-trip" : ""}
+      "
+    >
+
+      <div class="trip-body">
+
+        <div class="trip-layout">
+
+          <div class="trip-media">
+
+            ${
+              coverURL
+              ?
+              `
+                <img
+                  class="trip-cover"
+                  src="${esc(coverURL)}"
+                  alt=""
+                  loading="lazy"
+                >
+
+                <span class="trip-flag">
+                  ${flag}
+                </span>
+              `
+              :
+              `
+                <div class="trip-media-fallback">
+                  ${flag}
+                </div>
+              `
+            }
+
+          </div>
+
+
+          <div class="trip-main">
+
+            <div class="badges">
+
+              ${
+                isCurrent
+                ?
+                `
+                  <span class="badge current">
+                    CURRENT
+                  </span>
+                `
+                :
+                ""
+              }
+
+              <span class="badge ${roleClass}">
+                ${roleLabel}
+              </span>
+
+              ${
+                isPublic
+                ?
+                `
+                  <span class="badge public">
+                    🌐 SHARED
+                  </span>
+                `
+                :
+                ""
+              }
+
             </div>
-            <div class="weather-badge ${rain?"rain":""}">${rain?"WEATHER ALERT":"CHECK"}</div>
+
+
+            <div class="trip-name">
+
+              ${esc(
+                trip.name
+                ||
+                "Unnamed Trip"
+              )}
+
+            </div>
+
+
+            <div class="trip-country">
+
+              <span>📍</span>
+
+              ${esc(
+                trip.country
+                ||
+                "Country not set"
+              )}
+
+            </div>
+
+
+            <div class="trip-dates">
+
+              <span>📅</span>
+
+              ${esc(
+                tripDates(
+                  trip
+                )
+              )}
+
+            </div>
+
+
+            ${
+              trip.description
+              ?
+              `
+                <div class="trip-description">
+                  ${esc(
+                    trip.description
+                  )}
+                </div>
+              `
+              :
+              ""
+            }
+
           </div>
-          <div class="weather-note">${esc(weather.note)}</div>
+
+
+          <div class="trip-arrow" aria-hidden="true">
+            ›
+          </div>
+
         </div>
 
-        <div class="section-label" style="margin-top:13px">YOUR ITINERARY</div>
-        <div class="plan-list">
-          ${items.map(item=>`<div class="plan-row">
-            <div class="plan-time">${esc(itemTime(item))}</div>
-            <div class="plan-dot"></div>
-            <div><div class="plan-title">${esc(item.title)}${rain&&isOutdoor(item)?` <span style="color:#9dbce5">· RAIN AFFECTED</span>`:""}</div>
-            ${itemLocation(item)&&norm(itemLocation(item))!==norm(item.title)?`<div class="plan-loc">${esc(itemLocation(item))}</div>`:""}</div>
-          </div>`).join("")}
+
+        <div class="actions">
+
+          <button
+            class="open-btn"
+            type="button"
+            onclick="openTrip(${Number(trip.id)})"
+          >
+            🗺 OPEN →
+          </button>
+
+
+          ${
+            role === "owner"
+            ?
+            `
+              <button
+                class="edit-btn"
+                type="button"
+                onclick="openEditTrip(${Number(trip.id)})"
+              >
+                ✎ EDIT
+              </button>
+
+
+              <button
+                class="
+                  share-btn
+                  ${isPublic ? "shared-now" : ""}
+                "
+                type="button"
+                onclick="shareTrip(${Number(trip.id)})"
+              >
+                ${
+                  isPublic
+                  ?
+                  "✓ SHARED"
+                  :
+                  "↗ SHARE"
+                }
+              </button>
+            `
+            :
+            `
+              <button
+                class="shared-by"
+                type="button"
+                disabled
+              >
+                ↗ SHARED WITH YOU
+              </button>
+            `
+          }
+
         </div>
 
-        ${rain&&affected.length?`
-          <div class="alert rain">
-            <div class="alert-kicker">WET WEATHER</div>
-            <div class="alert-title">${affected.length} outdoor ${affected.length===1?"stop may":"stops may"} be affected</div>
-            <div class="alert-copy">Instead of automatically changing your plan, Assist is showing indoor options around ${esc(itemLocation(anchor)||anchor?.title||"your route")}.</div>
-          </div>`:""}
-
-        <div class="section-label" style="margin-top:13px">${rain?"WET WEATHER PLACES":"EXPLORE AROUND HERE"}</div>
-
-        ${rain ? `
-          <div class="alert rain">
-            <div class="alert-kicker">INDOOR FIRST</div>
-            <div class="alert-title">Find places that work better in the rain</div>
-            <div class="alert-copy">Assist will search around ${esc(itemLocation(anchor)||anchor?.title||"this itinerary stop")} and prioritise museums, aquariums, shopping and other indoor-friendly places.</div>
-          </div>
-        ` : ""}
-
-        ${indoor.length ? `
-          <div class="section-label" style="margin-top:10px">YOUR SAVED PLACES</div>
-          <div class="suggestion-grid">
-            ${indoor.map(r=>suggestionHTML(r,"🏛️",rain?"INDOOR":"YOUR PLACE")).join("")}
-          </div>
-        ` : ""}
-
-        <button class="find-nearby ${rain?"rain":""}" type="button" onclick="findNearbyGoogle('places')">
-          ${rain?"☔ FIND INDOOR PLACES NEARBY":"📍 FIND NEARBY PLACES"}
-        </button>
-        <div class="discovery-note">
-          Searches around your itinerary location — not your current GPS position.
-        </div>
-        <div id="placeDiscoveryResults" class="suggestion-grid" style="margin-top:7px"></div>
-
-        <div class="section-label" style="margin-top:13px">FOOD AROUND HERE</div>
-
-        ${food.length ? `
-          <div class="suggestion-grid">
-            ${food.map(r=>suggestionHTML(r,"🍽️","YOUR PICK")).join("")}
-          </div>
-        ` : ""}
-
-        <button class="find-nearby" type="button" onclick="findNearbyGoogle('food')">
-          🍽 FIND MORE FOOD NEARBY
-        </button>
-        <div id="foodDiscoveryResults" class="suggestion-grid" style="margin-top:7px"></div>
       </div>
-    </section>`;
+
+    </article>
+
+  `;
+
 }
 
-async function loadData(){
-  try{
-    await resolveTrip();
-    const tripResult=await db.from("trips").select("*").eq("id",TRIP_ID).single();
-    if(tripResult.error)throw tripResult.error;
-    trip=tripResult.data;
-    if(!trip)throw new Error("Trip not found.");
 
-    tripEyebrow.textContent=trip.country?`${trip.country.toUpperCase()} · AUTUMN 2026`:"TRIP · AUTUMN 2026";
-    if(trip.start_date&&trip.end_date){
-      const start=parseDate(trip.start_date),end=parseDate(trip.end_date);
-      const month=new Intl.DateTimeFormat("en-SG",{month:"short"}).format(start);
-      tripName.textContent=`${start.getDate()}–${end.getDate()} ${month} · ${trip.name||"My Trip"}`;
-    } else tripName.textContent=trip.name||"My Trip";
-    document.title=`Assist · ${trip.name||"Travel"}`;
 
-    let pq=db.from("places").select("*").order("name",{ascending:true});
-    let rq=db.from("restaurants").select("*").order("name",{ascending:true});
-    if(trip.country){pq=pq.ilike("country",trip.country);rq=rq.ilike("country",trip.country)}
-    const [sr,pr,rr]=await Promise.all([loadScheduleQuery(),pq,rq]);
-    if(sr.error)throw sr.error;if(pr.error)throw pr.error;if(rr.error)throw rr.error;
-    schedule=sr.data||[];places=pr.data||[];restaurants=rr.data||[];
-    buildDays();chooseDate();renderDates();await renderAssist();
-  }catch(error){
-    console.error(error);
-    tripName.textContent="Unable to load trip";
-    main.innerHTML=`<div class="state"><strong>Couldn't load Assist</strong>${esc(error.message||"Unknown database error.")}</div>`;
+/* =========================================================
+   OPEN TRIP
+========================================================= */
+
+function openTrip(id){
+
+
+  id =
+    Number(
+      id
+    );
+
+
+  if(
+    !id
+  ){
+
+
+    return;
+
+
   }
+
+
+  localStorage.setItem(
+
+    "current_trip_id",
+
+    String(
+      id
+    )
+
+  );
+
+
+  location.href =
+    `index.html?trip=${id}`;
+
+
 }
 
-document.getElementById("itineraryMode").onclick=()=>{
-  location.href=`schedule.html?trip=${TRIP_ID}#${selectedDate||""}`;
-};
 
-loadData();
+
+/* =========================================================
+   SHARE TO PLACES
+========================================================= */
+
+async function shareTrip(
+  tripId
+){
+
+
+  const publication =
+    publicationForTrip(
+      tripId
+    );
+
+
+  if(
+    publication
+    &&
+    publication.is_public
+  ){
+
+
+    location.href =
+      `places.html?open=${Number(
+        publication.id
+      )}`;
+
+
+    return;
+
+
+  }
+
+
+  try{
+
+
+    const result =
+      await db.rpc(
+
+        "publish_trip",
+
+        {
+
+
+          p_trip_id:
+            Number(
+              tripId
+            ),
+
+
+          p_allow_copy:
+            true
+
+
+        }
+
+      );
+
+
+    if(
+      result.error
+    ){
+
+
+      throw result.error;
+
+
+    }
+
+
+    const publicationId =
+      Number(
+        result.data
+      );
+
+
+    location.href =
+
+      publicationId
+
+      ?
+
+      `places.html?open=${publicationId}`
+
+      :
+
+      "places.html";
+
+
+  }
+
+
+  catch(error){
+
+
+    console.error(
+      error
+    );
+
+
+    alert(
+
+      "Couldn't share this trip.\n\n"
+
+      +
+
+      (
+        error.message
+        ||
+        "Unknown error."
+      )
+
+    );
+
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   CREATE / EDIT TRIP
+========================================================= */
+
+const tripSheet =
+  document.getElementById(
+    "tripSheet"
+  );
+
+
+
+function openCreateTrip(){
+
+
+  editingTripId =
+    null;
+
+
+  document
+    .getElementById(
+      "sheetTitle"
+    )
+    .textContent =
+      "Create Trip";
+
+
+  document
+    .getElementById(
+      "saveTrip"
+    )
+    .textContent =
+      "CREATE TRIP";
+
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripCountry"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripStart"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripEnd"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripDescription"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "sheetMessage"
+    )
+    .className =
+      "message";
+
+
+  document
+    .getElementById(
+      "publicBox"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "deleteTripBox"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  tripSheet
+    .classList
+    .add(
+      "open"
+    );
+
+
+}
+
+
+
+function openEditTrip(
+  tripId
+){
+
+
+  const trip =
+    ownedTrips.find(
+      item =>
+
+        Number(
+          item.id
+        )
+
+        ===
+
+        Number(
+          tripId
+        )
+    );
+
+
+  if(
+    !trip
+  ){
+
+
+    return;
+
+
+  }
+
+
+  editingTripId =
+    Number(
+      trip.id
+    );
+
+
+  document
+    .getElementById(
+      "sheetTitle"
+    )
+    .textContent =
+      "Edit Trip";
+
+
+  document
+    .getElementById(
+      "saveTrip"
+    )
+    .textContent =
+      "SAVE CHANGES";
+
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .value =
+      trip.name
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripCountry"
+    )
+    .value =
+      trip.country
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripStart"
+    )
+    .value =
+      trip.start_date
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripEnd"
+    )
+    .value =
+      trip.end_date
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripDescription"
+    )
+    .value =
+      trip.description
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "sheetMessage"
+    )
+    .className =
+      "message";
+
+
+  const publication =
+    publicationForTrip(
+      trip.id
+    );
+
+
+  document
+    .getElementById(
+      "publicBox"
+    )
+    .classList
+    .toggle(
+
+      "show",
+
+      Boolean(
+        publication?.is_public
+      )
+
+    );
+
+
+  document
+    .getElementById(
+      "deleteTripBox"
+    )
+    .classList
+    .add(
+      "show"
+    );
+
+
+  tripSheet
+    .classList
+    .add(
+      "open"
+    );
+
+
+}
+
+
+
+function closeTripSheet(){
+
+
+  tripSheet
+    .classList
+    .remove(
+      "open"
+    );
+
+
+}
+
+
+
+document
+  .getElementById(
+    "createTripButton"
+  )
+  .onclick =
+    openCreateTrip;
+
+
+
+document
+  .getElementById(
+    "closeTripSheet"
+  )
+  .onclick =
+    closeTripSheet;
+
+
+
+document
+  .getElementById(
+    "cancelTrip"
+  )
+  .onclick =
+    closeTripSheet;
+
+
+
+tripSheet.onclick =
+  event => {
+
+
+    if(
+      event.target
+      ===
+      tripSheet
+    ){
+
+
+      closeTripSheet();
+
+
+    }
+
+
+  };
+
+
+
+/* =========================================================
+   SAVE TRIP
+========================================================= */
+
+document
+  .getElementById(
+    "saveTrip"
+  )
+  .onclick =
+    async () => {
+
+
+      const button =
+        document.getElementById(
+          "saveTrip"
+        );
+
+
+      const message =
+        document.getElementById(
+          "sheetMessage"
+        );
+
+
+      message.className =
+        "message";
+
+
+      const name =
+        document
+          .getElementById(
+            "tripName"
+          )
+          .value
+          .trim();
+
+
+      const country =
+        document
+          .getElementById(
+            "tripCountry"
+          )
+          .value
+          .trim();
+
+
+      const startDate =
+        document
+          .getElementById(
+            "tripStart"
+          )
+          .value;
+
+
+      const endDate =
+        document
+          .getElementById(
+            "tripEnd"
+          )
+          .value;
+
+
+      const description =
+        document
+          .getElementById(
+            "tripDescription"
+          )
+          .value
+          .trim();
+
+
+      if(
+        !name
+      ){
+
+
+        message.textContent =
+          "Please enter a trip name.";
+
+
+        message.className =
+          "message error";
+
+
+        return;
+
+
+      }
+
+
+      if(
+        !country
+      ){
+
+
+        message.textContent =
+          "Please enter a country.";
+
+
+        message.className =
+          "message error";
+
+
+        return;
+
+
+      }
+
+
+      if(
+        startDate
+        &&
+        endDate
+        &&
+        endDate < startDate
+      ){
+
+
+        message.textContent =
+          "End date cannot be before start date.";
+
+
+        message.className =
+          "message error";
+
+
+        return;
+
+
+      }
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+
+        editingTripId
+
+        ?
+
+        "SAVING…"
+
+        :
+
+        "CREATING…";
+
+
+      try{
+
+
+        const payload = {
+
+
+          name:
+            name,
+
+
+          country:
+            country,
+
+
+          start_date:
+            startDate
+            ||
+            null,
+
+
+          end_date:
+            endDate
+            ||
+            null,
+
+
+          description:
+            description
+            ||
+            null
+
+
+        };
+
+
+        if(
+          editingTripId
+        ){
+
+
+          const result =
+            await db
+
+              .from(
+                "trips"
+              )
+
+              .update(
+                payload
+              )
+
+              .eq(
+                "id",
+                editingTripId
+              )
+
+              .eq(
+                "owner_id",
+                currentUser.id
+              )
+
+              .select();
+
+
+          if(
+            result.error
+          ){
+
+
+            throw result.error;
+
+
+          }
+
+
+          if(
+            !result.data
+            ||
+            !result.data.length
+          ){
+
+
+            throw new Error(
+              "Trip was not updated."
+            );
+
+
+          }
+
+
+        }
+
+
+        else{
+
+
+          const result =
+            await db
+
+              .from(
+                "trips"
+              )
+
+              .insert({
+
+
+                ...payload,
+
+
+                owner_id:
+                  currentUser.id,
+
+
+                status:
+                  "active"
+
+
+              })
+
+              .select()
+
+              .single();
+
+
+          if(
+            result.error
+          ){
+
+
+            throw result.error;
+
+
+          }
+
+
+          localStorage.setItem(
+
+            "current_trip_id",
+
+            String(
+              result.data.id
+            )
+
+          );
+
+
+        }
+
+
+        message.textContent =
+          "Saved ✓";
+
+
+        message.className =
+          "message success";
+
+
+        await loadTrips();
+
+
+        setTimeout(
+
+          closeTripSheet,
+
+          300
+
+        );
+
+
+      }
+
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          error.message
+          ||
+          "Could not save trip.";
+
+
+        message.className =
+          "message error";
+
+
+      }
+
+
+      finally{
+
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+
+          editingTripId
+
+          ?
+
+          "SAVE CHANGES"
+
+          :
+
+          "CREATE TRIP";
+
+
+      }
+
+
+    };
+
+
+
+/* =========================================================
+   VIEW PUBLIC
+========================================================= */
+
+document
+  .getElementById(
+    "viewPublic"
+  )
+  .onclick =
+    () => {
+
+
+      if(
+        !editingTripId
+      ){
+
+
+        return;
+
+
+      }
+
+
+      const publication =
+        publicationForTrip(
+          editingTripId
+        );
+
+
+      if(
+        !publication
+        ||
+        !publication.is_public
+      ){
+
+
+        return;
+
+
+      }
+
+
+      location.href =
+        `places.html?open=${Number(
+          publication.id
+        )}`;
+
+
+    };
+
+
+
+/* =========================================================
+   STOP SHARING
+========================================================= */
+
+document
+  .getElementById(
+    "unshareTrip"
+  )
+  .onclick =
+    async () => {
+
+
+      if(
+        !editingTripId
+      ){
+
+
+        return;
+
+
+      }
+
+
+      if(
+        !confirm(
+          "Stop sharing this itinerary in Places?"
+        )
+      ){
+
+
+        return;
+
+
+      }
+
+
+      const message =
+        document.getElementById(
+          "sheetMessage"
+        );
+
+
+      try{
+
+
+        const result =
+          await db.rpc(
+
+            "unpublish_trip",
+
+            {
+
+              p_trip_id:
+                Number(
+                  editingTripId
+                )
+
+            }
+
+          );
+
+
+        if(
+          result.error
+        ){
+
+
+          throw result.error;
+
+
+        }
+
+
+        await loadTrips();
+
+
+        document
+          .getElementById(
+            "publicBox"
+          )
+          .classList
+          .remove(
+            "show"
+          );
+
+
+        message.textContent =
+          "Sharing stopped ✓";
+
+
+        message.className =
+          "message success";
+
+
+      }
+
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          error.message
+          ||
+          "Couldn't stop sharing.";
+
+
+        message.className =
+          "message error";
+
+
+      }
+
+
+    };
+
+
+
+/* =========================================================
+   DELETE TRIP
+   Soft-delete: the row stays in Supabase with status="deleted".
+========================================================= */
+
+document
+  .getElementById(
+    "deleteTripButton"
+  )
+  .onclick =
+    async () => {
+
+
+      if(
+        !editingTripId
+      ){
+
+        return;
+
+      }
+
+
+      const trip =
+        ownedTrips.find(
+          item =>
+
+            Number(
+              item.id
+            )
+
+            ===
+
+            Number(
+              editingTripId
+            )
+        );
+
+
+      if(
+        !trip
+      ){
+
+        return;
+
+      }
+
+
+      const okay =
+        confirm(
+          `Delete "${trip.name || "this trip"}"?\n\nThis will remove it from My Trips.`
+        );
+
+
+      if(
+        !okay
+      ){
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById(
+          "deleteTripButton"
+        );
+
+
+      const message =
+        document.getElementById(
+          "sheetMessage"
+        );
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+        "DELETING…";
+
+
+      message.className =
+        "message";
+
+
+      try{
+
+
+        const result =
+          await db
+
+            .from(
+              "trips"
+            )
+
+            .update({
+              status:"deleted"
+            })
+
+            .eq(
+              "id",
+              editingTripId
+            )
+
+            .eq(
+              "owner_id",
+              currentUser.id
+            )
+
+            .select();
+
+
+        if(
+          result.error
+        ){
+
+          throw result.error;
+
+        }
+
+
+        if(
+          !result.data
+          ||
+          !result.data.length
+        ){
+
+          throw new Error(
+            "Trip was not deleted."
+          );
+
+        }
+
+
+        if(
+          Number(
+            localStorage.getItem(
+              "current_trip_id"
+            )
+          )
+
+          ===
+
+          Number(
+            editingTripId
+          )
+        ){
+
+          localStorage.removeItem(
+            "current_trip_id"
+          );
+
+        }
+
+
+        message.textContent =
+          "Trip deleted ✓";
+
+
+        message.className =
+          "message success";
+
+
+        await loadTrips();
+
+
+        setTimeout(
+          closeTripSheet,
+          350
+        );
+
+
+      }
+
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          error.message
+          ||
+          "Couldn't delete trip.";
+
+
+        message.className =
+          "message error";
+
+
+      }
+
+
+      finally{
+
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+          "🗑 DELETE TRIP";
+
+
+      }
+
+
+    };
+
+
+
+/* =========================================================
+   GO
+========================================================= */
+
+start();
+
 </script>
 
+
 <script src="footer.js"></script>
+
+
 </body>
+
 </html>
