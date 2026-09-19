@@ -1,279 +1,494 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#05090c">
+
 <title>My Trips · Travel</title>
 
+
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
   --bg:#05090c;
+
   --surface:#0b1217;
   --surface-2:#0f171d;
   --surface-3:#141d24;
+
   --line:#28323a;
   --line-soft:rgba(255,255,255,.06);
+
   --text:#f5f2ed;
   --muted:#909aa1;
   --muted-2:#69757d;
+
   --red:#e96d6b;
   --red-bright:#ff625f;
   --red-soft:rgba(255,98,95,.08);
   --red-line:rgba(255,98,95,.32);
+
   --green:#79c995;
   --gold:#e4bd69;
   --blue:#78a9ef;
+
+  --trips-hero-image:
+    url("https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/file_000000007b6c8211976e7acf0494ed12.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvZmlsZV8wMDAwMDAwMDdiNmM4MjExOTc2ZTdhY2YwNDk0ZWQxMi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5ODI1Mzg3LCJleHAiOjQ3NDgyOTgyNTM4N30.jREu3eAdzELhfjipJApbChxtSwp3QQvPJvJ102Tt9nFm1uuHTcMFKoVp4iVJQnGJ76mRoUYV-dcEKCyriBMt9w");
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   min-height:100vh;
   padding-top:14px;
   color:var(--text);
+
   background:
-    radial-gradient(circle at 50% -8%,rgba(42,56,68,.28),transparent 28%),
+    radial-gradient(
+      circle at 50% -5%,
+      rgba(48,61,70,.20),
+      transparent 30%
+    ),
     #030608;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   -webkit-font-smoothing:antialiased;
 }
-button,input,textarea,select{font:inherit}
-button{-webkit-tap-highlight-color:transparent;cursor:pointer}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
+  cursor:pointer;
+}
+
 
 /* =========================================================
-   PLAN / FOOD STYLE SHELL
+   APP SHELL
 ========================================================= */
+
 .trips-shell{
   position:relative;
+
   width:calc(100% - 24px);
   max-width:720px;
-  margin:0 auto 105px;
+
+  margin:
+    0
+    auto
+    105px;
+
   overflow:hidden;
+
   border:1px solid #273139;
   border-radius:27px;
-  background:linear-gradient(180deg,#0a1116,#070d11);
-  box-shadow:0 24px 65px rgba(0,0,0,.40);
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a1116,
+      #070d11
+    );
+
+  box-shadow:
+    0 24px 65px rgba(0,0,0,.40);
 }
+
 
 /* =========================================================
-   CINEMATIC HERO — SAME LANGUAGE AS PLAN / FOOD
+   HERO HEADER
 ========================================================= */
+
 header{
   position:relative;
-  z-index:20;
+  z-index:50;
   isolation:isolate;
-  overflow:hidden;
+
+  min-height:255px;
+
+  overflow:visible;
+
   border-top:3px solid var(--red-bright);
   border-bottom:0;
-  border-radius:26px 26px 0 0;
-  background:
-    radial-gradient(circle at 82% 18%,rgba(255,98,95,.12),transparent 24%),
-    radial-gradient(circle at 18% 7%,rgba(120,169,239,.07),transparent 25%),
-    linear-gradient(90deg,rgba(4,8,11,.82) 0%,rgba(4,8,11,.56) 50%,rgba(4,8,11,.36) 100%),
-    linear-gradient(160deg,#142029 0%,#0c141a 46%,#071015 100%);
-}
 
-header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.30;
-  background:
-    linear-gradient(118deg,transparent 0 49%,rgba(255,255,255,.025) 49.3% 49.6%,transparent 50% 100%),
-    linear-gradient(62deg,transparent 0 49%,rgba(255,255,255,.018) 49.3% 49.6%,transparent 50% 100%);
-  background-size:84px 84px;
+  border-radius:26px 26px 0 0;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(4,8,11,.78) 0%,
+      rgba(4,8,11,.58) 34%,
+      rgba(4,8,11,.24) 64%,
+      rgba(4,8,11,.08) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(5,9,12,.90) 0%,
+      rgba(5,9,12,.44) 35%,
+      rgba(5,9,12,.06) 68%
+    ),
+    var(--trips-hero-image);
+
+  background-size:cover;
+  background-position:center 47%;
 }
 
 header::after{
   content:"";
+
   position:absolute;
   inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(180deg,transparent 66%,rgba(5,9,12,.38) 83%,rgba(7,13,17,.88) 100%);
-}
 
-.trips-kanji{
-  position:absolute;
-  z-index:1;
-  right:8px;
-  top:5px;
-  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
-  font-size:136px;
-  font-weight:700;
-  line-height:1;
-  color:var(--red-bright);
-  opacity:.055;
-  text-shadow:0 0 28px rgba(255,98,95,.12);
+  z-index:0;
+
   pointer-events:none;
-  user-select:none;
+
+  background:
+    radial-gradient(
+      ellipse at 0% 42%,
+      rgba(0,0,0,.33) 0%,
+      rgba(0,0,0,.18) 34%,
+      transparent 64%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 63%,
+      rgba(5,9,12,.36) 79%,
+      rgba(5,9,12,.88) 100%
+    );
 }
 
 .header-inner{
   position:relative;
   z-index:2;
-  padding:26px 20px 24px;
+
+  padding:
+    25px
+    20px
+    34px;
 }
 
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
 .title-row{
+  position:relative;
+
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
-  gap:12px;
+
+  gap:14px;
 }
-.title-row>div:first-child{min-width:0}
+
+.title-row > div:first-child{
+  min-width:0;
+}
 
 .eyebrow{
   margin-bottom:14px;
+
   color:#ef7d79;
+
   font-size:8px;
   font-weight:900;
+
   letter-spacing:.18em;
+
   text-transform:uppercase;
-  text-shadow:0 1px 12px rgba(0,0,0,.70);
+
+  text-shadow:
+    0 1px 12px rgba(0,0,0,.72);
 }
 
 .trips-hero{
   display:flex;
   align-items:center;
+
   gap:15px;
 }
 
 .trips-icon-wrap{
   width:65px;
   height:65px;
+
   flex:0 0 65px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  padding:10px;
+
   border:1px solid rgba(255,98,95,.34);
   border-radius:50%;
-  background:rgba(7,13,17,.78);
-  color:#f19b97;
-  font-size:29px;
+
+  background:rgba(7,13,17,.80);
+
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.012),
     0 8px 24px rgba(0,0,0,.25);
+
+  overflow:hidden;
+}
+
+.trips-page-logo{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:contain;
 }
 
 .trips-page-title{
   margin:0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   color:#f8f4ee;
-  font-family:Georgia,"Times New Roman",serif;
+
   font-size:41px;
   font-weight:700;
+
   line-height:1;
+
   letter-spacing:-.03em;
-  text-shadow:0 2px 18px rgba(0,0,0,.68);
+
+  text-shadow:
+    0 2px 18px rgba(0,0,0,.70);
 }
 
 .header-sub{
   margin-top:8px;
-  max-width:350px;
-  color:#9ba4aa;
+
+  max-width:330px;
+
+  color:#9aa4aa;
+
   font-size:9px;
   font-weight:500;
+
   line-height:1.4;
-  text-shadow:0 1px 10px rgba(0,0,0,.66);
+
+  text-shadow:
+    0 1px 10px rgba(0,0,0,.68);
 }
 
+
+/* =========================================================
+   HEADER ACTION
+========================================================= */
+
 .header-actions{
-  display:flex;
-  gap:5px;
   flex:0 0 auto;
 }
 
 .header-btn{
-  min-width:74px;
-  min-height:29px;
-  padding:0 10px;
+  min-height:36px;
+
+  padding:
+    0
+    12px;
+
   border:1px solid rgba(255,98,95,.38);
-  border-radius:9px;
+  border-radius:10px;
+
   background:rgba(255,98,95,.09);
+
   color:#ffb3ae;
+
   font-size:7px;
   font-weight:900;
+
   letter-spacing:.04em;
+
   box-shadow:
     inset 0 0 16px rgba(255,98,95,.025),
     0 3px 14px rgba(0,0,0,.18);
+
+  text-shadow:
+    0 1px 8px rgba(0,0,0,.45);
 }
-.header-btn:active{transform:scale(.95)}
+
+.header-btn:active{
+  transform:scale(.96);
+}
+
 
 /* =========================================================
-   HERO → BODY FADE
+   HERO → CONTENT FADE
 ========================================================= */
-main{
-  position:relative;
-  z-index:1;
-  isolation:isolate;
-  width:100%;
-  padding:8px 17px 24px;
-  background:
-    linear-gradient(180deg,rgba(9,16,21,.98) 0%,#081015 64px,#070d11 190px,#070d11 100%);
-}
 
-main::before{
-  content:"";
+.hero-fade{
   position:absolute;
-  z-index:0;
+
+  z-index:1;
+
   left:0;
   right:0;
-  top:-48px;
-  height:76px;
+  bottom:-34px;
+
+  height:58px;
+
   pointer-events:none;
+
   background:
-    linear-gradient(180deg,rgba(7,13,17,0) 0%,rgba(7,13,17,.24) 18%,rgba(7,13,17,.52) 42%,rgba(7,13,17,.78) 66%,rgba(8,15,20,.95) 86%,#091015 100%);
+    linear-gradient(
+      180deg,
+      rgba(7,13,17,0) 0%,
+      rgba(7,13,17,.30) 28%,
+      rgba(7,13,17,.64) 58%,
+      rgba(8,15,20,.93) 82%,
+      #091015 100%
+    );
 }
-main>*{position:relative;z-index:1}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+
+  padding:
+    4px
+    17px
+    24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9,16,21,.98) 0%,
+      #081015 64px,
+      #070d11 190px,
+      #070d11 100%
+    );
+}
+
 
 /* =========================================================
    SECTION HEADERS
 ========================================================= */
-.section{margin-bottom:15px}
-.section:last-child{margin-bottom:0}
+
+.section{
+  margin-bottom:18px;
+}
+
+.section:last-child{
+  margin-bottom:0;
+}
+
 .section-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
-  margin:0 2px 7px;
-  padding-bottom:5px;
-  border-bottom:1px solid var(--line-soft);
+
+  margin:
+    0
+    2px
+    8px;
 }
+
 .section-label{
-  color:#bfc5c9;
-  font-size:7px;
+  color:#98a5ad;
+
+  font-size:6.5px;
   font-weight:900;
-  letter-spacing:.09em;
+
+  letter-spacing:.13em;
 }
+
 .section-count{
-  min-width:20px;
-  padding:2px 6px;
+  min-width:24px;
+
+  padding:
+    3px
+    7px;
+
   border:1px solid var(--line);
   border-radius:999px;
-  background:rgba(255,255,255,.025);
-  color:#728089;
+
+  background:#0f161c;
+
+  color:#738089;
+
   font-size:6px;
   font-weight:900;
+
   text-align:center;
 }
 
+
 /* =========================================================
-   TRIP CARDS — SAME CARD LANGUAGE AS FOOD
+   TRIP LIST
 ========================================================= */
-.trip-list{display:grid;gap:6px}
+
+.trip-list{
+  display:grid;
+
+  gap:8px;
+}
 
 .trip-card{
   position:relative;
+
   overflow:hidden;
+
   border:1px solid #2a353d;
   border-radius:12px;
-  background:linear-gradient(180deg,rgba(21,29,35,.98) 0%,rgba(13,20,25,.99) 100%);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(21,29,35,.98) 0%,
+      rgba(13,20,25,.99) 100%
+    );
+
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.025),
     0 6px 18px rgba(0,0,0,.11);
@@ -281,855 +496,3508 @@ main>*{position:relative;z-index:1}
 
 .trip-card::before{
   content:"";
+
   position:absolute;
   z-index:2;
+
   top:1px;
   bottom:1px;
   left:0;
-  width:2px;
-  border-radius:12px 0 0 12px;
-  background:linear-gradient(180deg,rgba(255,98,95,.95) 0%,rgba(255,98,95,.76) 60%,rgba(255,98,95,.42) 100%);
-  box-shadow:0 0 9px rgba(255,98,95,.13);
-  pointer-events:none;
-}
 
-.trip-card.shared-trip::before{
-  background:linear-gradient(180deg,rgba(120,169,239,.92) 0%,rgba(120,169,239,.64) 62%,rgba(120,169,239,.30) 100%);
-  box-shadow:0 0 9px rgba(120,169,239,.12);
+  width:2px;
+
+  border-radius:
+    12px
+    0
+    0
+    12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,98,95,.95) 0%,
+      rgba(255,98,95,.76) 60%,
+      rgba(255,98,95,.42) 100%
+    );
+
+  box-shadow:
+    0 0 9px rgba(255,98,95,.13);
+
+  pointer-events:none;
 }
 
 .trip-card::after{
   content:"";
+
   position:absolute;
   z-index:1;
+
   top:0;
   left:0;
-  width:125px;
+
+  width:115px;
   height:1px;
-  background:linear-gradient(90deg,rgba(255,98,95,.55),rgba(255,98,95,.16),transparent);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,98,95,.55),
+      rgba(255,98,95,.16),
+      transparent
+    );
+
   pointer-events:none;
 }
 
-.trip-card.shared-trip::after{
-  background:linear-gradient(90deg,rgba(120,169,239,.44),rgba(120,169,239,.12),transparent);
-}
-
 .trip-card.current{
-  border-color:rgba(255,98,95,.34);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025),
-    0 0 0 1px rgba(255,98,95,.035),
-    0 8px 22px rgba(0,0,0,.14);
+  border-color:
+    rgba(255,98,95,.34);
 }
 
-.trip-strip{display:none}
+.trip-card.shared-trip::before{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(120,169,239,.92) 0%,
+      rgba(120,169,239,.62) 60%,
+      rgba(120,169,239,.30) 100%
+    );
 
-.trip-body{padding:9px 10px 8px}
+  box-shadow:
+    0 0 9px rgba(120,169,239,.13);
+}
+
+.trip-card.shared-trip{
+  border-color:
+    rgba(120,169,239,.18);
+}
+
+.trip-strip{
+  display:none;
+}
+
+.trip-body{
+  padding:
+    10px
+    10px
+    9px;
+}
 
 .trip-top{
   display:flex;
+
   align-items:flex-start;
-  gap:8px;
-  padding-left:3px;
+
+  gap:9px;
 }
 
 .country-icon{
-  width:34px;
-  height:34px;
-  flex:0 0 34px;
+  width:40px;
+  height:40px;
+
+  flex:0 0 40px;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  border:1px solid rgba(255,98,95,.22);
-  border-radius:9px;
-  background:linear-gradient(145deg,rgba(255,98,95,.07),rgba(255,255,255,.025));
-  font-size:17px;
+
+  border:1px solid rgba(255,98,95,.18);
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,98,95,.08),
+      rgba(255,255,255,.025)
+    );
+
+  font-size:20px;
 }
 
-.shared-trip .country-icon{
-  border-color:rgba(120,169,239,.18);
-  background:linear-gradient(145deg,rgba(120,169,239,.05),rgba(255,255,255,.02));
+.trip-main{
+  flex:1;
+
+  min-width:0;
 }
 
-.trip-main{flex:1;min-width:0}
+
+/* =========================================================
+   BADGES
+========================================================= */
 
 .badges{
   display:flex;
+
   flex-wrap:wrap;
-  gap:3px;
-  margin-bottom:4px;
+
+  gap:4px;
+
+  margin-bottom:5px;
 }
 
 .badge{
   display:inline-block;
-  padding:2px 4px;
-  border:1px solid rgba(255,255,255,.07);
+
+  padding:
+    2px
+    5px;
+
   border-radius:999px;
-  background:rgba(255,255,255,.025);
-  font-size:5.5px;
+
+  font-size:5px;
   font-weight:900;
-  letter-spacing:.05em;
+
+  letter-spacing:.06em;
 }
-.badge.current{border-color:rgba(255,98,95,.20);background:rgba(255,98,95,.055);color:#e99e99}
-.badge.owner{border-color:rgba(228,189,105,.18);background:rgba(228,189,105,.05);color:#d8bb78}
-.badge.editor{border-color:rgba(121,201,149,.18);background:rgba(121,201,149,.05);color:#a7d9b6}
-.badge.viewer{border-color:rgba(120,169,239,.18);background:rgba(120,169,239,.05);color:#a6bee3}
-.badge.public{border-color:rgba(121,201,149,.17);background:rgba(121,201,149,.045);color:#a4d6b4}
+
+.badge.current{
+  border:
+    1px solid rgba(255,98,95,.22);
+
+  background:
+    rgba(255,98,95,.06);
+
+  color:#efa5a0;
+}
+
+.badge.owner{
+  border:
+    1px solid rgba(228,189,105,.18);
+
+  background:
+    rgba(228,189,105,.05);
+
+  color:#d8bb78;
+}
+
+.badge.editor{
+  border:
+    1px solid rgba(121,201,149,.18);
+
+  background:
+    rgba(121,201,149,.05);
+
+  color:#a7d9b6;
+}
+
+.badge.viewer{
+  border:
+    1px solid rgba(120,169,239,.18);
+
+  background:
+    rgba(120,169,239,.05);
+
+  color:#a6bee3;
+}
+
+.badge.public{
+  border:
+    1px solid rgba(121,201,149,.17);
+
+  background:
+    rgba(121,201,149,.045);
+
+  color:#a4d6b4;
+}
+
+
+/* =========================================================
+   TRIP TEXT
+========================================================= */
 
 .trip-name{
   overflow:hidden;
-  color:#f8f7f4;
-  font-family:Georgia,"Times New Roman",serif;
+
+  color:#f6f2eb;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:15px;
   font-weight:700;
-  line-height:1.1;
+
+  line-height:1.15;
+
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
 .trip-country{
   margin-top:2px;
-  color:#78858c;
+
+  color:#737f87;
+
   font-size:6.5px;
 }
 
 .trip-dates{
-  margin-top:4px;
-  color:#a5b1b8;
+  margin-top:5px;
+
+  color:#a4b2bc;
+
   font-size:6.8px;
   font-weight:800;
 }
 
 .trip-description{
   margin-top:5px;
-  color:#859097;
-  font-size:6.5px;
-  line-height:1.4;
+
+  color:#7f8b92;
+
+  font-size:6.7px;
+
+  line-height:1.42;
 }
+
+
+/* =========================================================
+   CARD ACTIONS
+========================================================= */
 
 .actions{
+  position:relative;
+
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto auto;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    auto
+    auto;
+
   gap:4px;
+
   margin-top:7px;
-  padding-top:6px;
-  border-top:1px solid rgba(255,255,255,.075);
+
+  padding-top:7px;
+
+  border-top:
+    1px solid rgba(255,255,255,.075);
 }
 
-.open-btn,.edit-btn,.share-btn{
-  min-height:27px;
-  padding:4px 7px;
+.open-btn,
+.edit-btn,
+.share-btn{
+  min-height:28px;
+
+  padding:
+    4px
+    8px;
+
   border-radius:7px;
+
   font-size:6px;
   font-weight:900;
 }
-.open-btn{border:1px solid rgba(255,98,95,.18);background:rgba(255,98,95,.035);color:#df8b86}
-.edit-btn{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);color:#87929a}
-.share-btn{border:1px solid rgba(120,169,239,.18);background:rgba(120,169,239,.035);color:#91b9ef}
-.share-btn.shared-now{border-color:rgba(121,201,149,.20);background:rgba(121,201,149,.045);color:#9edab3}
+
+.open-btn{
+  border:
+    1px solid rgba(255,98,95,.22);
+
+  background:
+    rgba(255,98,95,.05);
+
+  color:#e99b96;
+}
+
+.edit-btn{
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  background:
+    rgba(255,255,255,.025);
+
+  color:#8e9aa1;
+}
+
+.share-btn{
+  border:
+    1px solid rgba(255,98,95,.18);
+
+  background:
+    rgba(255,98,95,.035);
+
+  color:#d58a85;
+}
+
+.share-btn.shared-now{
+  border-color:
+    rgba(121,201,149,.20);
+
+  background:
+    rgba(121,201,149,.045);
+
+  color:#9fd2af;
+}
+
 
 /* =========================================================
-   STATES
+   STATE
 ========================================================= */
+
 .state{
-  padding:24px 14px;
-  border:1px dashed #303b43;
+  padding:
+    26px
+    14px;
+
+  border:
+    1px dashed #303b43;
+
   border-radius:14px;
-  background:rgba(255,255,255,.012);
+
+  background:
+    rgba(255,255,255,.012);
+
   color:#77838b;
-  font-size:8px;
+
+  font-size:7px;
+
   line-height:1.55;
+
   text-align:center;
 }
+
 .state strong{
   display:block;
+
   margin-bottom:5px;
+
   color:#e8e7e3;
-  font-family:Georgia,"Times New Roman",serif;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:14px;
+
   font-weight:700;
 }
 
 .page-error{
   display:none;
+
   margin-bottom:10px;
+
   padding:9px;
-  border:1px solid rgba(255,98,95,.22);
+
+  border:
+    1px solid rgba(255,98,95,.22);
+
   border-radius:10px;
-  background:rgba(255,98,95,.055);
+
+  background:
+    rgba(255,98,95,.055);
+
   color:#ffc0bc;
+
   font-size:7px;
 }
-.page-error.show{display:block}
+
+.page-error.show{
+  display:block;
+}
+
 
 /* =========================================================
-   SHEET — SAME STYLE AS FOOD
+   SHEET
 ========================================================= */
+
 .backdrop{
   position:fixed;
+
   inset:0;
+
   z-index:150;
+
   display:none;
+
   align-items:flex-end;
-  background:rgba(0,0,0,.72);
+
+  background:
+    rgba(0,0,0,.72);
+
   backdrop-filter:blur(5px);
+
   -webkit-backdrop-filter:blur(5px);
 }
-.backdrop.open{display:flex}
+
+.backdrop.open{
+  display:flex;
+}
 
 .sheet{
   width:100%;
+
   max-width:620px;
-  max-height:calc(92vh - env(safe-area-inset-top));
-  margin:auto auto 0;
+
+  max-height:
+    calc(
+      92vh -
+      env(safe-area-inset-top)
+    );
+
+  margin:
+    auto
+    auto
+    0;
+
   overflow-y:auto;
-  padding:8px 14px calc(18px + env(safe-area-inset-bottom));
+
+  padding:
+    8px
+    14px
+    calc(
+      18px +
+      env(safe-area-inset-bottom)
+    );
+
   border:1px solid var(--line);
-  border-radius:20px 20px 0 0;
+
+  border-radius:
+    20px
+    20px
+    0
+    0;
+
   background:#0c1217;
-  box-shadow:0 -20px 50px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 -20px 50px rgba(0,0,0,.35);
 }
 
 .handle{
   width:36px;
   height:4px;
-  margin:2px auto 13px;
+
+  margin:
+    2px
+    auto
+    13px;
+
   border-radius:999px;
+
   background:#35414a;
 }
 
 .sheet-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
+
   margin-bottom:13px;
 }
 
 .sheet-title{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:19px;
 }
 
 .close{
   width:34px;
   height:34px;
+
   border:1px solid var(--line);
+
   border-radius:9px;
+
   background:#131b21;
+
   color:#fff;
 }
 
-.field{margin-bottom:9px}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field{
+  margin-bottom:9px;
+}
+
 .field label{
   display:block;
+
   margin-bottom:4px;
+
   color:#8d989f;
+
   font-size:6.5px;
   font-weight:900;
+
   letter-spacing:.04em;
 }
-.field input,.field textarea{
+
+.field input,
+.field textarea{
   width:100%;
+
   min-height:40px;
-  padding:8px 9px;
+
+  padding:
+    8px
+    9px;
+
   border:1px solid var(--line);
+
   border-radius:9px;
+
   outline:0;
+
   background:#0f161c;
+
   color:#fff;
+
   font-size:9px;
 }
-.field textarea{min-height:72px;resize:vertical}
-.field input:focus,.field textarea:focus{border-color:var(--red-line)}
+
+.field textarea{
+  min-height:72px;
+
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--red-line);
+}
 
 .date-row{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
   gap:9px;
 }
 
 .sheet-actions{
   display:grid;
-  grid-template-columns:1fr 2fr;
+
+  grid-template-columns:
+    1fr
+    2fr;
+
   gap:6px;
+
   margin-top:10px;
 }
-.cancel,.save{
+
+.cancel,
+.save{
   min-height:42px;
+
   border-radius:10px;
+
   font-size:7px;
   font-weight:900;
 }
-.cancel{border:1px solid var(--line);background:#11191f;color:#bbc3c8}
-.save{border:1px solid rgba(121,201,149,.24);background:rgba(121,201,149,.07);color:#a7dbb8}
+
+.cancel{
+  border:1px solid var(--line);
+
+  background:#11191f;
+
+  color:#bbc3c8;
+}
+
+.save{
+  border:
+    1px solid rgba(121,201,149,.24);
+
+  background:
+    rgba(121,201,149,.07);
+
+  color:#a7dbb8;
+}
+
+
+/* =========================================================
+   PUBLICATION SETTINGS
+========================================================= */
 
 .public-box{
   display:none;
-  margin-top:13px;
-  padding:10px;
-  border:1px solid rgba(121,201,149,.18);
-  border-radius:11px;
-  background:rgba(121,201,149,.035);
-}
-.public-box.show{display:block}
-.public-title{color:#a9d8b8;font-size:7px;font-weight:900}
-.public-text{margin-top:4px;color:#74847b;font-size:6.5px;line-height:1.5}
-.public-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
-.view-public,.unshare{min-height:38px;border-radius:9px;font-size:7px;font-weight:900}
-.view-public{border:1px solid rgba(121,201,149,.23);background:rgba(121,201,149,.06);color:#a7dbb8}
-.unshare{border:1px solid rgba(255,98,95,.20);background:rgba(255,98,95,.04);color:#d98a83}
 
-.message{display:none;margin-top:8px;padding:8px;border-radius:8px;font-size:7px}
-.message.error{display:block;border:1px solid rgba(255,98,95,.20);background:rgba(255,98,95,.055);color:#f3aaa6}
-.message.success{display:block;border:1px solid rgba(121,201,149,.20);background:rgba(121,201,149,.055);color:#9dd8b2}
+  margin-top:13px;
+
+  padding:10px;
+
+  border:
+    1px solid rgba(121,201,149,.18);
+
+  border-radius:11px;
+
+  background:
+    rgba(121,201,149,.035);
+}
+
+.public-box.show{
+  display:block;
+}
+
+.public-title{
+  color:#a9d8b8;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.public-text{
+  margin-top:4px;
+
+  color:#74847b;
+
+  font-size:6.5px;
+  line-height:1.5;
+}
+
+.public-actions{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:6px;
+
+  margin-top:9px;
+}
+
+.view-public,
+.unshare{
+  min-height:38px;
+
+  border-radius:9px;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.view-public{
+  border:
+    1px solid rgba(121,201,149,.23);
+
+  background:
+    rgba(121,201,149,.06);
+
+  color:#a7dbb8;
+}
+
+.unshare{
+  border:
+    1px solid rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.04);
+
+  color:#d98a83;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message{
+  display:none;
+
+  margin-top:8px;
+
+  padding:8px;
+
+  border-radius:8px;
+
+  font-size:7px;
+}
+
+.message.error{
+  display:block;
+
+  border:
+    1px solid rgba(255,98,95,.20);
+
+  background:
+    rgba(255,98,95,.055);
+
+  color:#f3aaa6;
+}
+
+.message.success{
+  display:block;
+
+  border:
+    1px solid rgba(121,201,149,.20);
+
+  background:
+    rgba(121,201,149,.055);
+
+  color:#9dd8b2;
+}
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
+
 @media(max-width:430px){
-  body{padding-top:9px}
-  .trips-shell{width:calc(100% - 18px)}
-  .header-inner{padding-left:17px;padding-right:17px}
-  .trips-page-title{font-size:38px}
-  .trips-icon-wrap{width:60px;height:60px;flex-basis:60px;font-size:26px}
-  .header-btn{min-width:66px;padding:0 8px;font-size:6.5px}
-  main{padding-left:14px;padding-right:14px}
-  main::before{top:-42px;height:68px}
-  .date-row{grid-template-columns:1fr}
+
+  body{
+    padding-top:9px;
+  }
+
+  .trips-shell{
+    width:calc(100% - 18px);
+  }
+
+  header{
+    min-height:235px;
+
+    background-position:
+      center 46%;
+  }
+
+  .header-inner{
+    padding:
+      22px
+      17px
+      32px;
+  }
+
+  .eyebrow{
+    margin-bottom:12px;
+  }
+
+  .trips-icon-wrap{
+    width:60px;
+    height:60px;
+
+    flex-basis:60px;
+
+    padding:9px;
+  }
+
+  .trips-page-title{
+    font-size:38px;
+  }
+
+  .header-sub{
+    max-width:230px;
+    font-size:8px;
+  }
+
+  .header-btn{
+    min-height:34px;
+
+    padding:
+      0
+      9px;
+  }
+
+  main{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
 }
 
-@media(min-width:700px){
-  .trip-card:hover{border-color:#35414a;transform:translateY(-1px)}
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+  .trips-page-title{
+    font-size:34px;
+  }
+
+  .trips-icon-wrap{
+    width:56px;
+    height:56px;
+
+    flex-basis:56px;
+  }
+
+  .header-btn{
+    font-size:6px;
+  }
+
+  .actions{
+    grid-template-columns:
+      minmax(0,1fr)
+      auto;
+  }
+
+  .share-btn{
+    grid-column:
+      1 / -1;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="trips-shell">
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
-  <div class="trips-kanji">旅</div>
+
 
   <div class="header-inner">
+
+
     <div class="title-row">
+
+
       <div>
-        <div class="eyebrow">TRAVEL PLANNER</div>
+
+
+        <div class="eyebrow">
+          TRAVEL PLANNER
+        </div>
+
 
         <div class="trips-hero">
-          <div class="trips-icon-wrap" aria-hidden="true">🧳</div>
+
+
+          <div
+            class="trips-icon-wrap"
+            aria-hidden="true"
+          >
+
+            <img
+              class="trips-page-logo"
+              src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
+              alt=""
+            >
+
+          </div>
+
 
           <div>
-            <h1 class="trips-page-title">My Trips</h1>
-            <div class="header-sub">Create, open and share your trips.</div>
+
+
+            <h1 class="trips-page-title">
+              My Trips
+            </h1>
+
+
+            <div class="header-sub">
+              Create, open and share your trips.
+            </div>
+
+
           </div>
+
+
         </div>
+
+
       </div>
+
 
       <div class="header-actions">
-        <button id="createTripButton" class="header-btn" type="button" aria-label="Create new trip">
+
+
+        <button
+          id="createTripButton"
+          class="header-btn"
+          type="button"
+          aria-label="Create new trip"
+        >
           ＋ ADD TRIP
         </button>
+
+
       </div>
+
+
     </div>
+
+
   </div>
+
+
+  <div class="hero-fade"></div>
+
+
 </header>
 
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
-  <div id="pageError" class="page-error"></div>
+
+
+  <div
+    id="pageError"
+    class="page-error"
+  ></div>
+
+
 
   <section class="section">
+
+
     <div class="section-head">
-      <div class="section-label">MY TRIPS</div>
-      <div id="ownedCount" class="section-count">0</div>
+
+
+      <div class="section-label">
+        MY TRIPS
+      </div>
+
+
+      <div
+        id="ownedCount"
+        class="section-count"
+      >
+        0
+      </div>
+
+
     </div>
 
-    <div id="ownedTrips" class="trip-list">
-      <div class="state">Loading your trips…</div>
+
+    <div
+      id="ownedTrips"
+      class="trip-list"
+    >
+
+
+      <div class="state">
+        Loading your trips…
+      </div>
+
+
     </div>
+
+
   </section>
+
+
 
   <section class="section">
+
+
     <div class="section-head">
-      <div class="section-label">SHARED WITH ME</div>
-      <div id="sharedCount" class="section-count">0</div>
+
+
+      <div class="section-label">
+        SHARED WITH ME
+      </div>
+
+
+      <div
+        id="sharedCount"
+        class="section-count"
+      >
+        0
+      </div>
+
+
     </div>
 
-    <div id="sharedTrips" class="trip-list">
-      <div class="state">Loading shared trips…</div>
+
+    <div
+      id="sharedTrips"
+      class="trip-list"
+    >
+
+
+      <div class="state">
+        Loading shared trips…
+      </div>
+
+
     </div>
+
+
   </section>
+
+
 </main>
 
+
 </div>
+
+
 
 <!-- =========================================================
      CREATE / EDIT TRIP
 ========================================================= -->
-<div id="tripSheet" class="backdrop">
+
+<div
+  id="tripSheet"
+  class="backdrop"
+>
+
+
   <div class="sheet">
+
+
     <div class="handle"></div>
 
+
     <div class="sheet-head">
-      <div id="sheetTitle" class="sheet-title">Create Trip</div>
-      <button id="closeTripSheet" class="close" type="button">✕</button>
+
+
+      <div
+        id="sheetTitle"
+        class="sheet-title"
+      >
+        Create Trip
+      </div>
+
+
+      <button
+        id="closeTripSheet"
+        class="close"
+        type="button"
+      >
+        ✕
+      </button>
+
+
     </div>
 
-    <div class="field">
-      <label>TRIP NAME</label>
-      <input id="tripName" placeholder="e.g. Japan Autumn 2026">
-    </div>
+
 
     <div class="field">
-      <label>COUNTRY</label>
-      <input id="tripCountry" placeholder="e.g. Japan">
+
+
+      <label>
+        TRIP NAME
+      </label>
+
+
+      <input
+        id="tripName"
+        placeholder="e.g. Japan Autumn 2026"
+      >
+
+
     </div>
+
+
+
+    <div class="field">
+
+
+      <label>
+        COUNTRY
+      </label>
+
+
+      <input
+        id="tripCountry"
+        placeholder="e.g. Japan"
+      >
+
+
+    </div>
+
+
 
     <div class="date-row">
-      <div class="field">
-        <label>START DATE</label>
-        <input id="tripStart" type="date">
-      </div>
+
 
       <div class="field">
-        <label>END DATE</label>
-        <input id="tripEnd" type="date">
+
+
+        <label>
+          START DATE
+        </label>
+
+
+        <input
+          id="tripStart"
+          type="date"
+        >
+
+
       </div>
+
+
+      <div class="field">
+
+
+        <label>
+          END DATE
+        </label>
+
+
+        <input
+          id="tripEnd"
+          type="date"
+        >
+
+
+      </div>
+
+
     </div>
+
+
 
     <div class="field">
-      <label>DESCRIPTION</label>
-      <textarea id="tripDescription" placeholder="Optional trip description..."></textarea>
+
+
+      <label>
+        DESCRIPTION
+      </label>
+
+
+      <textarea
+        id="tripDescription"
+        placeholder="Optional trip description..."
+      ></textarea>
+
+
     </div>
 
-    <div id="sheetMessage" class="message"></div>
+
+
+    <div
+      id="sheetMessage"
+      class="message"
+    ></div>
+
+
 
     <div class="sheet-actions">
-      <button id="cancelTrip" class="cancel" type="button">CANCEL</button>
-      <button id="saveTrip" class="save" type="button">CREATE TRIP</button>
+
+
+      <button
+        id="cancelTrip"
+        class="cancel"
+        type="button"
+      >
+        CANCEL
+      </button>
+
+
+      <button
+        id="saveTrip"
+        class="save"
+        type="button"
+      >
+        CREATE TRIP
+      </button>
+
+
     </div>
 
-    <div id="publicBox" class="public-box">
-      <div class="public-title">🌐 PUBLISHED TO PLACES</div>
-      <div class="public-text">
-        Other users can view this itinerary, like it and copy it into their own trips.
+
+
+    <div
+      id="publicBox"
+      class="public-box"
+    >
+
+
+      <div class="public-title">
+        🌐 PUBLISHED TO PLACES
       </div>
+
+
+      <div class="public-text">
+        Other users can view this itinerary,
+        like it and copy it into their own trips.
+      </div>
+
 
       <div class="public-actions">
-        <button id="viewPublic" class="view-public" type="button">VIEW IN PLACES</button>
-        <button id="unshareTrip" class="unshare" type="button">STOP SHARING</button>
+
+
+        <button
+          id="viewPublic"
+          class="view-public"
+          type="button"
+        >
+          VIEW IN PLACES
+        </button>
+
+
+        <button
+          id="unshareTrip"
+          class="unshare"
+          type="button"
+        >
+          STOP SHARING
+        </button>
+
+
       </div>
+
+
     </div>
+
+
   </div>
+
+
 </div>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <div id="footer"></div>
 
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase.js"></script>
 
+
 <script>
-let currentUser = null;
-let ownedTrips = [];
-let sharedTrips = [];
-let publications = [];
-let editingTripId = null;
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser =
+  null;
+
+
+let ownedTrips =
+  [];
+
+
+let sharedTrips =
+  [];
+
+
+let publications =
+  [];
+
+
+let editingTripId =
+  null;
+
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function esc(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+
+  return String(
+    value ?? ""
+  )
+
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
+
+
 }
+
+
 
 function countryEmoji(country){
-  const value = String(country || "").trim().toLowerCase();
+
+
+  const value =
+    String(
+      country
+      ||
+      ""
+    )
+
+    .trim()
+
+    .toLowerCase();
+
+
   const map = {
-    japan:"🇯🇵", singapore:"🇸🇬", malaysia:"🇲🇾", indonesia:"🇮🇩",
-    thailand:"🇹🇭", vietnam:"🇻🇳", taiwan:"🇹🇼", china:"🇨🇳",
-    korea:"🇰🇷", "south korea":"🇰🇷", france:"🇫🇷", italy:"🇮🇹",
-    spain:"🇪🇸", uk:"🇬🇧", "united kingdom":"🇬🇧", usa:"🇺🇸",
+
+
+    japan:"🇯🇵",
+
+    singapore:"🇸🇬",
+
+    malaysia:"🇲🇾",
+
+    indonesia:"🇮🇩",
+
+    thailand:"🇹🇭",
+
+    vietnam:"🇻🇳",
+
+    taiwan:"🇹🇼",
+
+    china:"🇨🇳",
+
+    korea:"🇰🇷",
+
+    "south korea":"🇰🇷",
+
+    france:"🇫🇷",
+
+    italy:"🇮🇹",
+
+    spain:"🇪🇸",
+
+    uk:"🇬🇧",
+
+    "united kingdom":"🇬🇧",
+
+    usa:"🇺🇸",
+
     "united states":"🇺🇸"
+
+
   };
-  return map[value] || "✈️";
+
+
+  return (
+    map[value]
+    ||
+    "✈️"
+  );
+
+
 }
+
+
 
 function prettyDate(value){
-  if(!value) return "";
-  const date = new Date(value + "T12:00:00");
-  return date.toLocaleDateString("en-SG",{day:"numeric",month:"short",year:"numeric"});
+
+
+  if(
+    !value
+  ){
+
+    return "";
+
+  }
+
+
+  const date =
+    new Date(
+      value
+      +
+      "T12:00:00"
+    );
+
+
+  return date
+    .toLocaleDateString(
+      "en-SG",
+      {
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+      }
+    );
+
+
 }
+
+
 
 function tripDates(trip){
-  if(trip.start_date && trip.end_date){
-    return prettyDate(trip.start_date) + " – " + prettyDate(trip.end_date);
+
+
+  if(
+    trip.start_date
+    &&
+    trip.end_date
+  ){
+
+
+    return (
+
+      prettyDate(
+        trip.start_date
+      )
+
+      +
+
+      " – "
+
+      +
+
+      prettyDate(
+        trip.end_date
+      )
+
+    );
+
+
   }
-  if(trip.start_date){
-    return "From " + prettyDate(trip.start_date);
+
+
+  if(
+    trip.start_date
+  ){
+
+
+    return (
+
+      "From "
+
+      +
+
+      prettyDate(
+        trip.start_date
+      )
+
+    );
+
+
   }
+
+
   return "Dates not set";
+
+
 }
+
+
 
 function getCurrentTripId(){
-  return Number(localStorage.getItem("current_trip_id")) || null;
+
+
+  return (
+
+    Number(
+      localStorage.getItem(
+        "current_trip_id"
+      )
+    )
+
+    ||
+
+    null
+
+  );
+
+
 }
+
+
 
 function normalizeMemberRole(role){
-  return role === "editor" ? "editor" : "viewer";
+
+
+  return (
+
+    role
+    ===
+    "editor"
+
+    ?
+
+    "editor"
+
+    :
+
+    "viewer"
+
+  );
+
+
 }
 
-function publicationForTrip(tripId){
-  return publications.find(item => Number(item.trip_id) === Number(tripId)) || null;
+
+
+function publicationForTrip(
+  tripId
+){
+
+
+  return (
+
+    publications.find(
+      item =>
+
+        Number(
+          item.trip_id
+        )
+
+        ===
+
+        Number(
+          tripId
+        )
+    )
+
+    ||
+
+    null
+
+  );
+
+
 }
+
+
 
 function showError(message){
-  const box = document.getElementById("pageError");
-  box.textContent = message;
-  box.classList.add("show");
+
+
+  const box =
+    document.getElementById(
+      "pageError"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box
+    .classList
+    .add(
+      "show"
+    );
+
+
 }
+
+
 
 function clearError(){
-  document.getElementById("pageError").classList.remove("show");
+
+
+  document
+    .getElementById(
+      "pageError"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
 }
+
+
+
+/* =========================================================
+   START
+========================================================= */
 
 async function start(){
+
+
   try{
+
+
     clearError();
-    const auth = await db.auth.getUser();
-    if(auth.error) throw auth.error;
-    currentUser = auth.data.user;
-    if(!currentUser){
-      location.href = "login.html";
-      return;
+
+
+    const auth =
+      await db.auth
+        .getUser();
+
+
+    if(
+      auth.error
+    ){
+
+
+      throw auth.error;
+
+
     }
+
+
+    currentUser =
+      auth.data.user;
+
+
+    if(
+      !currentUser
+    ){
+
+
+      location.href =
+        "login.html";
+
+
+      return;
+
+
+    }
+
+
     await loadTrips();
-  }catch(error){
-    console.error(error);
-    showError(error.message || "Could not load your trips.");
+
+
   }
+
+
+  catch(error){
+
+
+    console.error(
+      error
+    );
+
+
+    showError(
+      error.message
+      ||
+      "Could not load your trips."
+    );
+
+
+  }
+
+
 }
+
+
+
+/* =========================================================
+   LOAD TRIPS
+========================================================= */
 
 async function loadTrips(){
-  const ownedResult = await db
-    .from("trips")
-    .select("*")
-    .eq("owner_id",currentUser.id)
-    .order("start_date",{ascending:false,nullsFirst:false});
 
-  if(ownedResult.error) throw ownedResult.error;
 
-  ownedTrips = (ownedResult.data || []).filter(trip => trip.status !== "deleted");
+  const ownedResult =
+    await db
 
-  const membershipResult = await db
-    .from("trip_members")
-    .select(`id,trip_id,user_id,role,created_at`)
-    .eq("user_id",currentUser.id);
+      .from(
+        "trips"
+      )
 
-  if(membershipResult.error) throw membershipResult.error;
+      .select(
+        "*"
+      )
 
-  const memberships = membershipResult.data || [];
-  const sharedIds = [...new Set(memberships.map(item => Number(item.trip_id)).filter(Boolean))];
+      .eq(
+        "owner_id",
+        currentUser.id
+      )
 
-  sharedTrips = [];
+      .order(
+        "start_date",
+        {
+          ascending:false,
+          nullsFirst:false
+        }
+      );
 
-  if(sharedIds.length){
-    const sharedResult = await db.from("trips").select("*").in("id",sharedIds);
-    if(sharedResult.error) throw sharedResult.error;
 
-    sharedTrips = (sharedResult.data || [])
-      .filter(trip => trip.status !== "deleted")
-      .map(trip => {
-        const membership = memberships.find(item => Number(item.trip_id) === Number(trip.id));
-        return {...trip,membership_role:normalizeMemberRole(membership?.role)};
-      });
+  if(
+    ownedResult.error
+  ){
+
+
+    throw ownedResult.error;
+
+
   }
 
-  await loadPublications();
-  renderTrips();
-}
 
-async function loadPublications(){
-  publications = [];
-  const ids = ownedTrips.map(trip => Number(trip.id)).filter(Boolean);
-  if(!ids.length) return;
+  ownedTrips =
+    (
+      ownedResult.data
+      ||
+      []
+    )
 
-  const result = await db
-    .from("trip_publications")
-    .select(`id,trip_id,is_public,allow_copy,created_at,updated_at`)
-    .in("trip_id",ids);
+    .filter(
+      trip =>
+        trip.status
+        !==
+        "deleted"
+    );
 
-  if(result.error) throw result.error;
-  publications = result.data || [];
-}
 
-function renderTrips(){
-  document.getElementById("ownedCount").textContent = String(ownedTrips.length);
-  document.getElementById("sharedCount").textContent = String(sharedTrips.length);
+  const membershipResult =
+    await db
 
-  const owned = document.getElementById("ownedTrips");
-  const shared = document.getElementById("sharedTrips");
+      .from(
+        "trip_members"
+      )
 
-  if(!ownedTrips.length){
-    owned.innerHTML = `
-      <div class="state">
-        <strong>No trips yet</strong>
-        Use <b>＋ ADD TRIP</b> above to create your first trip.
-      </div>`;
-  }else{
-    owned.innerHTML = ownedTrips.map(trip => tripCard(trip,"owner")).join("");
+      .select(`
+        id,
+        trip_id,
+        user_id,
+        role,
+        created_at
+      `)
+
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+  if(
+    membershipResult.error
+  ){
+
+
+    throw membershipResult.error;
+
+
   }
 
-  if(!sharedTrips.length){
-    shared.innerHTML = `
-      <div class="state">
-        <strong>Nothing shared with you</strong>
-        Trips where you are a Viewer or Editor will appear here.
-      </div>`;
-  }else{
-    shared.innerHTML = sharedTrips.map(trip => tripCard(trip,trip.membership_role)).join("");
-  }
-}
 
-function tripCard(trip,role){
-  const isCurrent = Number(getCurrentTripId()) === Number(trip.id);
-  const isShared = role !== "owner";
-  const publication = role === "owner" ? publicationForTrip(trip.id) : null;
-  const isPublic = Boolean(publication?.is_public);
+  const memberships =
+    membershipResult.data
+    ||
+    [];
 
-  let roleClass = "owner";
-  let roleLabel = "OWNER";
 
-  if(role === "editor"){
-    roleClass = "editor";
-    roleLabel = "EDITOR";
-  }else if(role !== "owner"){
-    roleClass = "viewer";
-    roleLabel = "VIEWER";
-  }
+  const sharedIds = [
 
-  return `
-    <article class="trip-card ${isCurrent ? "current" : ""} ${isShared ? "shared-trip" : ""}">
-      <div class="trip-strip"></div>
-      <div class="trip-body">
-        <div class="trip-top">
-          <div class="country-icon">${countryEmoji(trip.country)}</div>
+    ...new Set(
 
-          <div class="trip-main">
-            <div class="badges">
-              ${isCurrent ? `<span class="badge current">CURRENT</span>` : ""}
-              <span class="badge ${roleClass}">${roleLabel}</span>
-              ${isPublic ? `<span class="badge public">🌐 SHARED</span>` : ""}
-            </div>
+      memberships
 
-            <div class="trip-name">${esc(trip.name || "Unnamed Trip")}</div>
-            <div class="trip-country">${esc(trip.country || "Country not set")}</div>
-            <div class="trip-dates">${esc(tripDates(trip))}</div>
-            ${trip.description ? `<div class="trip-description">${esc(trip.description)}</div>` : ""}
-          </div>
-        </div>
+        .map(
+          item =>
+            Number(
+              item.trip_id
+            )
+        )
 
-        <div class="actions">
-          <button class="open-btn" type="button" onclick="openTrip(${Number(trip.id)})">OPEN →</button>
+        .filter(
+          Boolean
+        )
 
-          ${role === "owner" ? `
-            <button class="edit-btn" type="button" onclick="openEditTrip(${Number(trip.id)})">EDIT</button>
-            <button class="share-btn ${isPublic ? "shared-now" : ""}" type="button" onclick="shareTrip(${Number(trip.id)})">
-              ${isPublic ? "✓ SHARED" : "🌐 SHARE"}
-            </button>` : ""}
-        </div>
-      </div>
-    </article>`;
-}
+    )
 
-function openTrip(id){
-  id = Number(id);
-  if(!id) return;
-  localStorage.setItem("current_trip_id",String(id));
-  location.href = `index.html?trip=${id}`;
-}
+  ];
 
-async function shareTrip(tripId){
-  const publication = publicationForTrip(tripId);
 
-  if(publication && publication.is_public){
-    location.href = `places.html?open=${Number(publication.id)}`;
-    return;
-  }
+  sharedTrips =
+    [];
 
-  try{
-    const result = await db.rpc("publish_trip",{
-      p_trip_id:Number(tripId),
-      p_allow_copy:true
-    });
 
-    if(result.error) throw result.error;
+  if(
+    sharedIds.length
+  ){
 
-    const publicationId = Number(result.data);
-    location.href = publicationId ? `places.html?open=${publicationId}` : "places.html";
-  }catch(error){
-    console.error(error);
-    alert("Couldn't share this trip.\n\n" + (error.message || "Unknown error."));
-  }
-}
 
-const tripSheet = document.getElementById("tripSheet");
+    const sharedResult =
+      await db
 
-function openCreateTrip(){
-  editingTripId = null;
-  document.getElementById("sheetTitle").textContent = "Create Trip";
-  document.getElementById("saveTrip").textContent = "CREATE TRIP";
-  document.getElementById("tripName").value = "";
-  document.getElementById("tripCountry").value = "";
-  document.getElementById("tripStart").value = "";
-  document.getElementById("tripEnd").value = "";
-  document.getElementById("tripDescription").value = "";
-  document.getElementById("sheetMessage").className = "message";
-  document.getElementById("publicBox").classList.remove("show");
-  tripSheet.classList.add("open");
-}
+        .from(
+          "trips"
+        )
 
-function openEditTrip(tripId){
-  const trip = ownedTrips.find(item => Number(item.id) === Number(tripId));
-  if(!trip) return;
+        .select(
+          "*"
+        )
 
-  editingTripId = Number(trip.id);
-  document.getElementById("sheetTitle").textContent = "Edit Trip";
-  document.getElementById("saveTrip").textContent = "SAVE CHANGES";
-  document.getElementById("tripName").value = trip.name || "";
-  document.getElementById("tripCountry").value = trip.country || "";
-  document.getElementById("tripStart").value = trip.start_date || "";
-  document.getElementById("tripEnd").value = trip.end_date || "";
-  document.getElementById("tripDescription").value = trip.description || "";
-  document.getElementById("sheetMessage").className = "message";
+        .in(
+          "id",
+          sharedIds
+        );
 
-  const publication = publicationForTrip(trip.id);
-  document.getElementById("publicBox").classList.toggle("show",Boolean(publication?.is_public));
-  tripSheet.classList.add("open");
-}
 
-function closeTripSheet(){
-  tripSheet.classList.remove("open");
-}
+    if(
+      sharedResult.error
+    ){
 
-document.getElementById("createTripButton").onclick = openCreateTrip;
-document.getElementById("closeTripSheet").onclick = closeTripSheet;
-document.getElementById("cancelTrip").onclick = closeTripSheet;
 
-tripSheet.onclick = event => {
-  if(event.target === tripSheet) closeTripSheet();
-};
+      throw sharedResult.error;
 
-document.getElementById("saveTrip").onclick = async () => {
-  const button = document.getElementById("saveTrip");
-  const message = document.getElementById("sheetMessage");
-  message.className = "message";
 
-  const name = document.getElementById("tripName").value.trim();
-  const country = document.getElementById("tripCountry").value.trim();
-  const startDate = document.getElementById("tripStart").value;
-  const endDate = document.getElementById("tripEnd").value;
-  const description = document.getElementById("tripDescription").value.trim();
-
-  if(!name){
-    message.textContent = "Please enter a trip name.";
-    message.className = "message error";
-    return;
-  }
-
-  if(!country){
-    message.textContent = "Please enter a country.";
-    message.className = "message error";
-    return;
-  }
-
-  if(startDate && endDate && endDate < startDate){
-    message.textContent = "End date cannot be before start date.";
-    message.className = "message error";
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = editingTripId ? "SAVING…" : "CREATING…";
-
-  try{
-    const payload = {
-      name,
-      country,
-      start_date:startDate || null,
-      end_date:endDate || null,
-      description:description || null
-    };
-
-    if(editingTripId){
-      const result = await db
-        .from("trips")
-        .update(payload)
-        .eq("id",editingTripId)
-        .eq("owner_id",currentUser.id)
-        .select();
-
-      if(result.error) throw result.error;
-      if(!result.data || !result.data.length) throw new Error("Trip was not updated.");
-    }else{
-      const result = await db
-        .from("trips")
-        .insert({...payload,owner_id:currentUser.id,status:"active"})
-        .select()
-        .single();
-
-      if(result.error) throw result.error;
-      localStorage.setItem("current_trip_id",String(result.data.id));
     }
 
-    message.textContent = "Saved ✓";
-    message.className = "message success";
-    await loadTrips();
-    setTimeout(closeTripSheet,300);
-  }catch(error){
-    console.error(error);
-    message.textContent = error.message || "Could not save trip.";
-    message.className = "message error";
-  }finally{
-    button.disabled = false;
-    button.textContent = editingTripId ? "SAVE CHANGES" : "CREATE TRIP";
+
+    sharedTrips =
+      (
+        sharedResult.data
+        ||
+        []
+      )
+
+      .filter(
+        trip =>
+          trip.status
+          !==
+          "deleted"
+      )
+
+      .map(
+        trip => {
+
+
+          const membership =
+            memberships.find(
+              item =>
+
+                Number(
+                  item.trip_id
+                )
+
+                ===
+
+                Number(
+                  trip.id
+                )
+            );
+
+
+          return {
+
+
+            ...trip,
+
+
+            membership_role:
+              normalizeMemberRole(
+                membership?.role
+              )
+
+
+          };
+
+
+        }
+      );
+
+
   }
-};
 
-document.getElementById("viewPublic").onclick = () => {
-  if(!editingTripId) return;
-  const publication = publicationForTrip(editingTripId);
-  if(!publication || !publication.is_public) return;
-  location.href = `places.html?open=${Number(publication.id)}`;
-};
 
-document.getElementById("unshareTrip").onclick = async () => {
-  if(!editingTripId) return;
-  if(!confirm("Stop sharing this itinerary in Places?")) return;
+  await loadPublications();
 
-  const message = document.getElementById("sheetMessage");
+
+  renderTrips();
+
+
+}
+
+
+
+/* =========================================================
+   PUBLICATION STATUS
+========================================================= */
+
+async function loadPublications(){
+
+
+  publications =
+    [];
+
+
+  const ids =
+    ownedTrips
+
+      .map(
+        trip =>
+          Number(
+            trip.id
+          )
+      )
+
+      .filter(
+        Boolean
+      );
+
+
+  if(
+    !ids.length
+  ){
+
+
+    return;
+
+
+  }
+
+
+  const result =
+    await db
+
+      .from(
+        "trip_publications"
+      )
+
+      .select(`
+        id,
+        trip_id,
+        is_public,
+        allow_copy,
+        created_at,
+        updated_at
+      `)
+
+      .in(
+        "trip_id",
+        ids
+      );
+
+
+  if(
+    result.error
+  ){
+
+
+    throw result.error;
+
+
+  }
+
+
+  publications =
+    result.data
+    ||
+    [];
+
+
+}
+
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderTrips(){
+
+
+  document
+    .getElementById(
+      "ownedCount"
+    )
+    .textContent =
+      String(
+        ownedTrips.length
+      );
+
+
+  document
+    .getElementById(
+      "sharedCount"
+    )
+    .textContent =
+      String(
+        sharedTrips.length
+      );
+
+
+  const owned =
+    document.getElementById(
+      "ownedTrips"
+    );
+
+
+  const shared =
+    document.getElementById(
+      "sharedTrips"
+    );
+
+
+  if(
+    !ownedTrips.length
+  ){
+
+
+    owned.innerHTML = `
+
+
+      <div class="state">
+
+
+        <strong>
+          No trips yet
+        </strong>
+
+
+        Use the ＋ ADD TRIP button above
+        to create your first trip.
+
+
+      </div>
+
+
+    `;
+
+
+  }
+
+
+  else{
+
+
+    owned.innerHTML =
+
+      ownedTrips
+
+        .map(
+          trip =>
+            tripCard(
+              trip,
+              "owner"
+            )
+        )
+
+        .join(
+          ""
+        );
+
+
+  }
+
+
+  if(
+    !sharedTrips.length
+  ){
+
+
+    shared.innerHTML = `
+
+
+      <div class="state">
+
+
+        <strong>
+          Nothing shared with you
+        </strong>
+
+
+        Trips where you are a Viewer
+        or Editor will appear here.
+
+
+      </div>
+
+
+    `;
+
+
+  }
+
+
+  else{
+
+
+    shared.innerHTML =
+
+      sharedTrips
+
+        .map(
+          trip =>
+            tripCard(
+              trip,
+              trip.membership_role
+            )
+        )
+
+        .join(
+          ""
+        );
+
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   TRIP CARD
+========================================================= */
+
+function tripCard(
+  trip,
+  role
+){
+
+
+  const isCurrent =
+
+    Number(
+      getCurrentTripId()
+    )
+
+    ===
+
+    Number(
+      trip.id
+    );
+
+
+  const isShared =
+    role
+    !==
+    "owner";
+
+
+  const publication =
+
+    role
+    ===
+    "owner"
+
+    ?
+
+    publicationForTrip(
+      trip.id
+    )
+
+    :
+
+    null;
+
+
+  const isPublic =
+    Boolean(
+      publication?.is_public
+    );
+
+
+  let roleClass =
+    "owner";
+
+
+  let roleLabel =
+    "OWNER";
+
+
+  if(
+    role
+    ===
+    "editor"
+  ){
+
+
+    roleClass =
+      "editor";
+
+
+    roleLabel =
+      "EDITOR";
+
+
+  }
+
+
+  else if(
+    role
+    !==
+    "owner"
+  ){
+
+
+    roleClass =
+      "viewer";
+
+
+    roleLabel =
+      "VIEWER";
+
+
+  }
+
+
+  return `
+
+
+    <article
+      class="
+        trip-card
+        ${isCurrent ? "current" : ""}
+        ${isShared ? "shared-trip" : ""}
+      "
+    >
+
+
+      <div class="trip-body">
+
+
+        <div class="trip-top">
+
+
+          <div class="country-icon">
+
+            ${countryEmoji(
+              trip.country
+            )}
+
+          </div>
+
+
+          <div class="trip-main">
+
+
+            <div class="badges">
+
+
+              ${
+                isCurrent
+
+                ?
+
+                `
+
+                  <span class="badge current">
+                    CURRENT
+                  </span>
+
+                `
+
+                :
+
+                ""
+              }
+
+
+              <span
+                class="badge ${roleClass}"
+              >
+                ${roleLabel}
+              </span>
+
+
+              ${
+                isPublic
+
+                ?
+
+                `
+
+                  <span class="badge public">
+                    🌐 SHARED
+                  </span>
+
+                `
+
+                :
+
+                ""
+              }
+
+
+            </div>
+
+
+            <div class="trip-name">
+
+              ${esc(
+                trip.name
+                ||
+                "Unnamed Trip"
+              )}
+
+            </div>
+
+
+            <div class="trip-country">
+
+              ${esc(
+                trip.country
+                ||
+                "Country not set"
+              )}
+
+            </div>
+
+
+            <div class="trip-dates">
+
+              📅
+              ${esc(
+                tripDates(
+                  trip
+                )
+              )}
+
+            </div>
+
+
+            ${
+              trip.description
+
+              ?
+
+              `
+
+                <div class="trip-description">
+
+                  ${esc(
+                    trip.description
+                  )}
+
+                </div>
+
+              `
+
+              :
+
+              ""
+            }
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="actions">
+
+
+          <button
+            class="open-btn"
+            type="button"
+            onclick="openTrip(${Number(trip.id)})"
+          >
+            🗺 OPEN →
+          </button>
+
+
+          ${
+            role
+            ===
+            "owner"
+
+            ?
+
+            `
+
+              <button
+                class="edit-btn"
+                type="button"
+                onclick="openEditTrip(${Number(trip.id)})"
+              >
+                ✎ EDIT
+              </button>
+
+
+              <button
+                class="
+                  share-btn
+                  ${isPublic ? "shared-now" : ""}
+                "
+                type="button"
+                onclick="shareTrip(${Number(trip.id)})"
+              >
+
+                ${
+                  isPublic
+                  ?
+                  "✓ SHARED"
+                  :
+                  "↗ SHARE"
+                }
+
+              </button>
+
+            `
+
+            :
+
+            ""
+          }
+
+
+        </div>
+
+
+      </div>
+
+
+    </article>
+
+
+  `;
+
+
+}
+
+
+
+/* =========================================================
+   OPEN TRIP
+========================================================= */
+
+function openTrip(id){
+
+
+  id =
+    Number(
+      id
+    );
+
+
+  if(
+    !id
+  ){
+
+
+    return;
+
+
+  }
+
+
+  localStorage.setItem(
+
+    "current_trip_id",
+
+    String(
+      id
+    )
+
+  );
+
+
+  location.href =
+    `index.html?trip=${id}`;
+
+
+}
+
+
+
+/* =========================================================
+   SHARE TO PLACES
+========================================================= */
+
+async function shareTrip(
+  tripId
+){
+
+
+  const publication =
+    publicationForTrip(
+      tripId
+    );
+
+
+  if(
+    publication
+    &&
+    publication.is_public
+  ){
+
+
+    location.href =
+      `places.html?open=${Number(
+        publication.id
+      )}`;
+
+
+    return;
+
+
+  }
+
 
   try{
-    const result = await db.rpc("unpublish_trip",{p_trip_id:Number(editingTripId)});
-    if(result.error) throw result.error;
 
-    await loadTrips();
-    document.getElementById("publicBox").classList.remove("show");
-    message.textContent = "Sharing stopped ✓";
-    message.className = "message success";
-  }catch(error){
-    console.error(error);
-    message.textContent = error.message || "Couldn't stop sharing.";
-    message.className = "message error";
+
+    const result =
+      await db.rpc(
+
+        "publish_trip",
+
+        {
+
+
+          p_trip_id:
+            Number(
+              tripId
+            ),
+
+
+          p_allow_copy:
+            true
+
+
+        }
+
+      );
+
+
+    if(
+      result.error
+    ){
+
+
+      throw result.error;
+
+
+    }
+
+
+    const publicationId =
+      Number(
+        result.data
+      );
+
+
+    location.href =
+
+      publicationId
+
+      ?
+
+      `places.html?open=${publicationId}`
+
+      :
+
+      "places.html";
+
+
   }
-};
+
+
+  catch(error){
+
+
+    console.error(
+      error
+    );
+
+
+    alert(
+
+      "Couldn't share this trip.\n\n"
+
+      +
+
+      (
+        error.message
+        ||
+        "Unknown error."
+      )
+
+    );
+
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   CREATE / EDIT TRIP
+========================================================= */
+
+const tripSheet =
+  document.getElementById(
+    "tripSheet"
+  );
+
+
+
+function openCreateTrip(){
+
+
+  editingTripId =
+    null;
+
+
+  document
+    .getElementById(
+      "sheetTitle"
+    )
+    .textContent =
+      "Create Trip";
+
+
+  document
+    .getElementById(
+      "saveTrip"
+    )
+    .textContent =
+      "CREATE TRIP";
+
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripCountry"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripStart"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripEnd"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "tripDescription"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "sheetMessage"
+    )
+    .className =
+      "message";
+
+
+  document
+    .getElementById(
+      "publicBox"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  tripSheet
+    .classList
+    .add(
+      "open"
+    );
+
+
+}
+
+
+
+function openEditTrip(
+  tripId
+){
+
+
+  const trip =
+    ownedTrips.find(
+      item =>
+
+        Number(
+          item.id
+        )
+
+        ===
+
+        Number(
+          tripId
+        )
+    );
+
+
+  if(
+    !trip
+  ){
+
+
+    return;
+
+
+  }
+
+
+  editingTripId =
+    Number(
+      trip.id
+    );
+
+
+  document
+    .getElementById(
+      "sheetTitle"
+    )
+    .textContent =
+      "Edit Trip";
+
+
+  document
+    .getElementById(
+      "saveTrip"
+    )
+    .textContent =
+      "SAVE CHANGES";
+
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .value =
+      trip.name
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripCountry"
+    )
+    .value =
+      trip.country
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripStart"
+    )
+    .value =
+      trip.start_date
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripEnd"
+    )
+    .value =
+      trip.end_date
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "tripDescription"
+    )
+    .value =
+      trip.description
+      ||
+      "";
+
+
+  document
+    .getElementById(
+      "sheetMessage"
+    )
+    .className =
+      "message";
+
+
+  const publication =
+    publicationForTrip(
+      trip.id
+    );
+
+
+  document
+    .getElementById(
+      "publicBox"
+    )
+    .classList
+    .toggle(
+
+      "show",
+
+      Boolean(
+        publication?.is_public
+      )
+
+    );
+
+
+  tripSheet
+    .classList
+    .add(
+      "open"
+    );
+
+
+}
+
+
+
+function closeTripSheet(){
+
+
+  tripSheet
+    .classList
+    .remove(
+      "open"
+    );
+
+
+}
+
+
+
+document
+  .getElementById(
+    "createTripButton"
+  )
+  .onclick =
+    openCreateTrip;
+
+
+
+document
+  .getElementById(
+    "closeTripSheet"
+  )
+  .onclick =
+    closeTripSheet;
+
+
+
+document
+  .getElementById(
+    "cancelTrip"
+  )
+  .onclick =
+    closeTripSheet;
+
+
+
+tripSheet.onclick =
+  event => {
+
+
+    if(
+      event.target
+      ===
+      tripSheet
+    ){
+
+
+      closeTripSheet();
+
+
+    }
+
+
+  };
+
+
+
+/* =========================================================
+   SAVE TRIP
+========================================================= */
+
+document
+  .getElementById(
+    "saveTrip"
+  )
+  .onclick =
+    async () => {
+
+
+      const button =
+        document.getElementById(
+          "saveTrip"
+        );
+
+
+      const message =
+        document.getElementById(
+          "sheetMessage"
+        );
+
+
+      message.className =
+        "message";
+
+
+      const name =
+        document
+          .getElementById(
+            "tripName"
+          )
+          .value
+          .trim();
+
+
+      const country =
+        document
+          .getElementById(
+            "tripCountry"
+          )
+          .value
+          .trim();
+
+
+      const startDate =
+        document
+          .getElementById(
+            "tripStart"
+          )
+          .value;
+
+
+      const endDate =
+        document
+          .getElementById(
+            "tripEnd"
+          )
+          .value;
+
+
+      const description =
+        document
+          .getElementById(
+            "tripDescription"
+          )
+          .value
+          .trim();
+
+
+      if(
+        !name
+      ){
+
+
+        message.textContent =
+          "Please enter a trip name.";
+
+
+        message.className =
+          "message error";
+
+
+        return;
+
+
+      }
+
+
+      if(
+        !country
+      ){
+
+
+        message.textContent =
+          "Please enter a country.";
+
+
+        message.className =
+          "message error";
+
+
+        return;
+
+
+      }
+
+
+      if(
+        startDate
+        &&
+        endDate
+        &&
+        endDate < startDate
+      ){
+
+
+        message.textContent =
+          "End date cannot be before start date.";
+
+
+        message.className =
+          "message error";
+
+
+        return;
+
+
+      }
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+
+        editingTripId
+
+        ?
+
+        "SAVING…"
+
+        :
+
+        "CREATING…";
+
+
+      try{
+
+
+        const payload = {
+
+
+          name:
+            name,
+
+
+          country:
+            country,
+
+
+          start_date:
+            startDate
+            ||
+            null,
+
+
+          end_date:
+            endDate
+            ||
+            null,
+
+
+          description:
+            description
+            ||
+            null
+
+
+        };
+
+
+        if(
+          editingTripId
+        ){
+
+
+          const result =
+            await db
+
+              .from(
+                "trips"
+              )
+
+              .update(
+                payload
+              )
+
+              .eq(
+                "id",
+                editingTripId
+              )
+
+              .eq(
+                "owner_id",
+                currentUser.id
+              )
+
+              .select();
+
+
+          if(
+            result.error
+          ){
+
+
+            throw result.error;
+
+
+          }
+
+
+          if(
+            !result.data
+            ||
+            !result.data.length
+          ){
+
+
+            throw new Error(
+              "Trip was not updated."
+            );
+
+
+          }
+
+
+        }
+
+
+        else{
+
+
+          const result =
+            await db
+
+              .from(
+                "trips"
+              )
+
+              .insert({
+
+
+                ...payload,
+
+
+                owner_id:
+                  currentUser.id,
+
+
+                status:
+                  "active"
+
+
+              })
+
+              .select()
+
+              .single();
+
+
+          if(
+            result.error
+          ){
+
+
+            throw result.error;
+
+
+          }
+
+
+          localStorage.setItem(
+
+            "current_trip_id",
+
+            String(
+              result.data.id
+            )
+
+          );
+
+
+        }
+
+
+        message.textContent =
+          "Saved ✓";
+
+
+        message.className =
+          "message success";
+
+
+        await loadTrips();
+
+
+        setTimeout(
+
+          closeTripSheet,
+
+          300
+
+        );
+
+
+      }
+
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          error.message
+          ||
+          "Could not save trip.";
+
+
+        message.className =
+          "message error";
+
+
+      }
+
+
+      finally{
+
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+
+          editingTripId
+
+          ?
+
+          "SAVE CHANGES"
+
+          :
+
+          "CREATE TRIP";
+
+
+      }
+
+
+    };
+
+
+
+/* =========================================================
+   VIEW PUBLIC
+========================================================= */
+
+document
+  .getElementById(
+    "viewPublic"
+  )
+  .onclick =
+    () => {
+
+
+      if(
+        !editingTripId
+      ){
+
+
+        return;
+
+
+      }
+
+
+      const publication =
+        publicationForTrip(
+          editingTripId
+        );
+
+
+      if(
+        !publication
+        ||
+        !publication.is_public
+      ){
+
+
+        return;
+
+
+      }
+
+
+      location.href =
+        `places.html?open=${Number(
+          publication.id
+        )}`;
+
+
+    };
+
+
+
+/* =========================================================
+   STOP SHARING
+========================================================= */
+
+document
+  .getElementById(
+    "unshareTrip"
+  )
+  .onclick =
+    async () => {
+
+
+      if(
+        !editingTripId
+      ){
+
+
+        return;
+
+
+      }
+
+
+      if(
+        !confirm(
+          "Stop sharing this itinerary in Places?"
+        )
+      ){
+
+
+        return;
+
+
+      }
+
+
+      const message =
+        document.getElementById(
+          "sheetMessage"
+        );
+
+
+      try{
+
+
+        const result =
+          await db.rpc(
+
+            "unpublish_trip",
+
+            {
+
+              p_trip_id:
+                Number(
+                  editingTripId
+                )
+
+            }
+
+          );
+
+
+        if(
+          result.error
+        ){
+
+
+          throw result.error;
+
+
+        }
+
+
+        await loadTrips();
+
+
+        document
+          .getElementById(
+            "publicBox"
+          )
+          .classList
+          .remove(
+            "show"
+          );
+
+
+        message.textContent =
+          "Sharing stopped ✓";
+
+
+        message.className =
+          "message success";
+
+
+      }
+
+
+      catch(error){
+
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          error.message
+          ||
+          "Couldn't stop sharing.";
+
+
+        message.className =
+          "message error";
+
+
+      }
+
+
+    };
+
+
+
+/* =========================================================
+   GO
+========================================================= */
 
 start();
+
 </script>
+
 
 <script src="footer.js"></script>
 
+
 </body>
+
 </html>
