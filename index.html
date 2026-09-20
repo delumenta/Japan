@@ -55,6 +55,7 @@
 }
 
 
+
 /* =========================================================
    BASE
 ========================================================= */
@@ -107,8 +108,11 @@ textarea{
 
 
 button{
+
   cursor:pointer;
+
   -webkit-tap-highlight-color:transparent;
+
 }
 
 
@@ -958,26 +962,25 @@ main{
 
 
 /* =========================================================
-   HERO BOTTOM
-========================================================= */
+   HERO SPACING
 
-/*
-  EXACT GAP BETWEEN:
-  28 DAYS TO GO
-  and
-  YOUR JOURNEY
-*/
+   THIS IS THE SPACE BETWEEN:
+   28 DAYS TO GO
+   and
+   YOUR JOURNEY
+========================================================= */
 
 .hero-spacer{
 
-  flex:0 0 115px !important;
-
-  height:115px !important;
-
-  min-height:115px !important;
+  flex:0 0 180px;
 
 }
 
+
+
+/* =========================================================
+   HERO BOTTOM
+========================================================= */
 
 .hero-bottom{
 
@@ -1409,7 +1412,15 @@ main{
 }
 
 
+/*
+   Right arrow is now absolute.
+   Therefore it can no longer move
+   when the title changes size/weight.
+*/
+
 .place-group-head{
+
+  position:relative;
 
   width:100%;
 
@@ -1420,8 +1431,7 @@ main{
   grid-template-columns:
     20px
     68px
-    minmax(0,1fr)
-    18px;
+    minmax(0,1fr);
 
   gap:7px;
 
@@ -1429,7 +1439,7 @@ main{
 
   padding:
     10px
-    12px
+    44px
     10px
     16px;
 
@@ -1508,9 +1518,6 @@ main{
 
   font-size:6.4px;
 
-  /*
-    MEDIUM BOLD
-  */
   font-weight:600;
 
   white-space:nowrap;
@@ -1519,7 +1526,9 @@ main{
 
 
 .place-group-main{
+
   min-width:0;
+
 }
 
 
@@ -1532,10 +1541,6 @@ main{
     "Times New Roman",
     serif;
 
-  /*
-    AREA TITLE:
-    Higashiyama / Gion / Pontocho
-  */
   font-size:13px;
 
   font-weight:600;
@@ -1560,7 +1565,22 @@ main{
 }
 
 
+
+/* =========================================================
+   GROUP CHEVRON
+========================================================= */
+
 .place-group-chevron{
+
+  position:absolute;
+
+  right:18px;
+
+  top:50%;
+
+  width:20px;
+
+  height:20px;
 
   display:flex;
 
@@ -1572,7 +1592,13 @@ main{
 
   font-size:14px;
 
-  transition:transform .18s;
+  line-height:1;
+
+  transform:
+    translateY(-50%);
+
+  transition:
+    transform .18s;
 
 }
 
@@ -1580,7 +1606,9 @@ main{
 .place-group.open
 .place-group-chevron{
 
-  transform:rotate(90deg);
+  transform:
+    translateY(-50%)
+    rotate(90deg);
 
 }
 
@@ -1605,19 +1633,30 @@ main{
 
 .place-group.open
 .place-list{
+
   display:block;
+
 }
 
 
+
+/*
+   Map pin is now absolute.
+
+   That prevents it being pushed around
+   by long schedule titles.
+*/
+
 .place-row{
+
+  position:relative;
 
   display:grid;
 
   grid-template-columns:
     20px
     68px
-    minmax(0,1fr)
-    18px;
+    minmax(0,1fr);
 
   gap:7px;
 
@@ -1626,6 +1665,8 @@ main{
   min-height:56px;
 
   padding:
+    6px
+    44px
     6px
     0;
 
@@ -1678,9 +1719,6 @@ main{
 
   font-size:7px;
 
-  /*
-    MEDIUM BOLD
-  */
   font-weight:600;
 
   line-height:1.35;
@@ -1689,7 +1727,9 @@ main{
 
 
 .place-main{
+
   min-width:0;
+
 }
 
 
@@ -1697,10 +1737,6 @@ main{
 
   color:#eff1f0;
 
-  /*
-    INDIVIDUAL SCHEDULE ITEM:
-    Kiyomizu-dera / Sannenzaka etc.
-  */
   font-size:10px;
 
   font-weight:600;
@@ -1733,7 +1769,18 @@ main{
 }
 
 
+
+/* =========================================================
+   MAP LINK
+========================================================= */
+
 .map-link{
+
+  position:absolute;
+
+  right:15px;
+
+  top:50%;
 
   width:20px;
 
@@ -1744,6 +1791,9 @@ main{
   align-items:center;
 
   justify-content:center;
+
+  transform:
+    translateY(-50%);
 
   text-decoration:none;
 
@@ -1810,7 +1860,9 @@ main{
 ========================================================= */
 
 .food-section{
+
   margin-top:15px;
+
 }
 
 
@@ -2486,7 +2538,7 @@ main{
 
 
 /* =========================================================
-   SWITCHER ACTIONS
+   SWITCH ACTIONS
 ========================================================= */
 
 .switch-actions{
@@ -2773,8 +2825,7 @@ main{
 
   .hero-image{
 
-    background-position:
-      58% 43%;
+    background-position:58% 43%;
 
   }
 
@@ -2892,14 +2943,22 @@ main{
   }
 
 
-  .place-group-head,
+  .place-group-head{
+
+    grid-template-columns:
+      20px
+      63px
+      minmax(0,1fr);
+
+  }
+
+
   .place-row{
 
     grid-template-columns:
       20px
       63px
-      minmax(0,1fr)
-      18px;
+      minmax(0,1fr);
 
   }
 
@@ -2918,22 +2977,6 @@ main{
       10px;
 
   }
-
-}
-
-
-/* =========================================================
-   FINAL HERO GAP
-   ONE VALUE ON ALL SCREEN SIZES
-========================================================= */
-
-.hero-spacer{
-
-  flex:0 0 115px !important;
-
-  height:115px !important;
-
-  min-height:115px !important;
 
 }
 
@@ -3064,11 +3107,6 @@ main{
 <div id="normalTripView">
 
 
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <section class="hero">
 
 
@@ -3089,14 +3127,11 @@ main{
 
         <div class="hero-eyebrow">
 
-
           <span class="hero-country-dot"></span>
-
 
           <span id="tripEyebrow">
             JAPAN
           </span>
-
 
         </div>
 
@@ -3109,14 +3144,12 @@ main{
           aria-label="Switch trips"
         >
 
-
           <h1
             id="tripName"
             class="hero-title"
           >
             My Trip
           </h1>
-
 
         </button>
 
@@ -3237,17 +3270,8 @@ main{
 
 
 
-<!-- =========================================================
-     CONTENT
-========================================================= -->
-
 <section class="content">
 
-
-
-  <!-- =====================================================
-       TRIP DAYS
-  ====================================================== -->
 
   <div class="date-section">
 
@@ -3266,10 +3290,6 @@ main{
   </div>
 
 
-
-  <!-- =====================================================
-       JOURNEY
-  ====================================================== -->
 
   <section class="journey-section">
 
@@ -3327,11 +3347,9 @@ main{
       class="journey-card"
     >
 
-
       <div class="empty">
         Loading journey…
       </div>
-
 
     </div>
 
@@ -3339,10 +3357,6 @@ main{
   </section>
 
 
-
-  <!-- =====================================================
-       FOOD FINDER
-  ====================================================== -->
 
   <div
     id="foodFinder"
@@ -3668,9 +3682,7 @@ let TRIP_ID =
     new URLSearchParams(
       location.search
     )
-    .get(
-      "trip"
-    )
+    .get("trip")
   )
 
   ||
@@ -3912,46 +3924,37 @@ function countryIcon(country){
     return "🇯🇵";
   }
 
-
   if(value.includes("singapore")){
     return "🇸🇬";
   }
-
 
   if(value.includes("taiwan")){
     return "🇹🇼";
   }
 
-
   if(value.includes("korea")){
     return "🇰🇷";
   }
-
 
   if(value.includes("china")){
     return "🇨🇳";
   }
 
-
   if(value.includes("thailand")){
     return "🇹🇭";
   }
-
 
   if(value.includes("malaysia")){
     return "🇲🇾";
   }
 
-
   if(value.includes("indonesia")){
     return "🇮🇩";
   }
 
-
   if(value.includes("italy")){
     return "🇮🇹";
   }
-
 
   if(value.includes("france")){
     return "🇫🇷";
@@ -4026,9 +4029,7 @@ function timeValue(row){
     String(
       row.start_time
     )
-    .split(
-      ":"
-    );
+    .split(":");
 
 
   const hour =
@@ -4054,13 +4055,9 @@ function timeValue(row){
 
 
   if(
-    !Number.isFinite(
-      hour
-    )
+    !Number.isFinite(hour)
     ||
-    !Number.isFinite(
-      minute
-    )
+    !Number.isFinite(minute)
   ){
 
     return null;
@@ -4091,15 +4088,11 @@ function compareRows(
 ){
 
   const timeA =
-    timeValue(
-      a
-    );
+    timeValue(a);
 
 
   const timeB =
-    timeValue(
-      b
-    );
+    timeValue(b);
 
 
   if(
@@ -4194,9 +4187,7 @@ function formatClock(value){
     String(
       value
     )
-    .split(
-      ":"
-    );
+    .split(":");
 
 
   let hour =
@@ -4211,11 +4202,7 @@ function formatClock(value){
     "00";
 
 
-  if(
-    !Number.isFinite(
-      hour
-    )
-  ){
+  if(!Number.isFinite(hour)){
     return value;
   }
 
@@ -4235,17 +4222,7 @@ function formatClock(value){
 
 
   return (
-
-    `${hour}:`
-
-    +
-
-    `${minute} `
-
-    +
-
-    suffix
-
+    `${hour}:${minute} ${suffix}`
   );
 
 }
@@ -4265,17 +4242,11 @@ function timeText(row){
   ){
 
     return (
-
       `${formatClock(
         row.start_time
-      )} – `
-
-      +
-
-      `${formatClock(
+      )} – ${formatClock(
         row.end_time
       )}`
-
     );
 
   }
@@ -4310,11 +4281,9 @@ function rowPlace(row){
   return (
 
     placeMap.get(
-
       Number(
         row.place_id
       )
-
     )
 
     ||
@@ -4329,9 +4298,7 @@ function rowPlace(row){
 function rowArea(row){
 
   const place =
-    rowPlace(
-      row
-    );
+    rowPlace(row);
 
 
   return (
@@ -4377,9 +4344,7 @@ function mapsHref(row){
 
 
   const place =
-    rowPlace(
-      row
-    );
+    rowPlace(row);
 
 
   if(place?.maps_url){
@@ -4389,36 +4354,24 @@ function mapsHref(row){
 
   const lat =
     Number(
-
       row.latitude
-
       ??
-
       place?.latitude
-
     );
 
 
   const lng =
     Number(
-
       row.longitude
-
       ??
-
       place?.longitude
-
     );
 
 
   if(
-    Number.isFinite(
-      lat
-    )
+    Number.isFinite(lat)
     &&
-    Number.isFinite(
-      lng
-    )
+    Number.isFinite(lng)
     &&
     !(
       lat === 0
@@ -4504,9 +4457,7 @@ function isHomePlace(row){
 
   return !excluded.some(
     word =>
-      type.includes(
-        word
-      )
+      type.includes(word)
   );
 
 }
@@ -4560,13 +4511,9 @@ async function getAccessibleTrips(){
   const ownResult =
     await db
 
-      .from(
-        "trips"
-      )
+      .from("trips")
 
-      .select(
-        "*"
-      )
+      .select("*")
 
       .eq(
         "owner_id",
@@ -4583,9 +4530,7 @@ async function getAccessibleTrips(){
   const memberResult =
     await db
 
-      .from(
-        "trip_members"
-      )
+      .from("trip_members")
 
       .select(`
         trip_id,
@@ -4625,17 +4570,10 @@ async function getAccessibleTrips(){
   .forEach(
     trip => {
 
-
       tripsMap.set(
-
-        Number(
-          trip.id
-        ),
-
+        Number(trip.id),
         trip
-
       );
-
 
     }
   );
@@ -4659,9 +4597,7 @@ async function getAccessibleTrips(){
           )
       )
 
-      .filter(
-        Boolean
-      )
+      .filter(Boolean)
 
     )
 
@@ -4675,13 +4611,9 @@ async function getAccessibleTrips(){
     const sharedResult =
       await db
 
-        .from(
-          "trips"
-        )
+        .from("trips")
 
-        .select(
-          "*"
-        )
+        .select("*")
 
         .in(
           "id",
@@ -4710,17 +4642,10 @@ async function getAccessibleTrips(){
     .forEach(
       trip => {
 
-
         tripsMap.set(
-
-          Number(
-            trip.id
-          ),
-
+          Number(trip.id),
           trip
-
         );
-
 
       }
     );
@@ -4744,11 +4669,9 @@ async function getAccessibleTrips(){
       )
 
       .localeCompare(
-
         txt(
           b.start_date
         )
-
       )
 
   );
@@ -4763,15 +4686,12 @@ async function getAccessibleTrips(){
 
 function showFirstTripView(){
 
-
   document
     .getElementById(
       "normalTripView"
     )
     .classList
-    .remove(
-      "show"
-    );
+    .remove("show");
 
 
   document
@@ -4779,9 +4699,7 @@ function showFirstTripView(){
       "firstTripView"
     )
     .classList
-    .add(
-      "show"
-    );
+    .add("show");
 
 
   document
@@ -4802,15 +4720,12 @@ function showFirstTripView(){
 
 function showNormalTripView(){
 
-
   document
     .getElementById(
       "firstTripView"
     )
     .classList
-    .remove(
-      "show"
-    );
+    .remove("show");
 
 
   document
@@ -4818,9 +4733,7 @@ function showNormalTripView(){
       "normalTripView"
     )
     .classList
-    .add(
-      "show"
-    );
+    .add("show");
 
 }
 
@@ -4841,16 +4754,9 @@ function resolveCurrentTrip(){
     accessibleTrips
       .find(
         trip =>
-
-          Number(
-            trip.id
-          )
-
+          Number(trip.id)
           ===
-
-          Number(
-            TRIP_ID
-          )
+          Number(TRIP_ID)
       );
 
 
@@ -4873,24 +4779,15 @@ function resolveCurrentTrip(){
 
 
   localStorage.setItem(
-
     "current_trip_id",
-
-    String(
-      TRIP_ID
-    )
-
+    String(TRIP_ID)
   );
 
 
   history.replaceState(
-
     null,
-
     "",
-
     `index.html?trip=${TRIP_ID}`
-
   );
 
 
@@ -4914,13 +4811,9 @@ async function loadCurrentTripData(){
   const scheduleResult =
     await db
 
-      .from(
-        "schedule"
-      )
+      .from("schedule")
 
-      .select(
-        "*"
-      )
+      .select("*")
 
       .eq(
         "trip_id",
@@ -4983,9 +4876,7 @@ async function loadCurrentTripData(){
     const placeResult =
       await db
 
-        .from(
-          "places"
-        )
+        .from("places")
 
         .select(`
           id,
@@ -5017,17 +4908,10 @@ async function loadCurrentTripData(){
       .forEach(
         place => {
 
-
           placeMap.set(
-
-            Number(
-              place.id
-            ),
-
+            Number(place.id),
             place
-
           );
-
 
         }
       );
@@ -5051,9 +4935,7 @@ async function loadCurrentTripData(){
             row.schedule_date
         )
 
-        .filter(
-          Boolean
-        )
+        .filter(Boolean)
 
     )
 
@@ -5101,14 +4983,11 @@ function chooseInitialDate(){
 
 
   if(
-    dayDates.includes(
-      today
-    )
+    dayDates.includes(today)
   ){
 
     selectedDate =
       today;
-
 
     return;
 
@@ -5122,7 +5001,6 @@ function chooseInitialDate(){
 
     selectedDate =
       dayDates[0];
-
 
     return;
 
@@ -5140,7 +5018,6 @@ function chooseInitialDate(){
       dayDates[
         dayDates.length - 1
       ];
-
 
     return;
 
@@ -5339,15 +5216,9 @@ function renderHero(){
         Math.ceil(
 
           (
-            parseDate(
-              start
-            )
-
+            parseDate(start)
             -
-
-            parseDate(
-              today
-            )
+            parseDate(today)
           )
 
           /
@@ -5387,15 +5258,9 @@ function renderHero(){
         Math.floor(
 
           (
-            parseDate(
-              today
-            )
-
+            parseDate(today)
             -
-
-            parseDate(
-              start
-            )
+            parseDate(start)
           )
 
           /
@@ -5415,15 +5280,9 @@ function renderHero(){
         Math.floor(
 
           (
-            parseDate(
-              end
-            )
-
+            parseDate(end)
             -
-
-            parseDate(
-              start
-            )
+            parseDate(start)
           )
 
           /
@@ -5500,16 +5359,9 @@ function renderTripSwitcher(){
 
 
           const isCurrent =
-
-            Number(
-              trip.id
-            )
-
+            Number(trip.id)
             ===
-
-            Number(
-              TRIP_ID
-            );
+            Number(TRIP_ID);
 
 
           return `
@@ -5643,10 +5495,7 @@ function renderTripSwitcher(){
         }
       )
 
-      .join(
-        ""
-      );
-
+      .join("");
 
 
   holder
@@ -5673,13 +5522,8 @@ function renderTripSwitcher(){
 
 
             localStorage.setItem(
-
               "current_trip_id",
-
-              String(
-                id
-              )
-
+              String(id)
             );
 
 
@@ -5707,31 +5551,24 @@ const switchTripBackdrop =
   );
 
 
-
 function openTripSwitcher(){
 
   renderTripSwitcher();
 
   switchTripBackdrop
     .classList
-    .add(
-      "open"
-    );
+    .add("open");
 
 }
-
 
 
 function closeTripSwitcher(){
 
   switchTripBackdrop
     .classList
-    .remove(
-      "open"
-    );
+    .remove("open");
 
 }
-
 
 
 document
@@ -5742,7 +5579,6 @@ document
     openTripSwitcher;
 
 
-
 document
   .getElementById(
     "tripManageButton"
@@ -5751,14 +5587,12 @@ document
     openTripSwitcher;
 
 
-
 document
   .getElementById(
     "closeSwitchTrip"
   )
   .onclick =
     closeTripSwitcher;
-
 
 
 switchTripBackdrop.onclick =
@@ -5790,7 +5624,6 @@ const firstTripCreateBackdrop =
   );
 
 
-
 document
   .getElementById(
     "openFirstTripCreate"
@@ -5800,12 +5633,9 @@ document
 
       firstTripCreateBackdrop
         .classList
-        .add(
-          "open"
-        );
+        .add("open");
 
     };
-
 
 
 document
@@ -5817,12 +5647,9 @@ document
 
       firstTripCreateBackdrop
         .classList
-        .remove(
-          "open"
-        );
+        .remove("open");
 
     };
-
 
 
 firstTripCreateBackdrop.onclick =
@@ -5837,9 +5664,7 @@ firstTripCreateBackdrop.onclick =
 
       firstTripCreateBackdrop
         .classList
-        .remove(
-          "open"
-        );
+        .remove("open");
 
     }
 
@@ -6007,49 +5832,34 @@ document
         const result =
           await db
 
-            .from(
-              "trips"
-            )
+            .from("trips")
 
             .insert({
 
+              name:name,
 
-              name:
-                name,
-
-
-              country:
-                country,
-
+              country:country,
 
               start_date:
-
                 startDate
                 ||
                 null,
 
-
               end_date:
-
                 endDate
                 ||
                 null,
 
-
               description:
-
                 description
                 ||
                 null,
 
-
               owner_id:
                 currentUser.id,
 
-
               status:
                 "active"
-
 
             })
 
@@ -6071,13 +5881,10 @@ document
 
 
         localStorage.setItem(
-
           "current_trip_id",
-
           String(
             newTrip.id
           )
-
         );
 
 
@@ -6182,13 +5989,9 @@ function selectedRows(){
 
 function groupPlaces(rows){
 
-  const groups =
-    [];
+  const groups = [];
 
-
-  let currentGroup =
-    null;
-
+  let currentGroup = null;
 
 
   rows
@@ -6206,9 +6009,7 @@ function groupPlaces(rows){
 
 
         const area =
-          rowArea(
-            row
-          );
+          rowArea(row);
 
 
         if(
@@ -6290,13 +6091,9 @@ function areaTime(rows){
 
   const end =
     formatClock(
-
       last.end_time
-
       ||
-
       last.start_time
-
     );
 
 
@@ -6366,15 +6163,11 @@ function areaStartTime(rows){
 function renderPlaceRow(row){
 
   const mapUrl =
-    mapsHref(
-      row
-    );
+    mapsHref(row);
 
 
   const place =
-    rowPlace(
-      row
-    );
+    rowPlace(row);
 
 
   const title =
@@ -6439,9 +6232,7 @@ function renderPlaceRow(row){
       <div class="place-time">
 
         ${esc(
-          timeText(
-            row
-          )
+          timeText(row)
         )}
 
       </div>
@@ -6511,9 +6302,7 @@ function renderPlaceRow(row){
 
         :
 
-        `
-          <span></span>
-        `
+        ""
       }
 
 
@@ -6644,9 +6433,7 @@ function renderPlaceGroup(
               renderPlaceRow
             )
 
-            .join(
-              ""
-            )
+            .join("")
         }
 
       </div>
@@ -6671,9 +6458,7 @@ function renderPlaces(){
 
 
   const groups =
-    groupPlaces(
-      rows
-    );
+    groupPlaces(rows);
 
 
   const title =
@@ -6806,9 +6591,7 @@ function renderPlaces(){
         renderPlaceGroup
       )
 
-      .join(
-        ""
-      );
+      .join("");
 
 
 
@@ -6861,15 +6644,12 @@ function renderPlaces(){
 
 
             button.setAttribute(
-
               "aria-expanded",
-
               next
               ?
               "true"
               :
               "false"
-
             );
 
 
@@ -6962,9 +6742,7 @@ function renderDates(){
         `
       )
 
-      .join(
-        ""
-      );
+      .join("");
 
 
 
@@ -7254,17 +7032,13 @@ function distanceM(
     +
 
     Math.cos(
-      rad(
-        lat1
-      )
+      rad(lat1)
     )
 
     *
 
     Math.cos(
-      rad(
-        lat2
-      )
+      rad(lat2)
     )
 
     *
@@ -7286,9 +7060,7 @@ function distanceM(
 
     Math.atan2(
 
-      Math.sqrt(
-        a
-      ),
+      Math.sqrt(a),
 
       Math.sqrt(
         1-a
@@ -7422,13 +7194,9 @@ function renderFoodItem(item){
 
             ]
 
-            .filter(
-              Boolean
-            )
+            .filter(Boolean)
 
-            .join(
-              " · "
-            )
+            .join(" · ")
 
           )}
 
@@ -7585,8 +7353,7 @@ async function loadNearbyFood(){
        SAVED FOOD
     ====================================================== */
 
-    let picks =
-      [];
+    let picks = [];
 
 
     const tripRestaurantResult =
@@ -7596,9 +7363,7 @@ async function loadNearbyFood(){
           "trip_restaurants"
         )
 
-        .select(
-          "*"
-        )
+        .select("*")
 
         .eq(
           "trip_id",
@@ -7649,9 +7414,7 @@ async function loadNearbyFood(){
               "restaurants"
             )
 
-            .select(
-              "*"
-            )
+            .select("*")
 
             .in(
               "id",
@@ -7777,8 +7540,7 @@ async function loadNearbyFood(){
        GOOGLE NEARBY
     ====================================================== */
 
-    let nearby =
-      [];
+    let nearby = [];
 
 
     try{
@@ -8013,8 +7775,7 @@ async function loadNearbyFood(){
       "none";
 
 
-    let html =
-      "";
+    let html = "";
 
 
     html += `
@@ -8033,14 +7794,10 @@ async function loadNearbyFood(){
           ?
 
           picks
-
             .map(
               renderFoodItem
             )
-
-            .join(
-              ""
-            )
+            .join("")
 
           :
 
@@ -8078,14 +7835,10 @@ async function loadNearbyFood(){
           ?
 
           nearby
-
             .map(
               renderFoodItem
             )
-
-            .join(
-              ""
-            )
+            .join("")
 
           :
 
@@ -8222,9 +7975,7 @@ async function start(){
     resolveCurrentTrip();
 
 
-
     showNormalTripView();
-
 
 
     await loadCurrentTripData();
@@ -8237,11 +7988,8 @@ async function start(){
 
 
     console.error(
-
       "Homepage:",
-
       error
-
     );
 
 
