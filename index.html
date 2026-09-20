@@ -1260,7 +1260,6 @@ main{
 ========================================================= */
 
 .journey-card.has-groups::before{
-
   content:"";
 
   position:absolute;
@@ -1268,11 +1267,9 @@ main{
   top:26px;
   bottom:26px;
 
-  /*
-    Browser visual alignment:
-    circles render centred at 25px
-  */
-  left:25px;
+  /* centre the 1px line exactly on the marker axis */
+  left:26px;
+  transform:translateX(-50%);
 
   width:1px;
 
@@ -1285,9 +1282,7 @@ main{
     );
 
   pointer-events:none;
-
 }
-
 
 /* =========================================================
    AREA GROUP
