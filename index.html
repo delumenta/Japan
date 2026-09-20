@@ -756,11 +756,8 @@ main{
 
 
 .trip-manage strong{
-
   color:inherit;
-
   font-weight:850;
-
 }
 
 
@@ -951,9 +948,10 @@ main{
 /* =========================================================
    HERO GAP
 
-   Controls distance between:
    28 DAYS TO GO
-   and
+   ↓
+   180PX
+   ↓
    YOUR JOURNEY
 ========================================================= */
 
@@ -1102,11 +1100,6 @@ main{
 
   scroll-snap-align:start;
 
-  box-shadow:
-    inset
-    0 1px 0
-    rgba(255,255,255,.015);
-
 }
 
 
@@ -1183,7 +1176,6 @@ main{
   bottom:8px;
 
   width:4px;
-
   height:4px;
 
   border-radius:50%;
@@ -1316,20 +1308,19 @@ main{
 
 /* =========================================================
    JOURNEY CARD
+
+   LOCKED GRID:
+   marker | time | title
 ========================================================= */
 
 .journey-card{
 
   position:relative;
 
-  /*
-    SHARED GRID COLUMNS
-
-    marker | time | content
-  */
-
+  --left-pad:16px;
   --marker-col:20px;
   --time-col:78px;
+  --column-gap:7px;
   --right-space:42px;
 
   overflow:hidden;
@@ -1354,6 +1345,17 @@ main{
 }
 
 
+
+/* =========================================================
+   VERTICAL TIMELINE LINE
+
+   16px left padding
+   +
+   10px half of marker column
+   =
+   26px exact center
+========================================================= */
+
 .journey-card.has-groups::before{
 
   content:"";
@@ -1363,7 +1365,7 @@ main{
   top:26px;
   bottom:26px;
 
-  left:27px;
+  left:26px;
 
   width:1px;
 
@@ -1405,7 +1407,7 @@ main{
 
 
 /* =========================================================
-   LOCKED GROUP HEADER GRID
+   GROUP HEADER
 ========================================================= */
 
 .place-group-head{
@@ -1423,7 +1425,7 @@ main{
     var(--time-col)
     minmax(0,1fr);
 
-  column-gap:7px;
+  column-gap:var(--column-gap);
 
   align-items:center;
 
@@ -1431,7 +1433,7 @@ main{
     10px
     var(--right-space)
     10px
-    16px;
+    var(--left-pad);
 
   border:0;
 
@@ -1446,14 +1448,15 @@ main{
 
 
 /* =========================================================
-   GROUP MARKER
+   ALL TIMELINE MARKERS
 ========================================================= */
 
-.area-marker{
+.area-marker,
+.place-marker{
 
   width:var(--marker-col);
 
-  height:32px;
+  height:100%;
 
   display:flex;
 
@@ -1464,35 +1467,50 @@ main{
 }
 
 
-.area-dot{
+
+/* =========================================================
+   ALL DOTS IDENTICAL
+
+   This fixes the "buttons" looking different.
+========================================================= */
+
+.area-dot,
+.place-dot{
 
   position:relative;
 
-  z-index:2;
+  z-index:3;
 
-  width:8px;
+  width:7px;
+  height:7px;
 
-  height:8px;
+  flex:
+    0 0 7px;
 
   border:
     1.5px solid
-    #ff7772;
+    #ff716d;
 
   border-radius:50%;
 
   background:#10171d;
 
   box-shadow:
-    0 0 0 4px
-    rgba(255,107,104,.06);
+    0 0 0 3px
+    rgba(255,107,104,.055);
 
 }
 
 
+/*
+   Keep group dots hollow too.
+   No filled/open dot difference.
+*/
+
 .place-group.open
 .area-dot{
 
-  background:#ff716d;
+  background:#10171d;
 
 }
 
@@ -1568,7 +1586,7 @@ main{
 
 
 /* =========================================================
-   FIXED GROUP CHEVRON
+   GROUP CHEVRON
 ========================================================= */
 
 .place-group-chevron{
@@ -1580,7 +1598,6 @@ main{
   right:17px;
 
   width:20px;
-
   height:20px;
 
   display:flex;
@@ -1627,24 +1644,22 @@ main{
     0
     0
     10px
-    16px;
+    var(--left-pad);
 
 }
 
 
 .place-group.open
 .place-list{
-
   display:block;
-
 }
 
 
 
 /* =========================================================
-   LOCKED INDIVIDUAL ROW GRID
+   INDIVIDUAL SCHEDULE ROW
 
-   EXACT SAME COLUMNS AS AREA HEADER
+   EXACT SAME GRID AS HEADER
 ========================================================= */
 
 .place-row{
@@ -1658,7 +1673,7 @@ main{
     var(--time-col)
     minmax(0,1fr);
 
-  column-gap:7px;
+  column-gap:var(--column-gap);
 
   align-items:center;
 
@@ -1673,47 +1688,6 @@ main{
   border-top:
     1px solid
     rgba(255,255,255,.045);
-
-}
-
-
-
-/* =========================================================
-   ITEM MARKER
-========================================================= */
-
-.place-marker{
-
-  width:var(--marker-col);
-
-  height:100%;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-}
-
-
-.place-dot{
-
-  position:relative;
-
-  z-index:2;
-
-  width:6px;
-
-  height:6px;
-
-  border:
-    1px solid
-    rgba(255,107,104,.82);
-
-  border-radius:50%;
-
-  background:#10161c;
 
 }
 
@@ -1761,12 +1735,11 @@ main{
   font-size:10px;
 
   /*
-    Medium appearance.
-    Slightly lighter than 600 because this
-    sans-serif looks much heavier than Georgia.
+    Slightly lighter than the old 500/600.
+    This visually matches the Georgia heading better.
   */
 
-  font-weight:500;
+  font-weight:400;
 
   line-height:1.35;
 
@@ -1797,7 +1770,7 @@ main{
 
 
 /* =========================================================
-   FIXED MAP BUTTON
+   FIXED MAP LINK
 ========================================================= */
 
 .map-link{
@@ -1809,7 +1782,6 @@ main{
   right:15px;
 
   width:20px;
-
   height:20px;
 
   display:flex;
@@ -2179,7 +2151,7 @@ main{
 
 
 /* =========================================================
-   GENERIC STATES
+   GENERIC
 ========================================================= */
 
 .empty{
@@ -2300,19 +2272,13 @@ main{
 @keyframes sheetUp{
 
   from{
-
     transform:translateY(55px);
-
     opacity:0;
-
   }
 
   to{
-
     transform:translateY(0);
-
     opacity:1;
-
   }
 
 }
@@ -2375,7 +2341,6 @@ main{
 .sheet-close{
 
   width:32px;
-
   height:32px;
 
   border:
@@ -2952,9 +2917,7 @@ main{
 
 
   .journey-card{
-
     --time-col:72px;
-
   }
 
 
@@ -2964,11 +2927,7 @@ main{
 
 
   .full-plan{
-
-    padding:
-      0
-      10px;
-
+    padding:0 10px;
   }
 
 }
@@ -2994,7 +2953,6 @@ main{
   class="first-trip-view"
 >
 
-
   <div
     id="firstTripBackground"
     class="first-trip-bg"
@@ -3006,16 +2964,13 @@ main{
 
     <div class="first-trip-mark">
 
-
       <div class="first-trip-mark-main">
         旅
       </div>
 
-
       <div class="first-trip-mark-sub">
         JOURNEY
       </div>
-
 
     </div>
 
@@ -3026,13 +2981,11 @@ main{
 
       <div class="first-trip-logo-wrap">
 
-
         <img
           class="first-trip-logo"
           src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
           alt=""
         >
-
 
       </div>
 
@@ -3043,25 +2996,19 @@ main{
 
 
       <div class="first-trip-title">
-
         Create your<br>
         first trip
-
       </div>
 
 
       <div class="first-trip-text">
-
         You don’t have any trips yet.<br>
-
         Start planning your itinerary,
         food, bookings and places.
-
       </div>
 
 
       <div class="first-trip-actions">
-
 
         <button
           id="openFirstTripCreate"
@@ -3079,7 +3026,6 @@ main{
           VIEW TRIPS →
         </a>
 
-
       </div>
 
 
@@ -3087,7 +3033,6 @@ main{
 
 
   </div>
-
 
 </section>
 
@@ -3154,31 +3099,24 @@ main{
           type="button"
         >
 
-
           <span>
-
             TRIPS:
             <strong id="tripCount">
               1
             </strong>
-
           </span>
-
 
           <span class="trip-divider">
             |
           </span>
 
-
           <span id="manageTripText">
             MANAGE TRIP
           </span>
 
-
           <span class="manage-arrow">
             ›
           </span>
-
 
         </button>
 
@@ -3192,12 +3130,10 @@ main{
         </div>
 
 
-
         <div
           id="tripDates"
           class="hero-dates"
         ></div>
-
 
 
         <div
@@ -3214,7 +3150,6 @@ main{
 
       <div class="hero-japanese">
 
-
         <div
           id="heroJapanese"
           class="hero-japanese-main"
@@ -3222,14 +3157,12 @@ main{
           旅
         </div>
 
-
         <div
           id="heroJapaneseSub"
           class="hero-japanese-sub"
         >
           JOURNEY
         </div>
-
 
       </div>
 
@@ -3244,14 +3177,11 @@ main{
 
     <div class="hero-bottom">
 
-
       <div class="hero-bottom-copy">
         YOUR JOURNEY
       </div>
 
-
       <div class="hero-bottom-line"></div>
-
 
     </div>
 
@@ -3268,17 +3198,14 @@ main{
 
   <div class="date-section">
 
-
     <div class="date-section-label">
       TRIP DAYS
     </div>
-
 
     <div
       id="dateScroll"
       class="date-scroll"
     ></div>
-
 
   </div>
 
@@ -3292,11 +3219,9 @@ main{
 
       <div>
 
-
         <div class="journey-eyebrow">
           YOUR ITINERARY
         </div>
-
 
         <div
           id="journeyTitle"
@@ -3305,12 +3230,10 @@ main{
           Today's Journey
         </div>
 
-
         <div
           id="journeyDate"
           class="journey-date"
         ></div>
-
 
       </div>
 
@@ -3321,13 +3244,8 @@ main{
         class="full-plan"
         href="schedule.html"
       >
-
         VIEW FULL PLAN
-
-        <span>
-          ›
-        </span>
-
+        <span>›</span>
       </a>
 
 
@@ -3376,7 +3294,6 @@ main{
   class="bottom-backdrop"
 >
 
-
   <div class="bottom-sheet">
 
 
@@ -3385,11 +3302,9 @@ main{
 
     <div class="sheet-head">
 
-
       <div class="sheet-title">
         Switch Trip
       </div>
-
 
       <button
         id="closeSwitchTrip"
@@ -3399,16 +3314,13 @@ main{
         ✕
       </button>
 
-
     </div>
-
 
 
     <div
       id="switchTripList"
       class="switch-trip-list"
     ></div>
-
 
 
     <div class="switch-actions">
@@ -3419,24 +3331,19 @@ main{
         href="trips.html"
       >
 
-
         <div class="switch-action-icon">
           🧳
         </div>
-
 
         <div class="switch-action-main">
           View all trips
         </div>
 
-
         <div class="switch-action-arrow">
           ›
         </div>
 
-
       </a>
-
 
 
       <a
@@ -3444,21 +3351,17 @@ main{
         href="trips.html?create=1"
       >
 
-
         <div class="switch-action-icon">
           ＋
         </div>
-
 
         <div class="switch-action-main">
           Create new trip
         </div>
 
-
         <div class="switch-action-arrow">
           ›
         </div>
-
 
       </a>
 
@@ -3467,7 +3370,6 @@ main{
 
 
   </div>
-
 
 </div>
 
@@ -3482,7 +3384,6 @@ main{
   class="bottom-backdrop"
 >
 
-
   <div class="bottom-sheet">
 
 
@@ -3491,11 +3392,9 @@ main{
 
     <div class="sheet-head">
 
-
       <div class="sheet-title">
         Create New Trip
       </div>
-
 
       <button
         id="closeFirstTripCreate"
@@ -3504,7 +3403,6 @@ main{
       >
         ✕
       </button>
-
 
     </div>
 
@@ -3531,7 +3429,6 @@ main{
       </div>
 
 
-
       <div class="create-field">
 
         <label>
@@ -3547,7 +3444,6 @@ main{
       </div>
 
 
-
       <div class="create-field">
 
         <label>
@@ -3560,7 +3456,6 @@ main{
         >
 
       </div>
-
 
 
       <div class="create-date-row">
@@ -3580,7 +3475,6 @@ main{
         </div>
 
 
-
         <div class="create-field">
 
           <label>
@@ -3596,7 +3490,6 @@ main{
 
 
       </div>
-
 
 
       <button
@@ -3618,7 +3511,6 @@ main{
 
 
   </div>
-
 
 </div>
 
@@ -5219,11 +5111,9 @@ function renderTripSwitcher(){
 
 
               <div class="switch-trip-icon">
-
                 ${countryIcon(
                   trip.country
                 )}
-
               </div>
 
 
@@ -5299,7 +5189,6 @@ function renderTripSwitcher(){
 
 
               <div class="switch-trip-select">
-
                 ${
                   isCurrent
                   ?
@@ -5307,7 +5196,6 @@ function renderTripSwitcher(){
                   :
                   ""
                 }
-
               </div>
 
 
