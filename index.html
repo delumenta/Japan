@@ -108,11 +108,8 @@ textarea{
 
 
 button{
-
   cursor:pointer;
-
   -webkit-tap-highlight-color:transparent;
-
 }
 
 
@@ -250,9 +247,7 @@ main{
 ========================================================= */
 
 .first-trip-mark{
-
   color:rgba(255,255,255,.55);
-
 }
 
 
@@ -756,9 +751,7 @@ main{
 
 
 .trip-manage > span:first-child{
-
   color:var(--blush);
-
 }
 
 
@@ -772,16 +765,12 @@ main{
 
 
 .trip-divider{
-
   color:var(--blush);
-
 }
 
 
 #manageTripText{
-
   color:rgba(255,255,255,.94);
-
 }
 
 
@@ -895,8 +884,6 @@ main{
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
 
-  box-shadow:none;
-
 }
 
 
@@ -962,9 +949,9 @@ main{
 
 
 /* =========================================================
-   HERO SPACING
+   HERO GAP
 
-   THIS IS THE SPACE BETWEEN:
+   Controls distance between:
    28 DAYS TO GO
    and
    YOUR JOURNEY
@@ -1172,11 +1159,6 @@ main{
       rgba(255,107,104,.075)
     );
 
-  box-shadow:
-    inset
-    0 0 20px
-    rgba(255,107,104,.025);
-
 }
 
 
@@ -1340,6 +1322,16 @@ main{
 
   position:relative;
 
+  /*
+    SHARED GRID COLUMNS
+
+    marker | time | content
+  */
+
+  --marker-col:20px;
+  --time-col:78px;
+  --right-space:42px;
+
   overflow:hidden;
 
   border:
@@ -1369,7 +1361,6 @@ main{
   position:absolute;
 
   top:26px;
-
   bottom:26px;
 
   left:27px;
@@ -1412,11 +1403,10 @@ main{
 }
 
 
-/*
-   Right arrow is now absolute.
-   Therefore it can no longer move
-   when the title changes size/weight.
-*/
+
+/* =========================================================
+   LOCKED GROUP HEADER GRID
+========================================================= */
 
 .place-group-head{
 
@@ -1429,17 +1419,17 @@ main{
   display:grid;
 
   grid-template-columns:
-    20px
-    68px
+    var(--marker-col)
+    var(--time-col)
     minmax(0,1fr);
 
-  gap:7px;
+  column-gap:7px;
 
   align-items:center;
 
   padding:
     10px
-    44px
+    var(--right-space)
     10px
     16px;
 
@@ -1456,12 +1446,12 @@ main{
 
 
 /* =========================================================
-   TIMELINE MARKER
+   GROUP MARKER
 ========================================================= */
 
 .area-marker{
 
-  width:20px;
+  width:var(--marker-col);
 
   height:32px;
 
@@ -1509,10 +1499,12 @@ main{
 
 
 /* =========================================================
-   AREA TEXT
+   GROUP TIME
 ========================================================= */
 
 .place-group-start{
+
+  width:100%;
 
   color:#b1bac0;
 
@@ -1520,12 +1512,21 @@ main{
 
   font-weight:600;
 
+  line-height:1.35;
+
   white-space:nowrap;
 
 }
 
 
+
+/* =========================================================
+   GROUP TITLE
+========================================================= */
+
 .place-group-main{
+
+  width:100%;
 
   min-width:0;
 
@@ -1567,16 +1568,16 @@ main{
 
 
 /* =========================================================
-   GROUP CHEVRON
+   FIXED GROUP CHEVRON
 ========================================================= */
 
 .place-group-chevron{
 
   position:absolute;
 
-  right:18px;
-
   top:50%;
+
+  right:17px;
 
   width:20px;
 
@@ -1624,7 +1625,7 @@ main{
 
   padding:
     0
-    12px
+    0
     10px
     16px;
 
@@ -1640,12 +1641,11 @@ main{
 
 
 
-/*
-   Map pin is now absolute.
+/* =========================================================
+   LOCKED INDIVIDUAL ROW GRID
 
-   That prevents it being pushed around
-   by long schedule titles.
-*/
+   EXACT SAME COLUMNS AS AREA HEADER
+========================================================= */
 
 .place-row{
 
@@ -1654,11 +1654,11 @@ main{
   display:grid;
 
   grid-template-columns:
-    20px
-    68px
+    var(--marker-col)
+    var(--time-col)
     minmax(0,1fr);
 
-  gap:7px;
+  column-gap:7px;
 
   align-items:center;
 
@@ -1666,7 +1666,7 @@ main{
 
   padding:
     6px
-    44px
+    var(--right-space)
     6px
     0;
 
@@ -1677,9 +1677,14 @@ main{
 }
 
 
+
+/* =========================================================
+   ITEM MARKER
+========================================================= */
+
 .place-marker{
 
-  width:20px;
+  width:var(--marker-col);
 
   height:100%;
 
@@ -1713,7 +1718,14 @@ main{
 }
 
 
+
+/* =========================================================
+   ITEM TIME
+========================================================= */
+
 .place-time{
+
+  width:100%;
 
   color:#9aa5ac;
 
@@ -1723,10 +1735,19 @@ main{
 
   line-height:1.35;
 
+  white-space:nowrap;
+
 }
 
 
+
+/* =========================================================
+   ITEM CONTENT
+========================================================= */
+
 .place-main{
+
+  width:100%;
 
   min-width:0;
 
@@ -1739,7 +1760,13 @@ main{
 
   font-size:10px;
 
-  font-weight:600;
+  /*
+    Medium appearance.
+    Slightly lighter than 600 because this
+    sans-serif looks much heavier than Georgia.
+  */
+
+  font-weight:500;
 
   line-height:1.35;
 
@@ -1763,7 +1790,6 @@ main{
   display:-webkit-box;
 
   -webkit-line-clamp:2;
-
   -webkit-box-orient:vertical;
 
 }
@@ -1771,16 +1797,16 @@ main{
 
 
 /* =========================================================
-   MAP LINK
+   FIXED MAP BUTTON
 ========================================================= */
 
 .map-link{
 
   position:absolute;
 
-  right:15px;
-
   top:50%;
+
+  right:15px;
 
   width:20px;
 
@@ -1860,9 +1886,7 @@ main{
 ========================================================= */
 
 .food-section{
-
   margin-top:15px;
-
 }
 
 
@@ -1918,7 +1942,6 @@ main{
 .food-icon{
 
   width:31px;
-
   height:31px;
 
   display:flex;
@@ -2110,7 +2133,6 @@ main{
 .nearby-map{
 
   width:21px;
-
   height:21px;
 
   display:flex;
@@ -2198,7 +2220,7 @@ main{
 
 
 /* =========================================================
-   BOTTOM SHEET BACKDROP
+   BOTTOM SHEET
 ========================================================= */
 
 .bottom-backdrop{
@@ -2226,11 +2248,6 @@ main{
   display:flex;
 }
 
-
-
-/* =========================================================
-   BOTTOM SHEET
-========================================================= */
 
 .bottom-sheet{
 
@@ -2433,7 +2450,6 @@ main{
 .switch-trip-icon{
 
   width:54px;
-
   height:54px;
 
   display:flex;
@@ -2502,7 +2518,6 @@ main{
 .switch-trip-select{
 
   width:20px;
-
   height:20px;
 
   display:flex;
@@ -2583,7 +2598,6 @@ main{
 .switch-action-icon{
 
   width:28px;
-
   height:28px;
 
   display:flex;
@@ -2817,16 +2831,12 @@ main{
 @media(max-width:480px){
 
   .hero{
-
     min-height:0;
-
   }
 
 
   .hero-image{
-
     background-position:58% 43%;
-
   }
 
 
@@ -2937,36 +2947,19 @@ main{
 @media(max-width:360px){
 
   .hero-title{
-
     font-size:35px;
-
   }
 
 
-  .place-group-head{
+  .journey-card{
 
-    grid-template-columns:
-      20px
-      63px
-      minmax(0,1fr);
-
-  }
-
-
-  .place-row{
-
-    grid-template-columns:
-      20px
-      63px
-      minmax(0,1fr);
+    --time-col:72px;
 
   }
 
 
   .journey-title{
-
     font-size:21px;
-
   }
 
 
@@ -3481,7 +3474,7 @@ main{
 
 
 <!-- =========================================================
-     CREATE FIRST TRIP SHEET
+     CREATE FIRST TRIP
 ========================================================= -->
 
 <div
@@ -3525,11 +3518,9 @@ main{
 
       <div class="create-field">
 
-
         <label>
           TRIP NAME *
         </label>
-
 
         <input
           id="firstTripName"
@@ -3537,18 +3528,15 @@ main{
           placeholder="e.g. Japan Autumn 2026"
         >
 
-
       </div>
 
 
 
       <div class="create-field">
 
-
         <label>
           COUNTRY *
         </label>
-
 
         <input
           id="firstTripCountry"
@@ -3556,24 +3544,20 @@ main{
           placeholder="e.g. Japan"
         >
 
-
       </div>
 
 
 
       <div class="create-field">
 
-
         <label>
           DESTINATIONS / ROUTE
         </label>
-
 
         <input
           id="firstTripDescription"
           placeholder="e.g. Kyoto → Mountains → Osaka"
         >
-
 
       </div>
 
@@ -3584,17 +3568,14 @@ main{
 
         <div class="create-field">
 
-
           <label>
             START DATE
           </label>
-
 
           <input
             id="firstTripStart"
             type="date"
           >
-
 
         </div>
 
@@ -3602,17 +3583,14 @@ main{
 
         <div class="create-field">
 
-
           <label>
             END DATE
           </label>
-
 
           <input
             id="firstTripEnd"
             type="date"
           >
-
 
         </div>
 
@@ -3628,7 +3606,6 @@ main{
       >
         CREATE TRIP
       </button>
-
 
 
       <div
@@ -3648,7 +3625,7 @@ main{
 
 
 <!-- =========================================================
-     SHARED FOOTER
+     FOOTER
 ========================================================= -->
 
 <div id="footer"></div>
@@ -3737,30 +3714,15 @@ function esc(value){
 
   return txt(value)
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
+    .replaceAll("&","&amp;")
 
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
+    .replaceAll("<","&lt;")
 
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
+    .replaceAll(">","&gt;")
 
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
+    .replaceAll('"',"&quot;")
 
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("'","&#039;");
 
 }
 
@@ -3768,27 +3730,15 @@ function esc(value){
 function isoDate(date){
 
   return (
-
     `${date.getFullYear()}-`
-
     +
-
     `${String(
       date.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    )}-`
-
+    ).padStart(2,"0")}-`
     +
-
     `${String(
       date.getDate()
-    ).padStart(
-      2,
-      "0"
-    )}`
-
+    ).padStart(2,"0")}`
   );
 
 }
@@ -3811,20 +3761,15 @@ function shortDate(value){
   }
 
 
-  return parseDate(
-    value
-  )
+  return parseDate(value)
 
   .toLocaleDateString(
-
     "en-SG",
-
     {
       day:"numeric",
       month:"short",
       year:"numeric"
     }
-
   );
 
 }
@@ -3832,21 +3777,16 @@ function shortDate(value){
 
 function fullDate(value){
 
-  return parseDate(
-    value
-  )
+  return parseDate(value)
 
   .toLocaleDateString(
-
     "en-SG",
-
     {
       weekday:"long",
       day:"numeric",
       month:"long",
       year:"numeric"
     }
-
   );
 
 }
@@ -3857,14 +3797,10 @@ function weekday(
   long=false
 ){
 
-  return parseDate(
-    value
-  )
+  return parseDate(value)
 
   .toLocaleDateString(
-
     "en-SG",
-
     {
       weekday:
         long
@@ -3873,7 +3809,6 @@ function weekday(
         :
         "short"
     }
-
   )
 
   .toUpperCase();
@@ -3884,23 +3819,14 @@ function weekday(
 function titleCase(value){
 
   const valueText =
-    txt(
-      value
-    )
+    txt(value)
     .toLowerCase();
 
 
   return (
-
-    valueText
-      .charAt(0)
-      .toUpperCase()
-
+    valueText.charAt(0).toUpperCase()
     +
-
-    valueText
-      .slice(1)
-
+    valueText.slice(1)
   );
 
 }
@@ -3914,9 +3840,7 @@ function titleCase(value){
 function countryIcon(country){
 
   const value =
-    txt(
-      country
-    )
+    txt(country)
     .toLowerCase();
 
 
@@ -3969,9 +3893,7 @@ function countryIcon(country){
 function countryDecoration(country){
 
   const value =
-    txt(
-      country
-    )
+    txt(country)
     .toLowerCase();
 
 
@@ -4026,16 +3948,12 @@ function timeValue(row){
 
 
   const parts =
-    String(
-      row.start_time
-    )
+    String(row.start_time)
     .split(":");
 
 
   const hour =
-    Number(
-      parts[0]
-    );
+    Number(parts[0]);
 
 
   const minute =
@@ -4066,17 +3984,11 @@ function timeValue(row){
 
 
   return (
-
     hour * 3600
-
     +
-
     minute * 60
-
     +
-
     second
-
   );
 
 }
@@ -4156,21 +4068,17 @@ function compareRows(
 
 
   return (
-
     Number(
       a.id
       ||
       0
     )
-
     -
-
     Number(
       b.id
       ||
       0
     )
-
   );
 
 }
@@ -4184,16 +4092,12 @@ function formatClock(value){
 
 
   const parts =
-    String(
-      value
-    )
+    String(value)
     .split(":");
 
 
   let hour =
-    Number(
-      parts[0]
-    );
+    Number(parts[0]);
 
 
   const minute =
@@ -4279,17 +4183,13 @@ function rowPlace(row){
 
 
   return (
-
     placeMap.get(
       Number(
         row.place_id
       )
     )
-
     ||
-
     null
-
   );
 
 }
@@ -4302,30 +4202,18 @@ function rowArea(row){
 
 
   return (
-
     txt(
-
       place?.area
-
       ||
-
       place?.city
-
       ||
-
       row.location_name
-
       ||
-
       "Other"
-
     )
     .trim()
-
     ||
-
     "Other"
-
   );
 
 }
@@ -4381,15 +4269,11 @@ function mapsHref(row){
   ){
 
     return (
-
       "https://www.google.com/maps/search/?api=1&query="
-
       +
-
       encodeURIComponent(
         `${lat},${lng}`
       )
-
     );
 
   }
@@ -4404,15 +4288,9 @@ function mapsHref(row){
   if(address){
 
     return (
-
       "https://www.google.com/maps/search/?api=1&query="
-
       +
-
-      encodeURIComponent(
-        address
-      )
-
+      encodeURIComponent(address)
     );
 
   }
@@ -4425,7 +4303,7 @@ function mapsHref(row){
 
 
 /* =========================================================
-   HOME ITEM FILTER
+   HOME FILTER
 ========================================================= */
 
 function isHomePlace(row){
@@ -4436,14 +4314,11 @@ function isHomePlace(row){
 
 
   const type =
-    txt(
-      row.item_type
-    )
+    txt(row.item_type)
     .toLowerCase();
 
 
   const excluded = [
-
     "transport",
     "hotel",
     "restaurant",
@@ -4451,7 +4326,6 @@ function isHomePlace(row){
     "meal",
     "flight",
     "reminder"
-
   ];
 
 
@@ -4592,9 +4466,7 @@ async function getAccessibleTrips(){
 
       .map(
         row =>
-          Number(
-            row.trip_id
-          )
+          Number(row.trip_id)
       )
 
       .filter(Boolean)
@@ -4663,17 +4535,10 @@ async function getAccessibleTrips(){
 
   .sort(
     (a,b) =>
-
-      txt(
-        a.start_date
-      )
-
+      txt(a.start_date)
       .localeCompare(
-        txt(
-          b.start_date
-        )
+        txt(b.start_date)
       )
-
   );
 
 }
@@ -4681,7 +4546,7 @@ async function getAccessibleTrips(){
 
 
 /* =========================================================
-   FIRST / NORMAL VIEW
+   VIEW
 ========================================================= */
 
 function showFirstTripView(){
@@ -4717,7 +4582,6 @@ function showFirstTripView(){
 }
 
 
-
 function showNormalTripView(){
 
   document
@@ -4740,7 +4604,7 @@ function showNormalTripView(){
 
 
 /* =========================================================
-   RESOLVE CURRENT TRIP
+   RESOLVE TRIP
 ========================================================= */
 
 function resolveCurrentTrip(){
@@ -4751,13 +4615,12 @@ function resolveCurrentTrip(){
 
 
   let resolved =
-    accessibleTrips
-      .find(
-        trip =>
-          Number(trip.id)
-          ===
-          Number(TRIP_ID)
-      );
+    accessibleTrips.find(
+      trip =>
+        Number(trip.id)
+        ===
+        Number(TRIP_ID)
+    );
 
 
   if(!resolved){
@@ -4798,7 +4661,7 @@ function resolveCurrentTrip(){
 
 
 /* =========================================================
-   LOAD TRIP DATA
+   LOAD DATA
 ========================================================= */
 
 async function loadCurrentTripData(){
@@ -4855,9 +4718,7 @@ async function loadCurrentTripData(){
 
         .map(
           row =>
-            Number(
-              row.place_id
-            )
+            Number(row.place_id)
         )
 
         .filter(
@@ -4970,7 +4831,6 @@ function chooseInitialDate(){
       ||
       null;
 
-
     return;
 
   }
@@ -4982,9 +4842,7 @@ function chooseInitialDate(){
     );
 
 
-  if(
-    dayDates.includes(today)
-  ){
+  if(dayDates.includes(today)){
 
     selectedDate =
       today;
@@ -4994,10 +4852,7 @@ function chooseInitialDate(){
   }
 
 
-  if(
-    today <
-    dayDates[0]
-  ){
+  if(today < dayDates[0]){
 
     selectedDate =
       dayDates[0];
@@ -5025,14 +4880,11 @@ function chooseInitialDate(){
 
 
   selectedDate =
-
     dayDates.find(
       date =>
         date >= today
     )
-
     ||
-
     dayDates[0];
 
 }
@@ -5087,15 +4939,10 @@ function renderHero(){
       "manageTripText"
     )
     .textContent =
-
       accessibleTrips.length === 1
-
       ?
-
       "MANAGE TRIP"
-
       :
-
       "MANAGE TRIPS";
 
 
@@ -5229,11 +5076,8 @@ function renderHero(){
 
 
       countdown =
-
         `${days} DAY`
-
         +
-
         (
           days === 1
           ?
@@ -5241,9 +5085,7 @@ function renderHero(){
           :
           "S"
         )
-
         +
-
         " TO GO";
 
 
@@ -5306,10 +5148,8 @@ function renderHero(){
 
     else{
 
-
       countdown =
         "TRIP COMPLETE";
-
 
     }
 
@@ -5417,55 +5257,39 @@ function renderTripSwitcher(){
 
                 <div class="switch-trip-dates">
 
-
                   ${
                     trip.start_date
-
                     ?
-
                     esc(
                       shortDate(
                         trip.start_date
                       )
                     )
-
                     :
-
                     ""
                   }
-
 
                   ${
                     trip.start_date
                     &&
                     trip.end_date
-
                     ?
-
                     " – "
-
                     :
-
                     ""
                   }
 
-
                   ${
                     trip.end_date
-
                     ?
-
                     esc(
                       shortDate(
                         trip.end_date
                       )
                     )
-
                     :
-
                     ""
                   }
-
 
                 </div>
 
@@ -5542,7 +5366,7 @@ function renderTripSwitcher(){
 
 
 /* =========================================================
-   OPEN / CLOSE SWITCHER
+   SWITCHER OPEN / CLOSE
 ========================================================= */
 
 const switchTripBackdrop =
@@ -5759,17 +5583,13 @@ document
 
       if(!name){
 
-
         message.textContent =
           "Please enter a trip name.";
-
 
         message.className =
           "create-message error";
 
-
         return;
-
 
       }
 
@@ -5777,17 +5597,13 @@ document
 
       if(!country){
 
-
         message.textContent =
           "Please enter a country.";
-
 
         message.className =
           "create-message error";
 
-
         return;
-
 
       }
 
@@ -5801,17 +5617,13 @@ document
         endDate < startDate
       ){
 
-
         message.textContent =
           "End date cannot be before the start date.";
-
 
         message.className =
           "create-message error";
 
-
         return;
-
 
       }
 
@@ -5922,9 +5734,7 @@ document
       catch(error){
 
 
-        console.error(
-          error
-        );
+        console.error(error);
 
 
         message.textContent =
@@ -6171,48 +5981,30 @@ function renderPlaceRow(row){
 
 
   const title =
-
     row.title
-
     ||
-
     place?.name
-
     ||
-
     row.location_name
-
     ||
-
     "Place";
 
 
   const note =
-
     row.description
-
     ||
-
     row.notes
-
     ||
-
     (
       place?.name
       !==
       title
-
       ?
-
       place?.name
-
       :
-
       ""
     )
-
     ||
-
     "";
 
 
@@ -6244,32 +6036,20 @@ function renderPlaceRow(row){
 
         <div class="place-name">
 
-          ${esc(
-            title
-          )}
+          ${esc(title)}
 
         </div>
 
 
         ${
           note
-
           ?
-
           `
-
             <div class="place-note">
-
-              ${esc(
-                note
-              )}
-
+              ${esc(note)}
             </div>
-
           `
-
           :
-
           ""
         }
 
@@ -6280,16 +6060,11 @@ function renderPlaceRow(row){
 
       ${
         mapUrl
-
         ?
-
         `
-
           <a
             class="map-link"
-            href="${esc(
-              mapUrl
-            )}"
+            href="${esc(mapUrl)}"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open in Google Maps"
@@ -6297,11 +6072,8 @@ function renderPlaceRow(row){
           >
             📍
           </a>
-
         `
-
         :
-
         ""
       }
 
@@ -6328,11 +6100,8 @@ function renderPlaceGroup(
 
 
   const open =
-
     openAreas[key]
-
     ??
-
     (
       index === 0
     );
@@ -6428,11 +6197,9 @@ function renderPlaceGroup(
 
         ${
           group.rows
-
             .map(
               renderPlaceRow
             )
-
             .join("")
         }
 
@@ -6495,31 +6262,25 @@ function renderPlaces(){
       today
     ){
 
-
       title.textContent =
         "Today's Journey";
 
-
     }
-
 
     else{
 
 
       const day =
         titleCase(
-
           weekday(
             selectedDate,
             true
           )
-
         );
 
 
       title.textContent =
         `${day}'s Journey`;
-
 
     }
 
@@ -6549,19 +6310,14 @@ function renderPlaces(){
 
       <div class="journey-empty">
 
-
         <div class="journey-empty-title">
           Nothing here yet
         </div>
 
-
         <div class="journey-empty-sub">
-
           No linked places are available for this day.
           Open the full plan to see the complete itinerary.
-
         </div>
-
 
       </div>
 
@@ -6569,7 +6325,6 @@ function renderPlaces(){
 
 
     return;
-
 
   }
 
@@ -6664,7 +6419,7 @@ function renderPlaces(){
 
 
 /* =========================================================
-   DATE SELECTOR
+   DATES
 ========================================================= */
 
 function renderDates(){
@@ -6689,7 +6444,6 @@ function renderDates(){
 
     return;
 
-
   }
 
 
@@ -6713,9 +6467,7 @@ function renderDates(){
               }
             "
             type="button"
-            data-date="${esc(
-              date
-            )}"
+            data-date="${esc(date)}"
           >
 
 
@@ -6730,9 +6482,7 @@ function renderDates(){
 
             <span class="dow">
 
-              ${weekday(
-                date
-              )}
+              ${weekday(date)}
 
             </span>
 
@@ -6912,7 +6662,7 @@ function renderFoodFinder(){
 
 
 /* =========================================================
-   FOOD FINDER OPEN
+   FOOD OPEN
 ========================================================= */
 
 function bindFoodFinder(){
@@ -7076,23 +6826,15 @@ function distanceM(
 
 function distanceLabel(distance){
 
-  if(
-    distance <
-    1000
-  ){
+  if(distance < 1000){
 
     return (
 
       `${Math.max(
-
         10,
-
         Math.round(
           distance / 10
-        )
-        *
-        10
-
+        ) * 10
       )} m`
 
     );
@@ -7101,11 +6843,9 @@ function distanceLabel(distance){
 
 
   return (
-
     `${(
       distance / 1000
     ).toFixed(1)} km`
-
   );
 
 }
@@ -7125,15 +6865,11 @@ function googleMapLink(
     ||
 
     (
-
       "https://www.google.com/maps/search/?api=1&query="
-
       +
-
       encodeURIComponent(
         `${lat},${lng}`
       )
-
     )
 
   );
@@ -7174,17 +6910,12 @@ function renderFoodItem(item){
             [
 
               item.distance
-
               ?
-
               distanceLabel(
                 item.distance
               )
-
               :
-
               "",
-
 
               item.area
               ||
@@ -7209,27 +6940,19 @@ function renderFoodItem(item){
 
       ${
         item.map
-
         ?
-
         `
-
           <a
             class="nearby-map"
-            href="${esc(
-              item.map
-            )}"
+            href="${esc(item.map)}"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open map"
           >
             📍
           </a>
-
         `
-
         :
-
         ""
       }
 
@@ -7310,7 +7033,6 @@ async function loadNearbyFood(){
 
             return;
 
-
           }
 
 
@@ -7348,10 +7070,6 @@ async function loadNearbyFood(){
       position.coords.longitude;
 
 
-
-    /* =====================================================
-       SAVED FOOD
-    ====================================================== */
 
     let picks = [];
 
@@ -7473,37 +7191,24 @@ async function loadNearbyFood(){
 
                 return {
 
-
                   ...restaurant,
-
 
                   distance:
 
                     distanceM(
-
                       lat,
-
                       lng,
-
                       restaurantLat,
-
                       restaurantLng
-
                     ),
-
 
                   map:
 
                     googleMapLink(
-
                       restaurantLat,
-
                       restaurantLng,
-
                       restaurant.maps_url
-
                     )
-
 
                 };
 
@@ -7536,10 +7241,6 @@ async function loadNearbyFood(){
 
 
 
-    /* =====================================================
-       GOOGLE NEARBY
-    ====================================================== */
-
     let nearby = [];
 
 
@@ -7569,55 +7270,34 @@ async function loadNearbyFood(){
           await Place
             .searchNearby({
 
-
               fields:[
-
                 "id",
-
                 "displayName",
-
                 "formattedAddress",
-
                 "location",
-
                 "googleMapsURI"
-
               ],
-
 
               locationRestriction:{
 
-
                 center:{
-
                   lat,
-
                   lng
-
                 },
-
 
                 radius:1800
 
-
               },
 
-
               includedPrimaryTypes:[
-
                 "restaurant",
-
                 "cafe"
-
               ],
-
 
               maxResultCount:8,
 
-
               rankPreference:
                 "DISTANCE"
-
 
             });
 
@@ -7673,24 +7353,15 @@ async function loadNearbyFood(){
 
               return {
 
-
                 name:
-
                   place.displayName
-
                   ||
-
                   "Restaurant",
 
-
                 area:
-
                   place.formattedAddress
-
                   ||
-
                   "",
-
 
                 distance:
 
@@ -7707,36 +7378,24 @@ async function loadNearbyFood(){
                   ?
 
                   distanceM(
-
                     lat,
-
                     lng,
-
                     placeLat,
-
                     placeLng
-
                   )
 
                   :
 
                   null,
 
-
                 map:
 
                   place.googleMapsURI
-
                   ||
-
                   googleMapLink(
-
                     placeLat,
-
                     placeLng
-
                   )
-
 
               };
 
@@ -7755,21 +7414,14 @@ async function loadNearbyFood(){
 
 
       console.warn(
-
         "Google nearby food:",
-
         error
-
       );
 
 
     }
 
 
-
-    /* =====================================================
-       RENDER FOOD
-    ====================================================== */
 
     status.style.display =
       "none";
@@ -7782,36 +7434,25 @@ async function loadNearbyFood(){
 
       <div class="nearby-section">
 
-
         <div class="nearby-section-title">
           YOUR PICKS
         </div>
 
-
         ${
           picks.length
-
           ?
-
           picks
             .map(
               renderFoodItem
             )
             .join("")
-
           :
-
           `
-
             <div class="nearby-status">
-
               No saved picks within 250 m of you.
-
             </div>
-
           `
         }
-
 
       </div>
 
@@ -7823,36 +7464,25 @@ async function loadNearbyFood(){
 
       <div class="nearby-section">
 
-
         <div class="nearby-section-title">
           FOOD NEAR YOU
         </div>
 
-
         ${
           nearby.length
-
           ?
-
           nearby
             .map(
               renderFoodItem
             )
             .join("")
-
           :
-
           `
-
             <div class="nearby-status">
-
               No nearby Google results found.
-
             </div>
-
           `
         }
-
 
       </div>
 
@@ -7866,9 +7496,7 @@ async function loadNearbyFood(){
         class="nearby-more"
         href="food.html?trip=${TRIP_ID}&nearby=1"
       >
-
         SEE MORE FOOD →
-
       </a>
 
     `;
@@ -8007,13 +7635,9 @@ async function start(){
         <div class="error-card">
 
           ${esc(
-
             error.message
-
             ||
-
             "Could not load trip."
-
           )}
 
         </div>
