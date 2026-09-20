@@ -216,7 +216,6 @@ main{
 
   inset:0;
 
-
   background:
 
     linear-gradient(
@@ -247,7 +246,6 @@ main{
   display:flex;
 
   flex-direction:column;
-
 
   padding:
 
@@ -354,7 +352,6 @@ main{
   padding:14px;
 
   border:
-
     1px solid
     rgba(255,107,104,.48);
 
@@ -478,7 +475,6 @@ main{
 .first-trip-primary{
 
   border:
-
     1px solid
     rgba(255,107,104,.90);
 
@@ -493,7 +489,6 @@ main{
   color:#230b0a;
 
   box-shadow:
-
     0 12px 30px
     rgba(255,98,95,.17);
 
@@ -503,7 +498,6 @@ main{
 .first-trip-secondary{
 
   border:
-
     1px solid
     rgba(255,255,255,.18);
 
@@ -530,7 +524,12 @@ main{
 
   position:relative;
 
-  min-height:590px;
+  /*
+    IMPORTANT:
+    No fixed 590px hero anymore.
+    The hero now follows its actual content.
+  */
+  min-height:0;
 
   overflow:hidden;
 
@@ -565,7 +564,6 @@ main{
   inset:0;
 
   pointer-events:none;
-
 
   background:
 
@@ -604,12 +602,15 @@ main{
 
   z-index:2;
 
-  min-height:590px;
+  /*
+    IMPORTANT:
+    No fixed hero height here either.
+  */
+  min-height:0;
 
   display:flex;
 
   flex-direction:column;
-
 
   padding:
 
@@ -620,7 +621,7 @@ main{
 
     30px
 
-    24px;
+    10px;
 
 }
 
@@ -671,7 +672,6 @@ main{
   text-transform:uppercase;
 
   text-shadow:
-
     0 2px 12px
     rgba(0,0,0,.75);
 
@@ -687,7 +687,6 @@ main{
     0 0 13px;
 
   border:
-
     4px solid
     #fff;
 
@@ -696,7 +695,6 @@ main{
   background:#d74e49;
 
   box-shadow:
-
     0 2px 12px
     rgba(0,0,0,.28);
 
@@ -770,7 +768,6 @@ main{
   text-overflow:clip;
 
   text-shadow:
-
     0 4px 22px
     rgba(0,0,0,.68);
 
@@ -811,14 +808,13 @@ main{
   text-transform:uppercase;
 
   text-shadow:
-
     0 2px 12px
     rgba(0,0,0,.68);
 
 }
 
 
-/* TRIPS COUNT */
+/* TRIPS: 1 / TRIPS: 2 */
 
 .trip-manage > span:first-child{
 
@@ -855,7 +851,7 @@ main{
 }
 
 
-/* KEEP RIGHT CHEVRON */
+/* KEEP > CHEVRON */
 
 .manage-arrow{
 
@@ -891,7 +887,6 @@ main{
   line-height:1.4;
 
   text-shadow:
-
     0 2px 11px
     rgba(0,0,0,.72);
 
@@ -919,7 +914,6 @@ main{
   text-transform:uppercase;
 
   text-shadow:
-
     0 2px 11px
     rgba(0,0,0,.72);
 
@@ -929,7 +923,6 @@ main{
 
 /* =========================================================
    COUNTDOWN
-   SMALL + CLOSE TO DATE
 ========================================================= */
 
 .countdown{
@@ -945,18 +938,15 @@ main{
   min-height:30px;
 
   /*
-    Reduced from 16px.
-    This moves the pill closer to the dates.
+    Close to the date above.
   */
   margin-top:8px;
 
   padding:
-
     0
     13px;
 
   border:
-
     1px solid
     rgba(255,255,255,.14);
 
@@ -968,9 +958,6 @@ main{
   color:
     rgba(255,255,255,.90);
 
-  /*
-    Similar visual size to route text.
-  */
   font-size:8px;
 
   font-weight:800;
@@ -1012,7 +999,6 @@ main{
     rgba(255,255,255,.76);
 
   text-shadow:
-
     0 3px 15px
     rgba(0,0,0,.75);
 
@@ -1060,8 +1046,21 @@ main{
    HERO BOTTOM
 ========================================================= */
 
+/*
+  THIS NOW CONTROLS THE GAP BETWEEN:
+
+  28 DAYS TO GO
+
+  and
+
+  YOUR JOURNEY
+*/
+
 .hero-spacer{
-  flex:1;
+
+  flex:
+    0 0 95px;
+
 }
 
 
@@ -1119,7 +1118,7 @@ main{
 
   padding:
 
-    15px
+    10px
     30px
     28px;
 
@@ -1139,7 +1138,6 @@ main{
 .date-section-label{
 
   margin:
-
     0
     0
     12px;
@@ -1188,7 +1186,6 @@ main{
   height:76px;
 
   border:
-
     1px solid
     #2d3840;
 
@@ -1207,7 +1204,6 @@ main{
   scroll-snap-align:start;
 
   box-shadow:
-
     inset
     0 1px 0
     rgba(255,255,255,.015);
@@ -1266,7 +1262,6 @@ main{
     );
 
   box-shadow:
-
     inset
     0 0 20px
     rgba(255,107,104,.025);
@@ -1392,12 +1387,10 @@ main{
   justify-content:center;
 
   padding:
-
     0
     15px;
 
   border:
-
     1px solid
     rgba(255,107,104,.40);
 
@@ -1440,7 +1433,6 @@ main{
   overflow:hidden;
 
   border:
-
     1px solid
     rgba(255,255,255,.12);
 
@@ -1455,7 +1447,6 @@ main{
     );
 
   box-shadow:
-
     0 16px 36px
     rgba(0,0,0,.19);
 
@@ -1502,7 +1493,6 @@ main{
   z-index:1;
 
   border-bottom:
-
     1px solid
     rgba(255,255,255,.055);
 
@@ -1523,7 +1513,6 @@ main{
   display:grid;
 
   grid-template-columns:
-
     20px
     68px
     minmax(0,1fr)
@@ -1534,7 +1523,6 @@ main{
   align-items:center;
 
   padding:
-
     10px
     12px
     10px
@@ -1583,7 +1571,6 @@ main{
   height:8px;
 
   border:
-
     1.5px solid
     #ff7772;
 
@@ -1592,7 +1579,6 @@ main{
   background:#10171d;
 
   box-shadow:
-
     0 0 0 4px
     rgba(255,107,104,.06);
 
@@ -1698,7 +1684,6 @@ main{
   display:none;
 
   padding:
-
     0
     12px
     10px
@@ -1718,7 +1703,6 @@ main{
   display:grid;
 
   grid-template-columns:
-
     20px
     68px
     minmax(0,1fr)
@@ -1731,12 +1715,10 @@ main{
   min-height:56px;
 
   padding:
-
     6px
     0;
 
   border-top:
-
     1px solid
     rgba(255,255,255,.045);
 
@@ -1769,7 +1751,6 @@ main{
   height:6px;
 
   border:
-
     1px solid
     rgba(255,107,104,.82);
 
@@ -1861,7 +1842,6 @@ main{
 .journey-empty{
 
   padding:
-
     30px
     18px;
 
@@ -1891,7 +1871,6 @@ main{
   max-width:280px;
 
   margin:
-
     6px
     auto
     0;
@@ -1930,12 +1909,10 @@ main{
   gap:10px;
 
   padding:
-
     10px
     12px;
 
   border:
-
     1px solid
     rgba(114,203,145,.34);
 
@@ -1980,7 +1957,6 @@ main{
   justify-content:center;
 
   border:
-
     1px solid
     rgba(114,203,145,.16);
 
@@ -2052,7 +2028,6 @@ main{
   padding:9px;
 
   border:
-
     1px solid
     rgba(114,203,145,.18);
 
@@ -2121,12 +2096,10 @@ main{
   gap:7px;
 
   padding:
-
     5px
     2px;
 
   border-top:
-
     1px solid
     rgba(255,255,255,.05);
 
@@ -2196,7 +2169,6 @@ main{
   margin-top:7px;
 
   border:
-
     1px solid
     rgba(114,203,145,.20);
 
@@ -2221,7 +2193,6 @@ main{
 .empty{
 
   padding:
-
     18px
     10px;
 
@@ -2243,7 +2214,6 @@ main{
   padding:12px;
 
   border:
-
     1px solid
     rgba(255,107,104,.32);
 
@@ -2309,7 +2279,6 @@ main{
     );
 
   margin:
-
     auto
     auto
     0;
@@ -2317,12 +2286,10 @@ main{
   overflow-y:auto;
 
   border:
-
     1px solid
     #2a343c;
 
   border-radius:
-
     22px
     22px
     0
@@ -2337,12 +2304,10 @@ main{
     );
 
   box-shadow:
-
     0 -22px 60px
     rgba(0,0,0,.46);
 
   animation:
-
     sheetUp
     .26s
     cubic-bezier(.2,.82,.2,1);
@@ -2380,7 +2345,6 @@ main{
   height:4px;
 
   margin:
-
     10px
     auto
     13px;
@@ -2403,13 +2367,11 @@ main{
   gap:10px;
 
   padding:
-
     0
     17px
     13px;
 
   border-bottom:
-
     1px solid
     rgba(255,255,255,.055);
 
@@ -2437,7 +2399,6 @@ main{
   height:32px;
 
   border:
-
     1px solid
     var(--line);
 
@@ -2471,7 +2432,6 @@ main{
   display:grid;
 
   grid-template-columns:
-
     54px
     minmax(0,1fr)
     30px;
@@ -2481,14 +2441,12 @@ main{
   align-items:center;
 
   padding:
-
     12px
     17px;
 
   border:0;
 
   border-bottom:
-
     1px solid
     rgba(255,255,255,.055);
 
@@ -2523,7 +2481,6 @@ main{
   justify-content:center;
 
   border:
-
     1px solid
     rgba(255,255,255,.09);
 
@@ -2593,7 +2550,6 @@ main{
   justify-content:center;
 
   border:
-
     1px solid
     #46515a;
 
@@ -2649,7 +2605,6 @@ main{
   gap:11px;
 
   border-bottom:
-
     1px solid
     rgba(255,255,255,.055);
 
@@ -2678,7 +2633,6 @@ main{
   justify-content:center;
 
   border:
-
     1px solid
     rgba(255,255,255,.08);
 
@@ -2762,12 +2716,10 @@ main{
   min-height:46px;
 
   padding:
-
     10px
     11px;
 
   border:
-
     1px solid
     #2c3740;
 
@@ -2807,7 +2759,6 @@ main{
   display:grid;
 
   grid-template-columns:
-
     1fr
     1fr;
 
@@ -2825,7 +2776,6 @@ main{
   margin-top:7px;
 
   border:
-
     1px solid
     rgba(255,107,104,.85);
 
@@ -2875,7 +2825,6 @@ main{
   display:block;
 
   border:
-
     1px solid
     rgba(255,107,104,.22);
 
@@ -2892,7 +2841,6 @@ main{
   display:block;
 
   border:
-
     1px solid
     rgba(114,203,145,.22);
 
@@ -2913,7 +2861,7 @@ main{
 
   .hero{
 
-    min-height:585px;
+    min-height:0;
 
   }
 
@@ -2928,7 +2876,7 @@ main{
 
   .hero-inner{
 
-    min-height:585px;
+    min-height:0;
 
     padding:
 
@@ -2939,7 +2887,19 @@ main{
 
       30px
 
-      22px;
+      10px;
+
+  }
+
+
+  /*
+    Slightly more scenery on mobile,
+    but still much smaller than before.
+  */
+  .hero-spacer{
+
+    flex:
+      0 0 105px;
 
   }
 
@@ -3016,6 +2976,14 @@ main{
   }
 
 
+  .hero-spacer{
+
+    flex:
+      0 0 95px;
+
+  }
+
+
   .date-btn{
 
     flex-basis:62px;
@@ -3042,11 +3010,18 @@ main{
   }
 
 
+  .hero-spacer{
+
+    flex:
+      0 0 85px;
+
+  }
+
+
   .place-group-head,
   .place-row{
 
     grid-template-columns:
-
       20px
       63px
       minmax(0,1fr)
@@ -3063,7 +3038,6 @@ main{
   .full-plan{
 
     padding:
-
       0
       10px;
 
@@ -3379,10 +3353,6 @@ main{
 
 
 
-  <!-- =====================================================
-       TRIP DAYS
-  ====================================================== -->
-
   <div class="date-section">
 
 
@@ -3400,10 +3370,6 @@ main{
   </div>
 
 
-
-  <!-- =====================================================
-       JOURNEY
-  ====================================================== -->
 
   <section class="journey-section">
 
@@ -3473,10 +3439,6 @@ main{
   </section>
 
 
-
-  <!-- =====================================================
-       FOOD FINDER
-  ====================================================== -->
 
   <div
     id="foodFinder"
@@ -3820,41 +3782,26 @@ let TRIP_ID =
   null;
 
 
-let currentUser =
-  null;
+let currentUser = null;
 
+let currentTrip = null;
 
-let currentTrip =
-  null;
+let accessibleTrips = [];
 
-
-let accessibleTrips =
-  [];
-
-
-let scheduleRows =
-  [];
-
+let scheduleRows = [];
 
 let placeMap =
   new Map();
 
-
-let dayDates =
-  [];
-
+let dayDates = [];
 
 let selectedDate =
   null;
 
-
-let openAreas =
-  {};
-
+let openAreas = {};
 
 let nearbyLoaded =
   false;
-
 
 let nearbyLoading =
   false;
@@ -3872,7 +3819,6 @@ function txt(value){
   );
 
 }
-
 
 
 function esc(value){
@@ -3907,7 +3853,6 @@ function esc(value){
 }
 
 
-
 function isoDate(date){
 
   return (
@@ -3937,27 +3882,20 @@ function isoDate(date){
 }
 
 
-
 function parseDate(value){
 
   return new Date(
-
-    value
-    +
+    value +
     "T12:00:00"
-
   );
 
 }
 
 
-
 function shortDate(value){
 
   if(!value){
-
     return "";
-
   }
 
 
@@ -3970,19 +3908,14 @@ function shortDate(value){
     "en-SG",
 
     {
-
       day:"numeric",
-
       month:"short",
-
       year:"numeric"
-
     }
 
   );
 
 }
-
 
 
 function fullDate(value){
@@ -3996,21 +3929,15 @@ function fullDate(value){
     "en-SG",
 
     {
-
       weekday:"long",
-
       day:"numeric",
-
       month:"long",
-
       year:"numeric"
-
     }
 
   );
 
 }
-
 
 
 function weekday(
@@ -4027,15 +3954,12 @@ function weekday(
     "en-SG",
 
     {
-
       weekday:
-
         long
         ?
         "long"
         :
         "short"
-
     }
 
   )
@@ -4043,7 +3967,6 @@ function weekday(
   .toUpperCase();
 
 }
-
 
 
 function titleCase(value){
@@ -4085,92 +4008,43 @@ function countryIcon(country){
     .toLowerCase();
 
 
-  if(
-    value.includes(
-      "japan"
-    )
-  ){
+  if(value.includes("japan")){
     return "🇯🇵";
   }
 
-
-  if(
-    value.includes(
-      "singapore"
-    )
-  ){
+  if(value.includes("singapore")){
     return "🇸🇬";
   }
 
-
-  if(
-    value.includes(
-      "taiwan"
-    )
-  ){
+  if(value.includes("taiwan")){
     return "🇹🇼";
   }
 
-
-  if(
-    value.includes(
-      "korea"
-    )
-  ){
+  if(value.includes("korea")){
     return "🇰🇷";
   }
 
-
-  if(
-    value.includes(
-      "china"
-    )
-  ){
+  if(value.includes("china")){
     return "🇨🇳";
   }
 
-
-  if(
-    value.includes(
-      "thailand"
-    )
-  ){
+  if(value.includes("thailand")){
     return "🇹🇭";
   }
 
-
-  if(
-    value.includes(
-      "malaysia"
-    )
-  ){
+  if(value.includes("malaysia")){
     return "🇲🇾";
   }
 
-
-  if(
-    value.includes(
-      "indonesia"
-    )
-  ){
+  if(value.includes("indonesia")){
     return "🇮🇩";
   }
 
-
-  if(
-    value.includes(
-      "italy"
-    )
-  ){
+  if(value.includes("italy")){
     return "🇮🇹";
   }
 
-
-  if(
-    value.includes(
-      "france"
-    )
-  ){
+  if(value.includes("france")){
     return "🇫🇷";
   }
 
@@ -4178,7 +4052,6 @@ function countryIcon(country){
   return "✈️";
 
 }
-
 
 
 function countryDecoration(country){
@@ -4190,63 +4063,39 @@ function countryDecoration(country){
     .toLowerCase();
 
 
-  if(
-    value.includes(
-      "japan"
-    )
-  ){
+  if(value.includes("japan")){
 
     return {
-
       main:"日本",
-
       sub:"JAPAN"
-
     };
 
   }
 
 
-  if(
-    value.includes(
-      "taiwan"
-    )
-  ){
+  if(value.includes("taiwan")){
 
     return {
-
       main:"臺灣",
-
       sub:"TAIWAN"
-
     };
 
   }
 
 
-  if(
-    value.includes(
-      "china"
-    )
-  ){
+  if(value.includes("china")){
 
     return {
-
       main:"中國",
-
       sub:"CHINA"
-
     };
 
   }
 
 
   return {
-
     main:"旅",
-
     sub:"JOURNEY"
-
   };
 
 }
@@ -4259,12 +4108,8 @@ function countryDecoration(country){
 
 function timeValue(row){
 
-  if(
-    !row.start_time
-  ){
-
+  if(!row.start_time){
     return null;
-
   }
 
 
@@ -4331,7 +4176,6 @@ function timeValue(row){
 }
 
 
-
 function compareRows(
   a,
   b
@@ -4354,9 +4198,7 @@ function compareRows(
     &&
     timeB === null
   ){
-
     return -1;
-
   }
 
 
@@ -4365,9 +4207,7 @@ function compareRows(
     &&
     timeB !== null
   ){
-
     return 1;
-
   }
 
 
@@ -4403,9 +4243,7 @@ function compareRows(
     );
 
 
-  if(
-    orderA !== orderB
-  ){
+  if(orderA !== orderB){
 
     return (
       orderA -
@@ -4436,15 +4274,10 @@ function compareRows(
 }
 
 
-
 function formatClock(value){
 
-  if(
-    !value
-  ){
-
+  if(!value){
     return "";
-
   }
 
 
@@ -4474,22 +4307,15 @@ function formatClock(value){
       hour
     )
   ){
-
     return value;
-
   }
 
 
   const suffix =
-
     hour >= 12
-
     ?
-
     "PM"
-
     :
-
     "AM";
 
 
@@ -4516,15 +4342,10 @@ function formatClock(value){
 }
 
 
-
 function timeText(row){
 
-  if(
-    row.time_label
-  ){
-
+  if(row.time_label){
     return row.time_label;
-
   }
 
 
@@ -4551,9 +4372,7 @@ function timeText(row){
   }
 
 
-  if(
-    row.start_time
-  ){
+  if(row.start_time){
 
     return formatClock(
       row.start_time
@@ -4574,12 +4393,8 @@ function timeText(row){
 
 function rowPlace(row){
 
-  if(
-    !row.place_id
-  ){
-
+  if(!row.place_id){
     return null;
-
   }
 
 
@@ -4600,7 +4415,6 @@ function rowPlace(row){
   );
 
 }
-
 
 
 function rowArea(row){
@@ -4648,12 +4462,8 @@ function rowArea(row){
 
 function mapsHref(row){
 
-  if(
-    row.maps_url
-  ){
-
+  if(row.maps_url){
     return row.maps_url;
-
   }
 
 
@@ -4663,12 +4473,8 @@ function mapsHref(row){
     );
 
 
-  if(
-    place?.maps_url
-  ){
-
+  if(place?.maps_url){
     return place.maps_url;
-
   }
 
 
@@ -4736,9 +4542,7 @@ function mapsHref(row){
     place?.address;
 
 
-  if(
-    address
-  ){
+  if(address){
 
     return (
 
@@ -4767,12 +4571,8 @@ function mapsHref(row){
 
 function isHomePlace(row){
 
-  if(
-    !row.place_id
-  ){
-
+  if(!row.place_id){
     return false;
-
   }
 
 
@@ -4786,17 +4586,11 @@ function isHomePlace(row){
   const excluded = [
 
     "transport",
-
     "hotel",
-
     "restaurant",
-
     "food",
-
     "meal",
-
     "flight",
-
     "reminder"
 
   ];
@@ -4824,12 +4618,8 @@ async function resolveUser(){
       .getUser();
 
 
-  if(
-    result.error
-  ){
-
+  if(result.error){
     throw result.error;
-
   }
 
 
@@ -4839,9 +4629,7 @@ async function resolveUser(){
     null;
 
 
-  if(
-    !currentUser
-  ){
+  if(!currentUser){
 
     location.href =
       "login.html";
@@ -4880,12 +4668,8 @@ async function getAccessibleTrips(){
       );
 
 
-  if(
-    ownResult.error
-  ){
-
+  if(ownResult.error){
     throw ownResult.error;
-
   }
 
 
@@ -4908,12 +4692,8 @@ async function getAccessibleTrips(){
       );
 
 
-  if(
-    memberResult.error
-  ){
-
+  if(memberResult.error){
     throw memberResult.error;
-
   }
 
 
@@ -4983,9 +4763,7 @@ async function getAccessibleTrips(){
 
 
 
-  if(
-    sharedIds.length
-  ){
+  if(sharedIds.length){
 
 
     const sharedResult =
@@ -5005,12 +4783,8 @@ async function getAccessibleTrips(){
         );
 
 
-    if(
-      sharedResult.error
-    ){
-
+    if(sharedResult.error){
       throw sharedResult.error;
-
     }
 
 
@@ -5153,12 +4927,8 @@ function showNormalTripView(){
 
 function resolveCurrentTrip(){
 
-  if(
-    !accessibleTrips.length
-  ){
-
+  if(!accessibleTrips.length){
     return false;
-
   }
 
 
@@ -5179,9 +4949,7 @@ function resolveCurrentTrip(){
       );
 
 
-  if(
-    !resolved
-  ){
+  if(!resolved){
 
     resolved =
       accessibleTrips[0];
@@ -5269,12 +5037,8 @@ async function loadCurrentTripData(){
       );
 
 
-  if(
-    scheduleResult.error
-  ){
-
+  if(scheduleResult.error){
     throw scheduleResult.error;
-
   }
 
 
@@ -5308,9 +5072,7 @@ async function loadCurrentTripData(){
 
 
 
-  if(
-    placeIds.length
-  ){
+  if(placeIds.length){
 
 
     const placeResult =
@@ -5338,9 +5100,7 @@ async function loadCurrentTripData(){
         );
 
 
-    if(
-      !placeResult.error
-    ){
+    if(!placeResult.error){
 
 
       (
@@ -5417,9 +5177,7 @@ async function loadCurrentTripData(){
 
 function chooseInitialDate(){
 
-  if(
-    !dayDates.length
-  ){
+  if(!dayDates.length){
 
     selectedDate =
       currentTrip.start_date
@@ -5680,10 +5438,7 @@ function renderHero(){
 
 
 
-    if(
-      today <
-      start
-    ){
+    if(today < start){
 
 
       const days =
@@ -5731,10 +5486,7 @@ function renderHero(){
     }
 
 
-    else if(
-      today <=
-      end
-    ){
+    else if(today <= end){
 
 
       const day =
@@ -6025,12 +5777,8 @@ function renderTripSwitcher(){
               );
 
 
-            if(
-              !id
-            ){
-
+            if(!id){
               return;
-
             }
 
 
@@ -6307,9 +6055,7 @@ document
 
 
 
-      if(
-        !name
-      ){
+      if(!name){
 
 
         message.textContent =
@@ -6327,9 +6073,7 @@ document
 
 
 
-      if(
-        !country
-      ){
+      if(!country){
 
 
         message.textContent =
@@ -6438,12 +6182,8 @@ document
 
 
 
-        if(
-          result.error
-        ){
-
+        if(result.error){
           throw result.error;
-
         }
 
 
@@ -6657,9 +6397,7 @@ function areaTime(rows){
     );
 
 
-  if(
-    !timedRows.length
-  ){
+  if(!timedRows.length){
 
     return "Flexible";
 
@@ -6724,9 +6462,7 @@ function areaStartTime(rows){
     );
 
 
-  if(
-    firstTimed
-  ){
+  if(firstTimed){
 
     return formatClock(
       firstTimed.start_time
@@ -6742,9 +6478,7 @@ function areaStartTime(rows){
     );
 
 
-  if(
-    labelled
-  ){
+  if(labelled){
 
     return labelled.time_label;
 
@@ -7097,9 +6831,7 @@ function renderPlaces(){
 
 
 
-  if(
-    selectedDate
-  ){
+  if(selectedDate){
 
 
     const today =
@@ -7154,9 +6886,7 @@ function renderPlaces(){
 
 
 
-  if(
-    !groups.length
-  ){
+  if(!groups.length){
 
 
     holder
@@ -7303,9 +7033,7 @@ function renderDates(){
     );
 
 
-  if(
-    !dayDates.length
-  ){
+  if(!dayDates.length){
 
 
     holder.innerHTML = `
