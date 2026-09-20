@@ -64,11 +64,9 @@
   box-sizing:border-box;
 }
 
-
 html{
   scroll-behavior:smooth;
 }
-
 
 body{
 
@@ -101,30 +99,19 @@ body{
 
 }
 
-
 button,
 input,
 textarea{
-
   font:inherit;
-
 }
-
 
 button{
-
-  -webkit-tap-highlight-color:
-    transparent;
-
+  -webkit-tap-highlight-color:transparent;
 }
-
 
 a{
-
   color:inherit;
-
 }
-
 
 main{
 
@@ -143,24 +130,17 @@ main{
 }
 
 
-
 /* =========================================================
    NORMAL APP
 ========================================================= */
 
 #normalTripView{
-
   display:none;
-
 }
-
 
 #normalTripView.show{
-
   display:block;
-
 }
-
 
 
 /* =========================================================
@@ -179,7 +159,6 @@ main{
 
 }
 
-
 .hero-image{
 
   position:absolute;
@@ -197,7 +176,6 @@ main{
 
 }
 
-
 .hero-image::after{
 
   content:"";
@@ -205,7 +183,6 @@ main{
   position:absolute;
 
   inset:0;
-
 
   background:
 
@@ -241,7 +218,6 @@ main{
 
 }
 
-
 .hero-inner{
 
   position:relative;
@@ -253,7 +229,6 @@ main{
   display:flex;
 
   flex-direction:column;
-
 
   padding:
 
@@ -268,20 +243,17 @@ main{
 
 }
 
-
 .hero-top{
 
   display:flex;
 
   align-items:flex-start;
 
-  justify-content:
-    space-between;
+  justify-content:space-between;
 
   gap:14px;
 
 }
-
 
 .hero-copy{
 
@@ -292,7 +264,6 @@ main{
   padding-right:4px;
 
 }
-
 
 .hero-eyebrow{
 
@@ -306,14 +277,10 @@ main{
 
   text-transform:uppercase;
 
-
   text-shadow:
-
-    0 2px 12px
-    rgba(0,0,0,.75);
+    0 2px 12px rgba(0,0,0,.75);
 
 }
-
 
 
 /* =========================================================
@@ -348,14 +315,11 @@ main{
 
 }
 
-
 .hero-title{
 
   margin:0;
 
-
   color:#fff;
-
 
   font:
 
@@ -373,9 +337,7 @@ main{
     "Times New Roman",
     serif;
 
-
   letter-spacing:-.035em;
-
 
   white-space:normal;
 
@@ -383,14 +345,17 @@ main{
 
   text-overflow:clip;
 
-
   text-shadow:
-
-    0 4px 20px
-    rgba(0,0,0,.78);
+    0 4px 20px rgba(0,0,0,.78);
 
 }
 
+
+/* =========================================================
+   DROPDOWN CHEVRON
+   Same position as before.
+   Only the shadow has been added.
+========================================================= */
 
 .trip-switch-chevron{
 
@@ -404,6 +369,9 @@ main{
 
   line-height:1;
 
+  text-shadow:
+    0 2px 5px rgba(0,0,0,.85);
+
 }
 
 
@@ -413,7 +381,6 @@ main{
   color:#ffaaa6;
 
 }
-
 
 
 /* =========================================================
@@ -433,14 +400,10 @@ main{
 
   line-height:1.45;
 
-
   text-shadow:
-
-    0 2px 10px
-    rgba(0,0,0,.80);
+    0 2px 10px rgba(0,0,0,.80);
 
 }
-
 
 .hero-dates{
 
@@ -451,14 +414,10 @@ main{
 
   font-size:7px;
 
-
   text-shadow:
-
-    0 2px 10px
-    rgba(0,0,0,.8);
+    0 2px 10px rgba(0,0,0,.8);
 
 }
-
 
 
 /* =========================================================
@@ -477,24 +436,18 @@ main{
 
   margin-top:3px;
 
-
   color:
     rgba(255,255,255,.66);
 
-
   text-shadow:
-
-    0 3px 15px
-    rgba(0,0,0,.75);
+    0 3px 15px rgba(0,0,0,.75);
 
 }
-
 
 .hero-japanese-main{
 
   writing-mode:
     vertical-rl;
-
 
   font-family:
     "Yu Mincho",
@@ -502,22 +455,18 @@ main{
     Georgia,
     serif;
 
-
   font-size:25px;
 
   letter-spacing:.12em;
 
 }
 
-
 .hero-japanese-sub{
 
   margin-top:8px;
 
-
   color:
     rgba(255,255,255,.40);
-
 
   font-size:5px;
 
@@ -526,7 +475,6 @@ main{
   letter-spacing:.20em;
 
 }
-
 
 
 /* =========================================================
@@ -539,32 +487,24 @@ main{
 
   align-items:center;
 
-
   min-height:29px;
 
-
   margin-top:13px;
-
 
   padding:
     0
     10px;
 
-
   border:
     1px solid
     rgba(255,255,255,.14);
 
-
   border-radius:999px;
-
 
   background:
     rgba(5,9,12,.48);
 
-
   color:#f0cbc8;
-
 
   font-size:7px;
 
@@ -572,23 +512,17 @@ main{
 
   letter-spacing:.06em;
 
-
   backdrop-filter:
     blur(10px);
-
 
   -webkit-backdrop-filter:
     blur(10px);
 
 }
 
-
 .hero-spacer{
-
   flex:1;
-
 }
-
 
 
 /* =========================================================
@@ -607,12 +541,10 @@ main{
 
 }
 
-
 .hero-bottom-copy{
 
   color:
     rgba(230,233,234,.58);
-
 
   font-size:6px;
 
@@ -622,22 +554,18 @@ main{
 
 }
 
-
 .hero-bottom-line{
 
   width:54px;
 
   height:1px;
 
-
   margin-bottom:4px;
-
 
   background:
     rgba(255,255,255,.28);
 
 }
-
 
 
 /* =========================================================
@@ -650,20 +578,14 @@ main{
 
   z-index:3;
 
-
   margin-top:-8px;
 
-
   padding:
-
     6px
-
     12px
-
     22px;
 
 }
-
 
 
 /* =========================================================
@@ -671,11 +593,8 @@ main{
 ========================================================= */
 
 .date-section{
-
   margin-top:10px;
-
 }
-
 
 .date-section-label{
 
@@ -684,9 +603,7 @@ main{
     2px
     7px;
 
-
   color:#91a5b3;
-
 
   font-size:6.5px;
 
@@ -696,70 +613,52 @@ main{
 
 }
 
-
 .date-scroll{
 
   display:flex;
 
   gap:6px;
 
-
   overflow-x:auto;
-
 
   padding:
     1px
     1px
     4px;
 
-
   scrollbar-width:none;
-
 
   scroll-snap-type:
     x proximity;
 
 }
 
-
 .date-scroll::-webkit-scrollbar{
-
   display:none;
-
 }
-
 
 .date-btn{
 
   position:relative;
 
-
   flex:
     0 0 54px;
 
-
   height:55px;
-
 
   border:
     1px solid
     var(--line);
 
-
   border-radius:13px;
-
 
   background:#0f161c;
 
-
   color:#76838c;
-
 
   cursor:pointer;
 
-
   scroll-snap-align:start;
-
 
   transition:
     border-color .18s,
@@ -768,14 +667,11 @@ main{
 
 }
 
-
 .date-btn .num{
 
   display:block;
 
-
   color:#ebeded;
-
 
   font:
 
@@ -788,14 +684,11 @@ main{
 
 }
 
-
 .date-btn .dow{
 
   display:block;
 
-
   margin-top:5px;
-
 
   font-size:5.5px;
 
@@ -805,12 +698,10 @@ main{
 
 }
 
-
 .date-btn.active{
 
   border-color:
     rgba(201,111,104,.52);
-
 
   background:
 
@@ -824,54 +715,39 @@ main{
 
     );
 
-
   color:#f0b9b4;
 
-
   box-shadow:
-
-    0 5px 18px
-    rgba(0,0,0,.18);
+    0 5px 18px rgba(0,0,0,.18);
 
 }
-
 
 .date-btn.active::after{
 
   content:"";
 
-
   position:absolute;
-
 
   left:50%;
 
   bottom:5px;
 
-
   width:3px;
 
   height:3px;
 
-
   border-radius:50%;
 
-
   background:#dc837c;
-
 
   transform:
     translateX(-50%);
 
 }
 
-
 .date-btn.active .num{
-
   color:#f3cbc8;
-
 }
-
 
 
 /* =========================================================
@@ -879,24 +755,18 @@ main{
 ========================================================= */
 
 .journey-section{
-
   margin-top:15px;
-
 }
-
 
 .journey-head{
 
   display:flex;
 
-
   align-items:flex-end;
 
   justify-content:space-between;
 
-
   gap:12px;
-
 
   margin:
     0
@@ -905,21 +775,15 @@ main{
 
 }
 
-
 .journey-heading{
-
   min-width:0;
-
 }
-
 
 .journey-eyebrow{
 
   margin-bottom:3px;
 
-
   color:#91a5b3;
-
 
   font-size:6px;
 
@@ -929,11 +793,9 @@ main{
 
 }
 
-
 .journey-title{
 
   color:#f4f3ef;
-
 
   font:
 
@@ -944,19 +806,15 @@ main{
     "Times New Roman",
     serif;
 
-
   letter-spacing:-.015em;
 
 }
-
 
 .journey-date{
 
   margin-top:4px;
 
-
   color:#6f7b84;
-
 
   font-size:6.3px;
 
@@ -964,44 +822,33 @@ main{
 
 }
 
-
 .full-plan{
 
   flex:
     0 0 auto;
 
-
   display:flex;
-
 
   align-items:center;
 
-
   min-height:28px;
-
 
   padding:
     0
     9px;
 
-
   border:
     1px solid
     rgba(201,111,104,.22);
 
-
   border-radius:999px;
-
 
   background:
     rgba(201,111,104,.045);
 
-
   color:#dca39e;
 
-
   text-decoration:none;
-
 
   font-size:5.8px;
 
@@ -1011,18 +858,15 @@ main{
 
 }
 
-
 .full-plan span{
 
   margin-left:5px;
-
 
   font-size:10px;
 
   line-height:1;
 
 }
-
 
 
 /* =========================================================
@@ -1033,17 +877,13 @@ main{
 
   position:relative;
 
-
   overflow:hidden;
-
 
   border:
     1px solid
     rgba(255,255,255,.10);
 
-
   border-radius:17px;
-
 
   background:
 
@@ -1057,22 +897,16 @@ main{
 
     );
 
-
   box-shadow:
-
-    0 12px 32px
-    rgba(0,0,0,.18);
+    0 12px 32px rgba(0,0,0,.18);
 
 }
-
 
 .journey-card.has-groups::before{
 
   content:"";
 
-
   position:absolute;
-
 
   top:26px;
 
@@ -1080,9 +914,7 @@ main{
 
   left:21px;
 
-
   width:1px;
-
 
   background:
 
@@ -1100,11 +932,9 @@ main{
 
     );
 
-
   pointer-events:none;
 
 }
-
 
 
 /* =========================================================
@@ -1117,9 +947,7 @@ main{
 
   z-index:1;
 
-
   margin:0;
-
 
   border-bottom:
     1px solid
@@ -1127,24 +955,17 @@ main{
 
 }
 
-
 .place-group:last-child{
-
   border-bottom:0;
-
 }
-
 
 .place-group-head{
 
   width:100%;
 
-
   min-height:65px;
 
-
   display:grid;
-
 
   grid-template-columns:
     18px
@@ -1152,12 +973,9 @@ main{
     minmax(0,1fr)
     18px;
 
-
   gap:7px;
 
-
   align-items:center;
-
 
   padding:
     10px
@@ -1165,23 +983,17 @@ main{
     10px
     13px;
 
-
   border:0;
-
 
   background:transparent;
 
-
   color:inherit;
 
-
   text-align:left;
-
 
   cursor:pointer;
 
 }
-
 
 
 /* =========================================================
@@ -1192,14 +1004,11 @@ main{
 
   position:relative;
 
-
   width:18px;
 
   height:30px;
 
-
   display:flex;
-
 
   align-items:center;
 
@@ -1207,51 +1016,38 @@ main{
 
 }
 
-
 .area-dot{
 
   position:relative;
 
   z-index:2;
 
-
   width:9px;
 
   height:9px;
-
 
   border:
     2px solid
     #d07a73;
 
-
   border-radius:50%;
-
 
   background:#10161c;
 
-
   box-shadow:
-
-    0 0 0 3px
-    rgba(201,111,104,.08);
+    0 0 0 3px rgba(201,111,104,.08);
 
 }
-
 
 .place-group.open
 .area-dot{
 
   background:#c96f68;
 
-
   box-shadow:
-
-    0 0 0 4px
-    rgba(201,111,104,.09);
+    0 0 0 4px rgba(201,111,104,.09);
 
 }
-
 
 
 /* =========================================================
@@ -1262,31 +1058,23 @@ main{
 
   color:#b5bec4;
 
-
   font-size:6.4px;
 
   font-weight:900;
 
-
   line-height:1.25;
-
 
   white-space:nowrap;
 
 }
 
-
 .place-group-main{
-
   min-width:0;
-
 }
-
 
 .place-group-name{
 
   color:#f4f3ef;
-
 
   font:
 
@@ -1297,19 +1085,15 @@ main{
     "Times New Roman",
     serif;
 
-
   letter-spacing:-.01em;
 
 }
-
 
 .place-group-meta{
 
   margin-top:4px;
 
-
   color:#707d85;
-
 
   font-size:5.8px;
 
@@ -1317,33 +1101,26 @@ main{
 
 }
 
-
 .place-group-chevron{
 
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   width:18px;
 
   height:18px;
 
-
   color:#7b8890;
 
-
   font-size:11px;
-
 
   transition:
     transform .18s;
 
 }
-
 
 .place-group.open
 .place-group-chevron{
@@ -1354,7 +1131,6 @@ main{
 }
 
 
-
 /* =========================================================
    EXPANDED PLACE LIST
 ========================================================= */
@@ -1362,7 +1138,6 @@ main{
 .place-list{
 
   display:none;
-
 
   padding:
     0
@@ -1372,22 +1147,16 @@ main{
 
 }
 
-
 .place-group.open
 .place-list{
-
   display:block;
-
 }
-
 
 .place-row{
 
   position:relative;
 
-
   display:grid;
-
 
   grid-template-columns:
     18px
@@ -1395,20 +1164,15 @@ main{
     minmax(0,1fr)
     20px;
 
-
   gap:7px;
-
 
   align-items:center;
 
-
   min-height:53px;
-
 
   padding:
     5px
     0;
-
 
   border-top:
     1px solid
@@ -1416,16 +1180,13 @@ main{
 
 }
 
-
 .place-marker{
 
   width:18px;
 
   height:100%;
 
-
   display:flex;
-
 
   align-items:center;
 
@@ -1433,94 +1194,73 @@ main{
 
 }
 
-
 .place-dot{
 
   position:relative;
 
   z-index:2;
 
-
   width:6px;
 
   height:6px;
-
 
   border:
     1px solid
     rgba(201,111,104,.78);
 
-
   border-radius:50%;
-
 
   background:#10161c;
 
 }
 
-
 .place-time{
 
   color:#929fa8;
-
 
   font-size:5.9px;
 
   font-weight:900;
 
-
   line-height:1.35;
 
 }
 
-
 .place-main{
-
   min-width:0;
-
 }
-
 
 .place-name{
 
   color:#eef0ef;
 
-
   font-size:7.7px;
 
   font-weight:900;
-
 
   line-height:1.35;
 
 }
 
-
 .place-note{
 
   margin-top:3px;
 
-
   overflow:hidden;
 
-
   color:#66737c;
-
 
   font-size:5.8px;
 
   line-height:1.4;
 
-
   display:-webkit-box;
-
 
   -webkit-line-clamp:2;
 
   -webkit-box-orient:vertical;
 
 }
-
 
 
 /* =========================================================
@@ -1533,34 +1273,25 @@ main{
 
   height:20px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   border:0;
-
 
   background:transparent;
 
-
   color:#84ace3;
-
 
   text-decoration:none;
 
-
   font-size:9px;
-
 
   opacity:.66;
 
 }
-
 
 
 /* =========================================================
@@ -1573,16 +1304,13 @@ main{
     24px
     16px;
 
-
   text-align:center;
 
 }
 
-
 .journey-empty-title{
 
   color:#b5bec3;
-
 
   font:
 
@@ -1595,20 +1323,16 @@ main{
 
 }
 
-
 .journey-empty-sub{
 
   max-width:260px;
-
 
   margin:
     5px
     auto
     0;
 
-
   color:#66737c;
-
 
   font-size:6px;
 
@@ -1617,49 +1341,37 @@ main{
 }
 
 
-
 /* =========================================================
    FOOD FINDER
 ========================================================= */
 
 .food-section{
-
   margin-top:15px;
-
 }
-
 
 .food-nearby{
 
   width:100%;
 
-
   min-height:52px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:space-between;
 
-
   gap:9px;
-
 
   padding:
     9px
     10px;
 
-
   border:
     1px solid
     rgba(103,197,135,.36);
 
-
   border-radius:12px;
-
 
   background:
 
@@ -1673,30 +1385,23 @@ main{
 
     );
 
-
   color:#d7f5df;
-
 
   cursor:pointer;
 
 }
 
-
 .food-left{
 
   display:flex;
 
-
   align-items:center;
 
-
   gap:9px;
-
 
   text-align:left;
 
 }
-
 
 .food-icon{
 
@@ -1704,72 +1409,56 @@ main{
 
   height:28px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   border:
     1px solid
     rgba(103,197,135,.16);
 
-
   border-radius:8px;
-
 
   background:
     rgba(103,197,135,.05);
-
 
   font-size:13px;
 
 }
 
-
 .food-title{
 
   color:#9de6b2;
-
 
   font-size:7.5px;
 
   font-weight:900;
 
-
   letter-spacing:.03em;
 
 }
-
 
 .food-sub{
 
   margin-top:2px;
 
-
   color:#77aa86;
-
 
   font-size:5.8px;
 
 }
 
-
 .food-arrow{
 
   color:var(--green);
 
-
   font-size:12px;
-
 
   transition:.18s;
 
 }
-
 
 .food-nearby.open
 .food-arrow{
@@ -1780,7 +1469,6 @@ main{
 }
 
 
-
 /* =========================================================
    FOOD PANEL
 ========================================================= */
@@ -1789,111 +1477,80 @@ main{
 
   display:none;
 
-
   margin-top:6px;
 
-
   padding:8px;
-
 
   border:
     1px solid
     rgba(103,197,135,.19);
 
-
   border-radius:11px;
-
 
   background:
     rgba(103,197,135,.02);
 
 }
 
-
 .nearby-panel.show{
-
   display:block;
-
 }
-
 
 .nearby-status{
 
   color:#88aa93;
 
-
   font-size:6.5px;
-
 
   line-height:1.5;
 
 }
 
-
 .nearby-status.error{
-
   color:#ffc5c1;
-
 }
-
 
 .nearby-section{
-
   margin-top:8px;
-
 }
-
 
 .nearby-section:first-child{
-
   margin-top:0;
-
 }
-
 
 .nearby-section-title{
 
   padding-bottom:4px;
 
-
   color:#9de6b2;
-
 
   font-size:6.5px;
 
   font-weight:900;
 
-
   letter-spacing:.08em;
 
 }
-
 
 .nearby-item{
 
   min-height:40px;
 
-
   display:flex;
-
 
   align-items:center;
 
-
   gap:7px;
-
 
   padding:
     5px
     2px;
-
 
   border-top:
     1px solid
     rgba(255,255,255,.05);
 
 }
-
 
 .nearby-item-main{
 
@@ -1903,11 +1560,9 @@ main{
 
 }
 
-
 .nearby-item-name{
 
   color:#eef2ef;
-
 
   font-size:7.5px;
 
@@ -1915,92 +1570,70 @@ main{
 
 }
 
-
 .nearby-item-meta{
 
   margin-top:2px;
 
-
   color:#718c79;
-
 
   font-size:5.8px;
 
 }
-
 
 .nearby-map{
 
   flex:
     0 0 21px;
 
-
   width:21px;
 
   height:21px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   border:0;
-
 
   background:transparent;
 
-
   text-decoration:none;
 
-
   font-size:9px;
-
 
   opacity:.72;
 
 }
 
-
 .nearby-more{
 
   min-height:32px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   margin-top:7px;
-
 
   border:
     1px solid
     rgba(103,197,135,.20);
 
-
   border-radius:8px;
-
 
   color:#a9e8bb;
 
-
   text-decoration:none;
-
 
   font-size:6.5px;
 
   font-weight:900;
 
 }
-
 
 
 /* =========================================================
@@ -2013,12 +1646,9 @@ main{
     18px
     10px;
 
-
   color:#75828a;
 
-
   text-align:center;
-
 
   font-size:7px;
 
@@ -2026,32 +1656,25 @@ main{
 
 }
 
-
 .error-card{
 
   margin:
     10px
     0;
 
-
   padding:12px;
-
 
   border:
     1px solid
     rgba(201,111,104,.34);
 
-
   border-radius:11px;
 
-
   color:#ffc5c1;
-
 
   font-size:8px;
 
 }
-
 
 
 /* =========================================================
@@ -2062,9 +1685,7 @@ main{
 
   position:relative;
 
-
   display:none;
-
 
   min-height:
     calc(
@@ -2072,14 +1693,11 @@ main{
       env(safe-area-inset-bottom)
     );
 
-
   overflow:hidden;
-
 
   background:#070c10;
 
 }
-
 
 .first-trip-view.show{
 
@@ -2089,37 +1707,30 @@ main{
 
 }
 
-
 .first-trip-bg{
 
   position:absolute;
 
   inset:0;
 
-
   background-position:
     56% center;
 
-
   background-size:
     cover;
-
 
   transform:
     scale(1.01);
 
 }
 
-
 .first-trip-bg::after{
 
   content:"";
 
-
   position:absolute;
 
   inset:0;
-
 
   background:
 
@@ -2153,21 +1764,17 @@ main{
 
 }
 
-
 .first-trip-inner{
 
   position:relative;
 
   z-index:2;
 
-
   flex:1;
-
 
   display:flex;
 
   flex-direction:column;
-
 
   padding:
 
@@ -2186,7 +1793,6 @@ main{
 }
 
 
-
 /* =========================================================
    FIRST TRIP WATERMARK
 ========================================================= */
@@ -2196,13 +1802,10 @@ main{
   color:
     rgba(255,255,255,.50);
 
-
   text-shadow:
-    0 3px 16px
-    rgba(0,0,0,.74);
+    0 3px 16px rgba(0,0,0,.74);
 
 }
-
 
 .first-trip-mark-main{
 
@@ -2212,13 +1815,11 @@ main{
     Georgia,
     serif;
 
-
   font-size:41px;
 
   line-height:1;
 
 }
-
 
 .first-trip-mark-sub{
 
@@ -2228,20 +1829,16 @@ main{
     0
     3px;
 
-
   color:
     rgba(255,255,255,.42);
-
 
   font-size:6px;
 
   font-weight:900;
 
-
   letter-spacing:.22em;
 
 }
-
 
 
 /* =========================================================
@@ -2252,24 +1849,19 @@ main{
 
   flex:1;
 
-
   display:flex;
 
   flex-direction:column;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   text-align:center;
-
 
   padding-bottom:34px;
 
 }
-
 
 .first-trip-logo-wrap{
 
@@ -2277,49 +1869,37 @@ main{
 
   height:98px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
-
 
   margin:
     0
     auto
     22px;
 
-
   padding:14px;
-
 
   border:
     1px solid
     rgba(255,98,95,.45);
 
-
   border-radius:50%;
-
 
   background:
     rgba(22,12,14,.64);
 
-
   box-shadow:
 
-    0 0 0 1px
-    rgba(255,255,255,.015),
+    0 0 0 1px rgba(255,255,255,.015),
 
-    0 0 28px
-    rgba(255,98,95,.12),
+    0 0 28px rgba(255,98,95,.12),
 
-    0 15px 38px
-    rgba(0,0,0,.30);
+    0 15px 38px rgba(0,0,0,.30);
 
 }
-
 
 .first-trip-logo{
 
@@ -2327,46 +1907,36 @@ main{
 
   height:100%;
 
-
   display:block;
-
 
   object-fit:contain;
 
 }
 
-
 .first-trip-eyebrow{
 
   color:#e59a94;
-
 
   font-size:8px;
 
   font-weight:900;
 
-
   letter-spacing:.18em;
-
 
   text-transform:uppercase;
 
 }
 
-
 .first-trip-title{
 
   max-width:340px;
-
 
   margin:
     9px
     auto
     0;
 
-
   color:#fff;
-
 
   font:
 
@@ -2377,45 +1947,33 @@ main{
     "Times New Roman",
     serif;
 
-
   letter-spacing:-.025em;
 
-
   text-shadow:
-
-    0 3px 18px
-    rgba(0,0,0,.72);
+    0 3px 18px rgba(0,0,0,.72);
 
 }
-
 
 .first-trip-text{
 
   max-width:300px;
-
 
   margin:
     15px
     auto
     0;
 
-
   color:
     rgba(226,230,232,.68);
-
 
   font-size:9px;
 
   line-height:1.55;
 
-
   text-shadow:
-
-    0 2px 10px
-    rgba(0,0,0,.72);
+    0 2px 10px rgba(0,0,0,.72);
 
 }
-
 
 .first-trip-actions{
 
@@ -2423,60 +1981,46 @@ main{
 
   max-width:350px;
 
-
   display:grid;
 
-
   gap:10px;
-
 
   margin-top:23px;
 
 }
-
 
 .first-trip-primary,
 .first-trip-secondary{
 
   width:100%;
 
-
   min-height:48px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   border-radius:999px;
-
 
   font-size:8px;
 
   font-weight:900;
 
-
   letter-spacing:.04em;
 
-
   text-decoration:none;
-
 
   cursor:pointer;
 
 }
-
 
 .first-trip-primary{
 
   border:
     1px solid
     rgba(255,105,102,.90);
-
 
   background:
 
@@ -2490,17 +2034,12 @@ main{
 
     );
 
-
   color:#210b0a;
 
-
   box-shadow:
-
-    0 9px 28px
-    rgba(255,98,95,.17);
+    0 9px 28px rgba(255,98,95,.17);
 
 }
-
 
 .first-trip-secondary{
 
@@ -2508,23 +2047,18 @@ main{
     1px solid
     rgba(255,255,255,.19);
 
-
   background:
     rgba(5,9,12,.55);
 
-
   color:#e8aaa5;
-
 
   backdrop-filter:
     blur(9px);
-
 
   -webkit-backdrop-filter:
     blur(9px);
 
 }
-
 
 
 /* =========================================================
@@ -2535,47 +2069,34 @@ main{
 
   position:fixed;
 
-
   inset:0;
-
 
   z-index:500;
 
-
   display:none;
 
-
   align-items:flex-end;
-
 
   background:
     rgba(0,0,0,.66);
 
-
   backdrop-filter:
     blur(5px);
-
 
   -webkit-backdrop-filter:
     blur(5px);
 
 }
 
-
 .bottom-backdrop.open{
-
   display:flex;
-
 }
-
 
 .bottom-sheet{
 
   width:100%;
 
-
   max-width:620px;
-
 
   max-height:
     calc(
@@ -2583,27 +2104,22 @@ main{
       env(safe-area-inset-top)
     );
 
-
   margin:
     auto
     auto
     0;
 
-
   overflow-y:auto;
-
 
   border:
     1px solid
     #2a343c;
-
 
   border-radius:
     22px
     22px
     0
     0;
-
 
   background:
 
@@ -2617,15 +2133,10 @@ main{
 
     );
 
-
   color:#fff;
 
-
   box-shadow:
-
-    0 -22px 60px
-    rgba(0,0,0,.46);
-
+    0 -22px 60px rgba(0,0,0,.46);
 
   animation:
     sheetUp
@@ -2633,7 +2144,6 @@ main{
     ease-out;
 
 }
-
 
 @keyframes sheetUp{
 
@@ -2646,7 +2156,6 @@ main{
 
   }
 
-
   to{
 
     transform:
@@ -2658,53 +2167,43 @@ main{
 
 }
 
-
 .sheet-handle{
 
   width:42px;
 
   height:4px;
 
-
   margin:
     10px
     auto
     13px;
 
-
   border-radius:999px;
-
 
   background:#53606a;
 
 }
 
-
 .sheet-head{
 
   display:flex;
-
 
   align-items:center;
 
   justify-content:space-between;
 
-
   gap:10px;
-
 
   padding:
     0
     17px
     13px;
 
-
   border-bottom:
     1px solid
     rgba(255,255,255,.055);
 
 }
-
 
 .sheet-title{
 
@@ -2719,32 +2218,25 @@ main{
 
 }
 
-
 .sheet-close{
 
   width:32px;
 
   height:32px;
 
-
   border:
     1px solid
     var(--line);
 
-
   border-radius:9px;
-
 
   background:#151c22;
 
-
   color:#fff;
-
 
   cursor:pointer;
 
 }
-
 
 
 /* =========================================================
@@ -2759,31 +2251,24 @@ main{
 
 }
 
-
 .switch-trip-item{
 
   width:100%;
 
-
   display:grid;
-
 
   grid-template-columns:
     54px
     minmax(0,1fr)
     30px;
 
-
   gap:11px;
 
-
   align-items:center;
-
 
   padding:
     12px
     17px;
-
 
   border:0;
 
@@ -2791,20 +2276,15 @@ main{
     1px solid
     rgba(255,255,255,.055);
 
-
   background:transparent;
-
 
   color:#fff;
 
-
   text-align:left;
-
 
   cursor:pointer;
 
 }
-
 
 .switch-trip-item.current{
 
@@ -2813,52 +2293,39 @@ main{
 
 }
 
-
 .switch-trip-icon{
 
   width:54px;
 
   height:54px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   overflow:hidden;
-
 
   border:
     1px solid
     rgba(255,255,255,.09);
 
-
   border-radius:11px;
 
-
   background:#151d23;
-
 
   font-size:25px;
 
 }
 
-
 .switch-trip-main{
-
   min-width:0;
-
 }
-
 
 .switch-trip-name{
 
   color:#f2f1ed;
-
 
   font-size:11px;
 
@@ -2866,20 +2333,15 @@ main{
 
 }
 
-
 .switch-trip-route{
 
   margin-top:4px;
 
-
   overflow:hidden;
-
 
   color:#7f8b93;
 
-
   font-size:7px;
-
 
   text-overflow:ellipsis;
 
@@ -2887,19 +2349,15 @@ main{
 
 }
 
-
 .switch-trip-dates{
 
   margin-top:4px;
 
-
   color:#68747d;
-
 
   font-size:6.5px;
 
 }
-
 
 .switch-trip-select{
 
@@ -2907,30 +2365,23 @@ main{
 
   height:20px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   border:
     1px solid
     #46515a;
 
-
   border-radius:50%;
 
-
   color:transparent;
-
 
   font-size:11px;
 
 }
-
 
 .switch-trip-item.current
 .switch-trip-select{
@@ -2938,15 +2389,12 @@ main{
   border-color:
     #ff817c;
 
-
   background:
     #ff817c;
-
 
   color:#28100e;
 
 }
-
 
 .switch-actions{
 
@@ -2960,40 +2408,29 @@ main{
 
 }
 
-
 .switch-action{
 
   min-height:48px;
 
-
   display:flex;
-
 
   align-items:center;
 
-
   gap:11px;
-
 
   border-bottom:
     1px solid
     rgba(255,255,255,.055);
 
-
   color:#e6e8e8;
-
 
   text-decoration:none;
 
 }
 
-
 .switch-action:last-child{
-
   border-bottom:0;
-
 }
-
 
 .switch-action-icon{
 
@@ -3001,43 +2438,34 @@ main{
 
   height:28px;
 
-
   display:flex;
-
 
   align-items:center;
 
   justify-content:center;
 
-
   border:
     1px solid
     rgba(255,255,255,.08);
 
-
   border-radius:8px;
-
 
   background:
     rgba(255,255,255,.025);
-
 
   font-size:13px;
 
 }
 
-
 .switch-action-main{
 
   flex:1;
-
 
   font-size:9px;
 
   font-weight:800;
 
 }
-
 
 .switch-action-arrow{
 
@@ -3046,7 +2474,6 @@ main{
   font-size:15px;
 
 }
-
 
 
 /* =========================================================
@@ -3065,70 +2492,52 @@ main{
 
 }
 
-
 .create-field{
-
   margin-bottom:10px;
-
 }
-
 
 .create-field label{
 
   display:block;
 
-
   margin-bottom:5px;
 
-
   color:#a1abb2;
-
 
   font-size:7px;
 
   font-weight:900;
 
-
   letter-spacing:.05em;
 
 }
-
 
 .create-field input,
 .create-field textarea{
 
   width:100%;
 
-
   min-height:46px;
-
 
   padding:
     10px
     11px;
 
-
   border:
     1px solid
     #2c3740;
 
-
   border-radius:11px;
-
 
   outline:0;
 
-
   background:#11191f;
 
-
   color:#fff;
-
 
   font-size:10px;
 
 }
-
 
 .create-field textarea{
 
@@ -3138,7 +2547,6 @@ main{
 
 }
 
-
 .create-field input:focus,
 .create-field textarea:focus{
 
@@ -3147,40 +2555,31 @@ main{
 
 }
 
-
 .create-date-row{
 
   display:grid;
-
 
   grid-template-columns:
     1fr
     1fr;
 
-
   gap:9px;
 
 }
-
 
 .create-trip-submit{
 
   width:100%;
 
-
   min-height:48px;
 
-
   margin-top:7px;
-
 
   border:
     1px solid
     rgba(255,98,95,.82);
 
-
   border-radius:11px;
-
 
   background:
 
@@ -3194,40 +2593,29 @@ main{
 
     );
 
-
   color:#220b0a;
-
 
   font-size:8px;
 
   font-weight:900;
 
-
   cursor:pointer;
 
 }
 
-
 .create-trip-submit:disabled{
-
   opacity:.5;
-
 }
-
 
 .create-message{
 
   display:none;
 
-
   margin-top:9px;
-
 
   padding:9px;
 
-
   border-radius:8px;
-
 
   font-size:7px;
 
@@ -3235,44 +2623,35 @@ main{
 
 }
 
-
 .create-message.error{
 
   display:block;
-
 
   border:
     1px solid
     rgba(255,98,95,.22);
 
-
   background:
     rgba(255,98,95,.055);
-
 
   color:#f5aaa5;
 
 }
 
-
 .create-message.success{
 
   display:block;
-
 
   border:
     1px solid
     rgba(103,197,135,.22);
 
-
   background:
     rgba(103,197,135,.055);
-
 
   color:#a7ddb7;
 
 }
-
 
 
 /* =========================================================
@@ -3282,31 +2661,23 @@ main{
 @media(max-width:480px){
 
   .hero{
-
     min-height:405px;
-
   }
-
 
   .hero-image{
-
     background-position:
       57% 43%;
-
   }
-
 
   .hero-inner{
 
     min-height:405px;
-
 
     padding-left:13px;
 
     padding-right:13px;
 
   }
-
 
   .hero-title{
 
@@ -3319,20 +2690,13 @@ main{
 
   }
 
-
   .hero-japanese{
-
     flex-basis:48px;
-
   }
-
 
   .hero-japanese-main{
-
     font-size:24px;
-
   }
-
 
   .first-trip-inner{
 
@@ -3345,7 +2709,6 @@ main{
 }
 
 
-
 /* =========================================================
    SMALL PHONES
 ========================================================= */
@@ -3353,18 +2716,12 @@ main{
 @media(max-width:360px){
 
   .hero-title{
-
     font-size:27px;
-
   }
-
 
   .journey-title{
-
     font-size:18px;
-
   }
-
 
   .place-group-head,
   .place-row{
@@ -3375,11 +2732,9 @@ main{
       minmax(0,1fr)
       18px;
 
-
     gap:5px;
 
   }
-
 
   .full-plan{
 
@@ -3387,16 +2742,12 @@ main{
       0
       7px;
 
-
     font-size:5.3px;
 
   }
 
-
   .first-trip-title{
-
     font-size:33px;
-
   }
 
 }
@@ -3421,7 +2772,6 @@ main{
   class="first-trip-view"
 >
 
-
   <div
     id="firstTripBackground"
     class="first-trip-bg"
@@ -3433,19 +2783,15 @@ main{
 
     <div class="first-trip-mark">
 
-
       <div class="first-trip-mark-main">
         旅
       </div>
-
 
       <div class="first-trip-mark-sub">
         JOURNEY
       </div>
 
-
     </div>
-
 
 
     <div class="first-trip-center">
@@ -3453,13 +2799,11 @@ main{
 
       <div class="first-trip-logo-wrap">
 
-
         <img
           class="first-trip-logo"
           src="https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Travel3Logo.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvVHJhdmVsM0xvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4OTcwNDUwMiwiZXhwIjozMzMyNTcwNDUwMn0.ciD2sShYC95aeLTucRmbI-AvrtletO259ymPAGCURr4FXltkLRmqiKd_yzkwrLl_q4XGahAWzevvfVkWyGOlZg"
           alt=""
         >
-
 
       </div>
 
@@ -3517,17 +2861,12 @@ main{
 </section>
 
 
-
 <!-- =========================================================
      NORMAL TRIP VIEW
 ========================================================= -->
 
 <div id="normalTripView">
 
-
-  <!-- =====================================================
-       HERO
-  ====================================================== -->
 
   <section class="hero">
 
@@ -3554,11 +2893,6 @@ main{
             LOADING TRIP…
           </div>
 
-
-
-          <!-- =============================================
-               TAP TITLE TO SWITCH TRIP
-          ============================================== -->
 
           <button
             id="tripSwitchTrigger"
@@ -3587,7 +2921,6 @@ main{
           </button>
 
 
-
           <div
             id="tripRoute"
             class="hero-route"
@@ -3611,7 +2944,6 @@ main{
 
 
         </div>
-
 
 
         <div class="hero-japanese">
@@ -3639,9 +2971,7 @@ main{
       </div>
 
 
-
       <div class="hero-spacer"></div>
-
 
 
       <div class="hero-bottom">
@@ -3664,15 +2994,8 @@ main{
   </section>
 
 
-
-  <!-- =====================================================
-       CONTENT
-  ====================================================== -->
-
   <section class="content">
 
-
-    <!-- TRIP DAYS -->
 
     <div class="date-section">
 
@@ -3690,9 +3013,6 @@ main{
 
     </div>
 
-
-
-    <!-- JOURNEY -->
 
     <section class="journey-section">
 
@@ -3728,7 +3048,6 @@ main{
         </div>
 
 
-
         <a
           id="fullPlan"
           class="full-plan"
@@ -3742,26 +3061,20 @@ main{
       </div>
 
 
-
       <div
         id="placeGroups"
         class="journey-card"
       >
 
-
         <div class="empty">
           Loading journey…
         </div>
-
 
       </div>
 
 
     </section>
 
-
-
-    <!-- FOOD FINDER -->
 
     <div
       id="foodFinder"
@@ -3776,7 +3089,6 @@ main{
 
 
 </main>
-
 
 
 <!-- =========================================================
@@ -3815,12 +3127,10 @@ main{
     </div>
 
 
-
     <div
       id="switchTripList"
       class="switch-trip-list"
     ></div>
-
 
 
     <div class="switch-actions">
@@ -3848,7 +3158,6 @@ main{
 
 
       </a>
-
 
 
       <a
@@ -3882,7 +3191,6 @@ main{
 
 
 </div>
-
 
 
 <!-- =========================================================
@@ -3921,7 +3229,6 @@ main{
     </div>
 
 
-
     <form
       id="firstTripForm"
       class="create-trip-form"
@@ -3946,7 +3253,6 @@ main{
       </div>
 
 
-
       <div class="create-field">
 
 
@@ -3965,7 +3271,6 @@ main{
       </div>
 
 
-
       <div class="create-field">
 
 
@@ -3981,7 +3286,6 @@ main{
 
 
       </div>
-
 
 
       <div class="create-date-row">
@@ -4004,7 +3308,6 @@ main{
         </div>
 
 
-
         <div class="create-field">
 
 
@@ -4025,7 +3328,6 @@ main{
       </div>
 
 
-
       <button
         id="firstTripSave"
         class="create-trip-submit"
@@ -4033,7 +3335,6 @@ main{
       >
         CREATE TRIP
       </button>
-
 
 
       <div
@@ -4051,15 +3352,9 @@ main{
 </div>
 
 
-
-<!-- =========================================================
-     SHARED FOOTER
-========================================================= -->
-
 <div id="footer"></div>
 
 <script src="footer.js"></script>
-
 
 
 <script>
@@ -4072,17 +3367,8 @@ const DEFAULT_HERO =
   "https://zngncasvdrrxyrkjqutj.supabase.co/storage/v1/object/sign/Photos/Bavkground%20image.png?token=eyJraWQiOiIzOTgxNDUwNy1mM2QwLTQ5ZGItODA4My0xODg1MWZkNGYxMmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQaG90b3MvQmF2a2dyb3VuZCBpbWFnZS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg5NzIwNzY5LCJleHAiOjMzMzI1NzIwNzY5fQ.fyNIjD9vAXA26vNjxYbQJmz5myxaSZbkT0xmjJvcmV0hbbImJWEwjLYe_nS8qOOA3EgAcOsEnCkU5sa8K0EmPQ";
 
 
-/*
-  Later, when index-tutorial.html exists,
-  change this to:
-
-  const FIRST_TRIP_DESTINATION =
-    "index-tutorial.html";
-*/
-
 const FIRST_TRIP_DESTINATION =
   "index.html";
-
 
 
 /* =========================================================
@@ -4113,45 +3399,16 @@ let TRIP_ID =
   null;
 
 
-let currentUser =
-  null;
-
-
-let currentTrip =
-  null;
-
-
-let accessibleTrips =
-  [];
-
-
-let scheduleRows =
-  [];
-
-
-let placeMap =
-  new Map();
-
-
-let dayDates =
-  [];
-
-
-let selectedDate =
-  null;
-
-
-let openAreas =
-  {};
-
-
-let nearbyLoaded =
-  false;
-
-
-let nearbyLoading =
-  false;
-
+let currentUser = null;
+let currentTrip = null;
+let accessibleTrips = [];
+let scheduleRows = [];
+let placeMap = new Map();
+let dayDates = [];
+let selectedDate = null;
+let openAreas = {};
+let nearbyLoaded = false;
+let nearbyLoading = false;
 
 
 /* =========================================================
@@ -4171,30 +3428,15 @@ function esc(value){
 
   return txt(value)
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
+    .replaceAll("&","&amp;")
 
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
+    .replaceAll("<","&lt;")
 
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
+    .replaceAll(">","&gt;")
 
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
+    .replaceAll('"',"&quot;")
 
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("'","&#039;");
 
 }
 
@@ -4241,11 +3483,8 @@ function parseDate(value){
 function shortDate(value){
 
   if(!value){
-
     return "";
-
   }
-
 
   return parseDate(
     value
@@ -4310,20 +3549,14 @@ function titleCase(value){
     txt(value)
       .toLowerCase();
 
-
   return (
-
     text.charAt(0)
       .toUpperCase()
-
     +
-
     text.slice(1)
-
   );
 
 }
-
 
 
 /* =========================================================
@@ -4336,101 +3569,49 @@ function countryIcon(country){
     txt(country)
       .toLowerCase();
 
-
-  if(
-    value.includes(
-      "japan"
-    )
-  ){
+  if(value.includes("japan")){
     return "🇯🇵";
   }
 
-
-  if(
-    value.includes(
-      "singapore"
-    )
-  ){
+  if(value.includes("singapore")){
     return "🇸🇬";
   }
 
-
-  if(
-    value.includes(
-      "taiwan"
-    )
-  ){
+  if(value.includes("taiwan")){
     return "🇹🇼";
   }
 
-
-  if(
-    value.includes(
-      "korea"
-    )
-  ){
+  if(value.includes("korea")){
     return "🇰🇷";
   }
 
-
-  if(
-    value.includes(
-      "china"
-    )
-  ){
+  if(value.includes("china")){
     return "🇨🇳";
   }
 
-
-  if(
-    value.includes(
-      "thailand"
-    )
-  ){
+  if(value.includes("thailand")){
     return "🇹🇭";
   }
 
-
-  if(
-    value.includes(
-      "malaysia"
-    )
-  ){
+  if(value.includes("malaysia")){
     return "🇲🇾";
   }
 
-
-  if(
-    value.includes(
-      "indonesia"
-    )
-  ){
+  if(value.includes("indonesia")){
     return "🇮🇩";
   }
 
-
-  if(
-    value.includes(
-      "italy"
-    )
-  ){
+  if(value.includes("italy")){
     return "🇮🇹";
   }
 
-
-  if(
-    value.includes(
-      "france"
-    )
-  ){
+  if(value.includes("france")){
     return "🇫🇷";
   }
-
 
   return "✈️";
 
 }
-
 
 
 function countryDecoration(country){
@@ -4440,11 +3621,7 @@ function countryDecoration(country){
       .toLowerCase();
 
 
-  if(
-    value.includes(
-      "japan"
-    )
-  ){
+  if(value.includes("japan")){
 
     return {
       main:"日本",
@@ -4454,11 +3631,7 @@ function countryDecoration(country){
   }
 
 
-  if(
-    value.includes(
-      "taiwan"
-    )
-  ){
+  if(value.includes("taiwan")){
 
     return {
       main:"臺灣",
@@ -4468,11 +3641,7 @@ function countryDecoration(country){
   }
 
 
-  if(
-    value.includes(
-      "china"
-    )
-  ){
+  if(value.includes("china")){
 
     return {
       main:"中國",
@@ -4490,120 +3659,60 @@ function countryDecoration(country){
 }
 
 
-
 /* =========================================================
    TIME
 ========================================================= */
 
 function timeValue(row){
 
-  if(
-    !row.start_time
-  ){
-
+  if(!row.start_time){
     return null;
-
   }
 
 
   const parts =
-    String(
-      row.start_time
-    )
-    .split(
-      ":"
-    );
+    String(row.start_time)
+    .split(":");
 
 
-  const hour =
-    Number(
-      parts[0]
-    );
-
-
-  const minute =
-    Number(
-      parts[1] || 0
-    );
-
-
-  const second =
-    Number(
-      parts[2] || 0
-    );
+  const hour = Number(parts[0]);
+  const minute = Number(parts[1] || 0);
+  const second = Number(parts[2] || 0);
 
 
   if(
-    !Number.isFinite(
-      hour
-    )
+    !Number.isFinite(hour)
     ||
-    !Number.isFinite(
-      minute
-    )
+    !Number.isFinite(minute)
   ){
-
     return null;
-
   }
 
 
   return (
-
     hour * 3600
-
     +
-
     minute * 60
-
     +
-
     second
-
   );
 
 }
 
 
+function compareRows(a,b){
 
-function compareRows(
-  a,
-  b
-){
-
-  const timeA =
-    timeValue(
-      a
-    );
+  const timeA = timeValue(a);
+  const timeB = timeValue(b);
 
 
-  const timeB =
-    timeValue(
-      b
-    );
-
-
-  if(
-    timeA !== null
-    &&
-    timeB === null
-  ){
-
+  if(timeA !== null && timeB === null){
     return -1;
-
   }
 
-
-  if(
-    timeA === null
-    &&
-    timeB !== null
-  ){
-
+  if(timeA === null && timeB !== null){
     return 1;
-
   }
-
 
   if(
     timeA !== null
@@ -4612,108 +3721,59 @@ function compareRows(
     &&
     timeA !== timeB
   ){
-
-    return (
-      timeA -
-      timeB
-    );
-
+    return timeA - timeB;
   }
 
 
   const orderA =
-    Number(
-      a.sort_order || 0
-    );
-
+    Number(a.sort_order || 0);
 
   const orderB =
-    Number(
-      b.sort_order || 0
-    );
+    Number(b.sort_order || 0);
 
 
-  if(
-    orderA !== orderB
-  ){
-
-    return (
-      orderA -
-      orderB
-    );
-
+  if(orderA !== orderB){
+    return orderA - orderB;
   }
 
 
   return (
-
-    Number(
-      a.id || 0
-    )
-
+    Number(a.id || 0)
     -
-
-    Number(
-      b.id || 0
-    )
-
+    Number(b.id || 0)
   );
 
 }
 
 
-
 function formatClock(value){
 
-  if(
-    !value
-  ){
-
+  if(!value){
     return "";
-
   }
 
 
   const parts =
-    String(
-      value
-    )
-    .split(
-      ":"
-    );
+    String(value)
+    .split(":");
 
 
-  let hour =
-    Number(
-      parts[0]
-    );
-
+  let hour = Number(parts[0]);
 
   const minute =
     parts[1] || "00";
 
 
-  if(
-    !Number.isFinite(
-      hour
-    )
-  ){
-
+  if(!Number.isFinite(hour)){
     return value;
-
   }
 
 
   const suffix =
-
     hour >= 12
-
     ?
-
     "PM"
-
     :
-
     "AM";
 
 
@@ -4724,31 +3784,20 @@ function formatClock(value){
 
 
   return (
-
     `${hour}:`
-
     +
-
     `${minute} `
-
     +
-
     suffix
-
   );
 
 }
 
 
-
 function timeText(row){
 
-  if(
-    row.time_label
-  ){
-
+  if(row.time_label){
     return row.time_label;
-
   }
 
 
@@ -4759,30 +3808,16 @@ function timeText(row){
   ){
 
     return (
-
-      `${formatClock(
-        row.start_time
-      )} – `
-
+      `${formatClock(row.start_time)} – `
       +
-
-      `${formatClock(
-        row.end_time
-      )}`
-
+      `${formatClock(row.end_time)}`
     );
 
   }
 
 
-  if(
-    row.start_time
-  ){
-
-    return formatClock(
-      row.start_time
-    );
-
+  if(row.start_time){
+    return formatClock(row.start_time);
   }
 
 
@@ -4791,77 +3826,50 @@ function timeText(row){
 }
 
 
-
 /* =========================================================
    PLACE HELPERS
 ========================================================= */
 
 function rowPlace(row){
 
-  if(
-    !row.place_id
-  ){
-
+  if(!row.place_id){
     return null;
-
   }
 
 
   return (
-
     placeMap.get(
-      Number(
-        row.place_id
-      )
+      Number(row.place_id)
     )
-
     ||
-
     null
-
   );
 
 }
-
 
 
 function rowArea(row){
 
   const place =
-    rowPlace(
-      row
-    );
+    rowPlace(row);
 
 
   return (
-
     txt(
-
       place?.area
-
       ||
-
       place?.city
-
       ||
-
       row.location_name
-
       ||
-
       "Other"
-
     )
     .trim()
-
     ||
-
     "Other"
-
   );
 
 }
-
 
 
 /* =========================================================
@@ -4870,27 +3878,17 @@ function rowArea(row){
 
 function mapsHref(row){
 
-  if(
-    row.maps_url
-  ){
-
+  if(row.maps_url){
     return row.maps_url;
-
   }
 
 
   const place =
-    rowPlace(
-      row
-    );
+    rowPlace(row);
 
 
-  if(
-    place?.maps_url
-  ){
-
+  if(place?.maps_url){
     return place.maps_url;
-
   }
 
 
@@ -4911,13 +3909,9 @@ function mapsHref(row){
 
 
   if(
-    Number.isFinite(
-      lat
-    )
+    Number.isFinite(lat)
     &&
-    Number.isFinite(
-      lng
-    )
+    Number.isFinite(lng)
     &&
     !(
       lat === 0
@@ -4927,43 +3921,28 @@ function mapsHref(row){
   ){
 
     return (
-
       "https://www.google.com/maps/search/?api=1&query="
-
       +
-
       encodeURIComponent(
         `${lat},${lng}`
       )
-
     );
 
   }
 
 
   const address =
-
     row.address
-
     ||
-
     place?.address;
 
 
-  if(
-    address
-  ){
+  if(address){
 
     return (
-
       "https://www.google.com/maps/search/?api=1&query="
-
       +
-
-      encodeURIComponent(
-        address
-      )
-
+      encodeURIComponent(address)
     );
 
   }
@@ -4974,26 +3953,19 @@ function mapsHref(row){
 }
 
 
-
 /* =========================================================
    HOME PLACE FILTER
 ========================================================= */
 
 function isHomePlace(row){
 
-  if(
-    !row.place_id
-  ){
-
+  if(!row.place_id){
     return false;
-
   }
 
 
   const type =
-    txt(
-      row.item_type
-    )
+    txt(row.item_type)
     .toLowerCase();
 
 
@@ -5012,13 +3984,10 @@ function isHomePlace(row){
 
   return !excluded.some(
     word =>
-      type.includes(
-        word
-      )
+      type.includes(word)
   );
 
 }
-
 
 
 /* =========================================================
@@ -5032,12 +4001,8 @@ async function resolveUser(){
       .getUser();
 
 
-  if(
-    result.error
-  ){
-
+  if(result.error){
     throw result.error;
-
   }
 
 
@@ -5047,9 +4012,7 @@ async function resolveUser(){
     null;
 
 
-  if(
-    !currentUser
-  ){
+  if(!currentUser){
 
     location.href =
       "login.html";
@@ -5064,7 +4027,6 @@ async function resolveUser(){
 }
 
 
-
 /* =========================================================
    ACCESSIBLE TRIPS
 ========================================================= */
@@ -5073,54 +4035,34 @@ async function getAccessibleTrips(){
 
   const ownResult =
     await db
-
-      .from(
-        "trips"
-      )
-
-      .select(
-        "*"
-      )
-
+      .from("trips")
+      .select("*")
       .eq(
         "owner_id",
         currentUser.id
       );
 
 
-  if(
-    ownResult.error
-  ){
-
+  if(ownResult.error){
     throw ownResult.error;
-
   }
 
 
   const memberResult =
     await db
-
-      .from(
-        "trip_members"
-      )
-
+      .from("trip_members")
       .select(`
         trip_id,
         role
       `)
-
       .eq(
         "user_id",
         currentUser.id
       );
 
 
-  if(
-    memberResult.error
-  ){
-
+  if(memberResult.error){
     throw memberResult.error;
-
   }
 
 
@@ -5141,14 +4083,10 @@ async function getAccessibleTrips(){
   .forEach(
     item => {
 
-
       tripsMap.set(
-        Number(
-          item.id
-        ),
+        Number(item.id),
         item
       );
-
 
     }
   );
@@ -5166,47 +4104,30 @@ async function getAccessibleTrips(){
 
       .map(
         row =>
-          Number(
-            row.trip_id
-          )
+          Number(row.trip_id)
       )
 
-      .filter(
-        Boolean
-      )
+      .filter(Boolean)
 
     )
 
   ];
 
 
-  if(
-    sharedIds.length
-  ){
+  if(sharedIds.length){
 
     const sharedResult =
       await db
-
-        .from(
-          "trips"
-        )
-
-        .select(
-          "*"
-        )
-
+        .from("trips")
+        .select("*")
         .in(
           "id",
           sharedIds
         );
 
 
-    if(
-      sharedResult.error
-    ){
-
+    if(sharedResult.error){
       throw sharedResult.error;
-
     }
 
 
@@ -5223,14 +4144,10 @@ async function getAccessibleTrips(){
     .forEach(
       item => {
 
-
         tripsMap.set(
-          Number(
-            item.id
-          ),
+          Number(item.id),
           item
         );
-
 
       }
     );
@@ -5239,25 +4156,17 @@ async function getAccessibleTrips(){
 
 
   return [
-
     ...tripsMap.values()
-
   ]
   .sort(
     (a,b) =>
-
-      txt(
-        a.start_date
-      )
+      txt(a.start_date)
       .localeCompare(
-        txt(
-          b.start_date
-        )
+        txt(b.start_date)
       )
   );
 
 }
-
 
 
 /* =========================================================
@@ -5301,7 +4210,6 @@ function showFirstTripView(){
 }
 
 
-
 /* =========================================================
    NORMAL TRIP STATE
 ========================================================= */
@@ -5330,52 +4238,34 @@ function showNormalTripView(){
 }
 
 
-
 /* =========================================================
    RESOLVE CURRENT TRIP
 ========================================================= */
 
 function resolveCurrentTrip(){
 
-  if(
-    !accessibleTrips.length
-  ){
-
+  if(!accessibleTrips.length){
     return false;
-
   }
 
 
   let resolved =
     accessibleTrips.find(
       item =>
-
-        Number(
-          item.id
-        )
-
+        Number(item.id)
         ===
-
-        Number(
-          TRIP_ID
-        )
+        Number(TRIP_ID)
     );
 
 
-  if(
-    !resolved
-  ){
-
+  if(!resolved){
     resolved =
       accessibleTrips[0];
-
   }
 
 
   TRIP_ID =
-    Number(
-      resolved.id
-    );
+    Number(resolved.id);
 
 
   currentTrip =
@@ -5383,31 +4273,21 @@ function resolveCurrentTrip(){
 
 
   localStorage.setItem(
-
     "current_trip_id",
-
-    String(
-      TRIP_ID
-    )
-
+    String(TRIP_ID)
   );
 
 
   history.replaceState(
-
     null,
-
     "",
-
     `index.html?trip=${TRIP_ID}`
-
   );
 
 
   return true;
 
 }
-
 
 
 /* =========================================================
@@ -5422,27 +4302,18 @@ async function loadCurrentTripData(){
 
   const scheduleResult =
     await db
-
-      .from(
-        "schedule"
-      )
-
-      .select(
-        "*"
-      )
-
+      .from("schedule")
+      .select("*")
       .eq(
         "trip_id",
         TRIP_ID
       )
-
       .order(
         "schedule_date",
         {
           ascending:true
         }
       )
-
       .order(
         "sort_order",
         {
@@ -5451,12 +4322,8 @@ async function loadCurrentTripData(){
       );
 
 
-  if(
-    scheduleResult.error
-  ){
-
+  if(scheduleResult.error){
     throw scheduleResult.error;
-
   }
 
 
@@ -5474,9 +4341,7 @@ async function loadCurrentTripData(){
 
         .map(
           row =>
-            Number(
-              row.place_id
-            )
+            Number(row.place_id)
         )
 
         .filter(
@@ -5488,17 +4353,11 @@ async function loadCurrentTripData(){
   ];
 
 
-  if(
-    placeIds.length
-  ){
+  if(placeIds.length){
 
     const placeResult =
       await db
-
-        .from(
-          "places"
-        )
-
+        .from("places")
         .select(`
           id,
           name,
@@ -5510,16 +4369,13 @@ async function loadCurrentTripData(){
           longitude,
           maps_url
         `)
-
         .in(
           "id",
           placeIds
         );
 
 
-    if(
-      !placeResult.error
-    ){
+    if(!placeResult.error){
 
       (
         placeResult.data
@@ -5529,17 +4385,10 @@ async function loadCurrentTripData(){
       .forEach(
         place => {
 
-
           placeMap.set(
-
-            Number(
-              place.id
-            ),
-
+            Number(place.id),
             place
-
           );
-
 
         }
       );
@@ -5560,9 +4409,7 @@ async function loadCurrentTripData(){
             row.schedule_date
         )
 
-        .filter(
-          Boolean
-        )
+        .filter(Boolean)
 
     )
 
@@ -5571,7 +4418,6 @@ async function loadCurrentTripData(){
 
 
   chooseInitialDate();
-
 
   renderHero();
 
@@ -5582,22 +4428,18 @@ async function loadCurrentTripData(){
 }
 
 
-
 /* =========================================================
    INITIAL DATE
 ========================================================= */
 
 function chooseInitialDate(){
 
-  if(
-    !dayDates.length
-  ){
+  if(!dayDates.length){
 
     selectedDate =
       currentTrip.start_date
       ||
       null;
-
 
     return;
 
@@ -5610,29 +4452,20 @@ function chooseInitialDate(){
     );
 
 
-  if(
-    dayDates.includes(
-      today
-    )
-  ){
+  if(dayDates.includes(today)){
 
     selectedDate =
       today;
-
 
     return;
 
   }
 
 
-  if(
-    today <
-    dayDates[0]
-  ){
+  if(today < dayDates[0]){
 
     selectedDate =
       dayDates[0];
-
 
     return;
 
@@ -5651,25 +4484,20 @@ function chooseInitialDate(){
         dayDates.length - 1
       ];
 
-
     return;
 
   }
 
 
   selectedDate =
-
     dayDates.find(
       date =>
         date >= today
     )
-
     ||
-
     dayDates[0];
 
 }
-
 
 
 /* =========================================================
@@ -5689,13 +4517,8 @@ function renderHero(){
       "tripEyebrow"
     )
     .textContent =
-
-      `${countryIcon(
-        country
-      )} `
-
+      `${countryIcon(country)} `
       +
-
       country.toUpperCase();
 
 
@@ -5704,11 +4527,8 @@ function renderHero(){
       "tripName"
     )
     .textContent =
-
       currentTrip.name
-
       ||
-
       "My Trip";
 
 
@@ -5717,11 +4537,8 @@ function renderHero(){
       "tripRoute"
     )
     .textContent =
-
       currentTrip.description
-
       ||
-
       country;
 
 
@@ -5730,36 +4547,22 @@ function renderHero(){
       "tripDates"
     )
     .textContent =
-
       (
         currentTrip.start_date
         &&
         currentTrip.end_date
       )
-
       ?
-
-      `${shortDate(
-        currentTrip.start_date
-      )} – ${shortDate(
-        currentTrip.end_date
-      )}`
-
+      `${shortDate(currentTrip.start_date)} – ${shortDate(currentTrip.end_date)}`
       :
-
       "";
 
 
   const cover =
-
     currentTrip.cover_url
-
     ||
-
     currentTrip.hero_url
-
     ||
-
     DEFAULT_HERO;
 
 
@@ -5794,9 +4597,6 @@ function renderHero(){
       decoration.sub;
 
 
-
-  /* COUNTDOWN */
-
   let countdown =
     "TRIP";
 
@@ -5821,25 +4621,16 @@ function renderHero(){
       currentTrip.end_date;
 
 
-    if(
-      today <
-      start
-    ){
+    if(today < start){
 
       const days =
 
         Math.ceil(
 
           (
-            parseDate(
-              start
-            )
-
+            parseDate(start)
             -
-
-            parseDate(
-              today
-            )
+            parseDate(today)
           )
 
           /
@@ -5850,11 +4641,8 @@ function renderHero(){
 
 
       countdown =
-
         `${days} DAY`
-
         +
-
         (
           days === 1
           ?
@@ -5862,32 +4650,22 @@ function renderHero(){
           :
           "S"
         )
-
         +
-
         " TO GO";
 
     }
 
 
-    else if(
-      today <= end
-    ){
+    else if(today <= end){
 
       const day =
 
         Math.floor(
 
           (
-            parseDate(
-              today
-            )
-
+            parseDate(today)
             -
-
-            parseDate(
-              start
-            )
+            parseDate(start)
           )
 
           /
@@ -5906,15 +4684,9 @@ function renderHero(){
         Math.floor(
 
           (
-            parseDate(
-              end
-            )
-
+            parseDate(end)
             -
-
-            parseDate(
-              start
-            )
+            parseDate(start)
           )
 
           /
@@ -5953,7 +4725,6 @@ function renderHero(){
 
 
   document.title =
-
     `${
       currentTrip.name
       ||
@@ -5961,7 +4732,6 @@ function renderHero(){
     } · Travel`;
 
 }
-
 
 
 /* =========================================================
@@ -5985,16 +4755,9 @@ function renderTripSwitcher(){
 
 
           const isCurrent =
-
-            Number(
-              trip.id
-            )
-
+            Number(trip.id)
             ===
-
-            Number(
-              TRIP_ID
-            );
+            Number(TRIP_ID);
 
 
           return `
@@ -6104,13 +4867,10 @@ function renderTripSwitcher(){
 
           `;
 
-
         }
       )
 
-      .join(
-        ""
-      );
+      .join("");
 
 
   holder
@@ -6131,38 +4891,26 @@ function renderTripSwitcher(){
               );
 
 
-            if(
-              !id
-            ){
-
+            if(!id){
               return;
-
             }
 
 
             localStorage.setItem(
-
               "current_trip_id",
-
-              String(
-                id
-              )
-
+              String(id)
             );
 
 
             location.href =
               `index.html?trip=${id}`;
 
-
           };
-
 
       }
     );
 
 }
-
 
 
 const switchTripBackdrop =
@@ -6178,16 +4926,13 @@ document
   .onclick =
     () => {
 
-
       renderTripSwitcher();
-
 
       switchTripBackdrop
         .classList
         .add(
           "open"
         );
-
 
     };
 
@@ -6199,13 +4944,11 @@ document
   .onclick =
     () => {
 
-
       switchTripBackdrop
         .classList
         .remove(
           "open"
         );
-
 
     };
 
@@ -6213,13 +4956,11 @@ document
 switchTripBackdrop.onclick =
   event => {
 
-
     if(
       event.target
       ===
       switchTripBackdrop
     ){
-
 
       switchTripBackdrop
         .classList
@@ -6227,12 +4968,9 @@ switchTripBackdrop.onclick =
           "open"
         );
 
-
     }
 
-
   };
-
 
 
 /* =========================================================
@@ -6252,13 +4990,11 @@ document
   .onclick =
     () => {
 
-
       firstTripCreateBackdrop
         .classList
         .add(
           "open"
         );
-
 
     };
 
@@ -6270,13 +5006,11 @@ document
   .onclick =
     () => {
 
-
       firstTripCreateBackdrop
         .classList
         .remove(
           "open"
         );
-
 
     };
 
@@ -6284,13 +5018,11 @@ document
 firstTripCreateBackdrop.onclick =
   event => {
 
-
     if(
       event.target
       ===
       firstTripCreateBackdrop
     ){
-
 
       firstTripCreateBackdrop
         .classList
@@ -6298,12 +5030,9 @@ firstTripCreateBackdrop.onclick =
           "open"
         );
 
-
     }
 
-
   };
-
 
 
 /* =========================================================
@@ -6381,34 +5110,26 @@ document
           .value;
 
 
-      if(
-        !name
-      ){
+      if(!name){
 
         message.textContent =
           "Please enter a trip name.";
 
-
         message.className =
           "create-message error";
-
 
         return;
 
       }
 
 
-      if(
-        !country
-      ){
+      if(!country){
 
         message.textContent =
           "Please enter a country.";
 
-
         message.className =
           "create-message error";
-
 
         return;
 
@@ -6426,10 +5147,8 @@ document
         message.textContent =
           "End date cannot be before the start date.";
 
-
         message.className =
           "create-message error";
-
 
         return;
 
@@ -6449,47 +5168,35 @@ document
 
         const result =
           await db
-
-            .from(
-              "trips"
-            )
-
+            .from("trips")
             .insert({
-
 
               name:
                 name,
 
-
               country:
                 country,
-
 
               start_date:
                 startDate
                 ||
                 null,
 
-
               end_date:
                 endDate
                 ||
                 null,
-
 
               description:
                 description
                 ||
                 null,
 
-
               owner_id:
                 currentUser.id,
 
-
               status:
                 "active"
-
 
             })
 
@@ -6498,12 +5205,8 @@ document
             .single();
 
 
-        if(
-          result.error
-        ){
-
+        if(result.error){
           throw result.error;
-
         }
 
 
@@ -6512,13 +5215,8 @@ document
 
 
         localStorage.setItem(
-
           "current_trip_id",
-
-          String(
-            newTrip.id
-          )
-
+          String(newTrip.id)
         );
 
 
@@ -6530,26 +5228,13 @@ document
           "create-message success";
 
 
-        /*
-          CURRENT FLOW:
-
-          index.html?trip=...
-
-          LATER, after we create index-tutorial.html,
-          simply change FIRST_TRIP_DESTINATION above.
-        */
-
-
         setTimeout(
           () => {
 
-
             location.href =
-
               `${FIRST_TRIP_DESTINATION}?trip=${Number(
                 newTrip.id
               )}&first=1`;
-
 
           },
           450
@@ -6567,37 +5252,29 @@ document
 
 
         message.textContent =
-
           error.message
-
           ||
-
           "Could not create your trip.";
 
 
         message.className =
           "create-message error";
 
-
       }
 
       finally{
 
-
         button.disabled =
           false;
 
-
         button.textContent =
           "CREATE TRIP";
-
 
       }
 
 
     }
   );
-
 
 
 /* =========================================================
@@ -6620,7 +5297,6 @@ function selectedRows(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -6652,9 +5328,7 @@ function groupPlaces(rows){
 
 
         const area =
-          rowArea(
-            row
-          );
+          rowArea(row);
 
 
         if(
@@ -6697,7 +5371,6 @@ function groupPlaces(rows){
 }
 
 
-
 /* =========================================================
    AREA TIMES
 ========================================================= */
@@ -6711,12 +5384,8 @@ function areaTime(rows){
     );
 
 
-  if(
-    !timedRows.length
-  ){
-
+  if(!timedRows.length){
     return "Flexible";
-
   }
 
 
@@ -6764,7 +5433,6 @@ function areaTime(rows){
 }
 
 
-
 function areaStartTime(rows){
 
   const firstTimed =
@@ -6774,9 +5442,7 @@ function areaStartTime(rows){
     );
 
 
-  if(
-    firstTimed
-  ){
+  if(firstTimed){
 
     return formatClock(
       firstTimed.start_time
@@ -6792,19 +5458,14 @@ function areaStartTime(rows){
     );
 
 
-  if(
-    labelled
-  ){
-
+  if(labelled){
     return labelled.time_label;
-
   }
 
 
   return "Flexible";
 
 }
-
 
 
 /* =========================================================
@@ -6814,44 +5475,28 @@ function areaStartTime(rows){
 function renderPlaceRow(row){
 
   const mapUrl =
-    mapsHref(
-      row
-    );
+    mapsHref(row);
 
 
   const place =
-    rowPlace(
-      row
-    );
+    rowPlace(row);
 
 
   const title =
-
     row.title
-
     ||
-
     place?.name
-
     ||
-
     row.location_name
-
     ||
-
     "Place";
 
 
   const note =
-
     row.description
-
     ||
-
     row.notes
-
     ||
-
     (
       place?.name !== title
       ?
@@ -6859,9 +5504,7 @@ function renderPlaceRow(row){
       :
       ""
     )
-
     ||
-
     "";
 
 
@@ -6902,9 +5545,7 @@ function renderPlaceRow(row){
 
         ${
           note
-
           ?
-
           `
 
             <div class="place-note">
@@ -6916,9 +5557,7 @@ function renderPlaceRow(row){
             </div>
 
           `
-
           :
-
           ""
         }
 
@@ -6928,9 +5567,7 @@ function renderPlaceRow(row){
 
       ${
         mapUrl
-
         ?
-
         `
 
           <a
@@ -6945,9 +5582,7 @@ function renderPlaceRow(row){
           </a>
 
         `
-
         :
-
         "<span></span>"
       }
 
@@ -6957,7 +5592,6 @@ function renderPlaceRow(row){
   `;
 
 }
-
 
 
 /* =========================================================
@@ -6974,11 +5608,8 @@ function renderPlaceGroup(
 
 
   const open =
-
     openAreas[key]
-
     ??
-
     (
       index === 0
     );
@@ -7073,9 +5704,7 @@ function renderPlaceGroup(
             .map(
               renderPlaceRow
             )
-            .join(
-              ""
-            )
+            .join("")
         }
 
       </div>
@@ -7086,7 +5715,6 @@ function renderPlaceGroup(
   `;
 
 }
-
 
 
 /* =========================================================
@@ -7123,9 +5751,7 @@ function renderPlaces(){
     );
 
 
-  if(
-    selectedDate
-  ){
+  if(selectedDate){
 
     const today =
       isoDate(
@@ -7133,9 +5759,7 @@ function renderPlaces(){
       );
 
 
-    if(
-      selectedDate === today
-    ){
+    if(selectedDate === today){
 
       title.textContent =
         "Today's Journey";
@@ -7167,9 +5791,7 @@ function renderPlaces(){
   }
 
 
-  if(
-    !groups.length
-  ){
+  if(!groups.length){
 
     holder
       .classList
@@ -7216,14 +5838,10 @@ function renderPlaces(){
   holder.innerHTML =
 
     groups
-
       .map(
         renderPlaceGroup
       )
-
-      .join(
-        ""
-      );
+      .join("");
 
 
   holder
@@ -7275,15 +5893,12 @@ function renderPlaces(){
 
 
             button.setAttribute(
-
               "aria-expanded",
-
               next
               ?
               "true"
               :
               "false"
-
             );
 
 
@@ -7294,7 +5909,6 @@ function renderPlaces(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -7309,9 +5923,7 @@ function renderDates(){
     );
 
 
-  if(
-    !dayDates.length
-  ){
+  if(!dayDates.length){
 
     holder.innerHTML = `
 
@@ -7373,9 +5985,7 @@ function renderDates(){
         `
       )
 
-      .join(
-        ""
-      );
+      .join("");
 
 
   holder
@@ -7438,7 +6048,6 @@ function renderDates(){
 }
 
 
-
 /* =========================================================
    FULL PLAN
 ========================================================= */
@@ -7453,7 +6062,6 @@ function renderFullPlan(){
       `schedule.html?trip=${TRIP_ID}`;
 
 }
-
 
 
 /* =========================================================
@@ -7538,7 +6146,6 @@ function renderFoodFinder(){
 }
 
 
-
 /* =========================================================
    FOOD FINDER OPEN
 ========================================================= */
@@ -7562,9 +6169,7 @@ function bindFoodFinder(){
     ||
     !panel
   ){
-
     return;
-
   }
 
 
@@ -7614,7 +6219,6 @@ function bindFoodFinder(){
 }
 
 
-
 /* =========================================================
    DISTANCE
 ========================================================= */
@@ -7660,17 +6264,13 @@ function distanceM(
     +
 
     Math.cos(
-      rad(
-        lat1
-      )
+      rad(lat1)
     )
 
     *
 
     Math.cos(
-      rad(
-        lat2
-      )
+      rad(lat2)
     )
 
     *
@@ -7692,9 +6292,7 @@ function distanceM(
 
     Math.atan2(
 
-      Math.sqrt(
-        a
-      ),
+      Math.sqrt(a),
 
       Math.sqrt(
         1-a
@@ -7707,12 +6305,9 @@ function distanceM(
 }
 
 
-
 function distanceLabel(distance){
 
-  if(
-    distance < 1000
-  ){
+  if(distance < 1000){
 
     return (
 
@@ -7729,15 +6324,12 @@ function distanceLabel(distance){
 
 
   return (
-
     `${(
       distance / 1000
     ).toFixed(1)} km`
-
   );
 
 }
-
 
 
 function googleMapLink(
@@ -7754,9 +6346,7 @@ function googleMapLink(
 
     (
       "https://www.google.com/maps/search/?api=1&query="
-
       +
-
       encodeURIComponent(
         `${lat},${lng}`
       )
@@ -7765,7 +6355,6 @@ function googleMapLink(
   );
 
 }
-
 
 
 /* =========================================================
@@ -7815,9 +6404,7 @@ function renderFoodItem(item){
 
             ]
 
-            .filter(
-              Boolean
-            )
+            .filter(Boolean)
 
             .join(
               " · "
@@ -7833,9 +6420,7 @@ function renderFoodItem(item){
 
       ${
         item.map
-
         ?
-
         `
 
           <a
@@ -7849,9 +6434,7 @@ function renderFoodItem(item){
           </a>
 
         `
-
         :
-
         ""
       }
 
@@ -7861,7 +6444,6 @@ function renderFoodItem(item){
   `;
 
 }
-
 
 
 /* =========================================================
@@ -7913,16 +6495,13 @@ async function loadNearbyFood(){
         ) => {
 
 
-          if(
-            !navigator.geolocation
-          ){
+          if(!navigator.geolocation){
 
             reject(
               new Error(
                 "Location is not available on this device."
               )
             );
-
 
             return;
 
@@ -7964,33 +6543,21 @@ async function loadNearbyFood(){
       position.coords.longitude;
 
 
-
-    /* SAVED FOOD */
-
     let picks =
       [];
 
 
     const tripRestaurantResult =
       await db
-
-        .from(
-          "trip_restaurants"
-        )
-
-        .select(
-          "*"
-        )
-
+        .from("trip_restaurants")
+        .select("*")
         .eq(
           "trip_id",
           TRIP_ID
         );
 
 
-    if(
-      !tripRestaurantResult.error
-    ){
+    if(!tripRestaurantResult.error){
 
       const ids = [
 
@@ -8018,30 +6585,19 @@ async function loadNearbyFood(){
       ];
 
 
-      if(
-        ids.length
-      ){
+      if(ids.length){
 
         const restaurantResult =
           await db
-
-            .from(
-              "restaurants"
-            )
-
-            .select(
-              "*"
-            )
-
+            .from("restaurants")
+            .select("*")
             .in(
               "id",
               ids
             );
 
 
-        if(
-          !restaurantResult.error
-        ){
+        if(!restaurantResult.error){
 
           picks =
 
@@ -8137,9 +6693,6 @@ async function loadNearbyFood(){
 
     }
 
-
-
-    /* GOOGLE FOOD */
 
     let nearby =
       [];
@@ -8328,18 +6881,13 @@ async function loadNearbyFood(){
 
     catch(error){
 
-
       console.warn(
         "Google nearby food:",
         error
       );
 
-
     }
 
-
-
-    /* RENDER */
 
     status.style.display =
       "none";
@@ -8368,9 +6916,7 @@ async function loadNearbyFood(){
             .map(
               renderFoodItem
             )
-            .join(
-              ""
-            )
+            .join("")
 
           :
 
@@ -8410,9 +6956,7 @@ async function loadNearbyFood(){
             .map(
               renderFoodItem
             )
-            .join(
-              ""
-            )
+            .join("")
 
           :
 
@@ -8463,11 +7007,8 @@ async function loadNearbyFood(){
 
 
     status.textContent =
-
       error.message
-
       ||
-
       "Could not get your location.";
 
 
@@ -8475,15 +7016,12 @@ async function loadNearbyFood(){
 
   finally{
 
-
     nearbyLoading =
       false;
-
 
   }
 
 }
-
 
 
 /* =========================================================
@@ -8503,7 +7041,6 @@ function renderPage(){
 }
 
 
-
 /* =========================================================
    START
 ========================================================= */
@@ -8520,17 +7057,7 @@ async function start(){
       await getAccessibleTrips();
 
 
-    /*
-      IMPORTANT:
-
-      Zero trips is NOT an error.
-
-      Show the first-trip landing state.
-    */
-
-    if(
-      !accessibleTrips.length
-    ){
+    if(!accessibleTrips.length){
 
 
       localStorage.removeItem(
@@ -8542,7 +7069,6 @@ async function start(){
 
 
       return;
-
 
     }
 
@@ -8573,9 +7099,7 @@ async function start(){
       );
 
 
-    if(
-      holder
-    ){
+    if(holder){
 
 
       holder.innerHTML = `
