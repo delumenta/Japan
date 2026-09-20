@@ -14,7 +14,6 @@
 
 <title>My Trip</title>
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="google-maps.js"></script>
@@ -45,11 +44,8 @@
   --red:#ff6b68;
   --red-2:#ff8c88;
 
-  --red-soft:
-    rgba(255,107,104,.10);
-
-  --red-line:
-    rgba(255,107,104,.38);
+  --red-soft:rgba(255,107,104,.10);
+  --red-line:rgba(255,107,104,.38);
 
   --green:#72cb91;
   --blue:#7caaf0;
@@ -80,13 +76,11 @@ body{
   min-height:100vh;
 
   background:
-
     radial-gradient(
       circle at 50% -8%,
       rgba(45,59,70,.24),
       transparent 30%
     ),
-
     var(--bg);
 
   color:var(--text);
@@ -100,8 +94,7 @@ body{
     "Segoe UI",
     sans-serif;
 
-  -webkit-font-smoothing:
-    antialiased;
+  -webkit-font-smoothing:antialiased;
 
 }
 
@@ -114,12 +107,8 @@ textarea{
 
 
 button{
-
   cursor:pointer;
-
-  -webkit-tap-highlight-color:
-    transparent;
-
+  -webkit-tap-highlight-color:transparent;
 }
 
 
@@ -137,7 +126,6 @@ main{
   margin:auto;
 
   padding-bottom:
-
     calc(
       100px +
       env(safe-area-inset-bottom)
@@ -196,14 +184,11 @@ main{
 
   inset:0;
 
-  background-position:
-    56% center;
+  background-position:56% center;
 
-  background-size:
-    cover;
+  background-size:cover;
 
-  transform:
-    scale(1.015);
+  transform:scale(1.015);
 
 }
 
@@ -217,18 +202,12 @@ main{
   inset:0;
 
   background:
-
     linear-gradient(
       180deg,
-
       rgba(4,7,10,.08) 0%,
-
       rgba(4,7,10,.18) 34%,
-
       rgba(5,9,12,.42) 61%,
-
       rgba(5,9,12,.82) 84%,
-
       #070c10 100%
     );
 
@@ -248,14 +227,11 @@ main{
   flex-direction:column;
 
   padding:
-
     calc(
       28px +
       env(safe-area-inset-top)
     )
-
     24px
-
     calc(
       100px +
       env(safe-area-inset-bottom)
@@ -271,8 +247,7 @@ main{
 
 .first-trip-mark{
 
-  color:
-    rgba(255,255,255,.55);
+  color:rgba(255,255,255,.55);
 
 }
 
@@ -300,8 +275,7 @@ main{
     0
     3px;
 
-  color:
-    rgba(255,255,255,.42);
+  color:rgba(255,255,255,.42);
 
   font-size:6px;
 
@@ -361,12 +335,8 @@ main{
     rgba(19,12,14,.72);
 
   box-shadow:
-
-    0 0 30px
-    rgba(255,107,104,.12),
-
-    0 18px 40px
-    rgba(0,0,0,.30);
+    0 0 30px rgba(255,107,104,.12),
+    0 18px 40px rgba(0,0,0,.30);
 
 }
 
@@ -423,8 +393,7 @@ main{
 
   margin-top:15px;
 
-  color:
-    rgba(231,234,235,.70);
+  color:rgba(231,234,235,.70);
 
   font-size:9px;
 
@@ -479,7 +448,6 @@ main{
     rgba(255,107,104,.90);
 
   background:
-
     linear-gradient(
       135deg,
       #ff7773,
@@ -506,11 +474,8 @@ main{
 
   color:#e7aaa6;
 
-  backdrop-filter:
-    blur(9px);
-
-  -webkit-backdrop-filter:
-    blur(9px);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
 
 }
 
@@ -524,11 +489,6 @@ main{
 
   position:relative;
 
-  /*
-    IMPORTANT:
-    No fixed 590px hero anymore.
-    The hero now follows its actual content.
-  */
   min-height:0;
 
   overflow:hidden;
@@ -546,11 +506,9 @@ main{
 
   background-size:cover;
 
-  background-position:
-    57% 43%;
+  background-position:57% 43%;
 
-  transform:
-    scale(1.012);
+  transform:scale(1.012);
 
 }
 
@@ -569,27 +527,18 @@ main{
 
     linear-gradient(
       180deg,
-
       rgba(3,6,8,.02) 0%,
-
       rgba(3,6,8,.03) 35%,
-
       rgba(4,8,11,.15) 54%,
-
       rgba(4,8,11,.42) 69%,
-
       rgba(5,9,12,.77) 84%,
-
       #070c10 100%
     ),
 
     linear-gradient(
       90deg,
-
       rgba(3,6,8,.16) 0%,
-
       rgba(3,6,8,.05) 46%,
-
       transparent 70%
     );
 
@@ -602,10 +551,6 @@ main{
 
   z-index:2;
 
-  /*
-    IMPORTANT:
-    No fixed hero height here either.
-  */
   min-height:0;
 
   display:flex;
@@ -613,14 +558,11 @@ main{
   flex-direction:column;
 
   padding:
-
     calc(
       28px +
       env(safe-area-inset-top)
     )
-
     30px
-
     10px;
 
 }
@@ -683,8 +625,7 @@ main{
   width:13px;
   height:13px;
 
-  flex:
-    0 0 13px;
+  flex:0 0 13px;
 
   border:
     4px solid
@@ -703,7 +644,7 @@ main{
 
 
 /* =========================================================
-   TITLE
+   HERO TITLE
 ========================================================= */
 
 .trip-title-button{
@@ -720,8 +661,7 @@ main{
 
   outline:0;
 
-  background:
-    transparent;
+  background:transparent;
 
   color:#fff;
 
@@ -746,7 +686,6 @@ main{
     serif;
 
   font-size:
-
     clamp(
       40px,
       10vw,
@@ -793,11 +732,9 @@ main{
 
   border:0;
 
-  background:
-    transparent;
+  background:transparent;
 
-  color:
-    rgba(255,255,255,.88);
+  color:rgba(255,255,255,.88);
 
   font-size:8px;
 
@@ -813,8 +750,6 @@ main{
 
 }
 
-
-/* TRIPS: 1 / TRIPS: 2 */
 
 .trip-manage > span:first-child{
 
@@ -832,8 +767,6 @@ main{
 }
 
 
-/* DIVIDER */
-
 .trip-divider{
 
   color:var(--blush);
@@ -841,17 +774,12 @@ main{
 }
 
 
-/* MANAGE TRIP STAYS WHITE */
-
 #manageTripText{
 
-  color:
-    rgba(255,255,255,.94);
+  color:rgba(255,255,255,.94);
 
 }
 
-
-/* KEEP > CHEVRON */
 
 .manage-arrow{
 
@@ -877,8 +805,7 @@ main{
 
   margin-top:15px;
 
-  color:
-    rgba(255,255,255,.86);
+  color:rgba(255,255,255,.86);
 
   font-size:9px;
 
@@ -902,8 +829,7 @@ main{
 
   margin-top:7px;
 
-  color:
-    rgba(255,255,255,.78);
+  color:rgba(255,255,255,.78);
 
   font-size:8px;
 
@@ -937,9 +863,6 @@ main{
 
   min-height:30px;
 
-  /*
-    Close to the date above.
-  */
   margin-top:8px;
 
   padding:
@@ -955,8 +878,7 @@ main{
   background:
     rgba(31,13,15,.58);
 
-  color:
-    rgba(255,255,255,.90);
+  color:rgba(255,255,255,.90);
 
   font-size:8px;
 
@@ -966,11 +888,8 @@ main{
 
   white-space:nowrap;
 
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 
   box-shadow:none;
 
@@ -984,8 +903,7 @@ main{
 
 .hero-japanese{
 
-  flex:
-    0 0 48px;
+  flex:0 0 48px;
 
   display:flex;
 
@@ -995,8 +913,7 @@ main{
 
   padding-top:1px;
 
-  color:
-    rgba(255,255,255,.76);
+  color:rgba(255,255,255,.76);
 
   text-shadow:
     0 3px 15px
@@ -1007,8 +924,7 @@ main{
 
 .hero-japanese-main{
 
-  writing-mode:
-    vertical-rl;
+  writing-mode:vertical-rl;
 
   font-family:
     "Yu Mincho",
@@ -1029,8 +945,7 @@ main{
 
   margin-top:8px;
 
-  color:
-    rgba(255,255,255,.50);
+  color:rgba(255,255,255,.50);
 
   font-size:5px;
 
@@ -1047,19 +962,19 @@ main{
 ========================================================= */
 
 /*
-  THIS NOW CONTROLS THE GAP BETWEEN:
-
+  EXACT GAP BETWEEN:
   28 DAYS TO GO
-
   and
-
   YOUR JOURNEY
 */
 
 .hero-spacer{
 
-  flex:
-    0 0 130px;
+  flex:0 0 115px !important;
+
+  height:115px !important;
+
+  min-height:115px !important;
 
 }
 
@@ -1079,8 +994,7 @@ main{
 
 .hero-bottom-copy{
 
-  color:
-    rgba(255,255,255,.70);
+  color:rgba(255,255,255,.70);
 
   font-size:6px;
 
@@ -1097,8 +1011,7 @@ main{
 
   height:1px;
 
-  background:
-    rgba(255,255,255,.48);
+  background:rgba(255,255,255,.48);
 
 }
 
@@ -1117,7 +1030,6 @@ main{
   margin-top:0;
 
   padding:
-
     10px
     30px
     28px;
@@ -1165,8 +1077,7 @@ main{
 
   scrollbar-width:none;
 
-  scroll-snap-type:
-    x proximity;
+  scroll-snap-type:x proximity;
 
 }
 
@@ -1180,8 +1091,7 @@ main{
 
   position:relative;
 
-  flex:
-    0 0 68px;
+  flex:0 0 68px;
 
   height:76px;
 
@@ -1192,7 +1102,6 @@ main{
   border-radius:16px;
 
   background:
-
     linear-gradient(
       180deg,
       #101820,
@@ -1254,7 +1163,6 @@ main{
     rgba(255,107,104,.58);
 
   background:
-
     linear-gradient(
       145deg,
       rgba(255,107,104,.18),
@@ -1297,8 +1205,7 @@ main{
 
   background:#ff7773;
 
-  transform:
-    translateX(-50%);
+  transform:translateX(-50%);
 
 }
 
@@ -1439,7 +1346,6 @@ main{
   border-radius:19px;
 
   background:
-
     linear-gradient(
       145deg,
       #111920,
@@ -1468,7 +1374,6 @@ main{
   width:1px;
 
   background:
-
     linear-gradient(
       180deg,
       #ff7772,
@@ -1530,8 +1435,7 @@ main{
 
   border:0;
 
-  background:
-    transparent;
+  background:transparent;
 
   color:inherit;
 
@@ -1604,7 +1508,10 @@ main{
 
   font-size:6.4px;
 
-  font-weight:900;
+  /*
+    MEDIUM BOLD
+  */
+  font-weight:600;
 
   white-space:nowrap;
 
@@ -1625,6 +1532,10 @@ main{
     "Times New Roman",
     serif;
 
+  /*
+    AREA TITLE:
+    Higashiyama / Gion / Pontocho
+  */
   font-size:13px;
 
   font-weight:600;
@@ -1641,6 +1552,8 @@ main{
   color:#707d84;
 
   font-size:5.5px;
+
+  font-weight:400;
 
   line-height:1.35;
 
@@ -1659,8 +1572,7 @@ main{
 
   font-size:14px;
 
-  transition:
-    transform .18s;
+  transition:transform .18s;
 
 }
 
@@ -1668,8 +1580,7 @@ main{
 .place-group.open
 .place-group-chevron{
 
-  transform:
-    rotate(90deg);
+  transform:rotate(90deg);
 
 }
 
@@ -1767,7 +1678,10 @@ main{
 
   font-size:7px;
 
-  font-weight:900;
+  /*
+    MEDIUM BOLD
+  */
+  font-weight:600;
 
   line-height:1.35;
 
@@ -1783,9 +1697,13 @@ main{
 
   color:#eff1f0;
 
+  /*
+    INDIVIDUAL SCHEDULE ITEM:
+    Kiyomizu-dera / Sannenzaka etc.
+  */
   font-size:10px;
 
-  font-weight:900;
+  font-weight:600;
 
   line-height:1.35;
 
@@ -1801,6 +1719,8 @@ main{
   color:#69757d;
 
   font-size:7px;
+
+  font-weight:400;
 
   line-height:1.4;
 
@@ -1919,7 +1839,6 @@ main{
   border-radius:13px;
 
   background:
-
     linear-gradient(
       135deg,
       rgba(114,203,145,.08),
@@ -2008,8 +1927,7 @@ main{
 .food-nearby.open
 .food-arrow{
 
-  transform:
-    rotate(180deg);
+  transform:rotate(180deg);
 
 }
 
@@ -2246,11 +2164,8 @@ main{
   background:
     rgba(0,0,0,.66);
 
-  backdrop-filter:
-    blur(5px);
-
-  -webkit-backdrop-filter:
-    blur(5px);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
 
 }
 
@@ -2272,7 +2187,6 @@ main{
   max-width:620px;
 
   max-height:
-
     calc(
       90svh -
       env(safe-area-inset-top)
@@ -2296,7 +2210,6 @@ main{
     0;
 
   background:
-
     linear-gradient(
       180deg,
       #121a20,
@@ -2319,8 +2232,7 @@ main{
 
   from{
 
-    transform:
-      translateY(55px);
+    transform:translateY(55px);
 
     opacity:0;
 
@@ -2328,8 +2240,7 @@ main{
 
   to{
 
-    transform:
-      translateY(0);
+    transform:translateY(0);
 
     opacity:1;
 
@@ -2450,8 +2361,7 @@ main{
     1px solid
     rgba(255,255,255,.055);
 
-  background:
-    transparent;
+  background:transparent;
 
   color:#fff;
 
@@ -2582,10 +2492,8 @@ main{
 .switch-actions{
 
   padding:
-
     5px
     17px
-
     calc(
       17px +
       env(safe-area-inset-bottom)
@@ -2674,10 +2582,8 @@ main{
 .create-trip-form{
 
   padding:
-
     15px
     17px
-
     calc(
       18px +
       env(safe-area-inset-bottom)
@@ -2782,7 +2688,6 @@ main{
   border-radius:11px;
 
   background:
-
     linear-gradient(
       135deg,
       #ff756f,
@@ -2879,27 +2784,12 @@ main{
     min-height:0;
 
     padding:
-
       calc(
         20px +
         env(safe-area-inset-top)
       )
-
       30px
-
       10px;
-
-  }
-
-
-  /*
-    Slightly more scenery on mobile,
-    but still much smaller than before.
-  */
-  .hero-spacer{
-
-    flex:
-      0 0 105px;
 
   }
 
@@ -2909,7 +2799,6 @@ main{
     max-width:325px;
 
     font-size:
-
       clamp(
         38px,
         10.2vw,
@@ -2957,7 +2846,6 @@ main{
     max-width:290px;
 
     font-size:
-
       clamp(
         35px,
         10vw,
@@ -2972,14 +2860,6 @@ main{
     gap:9px;
 
     font-size:7px;
-
-  }
-
-
-  .hero-spacer{
-
-    flex:
-      0 0 95px;
 
   }
 
@@ -3006,14 +2886,8 @@ main{
 @media(max-width:360px){
 
   .hero-title{
+
     font-size:35px;
-  }
-
-
-  .hero-spacer{
-
-    flex:
-      0 0 85px;
 
   }
 
@@ -3031,7 +2905,9 @@ main{
 
 
   .journey-title{
+
     font-size:21px;
+
   }
 
 
@@ -3042,6 +2918,22 @@ main{
       10px;
 
   }
+
+}
+
+
+/* =========================================================
+   FINAL HERO GAP
+   ONE VALUE ON ALL SCREEN SIZES
+========================================================= */
+
+.hero-spacer{
+
+  flex:0 0 115px !important;
+
+  height:115px !important;
+
+  min-height:115px !important;
 
 }
 
@@ -3353,6 +3245,10 @@ main{
 
 
 
+  <!-- =====================================================
+       TRIP DAYS
+  ====================================================== -->
+
   <div class="date-section">
 
 
@@ -3370,6 +3266,10 @@ main{
   </div>
 
 
+
+  <!-- =====================================================
+       JOURNEY
+  ====================================================== -->
 
   <section class="journey-section">
 
@@ -3439,6 +3339,10 @@ main{
   </section>
 
 
+
+  <!-- =====================================================
+       FOOD FINDER
+  ====================================================== -->
 
   <div
     id="foodFinder"
@@ -3790,21 +3694,17 @@ let accessibleTrips = [];
 
 let scheduleRows = [];
 
-let placeMap =
-  new Map();
+let placeMap = new Map();
 
 let dayDates = [];
 
-let selectedDate =
-  null;
+let selectedDate = null;
 
 let openAreas = {};
 
-let nearbyLoaded =
-  false;
+let nearbyLoaded = false;
 
-let nearbyLoading =
-  false;
+let nearbyLoading = false;
 
 
 
@@ -4012,37 +3912,46 @@ function countryIcon(country){
     return "🇯🇵";
   }
 
+
   if(value.includes("singapore")){
     return "🇸🇬";
   }
+
 
   if(value.includes("taiwan")){
     return "🇹🇼";
   }
 
+
   if(value.includes("korea")){
     return "🇰🇷";
   }
+
 
   if(value.includes("china")){
     return "🇨🇳";
   }
 
+
   if(value.includes("thailand")){
     return "🇹🇭";
   }
+
 
   if(value.includes("malaysia")){
     return "🇲🇾";
   }
 
+
   if(value.includes("indonesia")){
     return "🇮🇩";
   }
 
+
   if(value.includes("italy")){
     return "🇮🇹";
   }
+
 
   if(value.includes("france")){
     return "🇫🇷";
@@ -4534,11 +4443,8 @@ function mapsHref(row){
 
 
   const address =
-
     row.address
-
     ||
-
     place?.address;
 
 
@@ -4832,7 +4738,6 @@ async function getAccessibleTrips(){
 
   .sort(
     (a,b) =>
-
 
       txt(
         a.start_date
@@ -5160,7 +5065,6 @@ async function loadCurrentTripData(){
 
   chooseInitialDate();
 
-
   renderHero();
 
   renderPage();
@@ -5284,7 +5188,6 @@ function renderHero(){
       "tripName"
     )
     .textContent =
-
       currentTrip.name
       ||
       "My Trip";
@@ -5296,7 +5199,6 @@ function renderHero(){
       "tripCount"
     )
     .textContent =
-
       String(
         accessibleTrips.length
       );
@@ -5326,11 +5228,8 @@ function renderHero(){
       "tripRoute"
     )
     .textContent =
-
       currentTrip.description
-
       ||
-
       country;
 
 
@@ -5362,15 +5261,10 @@ function renderHero(){
 
 
   const cover =
-
     currentTrip.cover_url
-
     ||
-
     currentTrip.hero_url
-
     ||
-
     DEFAULT_HERO;
 
 
@@ -5381,7 +5275,6 @@ function renderHero(){
     )
     .style
     .backgroundImage =
-
       `url("${cover}")`;
 
 
@@ -5576,7 +5469,6 @@ function renderHero(){
 
 
   document.title =
-
     `${
       currentTrip.name
       ||
@@ -5621,7 +5513,6 @@ function renderTripSwitcher(){
 
 
           return `
-
 
             <button
               class="
@@ -5746,7 +5637,6 @@ function renderTripSwitcher(){
 
             </button>
 
-
           `;
 
 
@@ -5820,9 +5710,7 @@ const switchTripBackdrop =
 
 function openTripSwitcher(){
 
-
   renderTripSwitcher();
-
 
   switchTripBackdrop
     .classList
@@ -5830,20 +5718,17 @@ function openTripSwitcher(){
       "open"
     );
 
-
 }
 
 
 
 function closeTripSwitcher(){
 
-
   switchTripBackdrop
     .classList
     .remove(
       "open"
     );
-
 
 }
 
@@ -5886,9 +5771,7 @@ switchTripBackdrop.onclick =
       switchTripBackdrop
     ){
 
-
       closeTripSwitcher();
-
 
     }
 
@@ -5915,13 +5798,11 @@ document
   .onclick =
     () => {
 
-
       firstTripCreateBackdrop
         .classList
         .add(
           "open"
         );
-
 
     };
 
@@ -5934,13 +5815,11 @@ document
   .onclick =
     () => {
 
-
       firstTripCreateBackdrop
         .classList
         .remove(
           "open"
         );
-
 
     };
 
@@ -5956,13 +5835,11 @@ firstTripCreateBackdrop.onclick =
       firstTripCreateBackdrop
     ){
 
-
       firstTripCreateBackdrop
         .classList
         .remove(
           "open"
         );
-
 
     }
 
@@ -6220,7 +6097,6 @@ document
 
 
             location.href =
-
               `${FIRST_TRIP_DESTINATION}?trip=${Number(
                 newTrip.id
               )}&first=1`;
@@ -6245,11 +6121,8 @@ document
 
 
         message.textContent =
-
           error.message
-
           ||
-
           "Could not create your trip.";
 
 
@@ -6349,14 +6222,9 @@ function groupPlaces(rows){
 
           currentGroup = {
 
+            name:area,
 
-            name:
-              area,
-
-
-            rows:
-              []
-
+            rows:[]
 
           };
 
@@ -6557,7 +6425,6 @@ function renderPlaceRow(row){
 
   return `
 
-
     <div class="place-row">
 
 
@@ -6652,7 +6519,6 @@ function renderPlaceRow(row){
 
     </div>
 
-
   `;
 
 }
@@ -6684,7 +6550,6 @@ function renderPlaceGroup(
 
 
   return `
-
 
     <div
       class="
@@ -6788,7 +6653,6 @@ function renderPlaceGroup(
 
 
     </div>
-
 
   `;
 
@@ -6898,7 +6762,6 @@ function renderPlaces(){
 
     holder.innerHTML = `
 
-
       <div class="journey-empty">
 
 
@@ -6916,7 +6779,6 @@ function renderPlaces(){
 
 
       </div>
-
 
     `;
 
@@ -7059,7 +6921,6 @@ function renderDates(){
       .map(
         date => `
 
-
           <button
             class="
               date-btn
@@ -7097,7 +6958,6 @@ function renderDates(){
 
 
           </button>
-
 
         `
       )
@@ -7147,18 +7007,11 @@ function renderDates(){
                   )
                   ?.scrollIntoView({
 
+                    behavior:"smooth",
 
-                    behavior:
-                      "smooth",
+                    block:"nearest",
 
-
-                    block:
-                      "nearest",
-
-
-                    inline:
-                      "center"
-
+                    inline:"center"
 
                   });
 
@@ -7186,15 +7039,12 @@ function renderDates(){
 
 function renderFullPlan(){
 
-
   document
     .getElementById(
       "fullPlan"
     )
     .href =
-
       `schedule.html?trip=${TRIP_ID}`;
-
 
 }
 
@@ -7206,13 +7056,11 @@ function renderFullPlan(){
 
 function renderFoodFinder(){
 
-
   document
     .getElementById(
       "foodFinder"
     )
     .innerHTML = `
-
 
       <button
         id="foodNearbyButton"
@@ -7275,7 +7123,6 @@ function renderFoodFinder(){
 
 
       </div>
-
 
     `;
 
@@ -7351,9 +7198,7 @@ function bindFoodFinder(){
         !nearbyLoading
       ){
 
-
         await loadNearbyFood();
-
 
       }
 
@@ -7533,7 +7378,6 @@ function renderFoodItem(item){
 
   return `
 
-
     <div class="nearby-item">
 
 
@@ -7624,7 +7468,6 @@ function renderFoodItem(item){
 
     </div>
 
-
   `;
 
 }
@@ -7706,28 +7549,19 @@ async function loadNearbyFood(){
           navigator.geolocation
             .getCurrentPosition(
 
-
               resolve,
-
 
               reject,
 
-
               {
 
-                enableHighAccuracy:
-                  true,
+                enableHighAccuracy:true,
 
+                timeout:12000,
 
-                timeout:
-                  12000,
-
-
-                maximumAge:
-                  60000
+                maximumAge:60000
 
               }
-
 
             );
 
@@ -7805,9 +7639,7 @@ async function loadNearbyFood(){
 
 
 
-      if(
-        ids.length
-      ){
+      if(ids.length){
 
 
         const restaurantResult =
@@ -7844,23 +7676,18 @@ async function loadNearbyFood(){
             .filter(
               restaurant =>
 
-
                 Number.isFinite(
-
                   Number(
                     restaurant.latitude
                   )
-
                 )
 
                 &&
 
                 Number.isFinite(
-
                   Number(
                     restaurant.longitude
                   )
-
                 )
 
             )
@@ -7923,7 +7750,6 @@ async function loadNearbyFood(){
 
             .filter(
               restaurant =>
-
                 restaurant.distance
                 <=
                 250
@@ -7931,7 +7757,6 @@ async function loadNearbyFood(){
 
             .sort(
               (a,b) =>
-
                 a.distance
                 -
                 b.distance
@@ -8010,8 +7835,7 @@ async function loadNearbyFood(){
                 },
 
 
-                radius:
-                  1800
+                radius:1800
 
 
               },
@@ -8026,8 +7850,7 @@ async function loadNearbyFood(){
               ],
 
 
-              maxResultCount:
-                8,
+              maxResultCount:8,
 
 
               rankPreference:
@@ -8196,7 +8019,6 @@ async function loadNearbyFood(){
 
     html += `
 
-
       <div class="nearby-section">
 
 
@@ -8236,13 +8058,11 @@ async function loadNearbyFood(){
 
       </div>
 
-
     `;
 
 
 
     html += `
-
 
       <div class="nearby-section">
 
@@ -8283,13 +8103,11 @@ async function loadNearbyFood(){
 
       </div>
 
-
     `;
 
 
 
     html += `
-
 
       <a
         class="nearby-more"
@@ -8299,7 +8117,6 @@ async function loadNearbyFood(){
         SEE MORE FOOD →
 
       </a>
-
 
     `;
 
@@ -8324,11 +8141,8 @@ async function loadNearbyFood(){
 
 
     status.textContent =
-
       error.message
-
       ||
-
       "Could not get your location.";
 
 
@@ -8354,18 +8168,13 @@ async function loadNearbyFood(){
 
 function renderPage(){
 
-
   renderDates();
-
 
   renderPlaces();
 
-
   renderFullPlan();
 
-
   renderFoodFinder();
-
 
 }
 
@@ -8442,13 +8251,10 @@ async function start(){
       );
 
 
-    if(
-      holder
-    ){
+    if(holder){
 
 
       holder.innerHTML = `
-
 
         <div class="error-card">
 
@@ -8463,7 +8269,6 @@ async function start(){
           )}
 
         </div>
-
 
       `;
 
