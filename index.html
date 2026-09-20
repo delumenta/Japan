@@ -55,7 +55,6 @@
 }
 
 
-
 /* =========================================================
    BASE
 ========================================================= */
@@ -64,11 +63,9 @@
   box-sizing:border-box;
 }
 
-
 html{
   scroll-behavior:smooth;
 }
-
 
 body{
 
@@ -99,29 +96,24 @@ body{
 
 }
 
-
 button,
 input,
 textarea{
   font:inherit;
 }
 
-
 button{
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
 
-
 a{
   color:inherit;
 }
 
-
 main{
 
   width:100%;
-
   max-width:920px;
 
   margin:auto;
@@ -135,7 +127,6 @@ main{
 }
 
 
-
 /* =========================================================
    VIEW STATES
 ========================================================= */
@@ -144,11 +135,9 @@ main{
   display:none;
 }
 
-
 #normalTripView.show{
   display:block;
 }
-
 
 .first-trip-view{
 
@@ -164,15 +153,12 @@ main{
 
 }
 
-
 .first-trip-view.show{
 
   display:flex;
-
   flex-direction:column;
 
 }
-
 
 
 /* =========================================================
@@ -186,13 +172,11 @@ main{
   inset:0;
 
   background-position:56% center;
-
   background-size:cover;
 
   transform:scale(1.015);
 
 }
-
 
 .first-trip-bg::after{
 
@@ -214,7 +198,6 @@ main{
 
 }
 
-
 .first-trip-inner{
 
   position:relative;
@@ -224,7 +207,6 @@ main{
   min-height:100svh;
 
   display:flex;
-
   flex-direction:column;
 
   padding:
@@ -241,7 +223,6 @@ main{
 }
 
 
-
 /* =========================================================
    FIRST TRIP MARK
 ========================================================= */
@@ -249,7 +230,6 @@ main{
 .first-trip-mark{
   color:rgba(255,255,255,.55);
 }
-
 
 .first-trip-mark-main{
 
@@ -264,7 +244,6 @@ main{
   line-height:1;
 
 }
-
 
 .first-trip-mark-sub{
 
@@ -285,7 +264,6 @@ main{
 }
 
 
-
 /* =========================================================
    FIRST TRIP CONTENT
 ========================================================= */
@@ -295,11 +273,9 @@ main{
   flex:1;
 
   display:flex;
-
   flex-direction:column;
 
   align-items:center;
-
   justify-content:center;
 
   padding-bottom:24px;
@@ -307,7 +283,6 @@ main{
   text-align:center;
 
 }
-
 
 .first-trip-logo-wrap{
 
@@ -317,7 +292,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   margin-bottom:22px;
@@ -339,17 +313,14 @@ main{
 
 }
 
-
 .first-trip-logo{
 
   width:100%;
-
   height:100%;
 
   object-fit:contain;
 
 }
-
 
 .first-trip-eyebrow{
 
@@ -362,7 +333,6 @@ main{
   letter-spacing:.20em;
 
 }
-
 
 .first-trip-title{
 
@@ -385,7 +355,6 @@ main{
 
 }
 
-
 .first-trip-text{
 
   max-width:310px;
@@ -400,11 +369,9 @@ main{
 
 }
 
-
 .first-trip-actions{
 
   width:100%;
-
   max-width:370px;
 
   display:grid;
@@ -415,7 +382,6 @@ main{
 
 }
 
-
 .first-trip-primary,
 .first-trip-secondary{
 
@@ -424,7 +390,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border-radius:999px;
@@ -438,7 +403,6 @@ main{
   letter-spacing:.04em;
 
 }
-
 
 .first-trip-primary{
 
@@ -461,7 +425,6 @@ main{
 
 }
 
-
 .first-trip-secondary{
 
   border:
@@ -477,7 +440,6 @@ main{
   -webkit-backdrop-filter:blur(9px);
 
 }
-
 
 
 /* =========================================================
@@ -496,7 +458,6 @@ main{
 
 }
 
-
 .hero-image{
 
   position:absolute;
@@ -510,7 +471,6 @@ main{
   transform:scale(1.012);
 
 }
-
 
 .hero-image::after{
 
@@ -543,7 +503,6 @@ main{
 
 }
 
-
 .hero-inner{
 
   position:relative;
@@ -553,7 +512,6 @@ main{
   min-height:0;
 
   display:flex;
-
   flex-direction:column;
 
   padding:
@@ -566,19 +524,16 @@ main{
 
 }
 
-
 .hero-top{
 
   display:flex;
 
   align-items:flex-start;
-
   justify-content:space-between;
 
   gap:16px;
 
 }
-
 
 .hero-copy{
 
@@ -587,7 +542,6 @@ main{
   min-width:0;
 
 }
-
 
 
 /* =========================================================
@@ -618,7 +572,6 @@ main{
 
 }
 
-
 .hero-country-dot{
 
   width:13px;
@@ -639,7 +592,6 @@ main{
     rgba(0,0,0,.28);
 
 }
-
 
 
 /* =========================================================
@@ -667,7 +619,6 @@ main{
   text-align:left;
 
 }
-
 
 .hero-title{
 
@@ -712,7 +663,6 @@ main{
 }
 
 
-
 /* =========================================================
    MANAGE TRIP
 ========================================================= */
@@ -749,27 +699,25 @@ main{
 
 }
 
-
 .trip-manage > span:first-child{
   color:var(--blush);
 }
 
-
 .trip-manage strong{
-  color:inherit;
-  font-weight:850;
-}
 
+  color:inherit;
+
+  font-weight:850;
+
+}
 
 .trip-divider{
   color:var(--blush);
 }
 
-
 #manageTripText{
   color:rgba(255,255,255,.94);
 }
-
 
 .manage-arrow{
 
@@ -784,7 +732,6 @@ main{
   letter-spacing:0;
 
 }
-
 
 
 /* =========================================================
@@ -808,7 +755,6 @@ main{
     rgba(0,0,0,.72);
 
 }
-
 
 
 /* =========================================================
@@ -836,7 +782,6 @@ main{
 }
 
 
-
 /* =========================================================
    COUNTDOWN
 ========================================================= */
@@ -846,7 +791,6 @@ main{
   display:inline-flex;
 
   align-items:center;
-
   justify-content:center;
 
   width:max-content;
@@ -884,7 +828,6 @@ main{
 }
 
 
-
 /* =========================================================
    JAPANESE DECORATION
 ========================================================= */
@@ -894,7 +837,6 @@ main{
   flex:0 0 48px;
 
   display:flex;
-
   flex-direction:column;
 
   align-items:center;
@@ -908,7 +850,6 @@ main{
     rgba(0,0,0,.75);
 
 }
-
 
 .hero-japanese-main{
 
@@ -928,7 +869,6 @@ main{
 
 }
 
-
 .hero-japanese-sub{
 
   margin-top:8px;
@@ -944,15 +884,8 @@ main{
 }
 
 
-
 /* =========================================================
    HERO GAP
-
-   28 DAYS TO GO
-   ↓
-   180PX
-   ↓
-   YOUR JOURNEY
 ========================================================= */
 
 .hero-spacer{
@@ -960,7 +893,6 @@ main{
   flex:0 0 180px;
 
 }
-
 
 
 /* =========================================================
@@ -972,13 +904,11 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:14px;
 
 }
-
 
 .hero-bottom-copy{
 
@@ -992,7 +922,6 @@ main{
 
 }
 
-
 .hero-bottom-line{
 
   width:59px;
@@ -1002,7 +931,6 @@ main{
   background:rgba(255,255,255,.48);
 
 }
-
 
 
 /* =========================================================
@@ -1025,7 +953,6 @@ main{
 }
 
 
-
 /* =========================================================
    TRIP DAYS
 ========================================================= */
@@ -1033,7 +960,6 @@ main{
 .date-section{
   margin-top:0;
 }
-
 
 .date-section-label{
 
@@ -1052,7 +978,6 @@ main{
 
 }
 
-
 .date-scroll{
 
   display:flex;
@@ -1069,11 +994,9 @@ main{
 
 }
 
-
 .date-scroll::-webkit-scrollbar{
   display:none;
 }
-
 
 .date-btn{
 
@@ -1102,7 +1025,6 @@ main{
 
 }
 
-
 .date-btn .num{
 
   display:block;
@@ -1122,7 +1044,6 @@ main{
 
 }
 
-
 .date-btn .dow{
 
   display:block;
@@ -1139,7 +1060,6 @@ main{
 
 }
 
-
 .date-btn.active{
 
   border-color:
@@ -1154,16 +1074,13 @@ main{
 
 }
 
-
 .date-btn.active .num{
   color:#ffc0bc;
 }
 
-
 .date-btn.active .dow{
   color:#ff9994;
 }
-
 
 .date-btn.active::after{
 
@@ -1187,7 +1104,6 @@ main{
 }
 
 
-
 /* =========================================================
    JOURNEY HEADER
 ========================================================= */
@@ -1196,13 +1112,11 @@ main{
   margin-top:25px;
 }
 
-
 .journey-head{
 
   display:flex;
 
   align-items:flex-end;
-
   justify-content:space-between;
 
   gap:12px;
@@ -1210,7 +1124,6 @@ main{
   margin-bottom:13px;
 
 }
-
 
 .journey-eyebrow{
 
@@ -1225,7 +1138,6 @@ main{
   letter-spacing:.20em;
 
 }
-
 
 .journey-title{
 
@@ -1246,7 +1158,6 @@ main{
 
 }
 
-
 .journey-date{
 
   margin-top:7px;
@@ -1257,7 +1168,6 @@ main{
 
 }
 
-
 .full-plan{
 
   flex:0 0 auto;
@@ -1267,7 +1177,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   padding:
@@ -1295,7 +1204,6 @@ main{
 
 }
 
-
 .full-plan span{
 
   margin-left:6px;
@@ -1305,12 +1213,8 @@ main{
 }
 
 
-
 /* =========================================================
    JOURNEY CARD
-
-   LOCKED GRID:
-   marker | time | title
 ========================================================= */
 
 .journey-card{
@@ -1318,9 +1222,13 @@ main{
   position:relative;
 
   --left-pad:16px;
+
   --marker-col:20px;
+
   --time-col:78px;
+
   --column-gap:7px;
+
   --right-space:42px;
 
   overflow:hidden;
@@ -1345,15 +1253,10 @@ main{
 }
 
 
-
 /* =========================================================
-   VERTICAL TIMELINE LINE
+   TIMELINE LINE
 
-   16px left padding
-   +
-   10px half of marker column
-   =
-   26px exact center
+   VISUAL CENTER = 25PX
 ========================================================= */
 
 .journey-card.has-groups::before{
@@ -1365,7 +1268,11 @@ main{
   top:26px;
   bottom:26px;
 
-  left:26px;
+  /*
+    Browser visual alignment:
+    circles render centred at 25px
+  */
+  left:25px;
 
   width:1px;
 
@@ -1380,7 +1287,6 @@ main{
   pointer-events:none;
 
 }
-
 
 
 /* =========================================================
@@ -1399,11 +1305,9 @@ main{
 
 }
 
-
 .place-group:last-child{
   border-bottom:0;
 }
-
 
 
 /* =========================================================
@@ -1446,9 +1350,8 @@ main{
 }
 
 
-
 /* =========================================================
-   ALL TIMELINE MARKERS
+   MARKER CONTAINERS
 ========================================================= */
 
 .area-marker,
@@ -1461,17 +1364,15 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
 }
 
 
-
 /* =========================================================
-   ALL DOTS IDENTICAL
+   ALL TIMELINE CIRCLES
 
-   This fixes the "buttons" looking different.
+   EXACTLY THE SAME SIZE + STYLE
 ========================================================= */
 
 .area-dot,
@@ -1484,8 +1385,10 @@ main{
   width:7px;
   height:7px;
 
-  flex:
-    0 0 7px;
+  min-width:7px;
+  min-height:7px;
+
+  flex:0 0 7px;
 
   border:
     1.5px solid
@@ -1503,8 +1406,7 @@ main{
 
 
 /*
-   Keep group dots hollow too.
-   No filled/open dot difference.
+  Area markers remain hollow even when opened
 */
 
 .place-group.open
@@ -1513,7 +1415,6 @@ main{
   background:#10171d;
 
 }
-
 
 
 /* =========================================================
@@ -1537,7 +1438,6 @@ main{
 }
 
 
-
 /* =========================================================
    GROUP TITLE
 ========================================================= */
@@ -1549,7 +1449,6 @@ main{
   min-width:0;
 
 }
-
 
 .place-group-name{
 
@@ -1568,7 +1467,6 @@ main{
 
 }
 
-
 .place-group-meta{
 
   margin-top:4px;
@@ -1582,7 +1480,6 @@ main{
   line-height:1.35;
 
 }
-
 
 
 /* =========================================================
@@ -1603,7 +1500,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   color:#a0a9ae;
@@ -1620,7 +1516,6 @@ main{
 
 }
 
-
 .place-group.open
 .place-group-chevron{
 
@@ -1629,7 +1524,6 @@ main{
     rotate(90deg);
 
 }
-
 
 
 /* =========================================================
@@ -1648,18 +1542,14 @@ main{
 
 }
 
-
 .place-group.open
 .place-list{
   display:block;
 }
 
 
-
 /* =========================================================
-   INDIVIDUAL SCHEDULE ROW
-
-   EXACT SAME GRID AS HEADER
+   INDIVIDUAL PLACE ROW
 ========================================================= */
 
 .place-row{
@@ -1692,7 +1582,6 @@ main{
 }
 
 
-
 /* =========================================================
    ITEM TIME
 ========================================================= */
@@ -1714,7 +1603,6 @@ main{
 }
 
 
-
 /* =========================================================
    ITEM CONTENT
 ========================================================= */
@@ -1727,7 +1615,6 @@ main{
 
 }
 
-
 .place-name{
 
   color:#eff1f0;
@@ -1735,16 +1622,14 @@ main{
   font-size:10px;
 
   /*
-    Slightly lighter than the old 500/600.
-    This visually matches the Georgia heading better.
+    Keeps Kiyomizu / Sannenzaka from
+    looking heavier than Higashiyama.
   */
-
   font-weight:400;
 
   line-height:1.35;
 
 }
-
 
 .place-note{
 
@@ -1768,7 +1653,6 @@ main{
 }
 
 
-
 /* =========================================================
    FIXED MAP LINK
 ========================================================= */
@@ -1787,7 +1671,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   transform:
@@ -1800,7 +1683,6 @@ main{
   opacity:.72;
 
 }
-
 
 
 /* =========================================================
@@ -1817,7 +1699,6 @@ main{
 
 }
 
-
 .journey-empty-title{
 
   color:#e6e5e1;
@@ -1832,7 +1713,6 @@ main{
   font-weight:700;
 
 }
-
 
 .journey-empty-sub{
 
@@ -1852,7 +1732,6 @@ main{
 }
 
 
-
 /* =========================================================
    FOOD FINDER
 ========================================================= */
@@ -1860,7 +1739,6 @@ main{
 .food-section{
   margin-top:15px;
 }
-
 
 .food-nearby{
 
@@ -1871,7 +1749,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:10px;
@@ -1897,7 +1774,6 @@ main{
 
 }
 
-
 .food-left{
 
   display:flex;
@@ -1910,7 +1786,6 @@ main{
 
 }
 
-
 .food-icon{
 
   width:31px;
@@ -1919,7 +1794,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border:
@@ -1935,7 +1809,6 @@ main{
 
 }
 
-
 .food-title{
 
   color:#a4e4b8;
@@ -1948,7 +1821,6 @@ main{
 
 }
 
-
 .food-sub{
 
   margin-top:3px;
@@ -1958,7 +1830,6 @@ main{
   font-size:6px;
 
 }
-
 
 .food-arrow{
 
@@ -1970,14 +1841,12 @@ main{
 
 }
 
-
 .food-nearby.open
 .food-arrow{
 
   transform:rotate(180deg);
 
 }
-
 
 
 /* =========================================================
@@ -2003,11 +1872,9 @@ main{
 
 }
 
-
 .nearby-panel.show{
   display:block;
 }
-
 
 .nearby-status{
 
@@ -2019,21 +1886,17 @@ main{
 
 }
 
-
 .nearby-status.error{
   color:#ffc4c0;
 }
-
 
 .nearby-section{
   margin-top:8px;
 }
 
-
 .nearby-section:first-child{
   margin-top:0;
 }
-
 
 .nearby-section-title{
 
@@ -2048,7 +1911,6 @@ main{
   letter-spacing:.08em;
 
 }
-
 
 .nearby-item{
 
@@ -2070,7 +1932,6 @@ main{
 
 }
 
-
 .nearby-item-main{
 
   flex:1;
@@ -2078,7 +1939,6 @@ main{
   min-width:0;
 
 }
-
 
 .nearby-item-name{
 
@@ -2090,7 +1950,6 @@ main{
 
 }
 
-
 .nearby-item-meta{
 
   margin-top:2px;
@@ -2101,7 +1960,6 @@ main{
 
 }
 
-
 .nearby-map{
 
   width:21px;
@@ -2110,7 +1968,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   text-decoration:none;
@@ -2119,7 +1976,6 @@ main{
 
 }
 
-
 .nearby-more{
 
   min-height:33px;
@@ -2127,7 +1983,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   margin-top:7px;
@@ -2147,7 +2002,6 @@ main{
   font-weight:900;
 
 }
-
 
 
 /* =========================================================
@@ -2170,7 +2024,6 @@ main{
 
 }
 
-
 .error-card{
 
   margin:10px 0;
@@ -2188,7 +2041,6 @@ main{
   font-size:8px;
 
 }
-
 
 
 /* =========================================================
@@ -2215,16 +2067,13 @@ main{
 
 }
 
-
 .bottom-backdrop.open{
   display:flex;
 }
 
-
 .bottom-sheet{
 
   width:100%;
-
   max-width:620px;
 
   max-height:
@@ -2268,7 +2117,6 @@ main{
 
 }
 
-
 @keyframes sheetUp{
 
   from{
@@ -2283,11 +2131,9 @@ main{
 
 }
 
-
 .sheet-handle{
 
   width:42px;
-
   height:4px;
 
   margin:
@@ -2301,13 +2147,11 @@ main{
 
 }
 
-
 .sheet-head{
 
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:10px;
@@ -2323,7 +2167,6 @@ main{
 
 }
 
-
 .sheet-title{
 
   font-family:
@@ -2336,7 +2179,6 @@ main{
   font-weight:700;
 
 }
-
 
 .sheet-close{
 
@@ -2356,7 +2198,6 @@ main{
 }
 
 
-
 /* =========================================================
    TRIP SWITCHER
 ========================================================= */
@@ -2368,7 +2209,6 @@ main{
     0;
 
 }
-
 
 .switch-trip-item{
 
@@ -2403,14 +2243,12 @@ main{
 
 }
 
-
 .switch-trip-item.current{
 
   background:
     rgba(255,107,104,.035);
 
 }
-
 
 .switch-trip-icon{
 
@@ -2420,7 +2258,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border:
@@ -2435,11 +2272,9 @@ main{
 
 }
 
-
 .switch-trip-main{
   min-width:0;
 }
-
 
 .switch-trip-name{
 
@@ -2450,7 +2285,6 @@ main{
   font-weight:900;
 
 }
-
 
 .switch-trip-route{
 
@@ -2468,7 +2302,6 @@ main{
 
 }
 
-
 .switch-trip-dates{
 
   margin-top:4px;
@@ -2479,7 +2312,6 @@ main{
 
 }
 
-
 .switch-trip-select{
 
   width:20px;
@@ -2488,7 +2320,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border:
@@ -2503,7 +2334,6 @@ main{
 
 }
 
-
 .switch-trip-item.current
 .switch-trip-select{
 
@@ -2514,7 +2344,6 @@ main{
   color:#28100e;
 
 }
-
 
 
 /* =========================================================
@@ -2532,7 +2361,6 @@ main{
     );
 
 }
-
 
 .switch-action{
 
@@ -2554,11 +2382,9 @@ main{
 
 }
 
-
 .switch-action:last-child{
   border-bottom:0;
 }
-
 
 .switch-action-icon{
 
@@ -2568,7 +2394,6 @@ main{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   border:
@@ -2584,7 +2409,6 @@ main{
 
 }
 
-
 .switch-action-main{
 
   flex:1;
@@ -2595,7 +2419,6 @@ main{
 
 }
 
-
 .switch-action-arrow{
 
   color:#65727b;
@@ -2603,7 +2426,6 @@ main{
   font-size:15px;
 
 }
-
 
 
 /* =========================================================
@@ -2622,11 +2444,9 @@ main{
 
 }
 
-
 .create-field{
   margin-bottom:10px;
 }
-
 
 .create-field label{
 
@@ -2643,7 +2463,6 @@ main{
   letter-spacing:.05em;
 
 }
-
 
 .create-field input,
 .create-field textarea{
@@ -2672,7 +2491,6 @@ main{
 
 }
 
-
 .create-field textarea{
 
   min-height:70px;
@@ -2681,7 +2499,6 @@ main{
 
 }
 
-
 .create-field input:focus,
 .create-field textarea:focus{
 
@@ -2689,7 +2506,6 @@ main{
     rgba(255,107,104,.42);
 
 }
-
 
 .create-date-row{
 
@@ -2702,7 +2518,6 @@ main{
   gap:9px;
 
 }
-
 
 .create-trip-submit{
 
@@ -2733,11 +2548,9 @@ main{
 
 }
 
-
 .create-trip-submit:disabled{
   opacity:.5;
 }
-
 
 .create-message{
 
@@ -2755,7 +2568,6 @@ main{
 
 }
 
-
 .create-message.error{
 
   display:block;
@@ -2770,7 +2582,6 @@ main{
   color:#f5aaa5;
 
 }
-
 
 .create-message.success{
 
@@ -2788,7 +2599,6 @@ main{
 }
 
 
-
 /* =========================================================
    MOBILE
 ========================================================= */
@@ -2799,11 +2609,9 @@ main{
     min-height:0;
   }
 
-
   .hero-image{
     background-position:58% 43%;
   }
-
 
   .hero-inner{
 
@@ -2819,7 +2627,6 @@ main{
 
   }
 
-
   .hero-title{
 
     max-width:325px;
@@ -2833,7 +2640,6 @@ main{
 
   }
 
-
   .content{
 
     padding-left:30px;
@@ -2841,7 +2647,6 @@ main{
     padding-right:30px;
 
   }
-
 
   .date-btn{
 
@@ -2854,7 +2659,6 @@ main{
 }
 
 
-
 @media(max-width:390px){
 
   .hero-inner,
@@ -2865,7 +2669,6 @@ main{
     padding-right:22px;
 
   }
-
 
   .hero-title{
 
@@ -2880,7 +2683,6 @@ main{
 
   }
 
-
   .trip-manage{
 
     gap:9px;
@@ -2889,7 +2691,6 @@ main{
 
   }
 
-
   .date-btn{
 
     flex-basis:62px;
@@ -2897,7 +2698,6 @@ main{
     height:69px;
 
   }
-
 
   .journey-title{
 
@@ -2908,23 +2708,19 @@ main{
 }
 
 
-
 @media(max-width:360px){
 
   .hero-title{
     font-size:35px;
   }
 
-
   .journey-card{
     --time-col:72px;
   }
 
-
   .journey-title{
     font-size:21px;
   }
-
 
   .full-plan{
     padding:0 10px;
@@ -2941,7 +2737,6 @@ main{
 
 
 <main>
-
 
 
 <!-- =========================================================
@@ -2996,19 +2791,25 @@ main{
 
 
       <div class="first-trip-title">
+
         Create your<br>
         first trip
+
       </div>
 
 
       <div class="first-trip-text">
+
         You don’t have any trips yet.<br>
+
         Start planning your itinerary,
         food, bookings and places.
+
       </div>
 
 
       <div class="first-trip-actions">
+
 
         <button
           id="openFirstTripCreate"
@@ -3026,6 +2827,7 @@ main{
           VIEW TRIPS →
         </a>
 
+
       </div>
 
 
@@ -3033,6 +2835,7 @@ main{
 
 
   </div>
+
 
 </section>
 
@@ -3294,6 +3097,7 @@ main{
   class="bottom-backdrop"
 >
 
+
   <div class="bottom-sheet">
 
 
@@ -3371,6 +3175,7 @@ main{
 
   </div>
 
+
 </div>
 
 
@@ -3383,6 +3188,7 @@ main{
   id="firstTripCreateBackdrop"
   class="bottom-backdrop"
 >
+
 
   <div class="bottom-sheet">
 
@@ -3511,6 +3317,7 @@ main{
 
 
   </div>
+
 
 </div>
 
@@ -3654,15 +3461,14 @@ function shortDate(value){
 
 
   return parseDate(value)
-
-  .toLocaleDateString(
-    "en-SG",
-    {
-      day:"numeric",
-      month:"short",
-      year:"numeric"
-    }
-  );
+    .toLocaleDateString(
+      "en-SG",
+      {
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+      }
+    );
 
 }
 
@@ -3670,16 +3476,15 @@ function shortDate(value){
 function fullDate(value){
 
   return parseDate(value)
-
-  .toLocaleDateString(
-    "en-SG",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"long",
-      year:"numeric"
-    }
-  );
+    .toLocaleDateString(
+      "en-SG",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    );
 
 }
 
@@ -3691,19 +3496,19 @@ function weekday(
 
   return parseDate(value)
 
-  .toLocaleDateString(
-    "en-SG",
-    {
-      weekday:
-        long
-        ?
-        "long"
-        :
-        "short"
-    }
-  )
+    .toLocaleDateString(
+      "en-SG",
+      {
+        weekday:
+          long
+          ?
+          "long"
+          :
+          "short"
+      }
+    )
 
-  .toUpperCase();
+    .toUpperCase();
 
 }
 
@@ -4064,7 +3869,7 @@ function timeText(row){
 
 
 /* =========================================================
-   PLACES
+   PLACE HELPERS
 ========================================================= */
 
 function rowPlace(row){
@@ -4113,7 +3918,7 @@ function rowArea(row){
 
 
 /* =========================================================
-   MAP URL
+   MAP
 ========================================================= */
 
 function mapsHref(row){
@@ -4211,6 +4016,7 @@ function isHomePlace(row){
 
 
   const excluded = [
+
     "transport",
     "hotel",
     "restaurant",
@@ -4218,6 +4024,7 @@ function isHomePlace(row){
     "meal",
     "flight",
     "reminder"
+
   ];
 
 
