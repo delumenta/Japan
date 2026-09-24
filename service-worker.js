@@ -1,4 +1,4 @@
-const CACHE_NAME = "travel-shell-v1";
+const CACHE_NAME = "travel-shell-v2";
 
 const APP_SHELL = [
   "./",
