@@ -954,6 +954,118 @@ main{
 
 
 /* =========================================================
+   NEW TRIP SETUP GUIDE
+========================================================= */
+
+.setup-guide{
+  margin:0 0 24px;
+  padding:18px;
+  border:1px solid rgba(255,107,104,.24);
+  border-radius:19px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,107,104,.09),transparent 34%),
+    linear-gradient(145deg,#111920,#090f14);
+  box-shadow:0 16px 36px rgba(0,0,0,.16);
+}
+
+.setup-guide[hidden]{
+  display:none;
+}
+
+.setup-guide-kicker{
+  color:#ef8e89;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+.setup-guide-title{
+  margin-top:7px;
+  color:#faf7f2;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:24px;
+  font-weight:700;
+  line-height:1.05;
+}
+
+.setup-guide-copy{
+  max-width:520px;
+  margin-top:8px;
+  color:#8f9aa2;
+  font-size:8px;
+  line-height:1.6;
+}
+
+.setup-guide-steps{
+  display:grid;
+  gap:7px;
+  margin-top:15px;
+}
+
+.setup-step{
+  display:grid;
+  grid-template-columns:28px minmax(0,1fr) auto;
+  gap:9px;
+  align-items:center;
+  min-height:54px;
+  padding:9px 10px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:13px;
+  background:rgba(255,255,255,.018);
+  color:inherit;
+  text-decoration:none;
+}
+
+.setup-step-number{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,107,104,.22);
+  border-radius:9px;
+  background:rgba(255,107,104,.055);
+  color:#efa29d;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:13px;
+  font-weight:700;
+}
+
+.setup-step-title{
+  color:#f4f1ec;
+  font-size:9px;
+  font-weight:850;
+}
+
+.setup-step-sub{
+  margin-top:3px;
+  color:#738089;
+  font-size:6.5px;
+  line-height:1.4;
+}
+
+.setup-step-arrow{
+  color:#d98f8a;
+  font-size:17px;
+}
+
+.setup-guide-primary{
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:12px;
+  border:1px solid rgba(255,107,104,.55);
+  border-radius:12px;
+  background:rgba(255,107,104,.10);
+  color:#f1aaa5;
+  text-decoration:none;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.05em;
+}
+
+/* =========================================================
    TRIP DAYS
 ========================================================= */
 
@@ -2992,6 +3104,81 @@ main{
 
 
 <section class="content">
+
+
+  <section
+    id="setupGuide"
+    class="setup-guide"
+    hidden
+  >
+
+    <div class="setup-guide-kicker">
+      YOUR TRIP IS READY
+    </div>
+
+    <div class="setup-guide-title">
+      Let’s build it.
+    </div>
+
+    <div
+      id="setupGuideCopy"
+      class="setup-guide-copy"
+    >
+      Start with your days, then add the reservations you already have and save food you want to try.
+    </div>
+
+    <div class="setup-guide-steps">
+
+      <a
+        id="setupPlanLink"
+        class="setup-step"
+        href="schedule.html"
+      >
+        <span class="setup-step-number">1</span>
+        <span>
+          <span class="setup-step-title">Plan your days</span>
+          <span class="setup-step-sub">Add places, meals and anything you want to do.</span>
+        </span>
+        <span class="setup-step-arrow">›</span>
+      </a>
+
+      <a
+        id="setupBookingLink"
+        class="setup-step"
+        href="bookings.html"
+      >
+        <span class="setup-step-number">2</span>
+        <span>
+          <span class="setup-step-title">Add your bookings</span>
+          <span class="setup-step-sub">Keep hotels, transport and tickets together.</span>
+        </span>
+        <span class="setup-step-arrow">›</span>
+      </a>
+
+      <a
+        id="setupFoodLink"
+        class="setup-step"
+        href="food.html"
+      >
+        <span class="setup-step-number">3</span>
+        <span>
+          <span class="setup-step-title">Find food</span>
+          <span class="setup-step-sub">Discover restaurants and save them to this trip.</span>
+        </span>
+        <span class="setup-step-arrow">›</span>
+      </a>
+
+    </div>
+
+    <a
+      id="setupStartLink"
+      class="setup-guide-primary"
+      href="schedule.html"
+    >
+      START PLANNING →
+    </a>
+
+  </section>
 
 
   <div class="date-section">
@@ -7234,10 +7421,96 @@ async function loadNearbyFood(){
 
 
 /* =========================================================
+   NEW TRIP SETUP GUIDE
+========================================================= */
+
+function renderSetupGuide(){
+
+  const guide =
+    document.getElementById(
+      "setupGuide"
+    );
+
+
+  if(!guide){
+    return;
+  }
+
+
+  const isNewTrip =
+    scheduleRows.length === 0;
+
+
+  guide.hidden =
+    !isNewTrip;
+
+
+  if(!isNewTrip){
+    return;
+  }
+
+
+  const suffix =
+    `?trip=${TRIP_ID}`;
+
+
+  document.getElementById(
+    "setupPlanLink"
+  ).href =
+    `schedule.html${suffix}`;
+
+
+  document.getElementById(
+    "setupBookingLink"
+  ).href =
+    `bookings.html${suffix}`;
+
+
+  document.getElementById(
+    "setupFoodLink"
+  ).href =
+    `food.html${suffix}`;
+
+
+  document.getElementById(
+    "setupStartLink"
+  ).href =
+    `schedule.html${suffix}`;
+
+
+  const copy =
+    document.getElementById(
+      "setupGuideCopy"
+    );
+
+
+  if(copy){
+
+    const tripLabel =
+      currentTrip?.name
+      ?
+      `${currentTrip.name} is ready. `
+      :
+      "";
+
+
+    copy.textContent =
+      tripLabel +
+      "Start with your days, then add the reservations you already have and save food you want to try.";
+
+  }
+
+}
+
+
+
+/* =========================================================
    PAGE RENDER
 ========================================================= */
 
 function renderPage(){
+
+  renderSetupGuide();
 
   renderDates();
 
