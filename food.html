@@ -612,6 +612,38 @@ header::after{
 
 
 /* =========================================================
+   COUNTRY LIBRARY NOTICE
+========================================================= */
+
+.country-library-notice{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:10px 20px 0;
+  padding:9px 10px;
+  border:1px solid rgba(228,189,105,.20);
+  border-radius:10px;
+  background:rgba(228,189,105,.045);
+  color:#b9a77c;
+  font-size:6.7px;
+  line-height:1.45;
+}
+
+.country-library-notice[hidden]{
+  display:none;
+}
+
+.country-library-notice a{
+  flex:0 0 auto;
+  color:#dfbf76;
+  font-size:6.3px;
+  font-weight:900;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+/* =========================================================
    FILTERS
 ========================================================= */
 
@@ -2729,6 +2761,16 @@ gmp-place-autocomplete{
     </div>
 
 
+    <div
+      id="countryLibraryNotice"
+      class="country-library-notice"
+      hidden
+    >
+      <span id="countryLibraryNoticeText"></span>
+      <a href="trips.html">EDIT TRIP →</a>
+    </div>
+
+
     <!-- =====================================================
          FILTERS
     ====================================================== -->
@@ -3391,6 +3433,10 @@ let scheduleRows =
 
 let currentUser =
   null;
+
+
+let countryLibraryFallback =
+  false;
 
 
 
@@ -4937,18 +4983,24 @@ async function loadData(){
     }
 
 
-    restaurants =
+    const allRestaurants =
       restaurantResult.data
       ||
       [];
 
 
-    /*
-      Keep restaurants belonging to the
-      current trip country.
+    restaurants =
+      allRestaurants.slice();
 
-      Older restaurants without a country
-      remain visible for compatibility.
+
+    countryLibraryFallback =
+      false;
+
+
+    /*
+      Use the trip country when the library has an exact match.
+      If an older trip contains a typo/unknown country, keep the
+      master library visible instead of making the data look lost.
     */
 
 
@@ -4963,35 +5015,49 @@ async function loadData(){
         );
 
 
-      restaurants =
-        restaurants.filter(
-          restaurant => {
-
-
-            if(
-              !restaurant.country
-            ){
-
-              return true;
-
-            }
-
-
-            return (
-
-              norm(
-                restaurant.country
-              )
-
-              ===
-
-              country
-
-            );
-
-
-          }
+      const exactCountry =
+        allRestaurants.filter(
+          restaurant =>
+            restaurant.country
+            &&
+            norm(
+              restaurant.country
+            )
+            ===
+            country
         );
+
+
+      const uncategorised =
+        allRestaurants.filter(
+          restaurant =>
+            !restaurant.country
+        );
+
+
+      if(
+        exactCountry.length
+      ){
+
+        restaurants = [
+          ...exactCountry,
+          ...uncategorised
+        ];
+
+      }
+
+      else if(
+        allRestaurants.length
+      ){
+
+        restaurants =
+          allRestaurants.slice();
+
+
+        countryLibraryFallback =
+          true;
+
+      }
 
 
     }
@@ -5096,6 +5162,8 @@ async function loadData(){
 
     }
 
+
+    renderCountryLibraryNotice();
 
     createCityChips();
 
@@ -5339,6 +5407,50 @@ allFoodStatusRow
 
     }
   );
+
+
+
+/* =========================================================
+   COUNTRY LIBRARY NOTICE
+========================================================= */
+
+function renderCountryLibraryNotice(){
+
+  const notice =
+    document.getElementById(
+      "countryLibraryNotice"
+    );
+
+
+  const copy =
+    document.getElementById(
+      "countryLibraryNoticeText"
+    );
+
+
+  if(
+    !notice
+    ||
+    !copy
+  ){
+    return;
+  }
+
+
+  notice.hidden =
+    !countryLibraryFallback;
+
+
+  if(
+    countryLibraryFallback
+  ){
+
+    copy.textContent =
+      `No restaurant library matched "${trip?.country || ""}". Showing all restaurants so your saved library stays accessible.`;
+
+  }
+
+}
 
 
 
