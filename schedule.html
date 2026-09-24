@@ -3150,6 +3150,10 @@ let places = [];
 
 let restaurants = [];
 
+let placeCountryFallback = false;
+
+let restaurantCountryFallback = false;
+
 let groupedDays = {};
 
 let selectedDate = null;
@@ -3996,6 +4000,89 @@ async function loadData(){
     restaurants =
       restaurantResult.data ||
       [];
+
+
+    placeCountryFallback =
+      false;
+
+
+    restaurantCountryFallback =
+      false;
+
+
+    /*
+      If an older trip has a typo or a country value that does not
+      match the master library, do not make saved data appear lost.
+      Fall back to the full reusable library instead.
+    */
+
+
+    if(
+      trip.country
+      &&
+      !places.length
+    ){
+
+      const fallbackPlaces =
+        await db
+          .from("places")
+          .select("*")
+          .order(
+            "name",
+            {
+              ascending:true
+            }
+          );
+
+
+      if(fallbackPlaces.error){
+        throw fallbackPlaces.error;
+      }
+
+
+      places =
+        fallbackPlaces.data ||
+        [];
+
+
+      placeCountryFallback =
+        true;
+
+    }
+
+
+    if(
+      trip.country
+      &&
+      !restaurants.length
+    ){
+
+      const fallbackRestaurants =
+        await db
+          .from("restaurants")
+          .select("*")
+          .order(
+            "name",
+            {
+              ascending:true
+            }
+          );
+
+
+      if(fallbackRestaurants.error){
+        throw fallbackRestaurants.error;
+      }
+
+
+      restaurants =
+        fallbackRestaurants.data ||
+        [];
+
+
+      restaurantCountryFallback =
+        true;
+
+    }
 
 
     buildDays();
@@ -5679,6 +5766,10 @@ function setFormType(type){
 
 
     entityPickerSub.textContent =
+      placeCountryFallback
+      ?
+      `No saved places matched "${trip?.country || ""}" — showing all saved places.`
+      :
       trip?.country
       ?
       `Showing saved places for ${trip.country}.`
@@ -5711,6 +5802,10 @@ function setFormType(type){
 
 
     entityPickerSub.textContent =
+      restaurantCountryFallback
+      ?
+      `No restaurants matched "${trip?.country || ""}" — showing all saved restaurants.`
+      :
       trip?.country
       ?
       `Showing restaurants for ${trip.country}.`
