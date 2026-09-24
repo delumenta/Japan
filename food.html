@@ -3384,6 +3384,7 @@ gmp-place-autocomplete{
 ></script>
 
 <script src="supabase.js"></script>
+<script src="countries.js"></script>
 
 <script src="google-maps.js"></script>
 
@@ -4993,25 +4994,45 @@ async function loadData(){
       allRestaurants.slice();
 
 
+    const canonicalTripCountry =
+      (
+        typeof canonicalCountryName
+        ===
+        "function"
+      )
+      ?
+      canonicalCountryName(
+        trip.country
+      )
+      :
+      (
+        trip.country
+        ||
+        null
+      );
+
+
     countryLibraryFallback =
-      false;
+      Boolean(
+        trip.country
+        &&
+        !canonicalTripCountry
+      );
 
 
     /*
-      Use the trip country when the library has an exact match.
-      If an older trip contains a typo/unknown country, keep the
-      master library visible instead of making the data look lost.
+      Use the trip country only when it is recognised.
+      If an older trip contains a typo/unknown value such as "D",
+      keep the full reusable restaurant library visible.
     */
 
 
-    if(
-      trip.country
-    ){
+    if(canonicalTripCountry){
 
 
       const country =
         norm(
-          trip.country
+          canonicalTripCountry
         );
 
 
@@ -9241,9 +9262,25 @@ addForm
 
 
               country:
-                trip?.country
-                ||
-                null,
+                (
+                  typeof canonicalCountryName
+                  ===
+                  "function"
+                )
+                ?
+                (
+                  canonicalCountryName(
+                    trip?.country
+                  )
+                  ||
+                  null
+                )
+                :
+                (
+                  trip?.country
+                  ||
+                  null
+                ),
 
 
               city:
