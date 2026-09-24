@@ -3102,6 +3102,7 @@ main{
 
 <script src="supabase.js"></script>
 
+<script src="countries.js"></script>
 <script src="google-maps.js"></script>
 
 
@@ -3914,6 +3915,32 @@ async function loadData(){
 
     /* MASTER LISTS */
 
+    const canonicalTripCountry =
+      (
+        typeof canonicalCountryName
+        ===
+        "function"
+      )
+      ?
+      canonicalCountryName(
+        trip.country
+      )
+      :
+      (
+        trip.country
+        ||
+        null
+      );
+
+
+    const invalidTripCountry =
+      Boolean(
+        trip.country
+        &&
+        !canonicalTripCountry
+      );
+
+
     let placesQuery =
       db
         .from("places")
@@ -3938,19 +3965,26 @@ async function loadData(){
         );
 
 
-    if(trip.country){
+    /*
+      Only filter the reusable master libraries when the trip country
+      is recognised. Legacy values such as "D" should never make the
+      user's saved Places or restaurants appear to have vanished.
+    */
+
+
+    if(canonicalTripCountry){
 
       placesQuery =
         placesQuery.ilike(
           "country",
-          trip.country
+          canonicalTripCountry
         );
 
 
       restaurantsQuery =
         restaurantsQuery.ilike(
           "country",
-          trip.country
+          canonicalTripCountry
         );
 
     }
@@ -4003,11 +4037,11 @@ async function loadData(){
 
 
     placeCountryFallback =
-      false;
+      invalidTripCountry;
 
 
     restaurantCountryFallback =
-      false;
+      invalidTripCountry;
 
 
     /*
