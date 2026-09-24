@@ -3512,6 +3512,7 @@ main{
 <div id="footer"></div>
 
 <script src="footer.js"></script>
+<script src="countries.js"></script>
 
 
 
@@ -3527,6 +3528,12 @@ const DEFAULT_HERO =
 
 const FIRST_TRIP_DESTINATION =
   "index.html";
+
+
+mountCountryDatalist(
+  "firstTripCountry",
+  "travelCountryOptions"
+);
 
 
 
@@ -5420,13 +5427,19 @@ document
 
 
 
-      const country =
+      const rawCountry =
         document
           .getElementById(
             "firstTripCountry"
           )
           .value
           .trim();
+
+
+      const country =
+        canonicalCountryName(
+          rawCountry
+        );
 
 
 
@@ -5472,13 +5485,32 @@ document
 
 
 
-      if(!country){
+      if(!rawCountry){
 
         message.textContent =
           "Please enter a country.";
 
         message.className =
           "create-message error";
+
+        return;
+
+      }
+
+
+      if(!country){
+
+        message.textContent =
+          "Please choose a recognised country from the suggestions.";
+
+        message.className =
+          "create-message error";
+
+        document
+          .getElementById(
+            "firstTripCountry"
+          )
+          .focus();
 
         return;
 
