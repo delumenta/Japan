@@ -244,6 +244,15 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
   .skip{right:13px;top:calc(13px + env(safe-area-inset-top));height:43px}
 }
 </style>
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="application-name" content="Travel">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Travel">
+
 </head>
 
 <body>
@@ -409,5 +418,7 @@ skipBtn.addEventListener("click",finishTutorial);
 
 renderStep();
 </script>
+
+<script src="pwa.js"></script>
 </body>
 </html>
