@@ -453,6 +453,96 @@ main{
 }
 
 /* =========================================================
+   FIRST BOOKING STATE
+========================================================= */
+
+.booking-first-use{
+  padding:28px 18px 22px;
+  border:1px dashed #303b43;
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,98,95,.07),transparent 38%),
+    rgba(255,255,255,.012);
+  text-align:center;
+}
+
+.booking-first-icon{
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 11px;
+  border:1px solid rgba(255,98,95,.20);
+  border-radius:15px;
+  background:rgba(255,98,95,.05);
+  font-size:23px;
+}
+
+.booking-first-use strong{
+  display:block;
+  color:#f0ede8;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:17px;
+  font-weight:700;
+}
+
+.booking-first-copy{
+  max-width:410px;
+  margin:7px auto 0;
+  color:#7d8992;
+  font-size:8px;
+  line-height:1.6;
+}
+
+.booking-first-primary{
+  width:100%;
+  max-width:330px;
+  min-height:42px;
+  margin-top:15px;
+  border:1px solid rgba(255,98,95,.48);
+  border-radius:11px;
+  background:rgba(255,98,95,.09);
+  color:#efaaa5;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+.booking-quick-label{
+  margin-top:15px;
+  color:#66737b;
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+
+.booking-quick-grid{
+  max-width:360px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin:7px auto 0;
+}
+
+.booking-quick{
+  min-height:42px;
+  padding:6px 3px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:9px;
+  background:rgba(255,255,255,.018);
+  color:#9aa5ac;
+  font-size:6.2px;
+  font-weight:850;
+}
+
+@media(max-width:420px){
+  .booking-quick-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* =========================================================
    ADD / EDIT SHEET — SAME AS FOOD / PLAN
 ========================================================= */
 .sheet-backdrop{
@@ -2897,6 +2987,81 @@ function render(){
   content.className = "";
 
 
+  if(!bookings.length){
+
+    content.innerHTML = `
+
+      <div class="booking-first-use">
+
+        <div class="booking-first-icon">
+          🧳
+        </div>
+
+        <strong>
+          Keep all your reservations together
+        </strong>
+
+        <div class="booking-first-copy">
+          Add hotels, flights, trains, restaurant reservations and attraction tickets. We’ll organise them by date as your trip fills up.
+        </div>
+
+        <button
+          class="booking-first-primary"
+          type="button"
+          onclick="openAdd()"
+        >
+          ＋ ADD FIRST BOOKING
+        </button>
+
+        <div class="booking-quick-label">
+          QUICK ADD
+        </div>
+
+        <div class="booking-quick-grid">
+
+          <button
+            class="booking-quick"
+            type="button"
+            onclick="openQuickAdd('accommodation','Hotel')"
+          >
+            🏨 HOTEL
+          </button>
+
+          <button
+            class="booking-quick"
+            type="button"
+            onclick="openQuickAdd('transport','Flight')"
+          >
+            ✈️ FLIGHT
+          </button>
+
+          <button
+            class="booking-quick"
+            type="button"
+            onclick="openQuickAdd('transport','Train')"
+          >
+            🚆 TRAIN
+          </button>
+
+          <button
+            class="booking-quick"
+            type="button"
+            onclick="openQuickAdd('ticket','Ticket')"
+          >
+            🎟 TICKET
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
   content.innerHTML = `
 
     <div class="summary">
@@ -3985,6 +4150,31 @@ document.getElementById(
   "addButton"
 ).onclick =
   openAdd;
+
+
+function openQuickAdd(
+  type,
+  title=""
+){
+
+  openAdd();
+
+
+  fieldType.value =
+    type;
+
+
+  if(title){
+
+    fieldTitle.value =
+      title;
+
+  }
+
+
+  fieldTitle.focus();
+
+}
 
 
 function openAdd(){
