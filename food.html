@@ -2546,6 +2546,85 @@ gmp-place-autocomplete{
 
 }
 
+/* =========================================================
+   FIRST-USE FOOD STATE
+========================================================= */
+
+.food-first-use{
+  padding:28px 18px 22px;
+}
+
+.food-first-copy{
+  max-width:390px;
+  margin:0 auto;
+  color:#7d8992;
+  font-size:8px;
+  line-height:1.6;
+}
+
+.food-first-primary{
+  width:100%;
+  max-width:330px;
+  min-height:42px;
+  margin-top:15px;
+  border:1px solid rgba(255,98,95,.48);
+  border-radius:11px;
+  background:rgba(255,98,95,.09);
+  color:#efaaa5;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+.food-first-secondary{
+  margin-top:10px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#91aed2;
+  font-size:7px;
+  font-weight:850;
+}
+
+.food-first-tip{
+  max-width:360px;
+  margin:12px auto 0;
+  color:#69767e;
+  font-size:6.5px;
+  line-height:1.5;
+}
+
+.food-term-guide{
+  max-width:390px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin:14px auto 0;
+}
+
+.food-term{
+  padding:8px 5px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:9px;
+  background:rgba(255,255,255,.016);
+  color:#7f8a91;
+  font-size:6px;
+  line-height:1.45;
+}
+
+.food-term b{
+  display:block;
+  margin-bottom:2px;
+  color:#b9c1c6;
+  font-size:6.3px;
+}
+
+@media(max-width:420px){
+  .food-term-guide{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 
 </head>
@@ -2643,7 +2722,7 @@ gmp-place-autocomplete{
         data-tab="all"
         type="button"
       >
-        🍽️ ALL FOOD
+        🔎 DISCOVER
       </button>
 
 
@@ -7121,6 +7200,22 @@ function sectionHTML(
 
 
 /* =========================================================
+   FIRST-USE HELPERS
+========================================================= */
+
+function openDiscover(){
+
+  document
+    .querySelector(
+      '.main-tab[data-tab="all"]'
+    )
+    ?.click();
+
+}
+
+
+
+/* =========================================================
    MY FOOD
 ========================================================= */
 
@@ -7135,15 +7230,16 @@ function renderMyFood(list){
     results.innerHTML = `
 
 
-      <div class="state">
+      <div class="state food-first-use">
 
 
         <strong>
-          No restaurants here yet
+          ${myFilter === "all" ? "No food saved yet" : myFilter === "eaten" ? "Nothing marked as eaten yet" : "No restaurants match this filter"}
         </strong>
 
 
         ${
+
           myFilter
           ===
           "all"
@@ -7152,11 +7248,48 @@ function renderMyFood(list){
 
           `
 
-            Open <b>All Food</b>
-            and tap
-            <b>＋ My Food</b>
-            to save an existing restaurant
-            to this trip.
+            <div class="food-first-copy">
+              Discover restaurants for the places you’re visiting and save the ones you want to remember.
+            </div>
+
+            <button
+              class="food-first-primary"
+              type="button"
+              onclick="openDiscover()"
+            >
+              DISCOVER FOOD →
+            </button>
+
+            <button
+              class="food-first-secondary"
+              type="button"
+              onclick="document.getElementById('openAdd').click()"
+            >
+              Already know a restaurant? ＋ ADD ONE
+            </button>
+
+            <div class="food-first-tip">
+              In Discover, use the city chips above to choose where you want to eat.
+            </div>
+
+            <div class="food-term-guide">
+
+              <div class="food-term">
+                <b>⭐ PICK</b>
+                A restaurant you especially want to try.
+              </div>
+
+              <div class="food-term">
+                <b>🌙 FLEXIBLE</b>
+                Saved without a fixed day, useful when you’re nearby.
+              </div>
+
+              <div class="food-term">
+                <b>📅 SCHEDULED</b>
+                Already assigned to your itinerary.
+              </div>
+
+            </div>
 
           `
 
@@ -7496,7 +7629,7 @@ function render(){
 
 
     resultTitle.textContent =
-      "🍽️ All Food";
+      "🔎 Discover";
 
 
     renderAllFood(
