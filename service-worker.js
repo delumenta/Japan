@@ -1,23 +1,32 @@
 const CACHE_NAME = "travel-shell-v2";
 
 const APP_SHELL = [
-  "./",
-  "./index.html",
-  "./login.html",
-  "./manifest.webmanifest",
-  "./pwa.js",
-  "./footer.js",
-  "./supabase.js",
-  "./countries.js",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "/Japan/",
+  "/Japan/index.html",
+  "/Japan/login.html",
+  "/Japan/schedule.html",
+  "/Japan/food.html",
+  "/Japan/bookings.html",
+  "/Japan/places.html",
+  "/Japan/expenses.html",
+  "/Japan/manifest.webmanifest",
+  "/Japan/pwa.js",
+  "/Japan/footer.js",
+  "/Japan/supabase.js",
+  "/Japan/countries.js",
+  "/Japan/icons/icon-192.png",
+  "/Japan/icons/icon-512.png"
 ];
 
 self.addEventListener("install", event => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_SHELL))
+      .then(async cache => {
+        await Promise.allSettled(
+          APP_SHELL.map(url => cache.add(url))
+        );
+      })
       .then(() => self.skipWaiting())
   );
 });
@@ -56,10 +65,15 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  event.respondWith(networkFirst(request));
+  if(request.mode === "navigate"){
+    event.respondWith(networkFirst(request, true));
+    return;
+  }
+
+  event.respondWith(networkFirst(request, false));
 });
 
-async function networkFirst(request){
+async function networkFirst(request, isNavigation){
   const cache = await caches.open(CACHE_NAME);
 
   try{
@@ -78,11 +92,10 @@ async function networkFirst(request){
       return cached;
     }
 
-    if(request.mode === "navigate"){
+    if(isNavigation){
       return (
-        await cache.match("./index.html")
-        ||
-        Response.error()
+        await cache.match("/Japan/index.html")
+        || Response.error()
       );
     }
 
