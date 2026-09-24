@@ -973,6 +973,72 @@ main{
 
 
 /* =========================================================
+   FIRST-USE PLAN STATE
+========================================================= */
+
+.first-use-state{
+  padding:24px 18px 20px;
+}
+
+.first-use-kicker{
+  margin-bottom:6px;
+  color:#d98984;
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:.13em;
+}
+
+.first-use-copy{
+  max-width:360px;
+  margin:0 auto;
+  color:#7f8b93;
+  font-size:8px;
+  line-height:1.6;
+}
+
+.first-use-primary{
+  width:100%;
+  max-width:330px;
+  min-height:42px;
+  margin-top:16px;
+  border:1px solid rgba(255,98,95,.48);
+  border-radius:11px;
+  background:rgba(255,98,95,.09);
+  color:#efaaa5;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+.first-use-types{
+  max-width:330px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin:8px auto 0;
+}
+
+.first-use-type{
+  min-height:34px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:9px;
+  background:rgba(255,255,255,.018);
+  color:#9ca7ad;
+  font-size:6.5px;
+  font-weight:850;
+}
+
+.first-use-assist{
+  margin-top:11px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#9ab9df;
+  font-size:7px;
+  font-weight:850;
+}
+
+/* =========================================================
    SHEET
 ========================================================= */
 
@@ -5094,13 +5160,67 @@ function renderDay(){
 
     dayContent.innerHTML = `
 
-      <div class="state">
+      <div class="state first-use-state">
+
+        <div class="first-use-kicker">
+          DAY ${String(
+            dayNumber(
+              selectedDate
+            )
+          ).padStart(2,"0")} · ${esc(parts.weekdayLong.toUpperCase())}
+        </div>
 
         <strong>
-          Nothing planned yet
+          Start building this day
         </strong>
 
-        Use ＋ above to add something to this day.
+        <div class="first-use-copy">
+          Add a place you want to visit, a meal, or anything else you already know you want to do.
+        </div>
+
+        <button
+          class="first-use-primary"
+          type="button"
+          onclick="openNewItem()"
+        >
+          ＋ ADD YOUR FIRST STOP
+        </button>
+
+        <div class="first-use-types">
+
+          <button
+            class="first-use-type"
+            type="button"
+            onclick="openNewItem();setFormType('place')"
+          >
+            📍 PLACE
+          </button>
+
+          <button
+            class="first-use-type"
+            type="button"
+            onclick="openNewItem();setFormType('restaurant')"
+          >
+            🍽 FOOD
+          </button>
+
+          <button
+            class="first-use-type"
+            type="button"
+            onclick="openNewItem();setFormType('custom')"
+          >
+            ✏️ CUSTOM
+          </button>
+
+        </div>
+
+        <button
+          class="first-use-assist"
+          type="button"
+          onclick="setAssistMode('planning');setAssistOpen(true)"
+        >
+          ✦ NEED IDEAS? ASK TRAVEL ASSIST
+        </button>
 
       </div>
 
@@ -7498,6 +7618,12 @@ function assistSelectedDayLabel(){
   const p=dateParts(selectedDate); return `${p.day} ${p.month}`;
 }
 function getAssistStarters(){
+  if(!schedule.length)return [
+    {icon:"✦",title:"Help me build this trip",sub:"Start from the trip dates and shape a sensible itinerary.",prompt:"I have just created this trip and my itinerary is empty. Help me decide how to start building it. Ask only for information you actually need, and use my trip dates and destination data where available."},
+    {icon:"1",title:"Plan my first day",sub:"Create a sensible starting point for the selected day.",prompt:`Help me plan my first itinerary day for ${selectedDate}. Suggest a simple, realistic structure and useful places, but do not add anything until I confirm.`},
+    {icon:"⌖",title:"I know where I'm going",sub:"Help me organise places I already have in mind.",prompt:"I already know some places I want to visit. Help me organise them into sensible trip days and routes. Do not change my schedule until I confirm."},
+    {icon:"▣",title:"What should I add first?",sub:"Explain the easiest order for plans, bookings and food.",prompt:"My trip is new and empty. Tell me the easiest order to add my itinerary, bookings and food so I can get set up without over-planning."}
+  ];
   if(assistMode==="live")return [
     {icon:"✦",title:"How's this day looking?",sub:"Check timing, pacing and possible problems.",prompt:`Review my plan for ${selectedDate}. In Live mode, tell me how the day is looking, what is next, and flag any timing or pacing problems.`},
     {icon:"☔",title:"Will weather affect this day?",sub:"Check outdoor plans and suggest sensible alternatives.",prompt:`Check whether weather could affect my itinerary for ${selectedDate}. Only use live weather if it is actually available; do not invent weather.`},
