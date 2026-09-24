@@ -2779,6 +2779,7 @@ header{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
+<script src="countries.js"></script>
 
 
 <script>
@@ -2805,6 +2806,12 @@ let publications =
 
 let editingTripId =
   null;
+
+
+mountCountryDatalist(
+  "tripCountry",
+  "travelCountryOptions"
+);
 
 
 
@@ -4501,13 +4508,19 @@ document
           .trim();
 
 
-      const country =
+      const rawCountry =
         document
           .getElementById(
             "tripCountry"
           )
           .value
           .trim();
+
+
+      const country =
+        canonicalCountryName(
+          rawCountry
+        );
 
 
       const startDate =
@@ -4555,7 +4568,7 @@ document
 
 
       if(
-        !country
+        !rawCountry
       ){
 
 
@@ -4565,6 +4578,32 @@ document
 
         message.className =
           "message error";
+
+
+        return;
+
+
+      }
+
+
+      if(
+        !country
+      ){
+
+
+        message.textContent =
+          "Please choose a recognised country from the suggestions.";
+
+
+        message.className =
+          "message error";
+
+
+        document
+          .getElementById(
+            "tripCountry"
+          )
+          .focus();
 
 
         return;
