@@ -1,0 +1,44 @@
+{
+  "id": "./",
+  "name": "Travel",
+  "short_name": "Travel",
+  "description": "Plan trips, itineraries, food, bookings, places and expenses.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#070c10",
+  "theme_color": "#070c10",
+  "lang": "en",
+  "categories": ["travel", "lifestyle"],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Plan",
+      "short_name": "Plan",
+      "url": "./schedule.html"
+    },
+    {
+      "name": "Food",
+      "short_name": "Food",
+      "url": "./food.html"
+    },
+    {
+      "name": "Bookings",
+      "short_name": "Bookings",
+      "url": "./bookings.html"
+    }
+  ]
+}
