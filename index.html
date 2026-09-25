@@ -2961,7 +2961,7 @@ main{
      NORMAL HOMEPAGE
 ========================================================= -->
 
-<div id="normalTripView">
+<div id="normalTripView" class="show">
 
 
 <section class="hero">
@@ -3539,10 +3539,16 @@ const FIRST_TRIP_DESTINATION =
   "index.html";
 
 
-mountCountryDatalist(
-  "firstTripCountry",
-  "travelCountryOptions"
-);
+if(
+  typeof window.mountCountryDatalist
+  ===
+  "function"
+){
+  window.mountCountryDatalist(
+    "firstTripCountry",
+    "travelCountryOptions"
+  );
+}
 
 
 
@@ -7572,7 +7578,26 @@ function renderPage(){
 async function start(){
 
 
+  /*
+    Keep the homepage visible while startup data loads.
+    Previously both homepage states began hidden, so any
+    auth/data/dependency error produced a completely blank page.
+  */
+  showNormalTripView();
+
+
   try{
+
+
+    if(
+      typeof db
+      ===
+      "undefined"
+    ){
+      throw new Error(
+        "Travel could not connect to Supabase. Please refresh the page."
+      );
+    }
 
 
     await resolveUser();
@@ -7625,6 +7650,14 @@ async function start(){
     );
 
 
+    /*
+      Never leave the user on an empty screen if startup fails.
+      The error card below now stays visible and gives a useful
+      recovery action.
+    */
+    showNormalTripView();
+
+
     const holder =
       document.getElementById(
         "placeGroups"
@@ -7638,11 +7671,31 @@ async function start(){
 
         <div class="error-card">
 
-          ${esc(
-            error.message
-            ||
-            "Could not load trip."
-          )}
+          <div>
+            ${esc(
+              error.message
+              ||
+              "Could not load trip."
+            )}
+          </div>
+
+          <button
+            type="button"
+            onclick="location.reload()"
+            style="
+              margin-top:12px;
+              min-height:38px;
+              padding:0 14px;
+              border:1px solid rgba(255,107,104,.48);
+              border-radius:999px;
+              background:rgba(255,107,104,.08);
+              color:#ff8c88;
+              font:800 9px/1 system-ui,sans-serif;
+              letter-spacing:.08em;
+            "
+          >
+            RETRY
+          </button>
 
         </div>
 
