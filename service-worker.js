@@ -1,4 +1,4 @@
-const CACHE_NAME = "travel-shell-v2";
+const CACHE_NAME = "travel-shell-v3";
 
 const APP_SHELL = [
   "/Japan/",
