@@ -1478,7 +1478,7 @@ function localLanguageCode(place){
 async function suggestNamesFromGoogle(googlePlace){
 
   if(!googlePlace || !currentPlace){
-    return;
+    return {name:null,localName:null};
   }
 
   const googleName =
@@ -1486,158 +1486,147 @@ async function suggestNamesFromGoogle(googlePlace){
       ? googlePlace.displayName
       : googlePlace.displayName?.text;
 
-  if(googleName){
+  let localLabel = "";
 
-    const editName =
-      document.getElementById("editName");
+  const editName =
+    document.getElementById("editName");
 
-    if(editName){
-      editName.value = googleName;
-    }
-
+  if(editName && googleName){
+    editName.value = googleName;
   }
 
   const localLang =
     localLanguageCode(currentPlace);
 
-  if(!localLang){
-    return;
-  }
+  if(localLang){
 
-  try{
+    try{
 
-    const query =
-      googleName ||
-      currentPlace.name ||
-      "";
+      const query =
+        googleName ||
+        currentPlace.name ||
+        "";
 
-    if(!query){
-      return;
-    }
+      if(query){
 
-    const searchUrl =
-      "https://www.wikidata.org/w/api.php" +
-      "?action=wbsearchentities" +
-      "&format=json" +
-      "&origin=*" +
-      "&language=en" +
-      "&uselang=en" +
-      "&limit=5" +
-      "&search=" +
-      encodeURIComponent(query);
+        const searchUrl =
+          "https://www.wikidata.org/w/api.php" +
+          "?action=wbsearchentities" +
+          "&format=json" +
+          "&origin=*" +
+          "&language=en" +
+          "&uselang=en" +
+          "&limit=5" +
+          "&search=" +
+          encodeURIComponent(query);
 
-    const searchResponse =
-      await fetch(searchUrl);
+        const searchResponse =
+          await fetch(searchUrl);
 
-    if(!searchResponse.ok){
-      return;
-    }
+        if(searchResponse.ok){
 
-    const searchData =
-      await searchResponse.json();
+          const searchData =
+            await searchResponse.json();
 
-    const ids =
-      (searchData.search || [])
-      .map(item => item.id)
-      .filter(Boolean)
-      .slice(0,5);
+          const ids =
+            (searchData.search || [])
+            .map(item => item.id)
+            .filter(Boolean)
+            .slice(0,5);
 
-    if(!ids.length){
-      return;
-    }
+          if(ids.length){
 
-    const languages =
-      ["en",localLang]
-      .filter(Boolean)
-      .join("|");
+            const languages =
+              ["en",localLang]
+              .filter(Boolean)
+              .join("|");
 
-    const entityUrl =
-      "https://www.wikidata.org/w/api.php" +
-      "?action=wbgetentities" +
-      "&format=json" +
-      "&origin=*" +
-      "&props=labels|descriptions|claims" +
-      "&languages=" +
-      encodeURIComponent(languages) +
-      "&ids=" +
-      encodeURIComponent(ids.join("|"));
+            const entityUrl =
+              "https://www.wikidata.org/w/api.php" +
+              "?action=wbgetentities" +
+              "&format=json" +
+              "&origin=*" +
+              "&props=labels|descriptions|claims" +
+              "&languages=" +
+              encodeURIComponent(languages) +
+              "&ids=" +
+              encodeURIComponent(ids.join("|"));
 
-    const entityResponse =
-      await fetch(entityUrl);
+            const entityResponse =
+              await fetch(entityUrl);
 
-    if(!entityResponse.ok){
-      return;
-    }
+            if(entityResponse.ok){
 
-    const entityData =
-      await entityResponse.json();
+              const entityData =
+                await entityResponse.json();
 
-    const entities =
-      ids
-      .map(id => entityData.entities?.[id])
-      .filter(Boolean);
+              const entities =
+                ids
+                .map(id => entityData.entities?.[id])
+                .filter(Boolean);
 
-    if(!entities.length){
-      return;
-    }
+              const normalize = value =>
+                String(value || "")
+                .toLowerCase()
+                .normalize("NFKD")
+                .replace(/[^\p{L}\p{N}]+/gu,"")
+                .trim();
 
-    /*
-      Prefer the first Wikidata result whose English label is a close
-      match to Google's canonical display name.
-    */
-    const normalize = value =>
-      String(value || "")
-      .toLowerCase()
-      .normalize("NFKD")
-      .replace(/[^\p{L}\p{N}]+/gu,"")
-      .trim();
+              const googleKey =
+                normalize(googleName);
 
-    const googleKey =
-      normalize(googleName);
+              const entity =
+                entities.find(item => {
+                  const english =
+                    item.labels?.en?.value || "";
+                  const key =
+                    normalize(english);
+                  return (
+                    key &&
+                    googleKey &&
+                    (
+                      key === googleKey ||
+                      key.includes(googleKey) ||
+                      googleKey.includes(key)
+                    )
+                  );
+                }) ||
+                entities[0];
 
-    let entity =
-      entities.find(item => {
-        const english =
-          item.labels?.en?.value || "";
-        const key =
-          normalize(english);
-        return (
-          key &&
-          googleKey &&
-          (
-            key === googleKey ||
-            key.includes(googleKey) ||
-            googleKey.includes(key)
-          )
-        );
-      }) ||
-      entities[0];
+              localLabel =
+                entity?.labels?.[localLang]?.value || "";
 
-    const localLabel =
-      entity?.labels?.[localLang]?.value || "";
+            }
 
-    if(localLabel){
+          }
 
-      const editLocal =
-        document.getElementById("editLocal");
+        }
 
-      if(editLocal){
-        editLocal.value = localLabel;
       }
 
+    }catch(error){
+
+      console.error(
+        "Could not suggest local name",
+        error
+      );
+
     }
-
-  }catch(error){
-
-    console.error(
-      "Could not suggest local name",
-      error
-    );
 
   }
 
-}
+  const editLocal =
+    document.getElementById("editLocal");
 
+  if(editLocal && localLabel){
+    editLocal.value = localLabel;
+  }
+
+  return {
+    name:googleName || null,
+    localName:localLabel || null
+  };
+}
 
 /* ============================================================
    PUBLIC DATA SEARCH
@@ -2273,7 +2262,8 @@ async function useGoogleLocation(index){
     return;
   }
 
-  await suggestNamesFromGoogle(googlePlace);
+  const suggestedNames =
+    await suggestNamesFromGoogle(googlePlace);
 
 
   const lat =
@@ -2308,6 +2298,15 @@ async function useGoogleLocation(index){
     */
 
     const update = {
+
+      name:
+        suggestedNames?.name ||
+        currentPlace.name,
+
+      name_japanese:
+        suggestedNames?.localName ||
+        currentPlace.name_japanese ||
+        null,
 
       provider:"google",
 
