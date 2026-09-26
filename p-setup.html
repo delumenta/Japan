@@ -2663,16 +2663,22 @@ async function autoMatchOne(place){
     best.nameScore>=95;
 
   const strongWithLocation=
-    best.nameScore>=82 &&
+    best.nameScore>=76 &&
     (best.cityMatch || best.countryMatch);
 
   const clearLead=
     !second ||
-    (best.score-second.score)>=4;
+    (best.score-second.score)>=2;
+
+  const topRankLocationMatch=
+    best.index===0 &&
+    best.nameScore>=72 &&
+    (best.cityMatch || best.countryMatch);
 
   if(
     exactish ||
-    (strongWithLocation && clearLead)
+    (strongWithLocation && clearLead) ||
+    topRankLocationMatch
   ){
     await saveGoogleLocationDirect(place,best.result);
     return {
