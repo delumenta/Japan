@@ -671,7 +671,7 @@
       </div>
 
       <div class="hint">
-        Google is checked automatically using ID-only search. Press Search only when you need full Google details.
+        Google searches automatically and returns the place name, address and coordinates.
       </div>
 
       <div class="search-row">
@@ -1164,7 +1164,7 @@ function showPlace(
     "matches"
   ).innerHTML =
     `<div class="empty">
-      Use Google only if the public-data match above is missing or wrong.
+      Google searches automatically. Choose the correct match to save its coordinates.
      </div>`;
 
   const publicBox =
@@ -1185,7 +1185,7 @@ function showPlace(
 
 
   if(autoSearch){
-    runCheapLocationLookup();
+    searchGoogle();
   }
 }
 
@@ -1837,7 +1837,7 @@ async function searchGoogle(){
 
   matches.innerHTML =
     `<div class="empty">
-      Loading Google fallback details...
+      Searching Google...
      </div>`;
 
   try{
@@ -1848,69 +1848,41 @@ async function searchGoogle(){
     const PlaceClass =
       library.Place;
 
-    if(!PlaceClass){
+    if(
+      !PlaceClass ||
+      typeof PlaceClass.searchByText !== "function"
+    ){
+
       throw new Error(
-        "Google Place details are unavailable."
+        "Google Place text search is unavailable."
       );
-    }
-
-    /*
-      First use the cheap IDs-only Text Search. If this place has
-      already been auto-checked, reuse those IDs.
-    */
-    if(!googleCandidateIds.length){
-      await searchGoogleIdsOnly();
-    }
-
-    if(!googleCandidateIds.length){
-      matches.innerHTML =
-        `<div class="empty">
-          No Google matches found.<br><br>
-          Try editing the search above.
-         </div>`;
-      return;
-    }
-
-    /*
-      Only now request Place Details for the candidate IDs.
-      This avoids asking Text Search itself for Pro-tier fields.
-    */
-    const detailResults = [];
-
-    for(const id of googleCandidateIds.slice(0,5)){
-
-      try{
-
-        const place =
-          new PlaceClass({
-            id:id
-          });
-
-        await place.fetchFields({
-          fields:[
-            "displayName",
-            "formattedAddress",
-            "location",
-            "googleMapsURI"
-          ]
-        });
-
-        detailResults.push(place);
-
-      }catch(error){
-
-        console.error(
-          "Google Place Details failed",
-          id,
-          error
-        );
-
-      }
 
     }
+
+    const response =
+      await PlaceClass.searchByText({
+
+        textQuery:query,
+
+        fields:[
+          "id",
+          "displayName",
+          "formattedAddress",
+          "location",
+          "googleMapsURI"
+        ],
+
+        maxResultCount:5
+
+      });
 
     googleResults =
-      detailResults;
+      response.places || [];
+
+    googleCandidateIds =
+      googleResults
+      .map(place => place.id)
+      .filter(Boolean);
 
     renderGoogleResults();
 
