@@ -587,6 +587,13 @@
       REFRESH
     </button>
 
+    <button
+      class="btn"
+      id="autoMatchButton"
+      onclick="toggleAutoMatch()">
+      AUTO MATCH SAFE
+    </button>
+
   </div>
 
 
@@ -751,6 +758,8 @@ let currentPlace = null;
 let googleResults = [];
 let googleCandidateIds = [];
 let publicResults = [];
+let autoMatchRunning = false;
+let autoMatchStats = {matched:0,review:0,processed:0};
 
 
 /* ============================================================
@@ -2428,6 +2437,244 @@ async function useGoogleLocation(index){
 
 }
 
+
+
+/* ============================================================
+   SAFE AUTO MATCH
+============================================================ */
+
+function normalizeMatchName(value){
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/&/g,"and")
+    .replace(/\b(the|of|at|in|city|station|temple|shrine|museum|park|market)\b/g," ")
+    .replace(/[^\p{L}\p{N}]+/gu,"")
+    .trim();
+}
+
+function nameMatchScore(a,b){
+  const x=normalizeMatchName(a);
+  const y=normalizeMatchName(b);
+  if(!x||!y)return 0;
+  if(x===y)return 100;
+  if(x.includes(y)||y.includes(x))return 88;
+
+  let same=0;
+  const shorter=x.length<=y.length?x:y;
+  const longer=x.length<=y.length?y:x;
+  for(const ch of shorter){
+    if(longer.includes(ch))same++;
+  }
+  return Math.round((same/Math.max(shorter.length,1))*70);
+}
+
+function autoMatchConfidence(place,googlePlace){
+  const googleName =
+    typeof googlePlace?.displayName==="string"
+      ? googlePlace.displayName
+      : googlePlace?.displayName?.text || "";
+
+  let score=nameMatchScore(place?.name,googleName);
+
+  const address=
+    String(googlePlace?.formattedAddress||"").toLowerCase();
+
+  const city=
+    String(place?.city||"").toLowerCase();
+
+  const country=
+    String(place?.country||"").toLowerCase();
+
+  if(city && address.includes(city))score+=6;
+  if(country && address.includes(country))score+=6;
+
+  return Math.min(score,100);
+}
+
+async function saveGoogleLocationDirect(place,googlePlace){
+
+  const lat=readLat(googlePlace);
+  const lng=readLng(googlePlace);
+
+  if(lat===null||lng===null){
+    throw new Error("Google did not return coordinates.");
+  }
+
+  const suggestedNames=
+    await suggestNamesFromGoogle(googlePlace);
+
+  const update={
+    name:
+      suggestedNames?.name ||
+      place.name,
+    name_japanese:
+      suggestedNames?.localName ||
+      place.name_japanese ||
+      null,
+    provider:"google",
+    provider_place_id:
+      googlePlace.id || null,
+    latitude:Number(lat),
+    longitude:Number(lng),
+    address:
+      googlePlace.formattedAddress ||
+      place.address ||
+      null,
+    maps_url:
+      googlePlace.googleMapsURI ||
+      place.maps_url ||
+      null,
+    coordinate_status:"done",
+    coordinate_source:"google",
+    coordinate_source_id:
+      googlePlace.id || null,
+    coordinate_checked_at:
+      new Date().toISOString(),
+    coordinate_review_reason:null,
+    updated_at:
+      new Date().toISOString()
+  };
+
+  const {data,error}=await db
+    .from("places")
+    .update(update)
+    .eq("id",place.id)
+    .select();
+
+  if(error)throw error;
+  if(!data||!data.length)throw new Error("Supabase returned 0 updated rows.");
+
+  const saved=data[0];
+  const index=places.findIndex(p=>p.id===saved.id);
+  if(index>=0)places[index]=saved;
+  return saved;
+}
+
+async function autoMatchOne(place){
+
+  currentPlace=place;
+  showPlace(place,false);
+
+  const query=buildSearchQuery(place);
+
+  const library=await window.getGooglePlaces();
+  const PlaceClass=library.Place;
+
+  const response=await PlaceClass.searchByText({
+    textQuery:query,
+    fields:[
+      "id",
+      "displayName",
+      "formattedAddress",
+      "location",
+      "googleMapsURI"
+    ],
+    maxResultCount:5
+  });
+
+  const results=response.places||[];
+
+  if(!results.length){
+    return {status:"review",reason:"No Google result"};
+  }
+
+  const ranked=results
+    .map(result=>({
+      result,
+      score:autoMatchConfidence(place,result)
+    }))
+    .sort((a,b)=>b.score-a.score);
+
+  const best=ranked[0];
+  const second=ranked[1];
+
+  /*
+    Save only very strong matches, and avoid cases where
+    the top two candidates are nearly tied.
+  */
+  if(
+    best.score>=90 &&
+    (!second || (best.score-second.score)>=8)
+  ){
+    await saveGoogleLocationDirect(place,best.result);
+    return {status:"matched",score:best.score};
+  }
+
+  return {
+    status:"review",
+    score:best.score,
+    reason:"Needs manual confirmation"
+  };
+}
+
+async function toggleAutoMatch(){
+
+  const button=document.getElementById("autoMatchButton");
+
+  if(autoMatchRunning){
+    autoMatchRunning=false;
+    if(button)button.textContent="AUTO MATCH SAFE";
+    showMessage("Auto match stopped.");
+    return;
+  }
+
+  autoMatchRunning=true;
+  autoMatchStats={matched:0,review:0,processed:0};
+
+  if(button)button.textContent="STOP AUTO MATCH";
+
+  const missing=places.filter(place=>!hasCoordinates(place));
+
+  for(const place of missing){
+
+    if(!autoMatchRunning)break;
+
+    try{
+      const result=await autoMatchOne(place);
+
+      autoMatchStats.processed++;
+
+      if(result.status==="matched"){
+        autoMatchStats.matched++;
+      }else{
+        autoMatchStats.review++;
+      }
+
+      updateSummary();
+      renderPlaceList();
+
+      showMessage(
+        `Auto match: ${autoMatchStats.processed}/${missing.length} · saved ${autoMatchStats.matched} · review ${autoMatchStats.review}`
+      );
+
+      /*
+        Small pause to keep the browser responsive and avoid
+        hammering the API too quickly.
+      */
+      await new Promise(resolve=>setTimeout(resolve,350));
+
+    }catch(error){
+
+      console.error("Auto match failed",place?.name,error);
+      autoMatchStats.processed++;
+      autoMatchStats.review++;
+
+    }
+
+  }
+
+  autoMatchRunning=false;
+
+  if(button)button.textContent="AUTO MATCH SAFE";
+
+  showMessage(
+    `Auto match finished. Saved ${autoMatchStats.matched}. Needs review ${autoMatchStats.review}.`
+  );
+
+  updateSummary();
+  renderPlaceList();
+}
 
 /* ============================================================
    NEXT MISSING
