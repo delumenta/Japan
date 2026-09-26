@@ -671,7 +671,7 @@
       </div>
 
       <div class="hint">
-        Fallback search across Google Places.
+        Google is checked automatically using ID-only search. Press Search only when you need full Google details.
       </div>
 
       <div class="search-row">
@@ -748,6 +748,7 @@
 let places = [];
 let currentPlace = null;
 let googleResults = [];
+let googleCandidateIds = [];
 let publicResults = [];
 
 
@@ -1179,11 +1180,12 @@ function showPlace(
   }
 
   googleResults = [];
+  googleCandidateIds = [];
   publicResults = [];
 
 
   if(autoSearch){
-    searchPublicData();
+    runCheapLocationLookup();
   }
 }
 
@@ -1341,6 +1343,96 @@ async function saveName(){
 }
 
 
+
+
+/* ============================================================
+   CHEAP LOOKUP FLOW
+============================================================ */
+
+async function searchGoogleIdsOnly(){
+
+  if(!currentPlace){
+    return [];
+  }
+
+  const query =
+    document.getElementById("googleSearch").value.trim();
+
+  if(!query){
+    return [];
+  }
+
+  const library =
+    await window.getGooglePlaces();
+
+  const PlaceClass =
+    library.Place;
+
+  if(
+    !PlaceClass ||
+    typeof PlaceClass.searchByText !== "function"
+  ){
+    throw new Error(
+      "Google Place text search is unavailable."
+    );
+  }
+
+  const response =
+    await PlaceClass.searchByText({
+      textQuery:query,
+      fields:["id"],
+      maxResultCount:5
+    });
+
+  googleCandidateIds =
+    (response.places || [])
+    .map(place => place.id)
+    .filter(Boolean);
+
+  return googleCandidateIds;
+}
+
+
+async function runCheapLocationLookup(){
+
+  const matches =
+    document.getElementById("matches");
+
+  if(matches){
+    matches.innerHTML =
+      '<div class="empty">Checking Google IDs and public data...</div>';
+  }
+
+  try{
+    await searchGoogleIdsOnly();
+  }catch(error){
+    console.error("Google IDs-only search failed",error);
+    googleCandidateIds = [];
+  }
+
+  await searchPublicData();
+
+  if(matches){
+
+    if(googleCandidateIds.length){
+      matches.innerHTML =
+        `<div class="empty">
+          Google found ${googleCandidateIds.length} candidate place${googleCandidateIds.length===1?"":"s"} using ID-only search.
+          <br><br>
+          If the Wikipedia / Wikidata match above is wrong, press SEARCH to load Google details.
+         </div>`;
+    }else{
+      matches.innerHTML =
+        `<div class="empty">
+          No Google ID-only candidate was found automatically.
+          <br><br>
+          You can still press SEARCH below for a full Google lookup.
+         </div>`;
+    }
+
+  }
+
+}
 
 /* ============================================================
    PUBLIC DATA SEARCH
@@ -1723,12 +1815,10 @@ async function searchGoogle(){
     return;
   }
 
-
   const query =
     document.getElementById(
       "googleSearch"
     ).value.trim();
-
 
   if(!query){
 
@@ -1740,90 +1830,93 @@ async function searchGoogle(){
     return;
   }
 
-
   const matches =
     document.getElementById(
       "matches"
     );
 
-
   matches.innerHTML =
     `<div class="empty">
-      Searching Google...
+      Loading Google fallback details...
      </div>`;
 
-
   try{
-
-    /*
-      Your existing google-maps.js
-      already provides getGooglePlaces().
-    */
 
     const library =
       await window.getGooglePlaces();
 
-
     const PlaceClass =
       library.Place;
 
-
-    if(
-      !PlaceClass ||
-      typeof PlaceClass.searchByText !== "function"
-    ){
-
+    if(!PlaceClass){
       throw new Error(
-        "Google Place text search is unavailable."
+        "Google Place details are unavailable."
       );
+    }
+
+    /*
+      First use the cheap IDs-only Text Search. If this place has
+      already been auto-checked, reuse those IDs.
+    */
+    if(!googleCandidateIds.length){
+      await searchGoogleIdsOnly();
+    }
+
+    if(!googleCandidateIds.length){
+      matches.innerHTML =
+        `<div class="empty">
+          No Google matches found.<br><br>
+          Try editing the search above.
+         </div>`;
+      return;
+    }
+
+    /*
+      Only now request Place Details for the candidate IDs.
+      This avoids asking Text Search itself for Pro-tier fields.
+    */
+    const detailResults = [];
+
+    for(const id of googleCandidateIds.slice(0,5)){
+
+      try{
+
+        const place =
+          new PlaceClass({
+            id:id
+          });
+
+        await place.fetchFields({
+          fields:[
+            "displayName",
+            "formattedAddress",
+            "location",
+            "googleMapsURI"
+          ]
+        });
+
+        detailResults.push(place);
+
+      }catch(error){
+
+        console.error(
+          "Google Place Details failed",
+          id,
+          error
+        );
+
+      }
 
     }
 
-
-    /*
-      NO includedType restriction.
-
-      This allows:
-      shrines
-      temples
-      museums
-      parks
-      viewpoints
-      stations
-      attractions
-      hotels
-      etc.
-    */
-
-    const response =
-      await PlaceClass.searchByText({
-
-        textQuery:query,
-
-        fields:[
-          "id",
-          "displayName",
-          "formattedAddress",
-          "location",
-          "googleMapsURI"
-        ],
-
-        maxResultCount:5
-
-      });
-
-
     googleResults =
-      response.places || [];
-
+      detailResults;
 
     renderGoogleResults();
-
 
   }catch(error){
 
     console.error(error);
-
 
     matches.innerHTML =
       `<div class="empty">
@@ -1837,7 +1930,6 @@ async function searchGoogle(){
   }
 
 }
-
 
 /* ============================================================
    GOOGLE RESULTS
