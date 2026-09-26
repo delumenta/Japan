@@ -641,6 +641,27 @@
     </div>
 
 
+    <!-- PUBLIC DATA -->
+
+    <div class="block">
+
+      <div class="block-title">
+        WIKIPEDIA / WIKIDATA
+      </div>
+
+      <div class="hint">
+        Tries free public data first. Use Google below only if this match is missing or wrong.
+      </div>
+
+      <div id="publicMatches" class="matches">
+        <div class="empty">
+          Checking Wikipedia / Wikidata...
+        </div>
+      </div>
+
+    </div>
+
+
     <!-- GOOGLE SEARCH -->
 
     <div class="block">
@@ -650,7 +671,7 @@
       </div>
 
       <div class="hint">
-        Searches all Google place types in Japan.
+        Fallback search across Google Places.
       </div>
 
       <div class="search-row">
@@ -727,6 +748,7 @@
 let places = [];
 let currentPlace = null;
 let googleResults = [];
+let publicResults = [];
 
 
 /* ============================================================
@@ -1141,15 +1163,27 @@ function showPlace(
     "matches"
   ).innerHTML =
     `<div class="empty">
-      Search Google to verify this place.
+      Use Google only if the public-data match above is missing or wrong.
      </div>`;
 
+  const publicBox =
+    document.getElementById(
+      "publicMatches"
+    );
+
+  if(publicBox){
+    publicBox.innerHTML =
+      `<div class="empty">
+        Checking Wikipedia / Wikidata...
+       </div>`;
+  }
 
   googleResults = [];
+  publicResults = [];
 
 
   if(autoSearch){
-    searchGoogle();
+    searchPublicData();
   }
 }
 
@@ -1166,7 +1200,7 @@ function buildSearchQuery(place){
     place.area,
     place.city,
     place.prefecture,
-    "Japan"
+    place.country
   ];
 
 
@@ -1307,6 +1341,327 @@ async function saveName(){
 }
 
 
+
+/* ============================================================
+   PUBLIC DATA SEARCH
+============================================================ */
+
+function readWikiCoord(entity){
+  const value =
+    entity?.claims?.P625?.[0]?.mainsnak?.datavalue?.value;
+
+  if(
+    !value ||
+    !Number.isFinite(Number(value.latitude)) ||
+    !Number.isFinite(Number(value.longitude))
+  ){
+    return null;
+  }
+
+  return {
+    latitude:Number(value.latitude),
+    longitude:Number(value.longitude)
+  };
+}
+
+
+async function searchPublicData(){
+
+  if(!currentPlace){
+    return;
+  }
+
+  const box =
+    document.getElementById("publicMatches");
+
+  if(!box){
+    return;
+  }
+
+  box.innerHTML =
+    '<div class="empty">Checking Wikipedia / Wikidata...</div>';
+
+  publicResults = [];
+
+  try{
+
+    const query = [
+      currentPlace.name,
+      currentPlace.name_japanese,
+      currentPlace.area,
+      currentPlace.city,
+      currentPlace.prefecture,
+      currentPlace.country
+    ]
+    .filter(Boolean)
+    .join(" ");
+
+    const searchUrl =
+      "https://www.wikidata.org/w/api.php" +
+      "?action=wbsearchentities" +
+      "&format=json" +
+      "&origin=*" +
+      "&language=en" +
+      "&uselang=en" +
+      "&limit=8" +
+      "&search=" +
+      encodeURIComponent(query);
+
+    const searchResponse =
+      await fetch(searchUrl);
+
+    if(!searchResponse.ok){
+      throw new Error("Wikidata search failed.");
+    }
+
+    const searchData =
+      await searchResponse.json();
+
+    const ids =
+      (searchData.search || [])
+      .map(item => item.id)
+      .filter(Boolean);
+
+    if(!ids.length){
+      box.innerHTML =
+        '<div class="empty">No public-data match found. Use Google Search below.</div>';
+      return;
+    }
+
+    const entityUrl =
+      "https://www.wikidata.org/w/api.php" +
+      "?action=wbgetentities" +
+      "&format=json" +
+      "&origin=*" +
+      "&props=claims|sitelinks|labels|descriptions" +
+      "&languages=en" +
+      "&ids=" +
+      encodeURIComponent(ids.join("|"));
+
+    const entityResponse =
+      await fetch(entityUrl);
+
+    if(!entityResponse.ok){
+      throw new Error("Wikidata details failed.");
+    }
+
+    const entityData =
+      await entityResponse.json();
+
+    publicResults =
+      ids
+      .map(id => entityData.entities?.[id])
+      .filter(Boolean)
+      .map(entity => {
+        const coord = readWikiCoord(entity);
+
+        return {
+          id:entity.id,
+          name:
+            entity.labels?.en?.value ||
+            entity.sitelinks?.enwiki?.title ||
+            currentPlace.name,
+          description:
+            entity.descriptions?.en?.value ||
+            "",
+          wikipedia_title:
+            entity.sitelinks?.enwiki?.title ||
+            "",
+          latitude:
+            coord?.latitude ?? null,
+          longitude:
+            coord?.longitude ?? null
+        };
+      })
+      .filter(item =>
+        Number.isFinite(Number(item.latitude)) &&
+        Number.isFinite(Number(item.longitude))
+      )
+      .slice(0,5);
+
+    renderPublicResults();
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      '<div class="empty">Public-data lookup failed. Use Google Search below.</div>';
+
+  }
+
+}
+
+
+function renderPublicResults(){
+
+  const box =
+    document.getElementById("publicMatches");
+
+  if(!box){
+    return;
+  }
+
+  if(!publicResults.length){
+
+    box.innerHTML =
+      '<div class="empty">No coordinate-bearing Wikipedia / Wikidata match found. Use Google Search below.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    publicResults
+    .map((item,index) => {
+
+      const wikiUrl =
+        item.wikipedia_title
+          ? "https://en.wikipedia.org/wiki/" +
+            encodeURIComponent(
+              item.wikipedia_title.replaceAll(" ","_")
+            )
+          : "";
+
+      return `
+        <div class="match ${index === 0 ? "top" : ""}">
+
+          ${index === 0
+            ? '<div class="top-badge">TOP PUBLIC MATCH</div>'
+            : ''
+          }
+
+          <div class="match-name">
+            ${escapeHtml(item.name)}
+          </div>
+
+          <div class="match-address">
+            ${escapeHtml(item.description || "Wikidata place")}
+          </div>
+
+          <div class="coords">
+            ${Number(item.latitude).toFixed(6)},
+            ${Number(item.longitude).toFixed(6)}
+          </div>
+
+          <div class="match-actions">
+
+            <button
+              class="use"
+              onclick="usePublicLocation(${index})">
+              ✓ USE THIS LOCATION
+            </button>
+
+            ${wikiUrl
+              ? `
+                <a
+                  class="map-link"
+                  href="${escapeHtml(wikiUrl)}"
+                  target="_blank"
+                  rel="noopener">
+                  WIKI ↗
+                </a>
+              `
+              : '<div></div>'
+            }
+
+          </div>
+
+        </div>
+      `;
+
+    })
+    .join("");
+
+}
+
+
+async function usePublicLocation(index){
+
+  if(!currentPlace){
+    return;
+  }
+
+  const item =
+    publicResults[index];
+
+  if(!item){
+    showMessage(
+      "Public-data place was not found.",
+      "bad"
+    );
+    return;
+  }
+
+  try{
+
+    const update = {
+      latitude:Number(item.latitude),
+      longitude:Number(item.longitude),
+      coordinate_status:"done",
+      coordinate_source:"wikidata",
+      coordinate_source_id:item.id || null,
+      coordinate_checked_at:new Date().toISOString(),
+      coordinate_review_reason:null,
+      updated_at:new Date().toISOString()
+    };
+
+    const {
+      data,
+      error
+    } = await db
+      .from("places")
+      .update(update)
+      .eq("id",currentPlace.id)
+      .select();
+
+    if(error){
+      throw error;
+    }
+
+    if(!data || !data.length){
+      throw new Error(
+        "Supabase returned 0 updated rows."
+      );
+    }
+
+    currentPlace = data[0];
+
+    const localIndex =
+      places.findIndex(
+        p => p.id === currentPlace.id
+      );
+
+    if(localIndex >= 0){
+      places[localIndex] =
+        currentPlace;
+    }
+
+    updateSummary();
+    renderPlaceList();
+    showPlace(
+      currentPlace,
+      false
+    );
+
+    showMessage(
+      `Saved Wikidata coordinates for ${currentPlace.name}.`
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      error.message ||
+      "Could not save public-data location.",
+      "bad"
+    );
+
+  }
+
+}
+
+
 /* ============================================================
    SEARCH GOOGLE
 ============================================================ */
@@ -1402,9 +1757,7 @@ async function searchGoogle(){
           "googleMapsURI"
         ],
 
-        maxResultCount:5,
-
-        region:"jp"
+        maxResultCount:5
 
       });
 
@@ -1650,6 +2003,14 @@ async function useGoogleLocation(index){
         googlePlace.googleMapsURI ||
         currentPlace.maps_url ||
         null,
+
+      coordinate_status:"done",
+      coordinate_source:"google",
+      coordinate_source_id:
+        googlePlace.id || null,
+      coordinate_checked_at:
+        new Date().toISOString(),
+      coordinate_review_reason:null,
 
       updated_at:
         new Date().toISOString()
