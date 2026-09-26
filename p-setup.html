@@ -532,7 +532,7 @@
 
 <div class="app">
 
-  <div class="eyebrow">Admin · Location Setup</div>
+  <div class="eyebrow">Admin · Location Setup <span style="opacity:.45;font-size:8px">BUILD ec-auto-v2</span></div>
   <h1>Places Setup</h1>
 
   <div class="sub">
@@ -2672,13 +2672,20 @@ async function autoMatchOne(place){
 
   const topRankLocationMatch=
     best.index===0 &&
-    best.nameScore>=72 &&
+    best.nameScore>=65 &&
     (best.cityMatch || best.countryMatch);
+
+  const veryStrongLocationMatch=
+    best.index===0 &&
+    best.nameScore>=55 &&
+    best.cityMatch &&
+    best.countryMatch;
 
   if(
     exactish ||
     (strongWithLocation && clearLead) ||
-    topRankLocationMatch
+    topRankLocationMatch ||
+    veryStrongLocationMatch
   ){
     await saveGoogleLocationDirect(place,best.result);
     return {
@@ -2692,7 +2699,8 @@ async function autoMatchOne(place){
     status:"review",
     score:best.score,
     nameScore:best.nameScore,
-    reason:"Needs manual confirmation"
+    reason:
+      `Needs review: "${best.googleName}" · name ${best.nameScore}% · city ${best.cityMatch?"yes":"no"} · country ${best.countryMatch?"yes":"no"}`
   };
 }
 
@@ -2708,7 +2716,7 @@ async function toggleAutoMatch(){
   }
 
   autoMatchRunning=true;
-  autoMatchStats={matched:0,review:0,processed:0};
+  autoMatchStats={matched:0,review:0,processed:0,lastReview:""};
 
   if(button)button.textContent="STOP AUTO MATCH";
 
@@ -2734,6 +2742,7 @@ async function toggleAutoMatch(){
         autoMatchStats.matched++;
       }else{
         autoMatchStats.review++;
+        autoMatchStats.lastReview=result.reason||"Needs manual confirmation";
       }
 
     }catch(error){
@@ -2753,7 +2762,7 @@ async function toggleAutoMatch(){
     renderPlaceList();
 
     showMessage(
-      `Auto match: ${autoMatchStats.processed}/${missing.length} · saved ${autoMatchStats.matched} · review ${autoMatchStats.review}`
+      `Auto match: ${autoMatchStats.processed}/${missing.length} · saved ${autoMatchStats.matched} · review ${autoMatchStats.review}${autoMatchStats.lastReview?` · ${autoMatchStats.lastReview}`:""}`
     );
 
     /*
