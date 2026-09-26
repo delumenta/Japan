@@ -1385,42 +1385,94 @@ async function searchPublicData(){
 
   try{
 
-    const query = [
+    /*
+      Wikidata search works better with short, focused queries than
+      one long Google-style query. Try the exact name first, then
+      progressively add location context only when needed.
+    */
+
+    const rawQueries = [
       currentPlace.name,
       currentPlace.name_japanese,
-      currentPlace.area,
-      currentPlace.city,
-      currentPlace.prefecture,
-      currentPlace.country
-    ]
-    .filter(Boolean)
-    .join(" ");
+      [currentPlace.name,currentPlace.city].filter(Boolean).join(" "),
+      [currentPlace.name,currentPlace.area].filter(Boolean).join(" "),
+      [currentPlace.name,currentPlace.prefecture].filter(Boolean).join(" "),
+      [currentPlace.name,currentPlace.country].filter(Boolean).join(" "),
+      [currentPlace.name,currentPlace.city,currentPlace.country].filter(Boolean).join(" ")
+    ];
 
-    const searchUrl =
-      "https://www.wikidata.org/w/api.php" +
-      "?action=wbsearchentities" +
-      "&format=json" +
-      "&origin=*" +
-      "&language=en" +
-      "&uselang=en" +
-      "&limit=8" +
-      "&search=" +
-      encodeURIComponent(query);
+    const seenQueries = new Set();
 
-    const searchResponse =
-      await fetch(searchUrl);
+    const queries =
+      rawQueries
+      .map(value => String(value || "").trim())
+      .filter(Boolean)
+      .filter(value => {
+        const key = value.toLocaleLowerCase();
+        if(seenQueries.has(key)){
+          return false;
+        }
+        seenQueries.add(key);
+        return true;
+      });
 
-    if(!searchResponse.ok){
-      throw new Error("Wikidata search failed.");
+    const rankedIds = [];
+    const seenIds = new Set();
+
+    for(const query of queries){
+
+      const searchUrl =
+        "https://www.wikidata.org/w/api.php" +
+        "?action=wbsearchentities" +
+        "&format=json" +
+        "&origin=*" +
+        "&language=en" +
+        "&uselang=en" +
+        "&limit=8" +
+        "&search=" +
+        encodeURIComponent(query);
+
+      const searchResponse =
+        await fetch(searchUrl);
+
+      if(!searchResponse.ok){
+        continue;
+      }
+
+      const searchData =
+        await searchResponse.json();
+
+      for(const item of (searchData.search || [])){
+
+        if(
+          item?.id &&
+          !seenIds.has(item.id)
+        ){
+          seenIds.add(item.id);
+          rankedIds.push(item.id);
+        }
+
+      }
+
+      /*
+        If exact-name search already returns a useful pool,
+        there is no need to keep widening aggressively.
+      */
+      if(
+        query === String(currentPlace.name || "").trim() &&
+        rankedIds.length >= 5
+      ){
+        break;
+      }
+
+      if(rankedIds.length >= 16){
+        break;
+      }
+
     }
 
-    const searchData =
-      await searchResponse.json();
-
     const ids =
-      (searchData.search || [])
-      .map(item => item.id)
-      .filter(Boolean);
+      rankedIds.slice(0,16);
 
     if(!ids.length){
       box.innerHTML =
@@ -1491,7 +1543,6 @@ async function searchPublicData(){
   }
 
 }
-
 
 function renderPublicResults(){
 
