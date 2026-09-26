@@ -1140,7 +1140,7 @@ function showPlace(
   ).textContent =
     location
       ? `📍 ${location}`
-      : "📍 Japan";
+      : `📍 ${place.country || "Location"}`;
 
 
   document.getElementById(
@@ -1434,6 +1434,210 @@ async function runCheapLocationLookup(){
   }
 
 }
+
+
+/* ============================================================
+   AUTO NAME SUGGESTIONS
+============================================================ */
+
+function localLanguageCode(place){
+
+  const country =
+    String(place?.country || "").trim().toLowerCase();
+
+  const map = {
+    "japan":"ja",
+    "china":"zh",
+    "people's republic of china":"zh",
+    "prc":"zh",
+    "south korea":"ko",
+    "korea":"ko",
+    "republic of korea":"ko",
+    "italy":"it",
+    "vatican city":"it",
+    "holy see":"it",
+    "france":"fr",
+    "germany":"de",
+    "austria":"de",
+    "spain":"es",
+    "portugal":"pt",
+    "thailand":"th",
+    "vietnam":"vi",
+    "indonesia":"id",
+    "malaysia":"ms",
+    "singapore":"en",
+    "taiwan":"zh",
+    "hong kong":"zh",
+    "macau":"zh"
+  };
+
+  return map[country] || null;
+}
+
+
+async function suggestNamesFromGoogle(googlePlace){
+
+  if(!googlePlace || !currentPlace){
+    return;
+  }
+
+  const googleName =
+    typeof googlePlace.displayName === "string"
+      ? googlePlace.displayName
+      : googlePlace.displayName?.text;
+
+  if(googleName){
+
+    const editName =
+      document.getElementById("editName");
+
+    if(editName){
+      editName.value = googleName;
+    }
+
+  }
+
+  const localLang =
+    localLanguageCode(currentPlace);
+
+  if(!localLang){
+    return;
+  }
+
+  try{
+
+    const query =
+      googleName ||
+      currentPlace.name ||
+      "";
+
+    if(!query){
+      return;
+    }
+
+    const searchUrl =
+      "https://www.wikidata.org/w/api.php" +
+      "?action=wbsearchentities" +
+      "&format=json" +
+      "&origin=*" +
+      "&language=en" +
+      "&uselang=en" +
+      "&limit=5" +
+      "&search=" +
+      encodeURIComponent(query);
+
+    const searchResponse =
+      await fetch(searchUrl);
+
+    if(!searchResponse.ok){
+      return;
+    }
+
+    const searchData =
+      await searchResponse.json();
+
+    const ids =
+      (searchData.search || [])
+      .map(item => item.id)
+      .filter(Boolean)
+      .slice(0,5);
+
+    if(!ids.length){
+      return;
+    }
+
+    const languages =
+      ["en",localLang]
+      .filter(Boolean)
+      .join("|");
+
+    const entityUrl =
+      "https://www.wikidata.org/w/api.php" +
+      "?action=wbgetentities" +
+      "&format=json" +
+      "&origin=*" +
+      "&props=labels|descriptions|claims" +
+      "&languages=" +
+      encodeURIComponent(languages) +
+      "&ids=" +
+      encodeURIComponent(ids.join("|"));
+
+    const entityResponse =
+      await fetch(entityUrl);
+
+    if(!entityResponse.ok){
+      return;
+    }
+
+    const entityData =
+      await entityResponse.json();
+
+    const entities =
+      ids
+      .map(id => entityData.entities?.[id])
+      .filter(Boolean);
+
+    if(!entities.length){
+      return;
+    }
+
+    /*
+      Prefer the first Wikidata result whose English label is a close
+      match to Google's canonical display name.
+    */
+    const normalize = value =>
+      String(value || "")
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[^\p{L}\p{N}]+/gu,"")
+      .trim();
+
+    const googleKey =
+      normalize(googleName);
+
+    let entity =
+      entities.find(item => {
+        const english =
+          item.labels?.en?.value || "";
+        const key =
+          normalize(english);
+        return (
+          key &&
+          googleKey &&
+          (
+            key === googleKey ||
+            key.includes(googleKey) ||
+            googleKey.includes(key)
+          )
+        );
+      }) ||
+      entities[0];
+
+    const localLabel =
+      entity?.labels?.[localLang]?.value || "";
+
+    if(localLabel){
+
+      const editLocal =
+        document.getElementById("editLocal");
+
+      if(editLocal){
+        editLocal.value = localLabel;
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Could not suggest local name",
+      error
+    );
+
+  }
+
+}
+
 
 /* ============================================================
    PUBLIC DATA SEARCH
@@ -1887,6 +2091,10 @@ async function searchGoogle(){
 
     renderGoogleResults();
 
+    if(googleResults[0]){
+      suggestNamesFromGoogle(googleResults[0]);
+    }
+
   }catch(error){
 
     console.error(error);
@@ -2064,6 +2272,8 @@ async function useGoogleLocation(index){
 
     return;
   }
+
+  await suggestNamesFromGoogle(googlePlace);
 
 
   const lat =
