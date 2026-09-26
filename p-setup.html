@@ -2514,6 +2514,38 @@ function nameMatchScore(a,b){
   return Math.min(score,100);
 }
 
+function isSuspiciousSubLocation(originalName,googleName){
+  const original=String(originalName||"").toLowerCase();
+  const candidate=String(googleName||"").toLowerCase();
+
+  const suspiciousTerms=[
+    "parking lot",
+    "car park",
+    "parking",
+    "ticket office",
+    "ticket center",
+    "ticket centre",
+    "west gate",
+    "east gate",
+    "north gate",
+    "south gate",
+    "main gate",
+    "entrance",
+    "exit",
+    "bus stop",
+    "bus station",
+    "visitor center",
+    "visitor centre",
+    "information center",
+    "information centre"
+  ];
+
+  return suspiciousTerms.some(term =>
+    candidate.includes(term) &&
+    !original.includes(term)
+  );
+}
+
 function autoMatchConfidence(place,googlePlace,index=0){
   const googleName =
     typeof googlePlace?.displayName==="string"
@@ -2551,7 +2583,12 @@ function autoMatchConfidence(place,googlePlace,index=0){
     nameScore,
     cityMatch,
     countryMatch,
-    googleName
+    googleName,
+    suspiciousSubLocation:
+      isSuspiciousSubLocation(
+        place?.name,
+        googleName
+      )
   };
 }
 
@@ -2652,6 +2689,16 @@ async function autoMatchOne(place){
 
   const best=ranked[0];
   const second=ranked[1];
+
+  if(best.suspiciousSubLocation){
+    return {
+      status:"review",
+      score:best.score,
+      nameScore:best.nameScore,
+      reason:
+        `Needs review: Google matched a sub-location ("${best.googleName}") rather than the main attraction.`
+    };
+  }
 
   /*
     Auto-save when:
