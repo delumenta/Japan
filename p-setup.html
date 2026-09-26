@@ -2739,6 +2739,16 @@ async function autoMatchOne(place){
   const best=ranked[0];
   const second=ranked[1];
 
+  if(best?.suspiciousSubLocation){
+    return {
+      status:"review",
+      score:best.score,
+      nameScore:best.nameScore,
+      reason:
+        `Needs review: Google matched a sub-location ("${best.googleName}") rather than the main attraction.`
+    };
+  }
+
   if(best.suspiciousSubLocation){
     return {
       status:"review",
