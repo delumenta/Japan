@@ -603,7 +603,7 @@
 
       <div class="place-title" id="placeTitle"></div>
 
-      <div class="jp" id="placeJapanese"></div>
+      <div class="jp" id="placeLocal"></div>
 
       <div class="location" id="placeLocation"></div>
 
@@ -625,10 +625,11 @@
         type="text">
 
 
-      <label>JAPANESE NAME</label>
+      <label>LOCAL NAME</label>
+      <div class="hint">Native name for the place — e.g. 日本語, 中文, 한국어.</div>
 
       <input
-        id="editJapanese"
+        id="editLocal"
         type="text">
 
 
@@ -1111,15 +1112,15 @@ function showPlace(
     place.name || "Unnamed Place";
 
 
-  const japanese =
+  const localName =
     document.getElementById(
-      "placeJapanese"
+      "placeLocal"
     );
 
-  japanese.textContent =
+  localName.textContent =
     place.name_japanese || "";
 
-  japanese.style.display =
+  localName.style.display =
     place.name_japanese
       ? "block"
       : "none";
@@ -1149,7 +1150,7 @@ function showPlace(
 
 
   document.getElementById(
-    "editJapanese"
+    "editLocal"
   ).value =
     place.name_japanese || "";
 
@@ -1249,9 +1250,9 @@ async function saveName(){
     ).value.trim();
 
 
-  const japanese =
+  const localName =
     document.getElementById(
-      "editJapanese"
+      "editLocal"
     ).value.trim();
 
 
@@ -1276,7 +1277,7 @@ async function saveName(){
       .update({
         name:name,
         name_japanese:
-          japanese || null,
+          localName || null,
         updated_at:
           new Date().toISOString()
       })
