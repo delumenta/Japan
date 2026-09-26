@@ -427,6 +427,23 @@ header::after{
 
 
 
+.title-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+
+.review-link{
+  min-height:29px;
+  display:inline-flex;
+  align-items:center;
+  padding:0 9px;
+  border:1px solid rgba(228,189,105,.28);
+  border-radius:9px;
+  background:rgba(228,189,105,.06);
+  color:#dfbf76;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+
 .add-btn{
 
   flex:
@@ -2730,13 +2747,16 @@ gmp-place-autocomplete{
       </div>
 
 
-      <button
-        id="openAdd"
-        class="add-btn"
-        type="button"
-      >
-        ＋ ADD FOOD
-      </button>
+      <div class="title-actions">
+        <a class="review-link" href="review.html">● REVIEW</a>
+        <button
+          id="openAdd"
+          class="add-btn"
+          type="button"
+        >
+          ＋ ADD FOOD
+        </button>
+      </div>
 
 
     </div>
