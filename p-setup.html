@@ -2469,27 +2469,45 @@ function nameMatchScore(a,b){
   return Math.round((same/Math.max(shorter.length,1))*70);
 }
 
-function autoMatchConfidence(place,googlePlace){
+function autoMatchConfidence(place,googlePlace,index=0){
   const googleName =
     typeof googlePlace?.displayName==="string"
       ? googlePlace.displayName
       : googlePlace?.displayName?.text || "";
 
-  let score=nameMatchScore(place?.name,googleName);
+  const nameScore=
+    nameMatchScore(place?.name,googleName);
 
   const address=
     String(googlePlace?.formattedAddress||"").toLowerCase();
 
   const city=
-    String(place?.city||"").toLowerCase();
+    String(place?.city||"").trim().toLowerCase();
 
   const country=
-    String(place?.country||"").toLowerCase();
+    String(place?.country||"").trim().toLowerCase();
 
-  if(city && address.includes(city))score+=6;
-  if(country && address.includes(country))score+=6;
+  const cityMatch=
+    !!city && address.includes(city);
 
-  return Math.min(score,100);
+  const countryMatch=
+    !!country && address.includes(country);
+
+  let score=nameScore;
+
+  if(cityMatch)score+=7;
+  if(countryMatch)score+=5;
+
+  // Google's first result is a useful ranking signal.
+  if(index===0)score+=3;
+
+  return {
+    score:Math.min(score,100),
+    nameScore,
+    cityMatch,
+    countryMatch,
+    googleName
+  };
 }
 
 async function saveGoogleLocationDirect(place,googlePlace){
@@ -2580,9 +2598,10 @@ async function autoMatchOne(place){
   }
 
   const ranked=results
-    .map(result=>({
+    .map((result,index)=>({
       result,
-      score:autoMatchConfidence(place,result)
+      index,
+      ...autoMatchConfidence(place,result,index)
     }))
     .sort((a,b)=>b.score-a.score);
 
@@ -2590,20 +2609,38 @@ async function autoMatchOne(place){
   const second=ranked[1];
 
   /*
-    Save only very strong matches, and avoid cases where
-    the top two candidates are nearly tied.
+    Auto-save when:
+    - the name is exact / almost exact; or
+    - the name is very close and the address confirms the city/country.
+    A near-tie no longer blocks an exact match.
   */
+  const exactish=
+    best.nameScore>=95;
+
+  const strongWithLocation=
+    best.nameScore>=86 &&
+    (best.cityMatch || best.countryMatch);
+
+  const clearLead=
+    !second ||
+    (best.score-second.score)>=4;
+
   if(
-    best.score>=90 &&
-    (!second || (best.score-second.score)>=8)
+    exactish ||
+    (strongWithLocation && clearLead)
   ){
     await saveGoogleLocationDirect(place,best.result);
-    return {status:"matched",score:best.score};
+    return {
+      status:"matched",
+      score:best.score,
+      nameScore:best.nameScore
+    };
   }
 
   return {
     status:"review",
     score:best.score,
+    nameScore:best.nameScore,
     reason:"Needs manual confirmation"
   };
 }
@@ -2615,7 +2652,7 @@ async function toggleAutoMatch(){
   if(autoMatchRunning){
     autoMatchRunning=false;
     if(button)button.textContent="AUTO MATCH SAFE";
-    showMessage("Auto match stopped.");
+    showMessage("Auto match stopping after the current place...");
     return;
   }
 
@@ -2624,14 +2661,21 @@ async function toggleAutoMatch(){
 
   if(button)button.textContent="STOP AUTO MATCH";
 
-  const missing=places.filter(place=>!hasCoordinates(place));
+  const missing=
+    places.filter(place=>!hasCoordinates(place));
 
-  for(const place of missing){
+  for(let i=0;i<missing.length;i++){
 
-    if(!autoMatchRunning)break;
+    if(!autoMatchRunning){
+      break;
+    }
+
+    const place=missing[i];
 
     try{
-      const result=await autoMatchOne(place);
+
+      const result=
+        await autoMatchOne(place);
 
       autoMatchStats.processed++;
 
@@ -2641,35 +2685,52 @@ async function toggleAutoMatch(){
         autoMatchStats.review++;
       }
 
-      updateSummary();
-      renderPlaceList();
-
-      showMessage(
-        `Auto match: ${autoMatchStats.processed}/${missing.length} · saved ${autoMatchStats.matched} · review ${autoMatchStats.review}`
-      );
-
-      /*
-        Small pause to keep the browser responsive and avoid
-        hammering the API too quickly.
-      */
-      await new Promise(resolve=>setTimeout(resolve,350));
-
     }catch(error){
 
-      console.error("Auto match failed",place?.name,error);
+      console.error(
+        "Auto match failed",
+        place?.name,
+        error
+      );
+
       autoMatchStats.processed++;
       autoMatchStats.review++;
 
     }
 
+    updateSummary();
+    renderPlaceList();
+
+    showMessage(
+      `Auto match: ${autoMatchStats.processed}/${missing.length} · saved ${autoMatchStats.matched} · review ${autoMatchStats.review}`
+    );
+
+    /*
+      Give the browser and Google Places a little breathing room.
+      A longer pause also reduces bursty request errors on mobile.
+    */
+    await new Promise(
+      resolve=>setTimeout(resolve,650)
+    );
+
   }
+
+  const stoppedEarly=
+    autoMatchStats.processed < missing.length;
 
   autoMatchRunning=false;
 
-  if(button)button.textContent="AUTO MATCH SAFE";
+  const finalButton=
+    document.getElementById("autoMatchButton");
+
+  if(finalButton){
+    finalButton.textContent="AUTO MATCH SAFE";
+  }
 
   showMessage(
-    `Auto match finished. Saved ${autoMatchStats.matched}. Needs review ${autoMatchStats.review}.`
+    stoppedEarly
+      ? `Auto match stopped at ${autoMatchStats.processed}/${missing.length}. Saved ${autoMatchStats.matched}. Needs review ${autoMatchStats.review}.`
+      : `Auto match finished. Saved ${autoMatchStats.matched}. Needs review ${autoMatchStats.review}.`
   );
 
   updateSummary();
