@@ -602,8 +602,25 @@ async function checkOne(p){
   };
   persistCache();
 
-  // Keep the closest independently matched OSM result in Supabase as
-  // comparison data. Never overwrite the primary Google/manual coordinate.
+  // Persist Wikidata audit data too. Primary preference is OSM, then Wikidata.
+  if(wikidata){
+    try{
+      const {data:{user}}=await db.auth.getUser();
+      if(user){
+        const wdPayload={
+          wikidata_latitude:wikidata.lat,
+          wikidata_longitude:wikidata.lng,
+          wikidata_id:wikidata.wikidataId||null,
+          wikidata_name:wikidata.title||null,
+          wikidata_distance_m:Number.isFinite(wikidata.distance)?Math.round(wikidata.distance):null,
+          wikidata_match_status:Number.isFinite(wikidata.distance)&&wikidata.distance<=500?'confirmed':'review',
+          wikidata_checked_at:new Date().toISOString()
+        };
+        const {error}=await db.from('places').update(wdPayload).eq('id',p.id);
+        if(!error)Object.assign(p,wdPayload);
+      }
+    }catch(e){console.warn('Could not save Wikidata audit for',p.name,e)}
+  }
   if(osm){
     try{
       const {data:{user}}=await db.auth.getUser();
