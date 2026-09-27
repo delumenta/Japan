@@ -384,6 +384,16 @@
       gap:7px;
     }
 
+    .list-search{
+      margin:0 0 10px;
+    }
+
+    .list-search input{
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:11px;
+    }
+
     .list-item{
       display:grid;
       grid-template-columns:1fr auto;
@@ -742,6 +752,14 @@
     YOUR PLACES
   </div>
 
+  <div class="list-search">
+    <input
+      id="placeNameSearch"
+      type="search"
+      placeholder="Search place name..."
+      autocomplete="off">
+  </div>
+
   <div id="placeList" class="place-list"></div>
 
 </div>
@@ -992,6 +1010,31 @@ function renderPlaceList(){
       "placeList"
     );
 
+  const searchBox =
+    document.getElementById("placeNameSearch");
+
+  const query =
+    String(searchBox?.value || "")
+      .trim()
+      .toLowerCase();
+
+  const visiblePlaces =
+    query
+      ? places.filter(place =>
+          [
+            place.name,
+            place.name_japanese,
+            place.area,
+            place.city,
+            place.prefecture
+          ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .includes(query)
+        )
+      : places;
+
 
   if(!places.length){
 
@@ -1004,8 +1047,16 @@ function renderPlaceList(){
   }
 
 
+  if(!visiblePlaces.length){
+    container.innerHTML =
+      `<div class="empty">
+        No places match "${escapeHtml(query)}".
+       </div>`;
+    return;
+  }
+
   container.innerHTML =
-    places.map(place => {
+    visiblePlaces.map(place => {
 
       const ready =
         hasCoordinates(place);
@@ -1061,6 +1112,10 @@ function renderPlaceList(){
 
     }).join("");
 }
+
+
+document.getElementById("placeNameSearch")
+  ?.addEventListener("input",renderPlaceList);
 
 
 /* ============================================================
