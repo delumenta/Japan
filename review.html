@@ -297,6 +297,11 @@ async function useManualCoordinate(id){
     return;
   }
   const status=document.getElementById('ocr-'+id);
+  const {data:{user},error:userError}=await db.auth.getUser();
+  if(userError||!user){
+    status.innerHTML='Sign in first to save changes. <a href="login.html" style="color:#a9cbff;text-decoration:underline">OPEN LOGIN</a>';
+    return;
+  }
   status.textContent='Saving manually verified coordinate…';
   const payload={
     latitude:coords.lat,
@@ -306,12 +311,16 @@ async function useManualCoordinate(id){
     coordinate_checked_at:new Date().toISOString(),
     coordinate_review_reason:'Manually verified'
   };
-  const {error}=await db.from('places').update(payload).eq('id',id);
+  const {data,error}=await db.from('places').update(payload).eq('id',id).select('id,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason');
   if(error){
     status.textContent='Could not save: '+error.message;
     return;
   }
-  Object.assign(p,payload);
+  if(!data||!data.length){
+    status.textContent='Could not save: your account does not have permission to update this place.';
+    return;
+  }
+  Object.assign(p,data[0]);
   auditCache[String(id)]={state:'manual',status:'green',source:'Manual',distance:0,checkedAt:Date.now(),lat:coords.lat,lng:coords.lng,title:'Manually verified'};
   persistCache();
   render();
@@ -583,6 +592,11 @@ async function runAudit(){
   render();
 }
 async function load(){
+  const {data:{session}}=await db.auth.getSession();
+  if(!session){
+    const bar=document.getElementById('auditBar');
+    if(bar)bar.innerHTML='Review works without login. To save coordinate changes, <a href="login.html" style="color:#a9cbff;text-decoration:underline">sign in</a>.';
+  }
   const {data,error}=await db.from('places')
     .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason')
     .order('country').order('city').order('name');
