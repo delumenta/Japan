@@ -29,7 +29,11 @@ h1{margin:8px 0 5px;font-family:Georgia,"Times New Roman",serif;font-size:31px;l
 main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0c1318}.section>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;cursor:pointer}.section>summary::-webkit-details-marker{display:none}.section>summary b{font-size:11px}.section>summary span{font-size:9px;color:var(--muted)}.section.green{border-color:var(--green-line)}.section.yellow{border-color:var(--yellow-line)}.section.red{border-color:var(--red-line)}.section.pending{border-color:var(--pending-line)}
 .cards{display:grid;gap:8px;padding:0 10px 10px}.card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:11px;border:1px solid var(--line);border-radius:11px;background:#0a1116}.dot{width:11px;height:11px;border-radius:50%;margin-top:3px}.card.green .dot{background:var(--green);box-shadow:0 0 0 4px var(--green-bg)}.card.yellow .dot{background:var(--yellow);box-shadow:0 0 0 4px var(--yellow-bg)}.card.red .dot{background:var(--red);box-shadow:0 0 0 4px var(--red-bg)}.card.pending .dot{background:var(--pending);box-shadow:0 0 0 4px var(--pending-bg)}
 .name{font-size:11px;font-weight:800}.meta{margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.45}.coords{margin-top:7px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;color:#b6c0c7}.reason{margin-top:7px;padding:7px 8px;border-radius:8px;font-size:8.5px;line-height:1.45}.card.green .reason{background:var(--green-bg);color:#9eddb4}.card.yellow .reason{background:var(--yellow-bg);color:#e8cc91}.card.red .reason{background:var(--red-bg);color:#ff9b99}.card.pending .reason{background:var(--pending-bg);color:#aebdc8}
-.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.actions a{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#0d1419;font-size:8px;font-weight:800;color:#c2c9ce}.empty{padding:18px;text-align:center;color:var(--muted);font-size:9px}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.actions a,.delete-place{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#0d1419;font-size:8px;font-weight:800;color:#c2c9ce}
+.delete-place{border-color:var(--red-line);background:var(--red-bg);color:#ff9b99;cursor:pointer}
+.delete-place:disabled{opacity:.55;cursor:default}
+.empty{padding:18px;text-align:center;color:var(--muted);font-size:9px}
 .loading{padding:28px;text-align:center;color:var(--muted);font-size:10px}
 .manual-review{margin-top:10px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#0d1419}
 .manual-title{font-size:8px;font-weight:900;letter-spacing:.08em;color:#aeb8bf;text-transform:uppercase;margin-bottom:7px}
@@ -341,9 +345,45 @@ function card(p){
     '<div class="reason">'+esc(reasonText(p,status))+'</div>'+
     coordinateComparisonHtml(p)+
     mapLinks(p)+
+    '<div class="actions"><button class="delete-place" onclick="deletePlace('+Number(p.id)+',this)">DELETE FROM SUPABASE</button></div>'+
     ((status==='yellow'||status==='red')?manualReviewHtml(p):'')+
     '</div></div>';
 }
+async function deletePlace(id,button){
+  const p=rows.find(x=>Number(x.id)===Number(id));
+  if(!p)return;
+
+  const {data:{user},error:userError}=await db.auth.getUser();
+  if(userError||!user){
+    alert('Sign in first to delete this place.');
+    return;
+  }
+
+  const ok=confirm('Delete "'+p.name+'" from Supabase?\n\nThis removes the POI from the places table. This cannot be undone.');
+  if(!ok)return;
+
+  const oldText=button?.textContent||'DELETE FROM SUPABASE';
+  if(button){
+    button.disabled=true;
+    button.textContent='DELETING…';
+  }
+
+  const {error}=await db.from('places').delete().eq('id',id);
+  if(error){
+    console.error(error);
+    alert('Could not delete this place. It may be used by an itinerary/booking, or your account may not have admin permission.\n\n'+error.message);
+    if(button){
+      button.disabled=false;
+      button.textContent=oldText;
+    }
+    return;
+  }
+
+  rows=rows.filter(x=>Number(x.id)!==Number(id));
+  delete auditState[id];
+  render();
+}
+
 function render(){
   const q=document.getElementById('search').value.trim().toLowerCase();
   const country=document.getElementById('country').value;
