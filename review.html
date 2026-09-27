@@ -94,7 +94,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v5";
+const CACHE_KEY="travelite.coordinateAudit.v6";
 let rows=[];
 let auditCache={};
 try{
@@ -179,10 +179,15 @@ function coordinateComparisonHtml(p){
   const google=fmtCoord(p.latitude,p.longitude);
   const wikidata=a.wikidata?fmtCoord(a.wikidata.lat,a.wikidata.lng):(a.source==='Wikidata'?fmtCoord(a.lat,a.lng):null);
   const osm=a.osm?fmtCoord(a.osm.lat,a.osm.lng):(a.source==='OpenStreetMap'?fmtCoord(a.lat,a.lng):null);
+  const pending=statusOf(p)==='pending';
+  const wdDisplay=wikidata||(pending?(a.state==='checking'?'Checking…':'Waiting…'):null);
+  const osmDisplay=osm||(pending?(a.state==='checking'?'Checking…':'Waiting…'):null);
+  const line=(label,value,real)=> real?sourceCoordLine(label,value,p.id,true):
+    '<div class="coord-line"><div class="coord-label">'+label+'</div><div class="coord-value">'+esc(value||'No match')+'</div><span></span></div>';
   return '<div class="coord-compare">'+
     sourceCoordLine('Google',google,p.id,true)+
-    sourceCoordLine('Wikidata',wikidata,p.id,true)+
-    sourceCoordLine('OSM',osm,p.id,true)+
+    line('Wikidata',wdDisplay,!!wikidata)+
+    line('OSM',osmDisplay,!!osm)+
   '</div>';
 }
 async function copyCoordinate(value,button){
@@ -353,7 +358,7 @@ function render(){
   };
 
   document.getElementById('content').innerHTML=
-    section('pending','Pending · Waiting to check',true)+
+    section('pending','Pending · Waiting to check',false)+
     section('red','Red · Wrong / too far',true)+
     section('yellow','Yellow · Needs review',true)+
     section('green','Green · Good matches',false);
@@ -363,6 +368,15 @@ function cleanSearchName(name){
     .replace(/\([^)]*(gate|station|branch|parking|ticket)[^)]*\)/ig,' ')
     .replace(/\b(parking lot|ticket office|west gate|east gate|north gate|south gate)\b/ig,' ')
     .replace(/\s+/g,' ').trim();
+}
+async function fetchWithTimeout(url,options={},timeoutMs=9000){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),timeoutMs);
+  try{
+    return await fetch(url,{...options,signal:controller.signal});
+  }finally{
+    clearTimeout(timer);
+  }
 }
 function uniqueQueries(p){
   const name=cleanSearchName(p.name);
@@ -392,7 +406,7 @@ async function wikidataCheck(p){
   for(const q of uniqueQueries(p).slice(0,4)){
     try{
       const url='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=en&uselang=en&type=item&limit=10&format=json&origin=*';
-      const res=await fetch(url);
+      const res=await fetchWithTimeout(url,{},8000);
       if(!res.ok)continue;
       const json=await res.json();
       for(const hit of json?.search||[])found.set(hit.id,hit);
@@ -403,7 +417,7 @@ async function wikidataCheck(p){
   const candidates=[];
   for(const hit of hits){
     try{
-      const er=await fetch('https://www.wikidata.org/wiki/Special:EntityData/'+hit.id+'.json');
+      const er=await fetchWithTimeout('https://www.wikidata.org/wiki/Special:EntityData/'+hit.id+'.json',{},8000);
       if(!er.ok)continue;
       const ej=await er.json();
       const ent=ej?.entities?.[hit.id];
@@ -427,7 +441,7 @@ async function osmSearch(q,p){
     params.set('viewbox',(lng-.35)+','+(lat+.35)+','+(lng+.35)+','+(lat-.35));
     params.set('bounded','0');
   }
-  const res=await fetch('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}});
+  const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}},9000);
   if(!res.ok)return [];
   const json=await res.json();
   return (json||[]).map(x=>({
@@ -484,17 +498,25 @@ function persistCache(){
   try{localStorage.setItem(CACHE_KEY,JSON.stringify(auditCache))}catch(_){}
 }
 async function checkOne(p){
-  auditCache[String(p.id)]={state:'checking',status:'yellow',checkedAt:Date.now()};
-  let wikidata=null,osm=null;
-  try{wikidata=await wikidataCheck(p)}catch(_){}
-  try{osm=await osmCheck(p)}catch(_){}
+  const key=String(p.id);
+  auditCache[key]={state:'checking',status:'pending',wikidataState:'checking',osmState:'waiting',checkedAt:Date.now()};
+  render();
+  let wikidata=null,osm=null,wdError=null,osmError=null;
+  try{wikidata=await wikidataCheck(p)}catch(err){wdError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
+  auditCache[key]={...auditCache[key],wikidataState:wikidata?'found':'done',wikidata:wikidata||null,osmState:'checking'};
+  try{osm=await osmCheck(p)}catch(err){osmError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
   const classified=classifyResults(p,wikidata,osm);
-  auditCache[String(p.id)]={
+  auditCache[key]={
     ...classified,
     wikidata:wikidata?{lat:wikidata.lat,lng:wikidata.lng,title:wikidata.title,wikidataId:wikidata.wikidataId,distance:wikidata.distance}:null,
     osm:osm?{lat:osm.lat,lng:osm.lng,title:osm.title,osmType:osm.osmType,osmId:osm.osmId,distance:osm.distance}:null,
+    wikidataState:wikidata?'found':'done',
+    osmState:osm?'found':'done',
+    wikidataError:wdError,
+    osmError:osmError,
     checkedAt:Date.now()
   };
+  persistCache();
 }
 async function runAudit(){
   const stale=rows.filter(p=>{
@@ -510,19 +532,17 @@ async function runAudit(){
   }
   let done=0;
   bar.textContent='Cross-checking '+stale.length+' places against Wikidata and OpenStreetMap…';
-  const workers=Math.min(2,stale.length);
+  const workers=Math.min(1,stale.length);
   let cursor=0;
   async function worker(){
     while(cursor<stale.length){
       const p=stale[cursor++];
       await checkOne(p);
       done++;
-      if(done%5===0||done===stale.length){
-        persistCache();
-        bar.textContent='Cross-checking… '+done+' / '+stale.length+' complete';
-        render();
-      }
-      await new Promise(r=>setTimeout(r,180));
+      persistCache();
+      bar.textContent='Cross-checking… '+done+' / '+stale.length+' complete · '+Math.max(0,stale.length-done)+' remaining';
+      render();
+      await new Promise(r=>setTimeout(r,1100));
     }
   }
   await Promise.all(Array.from({length:workers},worker));
