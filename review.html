@@ -94,7 +94,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v6";
+const CACHE_KEY="travelite.coordinateAudit.v7";
 let rows=[];
 let auditCache={};
 try{
@@ -396,6 +396,22 @@ function candidateDistance(p,lat,lng){
   if(p.latitude==null||p.longitude==null)return null;
   return distanceMeters(Number(p.latitude),Number(p.longitude),Number(lat),Number(lng));
 }
+function matchWords(v){
+  const stop=new Set(['beijing','china','the','of','and','city','scenic','area']);
+  return cleanSearchName(v).toLowerCase().replace(/[^a-z0-9\u00c0-\uffff]+/g,' ').split(/\s+/).filter(x=>x.length>1&&!stop.has(x));
+}
+function nameMatchScore(placeName,candidateName){
+  const a=matchWords(placeName),b=matchWords(candidateName);
+  if(!a.length||!b.length)return 0;
+  const bs=new Set(b);
+  const hits=a.filter(x=>bs.has(x)||b.some(y=>y.includes(x)||x.includes(y))).length;
+  return hits/a.length;
+}
+function plausibleName(p,candidateName){
+  const clean=cleanSearchName(p.name).toLowerCase();
+  const cand=String(candidateName||'').toLowerCase();
+  return cand.includes(clean)||clean.includes(cand)||nameMatchScore(p.name,candidateName)>=0.5;
+}
 function chooseNearest(p,list,maxMeters=25000){
   const valid=list.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng));
   if(!valid.length)return null;
@@ -424,6 +440,8 @@ async function wikidataCheck(p){
       if(!er.ok)continue;
       const ej=await er.json();
       const ent=ej?.entities?.[hit.id];
+      const candidateText=[hit.label,hit.description].filter(Boolean).join(' ');
+      if(!plausibleName(p,candidateText))continue;
       const vals=ent?.claims?.P625||[];
       for(const claim of vals){
         const v=claim?.mainsnak?.datavalue?.value;
@@ -447,7 +465,7 @@ async function osmSearch(q,p){
   const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}},4500);
   if(!res.ok)return [];
   const json=await res.json();
-  return (json||[]).map(x=>({
+  return (json||[]).filter(x=>plausibleName(p,x.display_name||x.name||'')).map(x=>({
     source:'OpenStreetMap',lat:Number(x.lat),lng:Number(x.lon),
     title:x.display_name,osmType:x.osm_type,osmId:x.osm_id
   }));
