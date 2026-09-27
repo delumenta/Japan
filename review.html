@@ -613,6 +613,7 @@ async function checkOne(p){
           osm_id:osm.osmId!=null?String(osm.osmId):null,
           osm_name:osm.title||null,
           osm_distance_m:Number.isFinite(osm.distance)?Math.round(osm.distance):null,
+          osm_match_status:Number.isFinite(osm.distance)&&osm.distance<=500?'confirmed':'review',
           osm_checked_at:new Date().toISOString()
         };
         const {error:osmSaveError}=await db.from('places').update(osmPayload).eq('id',p.id);
@@ -663,7 +664,7 @@ async function load(){
     if(bar)bar.innerHTML='Review works without login. To save coordinate changes, <a href="login.html" style="color:#a9cbff;text-decoration:underline">sign in</a>.';
   }
   const {data,error}=await db.from('places')
-    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_checked_at')
+    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_match_status,osm_checked_at')
     .order('country').order('city').order('name');
   if(error){
     document.getElementById('content').innerHTML='<div class="empty">Could not load places: '+esc(error.message)+'</div>';
