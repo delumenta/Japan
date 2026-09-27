@@ -30,6 +30,15 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
 .name{font-size:11px;font-weight:800}.meta{margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.45}.coords{margin-top:7px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;color:#b6c0c7}.reason{margin-top:7px;padding:7px 8px;border-radius:8px;font-size:8.5px;line-height:1.45}.card.green .reason{background:var(--green-bg);color:#9eddb4}.card.yellow .reason{background:var(--yellow-bg);color:#e8cc91}.card.red .reason{background:var(--red-bg);color:#ff9b99}
 .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.actions a{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#0d1419;font-size:8px;font-weight:800;color:#c2c9ce}.empty{padding:18px;text-align:center;color:var(--muted);font-size:9px}
 .loading{padding:28px;text-align:center;color:var(--muted);font-size:10px}
+.manual-review{margin-top:10px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#0d1419}
+.manual-title{font-size:8px;font-weight:900;letter-spacing:.08em;color:#aeb8bf;text-transform:uppercase;margin-bottom:7px}
+.manual-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}
+.manual-row input[type=text]{min-width:0;height:34px;border:1px solid var(--line);border-radius:8px;background:#080d11;color:var(--text);padding:0 9px;font-size:9px}
+.upload-label,.manual-btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:#111a20;color:#c8d0d5;font-size:8px;font-weight:900;cursor:pointer}
+.manual-btn.use{margin-top:7px;width:100%;border-color:var(--green-line);background:var(--green-bg);color:#9eddb4}
+.manual-preview{margin-top:6px;font-size:8px;color:var(--muted);line-height:1.45}
+.manual-preview a{color:#a9cbff;text-decoration:underline}
+.ocr-status{margin-top:6px;font-size:8px;color:var(--yellow)}
 @media(max-width:560px){.shell{width:calc(100% - 12px);margin-top:6px;border-radius:20px}.toolbar{grid-template-columns:1fr}.stats{gap:5px}.stat{padding:8px}.stat b{font-size:16px}header,main{padding-left:14px;padding-right:14px}.toolbar,.legend{padding-left:14px;padding-right:14px}}
 </style>
 </head>
@@ -62,13 +71,14 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
   <span class="pill red">● Wrong / too far</span>
 </div>
 <div id="auditBar" style="margin:10px 20px 0;padding:10px 12px;border:1px solid #263039;border-radius:10px;background:#0c1318;color:#8f9aa2;font-size:9px;line-height:1.5">
-  Coordinate lookup uses Wikidata first, then OpenStreetMap as fallback. Confirmed coordinates are stored back to Supabase.
+  Yellow/Red items can be manually verified. Upload a Google Maps screenshot with visible coordinates, preview the detected pin, then confirm it.
 </div>
 
 <main id="content"><div class="loading">Loading coordinate review…</div></main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
 const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
@@ -103,7 +113,7 @@ function statusOf(p){
   const st=String(p.coordinate_status||'pending').toLowerCase();
 
   if(st==='failed'||/wrong place|too far|mismatch|incorrect|bad match/.test(reason)) return 'red';
-  if(st==='done' && /wikidata|wikipedia|openstreetmap|osm/.test(src)) return 'green';
+  if(st==='done' && /manual|wikidata|wikipedia|openstreetmap|osm/.test(src)) return 'green';
   return 'yellow';
 }
 function reasonText(p,status){
@@ -133,6 +143,109 @@ function mapLinks(p){
     '<a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?search='+q+'">Wikipedia</a>'+
   '</div>';
 }
+function manualReviewHtml(p){
+  const id=Number(p.id);
+  return '<div class="manual-review">'+
+    '<div class="manual-title">My coordinate · screenshot or manual</div>'+
+    '<div class="manual-row">'+
+      '<input id="manual-'+id+'" type="text" inputmode="decimal" placeholder="39.9845369, 116.493148" oninput="updateManualPreview('+id+')">'+
+      '<label class="upload-label">UPLOAD SCREENSHOT<input type="file" accept="image/*" hidden onchange="readCoordinateScreenshot('+id+',this)"></label>'+
+    '</div>'+
+    '<div id="ocr-'+id+'" class="ocr-status"></div>'+
+    '<div id="preview-'+id+'" class="manual-preview">Paste coordinates or upload a screenshot with visible latitude/longitude.</div>'+
+    '<button class="manual-btn use" onclick="useManualCoordinate('+id+')">✓ USE MY COORDINATES</button>'+
+  '</div>';
+}
+function parseCoordinateText(text){
+  const s=String(text||'').replace(/[，;]/g,',');
+  const patterns=[
+    /(-?\d{1,2}\.\d{4,})\s*[, ]\s*(-?\d{2,3}\.\d{4,})/g,
+    /(-?\d{1,2}\.\d+)\s*[, ]\s*(-?\d{2,3}\.\d+)/g
+  ];
+  for(const re of patterns){
+    let m;
+    while((m=re.exec(s))){
+      const lat=Number(m[1]),lng=Number(m[2]);
+      if(Number.isFinite(lat)&&Number.isFinite(lng)&&lat>=-90&&lat<=90&&lng>=-180&&lng<=180){
+        return {lat,lng};
+      }
+    }
+  }
+  return null;
+}
+function manualCoords(id){
+  return parseCoordinateText(document.getElementById('manual-'+id)?.value||'');
+}
+function updateManualPreview(id){
+  const box=document.getElementById('preview-'+id);
+  if(!box)return;
+  const c=manualCoords(id);
+  if(!c){
+    box.textContent='Enter latitude, longitude.';
+    return;
+  }
+  const href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.lat+','+c.lng);
+  box.innerHTML=esc(c.lat+', '+c.lng)+' · <a target="_blank" rel="noopener" href="'+href+'">Preview in Google Maps</a>';
+}
+async function readCoordinateScreenshot(id,input){
+  const file=input?.files?.[0];
+  if(!file)return;
+  const status=document.getElementById('ocr-'+id);
+  status.textContent='Reading screenshot…';
+  try{
+    if(!window.Tesseract)throw new Error('Screenshot reader failed to load.');
+    const result=await Tesseract.recognize(file,'eng',{
+      logger:m=>{
+        if(m.status==='recognizing text'&&Number.isFinite(m.progress)){
+          status.textContent='Reading screenshot… '+Math.round(m.progress*100)+'%';
+        }
+      }
+    });
+    const coords=parseCoordinateText(result?.data?.text||'');
+    if(!coords){
+      status.textContent='Could not find visible coordinates. You can paste them manually.';
+      return;
+    }
+    const field=document.getElementById('manual-'+id);
+    field.value=coords.lat+', '+coords.lng;
+    updateManualPreview(id);
+    status.textContent='Coordinates detected. Preview the pin, then confirm below.';
+  }catch(e){
+    console.error(e);
+    status.textContent='Could not read screenshot. You can paste the coordinates manually.';
+  }finally{
+    input.value='';
+  }
+}
+async function useManualCoordinate(id){
+  const p=rows.find(x=>Number(x.id)===Number(id));
+  const coords=manualCoords(id);
+  if(!p||!coords){
+    const status=document.getElementById('ocr-'+id);
+    if(status)status.textContent='Enter or detect valid latitude, longitude first.';
+    return;
+  }
+  const status=document.getElementById('ocr-'+id);
+  status.textContent='Saving manually verified coordinate…';
+  const payload={
+    latitude:coords.lat,
+    longitude:coords.lng,
+    coordinate_status:'done',
+    coordinate_source:'manual',
+    coordinate_checked_at:new Date().toISOString(),
+    coordinate_review_reason:'Manually verified'
+  };
+  const {error}=await db.from('places').update(payload).eq('id',id);
+  if(error){
+    status.textContent='Could not save: '+error.message;
+    return;
+  }
+  Object.assign(p,payload);
+  auditCache[String(id)]={state:'manual',status:'green',source:'Manual',distance:0,checkedAt:Date.now(),lat:coords.lat,lng:coords.lng,title:'Manually verified'};
+  persistCache();
+  render();
+}
+
 function card(p){
   const status=statusOf(p);
   const a=auditOf(p);
@@ -145,7 +258,9 @@ function card(p){
     '</div>'+
     (p.latitude!=null&&p.longitude!=null?'<div class="coords">'+Number(p.latitude).toFixed(6)+', '+Number(p.longitude).toFixed(6)+'</div>':'<div class="coords">No coordinates</div>')+
     '<div class="reason">'+esc(reasonText(p,status))+'</div>'+
-    mapLinks(p)+'</div></div>';
+    mapLinks(p)+
+    (status!=='green'?manualReviewHtml(p):'')+
+    '</div></div>';
 }
 function render(){
   const q=document.getElementById('search').value.trim().toLowerCase();
@@ -261,6 +376,7 @@ async function checkOne(p){
 }
 async function runAudit(){
   const stale=rows.filter(p=>{
+    if(String(p.coordinate_source||'').toLowerCase()==='manual')return false;
     const a=auditOf(p);
     return !a||!a.checkedAt||(Date.now()-a.checkedAt)>30*24*60*60*1000;
   });
