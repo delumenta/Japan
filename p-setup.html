@@ -2477,6 +2477,126 @@ function renderGoogleResults(){
 
 
 /* ============================================================
+   OSM-FIRST COORDINATE SAVE
+============================================================ */
+
+function distanceMetres(lat1,lng1,lat2,lng2){
+  const R=6371000;
+  const toRad=v=>v*Math.PI/180;
+  const a1=toRad(Number(lat1));
+  const a2=toRad(Number(lat2));
+  const da=toRad(Number(lat2)-Number(lat1));
+  const dl=toRad(Number(lng2)-Number(lng1));
+  const a=Math.sin(da/2)**2+
+    Math.cos(a1)*Math.cos(a2)*Math.sin(dl/2)**2;
+  return 2*R*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+async function findOsmCoordinateForGoogle(place,googlePlace){
+  const gLat=readLat(googlePlace);
+  const gLng=readLng(googlePlace);
+  if(gLat===null||gLng===null)return null;
+
+  const queries=[
+    [place?.name,place?.city,place?.country].filter(Boolean).join(" "),
+    [place?.name,place?.country].filter(Boolean).join(" "),
+    place?.name
+  ].map(v=>String(v||"").trim()).filter(Boolean);
+
+  const seen=new Set();
+  let candidates=[];
+
+  for(const query of queries){
+    if(seen.has(query.toLowerCase()))continue;
+    seen.add(query.toLowerCase());
+    try{
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),7000);
+      const url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&addressdetails=1&q="+encodeURIComponent(query);
+      const response=await fetch(url,{
+        signal:controller.signal,
+        headers:{"Accept":"application/json"}
+      });
+      clearTimeout(timer);
+      if(!response.ok)continue;
+      const rows=await response.json();
+      candidates.push(...rows);
+    }catch(error){
+      console.warn("OSM lookup failed",error);
+    }
+    if(candidates.length>=8)break;
+  }
+
+  const deduped=[];
+  const ids=new Set();
+  for(const row of candidates){
+    const key=String(row.osm_type||"")+"-"+String(row.osm_id||"");
+    if(ids.has(key))continue;
+    ids.add(key);
+    const lat=Number(row.lat),lng=Number(row.lon);
+    if(!Number.isFinite(lat)||!Number.isFinite(lng))continue;
+    const candidateName=
+      row.name ||
+      String(row.display_name||"").split(",")[0] ||
+      "";
+    const score=nameMatchScore(place?.name,candidateName);
+    const distance=distanceMetres(gLat,gLng,lat,lng);
+    // Require a credible name and proximity to the selected Google POI.
+    if(score>=70 && distance<=500){
+      deduped.push({row,lat,lng,score,distance,candidateName});
+    }
+  }
+
+  deduped.sort((a,b)=>
+    (b.score-a.score) || (a.distance-b.distance)
+  );
+  return deduped[0]||null;
+}
+
+async function buildCoordinatePayload(place,googlePlace){
+  const gLat=readLat(googlePlace);
+  const gLng=readLng(googlePlace);
+  if(gLat===null||gLng===null){
+    throw new Error("Google did not return coordinates.");
+  }
+
+  const osm=await findOsmCoordinateForGoogle(place,googlePlace);
+  const now=new Date().toISOString();
+
+  if(osm){
+    return {
+      latitude:osm.lat,
+      longitude:osm.lng,
+      coordinate_status:"done",
+      coordinate_source:"OpenStreetMap",
+      coordinate_source_id:osm.row.osm_id!=null?String(osm.row.osm_id):null,
+      coordinate_checked_at:now,
+      coordinate_review_reason:null,
+      osm_latitude:osm.lat,
+      osm_longitude:osm.lng,
+      osm_type:osm.row.osm_type||null,
+      osm_id:osm.row.osm_id!=null?String(osm.row.osm_id):null,
+      osm_name:osm.candidateName||null,
+      osm_distance_m:Math.round(osm.distance),
+      osm_match_status:"confirmed",
+      osm_checked_at:now
+    };
+  }
+
+  // Google is only the fallback. Mark it for review rather than
+  // treating it as a permanent independently sourced coordinate.
+  return {
+    latitude:Number(gLat),
+    longitude:Number(gLng),
+    coordinate_status:"review",
+    coordinate_source:"google",
+    coordinate_source_id:googlePlace.id||null,
+    coordinate_checked_at:now,
+    coordinate_review_reason:"Google fallback — no confident OSM match; review required"
+  };
+}
+
+/* ============================================================
    SAVE GOOGLE LOCATION
 ============================================================ */
 
@@ -2536,49 +2656,23 @@ async function useGoogleLocation(index){
       google_place_id column.
     */
 
-    const update = {
+    const coordinatePayload =
+      await buildCoordinatePayload(currentPlace,googlePlace);
 
+    const update = {
       name:
         suggestedNames?.name ||
         currentPlace.name,
-
       name_japanese:
         suggestedNames?.localName ||
         currentPlace.name_japanese ||
         null,
-
       provider:"google",
-
       provider_place_id:
         googlePlace.id || null,
-
-      latitude:
-        Number(lat),
-
-      longitude:
-        Number(lng),
-
-      address:
-        googlePlace.formattedAddress ||
-        currentPlace.address ||
-        null,
-
-      maps_url:
-        googlePlace.googleMapsURI ||
-        currentPlace.maps_url ||
-        null,
-
-      coordinate_status:"done",
-      coordinate_source:"google",
-      coordinate_source_id:
-        googlePlace.id || null,
-      coordinate_checked_at:
-        new Date().toISOString(),
-      coordinate_review_reason:null,
-
+      ...coordinatePayload,
       updated_at:
         new Date().toISOString()
-
     };
 
 
@@ -2634,7 +2728,7 @@ async function useGoogleLocation(index){
 
 
     showMessage(
-      `Saved Google location for ${currentPlace.name}.`
+      `Saved ${currentPlace.coordinate_source === "OpenStreetMap" ? "OSM coordinates" : "Google fallback for review"} for ${currentPlace.name}.`
     );
 
 
@@ -2871,6 +2965,9 @@ async function saveGoogleLocationDirect(place,googlePlace){
   const suggestedNames=
     await suggestNamesFromGoogle(googlePlace);
 
+  const coordinatePayload=
+    await buildCoordinatePayload(place,googlePlace);
+
   const update={
     name:
       suggestedNames?.name ||
@@ -2882,23 +2979,7 @@ async function saveGoogleLocationDirect(place,googlePlace){
     provider:"google",
     provider_place_id:
       googlePlace.id || null,
-    latitude:Number(lat),
-    longitude:Number(lng),
-    address:
-      googlePlace.formattedAddress ||
-      place.address ||
-      null,
-    maps_url:
-      googlePlace.googleMapsURI ||
-      place.maps_url ||
-      null,
-    coordinate_status:"done",
-    coordinate_source:"google",
-    coordinate_source_id:
-      googlePlace.id || null,
-    coordinate_checked_at:
-      new Date().toISOString(),
-    coordinate_review_reason:null,
+    ...coordinatePayload,
     updated_at:
       new Date().toISOString()
   };
@@ -3020,11 +3101,14 @@ async function autoMatchOne(place){
     topRankLocationMatch ||
     veryStrongLocationMatch
   ){
-    await saveGoogleLocationDirect(place,best.result);
+    const saved=await saveGoogleLocationDirect(place,best.result);
     return {
-      status:"matched",
+      status:String(saved.coordinate_status||"")==="review" ? "review" : "matched",
       score:best.score,
-      nameScore:best.nameScore
+      nameScore:best.nameScore,
+      reason:String(saved.coordinate_status||"")==="review"
+        ? "Google fallback — no confident OSM match; review required"
+        : null
     };
   }
 
