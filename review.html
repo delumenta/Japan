@@ -97,7 +97,12 @@ const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const CACHE_KEY="travelite.coordinateAudit.v5";
 let rows=[];
 let auditCache={};
-try{auditCache=JSON.parse(localStorage.getItem(CACHE_KEY)||"{}")||{}}catch(_){auditCache={}}
+try{
+  auditCache=JSON.parse(localStorage.getItem(CACHE_KEY)||"{}")||{};
+  for(const [k,v] of Object.entries(auditCache)){
+    if(v?.state==='checking')delete auditCache[k];
+  }
+}catch(_){auditCache={}}
 
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function rad(v){return v*Math.PI/180}
@@ -329,7 +334,10 @@ function render(){
     return (!q||hay.includes(q))&&(!country||p.country===country);
   });
   const groups={red:[],yellow:[],green:[],pending:[]};
-  filtered.forEach(p=>groups[statusOf(p)].push(p));
+  filtered.forEach(p=>{
+    const s=statusOf(p);
+    (groups[s]||groups.pending).push(p);
+  });
 
   document.getElementById('pendingCount').textContent=rows.filter(p=>statusOf(p)==='pending').length;
   document.getElementById('greenCount').textContent=rows.filter(p=>statusOf(p)==='green').length;
@@ -536,9 +544,16 @@ async function load(){
   render();
   runAudit();
 }
+window.addEventListener('error',e=>{
+  const box=document.getElementById('content');
+  if(box&&box.textContent.includes('Loading coordinate review'))box.innerHTML='<div class="empty">Page error: '+esc(e.message||'Unknown error')+' — refresh once after this update.</div>';
+});
 document.getElementById('search').addEventListener('input',render);
 document.getElementById('country').addEventListener('change',render);
-load();
+load().catch(e=>{
+  console.error(e);
+  document.getElementById('content').innerHTML='<div class="empty">Could not load coordinate review: '+esc(e.message||e)+'</div>';
+});
 </script>
 </body>
 </html>
