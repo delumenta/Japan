@@ -94,7 +94,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v7";
+const CACHE_KEY="travelite.coordinateAudit.v8";
 let rows=[];
 let auditCache={};
 try{
@@ -408,9 +408,17 @@ function nameMatchScore(placeName,candidateName){
   return hits/a.length;
 }
 function plausibleName(p,candidateName){
-  const clean=cleanSearchName(p.name).toLowerCase();
-  const cand=String(candidateName||'').toLowerCase();
-  return cand.includes(clean)||clean.includes(cand)||nameMatchScore(p.name,candidateName)>=0.5;
+  const clean=cleanSearchName(p.name).toLowerCase().trim();
+  const cand=cleanSearchName(candidateName).toLowerCase().trim();
+  if(!clean||!cand)return false;
+  if(cand===clean)return true;
+  if(clean.length>=6&&(cand.includes(clean)||clean.includes(cand)))return true;
+  const words=matchWords(p.name);
+  const score=nameMatchScore(p.name,candidateName);
+  // Single generic words such as "park", "museum", "street" must never
+  // turn an unrelated nearby result into a match.
+  if(words.length<=1)return score===1&&words[0]?.length>=5;
+  return score>=0.75;
 }
 function chooseNearest(p,list,maxMeters=25000){
   const valid=list.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng));
@@ -440,7 +448,7 @@ async function wikidataCheck(p){
       if(!er.ok)continue;
       const ej=await er.json();
       const ent=ej?.entities?.[hit.id];
-      const candidateText=[hit.label,hit.description].filter(Boolean).join(' ');
+      const candidateText=hit.label||'';
       if(!plausibleName(p,candidateText))continue;
       const vals=ent?.claims?.P625||[];
       for(const claim of vals){
@@ -465,7 +473,7 @@ async function osmSearch(q,p){
   const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}},4500);
   if(!res.ok)return [];
   const json=await res.json();
-  return (json||[]).filter(x=>plausibleName(p,x.display_name||x.name||'')).map(x=>({
+  return (json||[]).filter(x=>plausibleName(p,x.name||String(x.display_name||'').split(',')[0])).map(x=>({
     source:'OpenStreetMap',lat:Number(x.lat),lng:Number(x.lon),
     title:x.display_name,osmType:x.osm_type,osmId:x.osm_id
   }));
