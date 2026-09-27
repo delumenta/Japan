@@ -62,7 +62,7 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
   <span class="pill red">● Wrong / too far</span>
 </div>
 <div id="auditBar" style="margin:10px 20px 0;padding:10px 12px;border:1px solid #263039;border-radius:10px;background:#0c1318;color:#8f9aa2;font-size:9px;line-height:1.5">
-  Automatic cross-check will run first using Wikipedia coordinates, then OpenStreetMap as fallback.
+  Coordinate lookup uses Wikidata first, then OpenStreetMap as fallback. Confirmed coordinates are stored back to Supabase.
 </div>
 
 <main id="content"><div class="loading">Loading coordinate review…</div></main>
@@ -74,7 +74,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v2";
+const CACHE_KEY="travelite.coordinateAudit.v3";
 let rows=[];
 let auditCache={};
 try{auditCache=JSON.parse(localStorage.getItem(CACHE_KEY)||"{}")||{}}catch(_){auditCache={}}
@@ -180,21 +180,26 @@ function cleanSearchName(name){
     .replace(/\b(parking lot|ticket office|west gate|east gate|north gate|south gate)\b/ig,' ')
     .replace(/\s+/g,' ').trim();
 }
-async function wikiCheck(p){
+async function wikidataCheck(p){
   const q=[cleanSearchName(p.name),p.city,p.country].filter(Boolean).join(' ');
-  const url='https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(q)+'&gsrlimit=5&prop=coordinates&format=json&origin=*';
-  const res=await fetch(url);
-  if(!res.ok)throw new Error('Wikipedia '+res.status);
+  const searchUrl='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=en&uselang=en&type=item&limit=8&format=json&origin=*';
+  const res=await fetch(searchUrl);
+  if(!res.ok)throw new Error('Wikidata '+res.status);
   const json=await res.json();
-  const pages=Object.values(json?.query?.pages||{}).filter(x=>x.coordinates?.[0]);
-  if(!pages.length)return null;
-  let best=null;
-  for(const page of pages){
-    const c=page.coordinates[0];
-    const d=distanceMeters(Number(p.latitude),Number(p.longitude),Number(c.lat),Number(c.lon));
-    if(!best||d<best.distance)best={source:'Wikipedia',distance:d,lat:c.lat,lng:c.lon,title:page.title};
+  for(const hit of json?.search||[]){
+    try{
+      const er=await fetch('https://www.wikidata.org/wiki/Special:EntityData/'+hit.id+'.json');
+      if(!er.ok)continue;
+      const ej=await er.json();
+      const ent=ej?.entities?.[hit.id];
+      const v=ent?.claims?.P625?.[0]?.mainsnak?.datavalue?.value;
+      if(!v||v.latitude==null||v.longitude==null)continue;
+      const result={source:'Wikidata',lat:Number(v.latitude),lng:Number(v.longitude),title:(hit.label||p.name)+' · '+hit.id,wikidataId:hit.id};
+      if(p.latitude!=null&&p.longitude!=null) result.distance=distanceMeters(Number(p.latitude),Number(p.longitude),result.lat,result.lng);
+      return result;
+    }catch(_){}
   }
-  return best;
+  return null;
 }
 async function osmCheck(p){
   const q=[cleanSearchName(p.name),p.city,p.country].filter(Boolean).join(', ');
@@ -204,13 +209,30 @@ async function osmCheck(p){
   const json=await res.json();
   let best=null;
   for(const x of json||[]){
-    const d=distanceMeters(Number(p.latitude),Number(p.longitude),Number(x.lat),Number(x.lon));
-    if(!best||d<best.distance)best={source:'OpenStreetMap',distance:d,lat:Number(x.lat),lng:Number(x.lon),title:x.display_name};
+    const candidate={source:'OpenStreetMap',lat:Number(x.lat),lng:Number(x.lon),title:x.display_name,osmType:x.osm_type,osmId:x.osm_id};
+    candidate.distance=(p.latitude!=null&&p.longitude!=null)?distanceMeters(Number(p.latitude),Number(p.longitude),candidate.lat,candidate.lng):0;
+    if(!best||candidate.distance<best.distance)best=candidate;
   }
   return best;
 }
+async function storeCoordinates(p,result){
+  if(!result||result.lat==null||result.lng==null)return false;
+  const payload={
+    latitude:Number(result.lat),
+    longitude:Number(result.lng),
+    coordinate_status:'done',
+    coordinate_source:result.source,
+    coordinate_checked_at:new Date().toISOString(),
+    coordinate_review_reason:(result.title||'')+(result.wikidataId?' · '+result.wikidataId:'')
+  };
+  const {error}=await db.from('places').update(payload).eq('id',p.id);
+  if(error)throw error;
+  Object.assign(p,payload);
+  return true;
+}
 function classify(p,result){
   if(!result)return {state:'no-match',status:'yellow',checkedAt:Date.now()};
+  if(result.distance==null)return {...result,state:'done',status:'green',checkedAt:Date.now()};
   const t=thresholds(p);
   const status=result.distance<=t.green?'green':result.distance>t.red?'red':'yellow';
   return {...result,state:'done',status,checkedAt:Date.now()};
@@ -219,18 +241,21 @@ function persistCache(){
   try{localStorage.setItem(CACHE_KEY,JSON.stringify(auditCache))}catch(_){}
 }
 async function checkOne(p){
-  if(p.latitude==null||p.longitude==null){
-    auditCache[String(p.id)]={state:'no-match',status:'yellow',checkedAt:Date.now()};
-    return;
-  }
   auditCache[String(p.id)]={state:'checking',status:'yellow',checkedAt:Date.now()};
   let result=null;
-  try{result=await wikiCheck(p)}catch(_){}
+  try{result=await wikidataCheck(p)}catch(_){}
   if(!result){
     try{
       await new Promise(r=>setTimeout(r,1100));
       result=await osmCheck(p);
     }catch(_){}
+  }
+  if(result){
+    try{await storeCoordinates(p,result)}catch(e){
+      auditCache[String(p.id)]={...classify(p,result),status:'yellow',state:'store-failed',error:e.message};
+      return;
+    }
+    result.distance=0;
   }
   auditCache[String(p.id)]=classify(p,result);
 }
@@ -246,7 +271,7 @@ async function runAudit(){
     return;
   }
   let done=0;
-  bar.textContent='Cross-checking '+stale.length+' places against Wikipedia/OpenStreetMap…';
+  bar.textContent='Looking up/storing coordinates for '+stale.length+' places against Wikipedia/OpenStreetMap…';
   const workers=Math.min(4,stale.length);
   let cursor=0;
   async function worker(){
@@ -264,7 +289,7 @@ async function runAudit(){
   }
   await Promise.all(Array.from({length:workers},worker));
   persistCache();
-  bar.textContent='Automatic cross-check complete. Green is collapsed; only Yellow and Red need manual checking.';
+  bar.textContent='Wikidata/OSM coordinate lookup complete. Green is collapsed; only Yellow and Red need manual checking.';
   render();
 }
 async function load(){
