@@ -179,15 +179,18 @@ function coordinateComparisonHtml(p){
   const google=fmtCoord(p.latitude,p.longitude);
   const wikidata=a.wikidata?fmtCoord(a.wikidata.lat,a.wikidata.lng):(a.source==='Wikidata'?fmtCoord(a.lat,a.lng):null);
   const osm=a.osm?fmtCoord(a.osm.lat,a.osm.lng):(a.source==='OpenStreetMap'?fmtCoord(a.lat,a.lng):null);
-  const pending=statusOf(p)==='pending';
-  const wdDisplay=wikidata||(pending?(a.state==='checking'?'Checking…':'Waiting…'):null);
-  const osmDisplay=osm||(pending?(a.state==='checking'?'Checking…':'Waiting…'):null);
-  const line=(label,value,real)=> real?sourceCoordLine(label,value,p.id,true):
-    '<div class="coord-line"><div class="coord-label">'+label+'</div><div class="coord-value">'+esc(value||'No match')+'</div><span></span></div>';
+  const line=(label,coord,state,err)=>{
+    if(coord)return sourceCoordLine(label,coord,p.id,true);
+    let shown='Waiting…';
+    if(state==='checking')shown='Checking…';
+    else if(err)shown='Lookup failed / timed out';
+    else if(state==='done')shown='No match';
+    return '<div class="coord-line"><div class="coord-label">'+esc(label)+'</div><div class="coord-value">'+esc(shown)+'</div><span></span></div>';
+  };
   return '<div class="coord-compare">'+
     sourceCoordLine('Google',google,p.id,true)+
-    line('Wikidata',wdDisplay,!!wikidata)+
-    line('OSM',osmDisplay,!!osm)+
+    line('Wikidata',wikidata,a.wikidataState,a.wikidataError)+
+    line('OSM',osm,a.osmState,a.osmError)+
   '</div>';
 }
 async function copyCoordinate(value,button){
@@ -403,21 +406,21 @@ function chooseNearest(p,list,maxMeters=25000){
 }
 async function wikidataCheck(p){
   const found=new Map();
-  for(const q of uniqueQueries(p).slice(0,4)){
+  for(const q of uniqueQueries(p).slice(0,3)){
     try{
       const url='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=en&uselang=en&type=item&limit=10&format=json&origin=*';
-      const res=await fetchWithTimeout(url,{},8000);
+      const res=await fetchWithTimeout(url,{},4000);
       if(!res.ok)continue;
       const json=await res.json();
       for(const hit of json?.search||[])found.set(hit.id,hit);
       if(found.size>=12)break;
     }catch(_){}
   }
-  const hits=[...found.values()].slice(0,15);
+  const hits=[...found.values()].slice(0,6);
   const candidates=[];
   for(const hit of hits){
     try{
-      const er=await fetchWithTimeout('https://www.wikidata.org/wiki/Special:EntityData/'+hit.id+'.json',{},8000);
+      const er=await fetchWithTimeout('https://www.wikidata.org/wiki/Special:EntityData/'+hit.id+'.json',{},4000);
       if(!er.ok)continue;
       const ej=await er.json();
       const ent=ej?.entities?.[hit.id];
@@ -441,7 +444,7 @@ async function osmSearch(q,p){
     params.set('viewbox',(lng-.35)+','+(lat+.35)+','+(lng+.35)+','+(lat-.35));
     params.set('bounded','0');
   }
-  const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}},9000);
+  const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}},4500);
   if(!res.ok)return [];
   const json=await res.json();
   return (json||[]).map(x=>({
@@ -451,12 +454,12 @@ async function osmSearch(q,p){
 }
 async function osmCheck(p){
   let candidates=[];
-  for(const q of uniqueQueries(p).slice(0,4)){
+  for(const q of uniqueQueries(p).slice(0,3)){
     try{
       const got=await osmSearch(q,p);
       candidates.push(...got);
       if(candidates.length>=10)break;
-      await new Promise(r=>setTimeout(r,1050));
+      await new Promise(r=>setTimeout(r,450));
     }catch(_){}
   }
   const seen=new Map();
@@ -497,14 +500,17 @@ function classifyResults(p,wikidata,osm){
 function persistCache(){
   try{localStorage.setItem(CACHE_KEY,JSON.stringify(auditCache))}catch(_){}
 }
+function withDeadline(promise,ms,label){
+  return Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error(label+' deadline')),ms))]);
+}
 async function checkOne(p){
   const key=String(p.id);
   auditCache[key]={state:'checking',status:'pending',wikidataState:'checking',osmState:'waiting',checkedAt:Date.now()};
   render();
   let wikidata=null,osm=null,wdError=null,osmError=null;
-  try{wikidata=await wikidataCheck(p)}catch(err){wdError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
+  try{wikidata=await withDeadline(wikidataCheck(p),12000,'Wikidata')}catch(err){wdError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
   auditCache[key]={...auditCache[key],wikidataState:wikidata?'found':'done',wikidata:wikidata||null,osmState:'checking'};
-  try{osm=await osmCheck(p)}catch(err){osmError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
+  try{osm=await withDeadline(osmCheck(p),12000,'OSM')}catch(err){osmError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
   const classified=classifyResults(p,wikidata,osm);
   auditCache[key]={
     ...classified,
@@ -522,7 +528,7 @@ async function runAudit(){
   const stale=rows.filter(p=>{
     if(String(p.coordinate_source||'').toLowerCase()==='manual')return false;
     const a=auditOf(p);
-    return !a||!a.checkedAt||(Date.now()-a.checkedAt)>30*24*60*60*1000;
+    return !a||a.state==='checking'||a.status==='pending'||!a.checkedAt||(Date.now()-a.checkedAt)>30*24*60*60*1000;
   });
   const bar=document.getElementById('auditBar');
   if(!stale.length){
@@ -542,7 +548,7 @@ async function runAudit(){
       persistCache();
       bar.textContent='Cross-checking… '+done+' / '+stale.length+' complete · '+Math.max(0,stale.length-done)+' remaining';
       render();
-      await new Promise(r=>setTimeout(r,1100));
+      await new Promise(r=>setTimeout(r,500));
     }
   }
   await Promise.all(Array.from({length:workers},worker));
