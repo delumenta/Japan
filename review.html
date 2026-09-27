@@ -540,9 +540,24 @@ async function osmCheck(p){
       await new Promise(r=>setTimeout(r,450));
     }catch(_){}
   }
+  // Name search can miss entrances, decks, alleys and locally named POIs.
+  // If it does, use OSM reverse lookup around the already-known coordinate.
+  if(!candidates.length&&p.latitude!=null&&p.longitude!=null){
+    try{
+      const params=new URLSearchParams({format:'jsonv2',lat:String(p.latitude),lon:String(p.longitude),zoom:'18',addressdetails:'1'});
+      const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/reverse?'+params.toString(),{headers:{'Accept-Language':'en'}},4500);
+      if(res.ok){
+        const x=await res.json();
+        if(x&&x.lat!=null&&x.lon!=null)candidates.push({
+          source:'OpenStreetMap',lat:Number(x.lat),lng:Number(x.lon),
+          title:x.display_name||x.name||p.name,osmType:x.osm_type,osmId:x.osm_id
+        });
+      }
+    }catch(_){}
+  }
   const seen=new Map();
   for(const x of candidates)seen.set(x.osmType+':'+x.osmId,x);
-  return chooseNearest(p,[...seen.values()]);
+  return chooseNearest(p,[...seen.values()],500);
 }
 async function storeCoordinates(p,result){
   if(!result||result.lat==null||result.lng==null)return false;
