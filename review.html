@@ -616,6 +616,17 @@ async function checkOne(p){
           osm_match_status:Number.isFinite(osm.distance)&&osm.distance<=500?'confirmed':'review',
           osm_checked_at:new Date().toISOString()
         };
+        // A close OSM match becomes the reusable primary map coordinate.
+        // Never override a coordinate explicitly verified by the user.
+        if(Number.isFinite(osm.distance)&&osm.distance<=500&&String(p.coordinate_source||'').toLowerCase()!=='manual'){
+          osmPayload.latitude=osm.lat;
+          osmPayload.longitude=osm.lng;
+          osmPayload.coordinate_source='OpenStreetMap';
+          osmPayload.coordinate_source_id=osm.osmId!=null?String(osm.osmId):null;
+          osmPayload.coordinate_status='done';
+          osmPayload.coordinate_checked_at=new Date().toISOString();
+          osmPayload.coordinate_review_reason='OSM independently matched within 500 m';
+        }
         const {error:osmSaveError}=await db.from('places').update(osmPayload).eq('id',p.id);
         if(osmSaveError)console.warn('Could not save OSM audit for',p.name,osmSaveError);
         else Object.assign(p,osmPayload);
