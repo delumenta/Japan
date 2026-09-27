@@ -39,6 +39,13 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
 .manual-preview{margin-top:6px;font-size:8px;color:var(--muted);line-height:1.45}
 .manual-preview a{color:#a9cbff;text-decoration:underline}
 .ocr-status{margin-top:6px;font-size:8px;color:var(--yellow)}
+.coord-compare{margin-top:9px;display:grid;gap:5px}
+.coord-line{display:grid;grid-template-columns:68px minmax(0,1fr) auto;gap:7px;align-items:center;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:#091015}
+.coord-label{font-size:8px;font-weight:900;color:#9aa6ae;text-transform:uppercase}
+.coord-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;color:#d6dcdf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.coord-copy{border:1px solid var(--line);border-radius:7px;background:#111a20;color:#bfc8ce;padding:5px 7px;font-size:7px;font-weight:900}
+.coord-use{border:1px solid var(--green-line);border-radius:7px;background:var(--green-bg);color:#9eddb4;padding:5px 7px;font-size:7px;font-weight:900}
+.coord-buttons{display:flex;gap:4px}
 @media(max-width:560px){.shell{width:calc(100% - 12px);margin-top:6px;border-radius:20px}.toolbar{grid-template-columns:1fr}.stats{gap:5px}.stat{padding:8px}.stat b{font-size:16px}header,main{padding-left:14px;padding-right:14px}.toolbar,.legend{padding-left:14px;padding-right:14px}}
 </style>
 </head>
@@ -84,7 +91,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v3";
+const CACHE_KEY="travelite.coordinateAudit.v4";
 let rows=[];
 let auditCache={};
 try{auditCache=JSON.parse(localStorage.getItem(CACHE_KEY)||"{}")||{}}catch(_){auditCache={}}
@@ -143,6 +150,54 @@ function mapLinks(p){
     '<a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?search='+q+'">Wikipedia</a>'+
   '</div>';
 }
+function fmtCoord(lat,lng){
+  if(lat==null||lng==null||!Number.isFinite(Number(lat))||!Number.isFinite(Number(lng)))return null;
+  return Number(lat).toFixed(7)+', '+Number(lng).toFixed(7);
+}
+function sourceCoordLine(label,value,id,canUse){
+  const shown=value||'No match';
+  const safe=esc(shown);
+  return '<div class="coord-line">'+
+    '<div class="coord-label">'+esc(label)+'</div>'+
+    '<div class="coord-value" title="'+safe+'">'+safe+'</div>'+
+    (value?'<div class="coord-buttons">'+
+      '<button class="coord-copy" onclick="copyCoordinate(\''+esc(value)+'\',this)">COPY</button>'+
+      (canUse?'<button class="coord-use" onclick="fillManualCoordinate('+Number(id)+',\''+esc(value)+'\')">USE</button>':'')+
+    '</div>':'<span></span>')+
+  '</div>';
+}
+function coordinateComparisonHtml(p){
+  const a=auditOf(p)||{};
+  const google=fmtCoord(p.latitude,p.longitude);
+  const wikidata=a.wikidata?fmtCoord(a.wikidata.lat,a.wikidata.lng):(a.source==='Wikidata'?fmtCoord(a.lat,a.lng):null);
+  const osm=a.osm?fmtCoord(a.osm.lat,a.osm.lng):(a.source==='OpenStreetMap'?fmtCoord(a.lat,a.lng):null);
+  return '<div class="coord-compare">'+
+    sourceCoordLine('Google',google,p.id,true)+
+    sourceCoordLine('Wikidata',wikidata,p.id,true)+
+    sourceCoordLine('OSM',osm,p.id,true)+
+  '</div>';
+}
+async function copyCoordinate(value,button){
+  try{
+    await navigator.clipboard.writeText(value);
+    const old=button.textContent;
+    button.textContent='COPIED';
+    setTimeout(()=>button.textContent=old,1200);
+  }catch(_){
+    const ta=document.createElement('textarea');
+    ta.value=value;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    button.textContent='COPIED';
+    setTimeout(()=>button.textContent='COPY',1200);
+  }
+}
+function fillManualCoordinate(id,value){
+  const field=document.getElementById('manual-'+id);
+  if(!field)return;
+  field.value=value;
+  updateManualPreview(id);
+  field.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
 function manualReviewHtml(p){
   const id=Number(p.id);
   return '<div class="manual-review">'+
@@ -258,6 +313,7 @@ function card(p){
     '</div>'+
     (p.latitude!=null&&p.longitude!=null?'<div class="coords">'+Number(p.latitude).toFixed(6)+', '+Number(p.longitude).toFixed(6)+'</div>':'<div class="coords">No coordinates</div>')+
     '<div class="reason">'+esc(reasonText(p,status))+'</div>'+
+    coordinateComparisonHtml(p)+
     mapLinks(p)+
     (status!=='green'?manualReviewHtml(p):'')+
     '</div></div>';
@@ -357,22 +413,26 @@ function persistCache(){
 }
 async function checkOne(p){
   auditCache[String(p.id)]={state:'checking',status:'yellow',checkedAt:Date.now()};
-  let result=null;
-  try{result=await wikidataCheck(p)}catch(_){}
-  if(!result){
-    try{
-      await new Promise(r=>setTimeout(r,1100));
-      result=await osmCheck(p);
-    }catch(_){}
+  let wikidata=null,osm=null;
+  try{wikidata=await wikidataCheck(p)}catch(_){}
+  try{
+    await new Promise(r=>setTimeout(r,1100));
+    osm=await osmCheck(p);
+  }catch(_){}
+
+  const candidates=[wikidata,osm].filter(Boolean);
+  let best=null;
+  for(const x of candidates){
+    if(!best || (x.distance??Infinity)<(best.distance??Infinity))best=x;
   }
-  if(result){
-    try{await storeCoordinates(p,result)}catch(e){
-      auditCache[String(p.id)]={...classify(p,result),status:'yellow',state:'store-failed',error:e.message};
-      return;
-    }
-    result.distance=0;
-  }
-  auditCache[String(p.id)]=classify(p,result);
+
+  const classified=classify(p,best);
+  auditCache[String(p.id)]={
+    ...classified,
+    wikidata:wikidata?{lat:wikidata.lat,lng:wikidata.lng,title:wikidata.title,wikidataId:wikidata.wikidataId,distance:wikidata.distance}:null,
+    osm:osm?{lat:osm.lat,lng:osm.lng,title:osm.title,osmType:osm.osmType,osmId:osm.osmId,distance:osm.distance}:null,
+    checkedAt:Date.now()
+  };
 }
 async function runAudit(){
   const stale=rows.filter(p=>{
@@ -387,7 +447,7 @@ async function runAudit(){
     return;
   }
   let done=0;
-  bar.textContent='Looking up/storing coordinates for '+stale.length+' places against Wikipedia/OpenStreetMap…';
+  bar.textContent='Cross-checking '+stale.length+' places against Wikidata and OpenStreetMap…';
   const workers=Math.min(4,stale.length);
   let cursor=0;
   async function worker(){
@@ -405,7 +465,7 @@ async function runAudit(){
   }
   await Promise.all(Array.from({length:workers},worker));
   persistCache();
-  bar.textContent='Wikidata/OSM coordinate lookup complete. Green is collapsed; only Yellow and Red need manual checking.';
+  bar.textContent='Wikidata/OSM comparison complete. Green is collapsed; review Yellow and Red.';
   render();
 }
 async function load(){
