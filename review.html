@@ -654,6 +654,35 @@ async function checkOne(p){
       console.warn('Could not save OSM audit for',p.name,osmSaveError);
     }
   }
+
+  // Make the independently sourced coordinate permanent in Supabase.
+  // Preference: OSM -> Wikidata -> retain existing Google coordinate.
+  if(String(p.coordinate_source||'').toLowerCase()!=='manual'){
+    const t=thresholds(p);
+    const osmGood=osm&&Number.isFinite(osm.distance)&&osm.distance<=t.green;
+    const wdGood=wikidata&&Number.isFinite(wikidata.distance)&&wikidata.distance<=t.green;
+    const preferred=osmGood
+      ? {lat:osm.lat,lng:osm.lng,source:'OpenStreetMap',id:osm.osmId}
+      : (wdGood?{lat:wikidata.lat,lng:wikidata.lng,source:'Wikidata',id:wikidata.wikidataId}:null);
+    if(preferred){
+      try{
+        const {data:{user}}=await db.auth.getUser();
+        if(user){
+          const payload={
+            latitude:preferred.lat,
+            longitude:preferred.lng,
+            coordinate_source:preferred.source,
+            coordinate_source_id:preferred.id!=null?String(preferred.id):null,
+            coordinate_status:'done',
+            coordinate_checked_at:new Date().toISOString(),
+            coordinate_review_reason:preferred.source+' independently matched'
+          };
+          const {error}=await db.from('places').update(payload).eq('id',p.id);
+          if(!error)Object.assign(p,payload);
+        }
+      }catch(e){console.warn('Could not save preferred coordinate for',p.name,e)}
+    }
+  }
 }
 async function runAudit(){
   const stale=rows.filter(p=>{
