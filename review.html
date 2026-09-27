@@ -98,7 +98,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v8";
+const CACHE_KEY="travelite.coordinateAudit.v9";
 let rows=[];
 let auditCache={};
 try{
@@ -128,6 +128,8 @@ function statusOf(p){
   if(a?.state==='checking')return 'pending';
   if(a?.status)return a.status;
   if(String(p.coordinate_source||'').toLowerCase()==='manual')return 'green';
+  if(p.coordinate_status==='done' && ['openstreetmap','wikidata'].includes(String(p.coordinate_source||'').toLowerCase()))return 'green';
+  if(p.coordinate_status==='review')return 'yellow';
   return 'pending';
 }
 function prettyDistance(d){
@@ -181,8 +183,8 @@ function sourceCoordLine(label,value,id,canUse){
 function coordinateComparisonHtml(p){
   const a=auditOf(p)||{};
   const google=fmtCoord(p.latitude,p.longitude);
-  const wikidata=a.wikidata?fmtCoord(a.wikidata.lat,a.wikidata.lng):(a.source==='Wikidata'?fmtCoord(a.lat,a.lng):null);
-  const osm=a.osm?fmtCoord(a.osm.lat,a.osm.lng):(a.source==='OpenStreetMap'?fmtCoord(a.lat,a.lng):null);
+  const wikidata=a.wikidata?fmtCoord(a.wikidata.lat,a.wikidata.lng):fmtCoord(p.wikidata_latitude,p.wikidata_longitude);
+  const osm=a.osm?fmtCoord(a.osm.lat,a.osm.lng):fmtCoord(p.osm_latitude,p.osm_longitude);
   const line=(label,coord,state,err)=>{
     if(coord)return sourceCoordLine(label,coord,p.id,true);
     let shown='Waiting…';
@@ -675,7 +677,7 @@ async function load(){
     if(bar)bar.innerHTML='Review works without login. To save coordinate changes, <a href="login.html" style="color:#a9cbff;text-decoration:underline">sign in</a>.';
   }
   const {data,error}=await db.from('places')
-    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_match_status,osm_checked_at')
+    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_source_id,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_match_status,osm_checked_at,wikidata_latitude,wikidata_longitude,wikidata_id,wikidata_name,wikidata_distance_m,wikidata_match_status,wikidata_checked_at')
     .order('country').order('city').order('name');
   if(error){
     document.getElementById('content').innerHTML='<div class="empty">Could not load places: '+esc(error.message)+'</div>';
