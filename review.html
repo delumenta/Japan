@@ -599,6 +599,30 @@ async function checkOne(p){
     checkedAt:Date.now()
   };
   persistCache();
+
+  // Keep the closest independently matched OSM result in Supabase as
+  // comparison data. Never overwrite the primary Google/manual coordinate.
+  if(osm){
+    try{
+      const {data:{user}}=await db.auth.getUser();
+      if(user){
+        const osmPayload={
+          osm_latitude:osm.lat,
+          osm_longitude:osm.lng,
+          osm_type:osm.osmType||null,
+          osm_id:osm.osmId!=null?String(osm.osmId):null,
+          osm_name:osm.title||null,
+          osm_distance_m:Number.isFinite(osm.distance)?Math.round(osm.distance):null,
+          osm_checked_at:new Date().toISOString()
+        };
+        const {error:osmSaveError}=await db.from('places').update(osmPayload).eq('id',p.id);
+        if(osmSaveError)console.warn('Could not save OSM audit for',p.name,osmSaveError);
+        else Object.assign(p,osmPayload);
+      }
+    }catch(osmSaveError){
+      console.warn('Could not save OSM audit for',p.name,osmSaveError);
+    }
+  }
 }
 async function runAudit(){
   const stale=rows.filter(p=>{
@@ -639,7 +663,7 @@ async function load(){
     if(bar)bar.innerHTML='Review works without login. To save coordinate changes, <a href="login.html" style="color:#a9cbff;text-decoration:underline">sign in</a>.';
   }
   const {data,error}=await db.from('places')
-    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason')
+    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_checked_at')
     .order('country').order('city').order('name');
   if(error){
     document.getElementById('content').innerHTML='<div class="empty">Could not load places: '+esc(error.message)+'</div>';
