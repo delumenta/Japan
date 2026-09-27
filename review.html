@@ -405,8 +405,11 @@ function render(){
   document.getElementById('greenCount').textContent=rows.filter(p=>statusOf(p)==='green').length;
   document.getElementById('yellowCount').textContent=rows.filter(p=>statusOf(p)==='yellow').length;
   document.getElementById('redCount').textContent=rows.filter(p=>statusOf(p)==='red').length;
-  document.getElementById('osmCount').textContent=rows.filter(p=>p.osm_latitude!=null&&p.osm_longitude!=null).length;
-  document.getElementById('wikiCount').textContent=rows.filter(p=>p.wikidata_latitude!=null&&p.wikidata_longitude!=null).length;
+  const hasOsm=p=>p.osm_latitude!=null&&p.osm_longitude!=null;
+  const hasWiki=p=>p.wikidata_latitude!=null&&p.wikidata_longitude!=null;
+  document.getElementById('osmCount').textContent=rows.filter(hasOsm).length;
+  // Exclusive priority count: OSM first; Wikidata only when OSM is unavailable.
+  document.getElementById('wikiCount').textContent=rows.filter(p=>!hasOsm(p)&&hasWiki(p)).length;
 
   const section=(status,title,open)=>{
     const arr=groups[status];
