@@ -12,6 +12,7 @@
   --green:#69c78d;--green-bg:rgba(105,199,141,.10);--green-line:rgba(105,199,141,.30);
   --yellow:#e4bd69;--yellow-bg:rgba(228,189,105,.10);--yellow-line:rgba(228,189,105,.30);
   --red:#ff625f;--red-bg:rgba(255,98,95,.10);--red-line:rgba(255,98,95,.32);
+  --pending:#8fa5b5;--pending-bg:rgba(143,165,181,.09);--pending-line:rgba(143,165,181,.25);
 }
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,rgba(42,56,68,.3),transparent 26%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -21,13 +22,13 @@ a{color:inherit;text-decoration:none}
 header{padding:24px 20px 18px;border-top:3px solid var(--red);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,98,95,.04),transparent)}
 .top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.eyebrow{color:#ef7d79;font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}.back{border:1px solid var(--line);background:#0d1419;border-radius:9px;padding:8px 10px;font-size:9px;color:#aeb6bc}
 h1{margin:8px 0 5px;font-family:Georgia,"Times New Roman",serif;font-size:31px;letter-spacing:-.03em}.sub{margin:0;color:var(--muted);font-size:10px;line-height:1.55}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:17px}.stat{padding:10px;border:1px solid var(--line);border-radius:11px;background:#0c1318}.stat b,.stat span{display:block}.stat b{font-size:19px}.stat span{margin-top:3px;font-size:8px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.stat.green b{color:var(--green)}.stat.yellow b{color:var(--yellow)}.stat.red b{color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:17px}.stat{padding:10px;border:1px solid var(--line);border-radius:11px;background:#0c1318}.stat b,.stat span{display:block}.stat b{font-size:19px}.stat span{margin-top:3px;font-size:8px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.stat.green b{color:var(--green)}.stat.yellow b{color:var(--yellow)}.stat.red b{color:var(--red)}.stat.pending b{color:var(--pending)}
 .toolbar{display:grid;grid-template-columns:1.2fr .8fr;gap:7px;padding:12px 20px;border-bottom:1px solid var(--line);background:#091015;position:sticky;top:0;z-index:3}
 .toolbar input,.toolbar select{width:100%;height:36px;border:1px solid var(--line);border-radius:9px;background:#0d1419;color:#e7e9e9;padding:0 10px;font-size:10px;outline:none}
 .legend{display:flex;gap:7px;flex-wrap:wrap;padding:12px 20px 0}.pill{border-radius:999px;padding:6px 9px;font-size:8px;font-weight:900}.pill.green{background:var(--green-bg);border:1px solid var(--green-line);color:var(--green)}.pill.yellow{background:var(--yellow-bg);border:1px solid var(--yellow-line);color:var(--yellow)}.pill.red{background:var(--red-bg);border:1px solid var(--red-line);color:var(--red)}
-main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0c1318}.section>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;cursor:pointer}.section>summary::-webkit-details-marker{display:none}.section>summary b{font-size:11px}.section>summary span{font-size:9px;color:var(--muted)}.section.green{border-color:var(--green-line)}.section.yellow{border-color:var(--yellow-line)}.section.red{border-color:var(--red-line)}
-.cards{display:grid;gap:8px;padding:0 10px 10px}.card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:11px;border:1px solid var(--line);border-radius:11px;background:#0a1116}.dot{width:11px;height:11px;border-radius:50%;margin-top:3px}.card.green .dot{background:var(--green);box-shadow:0 0 0 4px var(--green-bg)}.card.yellow .dot{background:var(--yellow);box-shadow:0 0 0 4px var(--yellow-bg)}.card.red .dot{background:var(--red);box-shadow:0 0 0 4px var(--red-bg)}
-.name{font-size:11px;font-weight:800}.meta{margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.45}.coords{margin-top:7px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;color:#b6c0c7}.reason{margin-top:7px;padding:7px 8px;border-radius:8px;font-size:8.5px;line-height:1.45}.card.green .reason{background:var(--green-bg);color:#9eddb4}.card.yellow .reason{background:var(--yellow-bg);color:#e8cc91}.card.red .reason{background:var(--red-bg);color:#ff9b99}
+main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0c1318}.section>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;cursor:pointer}.section>summary::-webkit-details-marker{display:none}.section>summary b{font-size:11px}.section>summary span{font-size:9px;color:var(--muted)}.section.green{border-color:var(--green-line)}.section.yellow{border-color:var(--yellow-line)}.section.red{border-color:var(--red-line)}.section.pending{border-color:var(--pending-line)}
+.cards{display:grid;gap:8px;padding:0 10px 10px}.card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:11px;border:1px solid var(--line);border-radius:11px;background:#0a1116}.dot{width:11px;height:11px;border-radius:50%;margin-top:3px}.card.green .dot{background:var(--green);box-shadow:0 0 0 4px var(--green-bg)}.card.yellow .dot{background:var(--yellow);box-shadow:0 0 0 4px var(--yellow-bg)}.card.red .dot{background:var(--red);box-shadow:0 0 0 4px var(--red-bg)}.card.pending .dot{background:var(--pending);box-shadow:0 0 0 4px var(--pending-bg)}
+.name{font-size:11px;font-weight:800}.meta{margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.45}.coords{margin-top:7px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;color:#b6c0c7}.reason{margin-top:7px;padding:7px 8px;border-radius:8px;font-size:8.5px;line-height:1.45}.card.green .reason{background:var(--green-bg);color:#9eddb4}.card.yellow .reason{background:var(--yellow-bg);color:#e8cc91}.card.red .reason{background:var(--red-bg);color:#ff9b99}.card.pending .reason{background:var(--pending-bg);color:#aebdc8}
 .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.actions a{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#0d1419;font-size:8px;font-weight:800;color:#c2c9ce}.empty{padding:18px;text-align:center;color:var(--muted);font-size:9px}
 .loading{padding:28px;text-align:center;color:var(--muted);font-size:10px}
 .manual-review{margin-top:10px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#0d1419}
@@ -61,6 +62,7 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
     <a class="back" href="food.html">← Food</a>
   </div>
   <div class="stats">
+    <div class="stat pending"><b id="pendingCount">—</b><span>Pending</span></div>
     <div class="stat green"><b id="greenCount">—</b><span>Green</span></div>
     <div class="stat yellow"><b id="yellowCount">—</b><span>Review</span></div>
     <div class="stat red"><b id="redCount">—</b><span>Wrong / far</span></div>
@@ -73,6 +75,7 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
 </div>
 
 <div class="legend">
+  <span class="pill" style="background:var(--pending-bg);border:1px solid var(--pending-line);color:var(--pending)">● Pending</span>
   <span class="pill green">● Good</span>
   <span class="pill yellow">● Needs review</span>
   <span class="pill red">● Wrong / too far</span>
@@ -113,7 +116,13 @@ function thresholds(p){
 function auditOf(p){return auditCache[String(p.id)]||null}
 function statusOf(p){
   const a=auditOf(p);
+  if(a?.state==='checking')return 'pending';
   if(a?.status)return a.status;
+  if(String(p.coordinate_source||'').toLowerCase()==='manual')return 'green';
+  return 'pending';
+
+  /* legacy database state below is intentionally ignored until this audit checks the POI */
+
 
   const reason=String(p.coordinate_review_reason||'').toLowerCase();
   const src=String(p.coordinate_source||'').toLowerCase();
@@ -121,7 +130,7 @@ function statusOf(p){
 
   if(st==='failed'||/wrong place|too far|mismatch|incorrect|bad match/.test(reason)) return 'red';
   if(st==='done' && /manual|wikidata|wikipedia|openstreetmap|osm/.test(src)) return 'green';
-  return 'yellow';
+  return 'yellow'; */
 }
 function prettyDistance(d){
   if(d==null||!Number.isFinite(Number(d)))return null;
@@ -129,6 +138,7 @@ function prettyDistance(d){
 }
 function reasonText(p,status){
   const a=auditOf(p);
+  if(status==='pending')return a?.state==='checking'?'Checking Wikidata and OpenStreetMap now…':'Waiting for automatic cross-check…';
   if(a){
     if(a.state==='checking')return 'Automatic cross-check in progress…';
     const bits=[];
@@ -319,7 +329,7 @@ function card(p){
     '<div class="reason">'+esc(reasonText(p,status))+'</div>'+
     coordinateComparisonHtml(p)+
     mapLinks(p)+
-    (status!=='green'?manualReviewHtml(p):'')+
+    ((status==='yellow'||status==='red')?manualReviewHtml(p):'')+
     '</div></div>';
 }
 function render(){
@@ -329,9 +339,10 @@ function render(){
     const hay=[p.name,p.city,p.country,p.place_type].join(' ').toLowerCase();
     return (!q||hay.includes(q))&&(!country||p.country===country);
   });
-  const groups={red:[],yellow:[],green:[]};
+  const groups={red:[],yellow:[],green:[],pending:[]};
   filtered.forEach(p=>groups[statusOf(p)].push(p));
 
+  document.getElementById('pendingCount').textContent=rows.filter(p=>statusOf(p)==='pending').length;
   document.getElementById('greenCount').textContent=rows.filter(p=>statusOf(p)==='green').length;
   document.getElementById('yellowCount').textContent=rows.filter(p=>statusOf(p)==='yellow').length;
   document.getElementById('redCount').textContent=rows.filter(p=>statusOf(p)==='red').length;
@@ -345,6 +356,7 @@ function render(){
   };
 
   document.getElementById('content').innerHTML=
+    section('pending','Pending · Waiting to check',true)+
     section('red','Red · Wrong / too far',true)+
     section('yellow','Yellow · Needs review',true)+
     section('green','Green · Good matches',false);
