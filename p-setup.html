@@ -656,6 +656,32 @@
         SAVE NAME
       </button>
 
+      <label>MANUAL COORDINATES</label>
+      <div class="hint">Paste latitude, longitude from a pin you choose yourself. Example: 39.9845369, 116.493148</div>
+
+      <input
+        id="manualCoordinates"
+        type="text"
+        inputmode="decimal"
+        placeholder="39.9845369, 116.493148">
+
+      <div class="match-actions">
+        <button
+          class="use"
+          onclick="saveManualCoordinates()">
+          USE MY COORDINATES
+        </button>
+
+        <a
+          id="manualMapLink"
+          class="map-link"
+          target="_blank"
+          rel="noopener"
+          style="opacity:.45;pointer-events:none">
+          OPEN MAP
+        </a>
+      </div>
+
     </div>
 
 
@@ -1218,6 +1244,17 @@ function showPlace(
   ).value =
     place.name_japanese || "";
 
+  const manualInput =
+    document.getElementById("manualCoordinates");
+
+  if(manualInput){
+    manualInput.value =
+      hasCoordinates(place)
+        ? `${place.latitude}, ${place.longitude}`
+        : "";
+    updateManualMapLink();
+  }
+
 
   document.getElementById(
     "googleSearch"
@@ -1408,6 +1445,141 @@ async function saveName(){
 }
 
 
+
+
+/* ============================================================
+   MANUAL COORDINATES
+============================================================ */
+
+function parseManualCoordinates(){
+  const raw =
+    document.getElementById("manualCoordinates")
+      ?.value.trim() || "";
+
+  const parts =
+    raw.split(/[\s,]+/)
+      .filter(Boolean);
+
+  if(parts.length !== 2){
+    return null;
+  }
+
+  const lat = Number(parts[0]);
+  const lng = Number(parts[1]);
+
+  if(
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lng) ||
+    lat < -90 || lat > 90 ||
+    lng < -180 || lng > 180
+  ){
+    return null;
+  }
+
+  return {lat,lng};
+}
+
+function updateManualMapLink(){
+  const link =
+    document.getElementById("manualMapLink");
+
+  if(!link){
+    return;
+  }
+
+  const coords =
+    parseManualCoordinates();
+
+  if(!coords){
+    link.removeAttribute("href");
+    link.style.opacity = ".45";
+    link.style.pointerEvents = "none";
+    return;
+  }
+
+  link.href =
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(coords.lat + "," + coords.lng);
+
+  link.style.opacity = "1";
+  link.style.pointerEvents = "auto";
+}
+
+document.getElementById("manualCoordinates")
+  ?.addEventListener("input",updateManualMapLink);
+
+async function saveManualCoordinates(){
+  if(!currentPlace){
+    return;
+  }
+
+  const coords =
+    parseManualCoordinates();
+
+  if(!coords){
+    showMessage(
+      "Enter coordinates as latitude, longitude.",
+      "bad"
+    );
+    return;
+  }
+
+  try{
+    const payload = {
+      latitude:coords.lat,
+      longitude:coords.lng,
+      coordinate_status:"done",
+      coordinate_source:"manual",
+      coordinate_checked_at:new Date().toISOString(),
+      coordinate_review_reason:"Manually verified",
+      updated_at:new Date().toISOString()
+    };
+
+    const {data,error} =
+      await db
+        .from("places")
+        .update(payload)
+        .eq("id",currentPlace.id)
+        .select();
+
+    if(error){
+      throw error;
+    }
+
+    if(!data || !data.length){
+      throw new Error(
+        "Supabase did not update the row. Check your places UPDATE RLS policy."
+      );
+    }
+
+    currentPlace = data[0];
+
+    const index =
+      places.findIndex(
+        p => p.id === currentPlace.id
+      );
+
+    if(index >= 0){
+      places[index] = currentPlace;
+    }
+
+    updateSummary();
+    renderPlaceList();
+    showPlace(currentPlace,false);
+
+    showMessage(
+      "Manual coordinates saved and marked as verified."
+    );
+
+  }catch(error){
+    console.error(error);
+    showMessage(
+      error.message ||
+      "Could not save manual coordinates.",
+      "bad"
+    );
+  }
+}
 
 
 /* ============================================================
