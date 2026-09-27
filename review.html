@@ -120,17 +120,6 @@ function statusOf(p){
   if(a?.status)return a.status;
   if(String(p.coordinate_source||'').toLowerCase()==='manual')return 'green';
   return 'pending';
-
-  /* legacy database state below is intentionally ignored until this audit checks the POI */
-
-
-  const reason=String(p.coordinate_review_reason||'').toLowerCase();
-  const src=String(p.coordinate_source||'').toLowerCase();
-  const st=String(p.coordinate_status||'pending').toLowerCase();
-
-  if(st==='failed'||/wrong place|too far|mismatch|incorrect|bad match/.test(reason)) return 'red';
-  if(st==='done' && /manual|wikidata|wikipedia|openstreetmap|osm/.test(src)) return 'green';
-  return 'yellow'; */
 }
 function prettyDistance(d){
   if(d==null||!Number.isFinite(Number(d)))return null;
