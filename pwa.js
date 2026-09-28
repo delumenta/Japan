@@ -8,127 +8,19 @@
   let installToast = null;
 
   function ensureInstallUI(){
-    if(installButton) return;
-
-    const style = document.createElement("style");
-    style.textContent = `
-      #travelPwaInstall{
-        position:fixed;
-        right:16px;
-        bottom:calc(92px + env(safe-area-inset-bottom));
-        z-index:9998;
-        display:none;
-        align-items:center;
-        gap:8px;
-        min-height:42px;
-        padding:0 14px;
-        border:1px solid rgba(255,107,104,.42);
-        border-radius:999px;
-        background:rgba(12,18,23,.96);
-        color:#f7f4ef;
-        box-shadow:0 12px 34px rgba(0,0,0,.38);
-        backdrop-filter:blur(12px);
-        -webkit-backdrop-filter:blur(12px);
-        font:800 10px/1 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-        letter-spacing:.08em;
-        cursor:pointer;
-        -webkit-tap-highlight-color:transparent;
-      }
-
-      #travelPwaInstall.show{
-        display:none !important;
-      }
-
-      #travelPwaInstall .pwa-install-mark{
-        width:22px;
-        height:22px;
-        display:grid;
-        place-items:center;
-        border-radius:50%;
-        background:rgba(255,107,104,.13);
-        color:#ff7774;
-        font-size:16px;
-        line-height:1;
-      }
-
-      #travelPwaToast{
-        position:fixed;
-        left:50%;
-        bottom:calc(94px + env(safe-area-inset-bottom));
-        z-index:10000;
-        max-width:calc(100vw - 32px);
-        transform:translate(-50%,14px);
-        padding:11px 14px;
-        border:1px solid rgba(255,255,255,.10);
-        border-radius:12px;
-        background:rgba(14,21,27,.97);
-        color:#f7f4ef;
-        opacity:0;
-        pointer-events:none;
-        box-shadow:0 14px 36px rgba(0,0,0,.42);
-        transition:opacity .18s ease,transform .18s ease;
-        font:700 11px/1.35 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-        text-align:center;
-      }
-
-      #travelPwaToast.show{
-        opacity:1;
-        transform:translate(-50%,0);
-      }
-
-      @media (display-mode: standalone){
-        #travelPwaInstall{
-          display:none !important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-
-    installButton = document.createElement("button");
-    installButton.id = "travelPwaInstall";
-    installButton.type = "button";
-    installButton.setAttribute("aria-label","Install Travel app");
-    installButton.innerHTML =
-      '<span class="pwa-install-mark" aria-hidden="true">↓</span><span>INSTALL APP</span>';
-
-    installToast = document.createElement("div");
-    installToast.id = "travelPwaToast";
-    installToast.setAttribute("role","status");
-    installToast.setAttribute("aria-live","polite");
-
-    document.body.appendChild(installButton);
-    document.body.appendChild(installToast);
-
-    installButton.addEventListener("click", async () => {
-      const installed = await window.travelPWA.install();
-
-      if(installed){
-        showToast("Travel installed. You can open it from your apps.");
-      }
-    });
+    // Floating install prompt intentionally disabled.
   }
 
   function showInstallButton(){
-    // Keep PWA installation available through the browser menu,
-    // but do not show a floating install button in the app UI.
-    hideInstallButton();
+    // Installation remains available from the browser menu.
   }
 
   function hideInstallButton(){
-    installButton?.classList.remove("show");
+    document.getElementById("travelPwaInstall")?.remove();
   }
 
   function showToast(message){
-    ensureInstallUI();
-
-    if(!installToast) return;
-
-    installToast.textContent = message;
-    installToast.classList.add("show");
-
-    window.setTimeout(() => {
-      installToast?.classList.remove("show");
-    }, 3500);
+    console.info("Travel PWA:", message);
   }
 
   window.travelPWA = {
