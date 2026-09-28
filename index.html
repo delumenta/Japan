@@ -2932,16 +2932,33 @@ main{
           class="first-trip-primary"
           type="button"
         >
-          ＋ CREATE FIRST TRIP
+          ＋ BUILD MANUALLY
         </button>
 
-
-        <a
+        <button
+          id="openItineraryUpload"
           class="first-trip-secondary"
-          href="trips.html"
+          type="button"
         >
-          VIEW TRIPS →
-        </a>
+          ↑ UPLOAD ITINERARY
+        </button>
+
+        <button
+          id="openItineraryPaste"
+          class="first-trip-secondary"
+          type="button"
+        >
+          ⧉ PASTE ITINERARY
+        </button>
+
+        <input
+          id="itineraryUploadInput"
+          type="file"
+          hidden
+          accept=".pdf,.doc,.docx,.txt,.rtf,.md,image/*"
+        >
+
+        <div id="itineraryImportMessage" class="create-message"></div>
 
 
       </div>
@@ -3515,6 +3532,27 @@ main{
 
 
 <!-- =========================================================
+     IMPORT ITINERARY
+========================================================= -->
+<div id="itineraryImportBackdrop" class="bottom-backdrop">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <div class="sheet-title">Import Itinerary</div>
+      <button id="closeItineraryImport" class="sheet-close" type="button">✕</button>
+    </div>
+    <div class="create-trip-form">
+      <div class="create-field">
+        <label>PASTE YOUR ITINERARY</label>
+        <textarea id="itineraryPasteText" rows="10" placeholder="Paste days, dates, places, hotels, bookings or notes here…"></textarea>
+      </div>
+      <button id="reviewPastedItinerary" class="create-trip-submit" type="button">REVIEW ITINERARY</button>
+      <div id="pasteImportMessage" class="create-message"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
      FOOTER
 ========================================================= -->
 
@@ -3526,6 +3564,47 @@ main{
 
 
 <script>
+
+/* =========================================================
+   ITINERARY IMPORT ENTRY
+========================================================= */
+const itineraryUploadInput = document.getElementById("itineraryUploadInput");
+const itineraryImportBackdrop = document.getElementById("itineraryImportBackdrop");
+
+document.getElementById("openItineraryUpload")?.addEventListener("click", () => {
+  itineraryUploadInput?.click();
+});
+
+itineraryUploadInput?.addEventListener("change", () => {
+  const file = itineraryUploadInput.files?.[0];
+  if(!file) return;
+  const msg = document.getElementById("itineraryImportMessage");
+  msg.className = "create-message success";
+  msg.textContent = file.name + " selected. Import review is ready for the next extraction step.";
+  sessionStorage.setItem("japanItineraryImportName", file.name);
+  sessionStorage.setItem("japanItineraryImportType", file.type || "");
+});
+
+document.getElementById("openItineraryPaste")?.addEventListener("click", () => {
+  itineraryImportBackdrop?.classList.add("show");
+});
+
+document.getElementById("closeItineraryImport")?.addEventListener("click", () => {
+  itineraryImportBackdrop?.classList.remove("show");
+});
+
+document.getElementById("reviewPastedItinerary")?.addEventListener("click", () => {
+  const text = document.getElementById("itineraryPasteText")?.value?.trim();
+  const msg = document.getElementById("pasteImportMessage");
+  if(!text){
+    msg.className = "create-message error";
+    msg.textContent = "Paste your itinerary first.";
+    return;
+  }
+  sessionStorage.setItem("japanItineraryImportText", text);
+  msg.className = "create-message success";
+  msg.textContent = "Itinerary captured. Nothing has been saved yet — review comes before creating the itinerary.";
+});
 
 /* =========================================================
    ASSETS
