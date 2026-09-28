@@ -7337,10 +7337,17 @@ async function loadNearbyFood(){
     catch(error){
 
 
-      console.warn(
+      console.error(
         "Google nearby food:",
         error
       );
+
+      const googleMessage =
+        error?.message ||
+        "Google Places nearby search failed.";
+
+      nearby = [];
+      nearby.googleError = googleMessage;
 
 
     }
@@ -7401,9 +7408,17 @@ async function loadNearbyFood(){
             )
             .join("")
           :
+          nearby.googleError
+          ?
+          `
+            <div class="nearby-status error">
+              Google nearby search failed: ${esc(nearby.googleError)}
+            </div>
+          `
+          :
           `
             <div class="nearby-status">
-              No nearby Google results found.
+              No restaurants or cafes found nearby.
             </div>
           `
         }
