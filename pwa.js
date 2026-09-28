@@ -36,7 +36,7 @@
       }
 
       #travelPwaInstall.show{
-        display:flex;
+        display:none !important;
       }
 
       #travelPwaInstall .pwa-install-mark{
