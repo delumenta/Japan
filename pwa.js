@@ -109,11 +109,9 @@
   }
 
   function showInstallButton(){
-    ensureInstallUI();
-
-    if(!isStandalone() && deferredPrompt){
-      installButton?.classList.add("show");
-    }
+    // Keep PWA installation available through the browser menu,
+    // but do not show a floating install button in the app UI.
+    hideInstallButton();
   }
 
   function hideInstallButton(){
