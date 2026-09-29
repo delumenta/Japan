@@ -4447,6 +4447,7 @@ let currentTrip = null;
 let accessibleTrips = [];
 
 let scheduleRows = [];
+let bookingRows = [];
 
 let placeMap = new Map();
 
@@ -5473,6 +5474,17 @@ async function loadCurrentTripData(){
     ||
     [];
 
+  const bookingResult =
+    await db
+      .from("bookings")
+      .select("id,booking_type,title,provider,booking_date,start_time,end_time,status,location_name,notes,flight_number,origin_code,destination_code")
+      .eq("trip_id",TRIP_ID)
+      .neq("status","cancelled")
+      .order("booking_date",{ascending:true})
+      .order("start_time",{ascending:true});
+
+  bookingRows = bookingResult.error ? [] : (bookingResult.data || []);
+
 
 
   const placeIds = [
@@ -5551,23 +5563,13 @@ async function loadCurrentTripData(){
 
 
   dayDates = [
-
-    ...new Set(
-
-      scheduleRows
-
-        .map(
-          row =>
-            row.schedule_date
-        )
-
-        .filter(Boolean)
-
-    )
-
-  ]
-
-  .sort();
+    ...new Set([
+      ...scheduleRows.map(row=>row.schedule_date).filter(Boolean),
+      ...bookingRows.map(row=>row.booking_date).filter(Boolean),
+      currentTrip.start_date,
+      currentTrip.end_date
+    ].filter(Boolean))
+  ].sort();
 
 
 
