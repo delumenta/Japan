@@ -409,11 +409,13 @@ body{
 
 .arc-nav.more-open
 .arc-more-item:nth-child(11){
-  transform:
-    translate(150px,-52px)
-    scale(1);
-
+  transform:translate(126px,-86px) scale(1);
   transition-delay:.24s;
+}
+.arc-nav.more-open
+.arc-more-item:nth-child(12){
+  transform:translate(158px,-24px) scale(1);
+  transition-delay:.28s;
 }
 
 
@@ -1666,7 +1668,21 @@ body{
 
 
   <!-- =====================================================
-       MORE 6 — LOG OUT
+       MORE 6 — ALBUM
+  ====================================================== -->
+
+  <a
+    id="sharedAlbumLink"
+    class="arc-more-item"
+    href="album.html"
+  >
+    <span style="font-size:18px;line-height:1">▦</span>
+    <span class="arc-label">ALBUM</span>
+  </a>
+
+
+  <!-- =====================================================
+       MORE 7 — LOG OUT
   ====================================================== -->
 
   <button
