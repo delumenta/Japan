@@ -2261,11 +2261,14 @@ main{
 }
 .day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
 .day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
-.day-manual{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:7px}
-.day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
-.day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
-.day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
-.day-manual button.undo{border-color:rgba(124,170,240,.24);color:#9bbcf0}
+.day-manual{display:inline-flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+.day-manual button{
+  min-height:34px;padding:0 11px;border:1px solid rgba(255,107,104,.34);border-radius:999px;
+  background:rgba(255,107,104,.055);color:#eca7a3;font-size:6.5px;font-weight:900;letter-spacing:.05em;cursor:pointer
+}
+.day-manual button.done{border-color:rgba(121,201,149,.38);background:rgba(121,201,149,.07);color:#9edab3}
+.day-manual button.skip{border-color:rgba(228,189,105,.34);background:rgba(228,189,105,.055);color:#d8bd7d}
+.day-manual button.undo{border-color:rgba(124,170,240,.34);background:rgba(124,170,240,.055);color:#9bbcf0}
 .day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
 .day-action{
   min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
@@ -3807,6 +3810,19 @@ function dayProgress(){
 function saveDayProgress(progress){
   localStorage.setItem(dayProgressKey(),JSON.stringify(progress||{}));
 }
+function dayRowSignature(rows){
+  return (rows||[]).map(r=>String(r.id||r.title||"")).join("|");
+}
+function normalizedDayProgress(rows){
+  const progress=dayProgress();
+  const signature=dayRowSignature(rows);
+  if(progress.row_signature!==signature){
+    const reset={index:0,row_signature:signature,updated_at:Date.now()};
+    saveDayProgress(reset);
+    return reset;
+  }
+  return progress;
+}
 function cacheDayFallback(rows){
   try{
     localStorage.setItem(dayFallbackKey(),JSON.stringify(rows.map(row=>({
@@ -3823,7 +3839,7 @@ function fallbackDayRows(){
 function currentJourneyContext(lat,lng){
   const rows=dayRows();
   if(!rows.length) return {rows,current:null,next:null,distance:null,index:-1};
-  const progress=dayProgress();
+  const progress=normalizedDayProgress(rows);
   let index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
 
   // A booked arrival/departure has no POI coordinates. Keep it as the
@@ -3856,13 +3872,14 @@ function currentJourneyContext(lat,lng){
 async function markDayStop(action){
   const rows=dayRows();
   if(!rows.length)return;
-  const progress=dayProgress();
+  const progress=normalizedDayProgress(rows);
   const index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
   const row=rows[index];
   const nextIndex=Math.min(index+1,Math.max(rows.length-1,0));
   saveDayProgress({
     ...progress,
     index:nextIndex,
+    row_signature:dayRowSignature(rows),
     undo:{index,row_id:row?.id||null,action},
     [action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,
     updated_at:Date.now()
@@ -3882,12 +3899,16 @@ async function markDayStop(action){
 }
 
 async function undoDayStop(){
-  const progress=dayProgress();
-  const undo=progress.undo;
-  if(!undo || !Number.isFinite(Number(undo.index)))return;
   const rows=dayRows();
-  const row=rows.find(r=>String(r.id)===String(undo.row_id)) || rows[Number(undo.index)];
-  const next={...progress,index:Number(undo.index)};
+  if(!rows.length)return;
+  const progress=normalizedDayProgress(rows);
+  const currentIndex=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
+  const targetIndex=progress.undo && Number.isFinite(Number(progress.undo.index))
+    ? Number(progress.undo.index)
+    : Math.max(0,currentIndex-1);
+  if(currentIndex===0 && !progress.undo)return;
+  const row=rows[targetIndex];
+  const next={...progress,index:targetIndex,row_signature:dayRowSignature(rows)};
   delete next.undo;
   saveDayProgress(next);
   if(row && !row._booking){
@@ -3903,8 +3924,11 @@ async function undoDayStop(){
   }
 }
 
-function dayUndoButton(){
-  return dayProgress().undo ? '<button class="undo" type="button" onclick="undoDayStop()">↶ UNDO</button>' : '';
+function dayUndoButton(rows=dayRows()){
+  const progress=normalizedDayProgress(rows);
+  return (progress.undo || Number(progress.index)>0)
+    ? '<button class="undo" type="button" onclick="undoDayStop()">↶ UNDO</button>'
+    : '';
 }
 
 function renderPaperFallback(holder,rows,message){
