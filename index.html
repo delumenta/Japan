@@ -1220,6 +1220,84 @@ main{
 }
 
 
+
+/* =========================================================
+   DAY TRAVELLER DASHBOARD
+========================================================= */
+.day-dashboard{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);
+  margin-top:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:19px;
+  background:linear-gradient(145deg,#111920,#090f14);
+  box-shadow:0 16px 36px rgba(0,0,0,.18);
+}
+.day-now{
+  min-height:238px;
+  padding:18px;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.day-side{display:grid;grid-template-rows:auto 1fr;min-width:0}
+.day-tool{padding:15px 16px}
+.day-tool + .day-tool{border-top:1px solid rgba(255,255,255,.07)}
+.day-kicker,.day-tool-kicker{
+  color:#9ca8b0;font-size:7px;font-weight:900;letter-spacing:.19em;text-transform:uppercase;
+}
+.day-state{margin-top:13px;color:#ff8c88;font-size:7px;font-weight:900;letter-spacing:.13em}
+.day-place{
+  margin-top:6px;color:#faf7f2;font-family:Georgia,"Times New Roman",serif;
+  font-size:24px;font-weight:700;line-height:1.04;
+}
+.day-meta{margin-top:7px;color:#8e9aa2;font-size:8px;line-height:1.5}
+.day-next{
+  margin-top:17px;padding-top:13px;border-top:1px solid rgba(255,255,255,.07);
+  color:#8d989f;font-size:7px;line-height:1.5;
+}
+.day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
+.day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.day-action{
+  min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
+  border:1px solid rgba(255,107,104,.34);border-radius:999px;background:rgba(255,107,104,.055);
+  color:#eca7a3;text-decoration:none;font-size:6.5px;font-weight:900;letter-spacing:.05em;
+}
+.day-action.primary{background:rgba(255,107,104,.13);border-color:rgba(255,107,104,.55)}
+.day-tool-title{margin-top:6px;color:#f5f1eb;font-size:12px;font-weight:850}
+.day-tool-copy{margin-top:4px;color:#7f8a92;font-size:7px;line-height:1.45}
+.day-food-button{
+  width:100%;min-height:36px;margin-top:10px;border:1px solid rgba(255,107,104,.35);border-radius:10px;
+  background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;
+}
+.day-nearby-list{display:grid;gap:8px;margin-top:10px}
+.day-nearby-item{padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.018)}
+.day-nearby-name{color:#f2eee8;font-size:9px;font-weight:850;line-height:1.25}
+.day-nearby-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.day-badge{padding:4px 6px;border-radius:999px;background:rgba(255,255,255,.05);color:#9aa5ac;font-size:5.5px;font-weight:900;letter-spacing:.06em}
+.day-badge.fit{background:rgba(114,203,145,.10);color:#84d49e}
+.day-badge.optional{background:rgba(255,190,100,.09);color:#e8b875}
+.day-badge.not-now{background:rgba(255,107,104,.09);color:#e99490}
+.day-nearby-reason{margin-top:6px;color:#77838b;font-size:6.5px;line-height:1.45}
+.day-add{
+  min-height:30px;margin-top:8px;padding:0 9px;border:1px solid rgba(255,107,104,.35);border-radius:9px;
+  background:rgba(255,107,104,.055);color:#efa7a2;font-size:6px;font-weight:900;
+}
+.day-status{margin-top:10px;color:#748089;font-size:7px;line-height:1.5}
+.day-flip{animation:dayFlip .42s ease}
+@keyframes dayFlip{0%{opacity:.35;transform:rotateX(8deg) translateY(3px)}100%{opacity:1;transform:none}}
+@media(max-width:680px){
+  .day-dashboard{grid-template-columns:1fr}
+  .day-now{min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .day-side{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .day-tool + .day-tool{border-top:0;border-left:1px solid rgba(255,255,255,.07)}
+}
+@media(max-width:430px){
+  .day-now{padding:15px}
+  .day-tool{padding:13px 12px}
+  .day-place{font-size:21px}
+  .day-nearby-badges .day-badge:nth-child(n+3){display:none}
+}
+
 /* =========================================================
    JOURNEY HEADER
 ========================================================= */
@@ -1840,6 +1918,313 @@ main{
 
   line-height:1.55;
 
+}
+
+
+
+/* =========================================================
+   DAY TRAVELLER
+   Location drives progress; itinerary times are guide times.
+   Nearby discovery uses the trip place library first, then
+   OpenStreetMap/Overpass so discoveries are not Google-only.
+========================================================= */
+
+let dayTravellerPosition = null;
+let dayTravellerWatch = null;
+let dayTravellerCurrentId = null;
+let dayTravellerNearbyTimer = null;
+let dayTravellerLastDiscovery = null;
+
+function dayRows(){
+  return scheduleRows
+    .filter(row => row.schedule_date === selectedDate && isHomePlace(row))
+    .sort(compareRows);
+}
+
+function rowCoords(row){
+  const place = rowPlace(row);
+  const lat = Number(row.latitude ?? place?.latitude);
+  const lng = Number(row.longitude ?? place?.longitude);
+  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat===0 && lng===0)
+    ? {lat,lng}
+    : null;
+}
+
+function plannedNameSet(){
+  const names = new Set();
+  scheduleRows.forEach(row => {
+    [row.title,row.location_name,rowPlace(row)?.name].filter(Boolean).forEach(name => {
+      names.add(txt(name).toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ").trim());
+    });
+  });
+  return names;
+}
+
+function normalPlaceName(name){
+  return txt(name).toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ").trim();
+}
+
+function alreadyPlanned(name){
+  const n=normalPlaceName(name);
+  if(!n) return true;
+  for(const planned of plannedNameSet()){
+    if(planned===n || (planned.length>5 && n.includes(planned)) || (n.length>5 && planned.includes(n))) return true;
+  }
+  return false;
+}
+
+function currentJourneyContext(lat,lng){
+  const rows=dayRows().filter(row=>rowCoords(row));
+  if(!rows.length) return {rows,current:null,next:null,distance:null,index:-1};
+  const ranked=rows.map((row,index)=>{
+    const p=rowCoords(row);
+    return {row,index,distance:distanceM(lat,lng,p.lat,p.lng)};
+  }).sort((a,b)=>a.distance-b.distance);
+
+  const near=ranked[0];
+  let index=near.index;
+
+  // Do not jump backwards after a stop has clearly advanced.
+  const stored=Number(localStorage.getItem(`day-progress-${TRIP_ID}-${selectedDate}`));
+  if(Number.isFinite(stored) && stored>=0 && index<stored && near.distance>70) index=stored;
+  if(near.distance<=180){
+    index=Math.max(index,Number.isFinite(stored)?stored:0);
+    localStorage.setItem(`day-progress-${TRIP_ID}-${selectedDate}`,String(index));
+  }else if(Number.isFinite(stored) && stored>=0){
+    index=Math.min(stored,rows.length-1);
+  }
+
+  return {
+    rows,
+    current:rows[index]||rows[0],
+    next:rows[index+1]||null,
+    distance: rows[index] ? distanceM(lat,lng,rowCoords(rows[index]).lat,rowCoords(rows[index]).lng) : null,
+    index
+  };
+}
+
+function renderDayNow(position){
+  const holder=document.getElementById("dayNow");
+  if(!holder) return;
+  const rows=dayRows();
+  if(!rows.length){
+    holder.innerHTML='<div class="day-kicker">TODAY</div><div class="day-status">No sightseeing stops on this day yet.</div>';
+    return;
+  }
+
+  if(!position){
+    const first=rows[0];
+    holder.innerHTML=`
+      <div class="day-kicker">TODAY</div>
+      <div class="day-state">START HERE</div>
+      <div class="day-place">${esc(first.title||rowPlace(first)?.name||"First stop")}</div>
+      <div class="day-meta">${esc(timeText(first))} · Guide time</div>
+      <div class="day-actions">${mapsHref(first)?`<a class="day-action primary" href="${esc(mapsHref(first))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>`;
+    return;
+  }
+
+  const {latitude:lat,longitude:lng}=position.coords;
+  const ctx=currentJourneyContext(lat,lng);
+  const row=ctx.current;
+  if(!row) return;
+  const name=row.title||rowPlace(row)?.name||"Current stop";
+  const near=ctx.distance!==null && ctx.distance<=180;
+  const state=near ? "NEARBY NOW" : "CURRENT JOURNEY";
+  const meta=near ? `${distanceLabel(ctx.distance)} · Part of today's journey` : `${timeText(row)} · Guide time`;
+  const nextName=ctx.next ? (ctx.next.title||rowPlace(ctx.next)?.name||"Next stop") : "";
+
+  if(dayTravellerCurrentId!==row.id || near){
+    holder.classList.remove("day-flip"); void holder.offsetWidth; holder.classList.add("day-flip");
+  }
+  dayTravellerCurrentId=row.id;
+
+  holder.innerHTML=`
+    <div class="day-kicker">TODAY</div>
+    <div class="day-state">${state}</div>
+    <div class="day-place">${esc(name)}</div>
+    <div class="day-meta">${esc(meta)}</div>
+    <div class="day-actions">
+      ${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}
+      <a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a>
+    </div>
+    ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
+  `;
+}
+
+function attractionKind(tags){
+  const tourism=tags.tourism||"";
+  const historic=tags.historic||"";
+  const amenity=tags.amenity||"";
+  if(tags.wikidata && ["attraction","museum","gallery","theme_park","zoo"].includes(tourism)) return {label:"MAJOR ATTRACTION",mins:60};
+  if(["castle","archaeological_site"].includes(historic)) return {label:"MAJOR ATTRACTION",mins:60};
+  if(["viewpoint","artwork"].includes(tourism) || ["memorial","monument"].includes(historic)) return {label:"QUICK STOP",mins:15};
+  if(["place_of_worship"].includes(amenity) || tags.religion || ["temple","shrine"].includes(tags.building)) return {label:"SMALLER ATTRACTION",mins:30};
+  return {label:"SMALLER ATTRACTION",mins:25};
+}
+
+function fitForCandidate(candidate,ctx,lat,lng){
+  const cur=ctx.current&&rowCoords(ctx.current);
+  const next=ctx.next&&rowCoords(ctx.next);
+  let detour=0;
+  if(cur&&next){
+    detour=Math.max(0,
+      distanceM(cur.lat,cur.lng,candidate.lat,candidate.lng)+
+      distanceM(candidate.lat,candidate.lng,next.lat,next.lng)-
+      distanceM(cur.lat,cur.lng,next.lat,next.lng)
+    );
+  }
+  const fixedSoon=ctx.next && ctx.next.is_locked && timeValue(ctx.next)!==null;
+  if((fixedSoon && candidate.kind.mins>=45) || detour>1400) return {label:"NOT NOW",cls:"not-now",reason:fixedSoon?"Too substantial before your next fixed stop.":"This pulls you too far off your current route.",add:false,detour};
+  if(detour<=350 && candidate.kind.mins<=30) return {label:"GOOD FIT",cls:"fit",reason:"A small detour between your current and next stop.",add:true,detour};
+  return {label:"OPTIONAL",cls:"optional",reason:detour>650?"Nearby, but it takes you away from your current route.":"It can fit here, but adds time to this part of the day.",add:true,detour};
+}
+
+async function fetchNearbyFromLibrary(lat,lng){
+  const result=await db.from("places").select("id,name,place_type,description,latitude,longitude,maps_url,provider,verified").eq("status","active").limit(1000);
+  if(result.error) return [];
+  return (result.data||[]).map(place=>({
+    source:"library",place,
+    name:place.name,lat:Number(place.latitude),lng:Number(place.longitude),
+    tags:{tourism:place.place_type, wikidata:place.provider==="wikidata"?"known":null},
+    map:place.maps_url||googleMapLink(place.latitude,place.longitude)
+  })).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&distanceM(lat,lng,x.lat,x.lng)<=1200&&!alreadyPlanned(x.name));
+}
+
+async function fetchNearbyFromOSM(lat,lng){
+  const query=`[out:json][timeout:12];(nwr(around:1200,${lat},${lng})["tourism"~"attraction|museum|viewpoint|gallery"];nwr(around:1200,${lat},${lng})["historic"];nwr(around:1200,${lat},${lng})["amenity"="place_of_worship"];);out center tags 60;`;
+  const response=await fetch("https://overpass-api.de/api/interpreter",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},body:"data="+encodeURIComponent(query)});
+  if(!response.ok) throw new Error("Nearby discovery is temporarily unavailable.");
+  const data=await response.json();
+  return (data.elements||[]).map(el=>{
+    const p=el.center||{lat:el.lat,lon:el.lon};
+    return {source:"osm",osmId:`${el.type}/${el.id}`,name:el.tags?.name||el.tags?.["name:en"]||"",lat:Number(p.lat),lng:Number(p.lon),tags:el.tags||{},map:`https://www.openstreetmap.org/${el.type}/${el.id}`};
+  }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&!alreadyPlanned(x.name));
+}
+
+async function discoverNearby(position){
+  const status=document.getElementById("dayNearbyStatus");
+  const list=document.getElementById("dayNearbyList");
+  if(!status||!list||!position) return;
+  const lat=position.coords.latitude,lng=position.coords.longitude;
+  status.textContent="Checking what can sensibly fit here…";
+  try{
+    const ctx=currentJourneyContext(lat,lng);
+    let candidates=await fetchNearbyFromLibrary(lat,lng);
+    try{
+      const osm=await fetchNearbyFromOSM(lat,lng);
+      const seen=new Set(candidates.map(x=>normalPlaceName(x.name)));
+      osm.forEach(x=>{const n=normalPlaceName(x.name);if(!seen.has(n)){seen.add(n);candidates.push(x);}});
+    }catch(error){console.warn("OSM nearby:",error);}
+
+    candidates=candidates.map(x=>{
+      x.distance=distanceM(lat,lng,x.lat,x.lng);
+      x.kind=attractionKind(x.tags);
+      x.fit=fitForCandidate(x,ctx,lat,lng);
+      return x;
+    }).sort((a,b)=>{
+      const rank={fit:0,optional:1,"not-now":2};
+      return (rank[a.fit.cls]-rank[b.fit.cls]) || (a.distance-b.distance);
+    }).slice(0,3);
+
+    dayTravellerLastDiscovery=candidates;
+    status.style.display=candidates.length?"none":"";
+    status.textContent=candidates.length?"":"Nothing useful and unplanned found close by.";
+    list.innerHTML=candidates.map((x,i)=>`
+      <div class="day-nearby-item">
+        <div class="day-nearby-name">${esc(x.name)}</div>
+        <div class="day-nearby-badges">
+          <span class="day-badge">${esc(x.kind.label)}</span>
+          <span class="day-badge ${x.fit.cls}">${esc(x.fit.label)}</span>
+          <span class="day-badge">${distanceLabel(x.distance)}</span>
+          <span class="day-badge">~${x.kind.mins} MIN</span>
+        </div>
+        <div class="day-nearby-reason">${esc(x.fit.reason)}</div>
+        ${x.fit.add?`<button class="day-add" type="button" data-day-add="${i}">＋ ADD TO CURRENT STOP</button>`:""}
+      </div>`).join("");
+
+    list.querySelectorAll("[data-day-add]").forEach(button=>{
+      button.onclick=()=>addNearbyToCurrentStop(Number(button.dataset.dayAdd));
+    });
+  }catch(error){
+    status.style.display="";
+    status.textContent=error.message||"Could not load nearby places.";
+    list.innerHTML="";
+  }
+}
+
+async function addNearbyToCurrentStop(index){
+  const candidate=dayTravellerLastDiscovery?.[index];
+  if(!candidate||!dayTravellerPosition) return;
+  const button=document.querySelector(`[data-day-add="${index}"]`);
+  if(button){button.disabled=true;button.textContent="ADDING…";}
+  try{
+    const ctx=currentJourneyContext(dayTravellerPosition.coords.latitude,dayTravellerPosition.coords.longitude);
+    const current=ctx.current;
+    const next=ctx.next;
+    const orderA=Number(current?.sort_order||0);
+    const orderB=Number(next?.sort_order);
+    let newOrder=Number.isFinite(orderB)&&orderB>orderA ? Math.floor((orderA+orderB)/2) : orderA+1;
+
+    // If there is no integer gap, shift later rows one slot so this stays between current and next.
+    if(next && newOrder<=orderA){
+      const later=ctx.rows.slice(ctx.index+1).sort((a,b)=>Number(b.sort_order||0)-Number(a.sort_order||0));
+      for(const row of later){
+        await db.from("schedule").update({sort_order:Number(row.sort_order||0)+1}).eq("id",row.id);
+      }
+      newOrder=orderA+1;
+    }
+
+    const insert=await db.from("schedule").insert({
+      trip_id:TRIP_ID,
+      schedule_date:selectedDate,
+      sort_order:newOrder,
+      title:candidate.name,
+      item_type:"attraction",
+      location_name:candidate.name,
+      latitude:candidate.lat,
+      longitude:candidate.lng,
+      maps_url:candidate.map,
+      is_optional:true,
+      is_locked:false,
+      is_temporary:true,
+      source:candidate.source==="osm"?"nearby_osm":"nearby_library"
+    }).select().single();
+    if(insert.error) throw insert.error;
+    scheduleRows.push(insert.data);
+    renderPlaces();
+    renderDayNow(dayTravellerPosition);
+    await discoverNearby(dayTravellerPosition);
+  }catch(error){
+    console.error("Add nearby:",error);
+    if(button){button.disabled=false;button.textContent="TRY AGAIN";}
+  }
+}
+
+function acceptDayTravellerPosition(position){
+  dayTravellerPosition=position;
+  renderDayNow(position);
+  clearTimeout(dayTravellerNearbyTimer);
+  dayTravellerNearbyTimer=setTimeout(()=>discoverNearby(position),450);
+}
+
+function startDayTraveller(){
+  renderDayNow(dayTravellerPosition);
+  const foodButton=document.getElementById("dayFoodButton");
+  if(foodButton) foodButton.onclick=()=>{
+    const original=document.getElementById("foodNearbyButton");
+    original?.click();
+    document.getElementById("foodFinder")?.scrollIntoView({behavior:"smooth",block:"center"});
+  };
+  if(!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(acceptDayTravellerPosition,()=>renderDayNow(null),{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
+  if(dayTravellerWatch!==null) navigator.geolocation.clearWatch(dayTravellerWatch);
+  dayTravellerWatch=navigator.geolocation.watchPosition(
+    position=>{
+      if(document.visibilityState==="visible") acceptDayTravellerPosition(position);
+    },
+    ()=>{},
+    {enableHighAccuracy:false,timeout:15000,maximumAge:90000}
+  );
 }
 
 
@@ -3250,6 +3635,29 @@ main{
   </div>
 
 
+
+
+  <section id="dayDashboard" class="day-dashboard" aria-label="Day traveller">
+    <div id="dayNow" class="day-now">
+      <div class="day-kicker">TODAY</div>
+      <div class="day-status">Finding where you are in today's journey…</div>
+    </div>
+    <div class="day-side">
+      <div class="day-tool">
+        <div class="day-tool-kicker">FOOD FINDER</div>
+        <div class="day-tool-title">Food around you</div>
+        <div class="day-tool-copy">Your saved picks + restaurants near your actual location.</div>
+        <button id="dayFoodButton" class="day-food-button" type="button">FIND FOOD →</button>
+      </div>
+      <div class="day-tool">
+        <div class="day-tool-kicker">NEARBY</div>
+        <div class="day-tool-title">Worth a detour?</div>
+        <div class="day-tool-copy">Places not already in your trip that could fit before your next stop.</div>
+        <div id="dayNearbyStatus" class="day-status">Location will refresh this automatically.</div>
+        <div id="dayNearbyList" class="day-nearby-list"></div>
+      </div>
+    </div>
+  </section>
 
   <section class="journey-section">
 
@@ -7835,6 +8243,8 @@ function renderPage(){
   renderFullPlan();
 
   renderFoodFinder();
+
+  startDayTraveller();
 
 }
 
