@@ -4514,7 +4514,7 @@ async function parseBookingBlob(blob,label="clipboard"){
   });
   const response=await fetch(SUPABASE_URL+"/functions/v1/travel-assist",{
     method:"POST",
-    headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+session.access_token},
+    headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+session.access_token},
     body:JSON.stringify({action:"parse_booking_upload",trip_id:TRIP_ID,mime_type:blob.type||"image/png",file_data:base64})
   });
   const data=await response.json();
@@ -4590,7 +4590,7 @@ bookingUpload.onchange=async()=>{
       method:"POST",
       headers:{
         "Content-Type":"application/json",
-        "apikey":SUPABASE_ANON_KEY,
+        "apikey":SUPABASE_KEY,
         "Authorization":"Bearer "+session.access_token
       },
       body:JSON.stringify({
