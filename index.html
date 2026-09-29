@@ -3204,6 +3204,19 @@ main{
       START PLANNING →
     </a>
 
+    <button
+      id="setupImportItinerary"
+      class="setup-guide-primary"
+      type="button"
+      style="width:100%;"
+    >
+      ↑ IMPORT EXISTING ITINERARY
+    </button>
+
+    <div class="setup-guide-copy" style="margin-top:7px;">
+      Upload a screenshot, photo, PDF, Word document or text file — or paste an itinerary you already have.
+    </div>
+
   </section>
 
 
@@ -3572,6 +3585,10 @@ const itineraryUploadInput = document.getElementById("itineraryUploadInput");
 const itineraryImportBackdrop = document.getElementById("itineraryImportBackdrop");
 
 document.getElementById("openItineraryUpload")?.addEventListener("click", () => {
+  itineraryUploadInput?.click();
+});
+
+document.getElementById("setupImportItinerary")?.addEventListener("click", () => {
   itineraryUploadInput?.click();
 });
 
