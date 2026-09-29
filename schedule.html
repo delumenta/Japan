@@ -2549,7 +2549,7 @@ main{
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel">
 
-</head>
+<style>.row-photos{border:0;background:transparent;color:#81909a;cursor:pointer;font-size:14px;padding:8px}.row-photos:hover{color:#ff8585}.photo-backdrop{position:fixed;inset:0;background:#000a;z-index:12000;display:none;align-items:flex-end;justify-content:center}.photo-backdrop.open{display:flex}.photo-sheet{width:min(720px,100%);max-height:88vh;overflow:auto;background:#0b1419;border:1px solid #2b3941;border-radius:24px 24px 0 0;padding:22px;color:#eee}.photo-tabs{display:flex;gap:8px;margin:16px 0}.photo-tabs button,.photo-add{border:1px solid #583238;background:#211619;color:#ff9292;border-radius:10px;padding:9px 12px}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.photo-card small{display:block;color:#8d9aa1;overflow:hidden;text-overflow:ellipsis}.photo-empty{color:#78868e;padding:28px 0}.photo-head{display:flex;justify-content:space-between}.photo-head button{background:none;border:0;color:#ddd;font-size:20px}@media(max-width:600px){.photo-grid{grid-template-columns:repeat(2,1fr)}}</style></head>
 
 
 
@@ -5608,6 +5608,8 @@ function timelineHTML(item){
       </div>
 
 
+      <button class="row-photos" type="button" onclick="openPlacePhotos(${Number(item.id)})" aria-label="Photos">▧</button>
+
       <button
         class="row-edit"
         type="button"
@@ -8148,6 +8150,14 @@ loadData();
 
 
 <script src="pwa.js"></script>
-<script src="travel-assist-global.js"></script>\n</body>
+<script src="travel-assist-global.js"></script>\n<div id="placePhotoBackdrop" class="photo-backdrop"><section class="photo-sheet"><div class="photo-head"><div><b id="placePhotoTitle">Photos</b><div style="font-size:10px;color:#7f8d95;margin-top:3px">Private to you</div></div><button type="button" onclick="closePlacePhotos()">✕</button></div><div class="photo-tabs"><button type="button" onclick="setPhotoCategory('reference')">PHOTO REFERENCES</button><button type="button" onclick="setPhotoCategory('mine')">MY PHOTOS</button></div><button class="photo-add" type="button" onclick="document.getElementById('placePhotoInput').click()">＋ ADD PHOTO / SCREENSHOT</button><input id="placePhotoInput" type="file" accept="image/*" multiple hidden><div id="placePhotoGrid" class="photo-grid" style="margin-top:16px"></div></section></div><script>
+let photoScheduleId=null,photoCategory='reference';
+async function openPlacePhotos(id){photoScheduleId=Number(id);const item=schedule.find(x=>Number(x.id)===photoScheduleId);document.getElementById('placePhotoTitle').textContent=(itemLocation(item)||item?.title||'Place')+' · Photos';document.getElementById('placePhotoBackdrop').classList.add('open');await loadPlacePhotos()}
+function closePlacePhotos(){document.getElementById('placePhotoBackdrop').classList.remove('open')}
+async function setPhotoCategory(v){photoCategory=v;await loadPlacePhotos()}
+async function loadPlacePhotos(){const grid=document.getElementById('placePhotoGrid');grid.innerHTML='<div class="photo-empty">Loading…</div>';const r=await db.from('trip_place_photos').select('*').eq('trip_id',TRIP_ID).eq('schedule_id',photoScheduleId).eq('category',photoCategory).order('created_at',{ascending:false});if(r.error){grid.innerHTML='<div class="photo-empty">'+esc(r.error.message)+'</div>';return}if(!r.data?.length){grid.innerHTML='<div class="photo-empty">No '+(photoCategory==='reference'?'Photo References':'My Photos')+' yet.</div>';return}grid.innerHTML='';for(const row of r.data){const s=await db.storage.from('trip-place-photos').createSignedUrl(row.storage_path,3600);const card=document.createElement('div');card.className='photo-card';card.innerHTML='<img alt=""><small></small>';card.querySelector('img').src=s.data?.signedUrl||'';card.querySelector('small').textContent=row.note||row.original_name||'';grid.appendChild(card)}}
+document.getElementById('placePhotoBackdrop')?.addEventListener('click',e=>{if(e.target.id==='placePhotoBackdrop')closePlacePhotos()});
+document.getElementById('placePhotoInput')?.addEventListener('change',async e=>{const files=[...(e.target.files||[])];if(!files.length)return;const item=schedule.find(x=>Number(x.id)===photoScheduleId);const auth=await db.auth.getUser();const uid=auth.data?.user?.id;if(!uid){alert('Please sign in first.');return}for(const file of files){const ext=(file.name.split('.').pop()||'jpg').toLowerCase();const path=uid+'/'+TRIP_ID+'/'+photoScheduleId+'/'+crypto.randomUUID()+'.'+ext;const up=await db.storage.from('trip-place-photos').upload(path,file,{contentType:file.type,upsert:false});if(up.error){alert(up.error.message);continue}const ins=await db.from('trip_place_photos').insert({user_id:uid,trip_id:TRIP_ID,schedule_id:photoScheduleId,place_name:itemLocation(item)||item?.title||'Place',category:photoCategory,storage_path:path,original_name:file.name});if(ins.error){await db.storage.from('trip-place-photos').remove([path]);alert(ins.error.message)}}e.target.value='';await loadPlacePhotos()});
+</script></body>
 
 </html>
