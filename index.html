@@ -1221,1221 +1221,7 @@ main{
 
 
 
-/* =========================================================
-   DAY TRAVELLER DASHBOARD
-========================================================= */
-.day-dashboard{
-  display:grid;
-  grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);
-  margin-top:18px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:19px;
-  background:linear-gradient(145deg,#111920,#090f14);
-  box-shadow:0 16px 36px rgba(0,0,0,.18);
-}
-.day-now{
-  min-height:238px;
-  padding:18px;
-  border-right:1px solid rgba(255,255,255,.07);
-}
-.day-side{display:grid;grid-template-rows:auto 1fr;min-width:0}
-.day-tool{padding:15px 16px}
-.day-tool + .day-tool{border-top:1px solid rgba(255,255,255,.07)}
-.day-kicker,.day-tool-kicker{
-  color:#9ca8b0;font-size:7px;font-weight:900;letter-spacing:.19em;text-transform:uppercase;
-}
-.day-state{margin-top:13px;color:#ff8c88;font-size:7px;font-weight:900;letter-spacing:.13em}
-.day-place{
-  margin-top:6px;color:#faf7f2;font-family:Georgia,"Times New Roman",serif;
-  font-size:24px;font-weight:700;line-height:1.04;
-}
-.day-meta{margin-top:7px;color:#8e9aa2;font-size:8px;line-height:1.5}
-.day-next{
-  margin-top:17px;padding-top:13px;border-top:1px solid rgba(255,255,255,.07);
-  color:#8d989f;font-size:7px;line-height:1.5;
-}
-.day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
-.day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
-.day-manual{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:7px}
-.day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
-.day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
-.day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
-.day-manual button.undo{border-color:rgba(124,170,240,.24);color:#9dbcf0}
-.day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
-.day-action{
-  min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
-  border:1px solid rgba(255,107,104,.34);border-radius:999px;background:rgba(255,107,104,.055);
-  color:#eca7a3;text-decoration:none;font-size:6.5px;font-weight:900;letter-spacing:.05em;
-}
-.day-action.primary{background:rgba(255,107,104,.13);border-color:rgba(255,107,104,.55)}
-.day-tool-title{margin-top:6px;color:#f5f1eb;font-size:12px;font-weight:850}
-.day-tool-copy{margin-top:4px;color:#7f8a92;font-size:7px;line-height:1.45}
-.day-food-button{
-  width:100%;min-height:36px;margin-top:10px;border:1px solid rgba(255,107,104,.35);border-radius:10px;
-  background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;
-}
-.day-nearby-list{display:grid;gap:8px;margin-top:10px}
-.day-nearby-item{padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.018)}
-.day-nearby-name{color:#f2eee8;font-size:9px;font-weight:850;line-height:1.25}
-.day-nearby-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.day-badge{padding:4px 6px;border-radius:999px;background:rgba(255,255,255,.05);color:#9aa5ac;font-size:5.5px;font-weight:900;letter-spacing:.06em}
-.day-badge.fit{background:rgba(114,203,145,.10);color:#84d49e}
-.day-badge.optional{background:rgba(255,190,100,.09);color:#e8b875}
-.day-badge.not-now{background:rgba(255,107,104,.09);color:#e99490}
-.day-nearby-reason{margin-top:6px;color:#77838b;font-size:6.5px;line-height:1.45}
-.day-add{
-  min-height:30px;margin-top:8px;padding:0 9px;border:1px solid rgba(255,107,104,.35);border-radius:9px;
-  background:rgba(255,107,104,.055);color:#efa7a2;font-size:6px;font-weight:900;
-}
-.day-status{margin-top:10px;color:#748089;font-size:7px;line-height:1.5}
-.day-flip{animation:dayFlip .42s ease}
-@keyframes dayFlip{0%{opacity:.35;transform:rotateX(8deg) translateY(3px)}100%{opacity:1;transform:none}}
-@media(max-width:680px){
-  .day-dashboard{grid-template-columns:1fr}
-  .day-now{min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
-  .day-side{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .day-tool + .day-tool{border-top:0;border-left:1px solid rgba(255,255,255,.07)}
-}
-@media(max-width:430px){
-  .day-now{padding:15px}
-  .day-tool{padding:13px 12px}
-  .day-place{font-size:21px}
-  .day-nearby-badges .day-badge:nth-child(n+3){display:none}
-}
 
-/* =========================================================
-   JOURNEY HEADER
-========================================================= */
-
-.journey-section{
-  margin-top:25px;
-}
-
-.journey-head{
-
-  display:flex;
-
-  align-items:flex-end;
-  justify-content:space-between;
-
-  gap:12px;
-
-  margin-bottom:13px;
-
-}
-
-.journey-eyebrow{
-
-  margin-bottom:6px;
-
-  color:#9ca8b0;
-
-  font-size:7px;
-
-  font-weight:900;
-
-  letter-spacing:.20em;
-
-}
-
-.journey-title{
-
-  color:#faf7f2;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:27px;
-
-  font-weight:700;
-
-  line-height:1;
-
-  letter-spacing:-.02em;
-
-}
-
-.journey-date{
-
-  margin-top:7px;
-
-  color:#78838a;
-
-  font-size:7px;
-
-}
-
-.full-plan{
-
-  flex:0 0 auto;
-
-  min-height:39px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  padding:
-    0
-    15px;
-
-  border:
-    1px solid
-    rgba(255,107,104,.40);
-
-  border-radius:999px;
-
-  background:
-    rgba(255,107,104,.035);
-
-  color:#eca7a3;
-
-  font-size:6px;
-
-  font-weight:900;
-
-  letter-spacing:.05em;
-
-  text-decoration:none;
-
-}
-
-.full-plan span{
-
-  margin-left:6px;
-
-  font-size:14px;
-
-}
-
-
-/* =========================================================
-   JOURNEY CARD
-========================================================= */
-
-.journey-card{
-
-  position:relative;
-
-  --left-pad:16px;
-
-  --marker-col:20px;
-
-  --time-col:78px;
-
-  --column-gap:7px;
-
-  --right-space:42px;
-
-  overflow:hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,.12);
-
-  border-radius:19px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #111920,
-      #090f14
-    );
-
-  box-shadow:
-    0 16px 36px
-    rgba(0,0,0,.19);
-
-}
-
-
-/* =========================================================
-   TIMELINE LINE
-
-   VISUAL CENTER = 25PX
-========================================================= */
-
-.journey-card.has-groups::before{
-  content:"";
-
-  position:absolute;
-
-  top:26px;
-  bottom:26px;
-
-  /* centre the 1px line exactly on the marker axis */
-  left:26px;
-  transform:translateX(-50%);
-
-  width:1px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ff7772,
-      rgba(255,107,104,.48) 42%,
-      rgba(106,122,132,.18)
-    );
-
-  pointer-events:none;
-}
-
-/* =========================================================
-   AREA GROUP
-========================================================= */
-
-.place-group{
-
-  position:relative;
-
-  z-index:1;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.055);
-
-}
-
-.place-group:last-child{
-  border-bottom:0;
-}
-
-
-/* =========================================================
-   GROUP HEADER
-========================================================= */
-
-.place-group-head{
-
-  position:relative;
-
-  width:100%;
-
-  min-height:68px;
-
-  display:grid;
-
-  grid-template-columns:
-    var(--marker-col)
-    var(--time-col)
-    minmax(0,1fr);
-
-  column-gap:var(--column-gap);
-
-  align-items:center;
-
-  padding:
-    10px
-    var(--right-space)
-    10px
-    var(--left-pad);
-
-  border:0;
-
-  background:transparent;
-
-  color:inherit;
-
-  text-align:left;
-
-}
-
-
-/* =========================================================
-   MARKER CONTAINERS
-========================================================= */
-
-.area-marker,
-.place-marker{
-
-  width:var(--marker-col);
-
-  height:100%;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-}
-
-
-/* =========================================================
-   ALL TIMELINE CIRCLES
-
-   EXACTLY THE SAME SIZE + STYLE
-========================================================= */
-
-.area-dot,
-.place-dot{
-
-  position:relative;
-
-  z-index:3;
-
-  width:7px;
-  height:7px;
-
-  min-width:7px;
-  min-height:7px;
-
-  flex:0 0 7px;
-
-  border:
-    1.5px solid
-    #ff716d;
-
-  border-radius:50%;
-
-  background:#10171d;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255,107,104,.055);
-
-}
-
-
-/*
-  Area markers remain hollow even when opened
-*/
-
-.place-group.open
-.area-dot{
-
-  background:#10171d;
-
-}
-
-
-/* =========================================================
-   GROUP TIME
-========================================================= */
-
-.place-group-start{
-
-  width:100%;
-
-  color:#b1bac0;
-
-  font-size:6.4px;
-
-  font-weight:600;
-
-  line-height:1.35;
-
-  white-space:nowrap;
-
-}
-
-
-/* =========================================================
-   GROUP TITLE
-========================================================= */
-
-.place-group-main{
-
-  width:100%;
-
-  min-width:0;
-
-}
-
-.place-group-name{
-
-  color:#f8f5ef;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:13px;
-
-  font-weight:600;
-
-  line-height:1.08;
-
-}
-
-.place-group-meta{
-
-  margin-top:4px;
-
-  color:#707d84;
-
-  font-size:5.5px;
-
-  font-weight:400;
-
-  line-height:1.35;
-
-}
-
-
-/* =========================================================
-   GROUP CHEVRON
-========================================================= */
-
-.place-group-chevron{
-
-  position:absolute;
-
-  top:50%;
-
-  right:17px;
-
-  width:20px;
-  height:20px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  color:#a0a9ae;
-
-  font-size:14px;
-
-  line-height:1;
-
-  transform:
-    translateY(-50%);
-
-  transition:
-    transform .18s;
-
-}
-
-.place-group.open
-.place-group-chevron{
-
-  transform:
-    translateY(-50%)
-    rotate(90deg);
-
-}
-
-
-/* =========================================================
-   PLACE LIST
-========================================================= */
-
-.place-list{
-
-  display:none;
-
-  padding:
-    0
-    0
-    10px
-    var(--left-pad);
-
-}
-
-.place-group.open
-.place-list{
-  display:block;
-}
-
-
-/* =========================================================
-   INDIVIDUAL PLACE ROW
-========================================================= */
-
-.place-row{
-
-  position:relative;
-
-  display:grid;
-
-  grid-template-columns:
-    var(--marker-col)
-    var(--time-col)
-    minmax(0,1fr);
-
-  column-gap:var(--column-gap);
-
-  align-items:center;
-
-  min-height:56px;
-
-  padding:
-    6px
-    var(--right-space)
-    6px
-    0;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.045);
-
-}
-
-
-/* =========================================================
-   ITEM TIME
-========================================================= */
-
-.place-time{
-
-  width:100%;
-
-  color:#9aa5ac;
-
-  font-size:7px;
-
-  font-weight:600;
-
-  line-height:1.35;
-
-  white-space:nowrap;
-
-}
-
-
-/* =========================================================
-   ITEM CONTENT
-========================================================= */
-
-.place-main{
-
-  width:100%;
-
-  min-width:0;
-
-}
-
-.place-name{
-
-  color:#eff1f0;
-
-  font-size:10px;
-
-  /*
-    Keeps Kiyomizu / Sannenzaka from
-    looking heavier than Higashiyama.
-  */
-  font-weight:400;
-
-  line-height:1.35;
-
-}
-
-.place-note{
-
-  margin-top:4px;
-
-  overflow:hidden;
-
-  color:#69757d;
-
-  font-size:7px;
-
-  font-weight:400;
-
-  line-height:1.4;
-
-  display:-webkit-box;
-
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-
-}
-
-
-/* =========================================================
-   FIXED MAP LINK
-========================================================= */
-
-.map-link{
-
-  position:absolute;
-
-  top:50%;
-
-  right:15px;
-
-  width:20px;
-  height:20px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  transform:
-    translateY(-50%);
-
-  text-decoration:none;
-
-  font-size:9px;
-
-  opacity:.72;
-
-}
-
-
-/* =========================================================
-   EMPTY JOURNEY
-========================================================= */
-
-.journey-empty{
-
-  padding:
-    30px
-    18px;
-
-  text-align:center;
-
-}
-
-.journey-empty-title{
-
-  color:#e6e5e1;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:16px;
-
-  font-weight:700;
-
-}
-
-.journey-empty-sub{
-
-  max-width:280px;
-
-  margin:
-    6px
-    auto
-    0;
-
-  color:#707d85;
-
-  font-size:7px;
-
-  line-height:1.55;
-
-}
-
-
-
-/* =========================================================
-   DAY TRAVELLER
-   Location drives progress; itinerary times are guide times.
-   Nearby discovery uses the trip place library first, then
-   OpenStreetMap/Overpass so discoveries are not Google-only.
-========================================================= */
-
-let dayTravellerPosition = null;
-let dayTravellerWatch = null;
-let dayTravellerCurrentId = null;
-let dayTravellerNearbyTimer = null;
-let dayTravellerLastDiscovery = null;
-
-function dayRows(){
-  return scheduleRows
-    .filter(row => row.schedule_date === selectedDate && isHomePlace(row))
-    .sort(compareRows);
-}
-
-function rowCoords(row){
-  const place = rowPlace(row);
-  const lat = Number(row.latitude ?? place?.latitude);
-  const lng = Number(row.longitude ?? place?.longitude);
-  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat===0 && lng===0)
-    ? {lat,lng}
-    : null;
-}
-
-function plannedNameSet(){
-  const names = new Set();
-  scheduleRows.forEach(row => {
-    [row.title,row.location_name,rowPlace(row)?.name].filter(Boolean).forEach(name => {
-      names.add(txt(name).toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ").trim());
-    });
-  });
-  return names;
-}
-
-function normalPlaceName(name){
-  return txt(name).toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ").trim();
-}
-
-function alreadyPlanned(name){
-  const n=normalPlaceName(name);
-  if(!n) return true;
-  for(const planned of plannedNameSet()){
-    if(planned===n || (planned.length>5 && n.includes(planned)) || (n.length>5 && planned.includes(n))) return true;
-  }
-  return false;
-}
-
-function dayProgressKey(){return `day-progress-${TRIP_ID}-${selectedDate}`;}
-function dayFallbackKey(){return `day-fallback-${TRIP_ID}-${selectedDate}`;}
-
-function dayProgress(){
-  try{return JSON.parse(localStorage.getItem(dayProgressKey())||"{}")||{};}catch{return {};}
-}
-function saveDayProgress(progress){
-  localStorage.setItem(dayProgressKey(),JSON.stringify(progress||{}));
-}
-function cacheDayFallback(rows){
-  try{
-    localStorage.setItem(dayFallbackKey(),JSON.stringify(rows.map(row=>({
-      id:row.id,title:row.title||rowPlace(row)?.name||"Stop",
-      start_time:row.start_time||null,time_label:row.time_label||null,
-      maps_url:mapsHref(row)||null,location_name:row.location_name||null
-    }))));
-  }catch{}
-}
-function fallbackDayRows(){
-  try{return JSON.parse(localStorage.getItem(dayFallbackKey())||"[]")||[];}catch{return [];}
-}
-
-function currentJourneyContext(lat,lng){
-  const rows=dayRows().filter(row=>rowCoords(row));
-  if(!rows.length) return {rows,current:null,next:null,distance:null,index:-1};
-  const progress=dayProgress();
-  let index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
-
-  // Location may advance the journey, but never selects an earlier stop.
-  const ranked=rows.map((row,rowIndex)=>{
-    const p=rowCoords(row);
-    return {row,index:rowIndex,distance:distanceM(lat,lng,p.lat,p.lng)};
-  }).filter(x=>x.index>=index).sort((a,b)=>a.distance-b.distance);
-  const near=ranked[0];
-  if(near && near.distance<=180 && near.index>=index){
-    index=near.index;
-    saveDayProgress({...progress,index,last_near_id:near.row.id,last_near_at:Date.now()});
-  }
-
-  return {
-    rows,current:rows[index]||rows[0],next:rows[index+1]||null,
-    distance:rows[index]?distanceM(lat,lng,rowCoords(rows[index]).lat,rowCoords(rows[index]).lng):null,index
-  };
-}
-
-async function markDayStop(action){
-  const rows=dayRows();
-  if(!rows.length)return;
-  const progress=dayProgress();
-  const index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
-  const row=rows[index];
-  const nextIndex=Math.min(index+1,Math.max(rows.length-1,0));
-  saveDayProgress({
-    ...progress,
-    previous_index:index,
-    previous_action:action,
-    previous_row_id:row?.id||null,
-    index:nextIndex,
-    [action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,
-    updated_at:Date.now()
-  });
-  renderDayNow(dayTravellerPosition);
-  // Sync when online, but the traveller never waits on the network.
-  if(navigator.onLine && row?.id){
-    try{
-      const payload=action==="done"?{completed_at:new Date().toISOString(),skipped_at:null}:{skipped_at:new Date().toISOString()};
-      await db.from("schedule").update(payload).eq("id",row.id).eq("trip_id",TRIP_ID);
-    }catch(error){console.warn("Journey progress sync:",error);}
-  }
-}
-
-async function undoDayStop(){
-  const progress=dayProgress();
-  if(!Number.isFinite(Number(progress.previous_index)))return;
-  const previousIndex=Number(progress.previous_index);
-  const previousRowId=progress.previous_row_id||null;
-  const restored={...progress,index:previousIndex,updated_at:Date.now()};
-  delete restored.previous_index;
-  delete restored.previous_action;
-  delete restored.previous_row_id;
-  saveDayProgress(restored);
-  renderDayNow(dayTravellerPosition);
-  if(navigator.onLine&&previousRowId){
-    try{
-      await db.from("schedule").update({completed_at:null,skipped_at:null}).eq("id",previousRowId).eq("trip_id",TRIP_ID);
-    }catch(error){console.warn("Journey undo sync:",error);}
-  }
-}
-
-function dayUndoButton(){
-  const progress=dayProgress();
-  return Number.isFinite(Number(progress.previous_index))
-    ? '<button class="undo" type="button" onclick="undoDayStop()">↶ UNDO</button>'
-    : '';
-}
-
-function renderPaperFallback(holder,rows,message){
-  const progress=dayProgress();
-  const index=Math.max(0,Math.min(Number(progress.index)||0,Math.max(rows.length-1,0)));
-  const row=rows[index]||rows[0];
-  if(!row){holder.innerHTML='<div class="day-kicker">TODAY</div><div class="day-status">No itinerary saved for this day yet.</div>';return;}
-  const name=row.title||"Current stop";
-  const next=rows[index+1];
-  holder.innerHTML=`
-    <div class="day-kicker">TODAY</div>
-    <div class="day-state">CURRENT JOURNEY</div>
-    <div class="day-place">${esc(name)}</div>
-    <div class="day-meta">${esc(timeText(row)||"Guide time")} · ${esc(message||"Saved itinerary")}</div>
-    <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">FULL PLAN</a></div>
-    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
-    ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
-    <div class="day-offline-note">Your last itinerary stays here even if location or internet is unavailable.</div>`;
-}
-
-function renderDayNow(position){
-  const holder=document.getElementById("dayNow");
-  if(!holder)return;
-  const rows=dayRows();
-  if(rows.length)cacheDayFallback(rows);
-
-  // Never leave this pane empty while location is cold/unavailable.
-  if(!position){
-    renderPaperFallback(holder,rows.length?rows:fallbackDayRows(),"Guide time");
-    return;
-  }
-
-  const {latitude:lat,longitude:lng}=position.coords;
-  const ctx=currentJourneyContext(lat,lng);
-  const row=ctx.current;
-  if(!row){renderPaperFallback(holder,rows.length?rows:fallbackDayRows(),"Saved itinerary");return;}
-  const name=row.title||rowPlace(row)?.name||"Current stop";
-  const near=ctx.distance!==null&&ctx.distance<=180;
-  const state=near?"NEARBY NOW":"CURRENT JOURNEY";
-  const meta=near?`${distanceLabel(ctx.distance)} · Part of today's journey`:`${timeText(row)} · Guide time`;
-  const nextName=ctx.next?(ctx.next.title||rowPlace(ctx.next)?.name||"Next stop"):"";
-
-  if(dayTravellerCurrentId!==row.id||near){holder.classList.remove("day-flip");void holder.offsetWidth;holder.classList.add("day-flip");}
-  dayTravellerCurrentId=row.id;
-  holder.innerHTML=`
-    <div class="day-kicker">TODAY</div>
-    <div class="day-state">${state}</div>
-    <div class="day-place">${esc(name)}</div>
-    <div class="day-meta">${esc(meta)}</div>
-    <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
-    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
-    ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
-  `;
-}
-
-function attractionKind(tags,importance={}){
-  const tourism=tags.tourism||"";
-  const historic=tags.historic||"";
-  const amenity=tags.amenity||"";
-  const hasKnowledge=Boolean(tags.wikidata||tags.wikipedia||importance.wikidata||importance.wikipedia);
-  const strongWiki=Number(importance.sitelinks||0)>=12 || Number(importance.pageviews||0)>=1200;
-  const mediumWiki=Number(importance.sitelinks||0)>=4 || Number(importance.pageviews||0)>=250;
-
-  if(
-    strongWiki ||
-    (hasKnowledge && ["attraction","museum","gallery","theme_park","zoo"].includes(tourism)) ||
-    ["castle","archaeological_site"].includes(historic)
-  ) return {label:"MAJOR ATTRACTION",mins:60};
-
-  if(["viewpoint","artwork"].includes(tourism) || ["memorial","monument"].includes(historic))
-    return {label:mediumWiki?"SMALLER ATTRACTION":"QUICK STOP",mins:mediumWiki?25:15};
-
-  if(["place_of_worship"].includes(amenity) || tags.religion || ["temple","shrine"].includes(tags.building))
-    return {label:(mediumWiki||hasKnowledge)?"SMALLER ATTRACTION":"QUICK STOP",mins:(mediumWiki||hasKnowledge)?30:15};
-
-  return {label:mediumWiki?"SMALLER ATTRACTION":"QUICK STOP",mins:mediumWiki?25:15};
-}
-
-function osmWikipediaTitle(tags){
-  const raw=tags?.wikipedia;
-  if(!raw) return "";
-  const value=String(raw);
-  const colon=value.indexOf(":");
-  return colon>=0 ? value.slice(colon+1) : value;
-}
-
-async function wikidataImportance(candidate){
-  const info={wikidata:candidate.tags?.wikidata||"",wikipedia:osmWikipediaTitle(candidate.tags),sitelinks:0,pageviews:0};
-  try{
-    if(info.wikidata){
-      const response=await fetch("https://www.wikidata.org/wiki/Special:EntityData/"+encodeURIComponent(info.wikidata)+".json");
-      if(response.ok){
-        const data=await response.json();
-        const entity=data.entities?.[info.wikidata];
-        info.sitelinks=entity?.sitelinks ? Object.keys(entity.sitelinks).length : 0;
-        if(!info.wikipedia){
-          info.wikipedia=entity?.sitelinks?.enwiki?.title || entity?.sitelinks?.jawiki?.title || "";
-        }
-      }
-    }
-    if(info.wikipedia){
-      const end=new Date();
-      const start=new Date(end.getTime()-30*86400000);
-      const fmt=d=>d.toISOString().slice(0,10).replaceAll("-","");
-      const url="https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/"
-        +encodeURIComponent(info.wikipedia.replaceAll(" ","_"))+"/daily/"+fmt(start)+"/"+fmt(end);
-      const response=await fetch(url);
-      if(response.ok){
-        const data=await response.json();
-        info.pageviews=(data.items||[]).reduce((sum,item)=>sum+Number(item.views||0),0);
-      }
-    }
-  }catch(error){
-    console.warn("Wikidata/Wikipedia importance:",candidate.name,error);
-  }
-  return info;
-}
-
-async function enrichNearbyImportance(candidates){
-  // Only enrich the closest candidates so the dashboard stays light on mobile.
-  const shortlist=[...candidates].sort((a,b)=>a.distance-b.distance).slice(0,10);
-  await Promise.all(shortlist.map(async candidate=>{
-    candidate.importance=await wikidataImportance(candidate);
-    candidate.kind=attractionKind(candidate.tags,candidate.importance);
-  }));
-  candidates.forEach(candidate=>{
-    if(!candidate.kind) candidate.kind=attractionKind(candidate.tags,candidate.importance||{});
-  });
-  return candidates;
-}
-
-function fitForCandidate(candidate,ctx,lat,lng){
-  const cur=ctx.current&&rowCoords(ctx.current);
-  const next=ctx.next&&rowCoords(ctx.next);
-  let detour=0;
-  if(cur&&next){
-    detour=Math.max(0,
-      distanceM(cur.lat,cur.lng,candidate.lat,candidate.lng)+
-      distanceM(candidate.lat,candidate.lng,next.lat,next.lng)-
-      distanceM(cur.lat,cur.lng,next.lat,next.lng)
-    );
-  }
-  const fixedSoon=ctx.next && ctx.next.is_locked && timeValue(ctx.next)!==null;
-  if((fixedSoon && candidate.kind.mins>=45) || detour>1400) return {label:"NOT NOW",cls:"not-now",reason:fixedSoon?"Too substantial before your next fixed stop.":"This pulls you too far off your current route.",add:false,detour};
-  if(detour<=350 && candidate.kind.mins<=30) return {label:"GOOD FIT",cls:"fit",reason:"A small detour between your current and next stop.",add:true,detour};
-  return {label:"OPTIONAL",cls:"optional",reason:detour>650?"Nearby, but it takes you away from your current route.":"It can fit here, but adds time to this part of the day.",add:true,detour};
-}
-
-async function fetchNearbyFromLibrary(lat,lng){
-  const result=await db.from("places").select("id,name,place_type,description,latitude,longitude,maps_url,provider,verified").eq("status","active").limit(1000);
-  if(result.error) return [];
-  return (result.data||[]).map(place=>({
-    source:"library",place,
-    name:place.name,lat:Number(place.latitude),lng:Number(place.longitude),
-    tags:{tourism:place.place_type, wikidata:place.provider==="wikidata"?"known":null},
-    map:place.maps_url||googleMapLink(place.latitude,place.longitude)
-  })).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&distanceM(lat,lng,x.lat,x.lng)<=1200&&!alreadyPlanned(x.name));
-}
-
-async function fetchNearbyFromOSM(lat,lng){
-  const query=`[out:json][timeout:12];(nwr(around:1200,${lat},${lng})["tourism"~"attraction|museum|viewpoint|gallery"];nwr(around:1200,${lat},${lng})["historic"];nwr(around:1200,${lat},${lng})["amenity"="place_of_worship"];nwr(around:1200,${lat},${lng})["wikidata"];nwr(around:1200,${lat},${lng})["wikipedia"];);out center tags 80;`;
-  const response=await fetch("https://overpass-api.de/api/interpreter",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},body:"data="+encodeURIComponent(query)});
-  if(!response.ok) throw new Error("Nearby discovery is temporarily unavailable.");
-  const data=await response.json();
-  return (data.elements||[]).map(el=>{
-    const p=el.center||{lat:el.lat,lon:el.lon};
-    return {source:"osm",osmId:`${el.type}/${el.id}`,name:el.tags?.name||el.tags?.["name:en"]||"",lat:Number(p.lat),lng:Number(p.lon),tags:el.tags||{},map:`https://www.openstreetmap.org/${el.type}/${el.id}`};
-  }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&!alreadyPlanned(x.name));
-}
-
-async function discoverNearby(position){
-  const status=document.getElementById("dayNearbyStatus");
-  const list=document.getElementById("dayNearbyList");
-  if(!status||!list||!position) return;
-  const lat=position.coords.latitude,lng=position.coords.longitude;
-  status.style.display="";
-  status.textContent="Checking what can sensibly fit here…";
-  try{
-    const ctx=currentJourneyContext(lat,lng);
-    let candidates=await fetchNearbyFromLibrary(lat,lng);
-    try{
-      const osm=await fetchNearbyFromOSM(lat,lng);
-      const seen=new Set(candidates.map(x=>normalPlaceName(x.name)));
-      osm.forEach(x=>{const n=normalPlaceName(x.name);if(!seen.has(n)){seen.add(n);candidates.push(x);}});
-    }catch(error){console.warn("OSM nearby:",error);}
-
-    candidates=candidates.map(x=>{
-      x.distance=distanceM(lat,lng,x.lat,x.lng);
-      return x;
-    });
-
-    await enrichNearbyImportance(candidates);
-
-    candidates=candidates.map(x=>{
-      x.fit=fitForCandidate(x,ctx,lat,lng);
-      return x;
-    }).sort((a,b)=>{
-      const rank={fit:0,optional:1,"not-now":2};
-      return (rank[a.fit.cls]-rank[b.fit.cls]) || (a.distance-b.distance);
-    }).slice(0,3);
-
-    dayTravellerLastDiscovery=candidates;
-    status.style.display=candidates.length?"none":"";
-    status.textContent=candidates.length?"":"Nothing useful and unplanned found close by.";
-    list.innerHTML=candidates.map((x,i)=>`
-      <div class="day-nearby-item">
-        <div class="day-nearby-name">${esc(x.name)}</div>
-        <div class="day-nearby-badges">
-          <span class="day-badge">${esc(x.kind.label)}</span>
-          <span class="day-badge ${x.fit.cls}">${esc(x.fit.label)}</span>
-          <span class="day-badge">${distanceLabel(x.distance)}</span>
-          <span class="day-badge">~${x.kind.mins} MIN</span>
-        </div>
-        <div class="day-nearby-reason">${esc(x.fit.reason)}</div>
-        ${x.fit.add?`<button class="day-add" type="button" data-day-add="${i}">＋ ADD TO CURRENT STOP</button>`:""}
-      </div>`).join("");
-
-    list.querySelectorAll("[data-day-add]").forEach(button=>{
-      button.onclick=()=>addNearbyToCurrentStop(Number(button.dataset.dayAdd));
-    });
-  }catch(error){
-    status.style.display="";
-    status.textContent=error.message||"Could not load nearby places.";
-    list.innerHTML="";
-  }
-}
-
-async function addNearbyToCurrentStop(index){
-  const candidate=dayTravellerLastDiscovery?.[index];
-  if(!candidate||!dayTravellerPosition) return;
-  const button=document.querySelector(`[data-day-add="${index}"]`);
-  if(button){button.disabled=true;button.textContent="ADDING…";}
-  try{
-    const ctx=currentJourneyContext(dayTravellerPosition.coords.latitude,dayTravellerPosition.coords.longitude);
-    const current=ctx.current;
-    const next=ctx.next;
-    const orderA=Number(current?.sort_order||0);
-    const orderB=Number(next?.sort_order);
-    let newOrder=Number.isFinite(orderB)&&orderB>orderA ? Math.floor((orderA+orderB)/2) : orderA+1;
-
-    // If there is no integer gap, shift later rows one slot so this stays between current and next.
-    if(next && newOrder<=orderA){
-      const later=ctx.rows.slice(ctx.index+1).sort((a,b)=>Number(b.sort_order||0)-Number(a.sort_order||0));
-      for(const row of later){
-        await db.from("schedule").update({sort_order:Number(row.sort_order||0)+1}).eq("id",row.id);
-      }
-      newOrder=orderA+1;
-    }
-
-    const insert=await db.from("schedule").insert({
-      trip_id:TRIP_ID,
-      schedule_date:selectedDate,
-      sort_order:newOrder,
-      title:candidate.name,
-      item_type:"attraction",
-      location_name:candidate.name,
-      latitude:candidate.lat,
-      longitude:candidate.lng,
-      maps_url:candidate.map,
-      is_optional:true,
-      is_locked:false,
-      is_temporary:true,
-      source:candidate.source==="osm"?"nearby_osm":"nearby_library"
-    }).select().single();
-    if(insert.error) throw insert.error;
-    scheduleRows.push(insert.data);
-    renderPlaces();
-    renderDayNow(dayTravellerPosition);
-    await discoverNearby(dayTravellerPosition);
-  }catch(error){
-    console.error("Add nearby:",error);
-    if(button){button.disabled=false;button.textContent="TRY AGAIN";}
-  }
-}
-
-function acceptDayTravellerPosition(position){
-  dayTravellerPosition=position;
-  renderDayNow(position);
-}
-
-function startDayTraveller(){
-  renderDayNow(dayTravellerPosition);
-  const foodButton=document.getElementById("dayFoodButton");
-  if(foodButton) foodButton.onclick=()=>loadDashboardFood();
-
-  const nearbyButton=document.getElementById("dayNearbyButton");
-  if(nearbyButton) nearbyButton.onclick=async()=>{
-    if(!dayTravellerPosition){
-      nearbyButton.textContent="GETTING LOCATION…";
-      navigator.geolocation?.getCurrentPosition(
-        position=>{
-          acceptDayTravellerPosition(position);
-          nearbyButton.textContent="FIND NEARBY →";
-          discoverNearby(position);
-        },
-        ()=>{nearbyButton.textContent="LOCATION NEEDED";},
-        {enableHighAccuracy:false,timeout:9000,maximumAge:120000}
-      );
-      return;
-    }
-    await discoverNearby(dayTravellerPosition);
-  };
-  if(!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(acceptDayTravellerPosition,()=>renderDayNow(null),{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
-  if(dayTravellerWatch!==null) navigator.geolocation.clearWatch(dayTravellerWatch);
-  dayTravellerWatch=navigator.geolocation.watchPosition(
-    position=>{
-      if(document.visibilityState==="visible") acceptDayTravellerPosition(position);
-    },
-    ()=>{},
-    {enableHighAccuracy:false,timeout:15000,maximumAge:90000}
-  );
-}
-
-
-
-async function loadDashboardFood(){
-  const button=document.getElementById("dayFoodButton");
-  const output=document.getElementById("dayFoodResults");
-  if(!button||!output) return;
-  button.disabled=true;
-  button.textContent="FINDING FOOD…";
-  output.innerHTML='<div class="day-status">Checking food around you…</div>';
-  try{
-    let position=dayTravellerPosition;
-    if(!position){
-      position=await new Promise((resolve,reject)=>{
-        if(!navigator.geolocation) return reject(new Error("Location is not available."));
-        navigator.geolocation.getCurrentPosition(resolve,reject,{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
-      });
-      acceptDayTravellerPosition(position);
-    }
-    const lat=position.coords.latitude,lng=position.coords.longitude;
-    const library=await window.getGooglePlaces();
-    const response=await library.Place.searchNearby({
-      fields:["displayName","formattedAddress","location","googleMapsURI"],
-      locationRestriction:{center:{lat,lng},radius:1200},
-      includedPrimaryTypes:["restaurant","cafe"],
-      maxResultCount:5,
-      rankPreference:"DISTANCE"
-    });
-    const items=(response.places||[]).map(place=>{
-      const plat=typeof place.location?.lat==="function"?place.location.lat():place.location?.lat;
-      const plng=typeof place.location?.lng==="function"?place.location.lng():place.location?.lng;
-      return {
-        name:place.displayName||"Restaurant",
-        distance:Number.isFinite(plat)&&Number.isFinite(plng)?distanceM(lat,lng,plat,plng):null,
-        map:place.googleMapsURI||googleMapLink(plat,plng)
-      };
-    });
-    output.innerHTML=items.length?items.map(item=>`
-      <div class="day-nearby-item">
-        <div class="day-nearby-name">${esc(item.name)}</div>
-        <div class="day-nearby-reason">${item.distance!==null?esc(distanceLabel(item.distance)):"Nearby"}</div>
-        <a class="day-action" href="${esc(item.map)}" target="_blank" rel="noopener">DIRECTIONS</a>
-      </div>`).join(""):'<div class="day-status">No food found nearby.</div>';
-  }catch(error){
-    output.innerHTML=`<div class="day-status">${esc(error.message||"Could not find nearby food.")}</div>`;
-  }finally{
-    button.disabled=false;
-    button.textContent="REFRESH FOOD →";
-  }
-}
 
 /* =========================================================
    FOOD FINDER
@@ -3437,6 +2223,715 @@ async function loadDashboardFood(){
 .setup-guide-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .setup-guide-actions .setup-guide-primary{width:100%;margin:0;display:flex;align-items:center;justify-content:center;min-height:46px}
 @media(max-width:560px){.setup-guide-actions{grid-template-columns:1fr}}
+
+
+/* =========================================================
+   DAY TRAVELLER DASHBOARD
+========================================================= */
+.day-dashboard{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);
+  margin-top:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:19px;
+  background:linear-gradient(145deg,#111920,#090f14);
+  box-shadow:0 16px 36px rgba(0,0,0,.18);
+}
+.day-now{
+  min-height:238px;
+  padding:18px;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.day-side{display:grid;grid-template-rows:auto 1fr;min-width:0}
+.day-tool{padding:15px 16px}
+.day-tool + .day-tool{border-top:1px solid rgba(255,255,255,.07)}
+.day-kicker,.day-tool-kicker{
+  color:#9ca8b0;font-size:7px;font-weight:900;letter-spacing:.19em;text-transform:uppercase;
+}
+.day-state{margin-top:13px;color:#ff8c88;font-size:7px;font-weight:900;letter-spacing:.13em}
+.day-place{
+  margin-top:6px;color:#faf7f2;font-family:Georgia,"Times New Roman",serif;
+  font-size:24px;font-weight:700;line-height:1.04;
+}
+.day-meta{margin-top:7px;color:#8e9aa2;font-size:8px;line-height:1.5}
+.day-next{
+  margin-top:17px;padding-top:13px;border-top:1px solid rgba(255,255,255,.07);
+  color:#8d989f;font-size:7px;line-height:1.5;
+}
+.day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
+.day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.day-manual{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
+.day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
+.day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
+.day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
+.day-action{
+  min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
+  border:1px solid rgba(255,107,104,.34);border-radius:999px;background:rgba(255,107,104,.055);
+  color:#eca7a3;text-decoration:none;font-size:6.5px;font-weight:900;letter-spacing:.05em;
+}
+.day-action.primary{background:rgba(255,107,104,.13);border-color:rgba(255,107,104,.55)}
+.day-tool-title{margin-top:6px;color:#f5f1eb;font-size:12px;font-weight:850}
+.day-tool-copy{margin-top:4px;color:#7f8a92;font-size:7px;line-height:1.45}
+.day-food-button{
+  width:100%;min-height:36px;margin-top:10px;border:1px solid rgba(255,107,104,.35);border-radius:10px;
+  background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;
+}
+.day-nearby-list{display:grid;gap:8px;margin-top:10px}
+.day-nearby-item{padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.018)}
+.day-nearby-name{color:#f2eee8;font-size:9px;font-weight:850;line-height:1.25}
+.day-nearby-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.day-badge{padding:4px 6px;border-radius:999px;background:rgba(255,255,255,.05);color:#9aa5ac;font-size:5.5px;font-weight:900;letter-spacing:.06em}
+.day-badge.fit{background:rgba(114,203,145,.10);color:#84d49e}
+.day-badge.optional{background:rgba(255,190,100,.09);color:#e8b875}
+.day-badge.not-now{background:rgba(255,107,104,.09);color:#e99490}
+.day-nearby-reason{margin-top:6px;color:#77838b;font-size:6.5px;line-height:1.45}
+.day-add{
+  min-height:30px;margin-top:8px;padding:0 9px;border:1px solid rgba(255,107,104,.35);border-radius:9px;
+  background:rgba(255,107,104,.055);color:#efa7a2;font-size:6px;font-weight:900;
+}
+.day-status{margin-top:10px;color:#748089;font-size:7px;line-height:1.5}
+.day-flip{animation:dayFlip .42s ease}
+@keyframes dayFlip{0%{opacity:.35;transform:rotateX(8deg) translateY(3px)}100%{opacity:1;transform:none}}
+@media(max-width:680px){
+  .day-dashboard{grid-template-columns:1fr}
+  .day-now{min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .day-side{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .day-tool + .day-tool{border-top:0;border-left:1px solid rgba(255,255,255,.07)}
+}
+@media(max-width:430px){
+  .day-now{padding:15px}
+  .day-tool{padding:13px 12px}
+  .day-place{font-size:21px}
+  .day-nearby-badges .day-badge:nth-child(n+3){display:none}
+}
+
+/* =========================================================
+   JOURNEY HEADER
+========================================================= */
+
+.journey-section{
+  margin-top:25px;
+}
+
+.journey-head{
+
+  display:flex;
+
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:13px;
+
+}
+
+.journey-eyebrow{
+
+  margin-bottom:6px;
+
+  color:#9ca8b0;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.20em;
+
+}
+
+.journey-title{
+
+  color:#faf7f2;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:27px;
+
+  font-weight:700;
+
+  line-height:1;
+
+  letter-spacing:-.02em;
+
+}
+
+.journey-date{
+
+  margin-top:7px;
+
+  color:#78838a;
+
+  font-size:7px;
+
+}
+
+.full-plan{
+
+  flex:0 0 auto;
+
+  min-height:39px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:
+    0
+    15px;
+
+  border:
+    1px solid
+    rgba(255,107,104,.40);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,107,104,.035);
+
+  color:#eca7a3;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:.05em;
+
+  text-decoration:none;
+
+}
+
+.full-plan span{
+
+  margin-left:6px;
+
+  font-size:14px;
+
+}
+
+
+/* =========================================================
+   JOURNEY CARD
+========================================================= */
+
+.journey-card{
+
+  position:relative;
+
+  --left-pad:16px;
+
+  --marker-col:20px;
+
+  --time-col:78px;
+
+  --column-gap:7px;
+
+  --right-space:42px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  border-radius:19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #111920,
+      #090f14
+    );
+
+  box-shadow:
+    0 16px 36px
+    rgba(0,0,0,.19);
+
+}
+
+
+/* =========================================================
+   TIMELINE LINE
+
+   VISUAL CENTER = 25PX
+========================================================= */
+
+.journey-card.has-groups::before{
+  content:"";
+
+  position:absolute;
+
+  top:26px;
+  bottom:26px;
+
+  /* centre the 1px line exactly on the marker axis */
+  left:26px;
+  transform:translateX(-50%);
+
+  width:1px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff7772,
+      rgba(255,107,104,.48) 42%,
+      rgba(106,122,132,.18)
+    );
+
+  pointer-events:none;
+}
+
+/* =========================================================
+   AREA GROUP
+========================================================= */
+
+.place-group{
+
+  position:relative;
+
+  z-index:1;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
+
+}
+
+.place-group:last-child{
+  border-bottom:0;
+}
+
+
+/* =========================================================
+   GROUP HEADER
+========================================================= */
+
+.place-group-head{
+
+  position:relative;
+
+  width:100%;
+
+  min-height:68px;
+
+  display:grid;
+
+  grid-template-columns:
+    var(--marker-col)
+    var(--time-col)
+    minmax(0,1fr);
+
+  column-gap:var(--column-gap);
+
+  align-items:center;
+
+  padding:
+    10px
+    var(--right-space)
+    10px
+    var(--left-pad);
+
+  border:0;
+
+  background:transparent;
+
+  color:inherit;
+
+  text-align:left;
+
+}
+
+
+/* =========================================================
+   MARKER CONTAINERS
+========================================================= */
+
+.area-marker,
+.place-marker{
+
+  width:var(--marker-col);
+
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+}
+
+
+/* =========================================================
+   ALL TIMELINE CIRCLES
+
+   EXACTLY THE SAME SIZE + STYLE
+========================================================= */
+
+.area-dot,
+.place-dot{
+
+  position:relative;
+
+  z-index:3;
+
+  width:7px;
+  height:7px;
+
+  min-width:7px;
+  min-height:7px;
+
+  flex:0 0 7px;
+
+  border:
+    1.5px solid
+    #ff716d;
+
+  border-radius:50%;
+
+  background:#10171d;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255,107,104,.055);
+
+}
+
+
+/*
+  Area markers remain hollow even when opened
+*/
+
+.place-group.open
+.area-dot{
+
+  background:#10171d;
+
+}
+
+
+/* =========================================================
+   GROUP TIME
+========================================================= */
+
+.place-group-start{
+
+  width:100%;
+
+  color:#b1bac0;
+
+  font-size:6.4px;
+
+  font-weight:600;
+
+  line-height:1.35;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   GROUP TITLE
+========================================================= */
+
+.place-group-main{
+
+  width:100%;
+
+  min-width:0;
+
+}
+
+.place-group-name{
+
+  color:#f8f5ef;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  line-height:1.08;
+
+}
+
+.place-group-meta{
+
+  margin-top:4px;
+
+  color:#707d84;
+
+  font-size:5.5px;
+
+  font-weight:400;
+
+  line-height:1.35;
+
+}
+
+
+/* =========================================================
+   GROUP CHEVRON
+========================================================= */
+
+.place-group-chevron{
+
+  position:absolute;
+
+  top:50%;
+
+  right:17px;
+
+  width:20px;
+  height:20px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:#a0a9ae;
+
+  font-size:14px;
+
+  line-height:1;
+
+  transform:
+    translateY(-50%);
+
+  transition:
+    transform .18s;
+
+}
+
+.place-group.open
+.place-group-chevron{
+
+  transform:
+    translateY(-50%)
+    rotate(90deg);
+
+}
+
+
+/* =========================================================
+   PLACE LIST
+========================================================= */
+
+.place-list{
+
+  display:none;
+
+  padding:
+    0
+    0
+    10px
+    var(--left-pad);
+
+}
+
+.place-group.open
+.place-list{
+  display:block;
+}
+
+
+/* =========================================================
+   INDIVIDUAL PLACE ROW
+========================================================= */
+
+.place-row{
+
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    var(--marker-col)
+    var(--time-col)
+    minmax(0,1fr);
+
+  column-gap:var(--column-gap);
+
+  align-items:center;
+
+  min-height:56px;
+
+  padding:
+    6px
+    var(--right-space)
+    6px
+    0;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.045);
+
+}
+
+
+/* =========================================================
+   ITEM TIME
+========================================================= */
+
+.place-time{
+
+  width:100%;
+
+  color:#9aa5ac;
+
+  font-size:7px;
+
+  font-weight:600;
+
+  line-height:1.35;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   ITEM CONTENT
+========================================================= */
+
+.place-main{
+
+  width:100%;
+
+  min-width:0;
+
+}
+
+.place-name{
+
+  color:#eff1f0;
+
+  font-size:10px;
+
+  /*
+    Keeps Kiyomizu / Sannenzaka from
+    looking heavier than Higashiyama.
+  */
+  font-weight:400;
+
+  line-height:1.35;
+
+}
+
+.place-note{
+
+  margin-top:4px;
+
+  overflow:hidden;
+
+  color:#69757d;
+
+  font-size:7px;
+
+  font-weight:400;
+
+  line-height:1.4;
+
+  display:-webkit-box;
+
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+
+}
+
+
+/* =========================================================
+   FIXED MAP LINK
+========================================================= */
+
+.map-link{
+
+  position:absolute;
+
+  top:50%;
+
+  right:15px;
+
+  width:20px;
+  height:20px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  transform:
+    translateY(-50%);
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  opacity:.72;
+
+}
+
+
+/* =========================================================
+   EMPTY JOURNEY
+========================================================= */
+
+.journey-empty{
+
+  padding:
+    30px
+    18px;
+
+  text-align:center;
+
+}
+
+.journey-empty-title{
+
+  color:#e6e5e1;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:16px;
+
+  font-weight:700;
+
+}
+
+.journey-empty-sub{
+
+  max-width:280px;
+
+  margin:
+    6px
+    auto
+    0;
+
+  color:#707d85;
+
+  font-size:7px;
+
+  line-height:1.55;
+
+}
+
+
+
+
 </style>
 
 
@@ -3762,155 +3257,48 @@ async function loadDashboardFood(){
       <div id="googleDiagResults" class="setup-guide-copy" style="white-space:pre-wrap;margin-top:10px;"></div>
     </div>
 
-    <div class="setup-guide-steps">
-
-      <a
-        id="setupPlanLink"
-        class="setup-step"
-        href="schedule.html"
-      >
-        <span class="setup-step-number">1</span>
-        <span>
-          <span class="setup-step-title">Plan your days</span>
-          <span class="setup-step-sub">Add places, meals and anything you want to do.</span>
-        </span>
-        <span class="setup-step-arrow">›</span>
-      </a>
-
-      <a
-        id="setupBookingLink"
-        class="setup-step"
-        href="bookings.html"
-      >
-        <span class="setup-step-number">2</span>
-        <span>
-          <span class="setup-step-title">Add your bookings</span>
-          <span class="setup-step-sub">Keep hotels, transport and tickets together.</span>
-        </span>
-        <span class="setup-step-arrow">›</span>
-      </a>
-
-      <a
-        id="setupFoodLink"
-        class="setup-step"
-        href="food.html"
-      >
-        <span class="setup-step-number">3</span>
-        <span>
-          <span class="setup-step-title">Find food</span>
-          <span class="setup-step-sub">Discover restaurants and save them to this trip.</span>
-        </span>
-        <span class="setup-step-arrow">›</span>
-      </a>
-
-    </div>
-
-    <div class="setup-guide-actions">
-      <a
-        id="setupStartLink"
-        class="setup-guide-primary"
-        href="schedule.html"
-      >
-        START PLANNING →
-      </a>
-
-      <button
-        id="setupImportItinerary"
-        class="setup-guide-primary"
-        type="button"
-      >
-        ↑ IMPORT EXISTING ITINERARY
-      </button>
-    </div>
-
-    <div class="setup-guide-copy" style="margin-top:7px;">
-      Upload a screenshot, photo, PDF, Word document or text file — or paste an itinerary you already have.
-    </div>
+    <div class="setup-guide-steps"></div>
 
   </section>
 
+    <section class="date-section">
+      <div class="section-kicker">TRIP DAYS</div>
+      <div id="dateScroll" class="date-scroll"></div>
+    </section>
 
-  <div class="date-section">
-
-    <div class="date-section-label">
-      TRIP DAYS
-    </div>
-
-    <div
-      id="dateScroll"
-      class="date-scroll"
-    ></div>
-
-  </div>
-
-
-
-
-  <section id="dayDashboard" class="day-dashboard" aria-label="Day traveller">
-    <div id="dayNow" class="day-now">
-      <div class="day-kicker">TODAY</div>
-      <div class="day-status">Finding where you are in today's journey…</div>
-    </div>
-    <div class="day-side">
-      <div class="day-tool">
-        <div class="day-tool-kicker">FOOD FINDER</div>
-        <div class="day-tool-title">Food around you</div>
-        <div class="day-tool-copy">Your saved picks + restaurants near your actual location.</div>
-        <button id="dayFoodButton" class="day-food-button" type="button">FIND FOOD →</button>
-        <div id="dayFoodResults" class="day-nearby-list"></div>
+    <section id="dayDashboard" class="day-dashboard" aria-label="Day traveller">
+      <div id="dayNow" class="day-now">
+        <div class="day-kicker">TODAY</div>
+        <div class="day-status">Loading today's journey…</div>
       </div>
-      <div class="day-tool">
-        <div class="day-tool-kicker">NEARBY</div>
-        <div class="day-tool-title">Worth a detour?</div>
-        <div class="day-tool-copy">Places not already in your trip that could fit before your next stop.</div>
-        <button id="dayNearbyButton" class="day-food-button" type="button">FIND NEARBY →</button>
-        <div id="dayNearbyStatus" class="day-status" style="display:none"></div>
-        <div id="dayNearbyList" class="day-nearby-list"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="journey-section">
-
-
-    <div class="journey-head">
-
-
-      <div>
-
-        <div class="journey-eyebrow">
-          YOUR ITINERARY
+      <div class="day-side">
+        <div class="day-tool">
+          <div class="day-tool-kicker">FOOD FINDER</div>
+          <div class="day-tool-title">Food around you</div>
+          <div class="day-tool-copy">Your saved picks + restaurants near your actual location.</div>
+          <button id="dayFoodButton" class="day-food-button" type="button">FIND FOOD →</button>
+          <div id="dayFoodResults" class="day-nearby-list"></div>
         </div>
-
-        <div
-          id="journeyTitle"
-          class="journey-title"
-        >
-          Today's Journey
+        <div class="day-tool">
+          <div class="day-tool-kicker">NEARBY</div>
+          <div class="day-tool-title">Worth a detour?</div>
+          <div class="day-tool-copy">Places not already in your trip that could fit before your next stop.</div>
+          <button id="dayNearbyButton" class="day-food-button" type="button">FIND NEARBY →</button>
+          <div id="dayNearbyStatus" class="day-status" style="display:none"></div>
+          <div id="dayNearbyList" class="day-nearby-list"></div>
         </div>
-
-        <div
-          id="journeyDate"
-          class="journey-date"
-        ></div>
-
       </div>
+    </section>
 
-
-
-      <a
-        id="fullPlan"
-        class="full-plan"
-        href="schedule.html"
-      >
-        VIEW FULL PLAN
-        <span>›</span>
-      </a>
-
-
-    </div>
-
-
+    <section class="journey-section">
+      <div class="journey-head">
+        <div>
+          <div class="section-kicker">YOUR ITINERARY</div>
+          <h2 id="journeyTitle" class="journey-title">Today's Journey</h2>
+          <div id="journeyDate" class="journey-date"></div>
+        </div>
+        <a id="fullPlan" class="journey-full-link" href="schedule.html">VIEW FULL PLAN ›</a>
+      </div>
 
     <div
       id="placeGroups"
@@ -3923,8 +3311,8 @@ async function loadDashboardFood(){
 
     </div>
 
+    </section>
 
-  </section>
 </section>
 
 
@@ -4217,6 +3605,575 @@ async function loadDashboardFood(){
 
 <script>
 
+async function loadDashboardFood(){
+  const button=document.getElementById("dayFoodButton");
+  const output=document.getElementById("dayFoodResults");
+  if(!button||!output) return;
+  button.disabled=true;
+  button.textContent="FINDING FOOD…";
+  output.innerHTML='<div class="day-status">Checking food around you…</div>';
+  try{
+    let position=dayTravellerPosition;
+    if(!position){
+      position=await new Promise((resolve,reject)=>{
+        if(!navigator.geolocation) return reject(new Error("Location is not available."));
+        navigator.geolocation.getCurrentPosition(resolve,reject,{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
+      });
+      acceptDayTravellerPosition(position);
+    }
+    const lat=position.coords.latitude,lng=position.coords.longitude;
+    const library=await window.getGooglePlaces();
+    const response=await library.Place.searchNearby({
+      fields:["displayName","formattedAddress","location","googleMapsURI"],
+      locationRestriction:{center:{lat,lng},radius:1200},
+      includedPrimaryTypes:["restaurant","cafe"],
+      maxResultCount:5,
+      rankPreference:"DISTANCE"
+    });
+    const items=(response.places||[]).map(place=>{
+      const plat=typeof place.location?.lat==="function"?place.location.lat():place.location?.lat;
+      const plng=typeof place.location?.lng==="function"?place.location.lng():place.location?.lng;
+      return {
+        name:place.displayName||"Restaurant",
+        distance:Number.isFinite(plat)&&Number.isFinite(plng)?distanceM(lat,lng,plat,plng):null,
+        map:place.googleMapsURI||googleMapLink(plat,plng)
+      };
+    });
+    output.innerHTML=items.length?items.map(item=>`
+      <div class="day-nearby-item">
+        <div class="day-nearby-name">${esc(item.name)}</div>
+        <div class="day-nearby-reason">${item.distance!==null?esc(distanceLabel(item.distance)):"Nearby"}</div>
+        <a class="day-action" href="${esc(item.map)}" target="_blank" rel="noopener">DIRECTIONS</a>
+      </div>`).join(""):'<div class="day-status">No food found nearby.</div>';
+  }catch(error){
+    output.innerHTML=`<div class="day-status">${esc(error.message||"Could not find nearby food.")}</div>`;
+  }finally{
+    button.disabled=false;
+    button.textContent="REFRESH FOOD →";
+  }
+}
+
+
+let TRIP_ID =
+
+  Number(
+    new URLSearchParams(
+      location.search
+    )
+    .get("trip")
+  )
+
+  ||
+
+  Number(
+    localStorage.getItem(
+      "current_trip_id"
+    )
+  )
+
+  ||
+
+  null;
+
+
+let currentUser = null;
+
+let currentTrip = null;
+
+let accessibleTrips = [];
+
+let scheduleRows = [];
+let bookingRows = [];
+
+let placeMap = new Map();
+
+let dayDates = [];
+
+let selectedDate = null;
+
+let openAreas = {};
+
+let nearbyLoaded = false;
+
+let nearbyLoading = false;
+
+
+
+
+
+/* =========================================================
+   DAY TRAVELLER
+   Location drives progress; itinerary times are guide times.
+   Nearby discovery uses the trip place library first, then
+   OpenStreetMap/Overpass so discoveries are not Google-only.
+========================================================= */
+
+let dayTravellerPosition = null;
+let dayTravellerWatch = null;
+let dayTravellerCurrentId = null;
+let dayTravellerNearbyTimer = null;
+let dayTravellerLastDiscovery = null;
+
+function flightBookingsForDate(date){
+  return bookingRows.filter(b=>b.booking_type==="flight"&&b.booking_date===date);
+}
+function tripBoundaryFlight(){
+  const flights=flightBookingsForDate(selectedDate);
+  if(!flights.length)return null;
+  if(selectedDate===currentTrip?.start_date)return {kind:"arrival",booking:flights[flights.length-1]};
+  if(selectedDate===currentTrip?.end_date)return {kind:"departure",booking:flights[0]};
+  return null;
+}
+function flightBoundaryRow(){
+  const boundary=tripBoundaryFlight();
+  if(!boundary)return null;
+  const b=boundary.booking;
+  const from=b.origin_code||"";
+  const to=b.destination_code||"";
+  const route=from&&to?`${from} → ${to}`:(b.title||"Flight");
+  return {
+    id:`booking-flight-${b.id}`,
+    title:boundary.kind==="arrival"?`Arrival · ${route}`:`Departure · ${route}`,
+    start_time:b.start_time||null,
+    time_label:b.start_time||null,
+    item_type:"flight",
+    is_locked:true,
+    _booking:true,
+    _boundary:boundary.kind,
+    _booking_data:b
+  };
+}
+function dayRows(){
+  const rows=scheduleRows
+    .filter(row => row.schedule_date === selectedDate && isHomePlace(row))
+    .sort(compareRows);
+  const flight=flightBoundaryRow();
+  if(!flight)return rows;
+  return flight._boundary==="arrival"?[flight,...rows]:[...rows,flight];
+}
+
+function rowCoords(row){
+  const place = rowPlace(row);
+  const lat = Number(row.latitude ?? place?.latitude);
+  const lng = Number(row.longitude ?? place?.longitude);
+  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat===0 && lng===0)
+    ? {lat,lng}
+    : null;
+}
+
+function plannedNameSet(){
+  const names = new Set();
+  scheduleRows.forEach(row => {
+    [row.title,row.location_name,rowPlace(row)?.name].filter(Boolean).forEach(name => {
+      names.add(txt(name).toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ").trim());
+    });
+  });
+  return names;
+}
+
+function normalPlaceName(name){
+  return txt(name).toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ").trim();
+}
+
+function alreadyPlanned(name){
+  const n=normalPlaceName(name);
+  if(!n) return true;
+  for(const planned of plannedNameSet()){
+    if(planned===n || (planned.length>5 && n.includes(planned)) || (n.length>5 && planned.includes(n))) return true;
+  }
+  return false;
+}
+
+function dayProgressKey(){return `day-progress-${TRIP_ID}-${selectedDate}`;}
+function dayFallbackKey(){return `day-fallback-${TRIP_ID}-${selectedDate}`;}
+
+function dayProgress(){
+  try{return JSON.parse(localStorage.getItem(dayProgressKey())||"{}")||{};}catch{return {};}
+}
+function saveDayProgress(progress){
+  localStorage.setItem(dayProgressKey(),JSON.stringify(progress||{}));
+}
+function cacheDayFallback(rows){
+  try{
+    localStorage.setItem(dayFallbackKey(),JSON.stringify(rows.map(row=>({
+      id:row.id,title:row.title||rowPlace(row)?.name||"Stop",
+      start_time:row.start_time||null,time_label:row.time_label||null,
+      maps_url:mapsHref(row)||null,location_name:row.location_name||null
+    }))));
+  }catch{}
+}
+function fallbackDayRows(){
+  try{return JSON.parse(localStorage.getItem(dayFallbackKey())||"[]")||[];}catch{return [];}
+}
+
+function currentJourneyContext(lat,lng){
+  const rows=dayRows();
+  if(!rows.length) return {rows,current:null,next:null,distance:null,index:-1};
+  const progress=dayProgress();
+  let index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
+
+  // A booked arrival/departure has no POI coordinates. Keep it as the
+  // current journey item until the traveller explicitly completes/skips it.
+  const current=rows[index];
+  if(current?._booking){
+    return {rows,current,next:rows[index+1]||null,distance:null,index};
+  }
+
+  // Location may advance among coordinate-bearing itinerary stops, but
+  // never jumps over a booked fixed item.
+  const ranked=rows.map((row,rowIndex)=>{
+    const p=rowCoords(row);
+    return p?{row,index:rowIndex,distance:distanceM(lat,lng,p.lat,p.lng)}:null;
+  }).filter(x=>x&&x.index>=index&&!rows.slice(index,x.index).some(r=>r._booking))
+    .sort((a,b)=>a.distance-b.distance);
+  const near=ranked[0];
+  if(near && near.distance<=180 && near.index>=index){
+    index=near.index;
+    saveDayProgress({...progress,index,last_near_id:near.row.id,last_near_at:Date.now()});
+  }
+  const row=rows[index];
+  const p=rowCoords(row);
+  return {
+    rows,current:row||rows[0],next:rows[index+1]||null,
+    distance:p?distanceM(lat,lng,p.lat,p.lng):null,index
+  };
+}
+
+async function markDayStop(action){
+  const rows=dayRows();
+  if(!rows.length)return;
+  const progress=dayProgress();
+  const index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
+  const row=rows[index];
+  const nextIndex=Math.min(index+1,Math.max(rows.length-1,0));
+  saveDayProgress({...progress,index:nextIndex,[action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,updated_at:Date.now()});
+  renderDayNow(dayTravellerPosition);
+  // Sync when online, but the traveller never waits on the network.
+  if(navigator.onLine && row?.id && !row._booking){
+    try{
+      const payload=action==="done"?{completed_at:new Date().toISOString(),skipped_at:null}:{skipped_at:new Date().toISOString()};
+      await db.from("schedule").update(payload).eq("id",row.id).eq("trip_id",TRIP_ID);
+    }catch(error){console.warn("Journey progress sync:",error);}
+  }
+}
+
+function renderPaperFallback(holder,rows,message){
+  const progress=dayProgress();
+  const index=Math.max(0,Math.min(Number(progress.index)||0,Math.max(rows.length-1,0)));
+  const row=rows[index]||rows[0];
+  if(!row){holder.innerHTML='<div class="day-kicker">TODAY</div><div class="day-status">No itinerary saved for this day yet.</div>';return;}
+  const name=row.title||"Current stop";
+  const next=rows[index+1];
+  holder.innerHTML=`
+    <div class="day-kicker">TODAY</div>
+    <div class="day-state">CURRENT JOURNEY</div>
+    <div class="day-place">${esc(name)}</div>
+    <div class="day-meta">${esc(timeText(row)||"Guide time")} · ${esc(message||"Saved itinerary")}</div>
+    <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}</div>
+    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
+    ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
+    <div class="day-offline-note">Your last itinerary stays here even if location or internet is unavailable.</div>`;
+}
+
+function renderDayNow(position){
+  const holder=document.getElementById("dayNow");
+  if(!holder)return;
+  const rows=dayRows();
+  if(rows.length)cacheDayFallback(rows);
+
+  // Never leave this pane empty while location is cold/unavailable.
+  if(!position){
+    renderPaperFallback(holder,rows.length?rows:fallbackDayRows(),"Guide time");
+    return;
+  }
+
+  const {latitude:lat,longitude:lng}=position.coords;
+  const ctx=currentJourneyContext(lat,lng);
+  const row=ctx.current;
+  if(!row){renderPaperFallback(holder,rows.length?rows:fallbackDayRows(),"Saved itinerary");return;}
+  const name=row.title||rowPlace(row)?.name||"Current stop";
+  const near=ctx.distance!==null&&ctx.distance<=180;
+  const state=near?"NEARBY NOW":"CURRENT JOURNEY";
+  const meta=near?`${distanceLabel(ctx.distance)} · Part of today's journey`:`${timeText(row)} · Guide time`;
+  const nextName=ctx.next?(ctx.next.title||rowPlace(ctx.next)?.name||"Next stop"):"";
+
+  if(dayTravellerCurrentId!==row.id||near){holder.classList.remove("day-flip");void holder.offsetWidth;holder.classList.add("day-flip");}
+  dayTravellerCurrentId=row.id;
+  holder.innerHTML=`
+    <div class="day-kicker">TODAY</div>
+    <div class="day-state">${row._booking ? (row._boundary==="arrival"?"ARRIVAL":"DEPARTURE") : state}</div>
+    <div class="day-place">${esc(name)}</div>
+    <div class="day-meta">${esc(row._booking ? ((timeText(row)||"Booked flight")+" · Booked") : meta)}</div>
+    <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
+    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
+    ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
+  `;
+}
+
+function attractionKind(tags,importance={}){
+  const tourism=tags.tourism||"";
+  const historic=tags.historic||"";
+  const amenity=tags.amenity||"";
+  const hasKnowledge=Boolean(tags.wikidata||tags.wikipedia||importance.wikidata||importance.wikipedia);
+  const strongWiki=Number(importance.sitelinks||0)>=12 || Number(importance.pageviews||0)>=1200;
+  const mediumWiki=Number(importance.sitelinks||0)>=4 || Number(importance.pageviews||0)>=250;
+
+  if(
+    strongWiki ||
+    (hasKnowledge && ["attraction","museum","gallery","theme_park","zoo"].includes(tourism)) ||
+    ["castle","archaeological_site"].includes(historic)
+  ) return {label:"MAJOR ATTRACTION",mins:60};
+
+  if(["viewpoint","artwork"].includes(tourism) || ["memorial","monument"].includes(historic))
+    return {label:mediumWiki?"SMALLER ATTRACTION":"QUICK STOP",mins:mediumWiki?25:15};
+
+  if(["place_of_worship"].includes(amenity) || tags.religion || ["temple","shrine"].includes(tags.building))
+    return {label:(mediumWiki||hasKnowledge)?"SMALLER ATTRACTION":"QUICK STOP",mins:(mediumWiki||hasKnowledge)?30:15};
+
+  return {label:mediumWiki?"SMALLER ATTRACTION":"QUICK STOP",mins:mediumWiki?25:15};
+}
+
+function osmWikipediaTitle(tags){
+  const raw=tags?.wikipedia;
+  if(!raw) return "";
+  const value=String(raw);
+  const colon=value.indexOf(":");
+  return colon>=0 ? value.slice(colon+1) : value;
+}
+
+async function wikidataImportance(candidate){
+  const info={wikidata:candidate.tags?.wikidata||"",wikipedia:osmWikipediaTitle(candidate.tags),sitelinks:0,pageviews:0};
+  try{
+    if(info.wikidata){
+      const response=await fetch("https://www.wikidata.org/wiki/Special:EntityData/"+encodeURIComponent(info.wikidata)+".json");
+      if(response.ok){
+        const data=await response.json();
+        const entity=data.entities?.[info.wikidata];
+        info.sitelinks=entity?.sitelinks ? Object.keys(entity.sitelinks).length : 0;
+        if(!info.wikipedia){
+          info.wikipedia=entity?.sitelinks?.enwiki?.title || entity?.sitelinks?.jawiki?.title || "";
+        }
+      }
+    }
+    if(info.wikipedia){
+      const end=new Date();
+      const start=new Date(end.getTime()-30*86400000);
+      const fmt=d=>d.toISOString().slice(0,10).replaceAll("-","");
+      const url="https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/"
+        +encodeURIComponent(info.wikipedia.replaceAll(" ","_"))+"/daily/"+fmt(start)+"/"+fmt(end);
+      const response=await fetch(url);
+      if(response.ok){
+        const data=await response.json();
+        info.pageviews=(data.items||[]).reduce((sum,item)=>sum+Number(item.views||0),0);
+      }
+    }
+  }catch(error){
+    console.warn("Wikidata/Wikipedia importance:",candidate.name,error);
+  }
+  return info;
+}
+
+async function enrichNearbyImportance(candidates){
+  // Only enrich the closest candidates so the dashboard stays light on mobile.
+  const shortlist=[...candidates].sort((a,b)=>a.distance-b.distance).slice(0,10);
+  await Promise.all(shortlist.map(async candidate=>{
+    candidate.importance=await wikidataImportance(candidate);
+    candidate.kind=attractionKind(candidate.tags,candidate.importance);
+  }));
+  candidates.forEach(candidate=>{
+    if(!candidate.kind) candidate.kind=attractionKind(candidate.tags,candidate.importance||{});
+  });
+  return candidates;
+}
+
+function fitForCandidate(candidate,ctx,lat,lng){
+  const cur=ctx.current&&rowCoords(ctx.current);
+  const next=ctx.next&&rowCoords(ctx.next);
+  let detour=0;
+  if(cur&&next){
+    detour=Math.max(0,
+      distanceM(cur.lat,cur.lng,candidate.lat,candidate.lng)+
+      distanceM(candidate.lat,candidate.lng,next.lat,next.lng)-
+      distanceM(cur.lat,cur.lng,next.lat,next.lng)
+    );
+  }
+  const fixedSoon=ctx.next && ctx.next.is_locked && timeValue(ctx.next)!==null;
+  if((fixedSoon && candidate.kind.mins>=45) || detour>1400) return {label:"NOT NOW",cls:"not-now",reason:fixedSoon?"Too substantial before your next fixed stop.":"This pulls you too far off your current route.",add:false,detour};
+  if(detour<=350 && candidate.kind.mins<=30) return {label:"GOOD FIT",cls:"fit",reason:"A small detour between your current and next stop.",add:true,detour};
+  return {label:"OPTIONAL",cls:"optional",reason:detour>650?"Nearby, but it takes you away from your current route.":"It can fit here, but adds time to this part of the day.",add:true,detour};
+}
+
+async function fetchNearbyFromLibrary(lat,lng){
+  const result=await db.from("places").select("id,name,place_type,description,latitude,longitude,maps_url,provider,verified").eq("status","active").limit(1000);
+  if(result.error) return [];
+  return (result.data||[]).map(place=>({
+    source:"library",place,
+    name:place.name,lat:Number(place.latitude),lng:Number(place.longitude),
+    tags:{tourism:place.place_type, wikidata:place.provider==="wikidata"?"known":null},
+    map:place.maps_url||googleMapLink(place.latitude,place.longitude)
+  })).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&distanceM(lat,lng,x.lat,x.lng)<=1200&&!alreadyPlanned(x.name));
+}
+
+async function fetchNearbyFromOSM(lat,lng){
+  const query=`[out:json][timeout:12];(nwr(around:1200,${lat},${lng})["tourism"~"attraction|museum|viewpoint|gallery"];nwr(around:1200,${lat},${lng})["historic"];nwr(around:1200,${lat},${lng})["amenity"="place_of_worship"];nwr(around:1200,${lat},${lng})["wikidata"];nwr(around:1200,${lat},${lng})["wikipedia"];);out center tags 80;`;
+  const response=await fetch("https://overpass-api.de/api/interpreter",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},body:"data="+encodeURIComponent(query)});
+  if(!response.ok) throw new Error("Nearby discovery is temporarily unavailable.");
+  const data=await response.json();
+  return (data.elements||[]).map(el=>{
+    const p=el.center||{lat:el.lat,lon:el.lon};
+    return {source:"osm",osmId:`${el.type}/${el.id}`,name:el.tags?.name||el.tags?.["name:en"]||"",lat:Number(p.lat),lng:Number(p.lon),tags:el.tags||{},map:`https://www.openstreetmap.org/${el.type}/${el.id}`};
+  }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&!alreadyPlanned(x.name));
+}
+
+async function discoverNearby(position){
+  const status=document.getElementById("dayNearbyStatus");
+  const list=document.getElementById("dayNearbyList");
+  if(!status||!list||!position) return;
+  const lat=position.coords.latitude,lng=position.coords.longitude;
+  status.style.display="";
+  status.textContent="Checking what can sensibly fit here…";
+  try{
+    const ctx=currentJourneyContext(lat,lng);
+    let candidates=await fetchNearbyFromLibrary(lat,lng);
+    try{
+      const osm=await fetchNearbyFromOSM(lat,lng);
+      const seen=new Set(candidates.map(x=>normalPlaceName(x.name)));
+      osm.forEach(x=>{const n=normalPlaceName(x.name);if(!seen.has(n)){seen.add(n);candidates.push(x);}});
+    }catch(error){console.warn("OSM nearby:",error);}
+
+    candidates=candidates.map(x=>{
+      x.distance=distanceM(lat,lng,x.lat,x.lng);
+      return x;
+    });
+
+    await enrichNearbyImportance(candidates);
+
+    candidates=candidates.map(x=>{
+      x.fit=fitForCandidate(x,ctx,lat,lng);
+      return x;
+    }).sort((a,b)=>{
+      const rank={fit:0,optional:1,"not-now":2};
+      return (rank[a.fit.cls]-rank[b.fit.cls]) || (a.distance-b.distance);
+    }).slice(0,3);
+
+    dayTravellerLastDiscovery=candidates;
+    status.style.display=candidates.length?"none":"";
+    status.textContent=candidates.length?"":"Nothing useful and unplanned found close by.";
+    list.innerHTML=candidates.map((x,i)=>`
+      <div class="day-nearby-item">
+        <div class="day-nearby-name">${esc(x.name)}</div>
+        <div class="day-nearby-badges">
+          <span class="day-badge">${esc(x.kind.label)}</span>
+          <span class="day-badge ${x.fit.cls}">${esc(x.fit.label)}</span>
+          <span class="day-badge">${distanceLabel(x.distance)}</span>
+          <span class="day-badge">~${x.kind.mins} MIN</span>
+        </div>
+        <div class="day-nearby-reason">${esc(x.fit.reason)}</div>
+        ${x.fit.add?`<button class="day-add" type="button" data-day-add="${i}">＋ ADD TO CURRENT STOP</button>`:""}
+      </div>`).join("");
+
+    list.querySelectorAll("[data-day-add]").forEach(button=>{
+      button.onclick=()=>addNearbyToCurrentStop(Number(button.dataset.dayAdd));
+    });
+  }catch(error){
+    status.style.display="";
+    status.textContent=error.message||"Could not load nearby places.";
+    list.innerHTML="";
+  }
+}
+
+async function addNearbyToCurrentStop(index){
+  const candidate=dayTravellerLastDiscovery?.[index];
+  if(!candidate||!dayTravellerPosition) return;
+  const button=document.querySelector(`[data-day-add="${index}"]`);
+  if(button){button.disabled=true;button.textContent="ADDING…";}
+  try{
+    const ctx=currentJourneyContext(dayTravellerPosition.coords.latitude,dayTravellerPosition.coords.longitude);
+    const current=ctx.current;
+    const next=ctx.next;
+    const orderA=Number(current?.sort_order||0);
+    const orderB=Number(next?.sort_order);
+    let newOrder=Number.isFinite(orderB)&&orderB>orderA ? Math.floor((orderA+orderB)/2) : orderA+1;
+
+    // If there is no integer gap, shift later rows one slot so this stays between current and next.
+    if(next && newOrder<=orderA){
+      const later=ctx.rows.slice(ctx.index+1).sort((a,b)=>Number(b.sort_order||0)-Number(a.sort_order||0));
+      for(const row of later){
+        await db.from("schedule").update({sort_order:Number(row.sort_order||0)+1}).eq("id",row.id);
+      }
+      newOrder=orderA+1;
+    }
+
+    const insert=await db.from("schedule").insert({
+      trip_id:TRIP_ID,
+      schedule_date:selectedDate,
+      sort_order:newOrder,
+      title:candidate.name,
+      item_type:"attraction",
+      location_name:candidate.name,
+      latitude:candidate.lat,
+      longitude:candidate.lng,
+      maps_url:candidate.map,
+      is_optional:true,
+      is_locked:false,
+      is_temporary:true,
+      source:candidate.source==="osm"?"nearby_osm":"nearby_library"
+    }).select().single();
+    if(insert.error) throw insert.error;
+    scheduleRows.push(insert.data);
+    renderPlaces();
+    renderDayNow(dayTravellerPosition);
+    await discoverNearby(dayTravellerPosition);
+  }catch(error){
+    console.error("Add nearby:",error);
+    if(button){button.disabled=false;button.textContent="TRY AGAIN";}
+  }
+}
+
+function acceptDayTravellerPosition(position){
+  dayTravellerPosition=position;
+  renderDayNow(position);
+}
+
+function startDayTraveller(){
+  renderDayNow(dayTravellerPosition);
+  const foodButton=document.getElementById("dayFoodButton");
+  if(foodButton) foodButton.onclick=()=>loadDashboardFood();
+
+  const nearbyButton=document.getElementById("dayNearbyButton");
+  if(nearbyButton) nearbyButton.onclick=async()=>{
+    if(!dayTravellerPosition){
+      nearbyButton.textContent="GETTING LOCATION…";
+      navigator.geolocation?.getCurrentPosition(
+        position=>{
+          acceptDayTravellerPosition(position);
+          nearbyButton.textContent="FIND NEARBY →";
+          discoverNearby(position);
+        },
+        ()=>{nearbyButton.textContent="LOCATION NEEDED";},
+        {enableHighAccuracy:false,timeout:9000,maximumAge:120000}
+      );
+      return;
+    }
+    await discoverNearby(dayTravellerPosition);
+  };
+  if(!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(acceptDayTravellerPosition,()=>renderDayNow(null),{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
+  if(dayTravellerWatch!==null) navigator.geolocation.clearWatch(dayTravellerWatch);
+  dayTravellerWatch=navigator.geolocation.watchPosition(
+    position=>{
+      if(document.visibilityState==="visible") acceptDayTravellerPosition(position);
+    },
+    ()=>{},
+    {enableHighAccuracy:false,timeout:15000,maximumAge:90000}
+  );
+}
+
+
+
+
+
+
 /* =========================================================
    GOOGLE PLACES DIAGNOSTIC
 ========================================================= */
@@ -4419,50 +4376,6 @@ if(
 /* =========================================================
    STATE
 ========================================================= */
-
-let TRIP_ID =
-
-  Number(
-    new URLSearchParams(
-      location.search
-    )
-    .get("trip")
-  )
-
-  ||
-
-  Number(
-    localStorage.getItem(
-      "current_trip_id"
-    )
-  )
-
-  ||
-
-  null;
-
-
-let currentUser = null;
-
-let currentTrip = null;
-
-let accessibleTrips = [];
-
-let scheduleRows = [];
-
-let placeMap = new Map();
-
-let dayDates = [];
-
-let selectedDate = null;
-
-let openAreas = {};
-
-let nearbyLoaded = false;
-
-let nearbyLoading = false;
-
-
 
 /* =========================================================
    HELPERS
@@ -5475,6 +5388,17 @@ async function loadCurrentTripData(){
     ||
     [];
 
+  const bookingResult =
+    await db
+      .from("bookings")
+      .select("id,booking_type,title,provider,booking_date,start_time,end_time,status,location_name,notes,flight_number,origin_code,destination_code")
+      .eq("trip_id",TRIP_ID)
+      .neq("status","cancelled")
+      .order("booking_date",{ascending:true})
+      .order("start_time",{ascending:true});
+
+  bookingRows = bookingResult.error ? [] : (bookingResult.data || []);
+
 
 
   const placeIds = [
@@ -5553,23 +5477,13 @@ async function loadCurrentTripData(){
 
 
   dayDates = [
-
-    ...new Set(
-
-      scheduleRows
-
-        .map(
-          row =>
-            row.schedule_date
-        )
-
-        .filter(Boolean)
-
-    )
-
-  ]
-
-  .sort();
+    ...new Set([
+      ...scheduleRows.map(row=>row.schedule_date).filter(Boolean),
+      ...bookingRows.map(row=>row.booking_date).filter(Boolean),
+      currentTrip.start_date,
+      currentTrip.end_date
+    ].filter(Boolean))
+  ].sort();
 
 
 
@@ -7354,14 +7268,13 @@ function renderDates(){
 ========================================================= */
 
 function renderFullPlan(){
-
-  document
-    .getElementById(
-      "fullPlan"
-    )
-    .href =
-      `schedule.html?trip=${TRIP_ID}`;
-
+  // The full itinerary is already rendered directly below the Day Traveller
+  // dashboard. Older homepage markup had a separate #fullPlan link, but that
+  // control was intentionally removed.
+  const link=document.getElementById("fullPlan");
+  if(link){
+    link.href=`schedule.html?trip=${TRIP_ID}`;
+  }
 }
 
 
@@ -8380,28 +8293,16 @@ function renderSetupGuide(){
     `?trip=${TRIP_ID}`;
 
 
-  document.getElementById(
-    "setupPlanLink"
-  ).href =
-    `schedule.html${suffix}`;
+  { const el=document.getElementById("setupPlanLink"); if(el) el.href=`schedule.html${suffix}`; }
 
 
-  document.getElementById(
-    "setupBookingLink"
-  ).href =
-    `bookings.html${suffix}`;
+  { const el=document.getElementById("setupBookingLink"); if(el) el.href=`bookings.html${suffix}`; }
 
 
-  document.getElementById(
-    "setupFoodLink"
-  ).href =
-    `food.html${suffix}`;
+  { const el=document.getElementById("setupFoodLink"); if(el) el.href=`food.html${suffix}`; }
 
 
-  document.getElementById(
-    "setupStartLink"
-  ).href =
-    `schedule.html${suffix}`;
+  { const el=document.getElementById("setupStartLink"); if(el) el.href=`schedule.html${suffix}`; }
 
 
   const copy =
