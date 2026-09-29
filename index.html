@@ -2051,15 +2051,80 @@ function renderDayNow(position){
   `;
 }
 
-function attractionKind(tags){
+function attractionKind(tags,importance={}){
   const tourism=tags.tourism||"";
   const historic=tags.historic||"";
   const amenity=tags.amenity||"";
-  if(tags.wikidata && ["attraction","museum","gallery","theme_park","zoo"].includes(tourism)) return {label:"MAJOR ATTRACTION",mins:60};
-  if(["castle","archaeological_site"].includes(historic)) return {label:"MAJOR ATTRACTION",mins:60};
-  if(["viewpoint","artwork"].includes(tourism) || ["memorial","monument"].includes(historic)) return {label:"QUICK STOP",mins:15};
-  if(["place_of_worship"].includes(amenity) || tags.religion || ["temple","shrine"].includes(tags.building)) return {label:"SMALLER ATTRACTION",mins:30};
-  return {label:"SMALLER ATTRACTION",mins:25};
+  const hasKnowledge=Boolean(tags.wikidata||tags.wikipedia||importance.wikidata||importance.wikipedia);
+  const strongWiki=Number(importance.sitelinks||0)>=12 || Number(importance.pageviews||0)>=1200;
+  const mediumWiki=Number(importance.sitelinks||0)>=4 || Number(importance.pageviews||0)>=250;
+
+  if(
+    strongWiki ||
+    (hasKnowledge && ["attraction","museum","gallery","theme_park","zoo"].includes(tourism)) ||
+    ["castle","archaeological_site"].includes(historic)
+  ) return {label:"MAJOR ATTRACTION",mins:60};
+
+  if(["viewpoint","artwork"].includes(tourism) || ["memorial","monument"].includes(historic))
+    return {label:mediumWiki?"SMALLER ATTRACTION":"QUICK STOP",mins:mediumWiki?25:15};
+
+  if(["place_of_worship"].includes(amenity) || tags.religion || ["temple","shrine"].includes(tags.building))
+    return {label:(mediumWiki||hasKnowledge)?"SMALLER ATTRACTION":"QUICK STOP",mins:(mediumWiki||hasKnowledge)?30:15};
+
+  return {label:mediumWiki?"SMALLER ATTRACTION":"QUICK STOP",mins:mediumWiki?25:15};
+}
+
+function osmWikipediaTitle(tags){
+  const raw=tags?.wikipedia;
+  if(!raw) return "";
+  const value=String(raw);
+  const colon=value.indexOf(":");
+  return colon>=0 ? value.slice(colon+1) : value;
+}
+
+async function wikidataImportance(candidate){
+  const info={wikidata:candidate.tags?.wikidata||"",wikipedia:osmWikipediaTitle(candidate.tags),sitelinks:0,pageviews:0};
+  try{
+    if(info.wikidata){
+      const response=await fetch("https://www.wikidata.org/wiki/Special:EntityData/"+encodeURIComponent(info.wikidata)+".json");
+      if(response.ok){
+        const data=await response.json();
+        const entity=data.entities?.[info.wikidata];
+        info.sitelinks=entity?.sitelinks ? Object.keys(entity.sitelinks).length : 0;
+        if(!info.wikipedia){
+          info.wikipedia=entity?.sitelinks?.enwiki?.title || entity?.sitelinks?.jawiki?.title || "";
+        }
+      }
+    }
+    if(info.wikipedia){
+      const end=new Date();
+      const start=new Date(end.getTime()-30*86400000);
+      const fmt=d=>d.toISOString().slice(0,10).replaceAll("-","");
+      const url="https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/"
+        +encodeURIComponent(info.wikipedia.replaceAll(" ","_"))+"/daily/"+fmt(start)+"/"+fmt(end);
+      const response=await fetch(url);
+      if(response.ok){
+        const data=await response.json();
+        info.pageviews=(data.items||[]).reduce((sum,item)=>sum+Number(item.views||0),0);
+      }
+    }
+  }catch(error){
+    console.warn("Wikidata/Wikipedia importance:",candidate.name,error);
+  }
+  return info;
+}
+
+async function enrichNearbyImportance(candidates){
+  // Only enrich the closest candidates so the dashboard stays light on mobile.
+  const shortlist=[...candidates].sort((a,b)=>a.distance-b.distance).slice(0,10);
+  await Promise.all(shortlist.map(async candidate=>{
+    candidate.importance=await wikidataImportance(candidate);
+    candidate.kind=attractionKind(candidate.tags,candidate.importance);
+  }));
+  candidates.forEach(candidate=>{
+    if(!candidate.kind) candidate.kind=attractionKind(candidate.tags,candidate.importance||{});
+  });
+  return candidates;
 }
 
 function fitForCandidate(candidate,ctx,lat,lng){
@@ -2091,7 +2156,7 @@ async function fetchNearbyFromLibrary(lat,lng){
 }
 
 async function fetchNearbyFromOSM(lat,lng){
-  const query=`[out:json][timeout:12];(nwr(around:1200,${lat},${lng})["tourism"~"attraction|museum|viewpoint|gallery"];nwr(around:1200,${lat},${lng})["historic"];nwr(around:1200,${lat},${lng})["amenity"="place_of_worship"];);out center tags 60;`;
+  const query=`[out:json][timeout:12];(nwr(around:1200,${lat},${lng})["tourism"~"attraction|museum|viewpoint|gallery"];nwr(around:1200,${lat},${lng})["historic"];nwr(around:1200,${lat},${lng})["amenity"="place_of_worship"];nwr(around:1200,${lat},${lng})["wikidata"];nwr(around:1200,${lat},${lng})["wikipedia"];);out center tags 80;`;
   const response=await fetch("https://overpass-api.de/api/interpreter",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},body:"data="+encodeURIComponent(query)});
   if(!response.ok) throw new Error("Nearby discovery is temporarily unavailable.");
   const data=await response.json();
@@ -2118,7 +2183,12 @@ async function discoverNearby(position){
 
     candidates=candidates.map(x=>{
       x.distance=distanceM(lat,lng,x.lat,x.lng);
-      x.kind=attractionKind(x.tags);
+      return x;
+    });
+
+    await enrichNearbyImportance(candidates);
+
+    candidates=candidates.map(x=>{
       x.fit=fitForCandidate(x,ctx,lat,lng);
       return x;
     }).sort((a,b)=>{
