@@ -2549,7 +2549,7 @@ main{
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel">
 
-<style>.row-photos{border:0;background:transparent;color:#81909a;cursor:pointer;font-size:14px;padding:8px}.row-photos:hover{color:#ff8585}.photo-backdrop{position:fixed;inset:0;background:#000a;z-index:12000;display:none;align-items:flex-end;justify-content:center}.photo-backdrop.open{display:flex}.photo-sheet{width:min(720px,100%);max-height:88vh;overflow:auto;background:#0b1419;border:1px solid #2b3941;border-radius:24px 24px 0 0;padding:22px;color:#eee}.photo-tabs{display:flex;gap:8px;margin:16px 0}.photo-tabs button,.photo-add{border:1px solid #583238;background:#211619;color:#ff9292;border-radius:10px;padding:9px 12px}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.photo-card small{display:block;color:#8d9aa1;overflow:hidden;text-overflow:ellipsis}.photo-empty{color:#78868e;padding:28px 0}.photo-head{display:flex;justify-content:space-between}.photo-head button{background:none;border:0;color:#ddd;font-size:20px}@media(max-width:600px){.photo-grid{grid-template-columns:repeat(2,1fr)}}</style></head>
+<style>.row-photos{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #33424b;border-radius:9px;background:#10191e;color:#ff8585;cursor:pointer;font-size:14px;padding:0}.row-photos:hover{color:#ff8585}.photo-backdrop{position:fixed;inset:0;background:#000a;z-index:12000;display:none;align-items:flex-end;justify-content:center}.photo-backdrop.open{display:flex}.photo-sheet{width:min(720px,100%);max-height:88vh;overflow:auto;background:#0b1419;border:1px solid #2b3941;border-radius:24px 24px 0 0;padding:22px;color:#eee}.photo-tabs{display:flex;gap:8px;margin:16px 0}.photo-tabs button,.photo-add{border:1px solid #583238;background:#211619;color:#ff9292;border-radius:10px;padding:9px 12px}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.photo-card small{display:block;color:#8d9aa1;overflow:hidden;text-overflow:ellipsis}.photo-empty{color:#78868e;padding:28px 0}.photo-head{display:flex;justify-content:space-between}.photo-head button{background:none;border:0;color:#ddd;font-size:20px}@media(max-width:600px){.photo-grid{grid-template-columns:repeat(2,1fr)}}</style></head>
 
 
 
@@ -5608,7 +5608,7 @@ function timelineHTML(item){
       </div>
 
 
-      <button class="row-photos" type="button" onclick="openPlacePhotos(${Number(item.id)})" aria-label="Photos">▧</button>
+      <button class="row-photos" type="button" onclick="openPlacePhotos(${Number(item.id)})" aria-label="Photos" title="Photos">📷</button>
 
       <button
         class="row-edit"
