@@ -4183,11 +4183,47 @@ async function addNearbyToCurrentStop(index){
 
 function acceptDayTravellerPosition(position){
   dayTravellerPosition=position;
+  try{
+    localStorage.setItem("day-traveller-last-position",JSON.stringify({
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude,
+      accuracy:position.coords.accuracy||null,
+      timestamp:position.timestamp||Date.now()
+    }));
+  }catch{}
   renderDayNow(position);
 }
 
+function cachedDayTravellerPosition(){
+  try{
+    const saved=JSON.parse(localStorage.getItem("day-traveller-last-position")||"null");
+    if(!saved||!Number.isFinite(Number(saved.latitude))||!Number.isFinite(Number(saved.longitude)))return null;
+    // Only reuse a reasonably recent fix. It is for continuity, not live presence.
+    if(Date.now()-Number(saved.timestamp||0)>30*60*1000)return null;
+    return {coords:{latitude:Number(saved.latitude),longitude:Number(saved.longitude),accuracy:Number(saved.accuracy)||null},timestamp:Number(saved.timestamp)||Date.now()};
+  }catch{return null;}
+}
+
+let dayTravellerLastFixAt=0;
+let dayTravellerRefreshTimer=null;
+let dayTravellerVisibilityBound=false;
+
+function requestDayTravellerPosition(force=false){
+  if(!navigator.geolocation||document.visibilityState==="hidden")return;
+  const now=Date.now();
+  if(!force && now-dayTravellerLastFixAt<3*60*1000)return;
+  dayTravellerLastFixAt=now;
+  navigator.geolocation.getCurrentPosition(
+    acceptDayTravellerPosition,
+    ()=>renderDayNow(dayTravellerPosition||null),
+    {enableHighAccuracy:false,timeout:9000,maximumAge:3*60*1000}
+  );
+}
+
 function startDayTraveller(){
+  if(!dayTravellerPosition) dayTravellerPosition=cachedDayTravellerPosition();
   renderDayNow(dayTravellerPosition);
+
   const foodButton=document.getElementById("dayFoodButton");
   if(foodButton) foodButton.onclick=()=>loadDashboardFood();
 
@@ -4202,22 +4238,29 @@ function startDayTraveller(){
           discoverNearby(position);
         },
         ()=>{nearbyButton.textContent="LOCATION NEEDED";},
-        {enableHighAccuracy:false,timeout:9000,maximumAge:120000}
+        {enableHighAccuracy:false,timeout:9000,maximumAge:3*60*1000}
       );
       return;
     }
     await discoverNearby(dayTravellerPosition);
   };
-  if(!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(acceptDayTravellerPosition,()=>renderDayNow(null),{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
-  if(dayTravellerWatch!==null) navigator.geolocation.clearWatch(dayTravellerWatch);
-  dayTravellerWatch=navigator.geolocation.watchPosition(
-    position=>{
-      if(document.visibilityState==="visible") acceptDayTravellerPosition(position);
-    },
-    ()=>{},
-    {enableHighAccuracy:false,timeout:15000,maximumAge:90000}
-  );
+
+  // Data/battery saver: one low-accuracy fix now, then at most once every
+  // three minutes while this page is actually visible. No continuous GPS watch.
+  if(dayTravellerWatch!==null && navigator.geolocation){
+    navigator.geolocation.clearWatch(dayTravellerWatch);
+    dayTravellerWatch=null;
+  }
+  requestDayTravellerPosition(true);
+  if(dayTravellerRefreshTimer) clearInterval(dayTravellerRefreshTimer);
+  dayTravellerRefreshTimer=setInterval(()=>requestDayTravellerPosition(false),3*60*1000);
+
+  if(!dayTravellerVisibilityBound){
+    document.addEventListener("visibilitychange",()=>{
+      if(document.visibilityState==="visible") requestDayTravellerPosition(true);
+    });
+    dayTravellerVisibilityBound=true;
+  }
 }
 
 
