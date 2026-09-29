@@ -1257,6 +1257,11 @@ main{
 }
 .day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
 .day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.day-manual{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
+.day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
+.day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
+.day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
 .day-action{
   min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
   border:1px solid rgba(255,107,104,.34);border-radius:999px;background:rgba(255,107,104,.055);
@@ -1973,80 +1978,118 @@ function alreadyPlanned(name){
   return false;
 }
 
+function dayProgressKey(){return `day-progress-${TRIP_ID}-${selectedDate}`;}
+function dayFallbackKey(){return `day-fallback-${TRIP_ID}-${selectedDate}`;}
+
+function dayProgress(){
+  try{return JSON.parse(localStorage.getItem(dayProgressKey())||"{}")||{};}catch{return {};}
+}
+function saveDayProgress(progress){
+  localStorage.setItem(dayProgressKey(),JSON.stringify(progress||{}));
+}
+function cacheDayFallback(rows){
+  try{
+    localStorage.setItem(dayFallbackKey(),JSON.stringify(rows.map(row=>({
+      id:row.id,title:row.title||rowPlace(row)?.name||"Stop",
+      start_time:row.start_time||null,time_label:row.time_label||null,
+      maps_url:mapsHref(row)||null,location_name:row.location_name||null
+    }))));
+  }catch{}
+}
+function fallbackDayRows(){
+  try{return JSON.parse(localStorage.getItem(dayFallbackKey())||"[]")||[];}catch{return [];}
+}
+
 function currentJourneyContext(lat,lng){
   const rows=dayRows().filter(row=>rowCoords(row));
   if(!rows.length) return {rows,current:null,next:null,distance:null,index:-1};
-  const ranked=rows.map((row,index)=>{
+  const progress=dayProgress();
+  let index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
+
+  // Location may advance the journey, but never selects an earlier stop.
+  const ranked=rows.map((row,rowIndex)=>{
     const p=rowCoords(row);
-    return {row,index,distance:distanceM(lat,lng,p.lat,p.lng)};
-  }).sort((a,b)=>a.distance-b.distance);
-
+    return {row,index:rowIndex,distance:distanceM(lat,lng,p.lat,p.lng)};
+  }).filter(x=>x.index>=index).sort((a,b)=>a.distance-b.distance);
   const near=ranked[0];
-  let index=near.index;
-
-  // Do not jump backwards after a stop has clearly advanced.
-  const stored=Number(localStorage.getItem(`day-progress-${TRIP_ID}-${selectedDate}`));
-  if(Number.isFinite(stored) && stored>=0 && index<stored && near.distance>70) index=stored;
-  if(near.distance<=180){
-    index=Math.max(index,Number.isFinite(stored)?stored:0);
-    localStorage.setItem(`day-progress-${TRIP_ID}-${selectedDate}`,String(index));
-  }else if(Number.isFinite(stored) && stored>=0){
-    index=Math.min(stored,rows.length-1);
+  if(near && near.distance<=180 && near.index>=index){
+    index=near.index;
+    saveDayProgress({...progress,index,last_near_id:near.row.id,last_near_at:Date.now()});
   }
 
   return {
-    rows,
-    current:rows[index]||rows[0],
-    next:rows[index+1]||null,
-    distance: rows[index] ? distanceM(lat,lng,rowCoords(rows[index]).lat,rowCoords(rows[index]).lng) : null,
-    index
+    rows,current:rows[index]||rows[0],next:rows[index+1]||null,
+    distance:rows[index]?distanceM(lat,lng,rowCoords(rows[index]).lat,rowCoords(rows[index]).lng):null,index
   };
+}
+
+async function markDayStop(action){
+  const rows=dayRows();
+  if(!rows.length)return;
+  const progress=dayProgress();
+  const index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
+  const row=rows[index];
+  const nextIndex=Math.min(index+1,Math.max(rows.length-1,0));
+  saveDayProgress({...progress,index:nextIndex,[action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,updated_at:Date.now()});
+  renderDayNow(dayTravellerPosition);
+  // Sync when online, but the traveller never waits on the network.
+  if(navigator.onLine && row?.id){
+    try{
+      const payload=action==="done"?{completed_at:new Date().toISOString(),skipped_at:null}:{skipped_at:new Date().toISOString()};
+      await db.from("schedule").update(payload).eq("id",row.id).eq("trip_id",TRIP_ID);
+    }catch(error){console.warn("Journey progress sync:",error);}
+  }
+}
+
+function renderPaperFallback(holder,rows,message){
+  const progress=dayProgress();
+  const index=Math.max(0,Math.min(Number(progress.index)||0,Math.max(rows.length-1,0)));
+  const row=rows[index]||rows[0];
+  if(!row){holder.innerHTML='<div class="day-kicker">TODAY</div><div class="day-status">No itinerary saved for this day yet.</div>';return;}
+  const name=row.title||"Current stop";
+  const next=rows[index+1];
+  holder.innerHTML=`
+    <div class="day-kicker">TODAY</div>
+    <div class="day-state">CURRENT JOURNEY</div>
+    <div class="day-place">${esc(name)}</div>
+    <div class="day-meta">${esc(timeText(row)||"Guide time")} · ${esc(message||"Saved itinerary")}</div>
+    <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">FULL PLAN</a></div>
+    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
+    ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
+    <div class="day-offline-note">Your last itinerary stays here even if location or internet is unavailable.</div>`;
 }
 
 function renderDayNow(position){
   const holder=document.getElementById("dayNow");
-  if(!holder) return;
+  if(!holder)return;
   const rows=dayRows();
-  if(!rows.length){
-    holder.innerHTML='<div class="day-kicker">TODAY</div><div class="day-status">No sightseeing stops on this day yet.</div>';
-    return;
-  }
+  if(rows.length)cacheDayFallback(rows);
 
+  // Never leave this pane empty while location is cold/unavailable.
   if(!position){
-    const first=rows[0];
-    holder.innerHTML=`
-      <div class="day-kicker">TODAY</div>
-      <div class="day-state">START HERE</div>
-      <div class="day-place">${esc(first.title||rowPlace(first)?.name||"First stop")}</div>
-      <div class="day-meta">${esc(timeText(first))} · Guide time</div>
-      <div class="day-actions">${mapsHref(first)?`<a class="day-action primary" href="${esc(mapsHref(first))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>`;
+    renderPaperFallback(holder,rows.length?rows:fallbackDayRows(),"Guide time");
     return;
   }
 
   const {latitude:lat,longitude:lng}=position.coords;
   const ctx=currentJourneyContext(lat,lng);
   const row=ctx.current;
-  if(!row) return;
+  if(!row){renderPaperFallback(holder,rows.length?rows:fallbackDayRows(),"Saved itinerary");return;}
   const name=row.title||rowPlace(row)?.name||"Current stop";
-  const near=ctx.distance!==null && ctx.distance<=180;
-  const state=near ? "NEARBY NOW" : "CURRENT JOURNEY";
-  const meta=near ? `${distanceLabel(ctx.distance)} · Part of today's journey` : `${timeText(row)} · Guide time`;
-  const nextName=ctx.next ? (ctx.next.title||rowPlace(ctx.next)?.name||"Next stop") : "";
+  const near=ctx.distance!==null&&ctx.distance<=180;
+  const state=near?"NEARBY NOW":"CURRENT JOURNEY";
+  const meta=near?`${distanceLabel(ctx.distance)} · Part of today's journey`:`${timeText(row)} · Guide time`;
+  const nextName=ctx.next?(ctx.next.title||rowPlace(ctx.next)?.name||"Next stop"):"";
 
-  if(dayTravellerCurrentId!==row.id || near){
-    holder.classList.remove("day-flip"); void holder.offsetWidth; holder.classList.add("day-flip");
-  }
+  if(dayTravellerCurrentId!==row.id||near){holder.classList.remove("day-flip");void holder.offsetWidth;holder.classList.add("day-flip");}
   dayTravellerCurrentId=row.id;
-
   holder.innerHTML=`
     <div class="day-kicker">TODAY</div>
     <div class="day-state">${state}</div>
     <div class="day-place">${esc(name)}</div>
     <div class="day-meta">${esc(meta)}</div>
-    <div class="day-actions">
-      ${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}
-      <a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a>
-    </div>
+    <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
+    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
     ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
   `;
 }
