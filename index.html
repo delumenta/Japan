@@ -1221,53 +1221,7 @@ main{
 
 
 
-async function loadDashboardFood(){
-  const button=document.getElementById("dayFoodButton");
-  const output=document.getElementById("dayFoodResults");
-  if(!button||!output) return;
-  button.disabled=true;
-  button.textContent="FINDING FOOD…";
-  output.innerHTML='<div class="day-status">Checking food around you…</div>';
-  try{
-    let position=dayTravellerPosition;
-    if(!position){
-      position=await new Promise((resolve,reject)=>{
-        if(!navigator.geolocation) return reject(new Error("Location is not available."));
-        navigator.geolocation.getCurrentPosition(resolve,reject,{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
-      });
-      acceptDayTravellerPosition(position);
-    }
-    const lat=position.coords.latitude,lng=position.coords.longitude;
-    const library=await window.getGooglePlaces();
-    const response=await library.Place.searchNearby({
-      fields:["displayName","formattedAddress","location","googleMapsURI"],
-      locationRestriction:{center:{lat,lng},radius:1200},
-      includedPrimaryTypes:["restaurant","cafe"],
-      maxResultCount:5,
-      rankPreference:"DISTANCE"
-    });
-    const items=(response.places||[]).map(place=>{
-      const plat=typeof place.location?.lat==="function"?place.location.lat():place.location?.lat;
-      const plng=typeof place.location?.lng==="function"?place.location.lng():place.location?.lng;
-      return {
-        name:place.displayName||"Restaurant",
-        distance:Number.isFinite(plat)&&Number.isFinite(plng)?distanceM(lat,lng,plat,plng):null,
-        map:place.googleMapsURI||googleMapLink(plat,plng)
-      };
-    });
-    output.innerHTML=items.length?items.map(item=>`
-      <div class="day-nearby-item">
-        <div class="day-nearby-name">${esc(item.name)}</div>
-        <div class="day-nearby-reason">${item.distance!==null?esc(distanceLabel(item.distance)):"Nearby"}</div>
-        <a class="day-action" href="${esc(item.map)}" target="_blank" rel="noopener">DIRECTIONS</a>
-      </div>`).join(""):'<div class="day-status">No food found nearby.</div>';
-  }catch(error){
-    output.innerHTML=`<div class="day-status">${esc(error.message||"Could not find nearby food.")}</div>`;
-  }finally{
-    button.disabled=false;
-    button.textContent="REFRESH FOOD →";
-  }
-}
+
 
 /* =========================================================
    FOOD FINDER
@@ -3048,6 +3002,55 @@ async function loadDashboardFood(){
 
 
 <script>
+
+async function loadDashboardFood(){
+  const button=document.getElementById("dayFoodButton");
+  const output=document.getElementById("dayFoodResults");
+  if(!button||!output) return;
+  button.disabled=true;
+  button.textContent="FINDING FOOD…";
+  output.innerHTML='<div class="day-status">Checking food around you…</div>';
+  try{
+    let position=dayTravellerPosition;
+    if(!position){
+      position=await new Promise((resolve,reject)=>{
+        if(!navigator.geolocation) return reject(new Error("Location is not available."));
+        navigator.geolocation.getCurrentPosition(resolve,reject,{enableHighAccuracy:false,timeout:9000,maximumAge:120000});
+      });
+      acceptDayTravellerPosition(position);
+    }
+    const lat=position.coords.latitude,lng=position.coords.longitude;
+    const library=await window.getGooglePlaces();
+    const response=await library.Place.searchNearby({
+      fields:["displayName","formattedAddress","location","googleMapsURI"],
+      locationRestriction:{center:{lat,lng},radius:1200},
+      includedPrimaryTypes:["restaurant","cafe"],
+      maxResultCount:5,
+      rankPreference:"DISTANCE"
+    });
+    const items=(response.places||[]).map(place=>{
+      const plat=typeof place.location?.lat==="function"?place.location.lat():place.location?.lat;
+      const plng=typeof place.location?.lng==="function"?place.location.lng():place.location?.lng;
+      return {
+        name:place.displayName||"Restaurant",
+        distance:Number.isFinite(plat)&&Number.isFinite(plng)?distanceM(lat,lng,plat,plng):null,
+        map:place.googleMapsURI||googleMapLink(plat,plng)
+      };
+    });
+    output.innerHTML=items.length?items.map(item=>`
+      <div class="day-nearby-item">
+        <div class="day-nearby-name">${esc(item.name)}</div>
+        <div class="day-nearby-reason">${item.distance!==null?esc(distanceLabel(item.distance)):"Nearby"}</div>
+        <a class="day-action" href="${esc(item.map)}" target="_blank" rel="noopener">DIRECTIONS</a>
+      </div>`).join(""):'<div class="day-status">No food found nearby.</div>';
+  }catch(error){
+    output.innerHTML=`<div class="day-status">${esc(error.message||"Could not find nearby food.")}</div>`;
+  }finally{
+    button.disabled=false;
+    button.textContent="REFRESH FOOD →";
+  }
+}
+
 
 /* =========================================================
    DAY TRAVELLER DASHBOARD
