@@ -7267,14 +7267,13 @@ function renderDates(){
 ========================================================= */
 
 function renderFullPlan(){
-
-  document
-    .getElementById(
-      "fullPlan"
-    )
-    .href =
-      `schedule.html?trip=${TRIP_ID}`;
-
+  // The full itinerary is already rendered directly below the Day Traveller
+  // dashboard. Older homepage markup had a separate #fullPlan link, but that
+  // control was intentionally removed.
+  const link=document.getElementById("fullPlan");
+  if(link){
+    link.href=`schedule.html?trip=${TRIP_ID}`;
+  }
 }
 
 
