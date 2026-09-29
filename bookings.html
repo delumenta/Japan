@@ -3523,6 +3523,16 @@ function dayRouteSummary(items){
 }
 
 
+function norm(value){
+  return String(value ?? "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g," ")
+    .trim();
+}
+
+
 function bookingStampKanji(items){
 
   const value =
@@ -3616,6 +3626,9 @@ function timelineTypeLabel(type){
 
     case "ticket":
       return "Ticket";
+
+    case "flight":
+      return "Flight";
 
     case "transport":
       return "Transport";
