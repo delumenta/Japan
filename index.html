@@ -2276,6 +2276,20 @@ main{
   color:#eca7a3;text-decoration:none;font-size:6.5px;font-weight:900;letter-spacing:.05em;
 }
 .day-action.primary{background:rgba(255,107,104,.13);border-color:rgba(255,107,104,.55)}
+.journey-controls{
+  display:flex;flex-wrap:nowrap;align-items:center;gap:7px;margin-top:15px;overflow-x:auto;padding-bottom:2px;
+  scrollbar-width:none
+}
+.journey-controls::-webkit-scrollbar{display:none}
+.journey-controls .day-action{
+  flex:0 0 auto;min-height:36px;padding:0 13px;border-radius:10px;
+  border:1px solid rgba(255,107,104,.35);background:rgba(255,107,104,.055);
+  color:#efa7a2;font:900 6.5px/1 inherit;letter-spacing:.04em;text-decoration:none;cursor:pointer
+}
+.journey-controls .day-action.done{border-color:rgba(121,201,149,.34);background:rgba(121,201,149,.055);color:#9edab3}
+.journey-controls .day-action.skip{border-color:rgba(228,189,105,.32);background:rgba(228,189,105,.045);color:#d8bd7d}
+.journey-controls .day-action.undo{border-color:rgba(124,170,240,.32);background:rgba(124,170,240,.045);color:#9bbcf0}
+@media(max-width:430px){.journey-controls .day-action{min-height:34px;padding:0 10px;font-size:6px}}
 .day-tool-title{margin-top:6px;color:#f5f1eb;font-size:12px;font-weight:850}
 .day-tool-copy{margin-top:4px;color:#7f8a92;font-size:7px;line-height:1.45}
 .day-food-button{
@@ -3927,7 +3941,7 @@ async function undoDayStop(){
 function dayUndoButton(rows=dayRows()){
   const progress=normalizedDayProgress(rows);
   return (progress.undo || Number(progress.index)>0)
-    ? '<button class="undo" type="button" onclick="undoDayStop()">↶ UNDO</button>'
+    ? '<button class="day-action undo" type="button" onclick="undoDayStop()">↶ UNDO</button>'
     : '';
 }
 
@@ -3944,8 +3958,7 @@ function renderPaperFallback(holder,rows,message){
     <div class="day-state">CURRENT JOURNEY</div>
     <div class="day-place">${esc(name)}</div>
     <div class="day-meta">Part of today's journey</div>
-    <div class="day-actions">${directions?`<a class="day-action primary" href="${esc(directions)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
-    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
+    <div class="day-actions journey-controls">${directions?`<a class="day-action" href="${esc(directions)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a><button class="day-action done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="day-action skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
     <div class="day-offline-note">Location unavailable · using saved itinerary</div>`;
 }
@@ -3982,8 +3995,7 @@ function renderDayNow(position){
     <div class="day-state">${row._booking ? (row._boundary==="arrival"?"ARRIVAL":"DEPARTURE") : state}</div>
     <div class="day-place">${esc(row._booking ? name : displayName)}</div>
     <div class="day-meta">${esc(row._booking ? ((timeText(row)||"Booked flight")+" · Booked") : meta)}</div>
-    <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
-    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
+    <div class="day-actions journey-controls">${mapsHref(row)?`<a class="day-action" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a><button class="day-action done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="day-action skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
   `;
 }
