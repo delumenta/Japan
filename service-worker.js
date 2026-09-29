@@ -1,4 +1,4 @@
-const CACHE_NAME = "travel-shell-v5";
+const CACHE_NAME = "travel-shell-v3";
 
 const APP_SHELL = [
   "/Japan/",
@@ -14,6 +14,7 @@ const APP_SHELL = [
   "/Japan/footer.js",
   "/Japan/supabase.js",
   "/Japan/countries.js",
+  "/Japan/offline.js",
   "/Japan/icons/icon-192.png",
   "/Japan/icons/icon-512.png"
 ];
