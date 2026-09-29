@@ -3169,6 +3169,8 @@ let accessibleTrips = [];
 
 let schedule = [];
 
+let bookings = [];
+
 let places = [];
 
 let restaurants = [];
@@ -4014,12 +4016,20 @@ async function loadData(){
 
     const [
       scheduleResult,
+      bookingResult,
       placeResult,
       restaurantResult
     ] =
       await Promise.all([
 
         loadScheduleQuery(),
+
+        db.from("bookings")
+          .select("id,trip_id,booking_type,title,provider,booking_date,start_time,end_time,status,location_name,address,notes,confirmation_number,booking_url,flight_number,origin_code,destination_code")
+          .eq("trip_id",TRIP_ID)
+          .neq("status","cancelled")
+          .order("booking_date",{ascending:true})
+          .order("start_time",{ascending:true}),
 
         placesQuery,
 
@@ -4030,6 +4040,11 @@ async function loadData(){
 
     if(scheduleResult.error){
       throw scheduleResult.error;
+    }
+
+
+    if(bookingResult.error){
+      throw bookingResult.error;
     }
 
 
@@ -4045,6 +4060,11 @@ async function loadData(){
 
     schedule =
       scheduleResult.data ||
+      [];
+
+
+    bookings =
+      bookingResult.data ||
       [];
 
 
@@ -4493,51 +4513,51 @@ function compareScheduleItems(
 }
 
 
+function bookingScheduleItem(booking){
+  const type=norm(booking.booking_type);
+  const isFlight=type==="flight";
+  const route=[booking.origin_code,booking.destination_code].filter(Boolean).join(" → ");
+  const details=[booking.provider,booking.flight_number].filter(Boolean).join(" · ");
+  return {
+    id:"booking-"+booking.id,
+    _booking:true,
+    booking_id:booking.id,
+    schedule_date:booking.booking_date,
+    start_time:booking.start_time||null,
+    end_time:booking.end_time||null,
+    time_label:null,
+    sort_order:0,
+    title:isFlight
+      ? ([booking.flight_number,route].filter(Boolean).join(" · ") || booking.title || "Flight")
+      : (booking.title || booking.provider || "Booking"),
+    item_type:isFlight?"flight":type,
+    description:null,
+    notes:[details,booking.notes].filter(Boolean).join(" · "),
+    location_name:booking.location_name||null,
+    address:booking.address||null,
+    maps_url:booking.booking_url||null,
+    is_optional:false,
+    is_locked:true
+  };
+}
+
 function buildDays(){
 
   groupedDays = {};
 
+  const merged=[
+    ...schedule,
+    ...bookings.filter(item=>item.booking_date).map(bookingScheduleItem)
+  ];
 
-  schedule.forEach(
-    item => {
+  merged.forEach(item=>{
+    if(!groupedDays[item.schedule_date])groupedDays[item.schedule_date]=[];
+    groupedDays[item.schedule_date].push(item);
+  });
 
-      if(
-        !groupedDays[
-          item.schedule_date
-        ]
-      ){
-
-        groupedDays[
-          item.schedule_date
-        ] = [];
-
-      }
-
-
-      groupedDays[
-        item.schedule_date
-      ]
-      .push(
-        item
-      );
-
-    }
-  );
-
-
-  Object
-    .values(
-      groupedDays
-    )
-    .forEach(
-      items =>
-        items.sort(
-          compareScheduleItems
-        )
-    );
+  Object.values(groupedDays).forEach(items=>items.sort(compareScheduleItems));
 
 }
-
 
 
 /* =========================================================
