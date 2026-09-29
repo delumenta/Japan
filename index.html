@@ -2314,6 +2314,7 @@ main{
   width:100%;min-height:36px;margin-top:10px;border:1px solid rgba(255,107,104,.35);border-radius:10px;
   background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;
 }
+.detour-modes{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.detour-mode{flex:1;min-width:88px;padding:8px 6px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:#141b21;color:#9ca8b0;font:800 8px Inter,Arial,sans-serif;letter-spacing:.07em}.detour-mode.active{background:rgba(255,107,104,.12);border-color:#ff7773;color:#ffaaa5}.day-nearby-map{display:inline-flex;align-items:center;margin-top:8px;margin-right:7px;color:#d7e4e9;font-size:8px;font-weight:800;text-decoration:none}
 .day-nearby-list{display:grid;gap:8px;margin-top:10px}
 .day-nearby-item{padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.018)}
 .day-nearby-name{color:#f2eee8;font-size:9px;font-weight:850;line-height:1.25}
@@ -3343,7 +3344,7 @@ main{
         <div class="day-tool">
           <div class="day-tool-kicker">NEARBY</div>
           <div class="day-tool-title">Worth a detour?</div>
-          <div class="day-tool-copy">Places not already in your trip that could fit before your next stop.</div>
+          <div class="day-tool-copy" id="dayNearbyDescription">Discover interesting places around your actual location, even outside your trip.</div><div class="detour-modes" role="group" aria-label="Detour discovery mode"><button type="button" class="detour-mode active" data-detour-mode="near">NEAR ME</button><button type="button" class="detour-mode" data-detour-mode="route">ALONG MY ROUTE</button></div>
           <button id="dayNearbyButton" class="day-food-button" type="button">FIND NEARBY →</button>
           <div id="dayNearbyStatus" class="day-status" style="display:none"></div>
           <div id="dayNearbyList" class="day-nearby-list"></div>
@@ -4123,6 +4124,13 @@ function fitForCandidate(candidate,ctx,lat,lng){
   return {label:"OPTIONAL",cls:"optional",reason:detour>650?"Nearby, but it takes you away from your current route.":"It can fit here, but adds time to this part of the day.",add:true,detour};
 }
 
+let detourMode="near";
+function nearbyFit(candidate){
+  const d=candidate.distance;
+  if(d<=450&&candidate.kind.mins<=30)return {label:"GO",cls:"fit",reason:"A short visit close to your current location.",add:false};
+  if(d<=900)return {label:"CONSIDER",cls:"optional",reason:"Within walking distance, but allow time for the visit.",add:false};
+  return {label:"NOT NOW",cls:"not-now",reason:"Over 900 m away; consider it if you have extra time.",add:false};
+}
 async function fetchNearbyFromLibrary(lat,lng){
   const result=await db.from("places").select("id,name,place_type,description,latitude,longitude,maps_url,provider,verified").eq("status","active").limit(1000);
   if(result.error) return [];
@@ -4131,7 +4139,7 @@ async function fetchNearbyFromLibrary(lat,lng){
     name:place.name,lat:Number(place.latitude),lng:Number(place.longitude),
     tags:{tourism:place.place_type, wikidata:place.provider==="wikidata"?"known":null},
     map:place.maps_url||googleMapLink(place.latitude,place.longitude)
-  })).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&distanceM(lat,lng,x.lat,x.lng)<=1200&&!alreadyPlanned(x.name));
+  })).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&distanceM(lat,lng,x.lat,x.lng)<=1200&&(detourMode==="near"||!alreadyPlanned(x.name)));
 }
 
 async function fetchNearbyFromOSM(lat,lng){
@@ -4142,7 +4150,7 @@ async function fetchNearbyFromOSM(lat,lng){
   return (data.elements||[]).map(el=>{
     const p=el.center||{lat:el.lat,lon:el.lon};
     return {source:"osm",osmId:`${el.type}/${el.id}`,name:el.tags?.name||el.tags?.["name:en"]||"",lat:Number(p.lat),lng:Number(p.lon),tags:el.tags||{},map:`https://www.openstreetmap.org/${el.type}/${el.id}`};
-  }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&!alreadyPlanned(x.name));
+  }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)&&(detourMode==="near"||!alreadyPlanned(x.name)));
 }
 
 async function discoverNearby(position){
@@ -4153,7 +4161,7 @@ async function discoverNearby(position){
   status.style.display="";
   status.textContent="Checking what can sensibly fit here…";
   try{
-    const ctx=currentJourneyContext(lat,lng);
+    const ctx=detourMode==="route"?currentJourneyContext(lat,lng):null;
     let candidates=await fetchNearbyFromLibrary(lat,lng);
     try{
       const osm=await fetchNearbyFromOSM(lat,lng);
@@ -4169,7 +4177,7 @@ async function discoverNearby(position){
     await enrichNearbyImportance(candidates);
 
     candidates=candidates.map(x=>{
-      x.fit=fitForCandidate(x,ctx,lat,lng);
+      x.fit=detourMode==="route"&&ctx?.current?fitForCandidate(x,ctx,lat,lng):nearbyFit(x);
       return x;
     }).sort((a,b)=>{
       const rank={fit:0,optional:1,"not-now":2};
@@ -4189,7 +4197,8 @@ async function discoverNearby(position){
           <span class="day-badge">~${x.kind.mins} MIN</span>
         </div>
         <div class="day-nearby-reason">${esc(x.fit.reason)}</div>
-        ${x.fit.add?`<button class="day-add" type="button" data-day-add="${i}">＋ ADD TO CURRENT STOP</button>`:""}
+        <a class="day-nearby-map" href="${esc(googleMapLink(x.lat,x.lng))}" target="_blank" rel="noopener">DIRECTIONS ↗</a>
+        ${detourMode==="route"&&x.fit.add?`<button class="day-add" type="button" data-day-add="${i}">＋ ADD TO CURRENT STOP</button>`:""}
       </div>`).join("");
 
     list.querySelectorAll("[data-day-add]").forEach(button=>{
@@ -4296,6 +4305,7 @@ function startDayTraveller(){
   const foodButton=document.getElementById("dayFoodButton");
   if(foodButton) foodButton.onclick=()=>loadDashboardFood();
 
+  document.querySelectorAll("[data-detour-mode]").forEach(button=>button.onclick=()=>{detourMode=button.dataset.detourMode;document.querySelectorAll("[data-detour-mode]").forEach(b=>b.classList.toggle("active",b===button));const description=document.getElementById("dayNearbyDescription");if(description)description.textContent=detourMode==="near"?"Discover interesting places around your actual location, even outside your trip.":"Find unplanned attractions that fit between your current and next itinerary stops.";const list=document.getElementById("dayNearbyList");if(list)list.innerHTML="";const status=document.getElementById("dayNearbyStatus");if(status)status.style.display="none";});
   const nearbyButton=document.getElementById("dayNearbyButton");
   if(nearbyButton) nearbyButton.onclick=async()=>{
     if(!dayTravellerPosition){
