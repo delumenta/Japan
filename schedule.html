@@ -5474,19 +5474,12 @@ function renderDay(){
 function showPhotoAction(item){
   const type=norm(item.item_type);
   const title=norm(item.title);
-  const transportLike=
-    type.includes("transport") ||
-    title.includes("head to") ||
-    title.includes("return hotel") ||
-    title.includes("return to hotel") ||
-    title.includes("go to") ||
-    title.includes("travel to") ||
-    title.includes("drive to") ||
-    title.includes("train to") ||
-    title.includes("taxi to") ||
-    title.includes("depart") ||
-    title.includes("arrive");
-  return !transportLike;
+  const location=norm(itemLocation(item));
+  const movementWords=/^(head|return|go|travel|drive|train|taxi|walk|transfer|depart|arrive|leave|continue|proceed|move)\b/;
+  if(type.includes("transport") || movementWords.test(title)) return false;
+  /* A photo collection belongs to a destination/POI, not an instruction row. */
+  if(!item.place_id && !item.restaurant_id && !location) return false;
+  return true;
 }
 
 function timelineHTML(item){
