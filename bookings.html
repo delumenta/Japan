@@ -2149,6 +2149,7 @@ main{
         <p>Upload an e-ticket, booking confirmation, PDF or screenshot. We’ll read it and fill the form for you to check before saving.</p>
         <input id="bookingUpload" type="file" accept="image/*,.pdf,application/pdf" hidden>
         <button id="bookingUploadButton" class="booking-upload-btn" type="button">UPLOAD BOOKING →</button>
+        <button id="bookingPasteButton" class="booking-upload-btn" type="button">PASTE FROM CLIPBOARD →</button>
         <div id="bookingUploadStatus" class="booking-upload-status"></div>
       </div>
 
@@ -2621,6 +2622,7 @@ const formMessage =
 
 const bookingUpload=document.getElementById("bookingUpload");
 const bookingUploadButton=document.getElementById("bookingUploadButton");
+const bookingPasteButton=document.getElementById("bookingPasteButton");
 const bookingUploadStatus=document.getElementById("bookingUploadStatus");
 const flightFields=document.getElementById("flightFields");
 const fieldFlightNumber=document.getElementById("fieldFlightNumber");
@@ -4482,6 +4484,70 @@ function closeSheet(){
 ========================================================= */
 
 bookingUploadButton.onclick=()=>bookingUpload.click();
+
+async function parseBookingBlob(blob,label="clipboard"){
+  if(blob.size>10*1024*1024)throw new Error("Please use an image under 10 MB.");
+  const session=(await db.auth.getSession()).data.session;
+  if(!session)throw new Error("Please sign in again.");
+  const base64=await new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(String(reader.result).split(",")[1]||"");
+    reader.onerror=()=>reject(new Error("Couldn't read this image."));
+    reader.readAsDataURL(blob);
+  });
+  const response=await fetch(SUPABASE_URL+"/functions/v1/travel-assist",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+session.access_token},
+    body:JSON.stringify({action:"parse_booking_upload",trip_id:TRIP_ID,mime_type:blob.type||"image/png",file_data:base64})
+  });
+  const data=await response.json();
+  if(!response.ok||!data.success)throw new Error(data.error||"Couldn't read this booking.");
+  const b=data.booking||{};
+  fieldStatus.value="booked";
+  fieldType.value=b.booking_type||"ticket";
+  fieldTitle.value=b.title||"";
+  fieldDate.value=b.booking_date||"";
+  fieldTime.value=b.start_time?String(b.start_time).slice(0,5):"";
+  fieldProvider.value=b.provider||"";
+  fieldLocation.value=b.location_name||"";
+  fieldAddress.value=b.address||"";
+  fieldConfirmation.value=b.confirmation_number||"";
+  fieldUrl.value=b.booking_url||"";
+  fieldAmount.value=b.amount??"";
+  if(b.currency&&[...fieldCurrency.options].some(o=>o.value===b.currency))fieldCurrency.value=b.currency;
+  fieldNotes.value=b.notes||"";
+  fieldFlightNumber.value=b.flight_number||"";
+  fieldOriginCode.value=(b.origin_code||"").toUpperCase();
+  fieldDestinationCode.value=(b.destination_code||"").toUpperCase();
+  updateFlightFields();
+  bookingUploadStatus.textContent="Filled from "+label+". Check the details, then press SAVE.";
+}
+
+bookingPasteButton.onclick=async()=>{
+  bookingPasteButton.disabled=true;
+  bookingPasteButton.textContent="READING CLIPBOARD…";
+  bookingUploadStatus.textContent="Looking for a copied screenshot…";
+  try{
+    if(!navigator.clipboard?.read)throw new Error("Clipboard images are not supported in this browser. Use Upload Booking instead.");
+    const items=await navigator.clipboard.read();
+    let blob=null;
+    for(const item of items){
+      const type=item.types.find(t=>t.startsWith("image/"));
+      if(type){blob=await item.getType(type);break;}
+    }
+    if(!blob)throw new Error("No image found in your clipboard. Copy the booking screenshot first.");
+    bookingUploadStatus.textContent="Extracting the booking details…";
+    await parseBookingBlob(blob,"clipboard screenshot");
+  }catch(error){
+    console.error(error);
+    bookingUploadStatus.textContent=error.message||"Couldn't read the clipboard.";
+  }finally{
+    bookingPasteButton.disabled=false;
+    bookingPasteButton.textContent="PASTE FROM CLIPBOARD →";
+  }
+};
+
+
 
 bookingUpload.onchange=async()=>{
   const file=bookingUpload.files?.[0];
