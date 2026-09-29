@@ -3153,6 +3153,13 @@ main{
       Start with your days, then add the reservations you already have and save food you want to try.
     </div>
 
+    <div id="googlePlacesDiagnostic" class="setup-guide" style="margin-top:14px;display:none;">
+      <div class="setup-guide-kicker">GOOGLE PLACES DIAGNOSTIC</div>
+      <div id="googleDiagStatus" class="setup-guide-copy">Ready to test.</div>
+      <button id="runGoogleDiagnostic" class="setup-guide-primary" type="button" style="width:100%;">RUN GOOGLE TEST</button>
+      <div id="googleDiagResults" class="setup-guide-copy" style="white-space:pre-wrap;margin-top:10px;"></div>
+    </div>
+
     <div class="setup-guide-steps">
 
       <a
@@ -3577,6 +3584,69 @@ main{
 
 
 <script>
+
+/* =========================================================
+   GOOGLE PLACES DIAGNOSTIC
+========================================================= */
+(function(){
+  const params = new URLSearchParams(location.search);
+  if(params.get("googledebug") !== "1") return;
+
+  const panel = document.getElementById("googlePlacesDiagnostic");
+  const button = document.getElementById("runGoogleDiagnostic");
+  const status = document.getElementById("googleDiagStatus");
+  const results = document.getElementById("googleDiagResults");
+  if(panel) panel.style.display = "block";
+
+  const line = (label, ok, detail="") =>
+    (ok ? "✓ " : "✗ ") + label + (detail ? " — " + detail : "");
+
+  button?.addEventListener("click", async () => {
+    button.disabled = true;
+    status.textContent = "Testing Google Maps and Places…";
+    const out = [];
+    try {
+      await window.loadGoogleMaps();
+      out.push(line("Maps JavaScript API loaded", true));
+    } catch(error) {
+      out.push(line("Maps JavaScript API loaded", false, error?.message || String(error)));
+      results.textContent = out.join("\n");
+      status.textContent = "Stopped at Maps loading.";
+      button.disabled = false;
+      return;
+    }
+
+    let places;
+    try {
+      places = await window.getGooglePlaces();
+      out.push(line("Places library imported", true));
+      out.push(line("Place.searchNearby available", !!(places?.Place && typeof places.Place.searchNearby === "function")));
+    } catch(error) {
+      out.push(line("Places library imported", false, error?.message || String(error)));
+      results.textContent = out.join("\n");
+      status.textContent = "Stopped at Places import.";
+      button.disabled = false;
+      return;
+    }
+
+    try {
+      const response = await places.Place.searchNearby({
+        fields:["id","displayName","location"],
+        locationRestriction:{center:{lat:1.29027,lng:103.851959},radius:500},
+        includedPrimaryTypes:["restaurant"],
+        maxResultCount:1,
+        rankPreference:"DISTANCE"
+      });
+      out.push(line("Nearby Search authorized", true, (response?.places?.length || 0) + " result(s)"));
+      status.textContent = "Google Nearby Search is authorized.";
+    } catch(error) {
+      out.push(line("Nearby Search authorized", false, error?.message || String(error)));
+      status.textContent = "Google rejected Nearby Search.";
+    }
+    results.textContent = out.join("\n");
+    button.disabled = false;
+  });
+})();
 
 /* =========================================================
    ITINERARY IMPORT ENTRY
