@@ -2974,6 +2974,18 @@ main{
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel">
 
+<style>
+.journey-photo-backdrop{position:fixed;inset:0;z-index:12000;display:none;align-items:flex-end;justify-content:center;padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
+.journey-photo-backdrop.open{display:flex}
+.journey-photo-sheet{width:min(520px,100%);padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#0d151b;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.journey-photo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;color:#f6f1eb}
+.journey-photo-head b{font:700 17px/1.2 Georgia,serif}.journey-photo-head small{display:block;margin-top:5px;color:#75818a;font-size:8px}
+.journey-photo-head>button{border:0;background:transparent;color:#9ca6ad;font-size:18px;cursor:pointer}
+.journey-photo-tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:16px}
+.journey-photo-tools button{min-height:38px;border:1px solid rgba(255,107,104,.34);border-radius:10px;background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;cursor:pointer}
+.journey-photo-status{min-height:14px;margin-top:10px;color:#8f9aa1;font-size:8px}
+@media(max-width:430px){.journey-photo-tools{grid-template-columns:1fr}.journey-photo-tools button{min-height:36px}}
+</style>
 </head>
 
 
@@ -3958,7 +3970,7 @@ function renderPaperFallback(holder,rows,message){
     <div class="day-state">CURRENT JOURNEY</div>
     <div class="day-place">${esc(name)}</div>
     <div class="day-meta">Part of today's journey</div>
-    <div class="day-actions journey-controls">${directions?`<a class="day-action" href="${esc(directions)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a><button class="day-action done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="day-action skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
+    <div class="day-actions journey-controls">${directions?`<a class="day-action" href="${esc(directions)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<button class="day-action" type="button" onclick="openJourneyPhotos()">PHOTOS</button><button class="day-action done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="day-action skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
     <div class="day-offline-note">Location unavailable · using saved itinerary</div>`;
 }
@@ -3995,7 +4007,7 @@ function renderDayNow(position){
     <div class="day-state">${row._booking ? (row._boundary==="arrival"?"ARRIVAL":"DEPARTURE") : state}</div>
     <div class="day-place">${esc(row._booking ? name : displayName)}</div>
     <div class="day-meta">${esc(row._booking ? ((timeText(row)||"Booked flight")+" · Booked") : meta)}</div>
-    <div class="day-actions journey-controls">${mapsHref(row)?`<a class="day-action" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a><button class="day-action done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="day-action skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
+    <div class="day-actions journey-controls">${mapsHref(row)?`<a class="day-action" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<button class="day-action" type="button" onclick="openJourneyPhotos()">PHOTOS</button><button class="day-action done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="day-action skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
   `;
 }
@@ -8633,6 +8645,56 @@ start();
 
 <script src="pwa.js"></script>
 <script src="travel-assist-global.js"></script>
+<div id="journeyPhotoBackdrop" class="journey-photo-backdrop" onclick="if(event.target===this)closeJourneyPhotos()">
+  <section class="journey-photo-sheet">
+    <div class="journey-photo-head"><div><b id="journeyPhotoTitle">Photos</b><small>Private to you · saved to Album</small></div><button type="button" onclick="closeJourneyPhotos()">✕</button></div>
+    <div class="journey-photo-tools">
+      <button type="button" onclick="document.getElementById('journeyPhotoCamera').click()">⌾ TAKE PHOTO</button>
+      <button type="button" onclick="document.getElementById('journeyPhotoInput').click()">＋ CHOOSE PHOTO</button>
+      <button type="button" onclick="location.href='album.html?trip='+TRIP_ID">▦ ALL PHOTOS</button>
+    </div>
+    <input id="journeyPhotoCamera" type="file" accept="image/*" capture="environment" hidden>
+    <input id="journeyPhotoInput" type="file" accept="image/*" multiple hidden>
+    <div id="journeyPhotoStatus" class="journey-photo-status"></div>
+  </section>
+</div>
+<script>
+let journeyPhotoRow=null;
+function currentJourneyRowForPhoto(){
+  const rows=dayRows();
+  if(!rows.length)return null;
+  const p=normalizedDayProgress(rows);
+  return rows[Math.max(0,Math.min(Number(p.index)||0,rows.length-1))]||rows[0];
+}
+function openJourneyPhotos(){
+  journeyPhotoRow=currentJourneyRowForPhoto();
+  if(!journeyPhotoRow)return;
+  document.getElementById('journeyPhotoTitle').textContent=(journeyPhotoRow.title||'Current journey')+' · Photos';
+  document.getElementById('journeyPhotoStatus').textContent='';
+  document.getElementById('journeyPhotoBackdrop').classList.add('open');
+}
+function closeJourneyPhotos(){document.getElementById('journeyPhotoBackdrop').classList.remove('open')}
+async function uploadJourneyPhotoFiles(files,input){
+  files=[...(files||[])];if(!files.length||!journeyPhotoRow)return;
+  const status=document.getElementById('journeyPhotoStatus');status.textContent='Saving…';
+  const auth=await db.auth.getUser(),uid=auth.data?.user?.id;
+  if(!uid){status.textContent='Please sign in first.';return}
+  const scheduleId=journeyPhotoRow._booking?null:Number(journeyPhotoRow.id);
+  if(!scheduleId){status.textContent='Flight photos need a scheduled stop before they can be attached. Use ALL PHOTOS for now.';return}
+  for(const file of files){
+    const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
+    const path=uid+'/'+TRIP_ID+'/'+scheduleId+'/'+crypto.randomUUID()+'.'+ext;
+    const up=await db.storage.from('trip-place-photos').upload(path,file,{contentType:file.type,upsert:false});
+    if(up.error){status.textContent=up.error.message;continue}
+    const ins=await db.from('trip_place_photos').insert({user_id:uid,trip_id:TRIP_ID,schedule_id:scheduleId,place_name:journeyPhotoRow.title||'Place',category:'mine',storage_path:path,original_name:file.name});
+    if(ins.error){await db.storage.from('trip-place-photos').remove([path]);status.textContent=ins.error.message;continue}
+    status.textContent='Saved to Album ✓';
+  }
+  if(input)input.value='';
+}
+document.getElementById('journeyPhotoInput')?.addEventListener('change',e=>uploadJourneyPhotoFiles(e.target.files,e.target));
+document.getElementById('journeyPhotoCamera')?.addEventListener('change',e=>uploadJourneyPhotoFiles(e.target.files,e.target));
+</script>
 </body>
 
 </html>
