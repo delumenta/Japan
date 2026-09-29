@@ -1940,10 +1940,42 @@ let dayTravellerCurrentId = null;
 let dayTravellerNearbyTimer = null;
 let dayTravellerLastDiscovery = null;
 
+function flightBookingsForDate(date){
+  return bookingRows.filter(b=>b.booking_type==="flight"&&b.booking_date===date);
+}
+function tripBoundaryFlight(){
+  const flights=flightBookingsForDate(selectedDate);
+  if(!flights.length)return null;
+  if(selectedDate===currentTrip?.start_date)return {kind:"arrival",booking:flights[flights.length-1]};
+  if(selectedDate===currentTrip?.end_date)return {kind:"departure",booking:flights[0]};
+  return null;
+}
+function flightBoundaryRow(){
+  const boundary=tripBoundaryFlight();
+  if(!boundary)return null;
+  const b=boundary.booking;
+  const from=b.origin_code||"";
+  const to=b.destination_code||"";
+  const route=from&&to?`${from} → ${to}`:(b.title||"Flight");
+  return {
+    id:`booking-flight-${b.id}`,
+    title:boundary.kind==="arrival"?`Arrival · ${route}`:`Departure · ${route}`,
+    start_time:b.start_time||null,
+    time_label:b.start_time||null,
+    item_type:"flight",
+    is_locked:true,
+    _booking:true,
+    _boundary:boundary.kind,
+    _booking_data:b
+  };
+}
 function dayRows(){
-  return scheduleRows
+  const rows=scheduleRows
     .filter(row => row.schedule_date === selectedDate && isHomePlace(row))
     .sort(compareRows);
+  const flight=flightBoundaryRow();
+  if(!flight)return rows;
+  return flight._boundary==="arrival"?[flight,...rows]:[...rows,flight];
 }
 
 function rowCoords(row){
