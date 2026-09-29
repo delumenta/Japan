@@ -2604,6 +2604,19 @@ main{
 }
 
 
+.place-row.is-done .place-dot{
+  background:#ff5f5b;
+  border-color:#ff716d;
+  box-shadow:0 0 0 3px rgba(255,107,104,.16);
+}
+.place-row.is-skipped .place-dot{
+  background:#7f3032;
+  border-color:#ff716d;
+  opacity:.72;
+}
+.place-row.is-done .place-name{color:#ff8a86}
+.place-row.is-skipped .place-name{opacity:.55;text-decoration:line-through}
+
 /*
   Area markers remain hollow even when opened
 */
@@ -3854,6 +3867,11 @@ async function markDayStop(action){
     [action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,
     updated_at:Date.now()
   });
+  if(row && !row._booking){
+    if(action==="done"){row.completed_at=new Date().toISOString();row.skipped_at=null;}
+    else{row.skipped_at=new Date().toISOString();row.completed_at=null;}
+    renderPlaces();
+  }
   renderDayNow(dayTravellerPosition);
   if(navigator.onLine && row?.id && !row._booking){
     try{
@@ -3872,6 +3890,11 @@ async function undoDayStop(){
   const next={...progress,index:Number(undo.index)};
   delete next.undo;
   saveDayProgress(next);
+  if(row && !row._booking){
+    row.completed_at=null;
+    row.skipped_at=null;
+    renderPlaces();
+  }
   renderDayNow(dayTravellerPosition);
   if(navigator.onLine && row?.id && !row._booking){
     try{
@@ -6740,7 +6763,7 @@ function renderPlaceRow(row){
 
   return `
 
-    <div class="place-row">
+    <div class="place-row ${row.completed_at?"is-done":row.skipped_at?"is-skipped":""}">
 
 
       <div class="place-marker">
