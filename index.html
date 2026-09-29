@@ -1223,6 +1223,9 @@ main{
 
 
 
+/* Trip Days is a section heading, not the tiny eyebrow label. */
+.trip-days-heading{margin:0 0 12px;color:#f3f0e9;font-family:"Play",Arial,sans-serif;font-size:20px;font-weight:700;line-height:1.15;letter-spacing:.025em;text-transform:uppercase}
+@media(max-width:480px){.trip-days-heading{font-size:18px}}
 /* Trip-day strip: restore a distinct, legible date-card treatment. */
 .date-section{min-width:0;margin:0 0 18px}
 .date-scroll{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;padding:3px 1px 12px;scroll-padding-inline:1px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#43505a transparent}
@@ -3320,7 +3323,7 @@ main{
   </section>
 
     <section class="date-section">
-      <div class="section-kicker">TRIP DAYS</div>
+      <h2 class="trip-days-heading">TRIP DAYS</h2>
       <div id="dateScroll" class="date-scroll"></div>
     </section>
 
