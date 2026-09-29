@@ -3891,15 +3891,16 @@ function renderPaperFallback(holder,rows,message){
   if(!row){holder.innerHTML='<div class="day-kicker">TODAY</div><div class="day-status">No itinerary saved for this day yet.</div>';return;}
   const name=row.title||"Current stop";
   const next=rows[index+1];
+  const directions=mapsHref(row);
   holder.innerHTML=`
     <div class="day-kicker">TODAY</div>
     <div class="day-state">CURRENT JOURNEY</div>
     <div class="day-place">${esc(name)}</div>
-    <div class="day-meta">${esc(timeText(row)||"Guide time")} · ${esc(message||"Saved itinerary")}</div>
-    <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}</div>
+    <div class="day-meta">Part of today's journey</div>
+    <div class="day-actions">${directions?`<a class="day-action primary" href="${esc(directions)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
     <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
-    <div class="day-offline-note">Your last itinerary stays here even if location or internet is unavailable.</div>`;
+    <div class="day-offline-note">Location unavailable · using saved itinerary</div>`;
 }
 
 function renderDayNow(position){
