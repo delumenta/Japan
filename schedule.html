@@ -2549,7 +2549,7 @@ main{
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel">
 
-<style>.row-actions{display:flex;align-items:center;gap:6px}.row-photos{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #33424b;border-radius:9px;background:#10191e;color:#ff8585;cursor:pointer;font-size:14px;padding:0}.row-photos:hover{color:#ff8585}.photo-backdrop{position:fixed;inset:0;background:#000a;z-index:12000;display:none;align-items:flex-end;justify-content:center}.photo-backdrop.open{display:flex}.photo-sheet{width:min(720px,100%);max-height:88vh;overflow:auto;background:#0b1419;border:1px solid #2b3941;border-radius:24px 24px 0 0;padding:22px;color:#eee}.photo-tabs{display:flex;gap:8px;margin:16px 0}.photo-tabs button,.photo-add{border:1px solid #583238;background:#211619;color:#ff9292;border-radius:10px;padding:9px 12px}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.photo-card small{display:block;color:#8d9aa1;overflow:hidden;text-overflow:ellipsis}.photo-empty{color:#78868e;padding:28px 0}.photo-head{display:flex;justify-content:space-between}.photo-head button{background:none;border:0;color:#ddd;font-size:20px}@media(max-width:600px){.photo-grid{grid-template-columns:repeat(2,1fr)}}</style></head>
+<style>.row-actions{display:flex;align-items:center;gap:6px}.row-photos{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border:0;border-radius:8px;background:transparent;color:#82919a;cursor:pointer;padding:0}.row-photos svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.7;fill:none}.row-photos:hover{color:#ff8585;background:rgba(255,133,133,.06)}.row-photos:hover{color:#ff8585}.photo-backdrop{position:fixed;inset:0;background:#000a;z-index:12000;display:none;align-items:flex-end;justify-content:center}.photo-backdrop.open{display:flex}.photo-sheet{width:min(520px,calc(100% - 28px));max-height:72vh;overflow:auto;background:#0b1419;border:1px solid #2b3941;border-radius:18px;margin-bottom:18px;padding:18px;color:#eee;box-shadow:0 18px 60px #0009}.photo-tabs{display:flex;gap:7px;margin:13px 0}.photo-tabs button,.photo-add{border:1px solid #583238;background:#211619;color:#ff9292;border-radius:9px;padding:7px 10px;font-size:11px}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.photo-card small{display:block;color:#8d9aa1;overflow:hidden;text-overflow:ellipsis}.photo-empty{color:#78868e;padding:28px 0}.photo-head{display:flex;justify-content:space-between}.photo-head button{background:none;border:0;color:#ddd;font-size:20px}@media(max-width:600px){.photo-grid{grid-template-columns:repeat(2,1fr)}}</style></head>
 
 
 
@@ -5609,7 +5609,7 @@ function timelineHTML(item){
 
 
       <div class="row-actions">
-        <button class="row-photos" type="button" onclick="openPlacePhotos(${Number(item.id)})" aria-label="Photos" title="Photos">📷</button>
+        <button class="row-photos" type="button" onclick="openPlacePhotos(${Number(item.id)})" aria-label="Photos" title="Photos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h3l1.4-2h7.2l1.4 2h3a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 20 19.5H4A1.5 1.5 0 0 1 2.5 18V9A1.5 1.5 0 0 1 4 7.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
         <button
         class="row-edit"
         type="button"
