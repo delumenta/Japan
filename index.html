@@ -2265,6 +2265,7 @@ main{
 .day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
 .day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
 .day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
+.day-manual button.undo{border-color:rgba(124,170,240,.24);color:#9bbcf0}
 .day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
 .day-action{
   min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
@@ -3846,15 +3847,41 @@ async function markDayStop(action){
   const index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
   const row=rows[index];
   const nextIndex=Math.min(index+1,Math.max(rows.length-1,0));
-  saveDayProgress({...progress,index:nextIndex,[action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,updated_at:Date.now()});
+  saveDayProgress({
+    ...progress,
+    index:nextIndex,
+    undo:{index,row_id:row?.id||null,action},
+    [action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,
+    updated_at:Date.now()
+  });
   renderDayNow(dayTravellerPosition);
-  // Sync when online, but the traveller never waits on the network.
   if(navigator.onLine && row?.id && !row._booking){
     try{
       const payload=action==="done"?{completed_at:new Date().toISOString(),skipped_at:null}:{skipped_at:new Date().toISOString()};
       await db.from("schedule").update(payload).eq("id",row.id).eq("trip_id",TRIP_ID);
     }catch(error){console.warn("Journey progress sync:",error);}
   }
+}
+
+async function undoDayStop(){
+  const progress=dayProgress();
+  const undo=progress.undo;
+  if(!undo || !Number.isFinite(Number(undo.index)))return;
+  const rows=dayRows();
+  const row=rows.find(r=>String(r.id)===String(undo.row_id)) || rows[Number(undo.index)];
+  const next={...progress,index:Number(undo.index)};
+  delete next.undo;
+  saveDayProgress(next);
+  renderDayNow(dayTravellerPosition);
+  if(navigator.onLine && row?.id && !row._booking){
+    try{
+      await db.from("schedule").update({completed_at:null,skipped_at:null}).eq("id",row.id).eq("trip_id",TRIP_ID);
+    }catch(error){console.warn("Journey undo sync:",error);}
+  }
+}
+
+function dayUndoButton(){
+  return dayProgress().undo ? '<button class="undo" type="button" onclick="undoDayStop()">↶ UNDO</button>' : '';
 }
 
 function renderPaperFallback(holder,rows,message){
@@ -3870,7 +3897,7 @@ function renderPaperFallback(holder,rows,message){
     <div class="day-place">${esc(name)}</div>
     <div class="day-meta">${esc(timeText(row)||"Guide time")} · ${esc(message||"Saved itinerary")}</div>
     <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}</div>
-    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
+    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
     <div class="day-offline-note">Your last itinerary stays here even if location or internet is unavailable.</div>`;
 }
@@ -3905,7 +3932,7 @@ function renderDayNow(position){
     <div class="day-place">${esc(name)}</div>
     <div class="day-meta">${esc(row._booking ? ((timeText(row)||"Booked flight")+" · Booked") : meta)}</div>
     <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
-    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
+    <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
     ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
   `;
 }
