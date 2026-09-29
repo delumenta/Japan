@@ -2205,6 +2205,10 @@ main{
               🎟 Ticket
             </option>
 
+            <option value="flight">
+              ✈️ Air Ticket
+            </option>
+
             <option value="transport">
               🚆 Transport
             </option>
@@ -2630,9 +2634,11 @@ const fieldOriginCode=document.getElementById("fieldOriginCode");
 const fieldDestinationCode=document.getElementById("fieldDestinationCode");
 
 function updateFlightFields(){
-  const isFlight=fieldType.value==="transport" && (
-    /flight|airline|airport/i.test(fieldTitle.value) ||
-    fieldFlightNumber.value.trim()
+  const isFlight=fieldType.value==="flight" || (
+    fieldType.value==="transport" && (
+      /flight|airline|airport/i.test(fieldTitle.value) ||
+      fieldFlightNumber.value.trim()
+    )
   );
   flightFields.classList.toggle("show",isFlight);
 }
@@ -2750,6 +2756,9 @@ function bookingIcon(type){
     case "ticket":
       return "🎟️";
 
+    case "flight":
+      return "✈️";
+
     case "transport":
       return "🚆";
 
@@ -2779,6 +2788,9 @@ function typeLabel(type){
 
     case "ticket":
       return "TICKET";
+
+    case "flight":
+      return "AIR TICKET";
 
     case "transport":
       return "TRANSPORT";
@@ -3093,7 +3105,7 @@ function render(){
           <button
             class="booking-quick"
             type="button"
-            onclick="openQuickAdd('transport','Flight')"
+            onclick="openQuickAdd('flight','Flight')"
           >
             ✈️ FLIGHT
           </button>
@@ -3215,6 +3227,11 @@ function render(){
       ${typeFilterHTML(
         "ticket",
         "🎟 TICKETS"
+      )}
+
+      ${typeFilterHTML(
+        "flight",
+        "✈️ FLIGHTS"
       )}
 
       ${typeFilterHTML(
