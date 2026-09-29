@@ -2307,7 +2307,16 @@ header{
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel">
 
-</head>
+
+<style>
+.travel-assist-fab{position:fixed;right:22px;bottom:88px;z-index:10000;width:52px;height:52px;border:0;border-radius:50%;background:#e8485b;color:white;display:grid;place-items:center;font-size:24px;box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.travel-assist-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10001;display:none}.travel-assist-backdrop.show{display:block}
+.travel-assist-panel{position:fixed;right:18px;bottom:82px;z-index:10002;width:min(390px,calc(100vw - 24px));height:min(650px,calc(100vh - 110px));background:#091015;border:1px solid #283741;border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+.travel-assist-panel.show{display:flex}.ta-head{display:flex;align-items:center;gap:11px;padding:17px;border-bottom:1px solid #223039}.ta-head strong,.ta-head small{display:block}.ta-head small{font-size:10px;color:#87969f;margin-top:3px}.ta-spark{width:35px;height:35px;border-radius:11px;background:#e8485b;display:grid;place-items:center}.ta-close{margin-left:auto;border:0;background:transparent;color:#dbe3e7;font-size:20px}
+.ta-messages{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px}.ta-welcome{text-align:center;color:#8d9aa1;padding:24px 10px}.ta-welcome b{display:block;color:#f3efea;font:700 21px Georgia,serif;margin:8px}.ta-bubble{max-width:88%;padding:11px 13px;border-radius:15px;font-size:12px;line-height:1.5;white-space:pre-wrap}.ta-bubble.user{align-self:flex-end;background:#2a171c;border:1px solid #6b3038}.ta-bubble.assistant{align-self:flex-start;background:#101a20;border:1px solid #293942}.ta-actions{display:flex;flex-wrap:wrap;gap:7px}.ta-actions button{border:1px solid #4e3439;background:#24171a;color:#ffb2b6;border-radius:10px;padding:8px 10px;font-size:10px}
+.ta-compose{display:flex;gap:8px;padding:13px;border-top:1px solid #223039}.ta-compose input{flex:1;min-width:0;background:#071015;border:1px solid #30414b;color:white;border-radius:13px;padding:12px}.ta-compose button{border:0;border-radius:12px;background:#e8485b;color:white;padding:0 16px;font-weight:800}.ta-foot{text-align:center;color:#65747d;font-size:9px;padding:0 12px 10px}
+@media(max-width:600px){.travel-assist-fab{right:17px;bottom:82px}.travel-assist-panel{inset:10px 10px 76px;width:auto;height:auto;border-radius:20px}}
+</style></head>
 
 
 <body>
@@ -5245,6 +5254,26 @@ start();
 
 
 <script src="pwa.js"></script>
+
+<button id="travelAssistFab" class="travel-assist-fab" type="button" aria-label="Open Travel Assist">✧</button>
+<div id="travelAssistBackdrop" class="travel-assist-backdrop"></div>
+<section id="travelAssistPanel" class="travel-assist-panel" aria-label="Travel Assist">
+  <div class="ta-head"><div class="ta-spark">✧</div><div><strong>Travel Assist</strong><small>Your companion on the road</small></div><button id="travelAssistClose" class="ta-close" type="button">✕</button></div>
+  <div id="travelAssistMessages" class="ta-messages"><div class="ta-welcome">✧<b>Where can I take you?</b><span>Ask about this trip, food, places, or what to do next.</span></div></div>
+  <form id="travelAssistForm" class="ta-compose"><input id="travelAssistInput" placeholder="Ask me anything about your trip…" autocomplete="off"><button type="submit">SEND</button></form>
+  <div class="ta-foot">Trip changes always ask for your confirmation.</div>
+</section>
+<script>
+(()=>{
+ const fab=document.getElementById('travelAssistFab'),panel=document.getElementById('travelAssistPanel'),backdrop=document.getElementById('travelAssistBackdrop'),close=document.getElementById('travelAssistClose'),form=document.getElementById('travelAssistForm'),input=document.getElementById('travelAssistInput'),messages=document.getElementById('travelAssistMessages');
+ let threadId=null,busy=false;
+ const open=()=>{panel.classList.add('show');backdrop.classList.add('show');setTimeout(()=>input.focus(),50)};
+ const shut=()=>{panel.classList.remove('show');backdrop.classList.remove('show')};
+ fab.onclick=open; close.onclick=shut; backdrop.onclick=shut;
+ function bubble(role,text,actions=[]){const w=document.createElement('div');const b=document.createElement('div');b.className='ta-bubble '+role;b.textContent=text;w.appendChild(b);if(actions.length){const a=document.createElement('div');a.className='ta-actions';actions.forEach(item=>{const btn=document.createElement('button');btn.type='button';btn.textContent=item.label||item.title||'Review change';btn.onclick=async()=>{if(item.kind==='map'&&item.url){window.open(item.url,'_blank','noopener');return}if(!item.proposal_id)return;if(!confirm(item.confirmation_text||'Apply this change to your trip?'))return;try{const tripId=Number(localStorage.getItem('current_trip_id'));const {data,error}=await db.functions.invoke('travel-assist',{body:{action:'apply',trip_id:tripId,proposal_id:item.proposal_id}});if(error||data?.error)throw Error(data?.error||error.message);btn.disabled=true;btn.textContent='Applied';bubble('assistant',data.reply||'Done — I updated your trip.');}catch(e){bubble('assistant','I couldn’t apply that change. '+(e.message||''));}};a.appendChild(btn)});w.appendChild(a)}messages.appendChild(w);messages.scrollTop=messages.scrollHeight;}
+ form.onsubmit=async(e)=>{e.preventDefault();const question=input.value.trim();if(!question||busy)return;input.value='';bubble('user',question);busy=true;input.disabled=true;try{let tripId=Number(localStorage.getItem('current_trip_id'));if(!tripId&&typeof ownedTrips!=='undefined'&&ownedTrips.length)tripId=Number(ownedTrips[0].id);if(!tripId)throw Error('Choose a trip first.');const {data,error}=await db.functions.invoke('travel-assist',{body:{trip_id:tripId,message:question,thread_id:threadId,entry_point:'trips',context:{screen:'trips'}}});if(error||data?.error)throw Error(data?.error||error.message);threadId=data.thread_id||threadId;bubble('assistant',data.reply||data.message||'I’m here to help.',data.actions||[]);}catch(err){bubble('assistant','I couldn’t reach Travel Assist just now. '+(err.message||'Try again in a moment.'));}finally{busy=false;input.disabled=false;input.focus();}};
+})();
+</script>
 </body>
 
 </html>
