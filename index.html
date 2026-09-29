@@ -3572,6 +3572,17 @@ main{
       </div>
       <button id="reviewPastedItinerary" class="create-trip-submit" type="button">REVIEW ITINERARY</button>
       <div id="pasteImportMessage" class="create-message"></div>
+      <div id="itineraryImportPreview" style="display:none;margin-top:14px;">
+        <div class="create-field"><label>TRIP NAME</label><input id="importTripName" placeholder="e.g. Japan Autumn 2026"></div>
+        <div class="create-field"><label>COUNTRY</label><input id="importTripCountry" value="Japan"></div>
+        <div class="create-date-row">
+          <div class="create-field"><label>START DATE</label><input id="importTripStart" type="date"></div>
+          <div class="create-field"><label>END DATE</label><input id="importTripEnd" type="date"></div>
+        </div>
+        <div class="create-field"><label>REVIEW EXTRACTED DAYS</label><textarea id="importReviewText" rows="12"></textarea></div>
+        <button id="createImportedTrip" class="create-trip-submit" type="button">CREATE TRIP FROM ITINERARY</button>
+        <div id="createImportMessage" class="create-message"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -3584,6 +3595,8 @@ main{
 
 <script src="footer.js"></script>
 <script src="countries.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.8.69/build/pdf.min.mjs" type="module"></script>
 
 
 
@@ -3657,44 +3670,110 @@ main{
 ========================================================= */
 const itineraryUploadInput = document.getElementById("itineraryUploadInput");
 const itineraryImportBackdrop = document.getElementById("itineraryImportBackdrop");
+let importedItineraryText = "";
 
-document.getElementById("openItineraryUpload")?.addEventListener("click", () => {
-  itineraryUploadInput?.click();
-});
-
-document.getElementById("setupImportItinerary")?.addEventListener("click", () => {
-  itineraryUploadInput?.click();
-});
-
-itineraryUploadInput?.addEventListener("change", () => {
-  const file = itineraryUploadInput.files?.[0];
-  if(!file) return;
-  const msg = document.getElementById("itineraryImportMessage");
-  msg.className = "create-message success";
-  msg.textContent = file.name + " selected. Import review is ready for the next extraction step.";
-  sessionStorage.setItem("japanItineraryImportName", file.name);
-  sessionStorage.setItem("japanItineraryImportType", file.type || "");
-});
-
-document.getElementById("openItineraryPaste")?.addEventListener("click", () => {
+function showImportReview(text, sourceName=""){
+  importedItineraryText = String(text || "").replace(/\r/g,"").trim();
+  const preview = document.getElementById("itineraryImportPreview");
+  const review = document.getElementById("importReviewText");
+  const name = document.getElementById("importTripName");
+  if(review) review.value = importedItineraryText;
+  if(name && !name.value) name.value = sourceName ? sourceName.replace(/\.[^.]+$/,"") : "Imported Japan Trip";
+  preview.style.display = "block";
   itineraryImportBackdrop?.classList.add("show");
-});
+}
 
-document.getElementById("closeItineraryImport")?.addEventListener("click", () => {
-  itineraryImportBackdrop?.classList.remove("show");
-});
-
-document.getElementById("reviewPastedItinerary")?.addEventListener("click", () => {
-  const text = document.getElementById("itineraryPasteText")?.value?.trim();
-  const msg = document.getElementById("pasteImportMessage");
-  if(!text){
-    msg.className = "create-message error";
-    msg.textContent = "Paste your itinerary first.";
-    return;
+function parseImportedItinerary(text, startDate){
+  const lines=String(text||"").split(/\n+/).map(v=>v.trim()).filter(Boolean);
+  const days=[]; let current=null;
+  const dayRe=/^(?:day\s*)?(\d{1,2})(?:\s*[-:–—.]\s*|\s+)(.*)$/i;
+  const dateRe=/\b(20\d{2})[-\/.](\d{1,2})[-\/.](\d{1,2})\b/;
+  for(const line of lines){
+    const dm=line.match(dayRe);
+    const explicit=line.match(dateRe);
+    if(dm && (/^day/i.test(line) || Number(dm[1])<=31)){
+      current={day:Number(dm[1]), heading:(dm[2]||"").trim(), items:[]};
+      if(explicit) current.date=explicit[1]+"-"+String(explicit[2]).padStart(2,"0")+"-"+String(explicit[3]).padStart(2,"0");
+      days.push(current); continue;
+    }
+    if(!current){current={day:1,heading:"",items:[]};days.push(current);}
+    const cleaned=line.replace(/^[-•*✓☐□→]+\s*/,"").trim();
+    if(cleaned) current.items.push(cleaned);
   }
-  sessionStorage.setItem("japanItineraryImportText", text);
-  msg.className = "create-message success";
-  msg.textContent = "Itinerary captured. Nothing has been saved yet — review comes before creating the itinerary.";
+  if(!days.length) return [];
+  const base=startDate ? new Date(startDate+"T12:00:00") : null;
+  return days.map((d,idx)=>{
+    if(!d.date && base){const x=new Date(base);x.setDate(x.getDate()+idx);d.date=isoDate(x);}
+    return d;
+  });
+}
+
+async function extractImportFile(file){
+  const ext=(file.name.split(".").pop()||"").toLowerCase();
+  if(["txt","md","rtf"].includes(ext)) return await file.text();
+  if(ext==="docx"){
+    if(!window.mammoth) throw new Error("Word reader is still loading. Try again in a moment.");
+    const ab=await file.arrayBuffer();
+    const result=await window.mammoth.extractRawText({arrayBuffer:ab});
+    return result.value;
+  }
+  if(ext==="pdf"){
+    const pdfjs=await import("https://cdn.jsdelivr.net/npm/pdfjs-dist@4.8.69/build/pdf.min.mjs");
+    pdfjs.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.8.69/build/pdf.worker.min.mjs";
+    const pdf=await pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+    let out="";
+    for(let p=1;p<=pdf.numPages;p++){const page=await pdf.getPage(p);const tc=await page.getTextContent();out+=tc.items.map(x=>x.str).join(" ")+"\n";}
+    return out;
+  }
+  if(file.type.startsWith("image/")) throw new Error("Screenshot/photo selected. Image text extraction needs OCR; for now use Paste itinerary or upload PDF/Word/TXT.");
+  if(ext==="doc") throw new Error("Old .doc files are not readable safely in the browser. Save it as .docx or PDF first.");
+  throw new Error("Unsupported file type.");
+}
+
+document.getElementById("openItineraryUpload")?.addEventListener("click",()=>itineraryUploadInput?.click());
+document.getElementById("setupImportItinerary")?.addEventListener("click",()=>itineraryUploadInput?.click());
+itineraryUploadInput?.addEventListener("change",async()=>{
+  const file=itineraryUploadInput.files?.[0]; if(!file)return;
+  const msg=document.getElementById("itineraryImportMessage");
+  try{msg.className="create-message";msg.textContent="Reading "+file.name+"…";showImportReview(await extractImportFile(file),file.name);msg.textContent="";}
+  catch(error){msg.className="create-message error";msg.textContent=error.message||String(error);}
+});
+document.getElementById("openItineraryPaste")?.addEventListener("click",()=>itineraryImportBackdrop?.classList.add("show"));
+document.getElementById("closeItineraryImport")?.addEventListener("click",()=>itineraryImportBackdrop?.classList.remove("show"));
+document.getElementById("reviewPastedItinerary")?.addEventListener("click",()=>{
+  const text=document.getElementById("itineraryPasteText")?.value?.trim();
+  const msg=document.getElementById("pasteImportMessage");
+  if(!text){msg.className="create-message error";msg.textContent="Paste your itinerary first.";return;}
+  msg.textContent="";showImportReview(text);
+});
+document.getElementById("createImportedTrip")?.addEventListener("click",async()=>{
+  const button=document.getElementById("createImportedTrip");
+  const msg=document.getElementById("createImportMessage");
+  const text=document.getElementById("importReviewText").value.trim();
+  const name=document.getElementById("importTripName").value.trim()||"Imported Trip";
+  const rawCountry=document.getElementById("importTripCountry").value.trim()||"Japan";
+  const country=(typeof window.resolveCountry==="function" ? window.resolveCountry(rawCountry) : rawCountry) || rawCountry;
+  let startDate=document.getElementById("importTripStart").value||null;
+  let endDate=document.getElementById("importTripEnd").value||null;
+  const days=parseImportedItinerary(text,startDate);
+  if(!text||!days.length){msg.className="create-message error";msg.textContent="No itinerary items found.";return;}
+  if(!startDate){const dated=days.map(d=>d.date).filter(Boolean).sort();startDate=dated[0]||null;}
+  if(!endDate){const dated=days.map(d=>d.date).filter(Boolean).sort();endDate=dated.at(-1)||startDate;}
+  if(!startDate){msg.className="create-message error";msg.textContent="Add a start date so the imported days can be placed on the calendar.";return;}
+  const normalized=parseImportedItinerary(text,startDate);
+  button.disabled=true;button.textContent="CREATING…";
+  try{
+    if(!currentUser) await resolveUser();
+    const tripResult=await db.from("trips").insert({name,country,start_date:startDate,end_date:endDate||startDate,description:"Imported itinerary",owner_id:currentUser.id,status:"active"}).select().single();
+    if(tripResult.error) throw tripResult.error;
+    const trip=tripResult.data; const rows=[];
+    normalized.forEach((d,di)=>d.items.forEach((item,ii)=>rows.push({trip_id:trip.id,schedule_date:d.date,title:item,item_type:"custom",location_name:item,sort_order:(ii+1)*10,is_optional:false,notes:d.heading||null})));
+    if(rows.length){const sr=await db.from("schedule").insert(rows);if(sr.error){await db.from("trips").delete().eq("id",trip.id);throw sr.error;}}
+    localStorage.setItem("current_trip_id",String(trip.id));
+    msg.className="create-message success";msg.textContent="Trip created ✓ Opening My Trips…";
+    setTimeout(()=>location.href="trips.html?trip="+Number(trip.id),500);
+  }catch(error){console.error(error);msg.className="create-message error";msg.textContent=error.message||"Could not import itinerary.";}
+  finally{button.disabled=false;button.textContent="CREATE TRIP FROM ITINERARY";}
 });
 
 /* =========================================================
