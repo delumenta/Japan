@@ -340,7 +340,10 @@
         "places.html",
 
       sharedMapLink:
-        "maps.html"
+        "maps.html",
+
+      sharedAlbumLink:
+        "album.html"
 
     };
 
@@ -470,7 +473,8 @@
       "profile.html",
       "trips.html",
       "places.html",
-      "maps.html"
+      "maps.html",
+      "album.html"
 
     ];
 
@@ -521,7 +525,10 @@
         "sharedPlacesLink",
 
       "maps.html":
-        "sharedMapLink"
+        "sharedMapLink",
+
+      "album.html":
+        "sharedAlbumLink"
 
     };
 
