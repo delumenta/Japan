@@ -2025,6 +2025,8 @@ main{
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel">
 
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 
 
@@ -4497,41 +4499,69 @@ function closeSheet(){
 
 
 /* =========================================================
-   BOOKING UPLOAD
+   BOOKING IMPORT — LOCAL OCR / PDF TEXT
 ========================================================= */
 
 bookingUploadButton.onclick=()=>bookingUpload.click();
 
-async function parseBookingBlob(blob,label="clipboard"){
-  if(blob.size>10*1024*1024)throw new Error("Please use an image under 10 MB.");
-  const session=(await db.auth.getSession()).data.session;
-  if(!session)throw new Error("Please sign in again.");
-  const base64=await new Promise((resolve,reject)=>{
-    const reader=new FileReader();
-    reader.onload=()=>resolve(String(reader.result).split(",")[1]||"");
-    reader.onerror=()=>reject(new Error("Couldn't read this image."));
-    reader.readAsDataURL(blob);
-  });
-  const response=await fetch(SUPABASE_URL+"/functions/v1/travel-assist",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+session.access_token},
-    body:JSON.stringify({action:"parse_booking_upload",trip_id:TRIP_ID,mime_type:blob.type||"image/png",file_data:base64})
-  });
-  const data=await response.json();
-  if(!response.ok||!data.success)throw new Error(data.error||"Couldn't read this booking.");
-  const b=data.booking||{};
-  fieldStatus.value="booked";
-  fieldType.value=b.booking_type||"ticket";
-  fieldTitle.value=b.title||"";
-  fieldDate.value=b.booking_date||"";
-  fieldTime.value=b.start_time?String(b.start_time).slice(0,5):"";
-  fieldProvider.value=b.provider||"";
-  fieldLocation.value=b.location_name||"";
-  fieldAddress.value=b.address||"";
+function isoDateFromBookingText(text){
+  const months={jan:"01",feb:"02",mar:"03",apr:"04",may:"05",jun:"06",jul:"07",aug:"08",sep:"09",oct:"10",nov:"11",dec:"12"};
+  let m=text.match(/\b(\d{1,2})\s*([A-Za-z]{3})\s*(20\d{2})\b/i);
+  if(m&&months[m[2].toLowerCase()])return `${m[3]}-${months[m[2].toLowerCase()]}-${String(m[1]).padStart(2,"0")}`;
+  m=text.match(/\b(20\d{2})[-\/.](\d{1,2})[-\/.](\d{1,2})\b/);
+  if(m)return `${m[1]}-${String(m[2]).padStart(2,"0")}-${String(m[3]).padStart(2,"0")}`;
+  return "";
+}
+function airportCode(name){
+  const s=(name||"").toUpperCase();
+  const map=[
+    ["SINGAPORE","SIN"],["CHANGI","SIN"],["HONG KONG","HKG"],
+    ["KANSAI","KIX"],["OSAKA KANSAI","KIX"],["NARITA","NRT"],["HANEDA","HND"],
+    ["INCHEON","ICN"],["GIMPO","GMP"],["TAOYUAN","TPE"],["BANGKOK","BKK"],
+    ["KUALA LUMPUR","KUL"],["JAKARTA","CGK"],["BALI","DPS"],["DENPASAR","DPS"]
+  ];
+  for(const [needle,code] of map)if(s.includes(needle))return code;
+  return "";
+}
+function parseBookingText(raw){
+  const text=String(raw||"").replace(/\r/g,"\n").replace(/[ \t]+/g," ").trim();
+  if(!text)throw new Error("No readable text was found.");
+  const lines=text.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const flightMatches=[...text.matchAll(/\b([A-Z]{2}|[A-Z]\d|\d[A-Z])\s?-?\s?(\d{2,4})\b/g)]
+    .map(m=>(m[1]+m[2]).replace(/\s/g,""))
+    .filter(x=>!/^20\d{2}$/.test(x));
+  const flightNumber=flightMatches[0]||"";
+  const isFlight=!!flightNumber||/flight|boarding|cabin class|operated by|baggage/i.test(text);
+  const times=[...text.matchAll(/\b([01]?\d|2[0-3])[:.]([0-5]\d)\b/g)].map(m=>`${String(m[1]).padStart(2,"0")}:${m[2]}`);
+  const date=isoDateFromBookingText(text);
+  let origin="",destination="";
+  const known=["SINGAPORE CHANGI","HONG KONG INTERNATIONAL","OSAKA KANSAI INTERNATIONAL","KANSAI INTERNATIONAL","TOKYO HANEDA","TOKYO NARITA","INCHEON INTERNATIONAL"];
+  const found=known.filter(n=>text.toUpperCase().includes(n));
+  if(found[0])origin=airportCode(found[0]);
+  if(found[1])destination=airportCode(found[1]);
+  const iata=[...text.matchAll(/\b(?:FROM|TO|ORIGIN|DESTINATION)?\s*\(?([A-Z]{3})\)?\b/g)].map(m=>m[1])
+    .filter(x=>["SIN","HKG","KIX","NRT","HND","ICN","GMP","TPE","BKK","KUL","CGK","DPS"].includes(x));
+  if(!origin&&iata[0])origin=iata[0];
+  if(!destination&&iata[1])destination=iata[1];
+  let provider="";
+  for(const p of ["CATHAY PACIFIC","SINGAPORE AIRLINES","ANA","JAPAN AIRLINES","JAL","AIRASIA","SCOOT","JETSTAR","EMIRATES","QATAR AIRWAYS"]){
+    if(text.toUpperCase().includes(p)){provider=p.replace(/\b\w/g,x=>x.toUpperCase());break;}
+  }
+  const conf=text.match(/(?:booking reference|confirmation(?: number)?|reservation(?: number)?|pnr)\s*[:#]?\s*([A-Z0-9]{5,10})/i);
+  return {
+    booking_type:isFlight?"flight":"ticket",
+    title:isFlight?(origin&&destination?`${origin} → ${destination}`:(flightNumber?`Flight ${flightNumber}`:"Flight")):(lines[0]||"Booking"),
+    booking_date:date,start_time:times[0]||"",provider,
+    confirmation_number:conf?.[1]||"",flight_number:flightNumber,
+    origin_code:origin,destination_code:destination,
+    notes:"Imported locally. Please check all extracted details before saving."
+  };
+}
+function fillImportedBooking(b,label){
+  fieldStatus.value="booked"; fieldType.value=b.booking_type||"ticket";
+  fieldTitle.value=b.title||""; fieldDate.value=b.booking_date||"";
+  fieldTime.value=b.start_time||""; fieldProvider.value=b.provider||"";
   fieldConfirmation.value=b.confirmation_number||"";
-  fieldUrl.value=b.booking_url||"";
-  fieldAmount.value=b.amount??"";
-  if(b.currency&&[...fieldCurrency.options].some(o=>o.value===b.currency))fieldCurrency.value=b.currency;
   fieldNotes.value=b.notes||"";
   fieldFlightNumber.value=b.flight_number||"";
   fieldOriginCode.value=(b.origin_code||"").toUpperCase();
@@ -4539,12 +4569,51 @@ async function parseBookingBlob(blob,label="clipboard"){
   updateFlightFields();
   bookingUploadStatus.textContent="Filled from "+label+". Check the details, then press SAVE.";
 }
+async function ocrImage(blob){
+  if(!window.Tesseract)throw new Error("OCR could not load. Check your internet once, then try again.");
+  bookingUploadStatus.textContent="Reading the screenshot locally…";
+  const result=await Tesseract.recognize(blob,"eng",{logger:m=>{
+    if(m.status==="recognizing text")bookingUploadStatus.textContent=`Reading screenshot… ${Math.round((m.progress||0)*100)}%`;
+  }});
+  return result?.data?.text||"";
+}
+async function textFromPdf(file){
+  if(!window.pdfjsLib)throw new Error("PDF reader could not load.");
+  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
+  let out="";
+  for(let i=1;i<=pdf.numPages;i++){
+    const page=await pdf.getPage(i);
+    const content=await page.getTextContent();
+    out+="\n"+content.items.map(x=>x.str).join(" ");
+  }
+  return out.trim();
+}
+async function importBookingFile(file,label=file.name){
+  if(file.size>10*1024*1024)throw new Error("Please use a file under 10 MB.");
+  let text="";
+  if(file.type==="application/pdf"||/\.pdf$/i.test(file.name||"")){
+    bookingUploadStatus.textContent="Reading PDF text locally…";
+    text=await textFromPdf(file);
+    if(!text)throw new Error("This PDF has no selectable text. Take a screenshot of the booking and paste/upload the image instead.");
+  }else if(file.type.startsWith("image/")){
+    text=await ocrImage(file);
+  }else{
+    text=await file.text();
+  }
+  fillImportedBooking(parseBookingText(text),label);
+}
 
 bookingPasteButton.onclick=async()=>{
-  bookingPasteButton.disabled=true;
-  bookingPasteButton.textContent="READING CLIPBOARD…";
-  bookingUploadStatus.textContent="Looking for a copied screenshot…";
+  bookingPasteButton.disabled=true; bookingPasteButton.textContent="READING CLIPBOARD…";
   try{
+    // Prefer copied plain text: fastest and most accurate, no OCR.
+    if(navigator.clipboard?.readText){
+      try{
+        const txt=await navigator.clipboard.readText();
+        if(txt&&txt.trim().length>15){fillImportedBooking(parseBookingText(txt),"clipboard text");return;}
+      }catch{}
+    }
     if(!navigator.clipboard?.read)throw new Error("Clipboard images are not supported in this browser. Use Upload Booking instead.");
     const items=await navigator.clipboard.read();
     let blob=null;
@@ -4552,83 +4621,18 @@ bookingPasteButton.onclick=async()=>{
       const type=item.types.find(t=>t.startsWith("image/"));
       if(type){blob=await item.getType(type);break;}
     }
-    if(!blob)throw new Error("No image found in your clipboard. Copy the booking screenshot first.");
-    bookingUploadStatus.textContent="Extracting the booking details…";
-    await parseBookingBlob(blob,"clipboard screenshot");
-  }catch(error){
-    console.error(error);
-    bookingUploadStatus.textContent=error.message||"Couldn't read the clipboard.";
-  }finally{
-    bookingPasteButton.disabled=false;
-    bookingPasteButton.textContent="PASTE FROM CLIPBOARD →";
-  }
+    if(!blob)throw new Error("No booking text or screenshot found in your clipboard.");
+    fillImportedBooking(parseBookingText(await ocrImage(blob)),"clipboard screenshot");
+  }catch(error){console.error(error);bookingUploadStatus.textContent=error.message||"Couldn't read the clipboard.";}
+  finally{bookingPasteButton.disabled=false;bookingPasteButton.textContent="PASTE FROM CLIPBOARD →";}
 };
 
-
-
 bookingUpload.onchange=async()=>{
-  const file=bookingUpload.files?.[0];
-  if(!file)return;
-  if(file.size>10*1024*1024){
-    bookingUploadStatus.textContent="Please use a file under 10 MB.";
-    bookingUpload.value="";
-    return;
-  }
-  bookingUploadButton.disabled=true;
-  bookingUploadButton.textContent="READING BOOKING…";
-  bookingUploadStatus.textContent="Extracting the booking details…";
-  try{
-    const session=(await db.auth.getSession()).data.session;
-    if(!session)throw new Error("Please sign in again.");
-    const base64=await new Promise((resolve,reject)=>{
-      const reader=new FileReader();
-      reader.onload=()=>resolve(String(reader.result).split(",")[1]||"");
-      reader.onerror=()=>reject(new Error("Couldn't read this file."));
-      reader.readAsDataURL(file);
-    });
-    const response=await fetch(SUPABASE_URL+"/functions/v1/travel-assist",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer "+session.access_token
-      },
-      body:JSON.stringify({
-        action:"parse_booking_upload",
-        trip_id:TRIP_ID,
-        mime_type:file.type||"application/octet-stream",
-        file_data:base64
-      })
-    });
-    const data=await response.json();
-    if(!response.ok||!data.success)throw new Error(data.error||"Couldn't read this booking.");
-    const b=data.booking||{};
-    fieldStatus.value="booked";
-    fieldType.value=b.booking_type||"ticket";
-    fieldTitle.value=b.title||"";
-    fieldDate.value=b.booking_date||"";
-    fieldTime.value=b.start_time?String(b.start_time).slice(0,5):"";
-    fieldProvider.value=b.provider||"";
-    fieldLocation.value=b.location_name||"";
-    fieldAddress.value=b.address||"";
-    fieldConfirmation.value=b.confirmation_number||"";
-    fieldUrl.value=b.booking_url||"";
-    fieldAmount.value=b.amount??"";
-    if(b.currency && [...fieldCurrency.options].some(o=>o.value===b.currency))fieldCurrency.value=b.currency;
-    fieldNotes.value=b.notes||"";
-    fieldFlightNumber.value=b.flight_number||"";
-    fieldOriginCode.value=(b.origin_code||"").toUpperCase();
-    fieldDestinationCode.value=(b.destination_code||"").toUpperCase();
-    updateFlightFields();
-    bookingUploadStatus.textContent="Filled from "+file.name+". Check the details, then press SAVE.";
-  }catch(error){
-    console.error(error);
-    bookingUploadStatus.textContent=error.message||"Couldn't read this booking.";
-  }finally{
-    bookingUploadButton.disabled=false;
-    bookingUploadButton.textContent="UPLOAD ANOTHER →";
-    bookingUpload.value="";
-  }
+  const file=bookingUpload.files?.[0]; if(!file)return;
+  bookingUploadButton.disabled=true; bookingUploadButton.textContent="READING BOOKING…";
+  try{await importBookingFile(file);}
+  catch(error){console.error(error);bookingUploadStatus.textContent=error.message||"Couldn't read this booking.";}
+  finally{bookingUploadButton.disabled=false;bookingUploadButton.textContent="UPLOAD ANOTHER →";bookingUpload.value="";}
 };
 
 /* =========================================================
