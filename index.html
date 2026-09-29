@@ -3761,6 +3761,53 @@ async function loadDashboardFood(){
 }
 
 
+let TRIP_ID =
+
+  Number(
+    new URLSearchParams(
+      location.search
+    )
+    .get("trip")
+  )
+
+  ||
+
+  Number(
+    localStorage.getItem(
+      "current_trip_id"
+    )
+  )
+
+  ||
+
+  null;
+
+
+let currentUser = null;
+
+let currentTrip = null;
+
+let accessibleTrips = [];
+
+let scheduleRows = [];
+let bookingRows = [];
+
+let placeMap = new Map();
+
+let dayDates = [];
+
+let selectedDate = null;
+
+let openAreas = {};
+
+let nearbyLoaded = false;
+
+let nearbyLoading = false;
+
+
+
+
+
 /* =========================================================
    DAY TRAVELLER
    Location drives progress; itinerary times are guide times.
@@ -4426,51 +4473,6 @@ if(
 /* =========================================================
    STATE
 ========================================================= */
-
-let TRIP_ID =
-
-  Number(
-    new URLSearchParams(
-      location.search
-    )
-    .get("trip")
-  )
-
-  ||
-
-  Number(
-    localStorage.getItem(
-      "current_trip_id"
-    )
-  )
-
-  ||
-
-  null;
-
-
-let currentUser = null;
-
-let currentTrip = null;
-
-let accessibleTrips = [];
-
-let scheduleRows = [];
-let bookingRows = [];
-
-let placeMap = new Map();
-
-let dayDates = [];
-
-let selectedDate = null;
-
-let openAreas = {};
-
-let nearbyLoaded = false;
-
-let nearbyLoading = false;
-
-
 
 /* =========================================================
    HELPERS
