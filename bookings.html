@@ -607,6 +607,18 @@ main{
 }
 
 /* FORM */
+.booking-upload-box{
+  margin-bottom:14px;padding:12px;border:1px dashed #34414a;border-radius:12px;
+  background:rgba(255,255,255,.018);text-align:center;
+}
+.booking-upload-box strong{display:block;font-size:9px;color:#eee9e3}
+.booking-upload-box p{margin:5px 0 9px;color:#7f8b93;font-size:7px;line-height:1.5}
+.booking-upload-btn{min-height:34px;padding:6px 12px;border:1px solid var(--red-line);border-radius:9px;background:var(--red-soft);color:#efaaa5;font-size:7px;font-weight:900}
+.booking-upload-status{margin-top:7px;color:#8f9aa1;font-size:7px}
+.flight-fields{display:none;grid-column:1/-1;grid-template-columns:repeat(3,1fr);gap:9px}
+.flight-fields.show{display:grid}
+@media(max-width:480px){.flight-fields{grid-template-columns:1fr 1fr}.flight-fields .flight-number{grid-column:1/-1}}
+
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -2132,6 +2144,14 @@ main{
 
     <form id="bookingForm">
 
+      <div class="booking-upload-box">
+        <strong>UPLOAD A BOOKING</strong>
+        <p>Upload an e-ticket, booking confirmation, PDF or screenshot. We’ll read it and fill the form for you to check before saving.</p>
+        <input id="bookingUpload" type="file" accept="image/*,.pdf,application/pdf" hidden>
+        <button id="bookingUploadButton" class="booking-upload-btn" type="button">UPLOAD BOOKING →</button>
+        <div id="bookingUploadStatus" class="booking-upload-status"></div>
+      </div>
+
       <div class="form-grid">
 
 
@@ -2204,6 +2224,12 @@ main{
 
         </div>
 
+
+        <div id="flightFields" class="flight-fields">
+          <div class="field flight-number"><label>FLIGHT NUMBER</label><input id="fieldFlightNumber" placeholder="e.g. SQ618"></div>
+          <div class="field"><label>FROM</label><input id="fieldOriginCode" maxlength="3" placeholder="SIN"></div>
+          <div class="field"><label>TO</label><input id="fieldDestinationCode" maxlength="3" placeholder="KIX"></div>
+        </div>
 
         <!-- TITLE -->
 
@@ -2593,6 +2619,24 @@ const formMessage =
     "formMessage"
   );
 
+const bookingUpload=document.getElementById("bookingUpload");
+const bookingUploadButton=document.getElementById("bookingUploadButton");
+const bookingUploadStatus=document.getElementById("bookingUploadStatus");
+const flightFields=document.getElementById("flightFields");
+const fieldFlightNumber=document.getElementById("fieldFlightNumber");
+const fieldOriginCode=document.getElementById("fieldOriginCode");
+const fieldDestinationCode=document.getElementById("fieldDestinationCode");
+
+function updateFlightFields(){
+  const isFlight=fieldType.value==="transport" && (
+    /flight|airline|airport/i.test(fieldTitle.value) ||
+    fieldFlightNumber.value.trim()
+  );
+  flightFields.classList.toggle("show",isFlight);
+}
+fieldType.addEventListener("change",updateFlightFields);
+fieldTitle.addEventListener("input",updateFlightFields);
+
 
 /* =========================================================
    HELPERS
@@ -2853,6 +2897,10 @@ async function loadData(){
             amount,
             currency,
             notes,
+            flight_number,
+            origin_code,
+            destination_code,
+            end_time,
             created_at,
             updated_at
           `)
@@ -4215,6 +4263,11 @@ function openAdd(){
   fieldTitle.value =
     "";
 
+  fieldFlightNumber.value="";
+  fieldOriginCode.value="";
+  fieldDestinationCode.value="";
+  bookingUploadStatus.textContent="";
+
 
   fieldDate.value =
     "";
@@ -4265,6 +4318,8 @@ function openAdd(){
       "open"
     );
 
+  updateFlightFields();
+
 }
 
 
@@ -4312,6 +4367,11 @@ function openEdit(id){
   fieldTitle.value =
     item.title ||
     "";
+
+  fieldFlightNumber.value=item.flight_number||"";
+  fieldOriginCode.value=item.origin_code||"";
+  fieldDestinationCode.value=item.destination_code||"";
+  bookingUploadStatus.textContent="";
 
 
   fieldDate.value =
@@ -4376,6 +4436,8 @@ function openEdit(id){
       "open"
     );
 
+  updateFlightFields();
+
 }
 
 
@@ -4413,6 +4475,78 @@ function closeSheet(){
 
 }
 
+
+
+/* =========================================================
+   BOOKING UPLOAD
+========================================================= */
+
+bookingUploadButton.onclick=()=>bookingUpload.click();
+
+bookingUpload.onchange=async()=>{
+  const file=bookingUpload.files?.[0];
+  if(!file)return;
+  if(file.size>10*1024*1024){
+    bookingUploadStatus.textContent="Please use a file under 10 MB.";
+    bookingUpload.value="";
+    return;
+  }
+  bookingUploadButton.disabled=true;
+  bookingUploadButton.textContent="READING BOOKING…";
+  bookingUploadStatus.textContent="Extracting the booking details…";
+  try{
+    const session=(await db.auth.getSession()).data.session;
+    if(!session)throw new Error("Please sign in again.");
+    const base64=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=()=>resolve(String(reader.result).split(",")[1]||"");
+      reader.onerror=()=>reject(new Error("Couldn't read this file."));
+      reader.readAsDataURL(file);
+    });
+    const response=await fetch(SUPABASE_URL+"/functions/v1/travel-assist",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_ANON_KEY,
+        "Authorization":"Bearer "+session.access_token
+      },
+      body:JSON.stringify({
+        action:"parse_booking_upload",
+        trip_id:TRIP_ID,
+        mime_type:file.type||"application/octet-stream",
+        file_data:base64
+      })
+    });
+    const data=await response.json();
+    if(!response.ok||!data.success)throw new Error(data.error||"Couldn't read this booking.");
+    const b=data.booking||{};
+    fieldStatus.value="booked";
+    fieldType.value=b.booking_type||"ticket";
+    fieldTitle.value=b.title||"";
+    fieldDate.value=b.booking_date||"";
+    fieldTime.value=b.start_time?String(b.start_time).slice(0,5):"";
+    fieldProvider.value=b.provider||"";
+    fieldLocation.value=b.location_name||"";
+    fieldAddress.value=b.address||"";
+    fieldConfirmation.value=b.confirmation_number||"";
+    fieldUrl.value=b.booking_url||"";
+    fieldAmount.value=b.amount??"";
+    if(b.currency && [...fieldCurrency.options].some(o=>o.value===b.currency))fieldCurrency.value=b.currency;
+    fieldNotes.value=b.notes||"";
+    fieldFlightNumber.value=b.flight_number||"";
+    fieldOriginCode.value=(b.origin_code||"").toUpperCase();
+    fieldDestinationCode.value=(b.destination_code||"").toUpperCase();
+    updateFlightFields();
+    bookingUploadStatus.textContent="Filled from "+file.name+". Check the details, then press SAVE.";
+  }catch(error){
+    console.error(error);
+    bookingUploadStatus.textContent=error.message||"Couldn't read this booking.";
+  }finally{
+    bookingUploadButton.disabled=false;
+    bookingUploadButton.textContent="UPLOAD ANOTHER →";
+    bookingUpload.value="";
+  }
+};
 
 /* =========================================================
    SAVE
@@ -4520,7 +4654,11 @@ document.getElementById(
         notes:
           fieldNotes.value
             .trim() ||
-          null
+          null,
+
+        flight_number: fieldFlightNumber.value.trim().toUpperCase() || null,
+        origin_code: fieldOriginCode.value.trim().toUpperCase() || null,
+        destination_code: fieldDestinationCode.value.trim().toUpperCase() || null
 
       };
 
