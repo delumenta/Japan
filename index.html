@@ -3297,6 +3297,7 @@ main{
           <h2 id="journeyTitle" class="journey-title">Today's Journey</h2>
           <div id="journeyDate" class="journey-date"></div>
         </div>
+        <a id="fullPlan" class="journey-full-link" href="schedule.html">VIEW FULL PLAN ›</a>
       </div>
 
     <div
@@ -8292,28 +8293,16 @@ function renderSetupGuide(){
     `?trip=${TRIP_ID}`;
 
 
-  document.getElementById(
-    "setupPlanLink"
-  ).href =
-    `schedule.html${suffix}`;
+  { const el=document.getElementById("setupPlanLink"); if(el) el.href=`schedule.html${suffix}`; }
 
 
-  document.getElementById(
-    "setupBookingLink"
-  ).href =
-    `bookings.html${suffix}`;
+  { const el=document.getElementById("setupBookingLink"); if(el) el.href=`bookings.html${suffix}`; }
 
 
-  document.getElementById(
-    "setupFoodLink"
-  ).href =
-    `food.html${suffix}`;
+  { const el=document.getElementById("setupFoodLink"); if(el) el.href=`food.html${suffix}`; }
 
 
-  document.getElementById(
-    "setupStartLink"
-  ).href =
-    `schedule.html${suffix}`;
+  { const el=document.getElementById("setupStartLink"); if(el) el.href=`schedule.html${suffix}`; }
 
 
   const copy =
