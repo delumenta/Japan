@@ -2839,6 +2839,10 @@ main{
 
 }
 
+
+.setup-guide-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.setup-guide-actions .setup-guide-primary{width:100%;margin:0;display:flex;align-items:center;justify-content:center;min-height:46px}
+@media(max-width:560px){.setup-guide-actions{grid-template-columns:1fr}}
 </style>
 
 
@@ -3207,22 +3211,23 @@ main{
 
     </div>
 
-    <a
-      id="setupStartLink"
-      class="setup-guide-primary"
-      href="schedule.html"
-    >
-      START PLANNING →
-    </a>
+    <div class="setup-guide-actions">
+      <a
+        id="setupStartLink"
+        class="setup-guide-primary"
+        href="schedule.html"
+      >
+        START PLANNING →
+      </a>
 
-    <button
-      id="setupImportItinerary"
-      class="setup-guide-primary"
-      type="button"
-      style="width:100%;"
-    >
-      ↑ IMPORT EXISTING ITINERARY
-    </button>
+      <button
+        id="setupImportItinerary"
+        class="setup-guide-primary"
+        type="button"
+      >
+        ↑ IMPORT EXISTING ITINERARY
+      </button>
+    </div>
 
     <div class="setup-guide-copy" style="margin-top:7px;">
       Upload a screenshot, photo, PDF, Word document or text file — or paste an itinerary you already have.
