@@ -1348,3 +1348,24 @@ main {
     font-size:
         clamp(60px, 7vw, 100px);
 }
+/* Offline trip download */
+.offline-usage-button{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-left:auto;
+  padding:9px 12px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;
+  background:rgba(0,0,0,.28);
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  cursor:pointer;
+}
+.offline-usage-button:disabled{opacity:.6;cursor:wait}
+.offline-usage-button span:first-child{font-size:15px;line-height:1}
+@media(max-width:700px){
+  .offline-usage-button{font-size:9px;padding:8px 10px}
+}
