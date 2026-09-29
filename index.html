@@ -3259,149 +3259,6 @@ main{
 
     <div class="setup-guide-steps">
 
-      <a
-        id="setupPlanLink"
-        class="setup-step"
-        href="schedule.html"
-      >
-        <span class="setup-step-number">1</span>
-        <span>
-          <span class="setup-step-title">Plan your days</span>
-          <span class="setup-step-sub">Add places, meals and anything you want to do.</span>
-        </span>
-        <span class="setup-step-arrow">›</span>
-      </a>
-
-      <a
-        id="setupBookingLink"
-        class="setup-step"
-        href="bookings.html"
-      >
-        <span class="setup-step-number">2</span>
-        <span>
-          <span class="setup-step-title">Add your bookings</span>
-          <span class="setup-step-sub">Keep hotels, transport and tickets together.</span>
-        </span>
-        <span class="setup-step-arrow">›</span>
-      </a>
-
-      <a
-        id="setupFoodLink"
-        class="setup-step"
-        href="food.html"
-      >
-        <span class="setup-step-number">3</span>
-        <span>
-          <span class="setup-step-title">Find food</span>
-          <span class="setup-step-sub">Discover restaurants and save them to this trip.</span>
-        </span>
-        <span class="setup-step-arrow">›</span>
-      </a>
-
-    </div>
-
-    <div class="setup-guide-actions">
-      <a
-        id="setupStartLink"
-        class="setup-guide-primary"
-        href="schedule.html"
-      >
-        START PLANNING →
-      </a>
-
-      <button
-        id="setupImportItinerary"
-        class="setup-guide-primary"
-        type="button"
-      >
-        ↑ IMPORT EXISTING ITINERARY
-      </button>
-    </div>
-
-    <div class="setup-guide-copy" style="margin-top:7px;">
-      Upload a screenshot, photo, PDF, Word document or text file — or paste an itinerary you already have.
-    </div>
-
-  </section>
-
-
-  <div class="date-section">
-
-    <div class="date-section-label">
-      TRIP DAYS
-    </div>
-
-    <div
-      id="dateScroll"
-      class="date-scroll"
-    ></div>
-
-  </div>
-
-
-
-
-  <section id="dayDashboard" class="day-dashboard" aria-label="Day traveller">
-    <div id="dayNow" class="day-now">
-      <div class="day-kicker">TODAY</div>
-      <div class="day-status">Finding where you are in today's journey…</div>
-    </div>
-    <div class="day-side">
-      <div class="day-tool">
-        <div class="day-tool-kicker">FOOD FINDER</div>
-        <div class="day-tool-title">Food around you</div>
-        <div class="day-tool-copy">Your saved picks + restaurants near your actual location.</div>
-        <button id="dayFoodButton" class="day-food-button" type="button">FIND FOOD →</button>
-        <div id="dayFoodResults" class="day-nearby-list"></div>
-      </div>
-      <div class="day-tool">
-        <div class="day-tool-kicker">NEARBY</div>
-        <div class="day-tool-title">Worth a detour?</div>
-        <div class="day-tool-copy">Places not already in your trip that could fit before your next stop.</div>
-        <button id="dayNearbyButton" class="day-food-button" type="button">FIND NEARBY →</button>
-        <div id="dayNearbyStatus" class="day-status" style="display:none"></div>
-        <div id="dayNearbyList" class="day-nearby-list"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="journey-section">
-
-
-    <div class="journey-head">
-
-
-      <div>
-
-        <div class="journey-eyebrow">
-          YOUR ITINERARY
-        </div>
-
-        <div
-          id="journeyTitle"
-          class="journey-title"
-        >
-          Today's Journey
-        </div>
-
-        <div
-          id="journeyDate"
-          class="journey-date"
-        ></div>
-
-      </div>
-
-
-
-      <a
-        id="fullPlan"
-        class="full-plan"
-        href="schedule.html"
-      >
-        VIEW FULL PLAN
-        <span>›</span>
-      </a>
-
 
     </div>
 
@@ -3914,25 +3771,35 @@ function fallbackDayRows(){
 }
 
 function currentJourneyContext(lat,lng){
-  const rows=dayRows().filter(row=>rowCoords(row));
+  const rows=dayRows();
   if(!rows.length) return {rows,current:null,next:null,distance:null,index:-1};
   const progress=dayProgress();
   let index=Math.max(0,Math.min(Number(progress.index)||0,rows.length-1));
 
-  // Location may advance the journey, but never selects an earlier stop.
+  // A booked arrival/departure has no POI coordinates. Keep it as the
+  // current journey item until the traveller explicitly completes/skips it.
+  const current=rows[index];
+  if(current?._booking){
+    return {rows,current,next:rows[index+1]||null,distance:null,index};
+  }
+
+  // Location may advance among coordinate-bearing itinerary stops, but
+  // never jumps over a booked fixed item.
   const ranked=rows.map((row,rowIndex)=>{
     const p=rowCoords(row);
-    return {row,index:rowIndex,distance:distanceM(lat,lng,p.lat,p.lng)};
-  }).filter(x=>x.index>=index).sort((a,b)=>a.distance-b.distance);
+    return p?{row,index:rowIndex,distance:distanceM(lat,lng,p.lat,p.lng)}:null;
+  }).filter(x=>x&&x.index>=index&&!rows.slice(index,x.index).some(r=>r._booking))
+    .sort((a,b)=>a.distance-b.distance);
   const near=ranked[0];
   if(near && near.distance<=180 && near.index>=index){
     index=near.index;
     saveDayProgress({...progress,index,last_near_id:near.row.id,last_near_at:Date.now()});
   }
-
+  const row=rows[index];
+  const p=rowCoords(row);
   return {
-    rows,current:rows[index]||rows[0],next:rows[index+1]||null,
-    distance:rows[index]?distanceM(lat,lng,rowCoords(rows[index]).lat,rowCoords(rows[index]).lng):null,index
+    rows,current:row||rows[0],next:rows[index+1]||null,
+    distance:p?distanceM(lat,lng,p.lat,p.lng):null,index
   };
 }
 
@@ -3946,7 +3813,7 @@ async function markDayStop(action){
   saveDayProgress({...progress,index:nextIndex,[action==="done"?"last_done_id":"last_skipped_id"]:row?.id||null,updated_at:Date.now()});
   renderDayNow(dayTravellerPosition);
   // Sync when online, but the traveller never waits on the network.
-  if(navigator.onLine && row?.id){
+  if(navigator.onLine && row?.id && !row._booking){
     try{
       const payload=action==="done"?{completed_at:new Date().toISOString(),skipped_at:null}:{skipped_at:new Date().toISOString()};
       await db.from("schedule").update(payload).eq("id",row.id).eq("trip_id",TRIP_ID);
@@ -3966,7 +3833,7 @@ function renderPaperFallback(holder,rows,message){
     <div class="day-state">CURRENT JOURNEY</div>
     <div class="day-place">${esc(name)}</div>
     <div class="day-meta">${esc(timeText(row)||"Guide time")} · ${esc(message||"Saved itinerary")}</div>
-    <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">FULL PLAN</a></div>
+    <div class="day-actions">${row.maps_url?`<a class="day-action primary" href="${esc(row.maps_url)}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}</div>
     <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
     ${next?`<div class="day-next">UP NEXT<strong>${esc(next.title||"Next stop")}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
     <div class="day-offline-note">Your last itinerary stays here even if location or internet is unavailable.</div>`;
@@ -3998,9 +3865,9 @@ function renderDayNow(position){
   dayTravellerCurrentId=row.id;
   holder.innerHTML=`
     <div class="day-kicker">TODAY</div>
-    <div class="day-state">${state}</div>
+    <div class="day-state">${row._booking ? (row._boundary==="arrival"?"ARRIVAL":"DEPARTURE") : state}</div>
     <div class="day-place">${esc(name)}</div>
-    <div class="day-meta">${esc(meta)}</div>
+    <div class="day-meta">${esc(row._booking ? ((timeText(row)||"Booked flight")+" · Booked") : meta)}</div>
     <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
     <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button></div>
     ${nextName?`<div class="day-next">UP NEXT<strong>${esc(nextName)}</strong></div>`:'<div class="day-next">LAST STOP OF THE DAY</div>'}
