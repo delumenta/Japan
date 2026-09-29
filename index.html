@@ -3264,6 +3264,44 @@ main{
 
 
 
+    <section class="date-section">
+      <div class="section-kicker">TRIP DAYS</div>
+      <div id="dateScroll" class="date-scroll"></div>
+    </section>
+
+    <section id="dayDashboard" class="day-dashboard" aria-label="Day traveller">
+      <div id="dayNow" class="day-now">
+        <div class="day-kicker">TODAY</div>
+        <div class="day-status">Loading today's journey…</div>
+      </div>
+      <div class="day-side">
+        <div class="day-tool">
+          <div class="day-tool-kicker">FOOD FINDER</div>
+          <div class="day-tool-title">Food around you</div>
+          <div class="day-tool-copy">Your saved picks + restaurants near your actual location.</div>
+          <button id="dayFoodButton" class="day-food-button" type="button">FIND FOOD →</button>
+          <div id="dayFoodResults" class="day-nearby-list"></div>
+        </div>
+        <div class="day-tool">
+          <div class="day-tool-kicker">NEARBY</div>
+          <div class="day-tool-title">Worth a detour?</div>
+          <div class="day-tool-copy">Places not already in your trip that could fit before your next stop.</div>
+          <button id="dayNearbyButton" class="day-food-button" type="button">FIND NEARBY →</button>
+          <div id="dayNearbyStatus" class="day-status" style="display:none"></div>
+          <div id="dayNearbyList" class="day-nearby-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey-section">
+      <div class="journey-head">
+        <div>
+          <div class="section-kicker">YOUR ITINERARY</div>
+          <h2 id="journeyTitle" class="journey-title">Today's Journey</h2>
+          <div id="journeyDate" class="journey-date"></div>
+        </div>
+      </div>
+
     <div
       id="placeGroups"
       class="journey-card"
@@ -3275,6 +3313,7 @@ main{
 
     </div>
 
+    </section>
 
   </section>
 </section>
