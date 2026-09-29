@@ -2223,6 +2223,715 @@ main{
 .setup-guide-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .setup-guide-actions .setup-guide-primary{width:100%;margin:0;display:flex;align-items:center;justify-content:center;min-height:46px}
 @media(max-width:560px){.setup-guide-actions{grid-template-columns:1fr}}
+
+
+/* =========================================================
+   DAY TRAVELLER DASHBOARD
+========================================================= */
+.day-dashboard{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);
+  margin-top:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:19px;
+  background:linear-gradient(145deg,#111920,#090f14);
+  box-shadow:0 16px 36px rgba(0,0,0,.18);
+}
+.day-now{
+  min-height:238px;
+  padding:18px;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.day-side{display:grid;grid-template-rows:auto 1fr;min-width:0}
+.day-tool{padding:15px 16px}
+.day-tool + .day-tool{border-top:1px solid rgba(255,255,255,.07)}
+.day-kicker,.day-tool-kicker{
+  color:#9ca8b0;font-size:7px;font-weight:900;letter-spacing:.19em;text-transform:uppercase;
+}
+.day-state{margin-top:13px;color:#ff8c88;font-size:7px;font-weight:900;letter-spacing:.13em}
+.day-place{
+  margin-top:6px;color:#faf7f2;font-family:Georgia,"Times New Roman",serif;
+  font-size:24px;font-weight:700;line-height:1.04;
+}
+.day-meta{margin-top:7px;color:#8e9aa2;font-size:8px;line-height:1.5}
+.day-next{
+  margin-top:17px;padding-top:13px;border-top:1px solid rgba(255,255,255,.07);
+  color:#8d989f;font-size:7px;line-height:1.5;
+}
+.day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
+.day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.day-manual{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
+.day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
+.day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
+.day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
+.day-action{
+  min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
+  border:1px solid rgba(255,107,104,.34);border-radius:999px;background:rgba(255,107,104,.055);
+  color:#eca7a3;text-decoration:none;font-size:6.5px;font-weight:900;letter-spacing:.05em;
+}
+.day-action.primary{background:rgba(255,107,104,.13);border-color:rgba(255,107,104,.55)}
+.day-tool-title{margin-top:6px;color:#f5f1eb;font-size:12px;font-weight:850}
+.day-tool-copy{margin-top:4px;color:#7f8a92;font-size:7px;line-height:1.45}
+.day-food-button{
+  width:100%;min-height:36px;margin-top:10px;border:1px solid rgba(255,107,104,.35);border-radius:10px;
+  background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;
+}
+.day-nearby-list{display:grid;gap:8px;margin-top:10px}
+.day-nearby-item{padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.018)}
+.day-nearby-name{color:#f2eee8;font-size:9px;font-weight:850;line-height:1.25}
+.day-nearby-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.day-badge{padding:4px 6px;border-radius:999px;background:rgba(255,255,255,.05);color:#9aa5ac;font-size:5.5px;font-weight:900;letter-spacing:.06em}
+.day-badge.fit{background:rgba(114,203,145,.10);color:#84d49e}
+.day-badge.optional{background:rgba(255,190,100,.09);color:#e8b875}
+.day-badge.not-now{background:rgba(255,107,104,.09);color:#e99490}
+.day-nearby-reason{margin-top:6px;color:#77838b;font-size:6.5px;line-height:1.45}
+.day-add{
+  min-height:30px;margin-top:8px;padding:0 9px;border:1px solid rgba(255,107,104,.35);border-radius:9px;
+  background:rgba(255,107,104,.055);color:#efa7a2;font-size:6px;font-weight:900;
+}
+.day-status{margin-top:10px;color:#748089;font-size:7px;line-height:1.5}
+.day-flip{animation:dayFlip .42s ease}
+@keyframes dayFlip{0%{opacity:.35;transform:rotateX(8deg) translateY(3px)}100%{opacity:1;transform:none}}
+@media(max-width:680px){
+  .day-dashboard{grid-template-columns:1fr}
+  .day-now{min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .day-side{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .day-tool + .day-tool{border-top:0;border-left:1px solid rgba(255,255,255,.07)}
+}
+@media(max-width:430px){
+  .day-now{padding:15px}
+  .day-tool{padding:13px 12px}
+  .day-place{font-size:21px}
+  .day-nearby-badges .day-badge:nth-child(n+3){display:none}
+}
+
+/* =========================================================
+   JOURNEY HEADER
+========================================================= */
+
+.journey-section{
+  margin-top:25px;
+}
+
+.journey-head{
+
+  display:flex;
+
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:13px;
+
+}
+
+.journey-eyebrow{
+
+  margin-bottom:6px;
+
+  color:#9ca8b0;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.20em;
+
+}
+
+.journey-title{
+
+  color:#faf7f2;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:27px;
+
+  font-weight:700;
+
+  line-height:1;
+
+  letter-spacing:-.02em;
+
+}
+
+.journey-date{
+
+  margin-top:7px;
+
+  color:#78838a;
+
+  font-size:7px;
+
+}
+
+.full-plan{
+
+  flex:0 0 auto;
+
+  min-height:39px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:
+    0
+    15px;
+
+  border:
+    1px solid
+    rgba(255,107,104,.40);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,107,104,.035);
+
+  color:#eca7a3;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:.05em;
+
+  text-decoration:none;
+
+}
+
+.full-plan span{
+
+  margin-left:6px;
+
+  font-size:14px;
+
+}
+
+
+/* =========================================================
+   JOURNEY CARD
+========================================================= */
+
+.journey-card{
+
+  position:relative;
+
+  --left-pad:16px;
+
+  --marker-col:20px;
+
+  --time-col:78px;
+
+  --column-gap:7px;
+
+  --right-space:42px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  border-radius:19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #111920,
+      #090f14
+    );
+
+  box-shadow:
+    0 16px 36px
+    rgba(0,0,0,.19);
+
+}
+
+
+/* =========================================================
+   TIMELINE LINE
+
+   VISUAL CENTER = 25PX
+========================================================= */
+
+.journey-card.has-groups::before{
+  content:"";
+
+  position:absolute;
+
+  top:26px;
+  bottom:26px;
+
+  /* centre the 1px line exactly on the marker axis */
+  left:26px;
+  transform:translateX(-50%);
+
+  width:1px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff7772,
+      rgba(255,107,104,.48) 42%,
+      rgba(106,122,132,.18)
+    );
+
+  pointer-events:none;
+}
+
+/* =========================================================
+   AREA GROUP
+========================================================= */
+
+.place-group{
+
+  position:relative;
+
+  z-index:1;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.055);
+
+}
+
+.place-group:last-child{
+  border-bottom:0;
+}
+
+
+/* =========================================================
+   GROUP HEADER
+========================================================= */
+
+.place-group-head{
+
+  position:relative;
+
+  width:100%;
+
+  min-height:68px;
+
+  display:grid;
+
+  grid-template-columns:
+    var(--marker-col)
+    var(--time-col)
+    minmax(0,1fr);
+
+  column-gap:var(--column-gap);
+
+  align-items:center;
+
+  padding:
+    10px
+    var(--right-space)
+    10px
+    var(--left-pad);
+
+  border:0;
+
+  background:transparent;
+
+  color:inherit;
+
+  text-align:left;
+
+}
+
+
+/* =========================================================
+   MARKER CONTAINERS
+========================================================= */
+
+.area-marker,
+.place-marker{
+
+  width:var(--marker-col);
+
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+}
+
+
+/* =========================================================
+   ALL TIMELINE CIRCLES
+
+   EXACTLY THE SAME SIZE + STYLE
+========================================================= */
+
+.area-dot,
+.place-dot{
+
+  position:relative;
+
+  z-index:3;
+
+  width:7px;
+  height:7px;
+
+  min-width:7px;
+  min-height:7px;
+
+  flex:0 0 7px;
+
+  border:
+    1.5px solid
+    #ff716d;
+
+  border-radius:50%;
+
+  background:#10171d;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255,107,104,.055);
+
+}
+
+
+/*
+  Area markers remain hollow even when opened
+*/
+
+.place-group.open
+.area-dot{
+
+  background:#10171d;
+
+}
+
+
+/* =========================================================
+   GROUP TIME
+========================================================= */
+
+.place-group-start{
+
+  width:100%;
+
+  color:#b1bac0;
+
+  font-size:6.4px;
+
+  font-weight:600;
+
+  line-height:1.35;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   GROUP TITLE
+========================================================= */
+
+.place-group-main{
+
+  width:100%;
+
+  min-width:0;
+
+}
+
+.place-group-name{
+
+  color:#f8f5ef;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  line-height:1.08;
+
+}
+
+.place-group-meta{
+
+  margin-top:4px;
+
+  color:#707d84;
+
+  font-size:5.5px;
+
+  font-weight:400;
+
+  line-height:1.35;
+
+}
+
+
+/* =========================================================
+   GROUP CHEVRON
+========================================================= */
+
+.place-group-chevron{
+
+  position:absolute;
+
+  top:50%;
+
+  right:17px;
+
+  width:20px;
+  height:20px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:#a0a9ae;
+
+  font-size:14px;
+
+  line-height:1;
+
+  transform:
+    translateY(-50%);
+
+  transition:
+    transform .18s;
+
+}
+
+.place-group.open
+.place-group-chevron{
+
+  transform:
+    translateY(-50%)
+    rotate(90deg);
+
+}
+
+
+/* =========================================================
+   PLACE LIST
+========================================================= */
+
+.place-list{
+
+  display:none;
+
+  padding:
+    0
+    0
+    10px
+    var(--left-pad);
+
+}
+
+.place-group.open
+.place-list{
+  display:block;
+}
+
+
+/* =========================================================
+   INDIVIDUAL PLACE ROW
+========================================================= */
+
+.place-row{
+
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    var(--marker-col)
+    var(--time-col)
+    minmax(0,1fr);
+
+  column-gap:var(--column-gap);
+
+  align-items:center;
+
+  min-height:56px;
+
+  padding:
+    6px
+    var(--right-space)
+    6px
+    0;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.045);
+
+}
+
+
+/* =========================================================
+   ITEM TIME
+========================================================= */
+
+.place-time{
+
+  width:100%;
+
+  color:#9aa5ac;
+
+  font-size:7px;
+
+  font-weight:600;
+
+  line-height:1.35;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   ITEM CONTENT
+========================================================= */
+
+.place-main{
+
+  width:100%;
+
+  min-width:0;
+
+}
+
+.place-name{
+
+  color:#eff1f0;
+
+  font-size:10px;
+
+  /*
+    Keeps Kiyomizu / Sannenzaka from
+    looking heavier than Higashiyama.
+  */
+  font-weight:400;
+
+  line-height:1.35;
+
+}
+
+.place-note{
+
+  margin-top:4px;
+
+  overflow:hidden;
+
+  color:#69757d;
+
+  font-size:7px;
+
+  font-weight:400;
+
+  line-height:1.4;
+
+  display:-webkit-box;
+
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+
+}
+
+
+/* =========================================================
+   FIXED MAP LINK
+========================================================= */
+
+.map-link{
+
+  position:absolute;
+
+  top:50%;
+
+  right:15px;
+
+  width:20px;
+  height:20px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  transform:
+    translateY(-50%);
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  opacity:.72;
+
+}
+
+
+/* =========================================================
+   EMPTY JOURNEY
+========================================================= */
+
+.journey-empty{
+
+  padding:
+    30px
+    18px;
+
+  text-align:center;
+
+}
+
+.journey-empty-title{
+
+  color:#e6e5e1;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:16px;
+
+  font-weight:700;
+
+}
+
+.journey-empty-sub{
+
+  max-width:280px;
+
+  margin:
+    6px
+    auto
+    0;
+
+  color:#707d85;
+
+  font-size:7px;
+
+  line-height:1.55;
+
+}
+
+
+
+
 </style>
 
 
@@ -3050,712 +3759,6 @@ async function loadDashboardFood(){
     button.textContent="REFRESH FOOD →";
   }
 }
-
-
-/* =========================================================
-   DAY TRAVELLER DASHBOARD
-========================================================= */
-.day-dashboard{
-  display:grid;
-  grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);
-  margin-top:18px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:19px;
-  background:linear-gradient(145deg,#111920,#090f14);
-  box-shadow:0 16px 36px rgba(0,0,0,.18);
-}
-.day-now{
-  min-height:238px;
-  padding:18px;
-  border-right:1px solid rgba(255,255,255,.07);
-}
-.day-side{display:grid;grid-template-rows:auto 1fr;min-width:0}
-.day-tool{padding:15px 16px}
-.day-tool + .day-tool{border-top:1px solid rgba(255,255,255,.07)}
-.day-kicker,.day-tool-kicker{
-  color:#9ca8b0;font-size:7px;font-weight:900;letter-spacing:.19em;text-transform:uppercase;
-}
-.day-state{margin-top:13px;color:#ff8c88;font-size:7px;font-weight:900;letter-spacing:.13em}
-.day-place{
-  margin-top:6px;color:#faf7f2;font-family:Georgia,"Times New Roman",serif;
-  font-size:24px;font-weight:700;line-height:1.04;
-}
-.day-meta{margin-top:7px;color:#8e9aa2;font-size:8px;line-height:1.5}
-.day-next{
-  margin-top:17px;padding-top:13px;border-top:1px solid rgba(255,255,255,.07);
-  color:#8d989f;font-size:7px;line-height:1.5;
-}
-.day-next strong{display:block;margin-top:3px;color:#e9e5df;font-size:10px}
-.day-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
-.day-manual{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:7px}
-.day-manual button{min-height:25px;padding:4px 8px;border:1px solid #303b43;border-radius:7px;background:#10171c;color:#9ba6ad;font-size:6.5px;font-weight:900;cursor:pointer}
-.day-manual button.done{border-color:rgba(121,201,149,.24);color:#9edab3}
-.day-manual button.skip{border-color:rgba(228,189,105,.22);color:#d8bd7d}
-.day-offline-note{margin-top:9px;color:#66727b;font-size:6.5px;line-height:1.4}
-.day-action{
-  min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;
-  border:1px solid rgba(255,107,104,.34);border-radius:999px;background:rgba(255,107,104,.055);
-  color:#eca7a3;text-decoration:none;font-size:6.5px;font-weight:900;letter-spacing:.05em;
-}
-.day-action.primary{background:rgba(255,107,104,.13);border-color:rgba(255,107,104,.55)}
-.day-tool-title{margin-top:6px;color:#f5f1eb;font-size:12px;font-weight:850}
-.day-tool-copy{margin-top:4px;color:#7f8a92;font-size:7px;line-height:1.45}
-.day-food-button{
-  width:100%;min-height:36px;margin-top:10px;border:1px solid rgba(255,107,104,.35);border-radius:10px;
-  background:rgba(255,107,104,.055);color:#efa7a2;font-size:7px;font-weight:900;
-}
-.day-nearby-list{display:grid;gap:8px;margin-top:10px}
-.day-nearby-item{padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.018)}
-.day-nearby-name{color:#f2eee8;font-size:9px;font-weight:850;line-height:1.25}
-.day-nearby-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.day-badge{padding:4px 6px;border-radius:999px;background:rgba(255,255,255,.05);color:#9aa5ac;font-size:5.5px;font-weight:900;letter-spacing:.06em}
-.day-badge.fit{background:rgba(114,203,145,.10);color:#84d49e}
-.day-badge.optional{background:rgba(255,190,100,.09);color:#e8b875}
-.day-badge.not-now{background:rgba(255,107,104,.09);color:#e99490}
-.day-nearby-reason{margin-top:6px;color:#77838b;font-size:6.5px;line-height:1.45}
-.day-add{
-  min-height:30px;margin-top:8px;padding:0 9px;border:1px solid rgba(255,107,104,.35);border-radius:9px;
-  background:rgba(255,107,104,.055);color:#efa7a2;font-size:6px;font-weight:900;
-}
-.day-status{margin-top:10px;color:#748089;font-size:7px;line-height:1.5}
-.day-flip{animation:dayFlip .42s ease}
-@keyframes dayFlip{0%{opacity:.35;transform:rotateX(8deg) translateY(3px)}100%{opacity:1;transform:none}}
-@media(max-width:680px){
-  .day-dashboard{grid-template-columns:1fr}
-  .day-now{min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
-  .day-side{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .day-tool + .day-tool{border-top:0;border-left:1px solid rgba(255,255,255,.07)}
-}
-@media(max-width:430px){
-  .day-now{padding:15px}
-  .day-tool{padding:13px 12px}
-  .day-place{font-size:21px}
-  .day-nearby-badges .day-badge:nth-child(n+3){display:none}
-}
-
-/* =========================================================
-   JOURNEY HEADER
-========================================================= */
-
-.journey-section{
-  margin-top:25px;
-}
-
-.journey-head{
-
-  display:flex;
-
-  align-items:flex-end;
-  justify-content:space-between;
-
-  gap:12px;
-
-  margin-bottom:13px;
-
-}
-
-.journey-eyebrow{
-
-  margin-bottom:6px;
-
-  color:#9ca8b0;
-
-  font-size:7px;
-
-  font-weight:900;
-
-  letter-spacing:.20em;
-
-}
-
-.journey-title{
-
-  color:#faf7f2;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:27px;
-
-  font-weight:700;
-
-  line-height:1;
-
-  letter-spacing:-.02em;
-
-}
-
-.journey-date{
-
-  margin-top:7px;
-
-  color:#78838a;
-
-  font-size:7px;
-
-}
-
-.full-plan{
-
-  flex:0 0 auto;
-
-  min-height:39px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  padding:
-    0
-    15px;
-
-  border:
-    1px solid
-    rgba(255,107,104,.40);
-
-  border-radius:999px;
-
-  background:
-    rgba(255,107,104,.035);
-
-  color:#eca7a3;
-
-  font-size:6px;
-
-  font-weight:900;
-
-  letter-spacing:.05em;
-
-  text-decoration:none;
-
-}
-
-.full-plan span{
-
-  margin-left:6px;
-
-  font-size:14px;
-
-}
-
-
-/* =========================================================
-   JOURNEY CARD
-========================================================= */
-
-.journey-card{
-
-  position:relative;
-
-  --left-pad:16px;
-
-  --marker-col:20px;
-
-  --time-col:78px;
-
-  --column-gap:7px;
-
-  --right-space:42px;
-
-  overflow:hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,.12);
-
-  border-radius:19px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #111920,
-      #090f14
-    );
-
-  box-shadow:
-    0 16px 36px
-    rgba(0,0,0,.19);
-
-}
-
-
-/* =========================================================
-   TIMELINE LINE
-
-   VISUAL CENTER = 25PX
-========================================================= */
-
-.journey-card.has-groups::before{
-  content:"";
-
-  position:absolute;
-
-  top:26px;
-  bottom:26px;
-
-  /* centre the 1px line exactly on the marker axis */
-  left:26px;
-  transform:translateX(-50%);
-
-  width:1px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ff7772,
-      rgba(255,107,104,.48) 42%,
-      rgba(106,122,132,.18)
-    );
-
-  pointer-events:none;
-}
-
-/* =========================================================
-   AREA GROUP
-========================================================= */
-
-.place-group{
-
-  position:relative;
-
-  z-index:1;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.055);
-
-}
-
-.place-group:last-child{
-  border-bottom:0;
-}
-
-
-/* =========================================================
-   GROUP HEADER
-========================================================= */
-
-.place-group-head{
-
-  position:relative;
-
-  width:100%;
-
-  min-height:68px;
-
-  display:grid;
-
-  grid-template-columns:
-    var(--marker-col)
-    var(--time-col)
-    minmax(0,1fr);
-
-  column-gap:var(--column-gap);
-
-  align-items:center;
-
-  padding:
-    10px
-    var(--right-space)
-    10px
-    var(--left-pad);
-
-  border:0;
-
-  background:transparent;
-
-  color:inherit;
-
-  text-align:left;
-
-}
-
-
-/* =========================================================
-   MARKER CONTAINERS
-========================================================= */
-
-.area-marker,
-.place-marker{
-
-  width:var(--marker-col);
-
-  height:100%;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-}
-
-
-/* =========================================================
-   ALL TIMELINE CIRCLES
-
-   EXACTLY THE SAME SIZE + STYLE
-========================================================= */
-
-.area-dot,
-.place-dot{
-
-  position:relative;
-
-  z-index:3;
-
-  width:7px;
-  height:7px;
-
-  min-width:7px;
-  min-height:7px;
-
-  flex:0 0 7px;
-
-  border:
-    1.5px solid
-    #ff716d;
-
-  border-radius:50%;
-
-  background:#10171d;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255,107,104,.055);
-
-}
-
-
-/*
-  Area markers remain hollow even when opened
-*/
-
-.place-group.open
-.area-dot{
-
-  background:#10171d;
-
-}
-
-
-/* =========================================================
-   GROUP TIME
-========================================================= */
-
-.place-group-start{
-
-  width:100%;
-
-  color:#b1bac0;
-
-  font-size:6.4px;
-
-  font-weight:600;
-
-  line-height:1.35;
-
-  white-space:nowrap;
-
-}
-
-
-/* =========================================================
-   GROUP TITLE
-========================================================= */
-
-.place-group-main{
-
-  width:100%;
-
-  min-width:0;
-
-}
-
-.place-group-name{
-
-  color:#f8f5ef;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:13px;
-
-  font-weight:600;
-
-  line-height:1.08;
-
-}
-
-.place-group-meta{
-
-  margin-top:4px;
-
-  color:#707d84;
-
-  font-size:5.5px;
-
-  font-weight:400;
-
-  line-height:1.35;
-
-}
-
-
-/* =========================================================
-   GROUP CHEVRON
-========================================================= */
-
-.place-group-chevron{
-
-  position:absolute;
-
-  top:50%;
-
-  right:17px;
-
-  width:20px;
-  height:20px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  color:#a0a9ae;
-
-  font-size:14px;
-
-  line-height:1;
-
-  transform:
-    translateY(-50%);
-
-  transition:
-    transform .18s;
-
-}
-
-.place-group.open
-.place-group-chevron{
-
-  transform:
-    translateY(-50%)
-    rotate(90deg);
-
-}
-
-
-/* =========================================================
-   PLACE LIST
-========================================================= */
-
-.place-list{
-
-  display:none;
-
-  padding:
-    0
-    0
-    10px
-    var(--left-pad);
-
-}
-
-.place-group.open
-.place-list{
-  display:block;
-}
-
-
-/* =========================================================
-   INDIVIDUAL PLACE ROW
-========================================================= */
-
-.place-row{
-
-  position:relative;
-
-  display:grid;
-
-  grid-template-columns:
-    var(--marker-col)
-    var(--time-col)
-    minmax(0,1fr);
-
-  column-gap:var(--column-gap);
-
-  align-items:center;
-
-  min-height:56px;
-
-  padding:
-    6px
-    var(--right-space)
-    6px
-    0;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.045);
-
-}
-
-
-/* =========================================================
-   ITEM TIME
-========================================================= */
-
-.place-time{
-
-  width:100%;
-
-  color:#9aa5ac;
-
-  font-size:7px;
-
-  font-weight:600;
-
-  line-height:1.35;
-
-  white-space:nowrap;
-
-}
-
-
-/* =========================================================
-   ITEM CONTENT
-========================================================= */
-
-.place-main{
-
-  width:100%;
-
-  min-width:0;
-
-}
-
-.place-name{
-
-  color:#eff1f0;
-
-  font-size:10px;
-
-  /*
-    Keeps Kiyomizu / Sannenzaka from
-    looking heavier than Higashiyama.
-  */
-  font-weight:400;
-
-  line-height:1.35;
-
-}
-
-.place-note{
-
-  margin-top:4px;
-
-  overflow:hidden;
-
-  color:#69757d;
-
-  font-size:7px;
-
-  font-weight:400;
-
-  line-height:1.4;
-
-  display:-webkit-box;
-
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-
-}
-
-
-/* =========================================================
-   FIXED MAP LINK
-========================================================= */
-
-.map-link{
-
-  position:absolute;
-
-  top:50%;
-
-  right:15px;
-
-  width:20px;
-  height:20px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  transform:
-    translateY(-50%);
-
-  text-decoration:none;
-
-  font-size:9px;
-
-  opacity:.72;
-
-}
-
-
-/* =========================================================
-   EMPTY JOURNEY
-========================================================= */
-
-.journey-empty{
-
-  padding:
-    30px
-    18px;
-
-  text-align:center;
-
-}
-
-.journey-empty-title{
-
-  color:#e6e5e1;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:16px;
-
-  font-weight:700;
-
-}
-
-.journey-empty-sub{
-
-  max-width:280px;
-
-  margin:
-    6px
-    auto
-    0;
-
-  color:#707d85;
-
-  font-size:7px;
-
-  line-height:1.55;
-
-}
-
 
 
 /* =========================================================
