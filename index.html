@@ -3945,7 +3945,10 @@ function renderDayNow(position){
   const name=row.title||rowPlace(row)?.name||"Current stop";
   const near=ctx.distance!==null&&ctx.distance<=180;
   const state=near?"NEARBY NOW":"CURRENT JOURNEY";
-  const meta=near?`${distanceLabel(ctx.distance)} · Part of today's journey`:`${timeText(row)} · Guide time`;
+  // Distance is deliberately hidden until the traveller is within 180 m.
+  // Outside that radius the live card stays calm and simply shows journey context.
+  const displayName=near ? `${name} · ${distanceLabel(ctx.distance)}` : name;
+  const meta="Part of today's journey";
   const nextName=ctx.next?(ctx.next.title||rowPlace(ctx.next)?.name||"Next stop"):"";
 
   if(dayTravellerCurrentId!==row.id||near){holder.classList.remove("day-flip");void holder.offsetWidth;holder.classList.add("day-flip");}
@@ -3953,7 +3956,7 @@ function renderDayNow(position){
   holder.innerHTML=`
     <div class="day-kicker">TODAY</div>
     <div class="day-state">${row._booking ? (row._boundary==="arrival"?"ARRIVAL":"DEPARTURE") : state}</div>
-    <div class="day-place">${esc(name)}</div>
+    <div class="day-place">${esc(row._booking ? name : displayName)}</div>
     <div class="day-meta">${esc(row._booking ? ((timeText(row)||"Booked flight")+" · Booked") : meta)}</div>
     <div class="day-actions">${mapsHref(row)?`<a class="day-action primary" href="${esc(mapsHref(row))}" target="_blank" rel="noopener">DIRECTIONS</a>`:""}<a class="day-action" href="schedule.html?trip=${TRIP_ID}">PHOTOS</a></div>
     <div class="day-manual"><button class="done" type="button" onclick="markDayStop('done')">✓ DONE</button><button class="skip" type="button" onclick="markDayStop('skip')">SKIP</button>${dayUndoButton()}</div>
