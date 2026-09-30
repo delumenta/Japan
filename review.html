@@ -81,7 +81,6 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
   <select id="country"><option value="">All countries</option></select>
   <select id="cityFilter">
     <option value="">All cities</option>
-    <option value="kyoto">Kyoto</option>
   </select>
 </div>
 
@@ -424,7 +423,7 @@ function render(){
   const cityFilter=document.getElementById('cityFilter').value;
   const filtered=rows.filter(p=>{
     const hay=[p.name,p.city,p.country,p.place_type].join(' ').toLowerCase();
-    const cityOk=!cityFilter||(cityFilter==='kyoto'&&['kyoto','nagaokakyo'].includes(String(p.city||'').toLowerCase()));
+    const cityOk=!cityFilter||String(p.city||'')===cityFilter;
     return (!q||hay.includes(q))&&(!country||p.country===country)&&cityOk;
   });
   const groups={red:[],yellow:[],green:[],pending:[]};
@@ -853,6 +852,7 @@ async function load(){
   rows=data||[];
   const countries=[...new Set(rows.map(x=>x.country).filter(Boolean))].sort();
   document.getElementById('country').innerHTML='<option value="">All countries</option>'+countries.map(x=>'<option>'+esc(x)+'</option>').join('');
+  populateCityFilter();
   render();
   runAudit();
 }
@@ -860,8 +860,19 @@ window.addEventListener('error',e=>{
   const box=document.getElementById('content');
   if(box&&box.textContent.includes('Loading coordinate review'))box.innerHTML='<div class="empty">Page error: '+esc(e.message||'Unknown error')+' — refresh once after this update.</div>';
 });
+function populateCityFilter(){
+  const country=document.getElementById('country').value;
+  const citySelect=document.getElementById('cityFilter');
+  const previous=citySelect.value;
+  const cities=[...new Set(rows
+    .filter(p=>!country||p.country===country)
+    .map(p=>p.city)
+    .filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  citySelect.innerHTML='<option value="">All cities</option>'+cities.map(city=>'<option value="'+esc(city)+'">'+esc(city)+'</option>').join('');
+  if(cities.includes(previous))citySelect.value=previous;
+}
 document.getElementById('search').addEventListener('input',render);
-document.getElementById('country').addEventListener('change',render);
+document.getElementById('country').addEventListener('change',()=>{populateCityFilter();render();});
 document.getElementById('cityFilter').addEventListener('change',render);
 load().catch(e=>{
   console.error(e);
