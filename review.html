@@ -79,6 +79,10 @@ main{padding:14px 20px 24px}.section{margin-bottom:14px;border:1px solid var(--l
 <div class="toolbar">
   <input id="search" type="search" placeholder="Search place, city, country…">
   <select id="country"><option value="">All countries</option></select>
+  <select id="cityFilter">
+    <option value="">All cities</option>
+    <option value="kyoto">Kyoto</option>
+  </select>
 </div>
 
 <div class="legend">
@@ -417,9 +421,11 @@ async function deletePlace(id,button){
 function render(){
   const q=document.getElementById('search').value.trim().toLowerCase();
   const country=document.getElementById('country').value;
+  const cityFilter=document.getElementById('cityFilter').value;
   const filtered=rows.filter(p=>{
     const hay=[p.name,p.city,p.country,p.place_type].join(' ').toLowerCase();
-    return (!q||hay.includes(q))&&(!country||p.country===country);
+    const cityOk=!cityFilter||(cityFilter==='kyoto'&&['kyoto','nagaokakyo'].includes(String(p.city||'').toLowerCase()));
+    return (!q||hay.includes(q))&&(!country||p.country===country)&&cityOk;
   });
   const groups={red:[],yellow:[],green:[],pending:[]};
   filtered.forEach(p=>{
@@ -798,6 +804,7 @@ window.addEventListener('error',e=>{
 });
 document.getElementById('search').addEventListener('input',render);
 document.getElementById('country').addEventListener('change',render);
+document.getElementById('cityFilter').addEventListener('change',render);
 load().catch(e=>{
   console.error(e);
   document.getElementById('content').innerHTML='<div class="empty">Could not load coordinate review: '+esc(e.message||e)+'</div>';
