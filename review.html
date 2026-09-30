@@ -105,7 +105,7 @@ const SUPABASE_URL="https://zngncasvdrrxyrkjqutj.supabase.co";
 const SUPABASE_KEY="sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const CACHE_KEY="travelite.coordinateAudit.v9";
+const CACHE_KEY="travelite.coordinateAudit.v10";
 let rows=[];
 let auditCache={};
 try{
@@ -596,22 +596,54 @@ async function osmSearch(q,p){
     title:x.display_name,osmType:x.osm_type,osmId:x.osm_id
   }));
 }
+async function photonSearch(q,p){
+  const params=new URLSearchParams({q:[q,p.city,p.prefecture,'Japan'].filter(Boolean).join(' '),limit:'10'});
+  const res=await fetchWithTimeout('https://photon.komoot.io/api/?'+params.toString(),{headers:{'Accept-Language':'en'}},6500);
+  if(!res.ok)return [];
+  const json=await res.json();
+  const aliases=SEARCH_ALIASES[String(p.name||'').toLowerCase()]||[];
+  return (json?.features||[]).filter(f=>{
+    const props=f.properties||{};
+    const country=String(props.country||'').toLowerCase();
+    if(country&&country!=='japan'&&country!=='jp')return false;
+    const candidate=props.name||props.street||'';
+    return plausibleName(p,candidate)||aliases.some(a=>plausibleName(a,candidate));
+  }).map(f=>({
+    source:'OpenStreetMap',lat:Number(f.geometry?.coordinates?.[1]),lng:Number(f.geometry?.coordinates?.[0]),
+    title:[f.properties?.name,f.properties?.city,f.properties?.state].filter(Boolean).join(', '),
+    osmType:f.properties?.osm_type||'photon',osmId:f.properties?.osm_id
+  }));
+}
 async function osmCheck(p){
   let candidates=[];
-  for(const q of uniqueQueries(p)){
+  let nominatimFailures=0;
+  const queries=uniqueQueries(p).slice(0,6);
+  for(const q of queries){
     try{
       const got=await osmSearch(q,p);
       candidates.push(...got);
       if(candidates.length>=10)break;
-      await new Promise(r=>setTimeout(r,450));
-    }catch(_){}
+      await new Promise(r=>setTimeout(r,900));
+    }catch(_){
+      nominatimFailures++;
+    }
   }
-  // Name search can miss entrances, decks, alleys and locally named POIs.
-  // If it does, use OSM reverse lookup around the already-known coordinate.
+  // Fallback: Photon searches the OpenStreetMap dataset through a different
+  // endpoint, so a Nominatim timeout does not become a false "No match".
+  if(!candidates.length){
+    for(const q of queries.slice(0,4)){
+      try{
+        const got=await photonSearch(q,p);
+        candidates.push(...got);
+        if(candidates.length>=6)break;
+      }catch(_){}
+    }
+  }
+  // If a primary coordinate already exists, reverse lookup remains a final fallback.
   if(!candidates.length&&p.latitude!=null&&p.longitude!=null){
     try{
       const params=new URLSearchParams({format:'jsonv2',lat:String(p.latitude),lon:String(p.longitude),zoom:'18',addressdetails:'1'});
-      const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/reverse?'+params.toString(),{headers:{'Accept-Language':'en'}},4500);
+      const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/reverse?'+params.toString(),{headers:{'Accept-Language':'en'}},6500);
       if(res.ok){
         const x=await res.json();
         if(x&&x.lat!=null&&x.lon!=null)candidates.push({
@@ -622,8 +654,10 @@ async function osmCheck(p){
     }catch(_){}
   }
   const seen=new Map();
-  for(const x of candidates)seen.set(x.osmType+':'+x.osmId,x);
-  return chooseNearest(p,[...seen.values()],500);
+  for(const x of candidates)seen.set((x.osmType||'osm')+':'+(x.osmId??x.lat+','+x.lng),x);
+  const result=chooseNearest(p,[...seen.values()],p.latitude==null?25000:500);
+  if(result)result.lookupFallback=nominatimFailures>0?'Photon fallback':null;
+  return result;
 }
 async function storeCoordinates(p,result){
   if(!result||result.lat==null||result.lng==null)return false;
@@ -669,7 +703,7 @@ async function checkOne(p){
   let wikidata=null,osm=null,wdError=null,osmError=null;
   try{wikidata=await withDeadline(wikidataCheck(p),12000,'Wikidata')}catch(err){wdError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
   auditCache[key]={...auditCache[key],wikidataState:wikidata?'found':'done',wikidata:wikidata||null,osmState:'checking'};
-  try{osm=await withDeadline(osmCheck(p),12000,'OSM')}catch(err){osmError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
+  try{osm=await withDeadline(osmCheck(p),30000,'OSM + fallback')}catch(err){osmError=err?.name==='AbortError'?'timeout':String(err?.message||err)}
   const classified=classifyResults(p,wikidata,osm);
   auditCache[key]={
     ...classified,
