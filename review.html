@@ -473,16 +473,37 @@ async function fetchWithTimeout(url,options={},timeoutMs=9000){
     clearTimeout(timer);
   }
 }
+const SEARCH_ALIASES={
+  'funaya-no-sato park':['Funaya no Sato Park','舟屋の里公園','Ine Funaya no Sato'],
+  'ine bay sightseeing boat':['Ine Bay Cruise','伊根湾めぐり遊覧船','Ine sightseeing boat'],
+  'mt rokko':['Mount Rokko','Rokko-san','六甲山'],
+  'motoise kono shrine':['Kono Shrine','Moto-Ise Kono Shrine','籠神社'],
+  'chii hachiman shrine':['Chii Hachiman Jinja','知井八幡神社'],
+  'miyama folk museum':['Miyama Folk Museum Kayabuki no Sato','美山民俗資料館'],
+  'miyama kayabuki-no-sato':['Kayabuki no Sato','Miyama Kayabuki no Sato','かやぶきの里'],
+  'azuchi castle ruins':['Azuchi Castle','安土城跡'],
+  'himure hachimangu':['Himure Hachiman-gu','日牟禮八幡宮'],
+  'mt hachiman ropeway':['Hachimanyama Ropeway','Hachiman-yama Ropeway','八幡山ロープウェー'],
+  'biwako valley / biwako terrace':['Biwako Valley','Biwako Terrace','びわ湖バレイ','びわ湖テラス'],
+  'sakamoto historic area':['Sakamoto Otsu','坂本'],
+  'dokanzaka':['Dokan-zaka','土管坂'],
+  'inax live museum':['INAX Museums','INAX MUSEUMS','INAXライブミュージアム'],
+  'mentai park tokoname':['Mentai Park','めんたいパークとこなめ'],
+  'tokoname pottery footpath':['Tokoname Pottery Path','Pottery Footpath','やきもの散歩道'],
+  'byodo-in omotesando':['Byodoin Omotesando','Byodo-in Omotesando Street','平等院表参道']
+};
 function uniqueQueries(p){
   const name=cleanSearchName(p.name);
   const local=cleanSearchName(p.name_japanese||p.local_name||'');
-  return [...new Set([
-    name,
-    [name,p.city].filter(Boolean).join(' '),
-    [name,p.country].filter(Boolean).join(' '),
-    local,
-    [local,p.city].filter(Boolean).join(' ')
-  ].filter(Boolean))];
+  const aliases=SEARCH_ALIASES[String(p.name||'').toLowerCase()]||[];
+  const geography=[p.area,p.city,p.prefecture,'Japan'].filter(Boolean);
+  const bases=[name,local,...aliases].filter(Boolean);
+  const queries=[];
+  for(const base of bases){
+    queries.push(base);
+    for(const geo of geography)queries.push([base,geo].filter(Boolean).join(' '));
+  }
+  return [...new Set(queries.filter(Boolean))];
 }
 function candidateDistance(p,lat,lng){
   if(p.latitude==null||p.longitude==null)return null;
@@ -522,7 +543,7 @@ function chooseNearest(p,list,maxMeters=25000){
 }
 async function wikidataCheck(p){
   const found=new Map();
-  for(const q of uniqueQueries(p).slice(0,3)){
+  for(const q of uniqueQueries(p)){
     try{
       const url='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=en&uselang=en&type=item&limit=10&format=json&origin=*';
       const res=await fetchWithTimeout(url,{},4000);
@@ -541,7 +562,8 @@ async function wikidataCheck(p){
       const ej=await er.json();
       const ent=ej?.entities?.[hit.id];
       const candidateText=hit.label||'';
-      if(!plausibleName(p,candidateText))continue;
+      const aliases=SEARCH_ALIASES[String(p.name||'').toLowerCase()]||[];
+      if(!plausibleName(p,candidateText)&&!aliases.some(a=>plausibleName(a,candidateText)))continue;
       const vals=ent?.claims?.P625||[];
       for(const claim of vals){
         const v=claim?.mainsnak?.datavalue?.value;
@@ -556,7 +578,7 @@ async function wikidataCheck(p){
   return chooseNearest(p,candidates);
 }
 async function osmSearch(q,p){
-  const params=new URLSearchParams({format:'jsonv2',limit:'10',q,addressdetails:'1'});
+  const params=new URLSearchParams({format:'jsonv2',limit:'10',q,addressdetails:'1',countrycodes:'jp'});
   if(p.latitude!=null&&p.longitude!=null){
     const lat=Number(p.latitude),lng=Number(p.longitude);
     params.set('viewbox',(lng-.35)+','+(lat+.35)+','+(lng+.35)+','+(lat-.35));
@@ -565,14 +587,18 @@ async function osmSearch(q,p){
   const res=await fetchWithTimeout('https://nominatim.openstreetmap.org/search?'+params.toString(),{headers:{'Accept-Language':'en'}},4500);
   if(!res.ok)return [];
   const json=await res.json();
-  return (json||[]).filter(x=>plausibleName(p,x.name||String(x.display_name||'').split(',')[0])).map(x=>({
+  const aliases=SEARCH_ALIASES[String(p.name||'').toLowerCase()]||[];
+  return (json||[]).filter(x=>{
+    const candidate=x.name||String(x.display_name||'').split(',')[0];
+    return plausibleName(p,candidate)||aliases.some(a=>plausibleName(a,candidate));
+  }).map(x=>({
     source:'OpenStreetMap',lat:Number(x.lat),lng:Number(x.lon),
     title:x.display_name,osmType:x.osm_type,osmId:x.osm_id
   }));
 }
 async function osmCheck(p){
   let candidates=[];
-  for(const q of uniqueQueries(p).slice(0,3)){
+  for(const q of uniqueQueries(p)){
     try{
       const got=await osmSearch(q,p);
       candidates.push(...got);
@@ -786,7 +812,7 @@ async function load(){
     if(bar)bar.innerHTML='Review works without login. To save coordinate changes, <a href="login.html" style="color:#a9cbff;text-decoration:underline">sign in</a>.';
   }
   const {data,error}=await db.from('places')
-    .select('id,name,city,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_source_id,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_match_status,osm_checked_at,wikidata_latitude,wikidata_longitude,wikidata_id,wikidata_name,wikidata_distance_m,wikidata_match_status,wikidata_checked_at')
+    .select('id,name,name_japanese,city,prefecture,area,address,country,place_type,latitude,longitude,coordinate_status,coordinate_source,coordinate_source_id,coordinate_checked_at,coordinate_review_reason,osm_latitude,osm_longitude,osm_type,osm_id,osm_name,osm_distance_m,osm_match_status,osm_checked_at,wikidata_latitude,wikidata_longitude,wikidata_id,wikidata_name,wikidata_distance_m,wikidata_match_status,wikidata_checked_at')
     .order('country').order('city').order('name');
   if(error){
     document.getElementById('content').innerHTML='<div class="empty">Could not load places: '+esc(error.message)+'</div>';
