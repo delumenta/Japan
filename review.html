@@ -801,17 +801,15 @@ async function checkOne(p){
 }
 async function runAudit(){
   const stale=rows.filter(p=>{
-    if(String(p.coordinate_source||'').toLowerCase()==='manual')return false;
-    const a=auditOf(p);
-    const dbHasIndependent =
-      (p.osm_latitude!=null && p.osm_longitude!=null) ||
-      (p.wikidata_latitude!=null && p.wikidata_longitude!=null);
-    const dbPrimaryIndependent =
-      ['openstreetmap','wikidata'].includes(String(p.coordinate_source||'').toLowerCase());
-    // localStorage is only a UI cache. A previous green result is NOT complete
-    // until the independent result has actually been persisted to Supabase.
-    if(!dbHasIndependent || (a?.status==='green' && !dbPrimaryIndependent))return true;
-    return !a||a.state==='checking'||a.status==='pending'||!a.checkedAt||(Date.now()-a.checkedAt)>30*24*60*60*1000;
+    const source=String(p.coordinate_source||'').toLowerCase();
+    // Supabase is the source of truth. Never re-run a network audit merely
+    // because the browser cache was cleared/versioned.
+    if(['manual','google_verified'].includes(source))return false;
+    if(p.osm_latitude!=null && p.osm_longitude!=null)return false;
+    if(p.wikidata_latitude!=null && p.wikidata_longitude!=null)return false;
+    if(['openstreetmap','wikidata'].includes(source) && p.latitude!=null && p.longitude!=null)return false;
+    // Only unresolved rows with no persisted independent coordinate are checked.
+    return true;
   });
   const bar=document.getElementById('auditBar');
   if(!stale.length){
