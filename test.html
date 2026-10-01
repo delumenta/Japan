@@ -23,7 +23,7 @@ async function loadPlaces(){if(places.length)return;var r=await fetch(SB+'/rest/
 function findPlace(q){var nq=norm(q),best=null,score=0;if(!nq)return null;places.forEach(function(p){var n=norm(p.name),s=0;if(!n)return;if(n===nq)s=100;else if(nq.length>=3&&n.length>=3&&(n.indexOf(nq)>=0||nq.indexOf(n)>=0))s=90;else{var a=nq.split(' '),b=n.split(' '),hit=a.filter(function(x){return b.indexOf(x)>=0}).length;s=80*hit/Math.max(a.length,b.length,1)}if(s>score){score=s;best=p}});return score>=52?best:null}
 function mins(p){var a=Number(p.estimated_minutes_min)||60,b=Number(p.estimated_minutes_max)||a;return Math.round((a+b)/2)}
 function clock(m){var h=Math.floor(m/60)%24,mm=m%60;return String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0')}
-function baseFor(iso,bs){var hit=bs.find(function(b){return b.from<=iso&&b.to>=iso});if(hit)return hit;if(!bs.length)return null;if(iso<bs[0].from)return bs[0];if(iso>bs[bs.length-1].to)return bs[bs.length-1];return null}
+function baseFor(iso,bs){var hits=bs.filter(function(b){return b.from<=iso&&b.to>=iso});if(hits.length)return hits[hits.length-1];if(!bs.length)return null;if(iso<bs[0].from)return bs[0];if(iso>bs[bs.length-1].to)return bs[bs.length-1];return null}
 function destinationCity(p){
  var city=String(p.city||'');
  var area=String(p.area||'');
