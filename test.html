@@ -39,12 +39,16 @@ function destinationCity(p){
  return city;
 }
 var transportGraph={anchors:[],estimates:[]};
+async function sbRows(table,query){var r=await fetch(SB+'/rest/v1/'+table+'?'+query,{headers:{apikey:KEY,Authorization:'Bearer '+KEY}});if(!r.ok)throw new Error(table+' '+r.status);return r.json()}
 async function loadTransportGraph(){
  try{
-  var ar=await sbGet('destination_transport_anchors','select=id,destination_id,name,priority&active=eq.true');
-  var er=await sbGet('destination_travel_estimates','select=from_anchor_id,to_anchor_id,typical_minutes&active=eq.true');
-  transportGraph={anchors:ar||[],estimates:er||[]};
- }catch(e){console.warn('transport graph unavailable',e);transportGraph={anchors:[],estimates:[]}}
+  var all=await Promise.all([
+   sbRows('destinations','select=id,name,slug,country&country=eq.Japan&status=eq.active'),
+   sbRows('destination_transport_anchors','select=id,destination_id,name,priority&active=eq.true'),
+   sbRows('destination_travel_estimates','select=from_anchor_id,to_anchor_id,typical_minutes&active=eq.true')
+  ]);
+  window.destinationRows=all[0]||[];transportGraph={anchors:all[1]||[],estimates:all[2]||[]};
+ }catch(e){console.warn('transport graph unavailable',e);window.destinationRows=[];transportGraph={anchors:[],estimates:[]}}
 }
 function graphMinutes(fromId,toId){
  if(String(fromId)===String(toId))return 0;
@@ -68,6 +72,18 @@ function chooseDaysForCity(city,days){
  if(exact.length)return exact;
  return days.filter(function(d){return d.base&&canDayTrip(d.base.city,city)});
 }
+function transferMinutesForDay(day,days){
+ var i=days.indexOf(day);if(i<=0||!day.base)return 0;
+ var prev=days[i-1].base;if(!prev||norm(prev.city)===norm(day.base.city))return 0;
+ var a=destinationRecordForCity(prev.city),b=destinationRecordForCity(day.base.city);
+ return a&&b?(graphMinutes(a.id,b.id)||0):0;
+}
+function dayTripMinutes(day){
+ var targets=Array.from(new Set(day.items.map(function(p){return destinationCity(p)}).filter(function(x){return x&&norm(x)!==norm(day.base.city)})));
+ if(!targets.length)return 0;
+ var b=destinationRecordForCity(day.base.city);if(!b)return 0;
+ return targets.reduce(function(sum,x){var t=destinationRecordForCity(x),m=t&&graphMinutes(b.id,t.id);return sum+(m?m*2:0)},0);
+}
 function buildSchedule(){
  var bs=cityRows(),a=new Date(el('start').value+'T00:00:00'),end=new Date(el('end').value+'T00:00:00'),days=[];
  while(a<=end){var iso=a.toISOString().slice(0,10);days.push({date:new Date(a),iso:iso,base:baseFor(iso,bs),items:[]});a.setDate(a.getDate()+1)}
@@ -86,7 +102,7 @@ function buildSchedule(){
    var title='Day '+(i+1)+' · '+d.date.toLocaleDateString('en-SG',{weekday:'short',day:'numeric',month:'short'});
    if(!d.base)return '<div class="card"><div class="dayhead"><b>'+title+'</b><span class="tag">No base</span></div></div>';
    if(!d.items.length)return '<div class="card"><div class="dayhead"><b>'+title+'</b><span class="tag">'+safe(d.base.city)+'</span></div><div class="meta">Free day · no POIs assigned</div></div>';
-   var t=540,body='';var tripTargets=Array.from(new Set(d.items.map(function(p){return destinationCity(p)}).filter(function(x){return x&&norm(x)!==norm(d.base.city)})));if(tripTargets.length)body+='<div class="meta" style="margin:8px 0 10px">Day trip from '+safe(d.base.city)+' → '+safe(tripTargets.join(' / '))+'</div>';
+   var transfer=transferMinutesForDay(d,days),t=540+transfer,body='';if(transfer)body+='<div class="meta" style="margin:8px 0 10px">Base transfer → '+safe(d.base.city)+' · ~'+transfer+' min intercity</div>';var tripTargets=Array.from(new Set(d.items.map(function(p){return destinationCity(p)}).filter(function(x){return x&&norm(x)!==norm(d.base.city)})));if(tripTargets.length){var dt=dayTripMinutes(d);body+='<div class="meta" style="margin:8px 0 10px">Day trip from '+safe(d.base.city)+' → '+safe(tripTargets.join(' / '))+(dt?' · ~'+dt+' min return transport':'')+'</div>';if(dt)t+=Math.round(dt/2);}
    d.items.forEach(function(p,j){
      if(j>0)t+=30;
      if(t>=720&&t<780){body+='<div class="timeitem"><div class="time">12:00</div><div><b>Lunch / break</b><div class="meta">60 min</div></div></div>';t=780}
@@ -94,6 +110,7 @@ function buildSchedule(){
      body+='<div class="timeitem"><div class="time">'+clock(t)+'</div><div><b>'+safe(p.name)+'</b><div class="meta">'+safe(p.area||p.region||p.city)+' · ~'+dur+' min'+(p.visit_behavior?' · '+safe(p.visit_behavior):'')+'</div></div></div>';
      t+=dur;
    });
+   if(tripTargets.length){var ret=dayTripMinutes(d);if(ret)t+=Math.round(ret/2);}
    return '<div class="card"><div class="dayhead"><b>'+title+'</b><span class="tag">'+safe(d.base.city)+'</span></div>'+body+'</div>';
  }).join('');
  show(5);
