@@ -3837,7 +3837,9 @@ function syncPlanModeLinks(){
 ========================================================= */
 
 async function loadData(){
-  await loadTraveliteTransportGraph();
+  // Transport intelligence must never block the core itinerary from loading.
+  // Load it in parallel; the normal schedule remains usable if the graph is slow/unavailable.
+  loadTraveliteTransportGraph().catch(e=>console.warn("Travelite transport graph preload failed",e));
 
   try{
 
