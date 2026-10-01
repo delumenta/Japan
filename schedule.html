@@ -4541,6 +4541,51 @@ function bookingScheduleItem(booking){
   };
 }
 
+/* =========================================================
+   TRAVELITE DESTINATION / BASE ROUTING
+   A destination is not permanently a "base" or "day trip".
+   The current trip decides its role. Existing schedule rows keep
+   their dates; this helper is for planner/build flows that need to
+   choose the best base before writing a schedule row.
+========================================================= */
+function traveliteMinutesBetween(a,b){
+  if(!a||!b||a.latitude==null||a.longitude==null||b.latitude==null||b.longitude==null)return null;
+  const R=6371,rad=v=>Number(v)*Math.PI/180;
+  const dLat=rad(b.latitude-a.latitude),dLon=rad(b.longitude-a.longitude);
+  const x=Math.sin(dLat/2)**2+Math.cos(rad(a.latitude))*Math.cos(rad(b.latitude))*Math.sin(dLon/2)**2;
+  const km=R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  /* conservative inter-city rail/transit estimate; routing data can override this */
+  return Math.round(25+(km/90)*60);
+}
+function traveliteDayTripFit({outboundMinutes=0,returnMinutes=outboundMinutes,sceneMinutes=0,transferMinutes=30,mealMinutes=60,maxDayMinutes=540}={}){
+  const total=outboundMinutes+returnMinutes+sceneMinutes+transferMinutes+mealMinutes;
+  return {fits:total<=maxDayMinutes,totalMinutes:total,remainingMinutes:Math.max(0,maxDayMinutes-outboundMinutes-returnMinutes-transferMinutes-mealMinutes)};
+}
+function traveliteChooseBase(target,bases,relationshipRows=[]){
+  if(!target||!bases?.length)return null;
+  const targetName=norm(target.name||target.city||target.slug);
+  const exact=bases.find(b=>norm(b.name||b.city||b.slug)===targetName);
+  if(exact)return {base:exact,role:"base",reason:"destination_is_trip_base",travelMinutes:0};
+  const candidates=bases.map(base=>{
+    const rel=relationshipRows.find(r=>{
+      const from=norm(r.base_name||r.base_city||r.base_destination_name||r.base_slug);
+      const to=norm(r.target_name||r.destination_city||r.target_destination_name||r.target_slug);
+      return from===norm(base.name||base.city||base.slug)&&to===targetName;
+    });
+    const travelMinutes=Number(rel?.one_way_minutes||rel?.travel_minutes)||traveliteMinutesBetween(base,target);
+    if(travelMinutes==null)return null;
+    return {base,role:"day_trip",relationship:rel||null,travelMinutes};
+  }).filter(Boolean).sort((a,b)=>a.travelMinutes-b.travelMinutes);
+  return candidates[0]||null;
+}
+function traveliteAssignDestination({target,bases,relationshipRows=[],sceneMinutes=0,maxDayMinutes=540}={}){
+  const choice=traveliteChooseBase(target,bases,relationshipRows);
+  if(!choice)return {assignable:false,reason:"no_reachable_base"};
+  if(choice.role==="base")return {...choice,assignable:true,fit:{fits:true,totalMinutes:sceneMinutes,remainingMinutes:maxDayMinutes-sceneMinutes}};
+  const fit=traveliteDayTripFit({outboundMinutes:choice.travelMinutes,sceneMinutes,maxDayMinutes});
+  return {...choice,assignable:fit.fits,reason:fit.fits?"day_trip_fits":"exceeds_day_limit",fit};
+}
+
 function buildDays(){
 
   groupedDays = {};
