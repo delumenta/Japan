@@ -34,28 +34,29 @@ Kifune Shrine</textarea>
 <div class="card"><b>＋ Upload itinerary screenshot</b><div class="note">Test screen only — demonstrates the intended import entry point.</div></div>
 <div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">Build cards</button></div></section>
 
-<section class="screen hidden" data-step="4"><h1>Travelite makes scenes first.</h1><p>No dates yet. Nearby places that belong to the same outing become a card. Your selected places are protected anchors.</p>
-<div class="day"><b>Fushimi scene</b><span>Fushimi Inari · early morning preferred</span></div>
-<div class="day"><b>Arashiyama scene</b><span>Bamboo Grove · morning-sensitive</span></div>
-<div class="day"><b>Higashiyama scene</b><span>Kiyomizu-dera → Gion</span></div>
-<div class="day"><b>Nanzenji corridor</b><span>Nanzen-ji → Philosopher's Path</span></div>
-<div class="day"><b>Kibune scene</b><span>Kifune Shrine · return transport needs checking</span></div>
+<section class="screen hidden" data-step="4"><h1>Travelite makes scenes first.</h1><p>No dates yet. This mockup now uses only the places you entered. Supabase matching and real constraint logic will be layered on next.</p>
+<div id="sceneList"></div>
 <div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">Balance my days</button></div></section>
 
-<section class="screen hidden" data-step="5"><h1>Then it balances the cards.</h1><p>Travelite checks travel, duration, opening/access constraints and timing before assigning scenes to dates.</p>
-<div class="card"><span class="pill">GREEN · CHILL</span><b style="display:block;margin-top:10px">Higashiyama + Gion</b><div class="note">Natural walking scene. Flexible finish.</div></div>
-<div class="card"><span class="pill">YELLOW · ACTIVE</span><b style="display:block;margin-top:10px">Fushimi + Arashiyama</b><div class="note">Early start. Travel between scenes matters.</div></div>
-<div class="card"><span class="pill">GREEN · CHILL</span><b style="display:block;margin-top:10px">Nanzenji corridor</b></div>
-<div class="card"><span class="pill">YELLOW · CHECK</span><b style="display:block;margin-top:10px">Kibune</b><div class="note">Transport constraint must work for the chosen date.</div></div>
+<section class="screen hidden" data-step="5"><h1>Then it balances the cards.</h1><p>For now, the mock balance is generated only from your entered POIs. Nothing new is inserted.</p>
+<div id="balanceList"></div>
 <div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">See trip</button></div></section>
 
-<section class="screen hidden" data-step="6"><h1>Your first trip is ready.</h1><p>The result is editable. Travelite suggests structure; it doesn't silently add or remove your places.</p>
-<div class="day"><b>Day 1 · Higashiyama</b><span>Kiyomizu-dera → Gion</span></div>
-<div class="day"><b>Day 2 · Fushimi + Arashiyama</b><span>Timing-aware arrangement</span></div>
-<div class="day"><b>Day 3 · Nanzenji</b><span>Nanzen-ji → Philosopher's Path</span></div>
-<div class="day"><b>Day 4 · Kibune</b><span>Verify transport before locking</span></div>
-<div class="card"><b>You still have space.</b><div class="note">Travelite can suggest a Kyoto scene, a qualifying day trip, or simply leave the day free.</div></div>
+<section class="screen hidden" data-step="6"><h1>Your first trip is ready.</h1><p>Every place below came from your own input. Travelite has not silently added any POIs.</p>
+<div id="tripList"></div>
+<div class="card"><b>Prototype note</b><div class="note">Next step: match these names to Supabase so area, duration, coordinates and constraints can drive the real grouping and balancing.</div></div>
 <div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="restart()">Restart test</button></div></section>
 </main><script>
-let step=1;function show(){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('hidden',+x.dataset.step!==step));document.getElementById('stepLabel').textContent='FIRST TRIP · '+step+' OF 6';document.getElementById('progress').style.width=(step/6*100)+'%';scrollTo(0,0)}function next(){if(step<6)step++;show()}function back(){if(step>1)step--;show()}function restart(){step=1;show()}function pick(el){el.parentNode.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+let step=1;
+function getPois(){return document.getElementById('pois').value.split(/\n|,/).map(x=>x.trim()).filter(Boolean)}
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function renderDynamic(){
+ const pois=getPois();
+ const scene=document.getElementById('sceneList'), balance=document.getElementById('balanceList'), trip=document.getElementById('tripList');
+ if(scene) scene.innerHTML=pois.length?pois.map((p,i)=>'<div class="day"><b>Scene '+(i+1)+'</b><span>'+esc(p)+'</span></div>').join(''):'<div class="card"><b>No places entered.</b><div class="note">Go back and add at least one POI.</div></div>';
+ if(balance) balance.innerHTML=pois.length?pois.map((p,i)=>'<div class="card"><span class="pill">UNASSESSED</span><b style="display:block;margin-top:10px">'+esc(p)+'</b><div class="note">Awaiting Supabase area / duration / constraint data.</div></div>').join(''):'<div class="card">No POIs to balance.</div>';
+ if(trip) trip.innerHTML=pois.length?pois.map((p,i)=>'<div class="day"><b>Day '+(i+1)+'</b><span>'+esc(p)+'</span></div>').join(''):'<div class="card">No trip generated.</div>';
+}
+function show(){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('hidden',+x.dataset.step!==step));document.getElementById('stepLabel').textContent='FIRST TRIP · '+step+' OF 6';document.getElementById('progress').style.width=(step/6*100)+'%';if(step>=4)renderDynamic();scrollTo(0,0)}
+function next(){if(step<6)step++;show()}function back(){if(step>1)step--;show()}function restart(){step=1;show()}function pick(el){el.parentNode.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
 </script></body></html>
