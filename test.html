@@ -38,15 +38,30 @@ function destinationCity(p){
  if(all.indexOf('nagoya')>=0)return 'Nagoya';
  return city;
 }
+var transportGraph={anchors:[],estimates:[]};
+async function loadTransportGraph(){
+ try{
+  var ar=await sbGet('destination_transport_anchors','select=id,destination_id,name,priority&active=eq.true');
+  var er=await sbGet('destination_travel_estimates','select=from_anchor_id,to_anchor_id,typical_minutes&active=eq.true');
+  transportGraph={anchors:ar||[],estimates:er||[]};
+ }catch(e){console.warn('transport graph unavailable',e);transportGraph={anchors:[],estimates:[]}}
+}
+function graphMinutes(fromId,toId){
+ if(String(fromId)===String(toId))return 0;
+ var starts=transportGraph.anchors.filter(function(a){return String(a.destination_id)===String(fromId)}).map(function(a){return a.id});
+ var goals=transportGraph.anchors.filter(function(a){return String(a.destination_id)===String(toId)}).map(function(a){return a.id});
+ if(!starts.length||!goals.length)return null;
+ var dist={},q=starts.map(function(id){dist[id]=0;return [0,id]});
+ while(q.length){q.sort(function(a,b){return a[0]-b[0]});var cur=q.shift(),d=cur[0],u=cur[1];if(d!==dist[u])continue;if(goals.indexOf(u)>=0)return Math.round(d);
+  transportGraph.estimates.filter(function(x){return x.from_anchor_id===u}).forEach(function(x){var nd=d+Number(x.typical_minutes||9999);if(nd<(dist[x.to_anchor_id]??Infinity)){dist[x.to_anchor_id]=nd;q.push([nd,x.to_anchor_id])}});
+ } return null;
+}
+function destinationRecordForCity(city){return (window.destinationRows||[]).find(function(d){return norm(d.name)===norm(city)})||null}
 function canDayTrip(base,target){
- var b=norm(base),t=norm(target);
- if(b===t)return true;
- var map={
-   kyoto:['osaka','nara','uji','kobe','himeji'],
-   osaka:['kyoto','nara','kobe','himeji','uji'],
-   nagoya:['kyoto']
- };
- return (map[b]||[]).indexOf(t)>=0;
+ var b=destinationRecordForCity(base),t=destinationRecordForCity(target);
+ if(!b||!t)return false;
+ var m=graphMinutes(b.id,t.id);
+ return m!=null && (m*2)<540;
 }
 function chooseDaysForCity(city,days){
  var exact=days.filter(function(d){return d.base&&norm(d.base.city)===norm(city)});
@@ -88,5 +103,7 @@ el('next3').onclick=function(){var matched=resolved.filter(function(r){return r.
 el('next4').onclick=buildSchedule;
 Array.prototype.forEach.call(document.querySelectorAll('.back'),function(b){b.onclick=function(){show(step-1)}});
 addCity('Kyoto',el('start').value,el('end').value);
+
+loadTransportGraph();
 })();
 </script></body></html>
