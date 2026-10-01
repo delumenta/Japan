@@ -4564,21 +4564,6 @@ function traveliteDayTripFit({outboundMinutes=0,returnMinutes=outboundMinutes,sc
   const total=outboundMinutes+returnMinutes+sceneMinutes+transferMinutes+mealMinutes;
   return {fits:total<=maxDayMinutes,totalMinutes:total,remainingMinutes:Math.max(0,maxDayMinutes-outboundMinutes-returnMinutes-transferMinutes-mealMinutes)};
 }
-function traveliteBaseForDate(date,bases=[]){
-  const hits=bases.filter(b=>(b.from||b.start_date||"")<=date&&(b.to||b.end_date||"")>=date);
-  return hits.length?hits[hits.length-1]:null; // shared boundary belongs to incoming base
-}
-function traveliteTransferForDate(date,bases=[]){
-  const current=traveliteBaseForDate(date,bases);if(!current)return null;
-  const ordered=bases.slice().sort((a,b)=>String(a.from||a.start_date||"").localeCompare(String(b.from||b.start_date||"")));
-  const i=ordered.indexOf(current);if(i<=0)return null;
-  const previous=ordered[i-1];
-  if(norm(previous.name||previous.city||previous.slug)===norm(current.name||current.city||current.slug))return null;
-  const fromId=previous.destination_id??previous.id,toId=current.destination_id??current.id;
-  const minutes=(fromId!=null&&toId!=null)?traveliteGraphMinutes(fromId,toId):null;
-  return {from:previous,to:current,minutes,kind:"base_transfer",returnRequired:false};
-}
-
 let traveliteTransportGraph={anchors:[],estimates:[]};
 async function loadTraveliteTransportGraph(){
   try{
