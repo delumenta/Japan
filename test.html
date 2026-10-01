@@ -1,56 +1,54 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Travelite — First Trip Test</title>
-<!-- redeploy 2026-10-01 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Travelite — Real App Demo</title>
 <style>
-:root{--bg:#0b0c0e;--card:#15171b;--soft:#202329;--text:#f5f1ed;--muted:#9c9da2;--red:#e54848;--line:#2b2e34}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}.wrap{max-width:480px;margin:auto;min-height:100vh;padding:22px 18px 90px}
+:root{--bg:#0b0c0e;--card:#15171b;--soft:#202329;--text:#f5f1ed;--muted:#a6a7ad;--red:#eb474b;--line:#2b2e34;--green:#64c58a;--amber:#e5b85c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}.wrap{max-width:520px;margin:auto;min-height:100vh;padding:22px 18px 90px}
 .brand{font-weight:800;letter-spacing:.18em;font-size:13px}.step{color:var(--muted);font-size:12px;margin-top:6px}.bar{height:3px;background:var(--soft);margin:18px 0 28px;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--red);transition:.3s}
-h1{font-size:30px;line-height:1.08;margin:0 0 10px}p{color:var(--muted);line-height:1.5;margin:0 0 20px}.card,.choice{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px;margin:10px 0}.choice{cursor:pointer}.choice.active{border-color:var(--red)}.choice b{display:block;margin-bottom:5px}.choice small{color:var(--muted);line-height:1.4}
-label{display:block;color:var(--muted);font-size:12px;margin:15px 0 7px}input,select,textarea{width:100%;background:#101216;border:1px solid var(--line);color:var(--text);padding:14px;border-radius:12px;font:inherit}textarea{min-height:120px}
+h1{font-size:30px;line-height:1.08;margin:0 0 10px}p{color:var(--muted);line-height:1.5;margin:0 0 20px}.card,.choice{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px;margin:10px 0}.choice{cursor:pointer}.choice.active{border-color:var(--red)}
+label{display:block;color:var(--muted);font-size:12px;margin:15px 0 7px}input,select,textarea{width:100%;background:#101216;border:1px solid var(--line);color:var(--text);padding:14px;border-radius:12px;font:inherit}textarea{min-height:150px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.buttons{display:flex;gap:10px;margin-top:24px}.btn{border:0;border-radius:12px;padding:14px 16px;font-weight:700;cursor:pointer}.primary{background:var(--red);color:white;flex:1}.back{background:var(--soft);color:var(--text)}
-.pill{display:inline-block;background:var(--soft);border-radius:99px;padding:7px 10px;margin:4px 4px 0 0;font-size:12px}.day{border-left:2px solid var(--red);padding-left:14px;margin:18px 0}.day b{display:block}.day span{display:block;color:var(--muted);font-size:13px;margin-top:5px}.hidden{display:none}.note{font-size:12px;color:var(--muted);margin-top:15px}
+.pill{display:inline-block;background:var(--soft);border-radius:99px;padding:6px 9px;margin:3px 4px 3px 0;font-size:11px}.pill.green{color:var(--green)}.pill.amber{color:var(--amber)}.day{border-left:2px solid var(--red);padding-left:14px;margin:18px 0}.day b{display:block}.day span,.meta{display:block;color:var(--muted);font-size:13px;margin-top:5px;line-height:1.45}.hidden{display:none}.note{font-size:12px;color:var(--muted);margin-top:10px}.error{border-color:#7b3437}.loading{padding:22px 0;color:var(--muted)}.place{padding:7px 0;border-bottom:1px solid var(--line)}.place:last-child{border:0}
 </style></head><body><main class="wrap">
-<div class="brand">TRAVELITE</div><div class="step" id="stepLabel">FIRST TRIP · 1 OF 6</div><div class="bar"><i id="progress" style="width:16.6%"></i></div>
-<section class="screen" data-step="1"><h1>Where are you going?</h1><p>Start with the trip, not the schedule. Travelite only needs enough to understand your base and available days.</p>
-<label>Country</label><select id="country"><option>Japan</option><option>South Korea</option><option>Taiwan</option><option>Singapore</option></select>
-<label>Base city</label><select id="city"><option>Kyoto</option><option>Osaka</option><option>Nara</option><option>Nagoya</option></select>
-<div class="row"><div><label>Arrive</label><input type="date" value="2026-10-18"></div><div><label>Leave</label><input type="date" value="2026-10-23"></div></div>
-<div class="buttons"><button class="btn primary" onclick="next()">Continue</button></div></section>
+<div class="brand">TRAVELITE · LIVE DATA DEMO</div><div class="step" id="stepLabel">TRIP · 1 OF 5</div><div class="bar"><i id="progress" style="width:20%"></i></div>
+<section class="screen" data-step="1"><h1>Build a real trip.</h1><p>This test reads Travelite's live place data. Nothing in the itinerary is pre-filled.</p>
+<label>Country</label><select id="country"><option>Japan</option></select>
+<label>Base city</label><input id="city" value="Kyoto" placeholder="e.g. Kyoto">
+<div class="row"><div><label>Arrive</label><input id="start" type="date" value="2026-10-18"></div><div><label>Leave</label><input id="end" type="date" value="2026-10-23"></div></div>
+<div class="buttons"><button class="btn primary" onclick="go(2)">Continue</button></div></section>
 
-<section class="screen hidden" data-step="2"><h1>How do you want to start?</h1><p>Your places remain yours. Travelite can start empty or help only when you need ideas.</p>
-<div class="choice active" onclick="pick(this)"><b>I already have places</b><small>Paste names, type them, or upload a screenshot of your list.</small></div>
-<div class="choice" onclick="pick(this)"><b>Give me a starter scene</b><small>Start with 2–3 curated anchors, then you decide what to keep.</small></div>
-<div class="choice" onclick="pick(this)"><b>Keep it loose</b><small>Create the trip first. Add places later.</small></div>
-<div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">Continue</button></div></section>
+<section class="screen hidden" data-step="2"><h1>Add your places.</h1><p>Paste the places or destinations you actually want. One per line. Travelite will try to identify each one from the database.</p>
+<textarea id="pois" placeholder="Kiyomizu-dera&#10;Philosopher's Path&#10;Kifune Shrine&#10;USJ&#10;Nara"></textarea>
+<div class="buttons"><button class="btn back" onclick="go(1)">Back</button><button class="btn primary" onclick="build()">Build from my POIs</button></div></section>
 
-<section class="screen hidden" data-step="3"><h1>Add your places.</h1><p>Don't organize them. Just give Travelite the pile.</p>
-<textarea id="pois" placeholder="Paste or type your places here — one per line"></textarea>
-<div class="card"><b>＋ Upload itinerary screenshot</b><div class="note">Test screen only — demonstrates the intended import entry point.</div></div>
-<div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">Build cards</button></div></section>
+<section class="screen hidden" data-step="3"><h1>Travelite understood this.</h1><p>These are database matches and destination interpretations from your input. Check this before balancing.</p><div id="matches"></div>
+<div class="buttons"><button class="btn back" onclick="go(2)">Back</button><button class="btn primary" onclick="go(4)">Build scenes</button></div></section>
 
-<section class="screen hidden" data-step="4"><h1>Travelite makes scenes first.</h1><p>No dates yet. This mockup now uses only the places you entered. Supabase matching and real constraint logic will be layered on next.</p>
-<div id="sceneList"></div>
-<div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">Balance my days</button></div></section>
+<section class="screen hidden" data-step="4"><h1>Your scene cards.</h1><p>Cards are formed from the places you supplied, using their city, region, area and visit duration. Dates come after the cards.</p><div id="scenes"></div>
+<div class="buttons"><button class="btn back" onclick="go(3)">Back</button><button class="btn primary" onclick="balance()">Balance my days</button></div></section>
 
-<section class="screen hidden" data-step="5"><h1>Then it balances the cards.</h1><p>For now, the mock balance is generated only from your entered POIs. Nothing new is inserted.</p>
-<div id="balanceList"></div>
-<div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="next()">See trip</button></div></section>
-
-<section class="screen hidden" data-step="6"><h1>Your first trip is ready.</h1><p>Every place below came from your own input. Travelite has not silently added any POIs.</p>
-<div id="tripList"></div>
-<div class="card"><b>Prototype note</b><div class="note">Next step: match these names to Supabase so area, duration, coordinates and constraints can drive the real grouping and balancing.</div></div>
-<div class="buttons"><button class="btn back" onclick="back()">Back</button><button class="btn primary" onclick="restart()">Restart test</button></div></section>
-</main><script>
-let step=1;
-function getPois(){return document.getElementById('pois').value.split(/\n|,/).map(x=>x.trim()).filter(Boolean)}
-function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function renderDynamic(){
- const pois=getPois();
- const scene=document.getElementById('sceneList'), balance=document.getElementById('balanceList'), trip=document.getElementById('tripList');
- if(scene) scene.innerHTML=pois.length?pois.map((p,i)=>'<div class="day"><b>Scene '+(i+1)+'</b><span>'+esc(p)+'</span></div>').join(''):'<div class="card"><b>No places entered.</b><div class="note">Go back and add at least one POI.</div></div>';
- if(balance) balance.innerHTML=pois.length?pois.map((p,i)=>'<div class="card"><span class="pill">UNASSESSED</span><b style="display:block;margin-top:10px">'+esc(p)+'</b><div class="note">Awaiting Supabase area / duration / constraint data.</div></div>').join(''):'<div class="card">No POIs to balance.</div>';
- if(trip) trip.innerHTML=pois.length?pois.map((p,i)=>'<div class="day"><b>Day '+(i+1)+'</b><span>'+esc(p)+'</span></div>').join(''):'<div class="card">No trip generated.</div>';
-}
-function show(){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('hidden',+x.dataset.step!==step));document.getElementById('stepLabel').textContent='FIRST TRIP · '+step+' OF 6';document.getElementById('progress').style.width=(step/6*100)+'%';if(step>=4)renderDynamic();scrollTo(0,0)}
-function next(){if(step<6)step++;show()}function back(){if(step>1)step--;show()}function restart(){step=1;show()}function pick(el){el.parentNode.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+<section class="screen hidden" data-step="5"><h1>Balanced trip.</h1><p>Travelite spreads the generated cards across your available dates. Heavier cards are separated where possible.</p><div id="trip"></div>
+<div class="buttons"><button class="btn back" onclick="go(4)">Back</button><button class="btn primary" onclick="go(2)">Try another list</button></div></section>
+</main>
+<script>
+const SB='https://zngncasvdrrxyrkjqutj.supabase.co';
+const KEY='sb_publishable_wUrH6t12z4tRKruS28LqWQ_2GG06U9m';
+let step=1,db=[],resolved=[],cards=[];
+const stop=new Set(['temple','shrine','taisha','ji','dera','the','of','park']);
+function norm(s){return s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(x=>x&&!stop.has(x)).join(' ')}
+function initials(s){return s.split(/\s+/).filter(Boolean).map(x=>x[0]).join('').toLowerCase()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function inputs(){return document.getElementById('pois').value.split(/\n|,/).map(x=>x.trim()).filter(Boolean)}
+function score(q,p){let a=norm(q),b=norm(p.name);if(a===b)return 100;if(b.includes(a)||a.includes(b))return 90;if(norm(q)===norm(p.name_japanese||''))return 100;let qa=new Set(a.split(' ')),ba=new Set(b.split(' '));let common=[...qa].filter(x=>ba.has(x)).length;let s=common/Math.max(qa.size,ba.size,1)*80;if(initials(p.name)===q.toLowerCase().replace(/[^a-z]/g,''))s=95;return s}
+function go(n){step=n;document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('hidden',+x.dataset.step!==step));stepLabel.textContent='TRIP · '+step+' OF 5';progress.style.width=(step/5*100)+'%';if(n===4)renderScenes();scrollTo(0,0)}
+async function loadDB(){if(db.length)return;let r=await fetch(SB+'/rest/v1/places?select=id,name,name_japanese,city,area,region,latitude,longitude,prominence,visit_behavior,estimated_minutes_min,estimated_minutes_max,timing_intelligence,status&status=eq.active&limit=2000',{headers:{apikey:KEY,Authorization:'Bearer '+KEY}});if(!r.ok)throw new Error('Place database returned '+r.status);db=await r.json()}
+function destinationMatch(q){let n=norm(q);let cities=[...new Set(db.map(x=>x.city).filter(Boolean))];let city=cities.find(x=>norm(x)===n);return city||null}
+async function build(){let box=document.getElementById('matches');box.innerHTML='<div class="loading">Reading Travelite place data…</div>';go(3);try{await loadDB();resolved=inputs().map(raw=>{let city=destinationMatch(raw);if(city)return{raw,type:'destination',city};let ranked=db.map(p=>({p,s:score(raw,p)})).sort((a,b)=>b.s-a.s);let best=ranked[0];return best&&best.s>=52?{raw,type:'place',place:best.p,confidence:best.s}:{raw,type:'unknown'}});renderMatches()}catch(e){box.innerHTML='<div class="card error"><b>Could not read Travelite data</b><div class="note">'+esc(e.message)+'</div></div>'}}
+function renderMatches(){matches.innerHTML=resolved.map(r=>{if(r.type==='place'){let p=r.place;return '<div class="card"><span class="pill green">MATCHED</span><b>'+esc(r.raw)+' → '+esc(p.name)+'</b><span class="meta">'+esc(p.city||'Unknown city')+(p.region?' · '+esc(p.region):'')+(p.area?' · '+esc(p.area):'')+'</span><div class="note">'+(p.estimated_minutes_min?esc(p.estimated_minutes_min)+'–'+esc(p.estimated_minutes_max||p.estimated_minutes_min)+' min · ':'')+esc(p.visit_behavior||p.prominence||'place')+'</div></div>'}if(r.type==='destination')return '<div class="card"><span class="pill amber">DESTINATION</span><b>'+esc(r.raw)+'</b><span class="meta">'+esc(r.city)+' is being treated as a destination/day-trip card, not an attraction.</span></div>';return '<div class="card error"><span class="pill">NOT FOUND</span><b>'+esc(r.raw)+'</b><div class="note">Not confidently matched. Travelite will not invent a replacement.</div></div>'}).join('')}
+function makeCards(){let groups=new Map(),base=norm(city.value);for(let r of resolved){if(r.type==='unknown')continue;if(r.type==='destination'){let k='dest:'+r.city;groups.set(k,{kind:'destination',city:r.city,label:r.city+' day trip',places:[],minutes:420});continue}let p=r.place;let isAway=norm(p.city)!==base;if(isAway){let k='away:'+p.city;let g=groups.get(k)||{kind:'away',city:p.city,label:p.city+' day trip',places:[],minutes:90};g.places.push(p);g.minutes+=avg(p);groups.set(k,g);continue}let cluster=p.region||p.area||p.city||'Other';let k='local:'+cluster;let g=groups.get(k)||{kind:'local',city:p.city,label:cluster,places:[],minutes:45};g.places.push(p);g.minutes+=avg(p);groups.set(k,g)}cards=[...groups.values()];return cards}
+function avg(p){let a=+p.estimated_minutes_min||60,b=+p.estimated_minutes_max||a;return Math.round((a+b)/2)}
+function level(m){return m>=390?'HEAVY':m>=240?'ACTIVE':'CHILL'}
+function renderScenes(){makeCards();scenes.innerHTML=cards.length?cards.map(c=>'<div class="card"><span class="pill '+(level(c.minutes)==='CHILL'?'green':'amber')+'">'+level(c.minutes)+' · ~'+Math.round(c.minutes/30)*30+' MIN</span><b style="display:block;margin:8px 0">'+esc(c.label)+'</b>'+(c.kind==='destination'&&!c.places.length?'<div class="place">Destination card · details will be filled from its own POIs/day-trip template.</div>':c.places.map(p=>'<div class="place"><b>'+esc(p.name)+'</b><span class="meta">'+esc(p.area||p.region||p.city)+' · '+avg(p)+' min</span></div>').join(''))+'</div>').join(''):'<div class="card error">No usable cards. Go back and check unmatched places.</div>'}
+function dates(){let a=new Date(start.value+'T00:00:00'),b=new Date(end.value+'T00:00:00'),out=[];if(isNaN(a)||isNaN(b)||b<a)return out;for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1))out.push(new Date(d));return out}
+function balance(){makeCards();let ds=dates();if(!ds.length){trip.innerHTML='<div class="card error">Check your trip dates.</div>';go(5);return}let slots=ds.map(d=>({date:new Date(d),cards:[],load:0}));let sorted=[...cards].sort((a,b)=>b.minutes-a.minutes);for(let c of sorted){let candidates=slots.map((s,i)=>({s,i,pen:s.load+((i>0&&slots[i-1].cards.some(x=>level(x.minutes)==='HEAVY')&&level(c.minutes)==='HEAVY')?500:0)})).sort((a,b)=>a.pen-b.pen);let pick=candidates[0].s;pick.cards.push(c);pick.load+=c.minutes}trip.innerHTML=slots.map((s,i)=>{let label=s.date.toLocaleDateString('en-SG',{weekday:'short',day:'numeric',month:'short'});return '<div class="card"><span class="pill '+(level(s.load)==='CHILL'?'green':'amber')+'">'+(s.cards.length?level(s.load):'FREE')+'</span><b style="display:block;margin:8px 0">Day '+(i+1)+' · '+label+'</b>'+(s.cards.length?s.cards.map(c=>'<div class="place"><b>'+esc(c.label)+'</b><span class="meta">'+(c.places.length?c.places.map(p=>esc(p.name)).join(' → '):'Destination day')+'</span></div>').join(''):'<span class="meta">No card assigned. Keep it loose or add another scene.</span>')+'</div>'}).join('');go(5)}
 </script></body></html>
