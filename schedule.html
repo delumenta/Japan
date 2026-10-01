@@ -3837,9 +3837,6 @@ function syncPlanModeLinks(){
 ========================================================= */
 
 async function loadData(){
-  // Transport intelligence must never block the core itinerary from loading.
-  // Load it in parallel; the normal schedule remains usable if the graph is slow/unavailable.
-  loadTraveliteTransportGraph().catch(e=>console.warn("Travelite transport graph preload failed",e));
 
   try{
 
@@ -4542,86 +4539,6 @@ function bookingScheduleItem(booking){
     is_optional:false,
     is_locked:true
   };
-}
-
-/* =========================================================
-   TRAVELITE DESTINATION / BASE ROUTING
-   A destination is not permanently a "base" or "day trip".
-   The current trip decides its role. Existing schedule rows keep
-   their dates; this helper is for planner/build flows that need to
-   choose the best base before writing a schedule row.
-========================================================= */
-function traveliteMinutesBetween(a,b){
-  if(!a||!b||a.latitude==null||a.longitude==null||b.latitude==null||b.longitude==null)return null;
-  const R=6371,rad=v=>Number(v)*Math.PI/180;
-  const dLat=rad(b.latitude-a.latitude),dLon=rad(b.longitude-a.longitude);
-  const x=Math.sin(dLat/2)**2+Math.cos(rad(a.latitude))*Math.cos(rad(b.latitude))*Math.sin(dLon/2)**2;
-  const km=R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
-  /* conservative inter-city rail/transit estimate; routing data can override this */
-  return Math.round(25+(km/90)*60);
-}
-function traveliteDayTripFit({outboundMinutes=0,returnMinutes=outboundMinutes,sceneMinutes=0,transferMinutes=30,mealMinutes=60,maxDayMinutes=540}={}){
-  const total=outboundMinutes+returnMinutes+sceneMinutes+transferMinutes+mealMinutes;
-  return {fits:total<=maxDayMinutes,totalMinutes:total,remainingMinutes:Math.max(0,maxDayMinutes-outboundMinutes-returnMinutes-transferMinutes-mealMinutes)};
-}
-let traveliteTransportGraph={anchors:[],estimates:[]};
-async function loadTraveliteTransportGraph(){
-  try{
-    const [{data:anchors,error:aErr},{data:estimates,error:eErr}]=await Promise.all([
-      db.from("destination_transport_anchors").select("id,destination_id,name,anchor_type,anchor_role,latitude,longitude,priority").eq("active",true),
-      db.from("destination_travel_estimates").select("id,from_anchor_id,to_anchor_id,mode,typical_minutes,min_minutes,max_minutes,transfers,confidence").eq("active",true)
-    ]);
-    if(aErr)throw aErr;if(eErr)throw eErr;
-    traveliteTransportGraph={anchors:anchors||[],estimates:estimates||[]};
-  }catch(e){console.warn("Travelite transport graph unavailable",e);traveliteTransportGraph={anchors:[],estimates:[]};}
-}
-function traveliteAnchors(destinationId){
-  return traveliteTransportGraph.anchors.filter(a=>String(a.destination_id)===String(destinationId)).sort((a,b)=>(a.priority||99)-(b.priority||99));
-}
-function traveliteGraphMinutes(fromDestinationId,toDestinationId){
-  if(String(fromDestinationId)===String(toDestinationId))return 0;
-  const starts=new Set(traveliteAnchors(fromDestinationId).map(a=>a.id)), goals=new Set(traveliteAnchors(toDestinationId).map(a=>a.id));
-  if(!starts.size||!goals.size)return null;
-  const adj=new Map();
-  for(const e of traveliteTransportGraph.estimates){
-    if(!adj.has(e.from_anchor_id))adj.set(e.from_anchor_id,[]);
-    adj.get(e.from_anchor_id).push([e.to_anchor_id,Number(e.typical_minutes)||Infinity]);
-  }
-  const dist=new Map(),q=[];
-  for(const s of starts){dist.set(s,0);q.push([0,s]);}
-  while(q.length){
-    q.sort((a,b)=>a[0]-b[0]);const [d,u]=q.shift();
-    if(d!==dist.get(u))continue;if(goals.has(u))return Math.round(d);
-    for(const [v,w] of adj.get(u)||[]){const nd=d+w;if(nd<(dist.get(v)??Infinity)){dist.set(v,nd);q.push([nd,v]);}}
-  }
-  return null;
-}
-function traveliteChooseBase(target,bases,relationshipRows=[]){
-  if(!target||!bases?.length)return null;
-  const targetId=target.destination_id??target.id;
-  const targetName=norm(target.name||target.city||target.slug);
-  const exact=bases.find(b=>(targetId!=null&&String(b.destination_id??b.id)===String(targetId))||norm(b.name||b.city||b.slug)===targetName);
-  if(exact)return {base:exact,role:"base",reason:"destination_is_trip_base",travelMinutes:0};
-  const candidates=bases.map(base=>{
-    const baseId=base.destination_id??base.id;
-    const graphMinutes=(baseId!=null&&targetId!=null)?traveliteGraphMinutes(baseId,targetId):null;
-    const rel=relationshipRows.find(r=>{
-      const from=norm(r.base_name||r.base_city||r.base_destination_name||r.base_slug);
-      const to=norm(r.target_name||r.destination_city||r.target_destination_name||r.target_slug);
-      return from===norm(base.name||base.city||base.slug)&&to===targetName;
-    });
-    const travelMinutes=graphMinutes??Number(rel?.one_way_minutes||rel?.travel_minutes)||traveliteMinutesBetween(base,target);
-    if(travelMinutes==null)return null;
-    return {base,role:"day_trip",relationship:rel||null,travelMinutes,travelSource:graphMinutes!=null?"transport_graph":rel?"relationship":"coordinate_estimate"};
-  }).filter(Boolean).sort((a,b)=>a.travelMinutes-b.travelMinutes);
-  return candidates[0]||null;
-}
-function traveliteAssignDestination({target,bases,relationshipRows=[],sceneMinutes=0,maxDayMinutes=540}={}){
-  const choice=traveliteChooseBase(target,bases,relationshipRows);
-  if(!choice)return {assignable:false,reason:"no_reachable_base"};
-  if(choice.role==="base")return {...choice,assignable:true,fit:{fits:true,totalMinutes:sceneMinutes,remainingMinutes:maxDayMinutes-sceneMinutes}};
-  const fit=traveliteDayTripFit({outboundMinutes:choice.travelMinutes,sceneMinutes,maxDayMinutes});
-  return {...choice,assignable:fit.fits,reason:fit.fits?"day_trip_fits":"exceeds_day_limit",fit};
 }
 
 function buildDays(){
